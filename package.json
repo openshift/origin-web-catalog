@@ -28,13 +28,15 @@
   "dependencies": {
     "@angular/router": "^0.2.0",
     "angular": "^1.5.0",
-    "angular-patternfly": "3.18.1",
+    "angular-patternfly": "v4.0.0-alpha.2",
     "angular-sanitize": "^1.5.3",
     "angular-ui-select": "^0.12.100",
+    "angular-ui-bootstrap": "2.4.x",
     "bootstrap": "^3.3.6",
     "font-awesome": "^4.6.1",
     "paper-css": "^0.1.2",
-    "patternfly": "3.18.1"
+    "patternfly": "3.18.1",
+    "jquery": "~2.1.4"
   },
   "devDependencies": {
     "@types/angular": "^1.5.16",

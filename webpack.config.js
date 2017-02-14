@@ -157,6 +157,11 @@ module.exports.plugins = [
   new ExtractTextPlugin('[name].css'),
   new ngAnnotatePlugin({
     add: true
+  }),
+  new webpack.ProvidePlugin({
+    jQuery: 'jquery',
+    $: 'jquery',
+    jquery: 'jquery'
   })
 ];
 
@@ -174,9 +179,9 @@ if (isProd) {
   module.exports.plugins.push(
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.NoErrorsPlugin(),
-    new CopyWebpackPlugin([{
-      from: __dirname + '/assets'
-    }])
+    new CopyWebpackPlugin([
+      {from: __dirname + '/assets'}
+    ])
   )
 }
 

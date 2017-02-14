@@ -9,6 +9,9 @@
   </head>
 
   <body ng-app="catalogApp">
-    <front-page>Loaadfadding...</front-page>
+    <div ng-controller="catalogAppCtrl as vm">
+      <front-page>Loaadfadding...</front-page>
+      <services-view services="vm.services"></services-view>
+    </div>
   </body>
 </html>
