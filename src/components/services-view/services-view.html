@@ -1,9 +1,29 @@
 <div class="services-view-container">
   <div class="title">Services</div>
-  <pf-card-view config="$ctrl.cardViewConfig" items="$ctrl.services">
+
+  <div class="services-categories">
+    <a ng-class="{'current-filter': $ctrl.currentFilter === 'all'}" ng-click="$ctrl.filterByCategory('all')">All</a> |
+    <a ng-class="{'current-filter': $ctrl.currentFilter === 'compute'}" ng-click="$ctrl.filterByCategory('compute')">Compute</a> |
+    <a ng-class="{'current-filter': $ctrl.currentFilter === 'network'}" ng-click="$ctrl.filterByCategory('network')">Network</a> |
+    <a ng-class="{'current-filter': $ctrl.currentFilter === 'storage'}" ng-click="$ctrl.filterByCategory('storage')">Storage</a> |
+    <a ng-class="{'current-filter': $ctrl.currentFilter === 'security'}" ng-click="$ctrl.filterByCategory('security')">Security</a>
+  </div>
+
+  <div class="sub-title">Featured Services</div>
+
+  <div pf-card-view config="$ctrl.cardViewConfig" items="$ctrl.featuredServices">
     <div class="card-container">
       <div class="card-icon {{item.icon}}"></div>
       <div class="card-name">{{item.name}}</div>
     </div>
-  </pf-card-view>
+  </div>
+
+  <div class="sub-title">All Services</div>
+
+  <div pf-card-view config="$ctrl.cardViewConfig" items="$ctrl.services">
+    <div class="card-container">
+      <div class="card-icon {{item.icon}}"></div>
+      <div class="card-name">{{item.name}}</div>
+    </div>
+  </div>
 </div>

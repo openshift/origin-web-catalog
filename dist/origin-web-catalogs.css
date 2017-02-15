@@ -116,5 +116,65 @@
   -webkit-box-shadow: none;
   box-shadow: none;
 }
+body {
+  background: #d1d1d1 !important;
+}
+.services-view-container {
+  padding-left: 40px;
+  padding-right: 40px;
+  height: 100%;
+}
+.services-view-container .title {
+  text-align: center;
+  font-size: 36px;
+  font-weight: 700;
+  color: #72767b;
+}
+.services-view-container .sub-title {
+  font-size: 24px;
+  font-weight: 400;
+  color: #72767b;
+}
+.services-view-container .current-filter {
+  color: #72767b;
+  cursor: default;
+  pointer-events: none;
+}
+.services-view-container .services-categories {
+  font-size: 16px;
+  text-align: center;
+}
+.services-view-container .services-categories a {
+  cursor: pointer;
+}
+.services-view-container .card-view-pf {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+.services-view-container .card-view-pf .card {
+  height: 110px !important;
+  width: 180px !important;
+  cursor: pointer;
+}
+.services-view-container .card-container {
+  display: table;
+  height: 80px;
+}
+.services-view-container .card-container .fa {
+  font-size: 34px;
+}
+.services-view-container .card-icon {
+  font-size: 24px;
+  display: table-cell !important;
+  vertical-align: middle;
+  padding-left: 6px;
+  padding-right: 4px;
+}
+.services-view-container .card-name {
+  font-size: 18px;
+  display: table-cell;
+  vertical-align: middle;
+}
 
 /*# sourceMappingURL=origin-web-catalogs.css.map*/
