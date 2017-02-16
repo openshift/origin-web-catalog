@@ -1,16 +1,15 @@
 <!doctype html>
 <html>
   <head>
+    <base href="/">
     <meta charset="utf-8">
-    <title>Openshift Mall</title>
+    <title>Openshift Catalog Components</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <link rel="icon" type="image/png" href="app/assets/img/favicon.ico" />
   </head>
 
-  <body ng-app="catalogApp">
-    <div ng-controller="catalogAppCtrl as vm">
-      <services-view services="vm.services"></services-view>
-    </div>
+  <body ng-app="catalogApp" class="cards-pf">
+  <ui-view></ui-view>
   </body>
 </html>

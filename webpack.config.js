@@ -91,7 +91,7 @@ module.exports = {
  * Karma will set this when it's a test build
  */
 module.exports.entry = isTest ? {} : {
-  'origin-web-catalogs': isProd ? './src/index.ts' : './app/index.ts'
+  'origin-web-catalogs': isProd ? './src/index.ts' : './app/app.ts'
 };
 
 /**
