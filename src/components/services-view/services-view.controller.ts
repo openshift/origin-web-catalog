@@ -15,22 +15,55 @@ export class ServicesViewController implements angular.IController {
     this.$filter = $filter;
   }
 
-  public filterByCategory(category: string) {
+  public $onInit() {
+    this.allServices = this.ctrl.services.map(a => Object.assign({}, a));  // clone
+    this.ctrl.featuredServices = this.$filter('filter')(this.allServices, {featured: true}, false);
+    this.ctrl.currentFilter = 'all';
+    this.ctrl.currentSubFilter = 'all';
+    this.ctrl.serviceCategories = this.getServiceCategories();
+  }
+
+  public getServiceCategories() {
+    let uniqueCategories = [];
+    let uniqueCategoriesVals = this.allServices.map(item => item.category)
+        .filter((value, index, self) => self.indexOf(value) === index);
+    uniqueCategoriesVals.forEach((value, index, self) => {
+      let obj = {'label': '', 'value': ''};
+      obj.label = (value === 'cicd') ? 'CI/CD' : value.charAt(0).toUpperCase() + value.slice(1);
+      obj.value = value;
+      uniqueCategories[index] = obj;
+    });
+    return uniqueCategories;
+  };
+
+  public filterByCategory(category: string, subCategory: string) {
     if (category === 'all') {
       this.ctrl.services = this.allServices;
     } else {
-      this.ctrl.services = this.$filter('filter')(this.allServices, {category: category}, false);
+      if (subCategory === undefined || subCategory === 'all') {
+        this.ctrl.services = this.$filter('filter')(this.allServices, {category: category}, true);
+        this.ctrl.serviceSubCategories = this.getServiceSubCategories(category);
+      } else {
+        this.ctrl.services = this.$filter('filter')(this.allServices, {category: category, subCategory: subCategory}, true);
+      }
     }
-    this.ctrl.featuredServices = this.$filter('filter')(this.ctrl.services, {featured: true}, false);
+    this.ctrl.featuredServices = this.$filter('filter')(this.ctrl.services, {featured: true}, true);
     this.ctrl.currentFilter = category;
+    this.ctrl.currentSubFilter = (subCategory !== undefined) ? subCategory : 'all';
   }
 
-  public $onInit() {
-    this.allServices = this.ctrl.services.map(a => Object.assign({}, a));  // clone
-    console.log("services: " + this.allServices.length);
-    this.ctrl.featuredServices = this.$filter('filter')(this.allServices, {featured: true}, false);
-    this.ctrl.currentFilter = 'all';
-  }
+  public getServiceSubCategories(category: string) {
+    let uniqueCategories = [];
+    let uniqueCategoriesVals = this.ctrl.services.map(item => item.subCategory)
+        .filter((value, index, self) => self.indexOf(value) === index);
+    uniqueCategoriesVals.forEach((value, index, self) => {
+      let obj = {'label': '', 'value': ''};
+      obj.label = value.charAt(0).toUpperCase() + value.slice(1);
+      obj.value = value;
+      uniqueCategories[index] = obj;
+    });
+    return uniqueCategories;
+  };
 
   public handleClick(item: any, e: any) {
     console.log('You clicked on ' + item.name);

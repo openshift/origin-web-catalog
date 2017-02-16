@@ -3,10 +3,20 @@
 
   <div class="services-categories">
     <a ng-class="{'current-filter': $ctrl.currentFilter === 'all'}" ng-click="$ctrl.filterByCategory('all')">All</a> |
-    <a ng-class="{'current-filter': $ctrl.currentFilter === 'compute'}" ng-click="$ctrl.filterByCategory('compute')">Compute</a> |
-    <a ng-class="{'current-filter': $ctrl.currentFilter === 'network'}" ng-click="$ctrl.filterByCategory('network')">Network</a> |
-    <a ng-class="{'current-filter': $ctrl.currentFilter === 'storage'}" ng-click="$ctrl.filterByCategory('storage')">Storage</a> |
-    <a ng-class="{'current-filter': $ctrl.currentFilter === 'security'}" ng-click="$ctrl.filterByCategory('security')">Security</a>
+    <span ng-repeat="category in $ctrl.serviceCategories">
+      <a ng-class="{'current-filter': $ctrl.currentFilter === category.value}"
+         ng-click="$ctrl.filterByCategory(category.value)">{{category.label}}</a>
+         {{$ctrl.serviceCategories.length !== ($index+1) ? ' | ' : ''}}
+    </span>
+  </div>
+
+  <div class="services-sub-categories" ng-if="$ctrl.currentFilter !== 'all'">
+    <a ng-class="{'current-filter': $ctrl.currentSubFilter === 'all'}" ng-click="$ctrl.filterByCategory($ctrl.currentFilter, 'all')">All</a> |
+    <span ng-repeat="subCategory in $ctrl.serviceSubCategories">
+      <a ng-class="{'current-filter': $ctrl.currentSubFilter === subCategory.value}"
+         ng-click="$ctrl.filterByCategory($ctrl.currentFilter, subCategory.value)">{{subCategory.label}}</a>
+         {{$ctrl.serviceSubCategories.length !== ($index+1) ? ' | ' : ''}}
+    </span>
   </div>
 
   <div class="sub-title">Featured Services</div>

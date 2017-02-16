@@ -38882,26 +38882,33 @@ var MockDataService = (function () {
     }
     MockDataService.prototype.getServices = function () {
         return [
-            { name: '*Compute Service A', icon: 'pf pficon-screen', category: 'compute', featured: true },
-            { name: '*Compute Service B', icon: 'pf pficon-screen', category: 'compute', featured: true },
-            { name: 'Compute Service C', icon: 'pf pficon-screen', category: 'compute' },
-            { name: 'Compute Service D', icon: 'pf pficon-screen', category: 'compute' },
-            { name: 'Compute Service E', icon: 'pf pficon-screen', category: 'compute' },
-            { name: '*Network Service A', icon: 'pf pficon-network', category: 'network', featured: true },
-            { name: '*Network Service B', icon: 'pf pficon-network', category: 'network', featured: true },
-            { name: 'Network Service C', icon: 'pf pficon-network', category: 'network' },
-            { name: 'Network Service D', icon: 'pf pficon-network', category: 'network' },
-            { name: 'Network Service E', icon: 'pf pficon-network', category: 'network' },
-            { name: '*Storage Service A', icon: 'pf pficon-storage-domain', category: 'storage', featured: true },
-            { name: '*Storage Service B', icon: 'pf pficon-storage-domain', category: 'storage', featured: true },
-            { name: 'Storage Service C', icon: 'pf pficon-storage-domain', category: 'storage' },
-            { name: 'Storage Service D', icon: 'pf pficon-storage-domain', category: 'storage' },
-            { name: 'Storage Service E', icon: 'pf pficon-storage-domain', category: 'storage' },
-            { name: '*Security Service A', icon: 'fa fa-lock', category: 'security', featured: true },
-            { name: '*Security Service B', icon: 'fa fa-lock', category: 'security', featured: true },
-            { name: 'Security Service C', icon: 'fa fa-lock', category: 'security' },
-            { name: 'Security Service D', icon: 'fa fa-lock', category: 'security' },
-            { name: 'Security Service E', icon: 'fa fa-lock', category: 'security' }
+            { name: '*WildFly', icon: 'font-icon icon-openjdk', category: 'languages', subCategory: 'java', featured: true },
+            { name: 'Oracle Java', icon: 'font-icon icon-openjdk', category: 'languages', subCategory: 'java' },
+            { name: '*Node.js', icon: 'font-icon icon-js', category: 'languages', subCategory: 'javascript', featured: true },
+            { name: 'Node.js + MongoDB (Ephemeral)', icon: 'font-icon icon-js', category: 'languages', subCategory: 'javascript' },
+            { name: '*Perl', icon: 'font-icon icon-perl', category: 'languages', subCategory: 'perl', featured: true },
+            { name: 'Dancer + MySQL (Ephemeral)', icon: 'font-icon icon-perl', category: 'languages', subCategory: 'perl' },
+            { name: '*Ruby', icon: 'font-icon icon-ruby', category: 'languages', subCategory: 'ruby', featured: true },
+            { name: 'Rails + PostgreSQL (Ephemeral)', icon: 'font-icon icon-ruby', category: 'languages', subCategory: 'ruby' },
+            { name: '*PHP', icon: 'font-icon icon-php', category: 'languages', subCategory: 'php', featured: true },
+            { name: 'CakePHP + MySQL (Ephemeral)', icon: 'font-icon icon-php', category: 'languages', subCategory: 'php' },
+            { name: '*Python', icon: 'font-icon icon-python', category: 'languages', subCategory: 'python', featured: true },
+            { name: 'Django + PostgreSQL (Ephemeral)', icon: 'font-icon icon-python', category: 'languages', subCategory: 'python' },
+            { name: '*Mongo  (Ephemeral)', icon: 'font-icon icon-mongodb', category: 'databases', subCategory: 'mongo', featured: true },
+            { name: '*mySQL  (Ephemeral)', icon: 'font-icon icon-mysql-database', category: 'databases', subCategory: 'mysql', featured: true },
+            { name: 'Postgres (Ephemeral)', icon: 'font-icon icon-postgresql', category: 'databases', subCategory: 'postgres' },
+            { name: 'MariaDB (Ephemeral)', icon: 'font-icon icon-mariadb', category: 'databases', subCategory: 'mariadb' },
+            { name: '*Red Hat JBoss EAP', icon: 'font-icon icon-openjdk', category: 'middleware', subCategory: 'jboss', featured: true },
+            { name: 'JBoss EAP Client', icon: 'font-icon icon-openjdk', category: 'middleware', subCategory: 'jboss' },
+            { name: '*Fuse', icon: 'font-icon icon-openjdk', category: 'middleware', subCategory: 'fuse', featured: true },
+            { name: '*Red Hat JBoss A-MQ', icon: 'font-icon icon-openjdk', category: 'middleware', subCategory: 'amq', featured: true },
+            { name: 'JBoss A-MQ Client', icon: 'font-icon icon-openjdk', category: 'middleware', subCategory: 'amq' },
+            { name: '*Red Hat JBoss BPM Suite', icon: 'font-icon icon-openjdk', category: 'middleware', subCategory: 'bpm', featured: true },
+            { name: 'Red Hat JBoss BRMS', icon: 'font-icon icon-openjdk', category: 'middleware', subCategory: 'bpm' },
+            { name: '*Jenkins', icon: 'font-icon icon-openjdk', category: 'cicd', subCategory: 'jenkins', featured: true },
+            { name: 'Jenkins Client', icon: 'font-icon icon-jenkins', category: 'cicd', subCategory: 'jenkins' },
+            { name: '*Pipeline', icon: 'fa fa-clone', category: 'cicd', subCategory: 'pipelines', featured: true },
+            { name: 'Pipeline Client', icon: 'fa fa-clone', category: 'cicd', subCategory: 'pipelines' },
         ];
     };
     return MockDataService;
@@ -72052,7 +72059,7 @@ $provide.value("$locale", {
 /* 12 */
 /***/ function(module, exports) {
 
-module.exports = "<div class=\"services-view-container\">\n  <div class=\"title\">Services</div>\n\n  <div class=\"services-categories\">\n    <a ng-class=\"{'current-filter': $ctrl.currentFilter === 'all'}\" ng-click=\"$ctrl.filterByCategory('all')\">All</a> |\n    <a ng-class=\"{'current-filter': $ctrl.currentFilter === 'compute'}\" ng-click=\"$ctrl.filterByCategory('compute')\">Compute</a> |\n    <a ng-class=\"{'current-filter': $ctrl.currentFilter === 'network'}\" ng-click=\"$ctrl.filterByCategory('network')\">Network</a> |\n    <a ng-class=\"{'current-filter': $ctrl.currentFilter === 'storage'}\" ng-click=\"$ctrl.filterByCategory('storage')\">Storage</a> |\n    <a ng-class=\"{'current-filter': $ctrl.currentFilter === 'security'}\" ng-click=\"$ctrl.filterByCategory('security')\">Security</a>\n  </div>\n\n  <div class=\"sub-title\">Featured Services</div>\n\n  <div pf-card-view config=\"$ctrl.cardViewConfig\" items=\"$ctrl.featuredServices\">\n    <div class=\"card-container\">\n      <div class=\"card-icon {{item.icon}}\"></div>\n      <div class=\"card-name\">{{item.name}}</div>\n    </div>\n  </div>\n\n  <div class=\"sub-title\">All Services</div>\n\n  <div pf-card-view config=\"$ctrl.cardViewConfig\" items=\"$ctrl.services\">\n    <div class=\"card-container\">\n      <div class=\"card-icon {{item.icon}}\"></div>\n      <div class=\"card-name\">{{item.name}}</div>\n    </div>\n  </div>\n</div>\n";
+module.exports = "<div class=\"services-view-container\">\n  <div class=\"title\">Services</div>\n\n  <div class=\"services-categories\">\n    <a ng-class=\"{'current-filter': $ctrl.currentFilter === 'all'}\" ng-click=\"$ctrl.filterByCategory('all')\">All</a> |\n    <span ng-repeat=\"category in $ctrl.serviceCategories\">\n      <a ng-class=\"{'current-filter': $ctrl.currentFilter === category.value}\"\n         ng-click=\"$ctrl.filterByCategory(category.value)\">{{category.label}}</a>\n         {{$ctrl.serviceCategories.length !== ($index+1) ? ' | ' : ''}}\n    </span>\n  </div>\n  \n  <div class=\"services-sub-categories\" ng-if=\"$ctrl.currentFilter !== 'all'\">\n    <a ng-class=\"{'current-filter': $ctrl.currentSubFilter === 'all'}\" ng-click=\"$ctrl.filterByCategory($ctrl.currentFilter, 'all')\">All</a> |\n    <span ng-repeat=\"subCategory in $ctrl.serviceSubCategories\">\n      <a ng-class=\"{'current-filter': $ctrl.currentSubFilter === subCategory.value}\"\n         ng-click=\"$ctrl.filterByCategory($ctrl.currentFilter, subCategory.value)\">{{subCategory.label}}</a>\n         {{$ctrl.serviceSubCategories.length !== ($index+1) ? ' | ' : ''}}\n    </span>\n  </div>\n  \n  <div class=\"sub-title\">Featured Services</div>\n\n  <div pf-card-view config=\"$ctrl.cardViewConfig\" items=\"$ctrl.featuredServices\">\n    <div class=\"card-container\">\n      <div class=\"card-icon {{item.icon}}\"></div>\n      <div class=\"card-name\">{{item.name}}</div>\n    </div>\n  </div>\n\n  <div class=\"sub-title\">All Services</div>\n\n  <div pf-card-view config=\"$ctrl.cardViewConfig\" items=\"$ctrl.services\">\n    <div class=\"card-container\">\n      <div class=\"card-icon {{item.icon}}\"></div>\n      <div class=\"card-name\">{{item.name}}</div>\n    </div>\n  </div>\n</div>\n";
 
 /***/ },
 /* 13 */
@@ -81286,22 +81293,56 @@ var ServicesViewController = (function () {
         };
         this.$filter = $filter;
     }
-    ServicesViewController.prototype.filterByCategory = function (category) {
+    ServicesViewController.prototype.$onInit = function () {
+        this.allServices = this.ctrl.services.map(function (a) { return Object.assign({}, a); }); // clone
+        this.ctrl.featuredServices = this.$filter('filter')(this.allServices, { featured: true }, false);
+        this.ctrl.currentFilter = 'all';
+        this.ctrl.currentSubFilter = 'all';
+        this.ctrl.serviceCategories = this.getServiceCategories();
+    };
+    ServicesViewController.prototype.getServiceCategories = function () {
+        var uniqueCategories = [];
+        var uniqueCategoriesVals = this.allServices.map(function (item) { return item.category; })
+            .filter(function (value, index, self) { return self.indexOf(value) === index; });
+        uniqueCategoriesVals.forEach(function (value, index, self) {
+            var obj = { 'label': '', 'value': '' };
+            obj.label = (value === 'cicd') ? 'CI/CD' : value.charAt(0).toUpperCase() + value.slice(1);
+            obj.value = value;
+            uniqueCategories[index] = obj;
+        });
+        return uniqueCategories;
+    };
+    ;
+    ServicesViewController.prototype.filterByCategory = function (category, subCategory) {
         if (category === 'all') {
             this.ctrl.services = this.allServices;
         }
         else {
-            this.ctrl.services = this.$filter('filter')(this.allServices, { category: category }, false);
+            if (subCategory === undefined || subCategory === 'all') {
+                this.ctrl.services = this.$filter('filter')(this.allServices, { category: category }, true);
+                this.ctrl.serviceSubCategories = this.getServiceSubCategories(category);
+            }
+            else {
+                this.ctrl.services = this.$filter('filter')(this.allServices, { category: category, subCategory: subCategory }, true);
+            }
         }
-        this.ctrl.featuredServices = this.$filter('filter')(this.ctrl.services, { featured: true }, false);
+        this.ctrl.featuredServices = this.$filter('filter')(this.ctrl.services, { featured: true }, true);
         this.ctrl.currentFilter = category;
+        this.ctrl.currentSubFilter = (subCategory !== undefined) ? subCategory : 'all';
     };
-    ServicesViewController.prototype.$onInit = function () {
-        this.allServices = this.ctrl.services.map(function (a) { return Object.assign({}, a); }); // clone
-        console.log("services: " + this.allServices.length);
-        this.ctrl.featuredServices = this.$filter('filter')(this.allServices, { featured: true }, false);
-        this.ctrl.currentFilter = 'all';
+    ServicesViewController.prototype.getServiceSubCategories = function (category) {
+        var uniqueCategories = [];
+        var uniqueCategoriesVals = this.ctrl.services.map(function (item) { return item.subCategory; })
+            .filter(function (value, index, self) { return self.indexOf(value) === index; });
+        uniqueCategoriesVals.forEach(function (value, index, self) {
+            var obj = { 'label': '', 'value': '' };
+            obj.label = value.charAt(0).toUpperCase() + value.slice(1);
+            obj.value = value;
+            uniqueCategories[index] = obj;
+        });
+        return uniqueCategories;
     };
+    ;
     ServicesViewController.prototype.handleClick = function (item, e) {
         console.log('You clicked on ' + item.name);
     };
