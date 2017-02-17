@@ -33258,7 +33258,8 @@ var ServicesViewController = (function () {
         this.$filter = $filter;
     }
     ServicesViewController.prototype.$onInit = function () {
-        this.allServices = this.ctrl.services.map(function (a) { return Object.assign({}, a); }); // clone
+        var addData = { ctrl: this };
+        this.allServices = this.ctrl.services.map(function (a) { return Object.assign({}, a, addData); }); // clone
         this.ctrl.featuredServices = this.$filter('filter')(this.allServices, { featured: true }, false);
         this.ctrl.currentFilter = 'all';
         this.ctrl.currentSubFilter = 'all';
@@ -33307,8 +33308,11 @@ var ServicesViewController = (function () {
         return uniqueCategories;
     };
     ;
-    ServicesViewController.prototype.handleClick = function (item, e) {
+    ServicesViewController.prototype.outputNode = function (item) {
         console.log('You clicked on ' + item.name);
+    };
+    ServicesViewController.prototype.handleClick = function (item, e) {
+        item.ctrl.outputNode(item);
     };
     ;
     ServicesViewController.prototype.$onChanges = function (onChangesObj) {

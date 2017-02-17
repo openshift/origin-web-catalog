@@ -3,12 +3,13 @@
 
 
 import * as angular from 'angular';
-import {servicesPage} from './pages/servicesPage';
+import {servicesPage} from './pages/services/servicesPage';
+import {projectsPage} from './pages/projects/projectsPage';
 import {MockDataService} from './services/mockData.service';
+import {navigation} from './components/navigation.component';
 
 import 'angular-ui-router';
 import routesConfig from './routes';
-
 
 import './app.less';
 import '../src/index';
@@ -23,7 +24,9 @@ require('../node_modules/angular-patternfly/node_modules/angular-sanitize/angula
 require('../node_modules/angular-drag-and-drop-lists/angular-drag-and-drop-lists.min.js');
 
 angular
-    .module(catalogApp, ['webCatalog', 'ui.router'])
-    .config(routesConfig)
-    .service('MockDataService', MockDataService)
-    .component('servicespage', servicesPage);
+  .module(catalogApp, ['webCatalog', 'ui.router'])
+  .config(routesConfig)
+  .service('MockDataService', MockDataService)
+  .component('servicespage', servicesPage)
+  .component('projectspage', projectsPage)
+  .component('navigation', navigation);

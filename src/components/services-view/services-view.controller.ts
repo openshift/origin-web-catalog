@@ -16,7 +16,8 @@ export class ServicesViewController implements angular.IController {
   }
 
   public $onInit() {
-    this.allServices = this.ctrl.services.map(a => Object.assign({}, a));  // clone
+    var addData = {ctrl: this};
+    this.allServices = this.ctrl.services.map(a => Object.assign({}, a, addData));  // clone
     this.ctrl.featuredServices = this.$filter('filter')(this.allServices, {featured: true}, false);
     this.ctrl.currentFilter = 'all';
     this.ctrl.currentSubFilter = 'all';
@@ -65,8 +66,11 @@ export class ServicesViewController implements angular.IController {
     return uniqueCategories;
   };
 
-  public handleClick(item: any, e: any) {
+  public outputNode(item: any) {
     console.log('You clicked on ' + item.name);
+  }
+  public handleClick(item: any, e: any) {
+    item.ctrl.outputNode(item);
   };
 
   public $onChanges(onChangesObj: angular.IOnChangesObject) {
