@@ -1,32 +1,40 @@
+import * as angular from 'angular';
+
 export class ServicesViewController implements angular.IController {
-  static $inject = ['$filter'];
+  static $inject = ['$filter', '$scope'];
 
   public ctrl: any = this;
   public cardViewConfig: any;
-  private allServices: any;
   private $filter: any;
+  private $scope: any;
 
-  constructor($filter: any) {
+  constructor($filter: any, $scope: any) {
     this.cardViewConfig = {
       selectItems: false,
       showSelectBox: false,
       onClick: this.handleClick
     };
     this.$filter = $filter;
+    this.$scope = $scope;
   }
 
   public $onInit() {
-    var addData = {ctrl: this};
-    this.allServices = this.ctrl.services.map(a => Object.assign({}, a, addData));  // clone
-    this.ctrl.featuredServices = this.$filter('filter')(this.allServices, {featured: true}, false);
+    this.ctrl.origServices = this.ctrl.services.map(a => Object.assign({}, a, {ctrl: this}));  // clone
+    this.ctrl.allServices = this.ctrl.origServices;
+    this.ctrl.featuredServices = this.$filter('filter')(this.ctrl.origServices, {featured: true}, false);
     this.ctrl.currentFilter = 'all';
     this.ctrl.currentSubFilter = 'all';
     this.ctrl.serviceCategories = this.getServiceCategories();
+    this.ctrl.orderingPanelvisible = false;
+
+    this.$scope.$on('cancelOrder', () => {
+      this.ctrl.closeOrderingPanel();
+    });
   }
 
   public getServiceCategories() {
     let uniqueCategories = [];
-    let uniqueCategoriesVals = this.allServices.map(item => item.category)
+    let uniqueCategoriesVals = this.ctrl.origServices.map(item => item.category)
         .filter((value, index, self) => self.indexOf(value) === index);
     uniqueCategoriesVals.forEach((value, index, self) => {
       let obj = {'label': '', 'value': ''};
@@ -39,23 +47,23 @@ export class ServicesViewController implements angular.IController {
 
   public filterByCategory(category: string, subCategory: string) {
     if (category === 'all') {
-      this.ctrl.services = this.allServices;
+      this.ctrl.allServices = this.ctrl.origServices;
     } else {
       if (subCategory === undefined || subCategory === 'all') {
-        this.ctrl.services = this.$filter('filter')(this.allServices, {category: category}, true);
+        this.ctrl.allServices = this.$filter('filter')(this.ctrl.origServices, {category: category}, true);
         this.ctrl.serviceSubCategories = this.getServiceSubCategories(category);
       } else {
-        this.ctrl.services = this.$filter('filter')(this.allServices, {category: category, subCategory: subCategory}, true);
+        this.ctrl.allServices = this.$filter('filter')(this.ctrl.origServices, {category: category, subCategory: subCategory}, true);
       }
     }
-    this.ctrl.featuredServices = this.$filter('filter')(this.ctrl.services, {featured: true}, true);
+    this.ctrl.featuredServices = this.$filter('filter')(this.ctrl.allServices, {featured: true}, true);
     this.ctrl.currentFilter = category;
     this.ctrl.currentSubFilter = (subCategory !== undefined) ? subCategory : 'all';
   }
 
   public getServiceSubCategories(category: string) {
     let uniqueCategories = [];
-    let uniqueCategoriesVals = this.ctrl.services.map(item => item.subCategory)
+    let uniqueCategoriesVals = this.ctrl.allServices.map(item => item.subCategory)
         .filter((value, index, self) => self.indexOf(value) === index);
     uniqueCategoriesVals.forEach((value, index, self) => {
       let obj = {'label': '', 'value': ''};
@@ -66,11 +74,17 @@ export class ServicesViewController implements angular.IController {
     return uniqueCategories;
   };
 
-  public outputNode(item: any) {
-    console.log('You clicked on ' + item.name);
-  }
   public handleClick(item: any, e: any) {
-    item.ctrl.outputNode(item);
+    item.ctrl.serviceToOrder = item;
+    item.ctrl.openOrderingPanel();
+  };
+
+  public openOrderingPanel() {
+    this.ctrl.orderingPanelvisible = true;
+  };
+
+  public closeOrderingPanel() {
+    this.ctrl.orderingPanelvisible = false;
   };
 
   public $onChanges(onChangesObj: angular.IOnChangesObject) {

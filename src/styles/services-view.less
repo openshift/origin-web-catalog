@@ -1,3 +1,8 @@
+.services-view {
+  position:absolute;
+  width: 100%
+}
+
 .services-view-container {
   padding-left: 40px;
   padding-right: 40px;
@@ -74,5 +79,62 @@
     font-size: 16px;
     display: table-cell;
     vertical-align: middle;
+  }
+}
+
+@keyframes simpleSlideUp {
+  0% {
+    margin-top: 0%;
+    opacity: 1;
+  }
+  100% {
+    margin-top: -50%;
+    opacity: 0;
+  }
+}
+@keyframes simpleSlideDown {
+  0% {
+    margin-top: -50%;
+  }
+  100% {
+    margin-top: 0%;
+    opacity: 1;
+  }
+}
+
+.service-ordering-container {
+  background: white;
+  border:1px solid @color-pf-black-400;
+  position: absolute;
+  padding:20px;
+  height: 40%;
+  width: 89%;
+  top: 0px;
+  left: 4px;
+  z-index: 777;
+  &.ng-enter {
+    animation: simpleSlideDown 1s ease forwards;
+  }
+  &.ng-leave {
+     animation: simpleSlideUp 1s ease forwards;
+  }
+
+  .ordering-panel-close {
+    font-size: 21px;
+    float: right;
+    cursor: pointer;
+    color: @color-pf-black-600;
+
+    &.pficon-close {
+      color: @color-pf-black-600;
+      cursor: pointer;
+    }
+    &.pficon-close.disabled, .pficon-close:hover.disabled  {
+      color: @color-pf-black-400;
+      cursor: not-allowed;
+    }
+    &.pficon-close:hover {
+      color: @color-pf-black-800;
+    }
   }
 }

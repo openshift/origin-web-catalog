@@ -1,0 +1,27 @@
+<div class="col-md-12 center">
+  <div class="title">Your Order is Complete! <span class="fa fa-check success-check"></span></div>
+  <div class="sub-title center">Launch this service now to access your project directly.</div>
+  <div class="launch-service">
+    <button type="button" class="btn btn-default btn-primary order-btn" ng-click="$ctrl.cancelOrder()">
+      Launch Service
+    </button>
+  </div>
+  <div>
+    <a class="close-href" style="text-decoration:none;" ng-click="$ctrl.cancelOrder()">
+      Close
+    </a> this panel to continue with ordering
+  </div>
+  <div class="related-services-container">
+    <span class="related-services-label">Related Services</span>
+    <span class="related-services-row">
+      <div class="card">
+        <div class="card-icon font-icon icon-jenkins"></div>
+        <div class="card-name">Jenkins</div>
+      </div>
+      <div class="card">
+        <div class="card-icon font-icon icon-mysql-database"></div>
+        <div class="card-name">mySQL</div>
+      </div>
+  </span>
+  </div>
+</div>

@@ -22,6 +22,7 @@ require('../node_modules/angular-patternfly/node_modules/angular-ui-bootstrap/ui
 require('../node_modules/angular-patternfly/node_modules/angular-ui-bootstrap/ui-bootstrap-tpls');
 require('../node_modules/angular-patternfly/node_modules/angular-sanitize/angular-sanitize');
 require('../node_modules/angular-drag-and-drop-lists/angular-drag-and-drop-lists.min.js');
+require('../node_modules/angular-animate/angular-animate.min.js');
 
 angular
   .module(catalogApp, ['webCatalog', 'ui.router'])

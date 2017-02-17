@@ -63,5 +63,58 @@
   display: table-cell;
   vertical-align: middle;
 }
+@keyframes simpleSlideUp {
+  0% {
+    margin-top: 0%;
+    opacity: 1;
+  }
+  100% {
+    margin-top: -50%;
+    opacity: 0;
+  }
+}
+@keyframes simpleSlideDown {
+  0% {
+    margin-top: -50%;
+  }
+  100% {
+    margin-top: 0%;
+    opacity: 1;
+  }
+}
+.service-ordering-container {
+  background: white;
+  border: 1px solid #bbb;
+  position: absolute;
+  padding: 20px;
+  height: 40%;
+  width: 100%;
+  top: 0px;
+  left: 0px;
+}
+.service-ordering-container.ng-enter {
+  animation: simpleSlideDown 1s ease forwards;
+}
+.service-ordering-container.ng-leave {
+  animation: simpleSlideUp 1s ease forwards;
+}
+.service-ordering-container .ordering-panel-close {
+  font-size: 21px;
+  float: right;
+  cursor: pointer;
+  color: #72767b;
+}
+.service-ordering-container .ordering-panel-close.pficon-close {
+  color: #72767b;
+  cursor: pointer;
+}
+.service-ordering-container .ordering-panel-close.pficon-close.disabled,
+.service-ordering-container .ordering-panel-close .pficon-close:hover.disabled {
+  color: #bbb;
+  cursor: not-allowed;
+}
+.service-ordering-container .ordering-panel-close.pficon-close:hover {
+  color: #393f44;
+}
 
 /*# sourceMappingURL=origin-web-catalogs.css.map*/
