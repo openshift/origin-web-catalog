@@ -41,7 +41,7 @@ export class MockDataService {
       {id: 6, name:  'Dancer + MySQL (Ephemeral)', icon: 'font-icon icon-perl', category: 'languages', subCategory: 'perl'},
       {id: 7, name:  'Ruby', icon: 'font-icon icon-ruby', category: 'languages', subCategory: 'ruby'},
       {id: 8, name:  'Rails + PostgreSQL (Ephemeral)', icon: 'font-icon icon-ruby', category: 'languages', subCategory: 'ruby'},
-      {id: 9, name:  'PHP', icon: 'font-icon icon-php', category: 'languages', subCategory: 'php',},
+      {id: 9, name:  'PHP', icon: 'font-icon icon-php', category: 'languages', subCategory: 'php'},
       {id: 10, name: 'CakePHP + MySQL (Ephemeral)', icon: 'font-icon icon-php', category: 'languages', subCategory: 'php'},
       {id: 11, name: 'Python', icon: 'font-icon icon-python', category: 'languages', subCategory: 'python'},
       {id: 12, name: 'Django + PostgreSQL (Ephemeral)', icon: 'font-icon icon-python', category: 'languages', subCategory: 'python'},

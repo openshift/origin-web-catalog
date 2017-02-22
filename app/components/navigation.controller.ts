@@ -11,7 +11,6 @@ export class NavigationController implements angular.IController {
 
   constructor($transitions: any) {
     this.$transitions = $transitions;
-    console.dir($transitions);
   };
 
   public $onInit() {

@@ -2,3 +2,13 @@ node_modules
 .idea
 bower_components
 coverage
+npm-debug.log
+dist/catalogs-app*
+dist/*.wof*
+dist/*.eot
+dist/*.ttf
+dist/*.svg
+dist/*.gif
+dist/*.jpg
+dist/*.png
+
