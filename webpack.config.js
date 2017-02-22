@@ -194,6 +194,9 @@ module.exports.resolve = {
   ]
 };
 
+// turn off performance warnings
+module.exports.performance = { hints: false };
+
 /**
  * Dev server configuration
  * Reference: http://webpack.github.io/docs/configuration.html#devserver

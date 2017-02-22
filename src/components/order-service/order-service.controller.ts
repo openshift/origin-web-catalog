@@ -1,5 +1,4 @@
 import * as angular from 'angular';
-import {MockDataService} from '../../../app/services/mockData.service';
 
 export class OrderServiceController implements angular.IController {
 
