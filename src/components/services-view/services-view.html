@@ -9,35 +9,29 @@
     <div class="title">Services</div>
 
     <div class="services-categories">
-      <a ng-class="{'current-filter': $ctrl.currentFilter === 'all'}" ng-click="$ctrl.filterByCategory('all')">All</a> |
-      <span ng-repeat="category in $ctrl.serviceCategories">
-        <a ng-class="{'current-filter': $ctrl.currentFilter === category.value}"
-           ng-click="$ctrl.filterByCategory(category.value)">{{category.label}}</a>
-           {{$ctrl.serviceCategories.length !== ($index+1) ? ' | ' : ''}}
+      <a ng-class="{'current-filter': $ctrl.currentFilter === 'all'}" ng-click="$ctrl.filterByCategory('all', 'all', true)">All Services</a> |
+      <span ng-repeat="category in $ctrl.categories">
+        <a ng-class="{'current-filter': $ctrl.currentFilter === category.id}"
+           ng-click="$ctrl.filterByCategory(category.id, 'all', true)">{{category.label}}</a>
+           {{$ctrl.categories.length !== ($index+1) ? ' | ' : ''}}
       </span>
     </div>
 
-    <div class="services-sub-categories" ng-if="$ctrl.currentFilter !== 'all'">
-      <a ng-class="{'current-filter': $ctrl.currentSubFilter === 'all'}" ng-click="$ctrl.filterByCategory($ctrl.currentFilter, 'all')">All</a> |
-      <span ng-repeat="subCategory in $ctrl.serviceSubCategories">
-        <a ng-class="{'current-filter': $ctrl.currentSubFilter === subCategory.value}"
-           ng-click="$ctrl.filterByCategory($ctrl.currentFilter, subCategory.value)">{{subCategory.label}}</a>
-           {{$ctrl.serviceSubCategories.length !== ($index+1) ? ' | ' : ''}}
-      </span>
-    </div>
-
-    <div class="sub-title">Featured Services</div>
-
-    <div pf-card-view config="$ctrl.cardViewConfig" items="$ctrl.featuredServices">
-      <div class="card-container">
-        <div class="card-icon {{item.icon}}"></div>
-        <div class="card-name">{{item.name}}</div>
+    <div class="services-sub-categories">
+      <div class="card" ng-class="{'current-filter': $ctrl.currentSubFilter === 'all'}" ng-click="$ctrl.filterByCategory($ctrl.currentFilter, 'all', false)">
+        <div class="inner-content">All</div>
+      </div>
+      <div ng-repeat="subCategory in $ctrl.subCategories"
+           class="card" ng-class="{'current-filter': $ctrl.currentSubFilter === subCategory.id}"
+           ng-click="$ctrl.filterByCategory($ctrl.currentFilter, subCategory.id, false)">
+        <div class="inner-content">
+          <div class="sub-cat-icon {{subCategory.icon}}"></div>
+          <div class="sub-cat-label">{{subCategory.label}}</div>
+        </div>
       </div>
     </div>
 
-    <div class="sub-title">All Services</div>
-
-    <div pf-card-view config="$ctrl.cardViewConfig" items="$ctrl.allServices">
+    <div pf-card-view config="$ctrl.cardViewConfig" items="$ctrl.filteredServices">
       <div class="card-container">
         <div class="card-icon {{item.icon}}"></div>
         <div class="card-name">{{item.name}}</div>

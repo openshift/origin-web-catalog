@@ -11,5 +11,6 @@ export class ServicesPageController {
 
   constructor(mockDataService: any) {
     this.ctrl.services = mockDataService.getServices();
+    this.ctrl.categories = mockDataService.getServiceCategories();
   }
 }
