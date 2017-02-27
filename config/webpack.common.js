@@ -17,13 +17,20 @@ var path = require('path');
  */
 var ENV = process.env.npm_lifecycle_event;
 var isTest = ENV === 'test' || ENV === 'test-watch';
-var isProd = ENV === 'build';
+var isProd = ENV.indexOf('build') != -1;
 
-console.log("==============================" + ENV + "==============================");
+var prodEntry = {
+  //'polyfills': './src/polyfills.ts',
+  'origin-web-catalogs': './src/index.ts',
+  'vendor-bundle': ['angular', 'angular-animate', 'angular-patternfly', 'bootstrap', 'jquery', 'lodash']
+};
+
+var serverEntry = {
+  'catalogs-app': './app/app.ts'
+};
+
 module.exports = {
   module: {
-
-
     loaders: [
       {
         test: /.json$/,
@@ -96,15 +103,8 @@ module.exports = {
   }
 };
 
-/**
- * Entry
- * Reference: http://webpack.github.io/docs/configuration.html#entry
- * Should be an empty object if it's generating a test build
- * Karma will set this when it's a test build
- */
-// module.exports.entry = isTest ? {} : {
-//     'origin-web-catalogs': isProd ? './src/index.ts' : './app/app.ts'
-//   };
+
+module.exports.entry = isProd ? prodEntry : serverEntry;
 
 
 /**
@@ -137,6 +137,9 @@ module.exports.plugins = [
     '_': 'lodash',
     'URI': 'URI',
     'OPENSHIFT_CONFIG': 'OPENSHIFT_CONFIG'
+  }),
+  new webpack.optimize.CommonsChunkPlugin({
+    names: ['vendor-bundle']
   })
 ];
 

@@ -9,13 +9,6 @@ const ENV = process.env.NODE_ENV = process.env.ENV = 'production';
 module.exports = webpackMerge(commonConfig, {
   devtool: 'source-map',
 
-  entry: {
-    //'polyfills': './src/polyfills.ts',
-    //'vendor': './src/vendor.ts',
-    'origin-web-catalogs': './src/index.ts',
-    'vendor-bundle': ['angular', 'angular-animate', 'angular-patternfly', 'bootstrap', 'jquery', 'lodash']
-  },
-
   output: {
     path: helpers.root('dist'),
     publicPath: '/',
@@ -24,7 +17,6 @@ module.exports = webpackMerge(commonConfig, {
   },
 
   plugins: [
-    new webpack.NoEmitOnErrorsPlugin(),
     new webpack.optimize.UglifyJsPlugin({ // https://github.com/angular/angular/issues/10618
       mangle: {
         keep_fnames: true

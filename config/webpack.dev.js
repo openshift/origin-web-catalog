@@ -13,10 +13,6 @@ module.exports = webpackMerge(commonConfig, {
     chunkFilename: '[id].chunk.js'
   },
 
-  entry: {
-    'catalogs-app': './app/app.ts'
-  },
-
   plugins: [
     new ExtractTextPlugin('[name].css')
   ],

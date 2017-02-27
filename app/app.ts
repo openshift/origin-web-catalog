@@ -15,7 +15,7 @@ import '../src/index';
 
 export const catalogApp: string = 'catalogApp';
 
-require('./config.js');
+require('./config.local.js');
 
 require('patternfly/dist/js/patternfly');
 require('angular-patternfly/dist/angular-patternfly');
