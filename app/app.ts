@@ -1,4 +1,3 @@
-/// <reference path="../node_modules/@types/angular/index.d.ts" />
 /// <reference path="../node_modules/@types/angular-ui-router/index.d.ts" />
 
 
@@ -16,6 +15,8 @@ import '../src/index';
 
 export const catalogApp: string = 'catalogApp';
 
+require('./config.js');
+
 require('patternfly/dist/js/patternfly');
 require('angular-patternfly/dist/angular-patternfly');
 require('angular-ui-bootstrap/ui-bootstrap');
@@ -25,17 +26,20 @@ require('angular-drag-and-drop-lists/angular-drag-and-drop-lists.min.js');
 require('angular-animate/angular-animate.min.js');
 
 require('jquery/dist/jquery');
-// require('js-logger/src/logger');
-// require('../bower_components/hawtio-core/dist/hawtio-core');
-// require('../bower_components/hawtio-extension-service/dist/hawtio-extension-service');
-// require('../bower_components/term.js/src/term');
+require('imports-loader?define=>false!js-logger/src/logger');
 
-// require('origin-web-common/dist/origin-web-common');
+let hawtioPluginLoader = require('hawtio-core/dist/hawtio-core');
+
+require('urijs/src/URI');
+require('angular-utf8-base64');
+require('origin-web-common/dist/origin-web-common.js');
 
 angular
-  .module(catalogApp, ['webCatalog', /* 'openshiftCommon', */ 'ui.router', 'patternfly'])
+  .module(catalogApp, ['webCatalog', 'openshiftCommon', 'ui.router', 'patternfly'])
   .config(routesConfig)
   .service('MockDataService', MockDataService)
   .component('servicespage', servicesPage)
   .component('projectspage', projectsPage)
   .component('navigation', navigation);
+
+hawtioPluginLoader.addModule(catalogApp);

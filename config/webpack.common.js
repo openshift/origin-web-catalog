@@ -21,14 +21,6 @@ var isProd = ENV === 'build';
 
 console.log("==============================" + ENV + "==============================");
 module.exports = {
-  entry: {
-    //'polyfills': './src/polyfills.ts',
-    //'vendor': './src/vendor.ts',
-    'catalogs-app': './app/app.ts',
-    'origin-web-catalogs': './src/index.ts',
-    'vendor-bundle': ['angular', 'angular-animate', 'angular-patternfly', 'bootstrap', 'jquery', 'lodash']
-  },
-
   module: {
 
 
@@ -90,6 +82,15 @@ module.exports = {
       {
         test: /\.html$/,
         loader: 'html-loader'
+      },
+      {
+        test: /hawtio-core/,
+        loaders: ['imports-loader?Logger=js-logger/src/logger,angular,this=>window',
+          'exports-loader?hawtioPluginLoader']
+      },
+      {
+        test: /origin-web-common/,
+        loader: 'imports-loader?Logger=js-logger/src/logger,hawtioPluginLoader=hawtio-core/dist/hawtio-core,angular,URI=urijs/src/URI,this=>window'
       }
     ]
   }
@@ -133,7 +134,9 @@ module.exports.plugins = [
     jQuery: 'jquery',
     $: 'jquery',
     jquery: 'jquery',
-    '_': 'lodash'
+    '_': 'lodash',
+    'URI': 'URI',
+    'OPENSHIFT_CONFIG': 'OPENSHIFT_CONFIG'
   })
 ];
 
