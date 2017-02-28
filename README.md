@@ -7,11 +7,12 @@ A component libary created for the cataloging components for [The OpenShift Web 
 ## Quick start
 
 ```
-# install the dependencies with npm
+# install the dependencies with npm and bower
 $ npm install
+$ bower install
 
 # start the server
-$ npm start
+$ npm run server
 ```
 
 Go to [http://localhost:8080](http://localhost:8080) in your browser.
