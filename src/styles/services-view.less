@@ -1,3 +1,23 @@
+@keyframes simpleSlideUp {
+  0% {
+    margin-top: 0%;
+    opacity: 1;
+  }
+  100% {
+    margin-top: -50%;
+    opacity: 0;
+  }
+}
+@keyframes simpleSlideDown {
+  0% {
+    margin-top: -50%;
+  }
+  100% {
+    margin-top: 0%;
+    opacity: 1;
+  }
+}
+
 .services-view {
   position:absolute;
   background-color: @color-pf-black-300;
@@ -9,6 +29,11 @@
   padding-left: 0px;
   padding-right: 40px;
   height: 100%;
+
+  .sub-category-row {
+    overflow-y: auto;
+    max-height: 300px;
+  }
 
   .title {
     font-size: 36px;
@@ -95,9 +120,7 @@
   .card-view-pf {
     display: flex;
     flex-wrap: wrap;
-    justify-content: flex-start;
     background-color: @color-pf-white;
-    margin-top: 0px;
     padding-left: 21px;
   }
 
@@ -129,26 +152,6 @@
     font-size: 16px;
     display: table-cell;
     vertical-align: middle;
-  }
-}
-
-@keyframes simpleSlideUp {
-  0% {
-    margin-top: 0%;
-    opacity: 1;
-  }
-  100% {
-    margin-top: -50%;
-    opacity: 0;
-  }
-}
-@keyframes simpleSlideDown {
-  0% {
-    margin-top: -50%;
-  }
-  100% {
-    margin-top: 0%;
-    opacity: 1;
   }
 }
 
