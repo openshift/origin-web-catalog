@@ -6,7 +6,7 @@ import {oauth} from './components/oauth/oauth.component';
 import {servicesPage} from './pages/services/servicesPage';
 import {projectsPage} from './pages/projects/projectsPage';
 import {MockDataService} from './services/mockData.service';
-import {navigation} from './components/navigation.component';
+import {navigation} from './components/navigation/navigation.component';
 
 import 'angular-ui-router';
 import routesConfig from './routes';
