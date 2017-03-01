@@ -1,16 +1,18 @@
 import * as angular from 'angular';
 
 export class NavigationController implements angular.IController {
-  static $inject = ['$transitions'];
+  static $inject = ['$transitions', '$rootScope'];
 
   public ctrl: any = this;
   public navigationItems: any;
   public applicationName: string;
   private $transitions: any;
+  private $rootScope: any;
 
 
-  constructor($transitions: any) {
+  constructor($transitions: any, $rootScope: any) {
     this.$transitions = $transitions;
+    this.$rootScope = $rootScope;
   };
 
   public $onInit() {
@@ -36,6 +38,12 @@ export class NavigationController implements angular.IController {
       angular.forEach(_ctrl.navigationItems, function(navItem: any) {
         navItem.isActive = stateName.indexOf(navItem.uiSref) === 0;
       });
+    });
+
+    this.ctrl.user = this.$rootScope.user;
+
+    this.$rootScope.$watch('user', function(newValue: any) {
+      _ctrl.user = newValue;
     });
   };
 

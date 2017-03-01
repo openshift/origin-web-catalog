@@ -6,6 +6,10 @@ function routesConfig($stateProvider: angular.ui.IStateProvider, $urlRouterProvi
   $urlRouterProvider.otherwise('/services');
 
   $stateProvider
+    .state('oauth', {
+      url: '/oauth',
+      component: 'oauth'
+    })
     .state('services', {
       url: '/services',
       component: 'servicespage'

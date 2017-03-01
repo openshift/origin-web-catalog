@@ -96,8 +96,13 @@ module.exports = {
           'exports-loader?hawtioPluginLoader']
       },
       {
+        test: /messenger/,
+        loaders: ['imports-loader?angular',
+          'exports-loader?Messenger']
+      },
+      {
         test: /origin-web-common/,
-        loader: 'imports-loader?Logger=js-logger/src/logger,hawtioPluginLoader=hawtio-core/dist/hawtio-core,angular,URI=urijs/src/URI,this=>window'
+        loader: 'imports-loader?Messenger=messenger/build/js/messenger,Logger=js-logger/src/logger,hawtioPluginLoader=hawtio-core/dist/hawtio-core,angular,URI=uri.js/src/URI,this=>window'
       }
     ]
   }
@@ -135,7 +140,6 @@ module.exports.plugins = [
     $: 'jquery',
     jquery: 'jquery',
     '_': 'lodash',
-    'URI': 'URI',
     'OPENSHIFT_CONFIG': 'OPENSHIFT_CONFIG'
   }),
   new webpack.optimize.CommonsChunkPlugin({

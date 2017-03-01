@@ -2,6 +2,7 @@
 
 
 import * as angular from 'angular';
+import {oauth} from './components/oauth/oauth.component';
 import {servicesPage} from './pages/services/servicesPage';
 import {projectsPage} from './pages/projects/projectsPage';
 import {MockDataService} from './services/mockData.service';
@@ -30,7 +31,7 @@ require('imports-loader?define=>false!js-logger/src/logger');
 
 let hawtioPluginLoader = require('hawtio-core/dist/hawtio-core');
 
-require('urijs/src/URI');
+require('uri.js/src/URI');
 require('angular-utf8-base64');
 require('origin-web-common/dist/origin-web-common.js');
 
@@ -38,6 +39,7 @@ angular
   .module(catalogApp, ['webCatalog', 'openshiftCommon', 'ui.router', 'patternfly'])
   .config(routesConfig)
   .service('MockDataService', MockDataService)
+  .component('oauth', oauth)
   .component('servicespage', servicesPage)
   .component('projectspage', projectsPage)
   .component('navigation', navigation);

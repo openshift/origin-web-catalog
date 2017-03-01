@@ -15,7 +15,7 @@ api: {
 },
 auth: {
   oauth_authorize_uri: "https://10.245.2.2:8443/oauth/authorize",
-  oauth_redirect_base: "https://localhost:9000/dev-console",
+  oauth_redirect_base: "https://localhost:9000/",
   oauth_client_id: "openshift-web-console",
   logout_uri: ""
 },
