@@ -50,6 +50,7 @@
     "@types/lodash": "^4.14.52",
     "@types/node": "^0.0.2",
     "angular-mocks": "^1.5.0-beta.2",
+    "animated-scroll-to": "3.10.3",
     "autoprefixer": "^6.0.3",
     "babel-core": "^6.2.1",
     "babel-loader": "^6.2.0",

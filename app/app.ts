@@ -3,6 +3,7 @@
 
 import * as angular from 'angular';
 import {oauth} from './components/oauth/oauth.component';
+import {homePage} from './pages/home/homePage';
 import {servicesPage} from './pages/services/servicesPage';
 import {projectsPage} from './pages/projects/projectsPage';
 import {MockDataService} from './services/mockData.service';
@@ -40,6 +41,7 @@ angular
   .config(routesConfig)
   .service('MockDataService', MockDataService)
   .component('oauth', oauth)
+  .component('homepage', homePage)
   .component('servicespage', servicesPage)
   .component('projectspage', projectsPage)
   .component('navigation', navigation);

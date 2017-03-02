@@ -1,0 +1,17 @@
+<landing-page search-placeholder="Search Catalog">
+  <headerarea>
+    <div class="build-applications-view">
+      <h1>What Do You Want to Build?</h1>
+      <div class="applications-area">
+      </div>
+    </div>
+  </headerarea>
+  <bodyarea>
+    <services-view ng-if="!$ctrl.loading" services="$ctrl.services" categories="$ctrl.categories"></services-view>
+  </bodyarea>
+  <sidebar>
+    <div class="my-projects-view">
+      <img src="../../assets/img/MyProjects.png">
+    </div>
+  </sidebar>
+</landing-page>

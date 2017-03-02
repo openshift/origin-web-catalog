@@ -1,0 +1,127 @@
+@sidebar-width: 320px;
+
+.landing-page-container {
+  position : fixed;
+  top: @navbar-pf-height;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 100%;
+  position: relative;
+  overflow: visible;
+
+}
+
+.landing-main-area {
+  margin: 15px @sidebar-width 15px 20px;
+}
+
+.landing-side-bar {
+  position : fixed;
+  top: @navbar-pf-height;
+  bottom: 0;
+  right: 0;
+  width: @sidebar-width;
+  padding-left: 20px;
+}
+
+.landing-header-area {
+
+}
+
+.landing-body-area {
+  padding-top: 15px;
+}
+
+.landing-search-area {
+  background: @card-pf-container-bg-color;
+  left: 0;
+  padding: 20px 0;
+  position : fixed;
+  right: @sidebar-width;
+  top: @navbar-pf-height;
+  z-index: @zindex-navbar-fixed;
+
+  .container-pf-nav-pf-vertical & {
+    left: @nav-pf-vertical-width;
+  }
+  .container-pf-nav-pf-vertical.collapsed-nav & {
+    left: @nav-pf-vertical-collapsed-width;
+  }
+
+  .landing-search-form {
+    .form-control {
+      font-size: 18px;
+    }
+    input[type="search"] {
+      border: 1px solid #999;
+      height: 39px;
+      line-height: 28px;
+    }
+
+    button .fa-search {
+      color: @color-pf-black-600;
+      font-size: 32px;
+    }
+
+    button .pficon-close {
+      color: @color-pf-black-600;
+      font-size: 18px;
+      padding-top: 8px;
+    }
+  }
+}
+
+.landing-search-form {
+  text-align: center;
+  width: 600px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .landing-search-form {
+    width: 80%;
+  }
+}
+
+.snap-container {
+
+  &.snap-down {
+    display: flex;
+    width: 100%;
+
+    .spacer {
+      flex: 1;
+      flex-direction: row;
+    }
+  }
+
+  &.snap-up {
+    position: fixed;
+    top: 10px;
+    left: 50%;
+    margin-left: 60px;
+    z-index: 1050;
+    display: none;
+
+    .container-pf-nav-pf-vertical & {
+      margin-left: calc((-1 * (@nav-pf-vertical-width / 2)) + 30px);
+    }
+    .container-pf-nav-pf-vertical.collapsed-nav & {
+      margin-left: calc((-1 * (@nav-pf-vertical-collapsed-width / 2)) + 30px);
+    }
+
+    &.scrolled-down {
+      display:inherit;
+    }
+  }
+
+  a {
+    &:hover, &:focus {
+      outline: none;
+      text-decoration: none;
+    }
+  }
+}

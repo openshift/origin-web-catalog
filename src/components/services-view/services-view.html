@@ -6,10 +6,10 @@
   </div>
 
   <div class="services-view-container">
-    <div class="title">Services</div>
+    <h1>Catalog</h1>
 
     <div class="services-categories">
-      <a ng-class="{'current-filter': $ctrl.currentFilter === 'all'}" ng-click="$ctrl.filterByCategory('all', 'all', true)">All Services</a> |
+      <a ng-class="{'current-filter': $ctrl.currentFilter === 'all'}" ng-click="$ctrl.filterByCategory('all', 'all', true)">All</a> |
       <span ng-repeat="category in $ctrl.categories">
         <a ng-class="{'current-filter': $ctrl.currentFilter === category.id}"
            ng-click="$ctrl.filterByCategory(category.id, 'all', true)">{{category.label}}</a>

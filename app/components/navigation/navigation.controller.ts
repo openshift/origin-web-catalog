@@ -19,6 +19,11 @@ export class NavigationController implements angular.IController {
     this.ctrl.applicationName = 'OPENSHIFT WEB CATALOGS';
     this.ctrl.navigationItems = [
       {
+        title: 'Home',
+        iconClass: 'pficon pficon-home',
+        uiSref: 'home'
+      },
+      {
         title: 'Services',
         iconClass: 'pficon pficon-service',
         uiSref: 'services'
