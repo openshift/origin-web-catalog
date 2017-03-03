@@ -8,6 +8,7 @@ import {servicesPage} from './pages/services/servicesPage';
 import {projectsPage} from './pages/projects/projectsPage';
 import {MockDataService} from './services/mockData.service';
 import {navigation} from './components/navigation/navigation.component';
+import {MockServicesModule} from './mockServices/mockServices.module';
 
 import 'angular-ui-router';
 import routesConfig from './routes';
@@ -34,10 +35,20 @@ let hawtioPluginLoader = require('hawtio-core/dist/hawtio-core');
 
 require('uri.js/src/URI');
 require('angular-utf8-base64');
-require('origin-web-common/dist/origin-web-common.js');
+
+let commonServices = '';
+let mockServicesModule = new MockServicesModule(window);
+
+if (mockServicesModule.useMockServices() !== true) {
+  require('origin-web-common/dist/origin-web-common.js');
+  commonServices = 'openshiftCommon';
+} else {
+  commonServices = mockServicesModule.moduleName;
+}
+console.log('Common Services: "' + commonServices);
 
 angular
-  .module(catalogApp, ['webCatalog', 'openshiftCommon', 'ui.router', 'patternfly'])
+  .module(catalogApp, ['webCatalog', commonServices, 'ui.router', 'patternfly'])
   .config(routesConfig)
   .service('MockDataService', MockDataService)
   .component('oauth', oauth)

@@ -28,3 +28,4 @@ openshift: "dev-mode",
 kubernetes: "dev-mode"
 };
 
+window.MOCK_ORIGIN_SERVICES = false;
