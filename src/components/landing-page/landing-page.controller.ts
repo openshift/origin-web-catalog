@@ -28,14 +28,11 @@ export class LandingPageController implements angular.IController {
       cancelOnUserAction: true
     };
     this.ctrl.showSnapDown = false;
-
-    angular.element(this.$window).bind('scroll', function(event: any) {
-      _this.ctrl.showSnapDown = event.srcElement.scrollingElement.scrollTop >= _this.snapToPosition;
-      _this.$scope.$apply();
+    angular.element(this.$window).bind('scroll', function(e: any) {
+      _this.onScrollChange(e);
     });
-    angular.element(this.$window).bind('resize', function(event: any) {
-      var bodyArea = this.$element[0].querySelector('.landing-body-area');
-      angular.element(bodyArea).css('min-height', _this.$window.innerHeight + 'px');
+    angular.element(this.$window).bind('resize', function(e: any) {
+      _this.onWindowResize(e);
     });
   }
 
@@ -43,6 +40,11 @@ export class LandingPageController implements angular.IController {
     var bodyArea = this.$element[0].querySelector('.landing-body-area');
     this.snapToPosition = bodyArea.offsetTop;
     angular.element(bodyArea).css('min-height', this.$window.innerHeight + 'px');
+  }
+
+  public $onDestroy() {
+    angular.element(this.$window).unbind('scroll', this.onScrollChange);
+    angular.element(this.$window).unbind('resize', this.onWindowResize);
   }
 
   public snapDown() {
@@ -65,5 +67,15 @@ export class LandingPageController implements angular.IController {
 
   public $doCheck() {
     // console.log('$doCheck');
+  }
+
+  private onScrollChange(event: any) {
+    this.ctrl.showSnapDown = event.srcElement.scrollingElement.scrollTop >= this.snapToPosition;
+    this.$scope.$apply();
+  }
+
+  private onWindowResize(event: any) {
+    var bodyArea = this.$element[0].querySelector('.landing-body-area');
+    angular.element(bodyArea).css('min-height', this.$window.innerHeight + 'px');
   }
 }
