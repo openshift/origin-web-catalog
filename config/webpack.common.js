@@ -15,12 +15,12 @@ var path = require('path');
  * Get npm lifecycle event to identify the environment
  * Example: When the `npm run build` command is executed, the ENV will be set to `build`
  */
-var ENV = process.env.npm_lifecycle_event;
-var isTest = ENV === 'test' || ENV === 'test-watch';
+
+var ENV = process.env.npm_lifecycle_event === undefined ? 'test' : process.env.npm_lifecycle_event;
+var isTest = ENV.indexOf('test') != -1;
 var isProd = ENV.indexOf('build') != -1;
 
 var prodEntry = {
-  //'polyfills': './src/polyfills.ts',
   'origin-web-catalogs': './src/index.ts',
   'vendor-bundle': ['angular', 'angular-animate', 'angular-patternfly', 'bootstrap', 'jquery', 'lodash']
 };
@@ -111,7 +111,6 @@ module.exports = {
 
 module.exports.entry = isProd ? prodEntry : serverEntry;
 
-
 /**
  * Plugins
  * Reference: http://webpack.github.io/docs/configuration.html#plugins
@@ -141,9 +140,6 @@ module.exports.plugins = [
     jquery: 'jquery',
     '_': 'lodash',
     'OPENSHIFT_CONFIG': 'OPENSHIFT_CONFIG'
-  }),
-  new webpack.optimize.CommonsChunkPlugin({
-    names: ['vendor-bundle']
   })
 ];
 
@@ -156,7 +152,15 @@ if (!isProd) {
   );
 }
 
-// Add build specific plugins
+// Add !test specific plugins
+if (!isTest) {
+  module.exports.plugins.push(
+    new webpack.optimize.CommonsChunkPlugin({
+      names: ['vendor-bundle']
+    })
+  )
+}
+
 if (isProd) {
   module.exports.plugins.push(
     new webpack.optimize.OccurrenceOrderPlugin(),
