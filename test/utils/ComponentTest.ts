@@ -5,7 +5,7 @@ export class ComponentTest<TController> {
     public element: ng.IAugmentedJQuery;
     public scope: ng.IScope;
     public isoScope: ng.IScope;
-    public document: any;
+    public rawElement: any;
     private rootScope: ng.IScope;
     private compile: ng.ICompileService;
 
@@ -26,6 +26,6 @@ export class ComponentTest<TController> {
         this.element = this.compile(this.template)(this.scope);
         this.scope.$digest();
         this.isoScope = this.element.isolateScope();
-        this.document = this.element[0];
+        this.rawElement = this.element[0];
     }
 }

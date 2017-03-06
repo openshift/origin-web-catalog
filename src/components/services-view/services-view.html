@@ -9,9 +9,9 @@
     <h1>Catalog</h1>
 
     <div class="services-categories">
-      <a ng-class="{'current-filter': $ctrl.currentFilter === 'all'}" ng-click="$ctrl.filterByCategory('all', 'all', true)">All</a> |
+      <a id="category-all" ng-class="{'current-filter': $ctrl.currentFilter === 'all'}" ng-click="$ctrl.filterByCategory('all', 'all', true)">All</a> |
       <span ng-repeat="category in $ctrl.categories">
-        <a ng-class="{'current-filter': $ctrl.currentFilter === category.id}"
+        <a id="{{'category-'+category.id}}" ng-class="{'current-filter': $ctrl.currentFilter === category.id}"
            ng-click="$ctrl.filterByCategory(category.id, 'all', true)">{{category.label}}</a>
            {{$ctrl.categories.length !== ($index+1) ? ' | ' : ''}}
       </span>
@@ -21,6 +21,7 @@
       <div ng-repeat="subCategoryRow in $ctrl.subCategories">
         <div class="services-sub-categories">
           <div ng-repeat="subCategory in subCategoryRow"
+               id="{{'sub-category-'+subCategory.id}}"
                class="card" ng-class="{'current-filter': $ctrl.currentSubFilter === subCategory.id}"
                ng-click="$ctrl.filterByCategory($ctrl.currentFilter, subCategory.id, false)">
             <div class="inner-content">
