@@ -120,6 +120,7 @@
 }
 .services-view-container {
   padding-left: 0px;
+  background-color: #d1d1d1;
 }
 .services-view-container .sub-category-row {
   overflow-y: auto;
@@ -147,6 +148,13 @@
 }
 .services-view-container .services-categories a {
   cursor: pointer;
+}
+.services-view-container .services-sub-category-rows {
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+.services-view-container .services-sub-category-rows .services-sub-categories:last-child {
+  margin-bottom: 0px;
 }
 .services-view-container .services-sub-categories {
   font-size: 16px;

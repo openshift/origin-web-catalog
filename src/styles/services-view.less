@@ -24,6 +24,7 @@
 
 .services-view-container {
   padding-left: 0px;
+  background-color: @color-pf-black-300;
 
   .sub-category-row {
     overflow-y: auto;
@@ -61,6 +62,10 @@
   .services-sub-category-rows {
     overflow-x: auto;
     overflow-y: hidden;
+
+    .services-sub-categories:last-child {
+      margin-bottom: 0px;
+    }
   }
 
   .services-sub-categories {
