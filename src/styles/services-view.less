@@ -24,7 +24,6 @@
 
 .services-view-container {
   padding-left: 0px;
-  background-color: @color-pf-black-300;
 
   .sub-category-row {
     overflow-y: auto;
@@ -77,10 +76,11 @@
     align-items: center;
 
     .card {
-      background-color: @color-pf-black-200;
+      background-color: @color-pf-black-100;
       border-top: 1px solid @color-pf-black-400;
       border-left: 1px solid @color-pf-black-400;
       border-right: 1px solid @color-pf-black-400;
+      border-bottom: 1px solid @color-pf-black-400;
       padding: 6px;
       margin: 8px;
       cursor: pointer;
@@ -99,6 +99,7 @@
 
       &.current-filter {
         background-color: @color-pf-white;
+        border-bottom: none;
         border: none;
         cursor: default;
         color: inherit;

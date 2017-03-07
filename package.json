@@ -35,7 +35,7 @@
     "angular-ui-bootstrap": "0.14.x",
     "bootstrap": "^3.3.6",
     "font-awesome": "^4.6.1",
-    "origin-web-common": "^0.0.2",
+    "origin-web-common": "^0.0.5",
     "paper-css": "^0.1.2",
     "patternfly": "3.20.0",
     "jquery": "~2.1.4"
