@@ -24,7 +24,7 @@
     </div>
     <div class="snap-container snap-down">
       <span class="spacer"></span>
-      <a href="#" class="fa fa-arrow-circle-o-down fa-3x" ng-click="$ctrl.snapDown()"></a>
+      <a href="#" class="fa fa-arrow-circle-o-down fa-3x" ng-click="$ctrl.snapDown($event)"></a>
       <span class="spacer"></span>
     </div>
     <div class="landing-body-area">
@@ -34,6 +34,6 @@
   <div class="landing-side-bar" ng-transclude="sidebar">
   </div>
   <div class="snap-container snap-up" ng-class="{'scrolled-down': $ctrl.showSnapDown}">
-    <a href="#" class="fa fa-arrow-circle-o-up fa-3x" ng-click="$ctrl.snapUp()"></a>
+    <a href="#" class="fa fa-arrow-circle-o-up fa-3x" ng-click="$ctrl.snapUp($event)"></a>
   </div>
 </div>

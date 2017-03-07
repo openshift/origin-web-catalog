@@ -22,7 +22,15 @@ var isProd = ENV.indexOf('build') != -1;
 
 var prodEntry = {
   'origin-web-catalogs': './src/index.ts',
-  'vendor-bundle': ['angular', 'angular-animate', 'angular-patternfly', 'bootstrap', 'jquery', 'lodash']
+};
+
+var prodExternals = {
+  'angular': 'angular',
+  'angular-patternfly': 'angular-patternfly',
+  'patternfly': 'patternfly',
+  'bootstrap': 'bootstrap',
+  'jquery': 'jquery',
+  'lodash': 'lodash'
 };
 
 var serverEntry = {
@@ -110,6 +118,8 @@ module.exports = {
 
 
 module.exports.entry = isProd ? prodEntry : serverEntry;
+
+module.exports.externals = isProd ? prodExternals : {};
 
 /**
  * Plugins
