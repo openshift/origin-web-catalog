@@ -1,14 +1,17 @@
 <landing-page search-placeholder="Search Catalog">
-  <headerarea>
-    <h1>What Do You Want to Build?</h1>
-    <rh-apps-list ng-if="!$ctrl.loading" services="$ctrl.services" applications="$ctrl.applications"></rh-apps-list>
-  </headerarea>
-  <bodyarea>
+  <landingheader>
+    <div class="build-applications-view">
+      <h1>What Do You Want to Build?</h1>
+      <rh-apps-list ng-if="!$ctrl.loading" services="$ctrl.services" applications="$ctrl.applications"></rh-apps-list>
+      </div>
+    </div>
+  </landingheader>
+  <landingbody>
     <services-view ng-if="!$ctrl.loading" services="$ctrl.services" categories="$ctrl.categories"></services-view>
-  </bodyarea>
-  <sidebar>
+  </landingbody>
+  <landingside>
     <div class="my-projects-view">
       <img src="../../assets/img/MyProjects.png" style="height: 875px;">
     </div>
-  </sidebar>
+  </landingside>
 </landing-page>

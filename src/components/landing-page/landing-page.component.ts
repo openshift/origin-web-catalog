@@ -9,8 +9,8 @@ export const landingPage: angular.IComponentOptions = {
   controller: LandingPageController,
   template: require('./landing-page.html'),
   transclude: {
-    headerarea: 'headerarea',
-    bodyarea: 'bodyarea',
-    sidebar: 'sidebar',
+    'landingheader': 'landingheader',
+    'landingbody': 'landingbody',
+    'landingside': 'landingside',
   }
 };

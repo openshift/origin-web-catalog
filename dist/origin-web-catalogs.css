@@ -1,6 +1,5 @@
 .landing-page-container {
   background-color: #ededed;
-  position: fixed;
   top: 60px;
   bottom: 0;
   display: flex;
@@ -32,7 +31,7 @@
   position: fixed;
   right: 320px;
   top: 60px;
-  z-index: 1030;
+  z-index: calc(1029);
 }
 .container-pf-nav-pf-vertical .landing-search-area {
   left: 200px;
@@ -70,6 +69,8 @@
 }
 .snap-container.snap-down {
   display: flex;
+  margin-top: 10px;
+  margin-bottom: -20px;
   width: 100%;
 }
 .snap-container.snap-down .spacer {
@@ -80,7 +81,7 @@
   position: fixed;
   top: 10px;
   left: 50%;
-  margin-left: 60px;
+  margin-left: -150px;
   z-index: 1050;
   display: none;
 }
@@ -444,4 +445,51 @@
 }
 .center {
   text-align: center;
+}
+.red-hat-apps-container {
+  background: #ededed;
+  padding-left: 0px;
+}
+.red-hat-apps-container .card-view-pf {
+  padding-left: 21px;
+}
+.red-hat-apps-container .card-view-pf .card-content {
+  background-color: #fff;
+  cursor: pointer;
+}
+.red-hat-apps-container .card-view-pf .card {
+  height: 200px;
+  width: 260px;
+  cursor: pointer;
+  text-align: inherit;
+}
+.red-hat-apps-container .card-container {
+  padding: 6px;
+}
+.red-hat-apps-container .card-container .card-header {
+  display: table;
+  height: 70px;
+}
+.red-hat-apps-container .card-container .card-header .card-icon {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+  width: 40px;
+  font-size: 24px;
+}
+.red-hat-apps-container .card-container .card-header .card-icon.fa.fa-mobile {
+  font-size: 32px;
+}
+.red-hat-apps-container .card-container .card-header .card-title {
+  vertical-align: middle;
+  display: table-cell;
+  padding-left: 8px;
+}
+.red-hat-apps-container .card-container .card-footer {
+  display: table-cell;
+  height: 80px;
+  vertical-align: middle;
+}
+.red-hat-apps-container .card-container .card-footer .card-description {
+  font-size: 14px;
 }

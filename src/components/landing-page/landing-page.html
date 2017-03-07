@@ -1,26 +1,26 @@
 <div class="landing-page-container">
-  <div class="landing-main-area">
-    <div class="landing-search-area">
-      <form role="form" class="landing-search-form search-pf has-button">
-        <div class="form-group has-clear">
-          <div class="search-pf-input-group">
-            <label for="search1" class="sr-only">{{$ctrl.searchPlaceholder}}</label>
-            <input id="search1" type="search" class="form-control" placeholder="{{$ctrl.searchPlaceholder}}" ng-model="$ctrl.searchText" ng-keypress="($event.charCode==13)? $ctrl.onSearchButtonClick() : return">
-            <button type="button" ng-if="$ctrl.searchText" class="clear" aria-hidden="true">
+  <div class="landing-search-area">
+    <form role="form" class="landing-search-form search-pf has-button">
+      <div class="form-group has-clear">
+        <div class="search-pf-input-group">
+          <label for="search1" class="sr-only">{{$ctrl.searchPlaceholder}}</label>
+          <input id="search1" type="search" class="form-control" placeholder="{{$ctrl.searchPlaceholder}}" ng-model="$ctrl.searchText" ng-keypress="($event.charCode==13)? $ctrl.onSearchButtonClick() : return">
+          <button type="button" ng-if="$ctrl.searchText" class="clear" aria-hidden="true">
               <span class="pficon pficon-close">
               </span>
-            </button>
-          </div>
-        </div>
-        <div class="form-group">
-          <button class="btn btn-default" type="button">
-            <span class="fa fa-search"  ng-click="$ctrl.onSearchButtonClick()">
-            </span>
           </button>
         </div>
-      </form>
-    </div>
-    <div class="landing-header-area" ng-transclude="headerarea">
+      </div>
+      <div class="form-group">
+        <button class="btn btn-default" type="button">
+            <span class="fa fa-search"  ng-click="$ctrl.onSearchButtonClick()">
+            </span>
+        </button>
+      </div>
+    </form>
+  </div>
+  <div class="landing-main-area">
+    <div class="landing-header-area" ng-transclude="landingheader">
     </div>
     <div class="snap-container snap-down">
       <span class="spacer"></span>
@@ -28,10 +28,10 @@
       <span class="spacer"></span>
     </div>
     <div class="landing-body-area">
-      <div ng-transclude="bodyarea"></div>
+      <div ng-transclude="landingbody"></div>
     </div>
   </div>
-  <div class="landing-side-bar" ng-transclude="sidebar">
+  <div class="landing-side-bar" ng-transclude="landingside">
   </div>
   <div class="snap-container snap-up" ng-class="{'scrolled-down': $ctrl.showSnapDown}">
     <a href="#" class="fa fa-arrow-circle-o-up fa-3x" ng-click="$ctrl.snapUp($event)"></a>

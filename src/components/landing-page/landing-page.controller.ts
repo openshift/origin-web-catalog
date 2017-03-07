@@ -8,8 +8,10 @@ export class LandingPageController implements angular.IController {
   private $scope: any;
   private $element: any;
   private $window: any;
+  private useScrollElement: boolean = false;
+  private scrollElement: any;
   private scrollOptions : any;
-  private snapToPosition : any;
+  private snapElement : any;
 
   constructor($scope: any, $element: any, $window: any) {
     this.$scope = $scope;
@@ -18,8 +20,6 @@ export class LandingPageController implements angular.IController {
   }
 
   public $onInit() {
-    var _this: any = this;
-
     this.ctrl.searchText = '';
     this.scrollOptions = {
       speed: 1000,
@@ -28,18 +28,22 @@ export class LandingPageController implements angular.IController {
       cancelOnUserAction: true
     };
     this.ctrl.showSnapDown = false;
-    angular.element(this.$window).bind('scroll', function(e: any) {
-      _this.onScrollChange(e);
-    });
-    angular.element(this.$window).bind('resize', function(e: any) {
-      _this.onWindowResize(e);
-    });
   }
 
   public $postLink() {
-    var bodyArea = this.$element[0].querySelector('.landing-body-area');
-    this.snapToPosition = bodyArea.offsetTop;
-    angular.element(bodyArea).css('min-height', this.$window.innerHeight + 'px');
+    this.snapElement = this.$element[0].querySelector('.landing-body-area');
+
+    this.scrollElement = this.getScrollParent(this.snapElement, null);
+    this.useScrollElement = this.scrollElement.parentElement !== null;
+
+    if (this.useScrollElement) {
+      angular.element(this.scrollElement).bind('scroll', this.onScrollChange);
+    } else {
+      angular.element(this.$window).bind('scroll', this.onScrollChange);
+    }
+
+    angular.element(this.snapElement).css('min-height', this.$window.innerHeight + 'px');
+    angular.element(this.$window).bind('resize', this.onWindowResize);
   }
 
   public $onDestroy() {
@@ -47,12 +51,20 @@ export class LandingPageController implements angular.IController {
     angular.element(this.$window).unbind('resize', this.onWindowResize);
   }
 
-  public snapDown() {
-    animateScrollTo(this.snapToPosition, this.scrollOptions);
+  public snapDown(event: any) {
+    if (this.useScrollElement) {
+      this.scrollElementTo(this.snapElement.offsetTop);
+    } else {
+      animateScrollTo(this.snapElement.offsetTop, this.scrollOptions);
+    }
   }
 
-  public snapUp() {
-    animateScrollTo(0, this.scrollOptions);
+  public snapUp(event: any) {
+    if (this.useScrollElement) {
+      this.scrollElementTo(0);
+    } else {
+      animateScrollTo(0, this.scrollOptions);
+    }
   }
 
   public onSearchButtonClick() {
@@ -69,13 +81,65 @@ export class LandingPageController implements angular.IController {
     // console.log('$doCheck');
   }
 
-  private onScrollChange(event: any) {
-    this.ctrl.showSnapDown = event.srcElement.scrollingElement.scrollTop >= this.snapToPosition;
-    this.$scope.$apply();
+  private onWindowResize = (event: any) => {
+    angular.element(this.snapElement).css('min-height', this.$window.innerHeight + 'px');
+  };
+
+  private  getScrollParent(node: any, prev: any) {
+    if (node === null) {
+      return prev;
+    }
+
+    if (node.scrollHeight > node.clientHeight) {
+      return this.getScrollParent(node.parentNode, node);
+    } else {
+      return this.getScrollParent(node.parentNode, prev);
+    }
   }
 
-  private onWindowResize(event: any) {
-    var bodyArea = this.$element[0].querySelector('.landing-body-area');
-    angular.element(bodyArea).css('min-height', this.$window.innerHeight + 'px');
+  private scrollElementTo(newScroll: any) {
+    var currentScroll: number = this.scrollElement.scrollTop;
+    var cosParameter: number = Math.abs(currentScroll - newScroll) / 2;
+    var scrollCount: number = 0;
+    var oldTimestamp: number = performance.now();
+    var scrollUp: boolean = newScroll < currentScroll;
+
+    var step = (newTimestamp: any) => {
+      var delta: number;
+      var scrollTop: number;
+
+      scrollCount += Math.PI / ((0.5 * 1000) / (newTimestamp - oldTimestamp));
+      if (scrollCount >= Math.PI) {
+        this.scrollElement.scrollTop = newScroll;
+      }
+
+      if (this.scrollElement.scrollTop === newScroll) {
+        return;
+      }
+
+      delta = Math.round(cosParameter + cosParameter * Math.cos(scrollCount));
+
+      if (scrollUp) {
+        scrollTop = delta;
+      } else {
+        scrollTop = newScroll - delta;
+      }
+
+      this.scrollElement.scrollTop = scrollTop;
+
+      oldTimestamp = newTimestamp;
+      this.$window.requestAnimationFrame(step);
+    };
+    this.$window.requestAnimationFrame(step);
   }
+
+  private onScrollChange = (event: any) => {
+    if (this.useScrollElement) {
+      this.ctrl.showSnapDown = this.scrollElement.scrollTop >= this.snapElement.offsetTop;
+    } else {
+      this.ctrl.showSnapDown = event.srcElement.scrollingElement.scrollTop >= this.snapElement.offsetTop;
+    }
+
+    this.$scope.$apply();
+  };
 }

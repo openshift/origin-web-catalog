@@ -2,7 +2,6 @@
 
 .landing-page-container {
   background-color: @color-pf-black-200;
-  position : fixed;
   top: @navbar-pf-height;
   bottom: 0;
   display: flex;
@@ -43,7 +42,7 @@
   position : fixed;
   right: @sidebar-width;
   top: @navbar-pf-height;
-  z-index: @zindex-navbar-fixed;
+  z-index: calc(@zindex-navbar-fixed - 1);
 
   .container-pf-nav-pf-vertical & {
     left: @nav-pf-vertical-width;
@@ -92,6 +91,8 @@
 
   &.snap-down {
     display: flex;
+    margin-top: 10px;
+    margin-bottom: -20px;
     width: 100%;
 
     .spacer {
@@ -104,7 +105,7 @@
     position: fixed;
     top: 10px;
     left: 50%;
-    margin-left: 60px;
+    margin-left: -150px;
     z-index: 1050;
     display: none;
 

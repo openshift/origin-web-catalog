@@ -31,15 +31,15 @@
     "angular-drag-and-drop-lists": "2.0.0",
     "angular-patternfly": "3.20.0",
     "angular-sanitize": "^1.5.3",
-    "angular-ui-router": "1.0.0-beta.1",
     "angular-ui-bootstrap": "0.14.x",
-    "animated-scroll-to": "1.0.1",
+    "angular-ui-router": "1.0.0-beta.1",
+    "animated-scroll-to": "^1.0.1",
     "bootstrap": "^3.3.6",
     "font-awesome": "^4.6.1",
+    "jquery": "~2.1.4",
     "origin-web-common": "^0.0.5",
     "paper-css": "^0.1.2",
-    "patternfly": "3.20.0",
-    "jquery": "~2.1.4"
+    "patternfly": "3.20.0"
   },
   "devDependencies": {
     "@types/angular": "^1.5.16",
