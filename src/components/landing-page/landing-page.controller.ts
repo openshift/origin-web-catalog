@@ -32,22 +32,24 @@ export class LandingPageController implements angular.IController {
 
   public $postLink() {
     this.snapElement = this.$element[0].querySelector('.landing-body-area');
+    angular.element(this.snapElement).css('min-height', this.$window.innerHeight + 'px');
 
     this.scrollElement = this.getScrollParent(this.snapElement, null);
     this.useScrollElement = this.scrollElement.parentElement !== null;
 
     if (this.useScrollElement) {
-      angular.element(this.scrollElement).bind('scroll', this.onScrollChange);
+      angular.element(this.scrollElement).scroll(this.onScrollChange);
     } else {
       angular.element(this.$window).bind('scroll', this.onScrollChange);
     }
 
-    angular.element(this.snapElement).css('min-height', this.$window.innerHeight + 'px');
     angular.element(this.$window).bind('resize', this.onWindowResize);
   }
 
   public $onDestroy() {
-    angular.element(this.$window).unbind('scroll', this.onScrollChange);
+    if (!this.useScrollElement) {
+      angular.element(this.$window).unbind('scroll', this.onScrollChange);
+    }
     angular.element(this.$window).unbind('resize', this.onWindowResize);
   }
 

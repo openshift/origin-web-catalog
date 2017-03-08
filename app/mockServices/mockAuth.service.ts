@@ -25,7 +25,7 @@ export class AuthService implements IAuthService {
       kind: 'User',
       metadata: {
         creationTimestamp: '2017-02-28T13:54:53Z',
-        name: 'dev',
+        name: 'mock developer',
         resourceVersion: '1127',
         selfLink: '/oapi/v1/usersdev',
         uid: '7afe3d30-fdbd-11e6-a552-080027242396'

@@ -174,7 +174,7 @@ if (!isTest) {
 if (isProd) {
   module.exports.plugins.push(
     new webpack.optimize.OccurrenceOrderPlugin(),
-    new webpack.NoErrorsPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
     new CopyWebpackPlugin([
       {from: __dirname + '/assets'}
     ])
