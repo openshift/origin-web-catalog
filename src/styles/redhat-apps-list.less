@@ -1,0 +1,56 @@
+.red-hat-apps-container {
+  background: @color-pf-black-200;
+  padding-left: 0px;
+
+  .card-view-pf {
+    padding-left: 21px;
+  }
+
+  .card-view-pf .card-content {
+    background-color: @color-pf-white;
+    cursor: pointer;
+  }
+
+  .card-view-pf .card {
+    height: 200px;
+    width: 260px;
+    cursor: pointer;
+    text-align: inherit;
+  }
+
+  .card-container {
+    padding: 6px;
+
+    .card-header {
+      display: table;
+      height: 70px;
+
+      .card-icon {
+        display: table-cell;
+        vertical-align: middle;
+        text-align: center;
+        width: 40px;
+        font-size: 24px;
+
+        &.fa.fa-mobile {
+          font-size: 32px;
+        }
+      }
+      .card-title {
+        vertical-align: middle;
+        display: table-cell;
+        padding-left: 8px;
+      }
+    }
+    .card-footer {
+      display: table-cell;
+      height: 80px;
+      vertical-align: middle;
+
+      .card-description {
+        font-size: 14px;
+      }
+    }
+  }
+}
+

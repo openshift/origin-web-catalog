@@ -1,0 +1,21 @@
+<div class="catalogs-projects-summary-panel">
+  <button class="create-button btn btn-primary">
+    <span class="fa fa-plus"></span>
+    <span class="create-button-text">Create Project</span>
+  </button>
+  <h2>Getting Started</h2>
+  <div class="getting-started-panel">
+    {{$ctrl.gettingStartedText}}
+  </div>
+  <h3>Resources</h3>
+  <span>
+    {{$ctrl.resourcesText}}
+  </span>
+  <div class="resources-panel">
+    <ul>
+      <li ng-repeat="resource in $ctrl.resources">
+        {{resource.text}}
+      </li>
+    </ul>
+  </div>
+</div>

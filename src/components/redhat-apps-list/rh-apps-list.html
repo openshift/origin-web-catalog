@@ -1,0 +1,13 @@
+<span class="red-hat-apps-container">
+  <div pf-card-view config="$ctrl.cardViewConfig" items="$ctrl.applications">
+    <div class="card-container">
+      <div class="card-header">
+        <span class="card-icon {{item.icon}}"></span>
+        <span class="card-title">{{item.title}}</span>
+      </div>
+      <div class="card-footer">
+        <div class="card-description">{{item.description}}</div>
+      </div>
+    </div>
+  </div>
+</span>
