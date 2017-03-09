@@ -21,7 +21,7 @@ module.exports = function karmaConfig(config) {
     webpack:webpackConfig,
 
     browsers: [
-      'Chrome'
+      'Firefox'
     ],
 
     singleRun: true,
@@ -44,6 +44,7 @@ module.exports = function karmaConfig(config) {
       require('karma-jasmine'),
       require('karma-spec-reporter'),
       require('karma-phantomjs-launcher'),
+      require('karma-firefox-launcher'),
       require('karma-chrome-launcher'),
       require('karma-coverage')
     ]

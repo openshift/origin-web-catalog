@@ -12,8 +12,8 @@
     "angular-sanitize": "1.5.11",
     "angular-route": "1.5.11",
     "angular-bootstrap": "0.14.3",
-    "angular-patternfly": "3.20.0",
-    "patternfly": "3.20.0",
+    "angular-patternfly": "3.21.0",
+    "patternfly": "3.21.0",
     "jquery": "2.1.4",
     "lodash": "3.10.1",
     "origin-web-common": "0.0.5"
@@ -60,7 +60,7 @@
     }
   },
   "resolutions": {
-    "patternfly": "~3.20.0",
+    "patternfly": "~3.21.0",
     "jquery": "2.1.4"
   }
 }
