@@ -19,7 +19,7 @@ export class OrderServiceController implements angular.IController {
 
     let details = this.mockService.getServiceDetails(this.ctrl.service.id);
     this.ctrl.versions = details.versions;
-    this.ctrl.selectedVersion = details.versions[0];
+    this.ctrl.selectedVersion = details.versions ? details.versions[0] : '';
     this.ctrl.descTitle = details.descTitle;
     this.ctrl.description = details.description;
 

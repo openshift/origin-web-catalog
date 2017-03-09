@@ -1,0 +1,73 @@
+@keyframes simpleSlideUp {
+  0% {
+    margin-top: 0%;
+    opacity: 1;
+  }
+  100% {
+    margin-top: -50%;
+    opacity: 0;
+  }
+}
+@keyframes simpleSlideDown {
+  0% {
+    margin-top: -50%;
+  }
+  100% {
+    margin-top: 0%;
+    opacity: 1;
+  }
+}
+
+.catalogs-overlay-modal.modal {
+  display: block;
+}
+
+.catalogs-overlay-panel {
+  background: white;
+  border: 1px solid @color-pf-black-400;
+  height: 50%;
+  left: 20px;
+  position: fixed;
+  padding: 20px;
+  right: 20px;
+  top: @navbar-pf-height;
+  z-index: 1080;
+
+  .container-pf-nav-pf-vertical & {
+    left: calc(@nav-pf-vertical-width + 20px);
+  }
+  .container-pf-nav-pf-vertical.collapsed-nav & {
+    left: calc(@nav-pf-vertical-collapsed-width + 20px);
+  }
+  &.ng-enter {
+    animation: simpleSlideDown 1s ease forwards;
+  }
+  &.ng-leave {
+    animation: simpleSlideUp 1s ease forwards;
+  }
+}
+.catalogs-overlay-panel-close {
+  font-size: 21px;
+  float: right;
+  cursor: pointer;
+  color: @color-pf-black-600;
+
+  &.pficon-close {
+    color: @color-pf-black-600;
+    cursor: pointer;
+  }
+  &.pficon-close.disabled, .pficon-close:hover.disabled  {
+    color: @color-pf-black-400;
+    cursor: not-allowed;
+  }
+  &.pficon-close:hover {
+    color: @color-pf-black-800;
+  }
+}
+
+.catalogs-overlay-panel-body {
+  height: 100%;
+  margin: auto 0;
+  padding: 0 20px;
+  width: 98%;
+}

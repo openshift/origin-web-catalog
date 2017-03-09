@@ -1,9 +1,8 @@
 <div class="services-view">
 
-  <div ng-if="$ctrl.orderingPanelvisible" class="service-ordering-container">
-    <a ng-click="$ctrl.closeOrderingPanel()"><span class="ordering-panel-close pficon pficon-close"></span></a>
+  <overlay-panel ng-if="$ctrl.orderingPanelvisible" show-close="true" close-on-emit="cancelOrder" handle-close="$ctrl.closeOrderingPanel">
     <order-service service="$ctrl.serviceToOrder"></order-service>
-  </div>
+  </overlay-panel>
 
   <div class="services-view-container">
     <h1>Catalog</h1>

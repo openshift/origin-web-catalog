@@ -50,7 +50,7 @@
     "@types/jquery": "^2.0.33",
     "@types/lodash": "^4.14.52",
     "@types/node": "^0.0.2",
-    "angular-mocks": "^1.5.0-beta.2",
+    "angular-mocks": "1.5.11",
     "autoprefixer": "^6.0.3",
     "babel-core": "^6.2.1",
     "babel-loader": "^6.2.0",
@@ -97,7 +97,7 @@
     "tslint-loader": "^2.1.0",
     "typescript": "^2.1.0",
     "url-loader": "^0.5.7",
-    "webpack": "^2.2.0",
+    "webpack": "2.2.0",
     "webpack-dev-server": "^2.3.0",
     "webpack-merge": "^3.0.0"
   }

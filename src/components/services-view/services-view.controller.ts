@@ -76,7 +76,7 @@ export class ServicesViewController implements angular.IController {
     this.ctrl.orderingPanelvisible = true;
   };
 
-  public closeOrderingPanel() {
+  public closeOrderingPanel = () => {
     this.ctrl.orderingPanelvisible = false;
   };
 

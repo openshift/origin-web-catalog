@@ -2,21 +2,23 @@ import * as angular from 'angular';
 import animateScrollTo from 'animated-scroll-to';
 
 export class LandingPageController implements angular.IController {
-  static $inject = ['$scope', '$element', '$window'];
+  static $inject = ['$scope', '$element', '$window', '$timeout'];
 
   public ctrl: any = this;
   private $scope: any;
   private $element: any;
   private $window: any;
+  private $timeout: any;
   private useScrollElement: boolean = false;
   private scrollElement: any;
   private scrollOptions : any;
   private snapElement : any;
 
-  constructor($scope: any, $element: any, $window: any) {
+  constructor($scope: any, $element: any, $window: any, $timeout: any) {
     this.$scope = $scope;
     this.$element = $element;
     this.$window = $window;
+    this.$timeout = $timeout;
   }
 
   public $onInit() {
@@ -34,16 +36,8 @@ export class LandingPageController implements angular.IController {
     this.snapElement = this.$element[0].querySelector('.landing-body-area');
     angular.element(this.snapElement).css('min-height', this.$window.innerHeight + 'px');
 
-    this.scrollElement = this.getScrollParent(this.snapElement, null);
-    this.useScrollElement = this.scrollElement.parentElement !== null;
-
-    if (this.useScrollElement) {
-      angular.element(this.scrollElement).scroll(this.onScrollChange);
-    } else {
-      angular.element(this.$window).bind('scroll', this.onScrollChange);
-    }
-
-    angular.element(this.$window).bind('resize', this.onWindowResize);
+    // Take a moment to let the scrolling elements work themselves out
+    this.$timeout(this.setupScrolling, 100);
   }
 
   public $onDestroy() {
@@ -82,6 +76,19 @@ export class LandingPageController implements angular.IController {
   public $doCheck() {
     // console.log('$doCheck');
   }
+
+  private setupScrolling = () => {
+    this.scrollElement = this.getScrollParent(this.snapElement, null);
+    this.useScrollElement = this.scrollElement.parentElement !== null;
+
+    if (this.useScrollElement) {
+      angular.element(this.scrollElement).scroll(this.onScrollChange);
+    } else {
+      angular.element(this.$window).bind('scroll', this.onScrollChange);
+    }
+
+    angular.element(this.$window).bind('resize', this.onWindowResize);
+  };
 
   private onWindowResize = (event: any) => {
     angular.element(this.snapElement).css('min-height', this.$window.innerHeight + 'px');

@@ -1,3 +1,72 @@
+@keyframes simpleSlideUp {
+  0% {
+    margin-top: 0%;
+    opacity: 1;
+  }
+  100% {
+    margin-top: -50%;
+    opacity: 0;
+  }
+}
+@keyframes simpleSlideDown {
+  0% {
+    margin-top: -50%;
+  }
+  100% {
+    margin-top: 0%;
+    opacity: 1;
+  }
+}
+.catalogs-overlay-modal.modal {
+  display: block;
+}
+.catalogs-overlay-panel {
+  background: white;
+  border: 1px solid #bbb;
+  height: 50%;
+  left: 20px;
+  position: fixed;
+  padding: 20px;
+  right: 20px;
+  top: 60px;
+  z-index: 1080;
+}
+.container-pf-nav-pf-vertical .catalogs-overlay-panel {
+  left: calc(220px);
+}
+.container-pf-nav-pf-vertical.collapsed-nav .catalogs-overlay-panel {
+  left: calc(95px);
+}
+.catalogs-overlay-panel.ng-enter {
+  animation: simpleSlideDown 1s ease forwards;
+}
+.catalogs-overlay-panel.ng-leave {
+  animation: simpleSlideUp 1s ease forwards;
+}
+.catalogs-overlay-panel-close {
+  font-size: 21px;
+  float: right;
+  cursor: pointer;
+  color: #72767b;
+}
+.catalogs-overlay-panel-close.pficon-close {
+  color: #72767b;
+  cursor: pointer;
+}
+.catalogs-overlay-panel-close.pficon-close.disabled,
+.catalogs-overlay-panel-close .pficon-close:hover.disabled {
+  color: #bbb;
+  cursor: not-allowed;
+}
+.catalogs-overlay-panel-close.pficon-close:hover {
+  color: #393f44;
+}
+.catalogs-overlay-panel-body {
+  height: 100%;
+  margin: auto 0;
+  padding: 0 20px;
+  width: 98%;
+}
 .landing-page-container {
   background-color: #ededed;
   top: 60px;
@@ -98,25 +167,6 @@
 .snap-container a:focus {
   outline: none;
   text-decoration: none;
-}
-@keyframes simpleSlideUp {
-  0% {
-    margin-top: 0%;
-    opacity: 1;
-  }
-  100% {
-    margin-top: -50%;
-    opacity: 0;
-  }
-}
-@keyframes simpleSlideDown {
-  0% {
-    margin-top: -50%;
-  }
-  100% {
-    margin-top: 0%;
-    opacity: 1;
-  }
 }
 .services-view {
   width: 100%;
@@ -240,47 +290,6 @@
   font-size: 16px;
   display: table-cell;
   vertical-align: middle;
-}
-.service-ordering-container {
-  background: white;
-  border: 1px solid #bbb;
-  height: 50%;
-  position: fixed;
-  padding: 20px;
-  top: 60px;
-  left: 20px;
-  right: 20px;
-  z-index: 1080;
-}
-.container-pf-nav-pf-vertical .service-ordering-container {
-  left: calc(220px);
-}
-.container-pf-nav-pf-vertical.collapsed-nav .service-ordering-container {
-  left: calc(95px);
-}
-.service-ordering-container.ng-enter {
-  animation: simpleSlideDown 1s ease forwards;
-}
-.service-ordering-container.ng-leave {
-  animation: simpleSlideUp 1s ease forwards;
-}
-.service-ordering-container .ordering-panel-close {
-  font-size: 21px;
-  float: right;
-  cursor: pointer;
-  color: #72767b;
-}
-.service-ordering-container .ordering-panel-close.pficon-close {
-  color: #72767b;
-  cursor: pointer;
-}
-.service-ordering-container .ordering-panel-close.pficon-close.disabled,
-.service-ordering-container .ordering-panel-close .pficon-close:hover.disabled {
-  color: #bbb;
-  cursor: not-allowed;
-}
-.service-ordering-container .ordering-panel-close.pficon-close:hover {
-  color: #393f44;
 }
 .order-service .container {
   height: 100%;
