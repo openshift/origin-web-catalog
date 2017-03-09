@@ -1,3 +1,24 @@
 @import '~bootstrap/less/variables.less';
 @import '~patternfly/dist/less/color-variables.less';
 @import '~patternfly/dist/less/variables.less';
+
+@keyframes simpleSlideUp {
+  0% {
+    margin-top: 0%;
+    opacity: 1;
+  }
+  100% {
+    margin-top: -50%;
+    opacity: 0;
+  }
+}
+@keyframes simpleSlideDown {
+  0% {
+    margin-top: -50%;
+  }
+  100% {
+    margin-top: 0%;
+    opacity: 1;
+  }
+}
+

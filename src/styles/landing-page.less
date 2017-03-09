@@ -1,30 +1,40 @@
 @sidebar-width: 320px;
 
+.landing-page {
+  background-color: @color-pf-black-200;
+}
+
 .landing-page-container {
   background-color: @color-pf-black-200;
-  top: @navbar-pf-height;
   bottom: 0;
   display: flex;
   flex-direction: column;
   height: 100%;
   min-height: 100%;
-  position: relative;
   overflow: visible;
+  position: relative;
+  top: @navbar-pf-height;
 
+  &.snap-up-shown {
+    padding-bottom: 40px;
+  }
 }
 
 .landing-main-area {
   margin: 15px @sidebar-width 15px 20px;
+  padding-right: 10px;
 }
 
 .landing-side-bar {
   background-color: @color-pf-black-200;
+  border-left: 1px solid @color-pf-black-400;
   position : fixed;
   top: @navbar-pf-height;
   bottom: 0;
   right: 0;
-  width: @sidebar-width;
-  padding-left: 20px;
+  width: calc(@sidebar-width - 20px);
+  padding: 0 20px;
+  margin: 10px;
 }
 
 .landing-header-area {
@@ -102,26 +112,35 @@
   }
 
   &.snap-up {
-    position: fixed;
-    top: 10px;
-    left: 50%;
-    margin-left: -150px;
-    z-index: 1050;
+    background-color: @color-pf-black-200;
+    bottom: 0;
     display: none;
-
-    .container-pf-nav-pf-vertical & {
-      margin-left: calc((-1 * (@nav-pf-vertical-width / 2)) + 30px);
-    }
-    .container-pf-nav-pf-vertical.collapsed-nav & {
-      margin-left: calc((-1 * (@nav-pf-vertical-collapsed-width / 2)) + 30px);
-    }
+    left: 0;
+    padding-bottom: 10px;
+    position: fixed;
+    right: 0;
+    z-index: 1030;
 
     &.scrolled-down {
-      display:inherit;
+      display: inherit;
+    }
+
+    .container-pf-nav-pf-vertical & {
+      left: @nav-pf-vertical-width;
+    }
+    .container-pf-nav-pf-vertical.collapsed-nav & {
+      left: @nav-pf-vertical-collapsed-width;
+    }
+
+    a {
+      position: relative;
+      left: 50%;
+      margin-left: calc(-1 * (@sidebar-width / 2));
     }
   }
 
   a {
+
     &:hover, &:focus {
       outline: none;
       text-decoration: none;
