@@ -1,4 +1,5 @@
 import * as angular from 'angular';
+import * as _ from 'lodash';
 
 export class ServicesViewController implements angular.IController {
   static $inject = ['$filter', '$scope'];
@@ -20,7 +21,7 @@ export class ServicesViewController implements angular.IController {
   }
 
   public $onInit() {
-    this.ctrl.origServices = this.ctrl.services.map(a => Object.assign({}, a, {ctrl: this}));  // clone
+    this.ctrl.origServices = this.ctrl.services.map(a => _.assign({}, a, {ctrl: this}));  // clone
     this.ctrl.currentFilter = 'all';
     this.ctrl.currentSubFilter = 'all';
     this.ctrl.filteredServices = this.ctrl.origServices;
