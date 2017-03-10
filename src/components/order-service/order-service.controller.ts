@@ -2,28 +2,22 @@ import * as angular from 'angular';
 
 export class OrderServiceController implements angular.IController {
 
-  static $inject = ['MockDataService', '$scope'];
+  static $inject = ['$scope'];
 
   public ctrl: any = this;
-  public mockService: any;
   public $scope: any;
 
-  constructor(mockDataService: any, $scope: any) {
-    this.mockService = mockDataService;
+  constructor($scope: any) {
     this.$scope = $scope;
   }
 
   public $onInit() {
-    this.ctrl.serviceIcon = this.ctrl.service.icon;
-    this.ctrl.serviceName = this.ctrl.service.name;
-
-    let details = this.mockService.getServiceDetails(this.ctrl.service.id);
-    this.ctrl.versions = details.versions;
-    this.ctrl.selectedVersion = details.versions ? details.versions[0] : '';
-    this.ctrl.descTitle = details.descTitle;
-    this.ctrl.description = details.description;
-
-    // let prices = this.mockService.getServicePrices(this.ctrl.service.id);
+    this.ctrl.serviceIcon = this.ctrl.service.imageURL ? this.ctrl.service.imageURL : 'pf pficon-service';
+    this.ctrl.serviceName = this.ctrl.service.displayName ? this.ctrl.service.displayName : this.ctrl.service.metadata.name;
+    this.ctrl.versions = this.ctrl.service.versions;
+    this.ctrl.selectedVersion = this.ctrl.service.versions[0];
+    this.ctrl.description = this.ctrl.service.description;
+    this.ctrl.longDescription = this.ctrl.service.longDescription;
 
     this.ctrl.steps = [ {id: 1, selected: true},
                         {id: 2},
@@ -51,8 +45,9 @@ export class OrderServiceController implements angular.IController {
     this.ctrl.currentStep.selected = true;
   }
 
-  public configureService (serviceLongDescription: string) {
-    this.ctrl.serviceLongDescription = serviceLongDescription;
+  public configureService (plan: any) {
+    // this.ctrl.selectedPlan = plan;
+    this.ctrl.serviceLongDescription = plan;
     this.gotoStep(this.ctrl.steps[1]);
   }
 

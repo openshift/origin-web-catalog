@@ -18,33 +18,50 @@ export class ServicesViewController implements angular.IController {
     };
     this.$filter = $filter;
     this.$scope = $scope;
+    this.ctrl.loading = true;
   }
 
   public $onInit() {
-    this.ctrl.origServices = this.ctrl.services.map(a => _.assign(a, {ctrl: this}));
     this.ctrl.currentFilter = 'all';
     this.ctrl.currentSubFilter = 'all';
-    this.ctrl.filteredServices = this.ctrl.origServices;
-    this.ctrl.categories = this.ctrl.categories;
-    this.ctrl.subCategories = this.getSubCategories('all');
     this.ctrl.expandSubCatRow = 0;
     this.ctrl.orderingPanelvisible = false;
+    this.ctrl.loading = _.isEmpty(this.ctrl.services);
+
+    this.updateAll();
 
     this.$scope.$on('cancelOrder', () => {
       this.ctrl.closeOrderingPanel();
     });
   }
 
+  public $onChanges(onChangesObj: angular.IOnChangesObject) {
+    if (onChangesObj.categories && !onChangesObj.categories.isFirstChange()) {
+      this.ctrl.categories = onChangesObj.categories.currentValue;
+      this.updateCategories();
+    }
+    if (onChangesObj.services && !onChangesObj.services.isFirstChange()) {
+      this.ctrl.services = onChangesObj.services.currentValue;
+      this.updateServices();
+      this.ctrl.loading = false;
+    }
+  }
+
   public filterByCategory(category: string, subCategory: string, updateSubCategories: boolean) {
     if (category === 'all' && subCategory === 'all') {
       this.ctrl.filteredServices = this.ctrl.origServices;
-    } else if (category !== 'all' && subCategory === 'all') {
-        this.ctrl.filteredServices = this.$filter('filter')(this.ctrl.origServices, {category: category}, true);
-    } else if (category === 'all' && subCategory !== 'all') {
-        this.ctrl.filteredServices = this.$filter('filter')(this.ctrl.origServices, {subCategory: subCategory}, true);
     } else {
-        this.ctrl.filteredServices = this.$filter('filter')(this.ctrl.origServices, {category: category, subCategory: subCategory}, true);
+      this.ctrl.filteredServices = this.$filter('filter')(this.ctrl.origServices, (service: any) => {
+        if (category !== 'all' && subCategory === 'all') {
+          return service.metadata.category === category;
+        } else if (category === 'all' && subCategory !== 'all') {
+          return service.metadata.subCategory === subCategory;
+        } else {
+          return  service.metadata.category === category && service.metadata.subCategory === subCategory;
+        }
+      });
     }
+
     if (updateSubCategories) {
       this.ctrl.subCategories = this.getSubCategories(category);
     }
@@ -81,12 +98,19 @@ export class ServicesViewController implements angular.IController {
     this.ctrl.orderingPanelvisible = false;
   };
 
-  public $onChanges(onChangesObj: angular.IOnChangesObject) {
-    // console.log('$onChanges' + JSON.stringify(onChangesObj));
+  private updateAll() {
+    this.updateCategories();
+    this.updateServices();
   }
 
-  public $doCheck() {
-    // console.log('$doCheck');
+  private updateServices() {
+    this.ctrl.origServices = this.normalizeServices();
+    this.ctrl.filteredServices = this.ctrl.origServices;
+  }
+
+  private updateCategories() {
+    this.ctrl.categories = this.ctrl.categories;
+    this.ctrl.subCategories = this.getSubCategories('all');
   }
 
   private makeRows(subCats: any) {
@@ -105,5 +129,15 @@ export class ServicesViewController implements angular.IController {
         }
       }
     }
+  }
+
+  private normalizeServices() {
+    let retSvcs = [];
+    _.each(this.ctrl.services, (service: any, key: string) => {
+        // each service needs a call back to 'this' class
+      _.assign(service, {ctrl: this});
+      retSvcs.push(service);
+    });
+    return retSvcs;
   }
 }

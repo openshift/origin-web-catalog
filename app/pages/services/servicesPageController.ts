@@ -1,33 +1,37 @@
-import {MockDataService} from '../../services/mockData.service';
+import {DataManager} from '../../services/dataManager.service';
 
 export class ServicesPageController {
 
-  static $inject = ['AuthService', 'MockDataService'];
+  static $inject = ['AuthService', 'DataManager', '$q'];
 
-  public authService: any;
-  public service: MockDataService;
-  public services: any;
   public ctrl: any = this;
+  private authService: any;
+  private dataManager: DataManager;
+  private $q : any;
 
-
-  constructor(AuthService: any, mockDataService: any) {
+  constructor(AuthService: any, dataManager: any, $q: any) {
     this.authService = AuthService;
-    this.service = mockDataService;
+    this.dataManager = dataManager;
+    this.$q = $q;
     this.ctrl.loading = false;
     this.ctrl.services = [];
     this.ctrl.categories = [];
   };
 
   public $onInit() {
-    var _this: any = this;
-    this.authService.withUser().then(function () {
-      _this.update();
+    this.authService.withUser().then(() => {
+      this.update();
     });
   };
 
   public update() {
-    this.ctrl.services = this.service.getServices();
-    this.ctrl.categories = this.service.getServiceCategories();
-    this.ctrl.loading = false;
+    this.$q.all([
+      this.dataManager.getResource('service-categories'),
+      this.dataManager.getResource('services')]
+    ).then(data => {
+      this.ctrl.categories = data[0];
+      this.ctrl.services =  data[1];
+      this.ctrl.loading = false;
+    });
   };
 }

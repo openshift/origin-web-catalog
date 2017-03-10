@@ -7,7 +7,7 @@
     "build": "rimraf dist && webpack --config config/webpack.dev.js --bail --progress --profile",
     "build:prod": "rimraf dist && webpack --config config/webpack.prod.js --bail --progress --profile",
     "build:run": "npm run build && live-server --port=3001 --open=dist/",
-    "start": "webpack-dev-server --config config/webpack.dev.js --history-api-fallback --inline --progress",
+    "start": "webpack-dev-server --config config/webpack.dev.js --history-api-fallback --inline --progress --open",
     "coverage": "live-server --port=3001 --open=coverage/",
     "test": "karma start",
     "test:coverage": "npm run test && npm run coverage",

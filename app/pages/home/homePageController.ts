@@ -1,44 +1,40 @@
-import {MockDataService} from '../../services/mockData.service';
+import {DataManager} from '../../services/dataManager.service';
 
 export class HomePageController {
-  static $inject = ['AuthService', 'MockDataService', 'DataService'];
+  static $inject = ['AuthService', 'DataManager', '$q'];
 
-  public authService: any;
-  public service: MockDataService;
-  public applications: any;
-  public services: any;
   public ctrl: any = this;
-  private dataService: any;
+  private authService: any;
+  private dataManager: DataManager;
+  private $q : any;
 
-  constructor(AuthService: any, mockDataService: any, DataService: any) {
+  constructor(AuthService: any, dataManager: any, $q: any) {
     this.authService = AuthService;
-    this.service = mockDataService;
-    this.ctrl.loading = false;
+    this.dataManager = dataManager;
+    this.$q = $q;
+    this.ctrl.loading = true;
     this.ctrl.applications = [];
     this.ctrl.services = [];
     this.ctrl.categories = [];
-    this.dataService = DataService;
   };
 
   public $onInit() {
-    var _this: any = this;
-    this.authService.withUser().then(function () {
-      _this.update();
+    this.authService.withUser().then(() => {
+      this.update();
     });
-
-    this.dataService.list({
-      group: 'servicecatalog.k8s.io',
-      resource: 'serviceclasses'
-      }, {}, function(serviceclasses: any) {
-        console.log('Service Classes: ' + JSON.stringify(serviceclasses));
-      });
   };
 
   public update() {
-    this.ctrl.applications = this.service.getRedHatApplications();
-    this.ctrl.services = this.service.getServices();
-    this.ctrl.categories = this.service.getServiceCategories();
-    this.ctrl.loading = false;
+    this.$q.all([
+      this.dataManager.getResource('rh-apps'),
+      this.dataManager.getResource('service-categories'),
+      this.dataManager.getResource('services')]
+    ).then(data => {
+      this.ctrl.applications = data[0];
+      this.ctrl.categories = data[1];
+      this.ctrl.services =  data[2];
+      this.ctrl.loading = false;
+    });
   };
 
 }

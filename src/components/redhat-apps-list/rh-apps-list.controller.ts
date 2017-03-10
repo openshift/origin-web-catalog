@@ -1,4 +1,5 @@
 import * as angular from 'angular';
+import * as _ from 'lodash';
 
 export class RHListController implements angular.IController {
   public ctrl: any = this;
@@ -10,10 +11,11 @@ export class RHListController implements angular.IController {
       showSelectBox: false,
       onClick: this.handleClick
     };
+    this.ctrl.loading = true;
   }
 
   public $onInit() {
-      // $onInit
+    this.ctrl.loading = _.isEmpty(this.ctrl.applications);
   }
 
   public handleClick(item: any, e: any) {
@@ -21,10 +23,9 @@ export class RHListController implements angular.IController {
   };
 
   public $onChanges(onChangesObj: angular.IOnChangesObject) {
-    // console.log('$onChanges' + JSON.stringify(onChangesObj));
-  }
-
-  public $doCheck() {
-    // console.log('$doCheck');
+    if ((onChangesObj.applications && !onChangesObj.applications.isFirstChange()) ) {
+      this.ctrl.applications = onChangesObj.applications.currentValue;
+      this.ctrl.loading = false;
+    }
   }
 }

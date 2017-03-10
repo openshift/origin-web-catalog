@@ -34,3 +34,4 @@ kubernetes: "dev-mode"
 };
 
 window.MOCK_ORIGIN_SERVICES = false;
+window.MOCK_SERVICES_DATA = true;

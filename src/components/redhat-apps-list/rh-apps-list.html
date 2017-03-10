@@ -1,5 +1,8 @@
 <span class="red-hat-apps-container">
-  <div pf-card-view config="$ctrl.cardViewConfig" items="$ctrl.applications">
+  <div ng-if="$ctrl.loading" class="spinner-container">
+    <div ng-class="{'spinner spinner-xl': $ctrl.loading}"></div>
+  </div>
+  <div ng-if="!$ctrl.loading" pf-card-view config="$ctrl.cardViewConfig" items="$ctrl.applications">
     <div class="card-container">
       <div class="card-header">
         <span class="card-icon {{item.icon}}"></span>
