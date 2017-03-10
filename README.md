@@ -12,7 +12,7 @@ $ npm install
 $ bower install
 
 # start the server
-$ npm run server
+$ npm run start
 ```
 
 Go to [http://localhost:8080](http://localhost:8080) in your browser.
@@ -24,12 +24,11 @@ Contributing
 
 #### Getting started
 1. Install [Nodejs](http://nodejs.org/) and [npm](https://www.npmjs.org/)
-2. Install [grunt-cli](http://gruntjs.com/installing-grunt) and [bower](http://bower.io/) by running `npm install -g grunt-cli bower` (may need to be run with sudo)
-3. Build the library with 'npm run build'
-4. Run the test server with 'npm run server'
-5. Launch a browser at http://localhost:8080/ this will watch for asset changes.
+2. Build the library with 'npm run build'
+3. Run the test server with 'npm run start'
+4. Launch a browser at https://localhost:9000/ this will watch for asset changes.
 
-## Testing (NYI)
+## Testing
 
 ### 1. Unit Tests
 
