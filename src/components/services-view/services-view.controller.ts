@@ -21,7 +21,7 @@ export class ServicesViewController implements angular.IController {
   }
 
   public $onInit() {
-    this.ctrl.origServices = this.ctrl.services.map(a => _.assign({}, a, {ctrl: this}));  // clone
+    this.ctrl.origServices = this.ctrl.services.map(a => _.assign(a, {ctrl: this}));
     this.ctrl.currentFilter = 'all';
     this.ctrl.currentSubFilter = 'all';
     this.ctrl.filteredServices = this.ctrl.origServices;

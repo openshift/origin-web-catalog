@@ -29,8 +29,7 @@ var prodExternals = {
   'angular-patternfly': 'angular-patternfly',
   'patternfly': 'patternfly',
   'bootstrap': 'bootstrap',
-  'jquery': 'jquery',
-  'lodash': 'lodash'
+  'jquery': 'jquery'
 };
 
 var serverEntry = {

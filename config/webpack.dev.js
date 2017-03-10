@@ -3,12 +3,17 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var commonConfig = require('./webpack.common.js');
 var helpers = require('./helpers');
 
+window = {};
+require('../app/config.local.js');
+
+var useHTTPS = !window.MOCK_ORIGIN_SERVICES;
+
 module.exports = webpackMerge(commonConfig, {
   devtool: 'eval-source-map',
 
   output: {
     path: helpers.root('dist'),
-    publicPath: 'https://localhost:9000/',
+    publicPath: (useHTTPS ? 'https' : 'http') + '://localhost:9000/',
     filename: '[name].js',
     chunkFilename: '[id].chunk.js'
   },
@@ -22,6 +27,6 @@ module.exports = webpackMerge(commonConfig, {
     historyApiFallback: true,
     stats: 'minimal',
     port: 9000,
-    https: true
+    https: useHTTPS
   }
 });
