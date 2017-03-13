@@ -17,6 +17,31 @@
     opacity: 1;
   }
 }
+@keyframes modalSlideDown {
+  0% {
+    margin-top: -50%;
+    z-index: 1010;
+  }
+  99% {
+    z-index: 1010;
+  }
+  100% {
+    margin-top: 0%;
+    opacity: 1;
+    z-index: 1050;
+  }
+}
+@keyframes modalSlideUp {
+  0% {
+    margin-top: 0%;
+    z-index: 1010;
+  }
+  100% {
+    margin-top: -50%;
+    opacity: 1;
+    z-index: 1010;
+  }
+}
 .landing-page {
   background-color: #ededed;
 }
@@ -300,6 +325,12 @@
 .catalogs-overlay-modal.modal {
   display: block;
 }
+.catalogs-overlay-window.ng-enter {
+  animation: simpleSlideDown 1s ease forwards;
+}
+.catalogs-overlay-window.ng-leave {
+  animation: simpleSlideUp 1s ease forwards;
+}
 .catalogs-overlay-panel {
   background: white;
   border: 1px solid #bbb;
@@ -312,16 +343,16 @@
   z-index: 1080;
 }
 .container-pf-nav-pf-vertical .catalogs-overlay-panel {
-  left: calc(220px);
+  left: 220px;
 }
 .container-pf-nav-pf-vertical.collapsed-nav .catalogs-overlay-panel {
-  left: calc(95px);
+  left: 95px;
 }
 .catalogs-overlay-panel.ng-enter {
-  animation: simpleSlideDown 1s ease forwards;
+  animation: modalSlideDown 1s ease forwards;
 }
 .catalogs-overlay-panel.ng-leave {
-  animation: simpleSlideUp 1s ease forwards;
+  animation: modalSlideUp 1s ease forwards;
 }
 .catalogs-overlay-panel-close {
   font-size: 21px;

@@ -1,6 +1,7 @@
 
 <div class="services-view">
-  <overlay-panel ng-if="$ctrl.orderingPanelvisible" show-close="true" close-on-emit="cancelOrder" handle-close="$ctrl.closeOrderingPanel">
+
+  <overlay-panel show-panel="$ctrl.orderingPanelvisible" show-close="true" handle-close="$ctrl.closeOrderingPanel">
     <order-service service="$ctrl.serviceToOrder"></order-service>
   </overlay-panel>
 
