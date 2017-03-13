@@ -1,10 +1,13 @@
-<div class="services-view">
 
+<div class="services-view">
   <overlay-panel ng-if="$ctrl.orderingPanelvisible" show-close="true" close-on-emit="cancelOrder" handle-close="$ctrl.closeOrderingPanel">
     <order-service service="$ctrl.serviceToOrder"></order-service>
   </overlay-panel>
 
-  <div class="services-view-container">
+  <div ng-if="$ctrl.loading" class="spinner-container">
+    <div ng-class="{'spinner spinner-xl': $ctrl.loading}"></div>
+  </div>
+  <div ng-if="!$ctrl.loading" class="services-view-container">
     <h1>Catalog</h1>
 
     <div class="services-categories">
@@ -29,11 +32,12 @@
             </div>
           </div>
         </div>
-        <div ng-if="$ctrl.expandSubCatRow === $index" class="sub-category-row"
+        <div ng-if="$ctrl.expandSubCatRow === $index"
+             class="sub-category-row"
              pf-card-view config="$ctrl.cardViewConfig" items="$ctrl.filteredServices">
           <div class="card-container">
-            <div class="card-icon {{item.icon}}"></div>
-            <div class="card-name">{{item.name}}</div>
+            <div class="card-icon {{item.imageURL ? item.imageURL : 'pf pficon-service'}}"></div>
+            <div class="card-name">{{item.displayName ? item.displayName : item.metadata.name}}</div>
           </div>
         </div>
       </div>

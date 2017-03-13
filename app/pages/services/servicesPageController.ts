@@ -1,33 +1,37 @@
-import {MockDataService} from '../../services/mockData.service';
-
 export class ServicesPageController {
 
-  static $inject = ['AuthService', 'MockDataService'];
+  static $inject = ['AuthService', 'Constants', 'DataService', '$q'];
 
-  public authService: any;
-  public service: MockDataService;
-  public services: any;
   public ctrl: any = this;
+  private authService: any;
+  private constants: any;
+  private dataService: any;
+  private $q : any;
 
-
-  constructor(AuthService: any, mockDataService: any) {
+  constructor(AuthService: any, Constants: any, DataService: any, $q: any) {
     this.authService = AuthService;
-    this.service = mockDataService;
+    this.constants = Constants;
+    this.dataService = DataService;
+    this.$q = $q;
     this.ctrl.loading = false;
     this.ctrl.services = [];
     this.ctrl.categories = [];
   };
 
   public $onInit() {
-    var _this: any = this;
-    this.authService.withUser().then(function () {
-      _this.update();
+    this.authService.withUser().then(() => {
+      this.update();
     });
   };
 
   public update() {
-    this.ctrl.services = this.service.getServices();
-    this.ctrl.categories = this.service.getServiceCategories();
-    this.ctrl.loading = false;
+    this.dataService.list({
+      group: 'servicecatalog.k8s.io',
+      resource: 'serviceclasses'
+    }, {}, (resources: any) => {
+      this.ctrl.services = resources;
+      this.ctrl.categories = this.constants.SERVICE_CATALOG_CATEGORIES;
+      this.ctrl.loading = false;
+    });
   };
 }

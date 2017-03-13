@@ -368,6 +368,10 @@
   background: #ededed;
   padding-left: 0px;
 }
+.red-hat-apps-container .spinner-container {
+  padding-top: 60px;
+  padding-bottom: 60px;
+}
 .red-hat-apps-container .card-view-pf {
   padding-left: 21px;
 }
@@ -413,6 +417,10 @@
 }
 .services-view {
   width: 100%;
+}
+.services-view .spinner-container {
+  padding-top: 100px;
+  padding-bottom: 100px;
 }
 .services-view-container {
   padding-left: 0px;
@@ -528,6 +536,9 @@
   vertical-align: middle;
   padding-left: 6px;
   padding-right: 4px;
+}
+.services-view-container .card-icon.pf {
+  padding-right: 18px;
 }
 .services-view-container .card-name {
   font-size: 16px;

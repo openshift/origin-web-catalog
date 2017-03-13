@@ -2,12 +2,11 @@
   <landingheader>
     <div class="build-applications-view">
       <h1>What Do You Want to Build?</h1>
-      <rh-apps-list ng-if="!$ctrl.loading" services="$ctrl.services" applications="$ctrl.applications"></rh-apps-list>
-      </div>
+      <rh-apps-list applications="$ctrl.applications"></rh-apps-list>
     </div>
   </landingheader>
   <landingbody>
-    <services-view ng-if="!$ctrl.loading" services="$ctrl.services" categories="$ctrl.categories"></services-view>
+    <services-view services="$ctrl.services" categories="$ctrl.categories"></services-view>
   </landingbody>
   <landingside>
     <projects-summary></projects-summary>

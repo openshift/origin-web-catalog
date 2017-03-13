@@ -1,10 +1,11 @@
-import 'jquery';
+import * as jQuery from 'jquery';
 import * as angular from 'angular';
 import 'angular-mocks';
 
-import '../src/index';
+import '../app/app';
 import {ComponentTest} from '../test/utils/ComponentTest';
 import {ServicesViewController} from '../src/components/services-view/services-view.controller';
+import {servicesData} from '../app/mockServices/mockData/services';
 
 import 'angular-drag-and-drop-lists';
 import 'angular-patternfly';
@@ -16,30 +17,14 @@ describe('servicesView', () => {
   var componentTest: ComponentTest<ServicesViewController>;
 
   beforeEach( () => {
-    angular.mock.module('webCatalog');
+    angular.mock.module('catalogApp');
   });
 
   beforeEach(() => {
-    categories = [
-      {id: 'languages', label: 'Languages', subCategories: [
-        {id: 'java', label: 'Java', icon: 'font-icon icon-openjdk'},
-        {id: 'javascript', label: 'Javascript', icon: 'font-icon icon-js'},
-        {id: 'perl', label: 'Perl', icon: 'font-icon icon-perl'}
-      ]},
-      {id: 'databases', label: 'Databases', subCategories: [
-        {id: 'mongo', label: 'Mongo', icon: 'font-icon icon-mongodb'},
-        {id: 'mysql', label: 'mySQL', icon: 'font-icon icon-mysql-database'},
-        {id: 'postgres', label: 'Postgres', icon: 'font-icon icon-postgresql'}
-      ]},
-    ];
-
-    services = [
-      {id: 1, name: 'WildFly', icon: 'font-icon icon-wildfly', category: 'languages', subCategory: 'java'},
-      {id: 2, name: 'Oracle Java', icon: 'font-icon icon-openjdk', category: 'languages', subCategory: 'java'},
-      {id: 3, name: 'Mongo  (Ephemeral)', icon: 'font-icon icon-mongodb', category: 'databases', subCategory: 'mongo'},
-      {id: 4, name: 'mySQL  (Ephemeral)', icon: 'font-icon icon-mysql-database', category: 'databases', subCategory: 'mysql'},
-    ];
-
+    angular.mock.inject((Constants) => {
+      categories = Constants.SERVICE_CATALOG_CATEGORIES;
+    });
+    services = servicesData;
   });
 
   beforeEach(() => {
@@ -58,17 +43,13 @@ describe('servicesView', () => {
 
   // testing rendered HTML
   it('should show have the correct number of caegories, sub-categories, and service cards', () => {
-
-    // can't get element.find() to work.  Must be using jQueryLite which doesn't take class selectors
-    // expect(angular.element(componentTest.element).find('.services-categories a').length).toBe(3);
-
     var element = componentTest.rawElement;
     // two main categories ('all', 'Languages', 'Databases')
-    expect(element.querySelectorAll('.services-categories a').length).toBe(3);
+    expect(element.querySelectorAll('.services-categories a').length).toBe(5);
     // seven sub categories (3 Languages sub-cats, 3 Databases sub-cats, + 'All Services')
-    expect(element.querySelectorAll('.sub-cat-label').length).toBe(7);
+    expect(element.querySelectorAll('.sub-cat-label').length).toBe(17);
     // 4 cards/services
-    expect(element.querySelectorAll('.card-name').length).toBe(4);
+    expect(element.querySelectorAll('.card-name').length).toBe(20);
   });
 
   it('should filter sub-categories and cards when main category is clicked', () => {
@@ -76,9 +57,9 @@ describe('servicesView', () => {
     element.querySelector('#category-languages').click();
 
     // 4 sub categories (3 Languages sub-cats + 'All Services')
-    expect(element.querySelectorAll('.sub-cat-label').length).toBe(4);
+    expect(element.querySelectorAll('.sub-cat-label').length).toBe(7);
     // 2 'language' cards/services
-    expect(element.querySelectorAll('.card-name').length).toBe(2);
+    expect(element.querySelectorAll('.card-name').length).toBe(12);
   });
 
   it('should filter cards when sub-category is clicked', () => {

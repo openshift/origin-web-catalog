@@ -2,6 +2,7 @@ import * as angular from 'angular';
 import './styles/main.less';
 
 // Aphabetical order please
+require('./constants');
 import {landingPage} from './components/landing-page/landing-page.component';
 import {orderService} from './components/order-service/order-service.component';
 import {overlayPanel} from './components/overlay-panel/overlay-panel.component';

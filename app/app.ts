@@ -23,7 +23,6 @@ import {oauth} from './components/oauth/oauth.component';
 import {homePage} from './pages/home/homePage';
 import {servicesPage} from './pages/services/servicesPage';
 import {projectsPage} from './pages/projects/projectsPage';
-import {MockDataService} from './services/mockData.service';
 import {navigation} from './components/navigation/navigation.component';
 import {MockServicesModule} from './mockServices/mockServices.module';
 
@@ -48,7 +47,6 @@ if (mockServicesModule.useMockServices() !== true) {
 angular
   .module(catalogApp, ['webCatalog', commonServices, 'ui.router', 'patternfly'])
   .config(routesConfig)
-  .service('MockDataService', MockDataService)
   .component('oauth', oauth)
   .component('homepage', homePage)
   .component('servicespage', servicesPage)
