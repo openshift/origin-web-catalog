@@ -15,7 +15,7 @@ $ bower install
 $ npm run start
 ```
 
-Go to [http://localhost:8080](http://localhost:8080) in your browser.
+Go to [https://localhost:9000](https://localhost:9000) in your browser.
 
 >Warning: Make sure you're using the latest version of Node.js and NPM
 
