@@ -1,6 +1,6 @@
-OpenShift Catalog Conaole Library
+OpenShift Catalog Console Library
 =========================
-A component libary created for the cataloging components for [The OpenShift Web Console](https://github.com/openshift/origin-web-console).
+A component library created for the cataloging components for [The OpenShift Web Console](https://github.com/openshift/origin-web-console).
 
 [![Build Status](https://travis-ci.org/openshift/origin-web-catalog.svg?branch=master)](https://travis-ci.org/openshift/origin-web-catalog)
 
