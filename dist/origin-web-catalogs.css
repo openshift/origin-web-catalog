@@ -45,7 +45,7 @@
   top: 60px;
   bottom: 0;
   right: 0;
-  width: calc(300px);
+  width: 300px;
   padding: 0 20px;
   margin: 10px;
 }
@@ -59,7 +59,7 @@
   position: fixed;
   right: 320px;
   top: 60px;
-  z-index: calc(1029);
+  z-index: 980;
 }
 .container-pf-nav-pf-vertical .landing-search-area {
   left: 200px;
@@ -112,7 +112,7 @@
   left: 0;
   padding-bottom: 10px;
   position: fixed;
-  right: 0;
+  right: 320px;
   z-index: 1030;
 }
 .snap-container.snap-up.scrolled-down {
@@ -127,7 +127,6 @@
 .snap-container.snap-up a {
   position: relative;
   left: 50%;
-  margin-left: calc(-160px);
 }
 .snap-container a:hover,
 .snap-container a:focus {

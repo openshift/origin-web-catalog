@@ -79,7 +79,7 @@ export class LandingPageController implements angular.IController {
 
   private setupScrolling = () => {
     this.scrollElement = this.getScrollParent(this.snapElement, null);
-    this.useScrollElement = this.scrollElement.parentElement !== null;
+    this.useScrollElement = this.scrollElement && this.scrollElement.parentElement !== null;
 
     if (this.useScrollElement) {
       angular.element(this.scrollElement).scroll(this.onScrollChange);
@@ -146,7 +146,7 @@ export class LandingPageController implements angular.IController {
     if (this.useScrollElement) {
       this.ctrl.showSnapDown = this.scrollElement.scrollTop >= this.snapElement.offsetTop;
     } else {
-      this.ctrl.showSnapDown = event.srcElement.scrollingElement.scrollTop >= this.snapElement.offsetTop;
+      this.ctrl.showSnapDown = this.$window.pageYOffset >= this.snapElement.offsetTop;
     }
 
     this.$scope.$apply();
