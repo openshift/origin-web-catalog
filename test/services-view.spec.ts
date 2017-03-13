@@ -1,11 +1,11 @@
-import 'jquery';
+import * as jQuery from 'jquery';
 import * as angular from 'angular';
 import 'angular-mocks';
 
-import '../src/index';
+import '../app/app';
 import {ComponentTest} from '../test/utils/ComponentTest';
 import {ServicesViewController} from '../src/components/services-view/services-view.controller';
-import {MockDataService} from '../app/mockServices/mockData.service';
+import {servicesData} from '../app/mockServices/mockData/services';
 
 import 'angular-drag-and-drop-lists';
 import 'angular-patternfly';
@@ -17,13 +17,14 @@ describe('servicesView', () => {
   var componentTest: ComponentTest<ServicesViewController>;
 
   beforeEach( () => {
-    angular.mock.module('webCatalog');
+    angular.mock.module('catalogApp');
   });
 
   beforeEach(() => {
-    let mockData = new MockDataService();
-    services = mockData.getServices();
-    categories = mockData.getServiceCategories();
+    angular.mock.inject((Constants) => {
+      categories = Constants.SERVICE_CATALOG_CATEGORIES;
+    });
+    services = servicesData;
   });
 
   beforeEach(() => {
@@ -42,10 +43,6 @@ describe('servicesView', () => {
 
   // testing rendered HTML
   it('should show have the correct number of caegories, sub-categories, and service cards', () => {
-
-    // can't get element.find() to work.  Must be using jQueryLite which doesn't take class selectors
-    // expect(angular.element(componentTest.element).find('.services-categories a').length).toBe(3);
-
     var element = componentTest.rawElement;
     // two main categories ('all', 'Languages', 'Databases')
     expect(element.querySelectorAll('.services-categories a').length).toBe(5);

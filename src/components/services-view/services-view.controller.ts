@@ -2,20 +2,22 @@ import * as angular from 'angular';
 import * as _ from 'lodash';
 
 export class ServicesViewController implements angular.IController {
-  static $inject = ['$filter', '$scope'];
+  static $inject = ['Constants', '$filter', '$scope'];
 
   public ctrl: any = this;
   public cardViewConfig: any;
+  private constants: any;
   private $filter: any;
   private $scope: any;
   private subCatMaxRowLength: number = 10;
 
-  constructor($filter: any, $scope: any) {
+  constructor(constants: any, $filter: any, $scope: any) {
     this.cardViewConfig = {
       selectItems: false,
       showSelectBox: false,
       onClick: this.handleClick
     };
+    this.constants = constants;
     this.$filter = $filter;
     this.$scope = $scope;
     this.ctrl.loading = true;
@@ -33,7 +35,7 @@ export class ServicesViewController implements angular.IController {
     this.$scope.$on('cancelOrder', () => {
       this.ctrl.closeOrderingPanel();
     });
-  }
+ }
 
   public $onChanges(onChangesObj: angular.IOnChangesObject) {
     if (onChangesObj.categories && !onChangesObj.categories.isFirstChange()) {

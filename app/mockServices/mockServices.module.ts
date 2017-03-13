@@ -1,5 +1,7 @@
 import * as angular from 'angular';
 import {AuthService} from './mockAuth.service';
+import {ConstantsService} from './mockConstants.service';
+import {DataService} from './mockData.service';
 
 export class MockServicesModule {
 
@@ -15,7 +17,9 @@ export class MockServicesModule {
 
     angular
       .module(this.moduleName, [])
-      .service('AuthService', AuthService);
+      .service('AuthService', AuthService)
+      .factory('Constants', ConstantsService)
+      .service('DataService', DataService);
 
     hawtioPluginLoader.addModule(this.moduleName);
   }
