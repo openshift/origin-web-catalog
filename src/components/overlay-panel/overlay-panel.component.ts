@@ -3,7 +3,7 @@ import {OverlayPanelController} from './overlay-panel.controller';
 export const overlayPanel: angular.IComponentOptions = {
   bindings: {
     showClose: '<',
-    closeOnEmit: '@',
+    showPanel: '<',
     handleClose: '<'
   },
   controller: OverlayPanelController,

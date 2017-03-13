@@ -1,5 +1,5 @@
-<div class="catalogs-overlay-modal modal-open modal fade in" role="dialog">
-  <div class="modal-backdrop fade in"></div>
+<div class="catalogs-overlay-modal ng-class="{'modal-open modal fade in': $ctrl.showOverlayPanel" role="dialog">
+  <div ng-if="$ctrl.showBackdrop" class="modal-backdrop fade in"></div>
   <div ng-if="$ctrl.shown" class="catalogs-overlay-panel">
     <a ng-if="$ctrl.showClose" ng-click="$ctrl.closePanel()">
       <span class="catalogs-overlay-panel-close pficon pficon-close"></span>
