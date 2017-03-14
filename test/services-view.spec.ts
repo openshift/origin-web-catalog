@@ -37,7 +37,8 @@ describe('servicesView', () => {
   it('should have the correct $ctrl properties', () => {
     var ctrl = componentTest.isoScope.$ctrl;
     expect(ctrl.currentFilter).toBe('all');
-    expect(ctrl.expandSubCatRow).toBe(0);
+    expect(ctrl.currentSubFilter).toBeNull();
+    expect(ctrl.expandSubCatRow).toBe(-1);
     expect(ctrl.orderingPanelvisible).toBe(false);
   });
 
@@ -48,6 +49,7 @@ describe('servicesView', () => {
     expect(element.querySelectorAll('.services-categories a').length).toBe(5);
     // seven sub categories (3 Languages sub-cats, 3 Databases sub-cats, + 'All Services')
     expect(element.querySelectorAll('.sub-cat-label').length).toBe(17);
+    element.querySelector('#sub-category-all').click();
     // 4 cards/services
     expect(element.querySelectorAll('.card-name').length).toBe(20);
   });
@@ -58,6 +60,7 @@ describe('servicesView', () => {
 
     // 4 sub categories (3 Languages sub-cats + 'All Services')
     expect(element.querySelectorAll('.sub-cat-label').length).toBe(7);
+    element.querySelector('#sub-category-all').click();
     // 2 'language' cards/services
     expect(element.querySelectorAll('.card-name').length).toBe(12);
   });

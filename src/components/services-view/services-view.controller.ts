@@ -4,6 +4,8 @@ import * as _ from 'lodash';
 export class ServicesViewController implements angular.IController {
   static $inject = ['Constants', '$filter', '$scope'];
 
+  static readonly NO_SUBCATEGORY_ROW = -1;
+
   public ctrl: any = this;
   public cardViewConfig: any;
   private constants: any;
@@ -25,8 +27,8 @@ export class ServicesViewController implements angular.IController {
 
   public $onInit() {
     this.ctrl.currentFilter = 'all';
-    this.ctrl.currentSubFilter = 'all';
-    this.ctrl.expandSubCatRow = 0;
+    this.ctrl.currentSubFilter = null;
+    this.ctrl.expandSubCatRow = ServicesViewController.NO_SUBCATEGORY_ROW;
     this.ctrl.orderingPanelvisible = false;
     this.ctrl.loading = _.isEmpty(this.ctrl.services);
 
@@ -72,6 +74,15 @@ export class ServicesViewController implements angular.IController {
 
     this.ctrl.currentFilter = category;
     this.ctrl.currentSubFilter = (subCategory !== undefined) ? subCategory : 'all';
+  }
+
+  public toggleExpand(subCategory: string) {
+    if (this.ctrl.currentSubFilter === subCategory) {
+      this.ctrl.currentSubFilter = null;
+      this.ctrl.expandSubCatRow = ServicesViewController.NO_SUBCATEGORY_ROW;
+    } else {
+      this.ctrl.filterByCategory(this.ctrl.currentFilter, subCategory, false);
+    }
   }
 
   public getSubCategories(category: string) {
