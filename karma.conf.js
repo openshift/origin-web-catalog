@@ -7,7 +7,7 @@ module.exports = function karmaConfig(config) {
     ],
 
     reporters: [
-      'progress', 'coverage'
+      'dots', 'coverage'
     ],
 
     files: [
@@ -39,7 +39,7 @@ module.exports = function karmaConfig(config) {
     },
 
     webpackMiddleware: {
-      noInfo: 'errors-only'
+      stats: 'errors-only'
     }
   });
 };
