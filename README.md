@@ -33,4 +33,4 @@ Contributing
 ### 1. Unit Tests
 
 * single run: `npm test`
-* live mode (TDD style): `npm run test-watch`
+* live mode (TDD style): `npm run test:watch`
