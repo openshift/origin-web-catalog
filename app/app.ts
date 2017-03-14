@@ -17,7 +17,12 @@ require('imports-loader?define=>false!js-logger/src/logger');
 let hawtioPluginLoader = require('hawtio-core/dist/hawtio-core');
 require('uri.js/src/URI');
 require('angular-utf8-base64');
-require('./config.local.js');
+
+try {
+  require('./config.local.js');
+} catch (e) {
+  require('./config.js');
+}
 
 import {oauth} from './components/oauth/oauth.component';
 import {homePage} from './pages/home/homePage';

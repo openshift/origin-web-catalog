@@ -4,7 +4,12 @@ var commonConfig = require('./webpack.common.js');
 var helpers = require('./helpers');
 
 window = {};
-require('../app/config.local.js');
+
+try {
+  require('../app/config.local.js');
+} catch (e) {
+  require('../app/config.js');
+}
 
 var useHTTPS = !window.MOCK_ORIGIN_SERVICES;
 
