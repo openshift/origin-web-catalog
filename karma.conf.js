@@ -25,6 +25,10 @@ module.exports = function karmaConfig(config) {
     ],
 
     singleRun: true,
+    captureTimeout: 60000,
+    browserDisconnectTimeout : 40000,
+    browserDisconnectTolerance : 1,
+    browserNoActivityTimeout : 60000,
 
     coverageReporter: {
       dir: 'coverage/',
@@ -36,17 +40,6 @@ module.exports = function karmaConfig(config) {
 
     webpackMiddleware: {
       noInfo: 'errors-only'
-    },
-
-    plugins: [
-      require('karma-webpack'),
-      require('karma-sourcemap-loader'),
-      require('karma-jasmine'),
-      require('karma-spec-reporter'),
-      require('karma-phantomjs-launcher'),
-      require('karma-firefox-launcher'),
-      require('karma-chrome-launcher'),
-      require('karma-coverage')
-    ]
+    }
   });
 };
