@@ -472,8 +472,6 @@
 }
 .services-view-container .current-filter {
   color: #72767b;
-  cursor: default;
-  pointer-events: none;
 }
 .services-view-container .services-categories {
   font-size: 18px;
@@ -522,7 +520,6 @@
   background-color: #fff;
   border-bottom: none;
   border: none;
-  cursor: default;
   color: inherit;
   height: 140px;
   bottom: -10px;
