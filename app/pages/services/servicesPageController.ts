@@ -25,13 +25,21 @@ export class ServicesPageController {
   };
 
   public update() {
-    this.dataService.list({
-      group: 'servicecatalog.k8s.io',
-      resource: 'serviceclasses'
-    }, {}, (resources: any) => {
-      this.ctrl.services = resources;
+    try {
+      this.dataService.list({
+        group: 'servicecatalog.k8s.io',
+        resource: 'serviceclasses'
+      }, {}, (resources: any) => {
+        this.ctrl.services = resources;
+        this.ctrl.categories = this.constants.SERVICE_CATALOG_CATEGORIES;
+        this.ctrl.loading = false;
+      });
+    } catch (e) {
+      console.log("Error Loading serviceclasses from Service Catalog.k8s.io: " + e);
+      this.ctrl.services = [];
+      this.ctrl.applications = this.constants.REDHAT_APPLICATIONS;
       this.ctrl.categories = this.constants.SERVICE_CATALOG_CATEGORIES;
       this.ctrl.loading = false;
-    });
+    }
   };
 }
