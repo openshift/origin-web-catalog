@@ -5,6 +5,18 @@ interface IDataService {
   list(resource: any, context: any, callback: any, opts: any) : angular.IPromise < any >;
 }
 
+class Data {
+  private _data: any;
+
+  constructor (array: any) {
+    this._data = array;
+  }
+
+  public by (attr: string) {
+    return this._data;
+  }
+}
+
 export class DataService implements IDataService {
   public static $inject = ['$q'];
 
@@ -23,7 +35,7 @@ export class DataService implements IDataService {
     switch (resource.resource) {
       case 'serviceclasses':
           setTimeout(() => {
-            deferred.resolve(servicesData);
+            deferred.resolve(new Data(servicesData));
           }, 300);
         break;
     }
