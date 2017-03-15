@@ -19,6 +19,11 @@ window.OPENSHIFT_CONFIG = {
       prefix: "/api"
     }
   },
+  additionalServers: [{
+    protocol: "https",
+    hostPort: "apiserver-svc-cat.10.0.0.25.xip.io:6443",
+    prefix: "/apis"
+  }],
   auth: {
     oauth_authorize_uri: "https://localhost:8443/oauth/authorize",
     oauth_redirect_base: "https://localhost:9000/dev-console",
