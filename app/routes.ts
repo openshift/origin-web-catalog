@@ -21,5 +21,9 @@ function routesConfig($stateProvider: angular.ui.IStateProvider, $urlRouterProvi
     .state('projects', {
       url: '/projects',
       component: 'projectspage'
+    })
+    .state('error', {
+      url: '/error',
+      component: 'errorpage'
     });
 }
