@@ -29,7 +29,9 @@ var prodExternals = {
   'angular-patternfly': 'angular-patternfly',
   'patternfly': 'patternfly',
   'bootstrap': 'bootstrap',
-  'jquery': 'jquery'
+  'jquery': '$',
+  'lodash': '_',
+  'urijs': 'URI'
 };
 
 var serverEntry = {
@@ -109,7 +111,7 @@ module.exports = {
       },
       {
         test: /origin-web-common/,
-        loader: 'imports-loader?Messenger=messenger/build/js/messenger,Logger=js-logger/src/logger,hawtioPluginLoader=hawtio-core/dist/hawtio-core,angular,URI=uri.js/src/URI,this=>window'
+        loader: 'imports-loader?Messenger=messenger/build/js/messenger,Logger=js-logger/src/logger,hawtioPluginLoader=hawtio-core/dist/hawtio-core,angular,URI=urijs/src/URI,this=>window'
       }
     ]
   }
@@ -148,6 +150,7 @@ module.exports.plugins = [
     $: 'jquery',
     jquery: 'jquery',
     '_': 'lodash',
+    'URI': 'URI',
     'OPENSHIFT_CONFIG': 'OPENSHIFT_CONFIG'
   })
 ];

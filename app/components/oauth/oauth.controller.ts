@@ -1,11 +1,7 @@
 
 import * as angular from 'angular';
 
-let URI = require('uri.js/src/URI.js');
-require('uri.js/src/URITemplate.js');
-require('uri.js/src/URI.fragmentURI.js');
-
-
+let URI = require('urijs');
 
 export class OAuthController implements angular.IController {
   static $inject = ['$location', '$q', 'RedirectLoginService', 'DataService', 'AuthService', 'Logger', '$window'];
