@@ -16,7 +16,8 @@
     "patternfly": "3.21.0",
     "jquery": "2.1.4",
     "lodash": "3.10.1",
-    "origin-web-common": "0.0.5"
+    "origin-web-common": "0.0.5",
+    "uri.js": "1.18.0"
   },
   "devDependencies": {
     "ace-builds": "1.2.2",
@@ -56,6 +57,14 @@
       "main": [
         "dist/styles/angular-patternfly.css",
         "dist/angular-patternfly.js"
+      ]
+    },
+    "uri.js": {
+      "main": [
+        "src/URI.js",
+        "src/URITemplate.js",
+        "src/jquery.URI.js",
+        "src/URI.fragmentURI.js"
       ]
     }
   },
