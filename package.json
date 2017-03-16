@@ -39,7 +39,8 @@
     "jquery": "~2.1.4",
     "origin-web-common": "^0.0.5",
     "paper-css": "^0.1.2",
-    "patternfly": "3.20.0"
+    "patternfly": "3.20.0",
+    "urijs": "1.18.0"
   },
   "devDependencies": {
     "@types/angular": "^1.5.16",

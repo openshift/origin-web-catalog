@@ -15,7 +15,8 @@ require('lodash/index.js');
 
 require('imports-loader?define=>false!js-logger/src/logger');
 let hawtioPluginLoader = require('hawtio-core/dist/hawtio-core');
-require('uri.js/src/URI');
+require('urijs');
+require('urijs/src/URITemplate.js');
 require('angular-utf8-base64');
 
 try {
