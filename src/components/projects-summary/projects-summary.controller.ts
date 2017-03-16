@@ -16,17 +16,8 @@ export class ProjectsSummaryController implements angular.IController {
     this.$timeout = $timeout;
   }
 
-  public $onInit () {
-  }
-
-  public $postLink() {
-  }
-
-  public $onDestroy () {
-
-  }
-
   public closePanel = () => {
+    return;
   };
 }
 

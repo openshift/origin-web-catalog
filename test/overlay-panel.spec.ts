@@ -89,7 +89,7 @@ describe('landingPage', () => {
     componentTest.scope.showClose = false;
     componentTest.scope.$apply();
 
-    var closeButton = jQuery(element).find('.catalogs-overlay-panel-close');
+    closeButton = jQuery(element).find('.catalogs-overlay-panel-close');
     expect(closeButton.length).toBe(0);
   });
 

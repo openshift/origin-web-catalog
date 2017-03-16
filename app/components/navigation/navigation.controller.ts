@@ -53,10 +53,10 @@ export class NavigationController implements angular.IController {
   };
 
   public $onChanges(onChangesObj: angular.IOnChangesObject) {
-    // console.log('$onChanges' + JSON.stringify(onChangesObj));
+    return;
   }
 
   public $doCheck() {
-    // console.log('$doCheck');
+    return;
   }
 }

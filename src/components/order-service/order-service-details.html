@@ -1,4 +1,4 @@
-<div uib-dropdown class="input-group-btn version-dropdown">
+<div ng-if="$ctrl.versions" uib-dropdown class="input-group-btn version-dropdown">
   <button uib-dropdown-toggle type="button" class="btn btn-default" uib-tooltip="Select Version" tooltip-placement="top">
     {{$ctrl.selectedVersion}}
     <span class="caret"></span>

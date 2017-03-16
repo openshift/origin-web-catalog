@@ -12,10 +12,10 @@
     <h1>Catalog</h1>
 
     <div class="services-categories">
-      <a id="category-all" ng-class="{'current-filter': $ctrl.currentFilter === 'all'}" ng-click="$ctrl.filterByCategory('all', null, true)">All</a> |
+      <a id="category-all" ng-class="{'current-filter': $ctrl.currentFilter === 'all'}" ng-click="$ctrl.filterByCategory('all', 'all', true)">All</a> |
       <span ng-repeat="category in $ctrl.categories">
         <a id="{{'category-'+category.id}}" ng-class="{'current-filter': $ctrl.currentFilter === category.id}"
-           ng-click="$ctrl.filterByCategory(category.id, null, true)">{{category.label}}</a>
+           ng-click="$ctrl.filterByCategory(category.id, 'all', true)">{{category.label}}</a>
            {{$ctrl.categories.length !== ($index+1) ? ' | ' : ''}}
       </span>
     </div>
@@ -35,10 +35,11 @@
         </div>
         <div ng-if="$ctrl.expandSubCatRow === $index"
              class="sub-category-row"
-             pf-card-view config="$ctrl.cardViewConfig" items="$ctrl.filteredServices">
+             pf-card-view config="$ctrl.cardViewConfig" items="$ctrl.filteredItems">
           <div class="card-container">
-            <div class="card-icon {{item.imageURL ? item.imageURL : 'pf pficon-service'}}"></div>
-            <div class="card-name">{{item.displayName ? item.displayName : item.metadata.name}}</div>
+            <div ng-if="!item.imageUrl" class="card-icon {{item.iconClass}}"></div>
+            <div ng-if="item.imageUrl" class="card-img"><img src="{{item.imageUrl}}"></div>
+            <div class="card-name">{{item.name}}</div>
           </div>
         </div>
       </div>

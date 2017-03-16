@@ -1,5 +1,6 @@
 import * as angular from 'angular';
 import {servicesData} from './mockData/services';
+import {imagesData} from './mockData/openshift-images';
 
 interface IDataService {
   list(resource: any, context: any, callback: any, opts: any) : angular.IPromise < any >;
@@ -32,12 +33,14 @@ export class DataService implements IDataService {
       deferred.promise.then(callback);
     }
 
-    switch (resource.resource) {
-      case 'serviceclasses':
-          setTimeout(() => {
-            deferred.resolve(new Data(servicesData));
-          }, 300);
-        break;
+    if (resource.resource === 'serviceclasses') {
+      setTimeout(() => {
+        deferred.resolve(new Data(angular.copy(servicesData)));
+      }, 300);
+    } else if (resource === 'imagestreams' && context.namespace === 'openshift') {
+      setTimeout(() => {
+        deferred.resolve(new Data(angular.copy(imagesData)));
+      }, 300);
     }
 
     return deferred.promise;

@@ -78,12 +78,22 @@ export class LandingPageController implements angular.IController {
   }
 
   public $onChanges(onChangesObj: angular.IOnChangesObject) {
-    // console.log('$onChanges' + JSON.stringify(onChangesObj));
+    return;
   }
 
   public $doCheck() {
-    // console.log('$doCheck');
+    return;
   }
+
+  public onScrollChange = (event: any) => {
+    if (this.useScrollElement) {
+      this.ctrl.showSnapDown = this.scrollElement.scrollTop >= this.snapElement.offsetTop;
+    } else {
+      this.ctrl.showSnapDown = this.$window.pageYOffset >= this.snapElement.offsetTop;
+    }
+
+    this.$scope.$apply();
+  };
 
   private setupScrolling = () => {
     this.scrollElement = this.getScrollParent(this.snapElement, null);
@@ -162,14 +172,4 @@ export class LandingPageController implements angular.IController {
     };
     this.$window.requestAnimationFrame(step);
   }
-
-  public onScrollChange = (event: any) => {
-    if (this.useScrollElement) {
-      this.ctrl.showSnapDown = this.scrollElement.scrollTop >= this.snapElement.offsetTop;
-    } else {
-      this.ctrl.showSnapDown = this.$window.pageYOffset >= this.snapElement.offsetTop;
-    }
-
-    this.$scope.$apply();
-  };
 }

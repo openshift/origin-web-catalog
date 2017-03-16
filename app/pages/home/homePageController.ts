@@ -1,21 +1,24 @@
 export class HomePageController {
-  static $inject = ['AuthService', 'Constants', 'DataService', '$q'];
+  static $inject = ['AuthService', 'Logger', 'Constants', 'DataService', '$q'];
 
   public ctrl: any = this;
   private authService: any;
+  private logger: any;
   private constants: any;
   private dataService: any;
   private $q : any;
 
-  constructor(AuthService: any, Constants: any, DataService: any, $q: any) {
+  constructor(AuthService: any, Logger: any, Constants: any, DataService: any, $q: any) {
     this.authService = AuthService;
+    this.logger = Logger;
     this.constants = Constants;
     this.dataService = DataService;
     this.$q = $q;
     this.ctrl.loading = true;
     this.ctrl.applications = [];
-    this.ctrl.services = [];
     this.ctrl.categories = [];
+    this.ctrl.serviceClasses = {};
+    this.ctrl.imageStreams = {};
   };
 
   public $onInit() {
@@ -25,22 +28,23 @@ export class HomePageController {
   };
 
   public update() {
-    try {
-      this.dataService.list({
-        group: 'servicecatalog.k8s.io',
-        resource: 'serviceclasses'
-      }, {}, (resources: any) => {
-        this.ctrl.services = resources.by("metadata.name"); ;
-        this.ctrl.applications = this.constants.REDHAT_APPLICATIONS;
-        this.ctrl.categories = this.constants.SERVICE_CATALOG_CATEGORIES;
-        this.ctrl.loading = false;
-      });
-    } catch (e) {
-      console.log("Error Loading serviceclasses from Service Catalog.k8s.io: " + e);
-      this.ctrl.services = [];
-      this.ctrl.applications = this.constants.REDHAT_APPLICATIONS;
-      this.ctrl.categories = this.constants.SERVICE_CATALOG_CATEGORIES;
-      this.ctrl.loading = false;
-    }
+    this.dataService.list({
+      group: 'servicecatalog.k8s.io',
+      resource: 'serviceclasses'
+    }, {}).then( (resources: any) => {
+      this.ctrl.serviceClasses = resources.by("metadata.name");
+    }, () => {
+      this.logger.log("Error Loading serviceclasses from servicecatalog.k8s.io: ");
+      this.ctrl.serviceClasses = {};
+    });
+
+    this.dataService.list("imagestreams", {namespace: "openshift"}).then( (resources: any) => {
+      this.ctrl.imageStreams = resources.by("metadata.name");
+    }, () => {
+      this.logger.log("Error Loading openshift imagestreams: ");
+      this.ctrl.imageStreams = {};
+    });
+
+    this.ctrl.applications = this.constants.REDHAT_APPLICATIONS;
   };
 }
