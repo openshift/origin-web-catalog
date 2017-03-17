@@ -12,13 +12,14 @@ try {
 }
 
 var useHTTPS = !window.MOCK_ORIGIN_SERVICES;
+var port = window.DEV_SERVER_PORT || 9001;
 
 module.exports = webpackMerge(commonConfig, {
   devtool: 'eval-source-map',
 
   output: {
     path: helpers.root('dist'),
-    publicPath: (useHTTPS ? 'https' : 'http') + '://localhost:9000/',
+    publicPath: (useHTTPS ? 'https' : 'http') + '://localhost:' + port + '/',
     filename: '[name].js',
     chunkFilename: '[id].chunk.js'
   },
@@ -31,7 +32,7 @@ module.exports = webpackMerge(commonConfig, {
     contentBase: './src',
     historyApiFallback: true,
     stats: 'minimal',
-    port: 9000,
+    port: port,
     https: useHTTPS
   }
 });

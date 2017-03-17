@@ -11,13 +11,27 @@ A component library created for the cataloging components for [The OpenShift Web
 $ npm install
 $ bower install
 
-# start the server
+# build the library
+$ npm run build
+```
+
+## Showcase Application
+
+There is a showcase application used to help develop and view the existing components in the library.
+
+```
+# run the server
 $ npm run start
 ```
 
-Go to [https://localhost:9000](https://localhost:9000) in your browser.
+Go to [https://localhost:9001](https://localhost:9001) in your browser. (though it should auto-launch)
+This will watch for asset changes.
 
->Warning: Make sure you're using the latest version of Node.js and NPM
+You will need to patch the web console oauth client to allow for port 9001:
+```
+$ oc login -u system:admin
+$ oc patch oauthclient/openshift-web-console -p '{"redirectURIs":["https://localhost:9001/"]}'
+```
 
 Contributing
 ------------
@@ -26,7 +40,7 @@ Contributing
 1. Install [Nodejs](http://nodejs.org/) and [npm](https://www.npmjs.org/)
 2. Build the library with 'npm run build'
 3. Run the test server with 'npm run start'
-4. Launch a browser at https://localhost:9000/ this will watch for asset changes.
+4. Launch a browser at https://localhost:9001/ this will watch for asset changes.
 
 ## Testing
 
