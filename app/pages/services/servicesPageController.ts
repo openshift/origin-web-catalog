@@ -30,7 +30,7 @@ export class ServicesPageController {
         group: 'servicecatalog.k8s.io',
         resource: 'serviceclasses'
       }, {}, (resources: any) => {
-        this.ctrl.services = resources;
+        this.ctrl.services = resources.by("metadata.name");
         this.ctrl.categories = this.constants.SERVICE_CATALOG_CATEGORIES;
         this.ctrl.loading = false;
       });
