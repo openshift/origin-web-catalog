@@ -1,5 +1,8 @@
 import * as angular from 'angular';
 import animateScrollTo from 'animated-scroll-to';
+import * as $ from 'jquery';
+import * as _ from 'lodash';
+
 
 export class LandingPageController implements angular.IController {
   static $inject = ['$scope', '$element', '$window', '$timeout'];
@@ -13,6 +16,9 @@ export class LandingPageController implements angular.IController {
   private scrollElement: any;
   private scrollOptions : any;
   private snapElement : any;
+  private debounceScroll: any;
+  private debounceResize: any;
+
 
   constructor($scope: any, $element: any, $window: any, $timeout: any) {
     this.$scope = $scope;
@@ -34,6 +40,8 @@ export class LandingPageController implements angular.IController {
 
   public $postLink() {
     this.snapElement = this.$element[0].querySelector('.landing-body-area');
+
+    // Force the body area to scroll for now to setup snap scrolling
     angular.element(this.snapElement).css('min-height', this.$window.innerHeight + 'px');
 
     // Take a moment to let the scrolling elements work themselves out
@@ -42,9 +50,9 @@ export class LandingPageController implements angular.IController {
 
   public $onDestroy() {
     if (!this.useScrollElement) {
-      angular.element(this.$window).unbind('scroll', this.onScrollChange);
+      angular.element(this.$window).unbind('scroll', this.debounceScroll);
     }
-    angular.element(this.$window).unbind('resize', this.onWindowResize);
+    angular.element(this.$window).unbind('resize', this.debounceResize);
   }
 
   public snapDown(event: any) {
@@ -81,17 +89,30 @@ export class LandingPageController implements angular.IController {
     this.scrollElement = this.getScrollParent(this.snapElement, null);
     this.useScrollElement = this.scrollElement && this.scrollElement.parentElement !== null;
 
+    this.debounceScroll = _.debounce(this.onScrollChange, 250);
+    this.debounceResize = _.debounce(this.onWindowResize, 250);
+
     if (this.useScrollElement) {
-      angular.element(this.scrollElement).scroll(this.onScrollChange);
+      angular.element(this.scrollElement).scroll(this.debounceScroll);
     } else {
-      angular.element(this.$window).bind('scroll', this.onScrollChange);
+      angular.element(this.$window).bind('scroll', this.debounceScroll);
     }
 
-    angular.element(this.$window).bind('resize', this.onWindowResize);
+    angular.element(this.$window).bind('resize', this.debounceResize);
+
+    // Now adjust the body area to scroll only if necessary
+    this.onWindowResize();
   };
 
-  private onWindowResize = (event: any) => {
-    angular.element(this.snapElement).css('min-height', this.$window.innerHeight + 'px');
+  private onWindowResize = () => {
+    var width = this.$window.innerWidth;
+    var w: any = $(window)[0];
+
+    if (width > w.patternfly.pfBreakpoints.tablet) {
+      angular.element(this.snapElement).css('min-height', this.$window.innerHeight + 'px');
+    } else {
+      angular.element(this.snapElement).css('min-height', '0');
+    }
   };
 
   private  getScrollParent(node: any, prev: any) {
@@ -142,7 +163,7 @@ export class LandingPageController implements angular.IController {
     this.$window.requestAnimationFrame(step);
   }
 
-  private onScrollChange = (event: any) => {
+  public onScrollChange = (event: any) => {
     if (this.useScrollElement) {
       this.ctrl.showSnapDown = this.scrollElement.scrollTop >= this.snapElement.offsetTop;
     } else {

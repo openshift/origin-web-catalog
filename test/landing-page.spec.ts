@@ -90,6 +90,7 @@ describe('landingPage', () => {
 
   it('should show the snap up button when scrolled', () => {
     var element = componentTest.rawElement;
+    var ctrl = componentTest.isoScope.$ctrl;
 
     $timeout.flush();
 
@@ -105,7 +106,7 @@ describe('landingPage', () => {
     var snapUp = jQuery(element).find('.snap-container.snap-up.scrolled-down');
     expect(snapUp.length).toBe(0);
 
-    $window.dispatchEvent(scrollEvent);
+    ctrl.onScrollChange(scrollEvent);
 
     snapUp = jQuery(element).find('.snap-container.snap-up.scrolled-down');
     expect(snapUp.length).toBe(1);
