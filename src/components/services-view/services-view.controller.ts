@@ -81,7 +81,7 @@ export class ServicesViewController implements angular.IController {
       this.ctrl.currentSubFilter = null;
       this.ctrl.expandSubCatRow = ServicesViewController.NO_SUBCATEGORY_ROW;
     } else {
-      this.ctrl.filterByCategory(this.ctrl.currentFilter, subCategory, false);
+      this.filterByCategory(this.ctrl.currentFilter, subCategory, false);
     }
   }
 
