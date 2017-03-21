@@ -4,6 +4,8 @@
 //
 // To change configuration for local development, copy this file to
 // assets/app/config.local.js and edit the copy.
+window.DEV_SERVER_PORT = 9001;
+
 window.OPENSHIFT_CONFIG = {
   apis: {
     hostPort: "localhost:8443",
@@ -26,7 +28,7 @@ window.OPENSHIFT_CONFIG = {
   }],
   auth: {
     oauth_authorize_uri: "https://localhost:8443/oauth/authorize",
-    oauth_redirect_base: "https://localhost:9000/dev-console",
+    oauth_redirect_base: "https://localhost:" + window.DEV_SERVER_PORT,
     oauth_client_id: "openshift-web-console",
     logout_uri: ""
   },
