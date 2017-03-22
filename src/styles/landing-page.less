@@ -13,7 +13,10 @@
   min-height: 100%;
   overflow: visible;
   position: relative;
-  top: @navbar-pf-height;
+
+  @media (min-width: @screen-sm-min) {
+    top: @navbar-pf-height;
+  }
 
   &.snap-up-shown {
     padding-bottom: 40px;
@@ -21,20 +24,27 @@
 }
 
 .landing-main-area {
-  margin: 15px @sidebar-width 15px 20px;
+  margin: 15px 20px;
   padding-right: 10px;
+
+  @media (min-width: @screen-sm-min) {
+    margin-right: @sidebar-width;
+  }
 }
 
 .landing-side-bar {
   background-color: @color-pf-black-200;
   border-left: 1px solid @color-pf-black-400;
-  position : fixed;
-  top: @navbar-pf-height;
-  bottom: 0;
-  right: 0;
-  width: @sidebar-width - 20px;
-  padding: 0 20px;
-  margin: 10px;
+  padding: 0 15px 0 10px;
+  margin: 10px 15px 10px 0;
+
+  @media (min-width: @screen-sm-min) {
+    position: fixed;
+    top: @navbar-pf-height;
+    bottom: 0;
+    right: 0;
+    width: @sidebar-width - 20px;
+  }
 }
 
 .landing-header-area {
@@ -47,21 +57,30 @@
 
 .landing-search-area {
   background: @color-pf-black-200;
-  left: 0;
+  left: 10px;
   padding: 20px 0;
-  position : fixed;
-  right: @sidebar-width;
-  top: @navbar-pf-height;
+  right: 10px;
   z-index: @zindex-navbar-fixed - 50;
 
-  .container-pf-nav-pf-vertical & {
-    left: @nav-pf-vertical-width;
-  }
-  .container-pf-nav-pf-vertical.collapsed-nav & {
-    left: @nav-pf-vertical-collapsed-width;
+  @media (min-width: @screen-sm-min) {
+    position : fixed;
+    right: @sidebar-width;
+    top: @navbar-pf-height;
+
+    .container-pf-nav-pf-vertical & {
+      left: @nav-pf-vertical-width;
+    }
+    .container-pf-nav-pf-vertical.collapsed-nav & {
+      left: @nav-pf-vertical-collapsed-width;
+    }
   }
 
+
   .landing-search-form {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+
     .form-control {
       font-size: 18px;
     }
@@ -81,26 +100,17 @@
       font-size: 18px;
       padding-top: 8px;
     }
+    @media (min-width: @screen-sm-min) {
+      width: 80%;
+    }
   }
 }
 
-.landing-search-form {
-  text-align: center;
-  width: 600px;
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-@media (min-width: 768px) {
-  .landing-search-form {
-    width: 80%;
-  }
-}
 
 .snap-container {
+  display: none;
 
   &.snap-down {
-    display: flex;
     margin-top: 10px;
     margin-bottom: -20px;
     width: 100%;
@@ -109,20 +119,25 @@
       flex: 1;
       flex-direction: row;
     }
+    @media (min-width: @screen-sm-min) {
+      display: flex;
+    }
   }
 
   &.snap-up {
     background-color: @color-pf-black-200;
     bottom: 0;
-    display: none;
     left: 0;
     padding-bottom: 10px;
+    padding-top: 5px;
     position: fixed;
     right: @sidebar-width;
     z-index: 1030;
 
     &.scrolled-down {
-      display: inherit;
+      @media (min-width: @screen-sm-min) {
+        display: inherit;
+      }
     }
 
     .container-pf-nav-pf-vertical & {
