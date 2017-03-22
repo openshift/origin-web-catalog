@@ -35,8 +35,6 @@ export class ServicesViewController implements angular.IController {
         this.ctrl.currentSubFilter = null;
         this.ctrl.expandSubCatRow = ServicesViewController.NO_SUBCATEGORY_ROW;
         this.ctrl.orderingPanelvisible = false;
-        this.ctrl.categories = this.constants.SERVICE_CATALOG_CATEGORIES;
-        this.ctrl.subCategories = this.getSubCategories('all');
 
         this.updateAll();
 
@@ -65,11 +63,11 @@ export class ServicesViewController implements angular.IController {
         } else {
             this.ctrl.filteredItems = _.filter(this.ctrl.allItems, (item: any) => {
                 if (category !== 'all' && subCategory === 'all') {
-                    return this.hasCategory(item, category);
+                    return this.catalog.hasCategory(item, category);
                 } else if (category === 'all' && subCategory !== 'all') {
-                    return this.hasSubCategory(item, subCategory);
+                    return this.catalog.hasSubCategory(item, subCategory);
                 } else {
-                    return  this.hasCategory(item, category) && this.hasSubCategory(item, subCategory);
+                    return  this.catalog.hasCategory(item, category) && this.catalog.hasSubCategory(item, subCategory);
                 }
             });
         }
@@ -130,6 +128,8 @@ export class ServicesViewController implements angular.IController {
 
         if (!this.ctrl.loading) {
             this.ctrl.filteredItems = this.ctrl.allItems;
+            this.ctrl.categories = this.catalog.removeEmptyCategories(this.ctrl.filteredItems);
+            this.ctrl.subCategories = this.getSubCategories('all');
         }
     }
 
@@ -173,13 +173,5 @@ export class ServicesViewController implements angular.IController {
             retSvcs.push(objClass);
         });
         return retSvcs;
-    }
-
-    private hasCategory(item: any, category: string) {
-        return _.includes(item.catsBySubCats, category);
-    }
-
-    private hasSubCategory(item: any, subCategory: string) {
-        return _.includes(Object.keys(item.catsBySubCats), subCategory);
-    }
+    };
 }

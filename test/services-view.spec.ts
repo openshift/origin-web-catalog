@@ -46,11 +46,16 @@ describe('servicesView', () => {
   // testing rendered HTML
   it('should have the correct number of caegories, sub-categories, and service cards', () => {
     var element = componentTest.rawElement;
-    // 5 main categories ('all', 'Languages', 'Databases', 'Middleware', 'CI/CD')
-    expect(jQuery(element).find('.services-categories a').length).toBe(5);
-    // 17 sub categories ('All', 'Java', 'Javascript',...'Jenkins', 'Pipelines')
-    expect(jQuery(element).find('.sub-cat-label').length).toBe(17);
+    // 4 main categories ('all', 'Languages', 'Databases', 'CI/CD')
+    // 'Middleware' should be hidden since mock data has no items with Middleware sub-categories
+    expect(jQuery(element).find('.services-categories a').length).toBe(4);
 
+    // 12 sub categories ('All', 'Java', 'Javascript',...'Jenkins')
+    // 'Pipelines' + the 4 Middleware sub-categories should be hidden since mock data doesn't have
+    // items with these sub-categories.
+    expect(jQuery(element).find('.sub-cat-label').length).toBe(12);
+
+    // Show the service item cards (hidden by default)
     componentTest.eventFire(element.querySelector('#sub-category-all'), 'click');
 
     // 18 cards/services

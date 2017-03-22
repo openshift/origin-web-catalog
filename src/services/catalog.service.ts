@@ -1,3 +1,4 @@
+import * as angular from 'angular';
 import * as _ from 'lodash';
 
 export class CatalogService {
@@ -36,6 +37,41 @@ export class CatalogService {
       });  // .ea category
     });  // .ea tag
     return catsBySubCats;
+  }
+
+  public hasCategory(item: any, category: string) {
+    return _.includes(item.catsBySubCats, category);
+  }
+
+  public hasSubCategory(item: any, subCategory: string) {
+    return _.includes(Object.keys(item.catsBySubCats), subCategory);
+  }
+
+  /**
+   * Return a new Array of only those Categories and SubCategories which
+   * exist in the passed in items.
+   * @param items
+   * @returns {Array}
+   */
+  public removeEmptyCategories(items: IServiceItem) {
+    let categories = angular.copy(this.categories);
+    let retCategories = [];
+
+    _.each(categories, (category) => {
+      let retSubCategories: any = _.filter(category.subCategories, (subCategory: any) => {
+        return _.some(items, (item: any) => {
+          return this.hasSubCategory(item, subCategory.id);
+        });
+      });
+
+      if (retSubCategories.length > 0) {
+        let retCategory = angular.copy(category);
+        retCategory.subCategories = retSubCategories;
+        retCategories.push(retCategory);
+      }
+    }); // ea. category
+
+    return retCategories;
   }
 }
 

@@ -31,14 +31,14 @@ export class ServicesPageController {
     this.dataService.list({
       group: 'servicecatalog.k8s.io',
       resource: 'serviceclasses'
-    }, {}).then((resources:any) => {
+    }, {}).then((resources: any) => {
       this.ctrl.serviceClasses = resources.by("metadata.name");
     }, () => {
       this.logger.log("Error Loading serviceclasses from servicecatalog.k8s.io: ");
       this.ctrl.serviceClasses = {};
     });
 
-    this.dataService.list("imagestreams", {namespace: "openshift"}).then((resources:any) => {
+    this.dataService.list("imagestreams", {namespace: "openshift"}).then((resources: any) => {
       this.ctrl.imageStreams = resources.by("metadata.name");
     }, () => {
       this.logger.log("Error Loading openshift imagestreams: ");
