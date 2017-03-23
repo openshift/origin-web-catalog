@@ -46,13 +46,14 @@ let mockServicesModule = new MockServicesModule(window);
 
 if (mockServicesModule.useMockServices() !== true) {
   require('origin-web-common/dist/origin-web-common.js');
-  commonServices = 'openshiftCommon';
+  commonServices = 'openshiftCommonServices';
 } else {
+  require('origin-web-common/dist/origin-web-common-ui.js');
   commonServices = mockServicesModule.moduleName;
 }
 
 angular
-  .module(catalogApp, ['webCatalog', commonServices, 'ui.router', 'patternfly'])
+  .module(catalogApp, ['webCatalog', 'openshiftCommonUI', commonServices, 'ui.router', 'patternfly'])
   .config(routesConfig)
   .component('oauth', oauth)
   .component('homepage', homePage)

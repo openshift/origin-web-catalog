@@ -1,5 +1,6 @@
 import * as angular from 'angular';
 import {AuthService} from './mockAuth.service';
+import {LoggerService} from './mockLogger.service';
 import {ConstantsService} from './mockConstants.service';
 import {DataService} from './mockData.service';
 
@@ -18,6 +19,7 @@ export class MockServicesModule {
     angular
       .module(this.moduleName, [])
       .service('AuthService', AuthService)
+      .provider('Logger', LoggerService)
       .factory('Constants', ConstantsService)
       .service('DataService', DataService);
 

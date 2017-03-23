@@ -483,7 +483,7 @@
 }
 .services-view-container .sub-category-row {
   overflow-y: auto;
-  max-height: 300px;
+  max-height: 400px;
 }
 .services-view-container .title {
   font-size: 36px;
@@ -592,6 +592,13 @@
 }
 .services-view-container .card-icon.pf {
   padding-right: 18px;
+}
+.services-view-container .card-img {
+  height: 100%;
+}
+.services-view-container .card-img img {
+  width: 60px;
+  height: 60px;
 }
 .services-view-container .card-name {
   font-size: 16px;

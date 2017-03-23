@@ -2,13 +2,15 @@ let URI = require('urijs');
 
 export class ErrorPageController {
 
-  static $inject = ['$window'];
+  static $inject = ['$window', 'Logger'];
 
   public ctrl: any = this;
   private $window : any;
+  private logger: any;
 
-  constructor($window: any) {
+  constructor($window: any, Logger: any) {
     this.$window = $window;
+    this.logger = Logger;
   };
 
   public $onInit() {
@@ -43,7 +45,7 @@ export class ErrorPageController {
   };
 
   public reloadConsole() {
-    console.log("reloading console");
+    this.logger.log("reloading console");
     this.$window.location.href = "/";
   };
 }

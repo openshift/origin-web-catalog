@@ -12,10 +12,12 @@ export class OrderServiceController implements angular.IController {
   }
 
   public $onInit() {
-    this.ctrl.serviceIcon = this.ctrl.service.imageURL ? this.ctrl.service.imageURL : 'pf pficon-service';
-    this.ctrl.serviceName = this.ctrl.service.displayName ? this.ctrl.service.displayName : this.ctrl.service.metadata.name;
-    this.ctrl.versions = this.ctrl.service.versions;
-    this.ctrl.selectedVersion = this.ctrl.service.versions[0];
+    this.ctrl.serviceIcon = this.ctrl.service.icon ? this.ctrl.service.icon : 'pf pficon-service';
+    this.ctrl.serviceName = this.ctrl.service.name;
+    // TODO: Implement 'Versions' dropdown for OpenShift Imagestreams
+    //       longDescription will change based on selected Version
+    // this.ctrl.versions = this.ctrl.service.versions;
+    // this.ctrl.selectedVersion = this.ctrl.service.versions[0];
     this.ctrl.description = this.ctrl.service.description;
     this.ctrl.longDescription = this.ctrl.service.longDescription;
 
@@ -63,14 +65,14 @@ export class OrderServiceController implements angular.IController {
   }
 
   public $onChanges(onChangesObj: angular.IOnChangesObject) {
-    // console.log('$onChanges' + JSON.stringify(onChangesObj));
+    return;
   }
 
   public $doCheck() {
-    // console.log('$doCheck');
+    return;
   }
 
   public cancelOrder() {
-    this.$scope.$emit('cancelOrder');
+    return;
   }
 }

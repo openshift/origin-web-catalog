@@ -29,7 +29,7 @@ export class ComponentTest<TController> {
         this.rawElement = this.element[0];
     }
 
-    public eventFire (el: any, etype: any){
+    public eventFire (el: any, etype: any) {
         if (el.fireEvent) {
             (el.fireEvent('on' + etype));
         } else {

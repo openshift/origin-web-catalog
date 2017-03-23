@@ -9,6 +9,7 @@ import {overlayPanel} from './components/overlay-panel/overlay-panel.component';
 import {projectsSummary} from './components/projects-summary/projects-summary.component';
 import {rhAppsList} from './components/redhat-apps-list/rh-apps-list.component';
 import {servicesView} from './components/services-view/services-view.component';
+import {CatalogService} from './services/catalog.service';
 
 import './styles/main.less';
 
@@ -16,6 +17,7 @@ export const webCatalog: string = 'webCatalog';
 
 angular
   .module(webCatalog, ['patternfly', 'ngAnimate', 'ui.bootstrap'])
+  .service('Catalog', CatalogService)
   .component('landingPage', landingPage)
   .component('orderService', orderService)
   .component('overlayPanel', overlayPanel)
