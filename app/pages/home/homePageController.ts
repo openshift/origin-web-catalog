@@ -1,20 +1,21 @@
 export class HomePageController {
-  static $inject = ['AuthService', 'Logger', 'Constants', 'DataService', '$q'];
+  static $inject = ['$state', 'AuthService', 'Logger', 'Constants', 'DataService'];
 
   public ctrl: any = this;
+  private $state: any;
   private authService: any;
   private logger: any;
   private constants: any;
   private dataService: any;
-  private $q : any;
+  private Logger: any;
 
-  constructor(AuthService: any, Logger: any, Constants: any, DataService: any, $q: any) {
+  constructor($state: any, AuthService: any, Logger: any, Constants: any, DataService: any) {
+    this.$state = $state;
     this.authService = AuthService;
     this.logger = Logger;
     this.constants = Constants;
     this.dataService = DataService;
-    this.$q = $q;
-    this.ctrl.loading = true;
+    this.Logger = Logger;
     this.ctrl.applications = [];
     this.ctrl.categories = [];
     this.ctrl.serviceClasses = {};
@@ -46,5 +47,13 @@ export class HomePageController {
     });
 
     this.ctrl.applications = this.constants.REDHAT_APPLICATIONS;
+  };
+
+  public navToProject = (project: any) => {
+    this.$state.go('projects/' + project.metadata.name);
+  };
+
+  public navToProjects = () => {
+    this.$state.go('projects');
   };
 }

@@ -2,7 +2,7 @@ import * as angular from 'angular';
 import 'angular-mocks';
 import * as jQuery from 'jquery';
 
-import '../src/index';
+import {TestHelpers} from '../test/utils/testHelpers';
 import {ComponentTest} from '../test/utils/ComponentTest';
 import {OverlayPanelController} from '../src/components/overlay-panel/overlay-panel.controller';
 
@@ -19,7 +19,10 @@ describe('landingPage', () => {
     closeCount++;
   };
 
+  var testHelpers: TestHelpers = new TestHelpers();
+
   beforeEach( () => {
+    testHelpers.initTests();
     angular.mock.module('webCatalog');
   });
 

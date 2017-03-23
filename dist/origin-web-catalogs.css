@@ -404,21 +404,151 @@
   padding: 0 20px;
   width: 98%;
 }
-.catalogs-projects-summary-panel {
+.catalog-projects-summary-panel {
   padding: 20px 10px;
   width: 100%;
 }
-.catalogs-projects-summary-panel .create-button {
+.catalog-projects-summary-panel .create-button {
   width: 100%;
   font-size: 16px;
   line-height: 33px;
 }
-.catalogs-projects-summary-panel .create-button-text {
+.catalog-projects-summary-panel .create-button-text {
   padding-left: 4px;
 }
-.catalogs-projects-summary-panel .getting-started-panel {
+.catalog-projects-summary-panel .getting-started-panel {
   border-top: 1px solid #bbb;
   height: 200px;
+}
+.catalog-create-project-panel,
+.catalog-edit-project-panel {
+  background-color: #fff;
+  bottom: 0;
+  left: 0;
+  overflow: visible;
+  position: fixed;
+  padding: 15px;
+  right: 0;
+  top: 0;
+  z-index: 1080;
+}
+@media (min-width: 768px) {
+  .catalog-create-project-panel,
+  .catalog-edit-project-panel {
+    border: solid 1px #4d5258;
+    left: inherit;
+    margin-top: 10px;
+    padding: 15px;
+    position: fixed;
+    right: 20px;
+    top: inherit;
+    bottom: inherit;
+    width: 400px;
+    z-index: 500;
+  }
+}
+.catalog-create-project-panel .arrow,
+.catalog-edit-project-panel .arrow {
+  display: block;
+  border-color: transparent transparent #4d5258;
+  border-width: 0 11px 11px;
+  border-style: solid;
+  position: absolute;
+  height: 0;
+  width: 0;
+  left: 90%;
+  margin-left: -11px;
+  top: -11px;
+}
+.catalog-create-project-panel .arrow:after,
+.catalog-edit-project-panel .arrow:after {
+  content: " ";
+  display: block;
+  border-color: transparent transparent #fff;
+  border-style: solid;
+  border-width: 0 10px 10px;
+  position: absolute;
+  top: 1px;
+  width: 0;
+  height: 0;
+  margin-left: -10px;
+}
+.catalog-create-project-panel .catalog-create-project-title,
+.catalog-edit-project-panel .catalog-create-project-title {
+  font-size: 16px;
+  font-weight: 500;
+}
+.catalog-create-project-panel .catalog-create-project-close,
+.catalog-edit-project-panel .catalog-create-project-close {
+  font-size: 18px;
+  float: right;
+  color: #72767b;
+}
+.catalog-create-project-panel .catalog-create-project-close.pficon-close,
+.catalog-edit-project-panel .catalog-create-project-close.pficon-close {
+  color: #72767b;
+  cursor: pointer;
+}
+.catalog-create-project-panel .catalog-create-project-close.pficon-close:hover,
+.catalog-edit-project-panel .catalog-create-project-close.pficon-close:hover {
+  color: #393f44;
+}
+.catalog-create-project-panel label.required:before,
+.catalog-edit-project-panel label.required:before {
+  content: '*';
+  position: absolute;
+  left: 5px;
+}
+.catalog-project-summary-list {
+  margin-top: 20px;
+}
+.catalog-project-summary-list .counter-text {
+  font-weight: 700;
+}
+.catalog-project-summary-list .projects-view-all {
+  float: right;
+}
+.catalog-project-summary-list .project-tile {
+  background-color: #fff;
+  border: solid 1px #8b8d8f;
+  border-bottom: 0;
+  padding: 10px;
+  width: 100%;
+}
+.catalog-project-summary-list .project-tile:last-of-type {
+  border-bottom: solid 1px #8b8d8f;
+}
+.catalog-project-summary-list .project-tile-header {
+  display: flex;
+}
+.catalog-project-summary-list .project-status {
+  padding-right: 5px;
+  font-size: 14px;
+  position: relative;
+  top: 4px;
+}
+.catalog-project-summary-list .project-title {
+  flex: 1;
+  font-size: 14px;
+  overflow: hidden;
+  text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.catalog-project-summary-list .dropdown-kebab-pf {
+  float: right;
+}
+.catalog-project-summary-list .project-date {
+  font-size: 10px;
+  margin: 5px 10px 0;
+  white-space: nowrap;
+}
+.catalog-project-summary-list .project-description {
+  margin-top: 5px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 100%;
+  white-space: nowrap;
 }
 .red-hat-apps-container {
   background: #ededed;
