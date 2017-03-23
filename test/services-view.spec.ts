@@ -46,20 +46,20 @@ describe('servicesView', () => {
   // testing rendered HTML
   it('should have the correct number of caegories, sub-categories, and service cards', () => {
     var element = componentTest.rawElement;
-    // 4 main categories ('all', 'Languages', 'Databases', 'CI/CD')
+    // 4 main categories ('all', 'Languages', 'Databases', 'CI/CD', 'Other')
     // 'Middleware' should be hidden since mock data has no items with Middleware sub-categories
-    expect(jQuery(element).find('.services-categories a').length).toBe(4);
+    expect(jQuery(element).find('.services-categories a').length).toBe(5);
 
     // 12 sub categories ('All', 'Java', 'Javascript',...'Jenkins')
-    // 'Pipelines' + the 4 Middleware sub-categories should be hidden since mock data doesn't have
+    // 'Pipelines', 'Other', + the 4 Middleware sub-categories should be hidden since mock data doesn't have
     // items with these sub-categories.
     expect(jQuery(element).find('.sub-cat-label').length).toBe(12);
 
     // Show the service item cards (hidden by default)
     componentTest.eventFire(element.querySelector('#sub-category-all'), 'click');
 
-    // 18 cards/services
-    expect(jQuery(element).find('.card-name').length).toBe(18);
+    // 19 cards/services
+    expect(jQuery(element).find('.card-name').length).toBe(19);
   });
 
   it('should filter sub-categories and cards when main category is clicked', () => {
@@ -86,6 +86,18 @@ describe('servicesView', () => {
     expect(jQuery(element).find('.card-name').length).toBe(3);
     componentTest.eventFire(element.querySelector('#sub-category-mongodb'), 'click');
     expect(jQuery(element).find('.card-name').length).toBe(0);
+  });
+
+  it("should categorize 'Other' items", () => {
+    var element = componentTest.rawElement;
+
+    componentTest.eventFire(element.querySelector('#category-other'), 'click');
+
+    // no sub categories should exist under 'Other'
+    expect(jQuery(element).find('.sub-cat-label').length).toBe(0);
+
+    // 1 'other' card
+    expect(jQuery(element).find('.card-name').length).toBe(1);
   });
 
 });

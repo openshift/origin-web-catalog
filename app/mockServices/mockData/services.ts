@@ -90,5 +90,18 @@ export const servicesData = {
       description: 'BUILDS SOURCE CODE',
       longDescription: 'run MongoDB applications. For more information about using this builder image, including OpenShift considerations, see https://github.com/openshift-s2i/s2i-wildfly/blob/mast…',
     }
+  },
+  "test-serviceclass-other": {
+    "metadata": {
+      "name": "test-serviceclass-other",
+      "uid": "1",
+    },
+    osbTags: ['fooBar'],
+    osbMetadata: {
+      displayName: 'Test ServiceClass Other',
+      description: 'BUILDS SOURCE CODE',
+      longDescription: 'some other service',
+      'console.openshift.io/iconClass': 'fa fa-question'
+    }
   }
 };

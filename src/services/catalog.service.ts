@@ -24,6 +24,8 @@ export class CatalogService {
 
   public getCategoriesBySubCategories(tags: any) {
     let catsBySubCats = {};
+    let otherId = 'other';
+
     _.each(tags, (tag) => {
       _.each(this.categories, (category) => {
         let subCat: any = _.find(category.subCategories, (subCategory: any) => {
@@ -36,6 +38,9 @@ export class CatalogService {
         }
       });  // .ea category
     });  // .ea tag
+    if (_.isEmpty(catsBySubCats)) {
+      catsBySubCats[otherId] = otherId;
+    }
     return catsBySubCats;
   }
 
@@ -44,7 +49,7 @@ export class CatalogService {
   }
 
   public hasSubCategory(item: any, subCategory: string) {
-    return _.includes(Object.keys(item.catsBySubCats), subCategory);
+    return _.has(item, ['catsBySubCats', subCategory]);
   }
 
   /**
@@ -64,7 +69,7 @@ export class CatalogService {
         });
       });
 
-      if (retSubCategories.length > 0) {
+      if (!_.isEmpty(retSubCategories)) {
         let retCategory = angular.copy(category);
         retCategory.subCategories = retSubCategories;
         retCategories.push(retCategory);

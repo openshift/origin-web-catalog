@@ -92,7 +92,7 @@ export class ServicesViewController implements angular.IController {
     }
 
     public getSubCategories(category: string) {
-        let subCats = [{id: 'all', label:  'All'}];
+        let subCats = (category !== 'other') ? [{id: 'all', label:  'All'}] : [];
         this.ctrl.categories.map(categoryObj => {
             if (category === 'all' || category === categoryObj.id) {
                 subCats = subCats.concat(categoryObj.subCategories);
@@ -159,6 +159,8 @@ export class ServicesViewController implements angular.IController {
                 }
             }
         }
+
+        return 0;
     }
 
     private normalizeData = (type: string, items: any) => {
