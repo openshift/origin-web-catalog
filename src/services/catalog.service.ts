@@ -1,3 +1,4 @@
+import * as angular from 'angular';
 import * as _ from 'lodash';
 
 export class CatalogService {
@@ -23,6 +24,8 @@ export class CatalogService {
 
   public getCategoriesBySubCategories(tags: any) {
     let catsBySubCats = {};
+    let otherId = 'other';
+
     _.each(tags, (tag) => {
       _.each(this.categories, (category) => {
         let subCat: any = _.find(category.subCategories, (subCategory: any) => {
@@ -35,7 +38,45 @@ export class CatalogService {
         }
       });  // .ea category
     });  // .ea tag
+    if (_.isEmpty(catsBySubCats)) {
+      catsBySubCats[otherId] = otherId;
+    }
     return catsBySubCats;
+  }
+
+  public hasCategory(item: any, category: string) {
+    return _.includes(item.catsBySubCats, category);
+  }
+
+  public hasSubCategory(item: any, subCategory: string) {
+    return _.has(item, ['catsBySubCats', subCategory]);
+  }
+
+  /**
+   * Return a new Array of only those Categories and SubCategories which
+   * exist in the passed in items.
+   * @param items
+   * @returns {Array}
+   */
+  public removeEmptyCategories(items: IServiceItem) {
+    let categories = angular.copy(this.categories);
+    let retCategories = [];
+
+    _.each(categories, (category) => {
+      let retSubCategories: any = _.filter(category.subCategories, (subCategory: any) => {
+        return _.some(items, (item: any) => {
+          return this.hasSubCategory(item, subCategory.id);
+        });
+      });
+
+      if (!_.isEmpty(retSubCategories)) {
+        let retCategory = angular.copy(category);
+        retCategory.subCategories = retSubCategories;
+        retCategories.push(retCategory);
+      }
+    }); // ea. category
+
+    return retCategories;
   }
 }
 

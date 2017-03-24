@@ -24,6 +24,7 @@
       <div ng-repeat="subCategoryRow in $ctrl.subCategories">
         <div class="services-sub-categories">
           <div ng-repeat="subCategory in subCategoryRow"
+               ng-if="subCategory.id !== 'other'"
                id="{{'sub-category-'+subCategory.id}}"
                class="card" ng-class="{'current-filter': $ctrl.currentSubFilter === subCategory.id}"
                ng-click="$ctrl.toggleExpand(subCategory.id)">
@@ -34,7 +35,7 @@
           </div>
         </div>
         <div ng-if="$ctrl.expandSubCatRow === $index"
-             class="sub-category-row"
+             class="sub-category-row" ng-class="{'other': $ctrl.currentFilter === 'other'}"
              pf-card-view config="$ctrl.cardViewConfig" items="$ctrl.filteredItems">
           <div class="card-container">
             <div ng-if="!item.imageUrl" class="card-icon {{item.iconClass}}"></div>

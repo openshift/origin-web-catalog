@@ -485,6 +485,9 @@
   overflow-y: auto;
   max-height: 400px;
 }
+.services-view-container .sub-category-row.other {
+  margin-top: 24px;
+}
 .services-view-container .title {
   font-size: 36px;
   font-weight: 700;

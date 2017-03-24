@@ -32,6 +32,9 @@ var categories: any = [
   {id: 'cicd', label: 'CI/CD', subCategories: [
     {id: 'jenkins', label: 'Jenkins', icon: 'font-icon icon-jenkins'},
     {id: 'pipelines', label: 'Pipelines', icon: 'fa fa-clone'}
+  ]},
+  {id: 'other', label: 'Other' , subCategories: [
+    {id: 'other', label: 'Other'}
   ]}
 ];
 
