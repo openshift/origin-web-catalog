@@ -1,31 +1,41 @@
 import * as angular from 'angular';
+import * as _ from 'lodash';
+
+require("./order-service-plans.html");
+require("./order-service-configure.html");
+require("./order-service-review.html");
 
 export class OrderServiceController implements angular.IController {
 
-  static $inject = ['$scope'];
+  static $inject = ['$scope', '$filter', 'DataService', 'Logger'];
 
   public ctrl: any = this;
   public $scope: any;
 
-  constructor($scope: any) {
+  private $filter: any;
+  private DataService: any;
+  private Logger: any;
+
+  constructor($scope: any, $filter: any, DataService: any, Logger: any) {
     this.$scope = $scope;
+    this.$filter = $filter;
+    this.DataService = DataService;
+    this.Logger = Logger;
   }
 
   public $onInit() {
-    this.ctrl.serviceIcon = this.ctrl.service.icon ? this.ctrl.service.icon : 'pf pficon-service';
-    this.ctrl.serviceName = this.ctrl.service.name;
-    // TODO: Implement 'Versions' dropdown for OpenShift Imagestreams
-    //       longDescription will change based on selected Version
-    // this.ctrl.versions = this.ctrl.service.versions;
-    // this.ctrl.selectedVersion = this.ctrl.service.versions[0];
-    this.ctrl.description = this.ctrl.service.description;
-    this.ctrl.longDescription = this.ctrl.service.longDescription;
+    this.ctrl.iconClass = this.ctrl.serviceClass.iconClass || 'fa fa-cubes';
+    this.ctrl.imageUrl = this.ctrl.serviceClass.imageUrl;
+    this.ctrl.serviceName = this.ctrl.serviceClass.name;
+    this.ctrl.description = this.ctrl.serviceClass.description;
+    this.ctrl.longDescription = this.ctrl.serviceClass.longDescription;
 
     this.ctrl.steps = [ {id: 1, selected: true},
                         {id: 2},
                         {id: 3}
                       ];
     this.ctrl.currentStep = this.ctrl.steps[0];
+    this.listProjects();
 
     this.ctrl.wizardReady = true;
   }
@@ -35,9 +45,16 @@ export class OrderServiceController implements angular.IController {
   }
 
   public stepClick(step: any) {
-    if (step.visited) {
-      this.gotoStep(step);
+    // Prevent returning to previous steps if the order is complete.
+    if (this.ctrl.orderComplete) {
+      return;
     }
+
+    if (!step.visited) {
+      return;
+    }
+
+    this.gotoStep(step);
   }
 
   public gotoStep(step: any) {
@@ -48,20 +65,25 @@ export class OrderServiceController implements angular.IController {
   }
 
   public configureService (plan: any) {
-    // this.ctrl.selectedPlan = plan;
-    this.ctrl.serviceLongDescription = plan;
+    this.ctrl.selectedPlan = plan;
     this.gotoStep(this.ctrl.steps[1]);
   }
 
-  public orderService() {
-    this.gotoStep(this.ctrl.steps[2]);
-  }
-
-  public toggleAdvOps() {
-    let advHref = document.querySelector('#adv-ops-href');
-    let advOps = document.querySelector('#adv-ops');
-    angular.element( advHref ).toggleClass('collapsed');
-    angular.element( advOps ).toggleClass('collapse');
+  public provisionService() {
+    let serviceInstance = this.makeServiceInstance();
+    this.DataService.create({
+      group: 'servicecatalog.k8s.io',
+      resource: 'instances'
+    }, null, serviceInstance, {
+      namespace: this.ctrl.selectedProject.metadata.name
+    }).then(() => {
+      // TODO: Handle async responses
+      this.ctrl.orderComplete = true;
+      this.ctrl.error = null;
+      this.gotoStep(this.ctrl.steps[2]);
+    }, (e: any) => {
+      this.ctrl.error = e;
+    });
   }
 
   public $onChanges(onChangesObj: angular.IOnChangesObject) {
@@ -72,7 +94,34 @@ export class OrderServiceController implements angular.IController {
     return;
   }
 
-  public cancelOrder() {
-    return;
+  public closePanel() {
+    if (angular.isFunction(this.ctrl.handleClose)) {
+      this.ctrl.handleClose();
+    }
+  }
+
+  private listProjects() {
+    this.DataService.list('projects', this.$scope).then((response: any) => {
+      this.ctrl.projects = _.sortBy(response.by('metadata.name'), this.$filter('displayName'));
+      this.ctrl.selectedProject = _.first(this.ctrl.projects);
+    });
+  }
+
+  private makeServiceInstance() {
+    let serviceClassName = _.get(this, 'ctrl.serviceClass.resource.metadata.name');
+    let serviceInstance = {
+      kind: 'Instance',
+      apiVersion: 'servicecatalog.k8s.io/v1alpha1',
+      metadata: {
+        namespace: this.ctrl.selectedProject.metadata.name,
+        generateName: serviceClassName + '-'
+      },
+      spec: {
+        serviceClassName: serviceClassName,
+        planName: this.ctrl.selectedPlan.name
+      }
+    };
+
+    return serviceInstance;
   }
 }

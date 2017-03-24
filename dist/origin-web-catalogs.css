@@ -227,11 +227,6 @@
 .order-service-details .order-service-deails-top .description {
   padding-top: 8px;
 }
-.order-service-details .order-service-deails-top .long-description {
-  margin-top: 92px;
-  padding: 10px;
-  border: 1px solid #bbb;
-}
 .order-service-details .order-service-deails-bottom {
   height: 30%;
   padding-left: 180px;
@@ -362,6 +357,7 @@
   border: 1px solid #bbb;
   height: 50%;
   left: 20px;
+  min-height: 350px;
   position: fixed;
   padding: 20px;
   right: 20px;

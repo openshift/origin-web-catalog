@@ -2,7 +2,7 @@
 <div class="services-view">
 
   <overlay-panel show-panel="$ctrl.orderingPanelvisible" show-close="true" handle-close="$ctrl.closeOrderingPanel">
-    <order-service service="$ctrl.serviceToOrder"></order-service>
+    <order-service service-class="$ctrl.serviceToOrder" handle-close="$ctrl.closeOrderingPanel"></order-service>
   </overlay-panel>
 
   <div ng-if="$ctrl.loading" class="spinner-container">

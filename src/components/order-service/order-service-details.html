@@ -11,9 +11,10 @@
     </li>
   </ul>
 </div>
-<h2 class="sub-title">General Information</h2>
-<div>{{$ctrl.description}}</div>
+<div ng-bind-html="$ctrl.description | linky : '_blank'"></div>
+<!-- TODO: truncate long text -->
 <p class="description">
-  {{$ctrl.longDescription}}
-  <a ng-click="selectField(item)">Learn More...</a>
+  <div ng-bind-html="$ctrl.longDescription | linky : '_blank'"></div>
+  <!-- TODO: add documentation link -->
+  <!-- <a href="">Learn More...</a> -->
 </p>
