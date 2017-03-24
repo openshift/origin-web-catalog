@@ -8,10 +8,4 @@ export class LandingPageController implements angular.IController {
   public $onInit() {
     this.ctrl.searchText = '';
   }
-
-  public onSearchButtonClick() {
-    if (angular.isFunction(this.ctrl.doSearchFn)) {
-      this.ctrl.doSearchFn(this.ctrl.searchText);
-    }
-  }
 }
