@@ -1,6 +1,6 @@
 {
-  "name": "origin-web-catalogs",
-  "version": "0.0.2",
+  "name": "origin-web-catalog",
+  "version": "0.0.3",
   "description": "The Openshift Web Catalogs Library",
   "scripts": {
     "clean": "rimraf dist && rimraf docs && rimraf coverage",
@@ -17,14 +17,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/origin/origin-web-catalogs.git"
+    "url": "https://github.com/origin/origin-web-catalog.git"
   },
-  "author": "Jeff Phillips, David Taylor",
-  "license": "MIT",
+  "author": "Red Hat, Inc",
+  "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/origin/origin-web-catalogs/issues"
+    "url": "https://github.com/origin/origin-web-catalog/issues"
   },
-  "homepage": "https://github.com/origin/origin-web-catalogs",
+  "homepage": "https://github.com/origin/origin-web-catalog",
   "dependencies": {
     "angular": "1.5.11",
     "angular-animate": "1.5.11",
