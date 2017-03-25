@@ -49,7 +49,7 @@
     "@types/es6-shim": "^0.31.32",
     "@types/jasmine": "^2.5.38",
     "@types/jquery": "^2.0.33",
-    "@types/lodash": "4.14.51",
+    "@types/lodash": "^3.10.1",
     "@types/node": "^0.0.2",
     "angular-mocks": "1.5.11",
     "autoprefixer": "^6.0.3",
