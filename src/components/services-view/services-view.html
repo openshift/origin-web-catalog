@@ -20,23 +20,17 @@
       </span>
     </div>
 
-    <div class="services-sub-category-rows">
-      <div ng-repeat="subCategoryRow in $ctrl.subCategories">
-        <div class="services-sub-categories">
-          <div ng-repeat="subCategory in subCategoryRow"
-               ng-if="subCategory.id !== 'other'"
-               id="{{'sub-category-'+subCategory.id}}"
-               class="card" ng-class="{'current-filter': $ctrl.currentSubFilter === subCategory.id}"
-               ng-click="$ctrl.toggleExpand(subCategory.id)">
-            <div class="inner-content">
-              <div class="sub-cat-icon {{subCategory.icon}}" ng-if="subCategory.icon"></div>
-              <div class="sub-cat-label">{{subCategory.label}}</div>
-            </div>
-          </div>
+    <div class="services-sub-categories">
+      <div ng-repeat="subCategory in $ctrl.subCategories"
+           id="{{'sub-category-'+subCategory.id}}"
+           class="sub-cat-card" ng-class="{'active': $ctrl.currentSubFilter === subCategory.id}">
+        <div class="inner-content" ng-click="$ctrl.toggleExpand(subCategory.id)">
+          <div class="sub-cat-icon {{subCategory.icon}}" ng-if="subCategory.icon"></div>
+          <div class="sub-cat-label">{{subCategory.label}}</div>
         </div>
-        <div ng-if="$ctrl.expandSubCatRow === $index"
-             class="sub-category-row" ng-class="{'other': $ctrl.currentFilter === 'other'}"
-             pf-card-view config="$ctrl.cardViewConfig" items="$ctrl.filteredItems">
+        <div ng-if="$ctrl.currentSubFilter === subCategory.id || $ctrl.currentFilter === 'other'"
+           class="card-expansion" ng-class="{'other': $ctrl.currentFilter === 'other'}"
+           pf-card-view config="$ctrl.cardViewConfig" items="$ctrl.filteredItems">
           <div class="card-container">
             <div ng-if="!item.imageUrl" class="card-icon {{item.iconClass}}"></div>
             <div ng-if="item.imageUrl" class="card-img"><img src="{{item.imageUrl}}"></div>
