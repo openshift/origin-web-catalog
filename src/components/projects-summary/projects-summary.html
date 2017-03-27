@@ -1,11 +1,74 @@
-<div class="catalogs-projects-summary-panel">
-  <button class="create-button btn btn-primary">
+<div class="catalog-projects-summary-panel">
+  <button ng-if="$ctrl.canCreate" class="create-button btn btn-primary" ng-click="$ctrl.openNewProjectPanel()">
     <span class="fa fa-plus"></span>
     <span class="create-button-text">Create Project</span>
   </button>
-  <h2>Getting Started</h2>
-  <div class="getting-started-panel">
-    {{$ctrl.gettingStartedText}}
+  <div class="catalog-create-project-panel" ng-if="$ctrl.showNewProjectPanel">
+    <div class="arrow"></div>
+    <div class="catalog-create-project-title">
+      <span>Create Project</span>
+      <a href="" class="pull-right" ng-click="$ctrl.closeNewProjectPanel()">
+        <span class="catalog-create-project-close pficon pficon-close"></span>
+      </a>
+    </div>
+    <create-project alerts="$ctrl.alerts" is-dialog="true" redirect-action="$ctrl.onNewProject" on-cancel="$ctrl.closeNewProjectPanel"></create-project>
+  </div>
+
+  <div ng-if="$ctrl.showGetStarted">
+    <h2>Getting Started</h2>
+    <div class="getting-started-panel">
+      {{$ctrl.gettingStartedText}}
+    </div>
+  </div>
+  <div ng-if="!$ctrl.showGetStarted" class="catalog-project-summary-list">
+    <div ng-if="$ctrl.totalProjects > $ctrl.maxDisplayProjects" class="projects-count-area">
+      <span class="counter-text">{{$ctrl.maxDisplayProjects}}</span>
+      <span>of</span>
+      <span class="counter-text">{{$ctrl.totalProjects}}</span>
+      <span>Projects</span>
+      <a href="" class="projects-view-all" ng-click="$ctrl.showAllProjects()">View All</a>
+    </div>
+    <div id="catalog-projects-summary-list">
+      <div ng-repeat="project in $ctrl.projects track by (project | uid)" class="project-tile">
+        <div class="dropdown  dropdown-kebab-pf" uib-dropdown="">
+          <button class="btn btn-link uib-dropdown-toggle" type="button" id="dropdownKebab" aria-haspopup="true" aria-expanded="true" uib-dropdown-toggle>
+            <span class="fa fa-ellipsis-v"></span>
+          </button>
+          <ul class="uib-dropdown-menu dropdown-menu-right" aria-labelledby="dropdownKebab">
+            <li><a href="" ng-click="$ctrl.editProject(project)">Edit</a></li>
+            <li>
+              <delete-link
+                  kind="Project"
+                  resource-name="{{project.metadata.name}}"
+                  project-name="{{project.metadata.name}}"
+                  display-name="{{(project | displayName)}}"
+                  type-name-to-confirm="true"
+                  stay-on-current-page="true"
+                  alerts="$ctrl.alerts">
+              </delete-link>
+            </li>
+          </ul>
+        </div>
+        <div class="project-tile-header">
+          <span ng-if="project.statusIconClass" class="project-status {{project.statusIconClass}}"></span>
+          <a href="" ng-click="$ctrl.handleProjectClick(project)" class="project-title">{{project | displayName}}</a>
+          <span class="project-date">{{project.metadata.creationTimestamp | date: 'mediumDate'}}</span>
+        </div>
+        <div class="project-description">
+          {{project | description}}
+        </div>
+        <div class="catalog-edit-project-panel" ng-if="$ctrl.showEditProjectPanel && $ctrl.edittingProject === project">
+          <div class="arrow"></div>
+          <div class="catalog-create-project-title">
+            Edit Project &ndash; {{$ctrl.edittingProject | displayName}}
+            <a href="" class="pull-right" ng-click="$ctrl.closeEditProjectPanel()">
+              <span class="catalog-create-project-close pficon pficon-close"></span>
+            </a>
+          </div>
+          <edit-project project="$ctrl.edittingProject" is-dialog="true" alerts="$ctrl.alerts" redirect-action="$ctrl.onEditProject" on-cancel="$ctrl.closeEditProjectPanel"></edit-project>
+        </div>
+      </div>
+    </div>
   </div>
   <h3>Resources</h3>
   <span>

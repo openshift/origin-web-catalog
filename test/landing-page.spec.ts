@@ -2,7 +2,7 @@ import * as angular from 'angular';
 import 'angular-mocks';
 import * as jQuery from 'jquery';
 
-import '../src/index';
+import {TestHelpers} from '../test/utils/testHelpers';
 import {ComponentTest} from '../test/utils/ComponentTest';
 import {LandingPageController} from '../src/components/landing-page/landing-page.controller';
 
@@ -13,9 +13,12 @@ describe('landingPage', () => {
   var componentTest: ComponentTest<LandingPageController>;
   var $timeout: any;
   var $window: any;
+  var testHelpers: TestHelpers = new TestHelpers();
 
   beforeEach( () => {
-    angular.mock.module('webCatalog');
+    testHelpers.initTests();
+
+    angular.mock.module('webCatalog', 'openshiftCommonUI', 'mockServices');
   });
 
   beforeEach(() => {

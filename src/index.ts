@@ -3,6 +3,8 @@ import './styles/main.less';
 
 // Aphabetical order please
 require('./constants');
+
+// Components, Alphabetical order please
 import {landingPage} from './components/landing-page/landing-page.component';
 import {orderService} from './components/order-service/order-service.component';
 import {overlayPanel} from './components/overlay-panel/overlay-panel.component';

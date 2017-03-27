@@ -1,4 +1,4 @@
-.catalogs-projects-summary-panel {
+.catalog-projects-summary-panel {
   padding: 20px 10px;
   width: 100%;
 
@@ -17,3 +17,139 @@
   }
 }
 
+.catalog-create-project-panel, .catalog-edit-project-panel {
+  background-color: @color-pf-white;
+  bottom: 0;
+  left: 0;
+  overflow: visible;
+  position: fixed;
+  padding: 15px;
+  right: 0;
+  top: 0;
+  z-index: 1080;
+
+  @media (min-width: 768px) {
+    border: solid 1px @color-pf-black-700;
+    left: inherit;
+    margin-top: 10px;
+    padding: 15px;
+    position: fixed;
+    right: 20px;
+    top: inherit;
+    bottom: inherit;
+    width: 400px;
+    z-index: 500;
+  }
+
+  .arrow {
+    display: block;
+    border-color: transparent transparent @color-pf-black-700;
+    border-width: 0 11px 11px;
+    border-style: solid;
+    position: absolute;
+    height: 0;
+    width: 0;
+    left: 90%;
+    margin-left: -11px;
+    top: -11px;
+
+    &:after {
+      content: " ";
+      display: block;
+      border-color: transparent transparent @color-pf-white;
+      border-style: solid;
+      border-width: 0 10px 10px;
+      position: absolute;
+      top: 1px;
+      width: 0;
+      height: 0;
+      margin-left: -10px;
+    }
+  }
+
+  .catalog-create-project-title {
+    font-size: 16px;
+    font-weight: 500;
+  }
+  .catalog-create-project-close {
+    font-size: 18px;
+    float: right;
+    color: @color-pf-black-600;
+
+    &.pficon-close {
+      color: @color-pf-black-600;
+      cursor: pointer;
+    }
+    &.pficon-close:hover {
+      color: @color-pf-black-800;
+    }
+  }
+
+  label.required:before {
+    content: '*';
+    position: absolute;
+    left: 5px;
+  }
+}
+
+.catalog-project-summary-list {
+  margin-top: 20px;
+
+  .counter-text {
+    font-weight: 700;
+  }
+  .projects-view-all {
+    float: right;
+  }
+
+  .project-tile {
+    background-color: @color-pf-white;
+    border: solid 1px @color-pf-black-500;
+    border-bottom: 0;
+    padding: 10px;
+    width: 100%;
+
+    &:last-of-type {
+      border-bottom: solid 1px @color-pf-black-500;
+    }
+  }
+
+  .project-tile-header {
+    display: flex;
+  }
+
+  .project-status {
+    padding-right: 5px;
+    font-size: 14px;
+    position: relative;
+    top: 4px;
+  }
+
+  .project-title {
+    flex: 1;
+    font-size: 14px;
+    overflow: hidden;
+    text-align: left;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .dropdown-kebab-pf {
+    float: right;
+  }
+
+  .project-date {
+    font-size: 10px;
+    margin: 5px 10px 0;
+    white-space: nowrap;
+  }
+
+  .project-description {
+    margin-top: 5px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 100%;
+    white-space: nowrap;
+
+  }
+}

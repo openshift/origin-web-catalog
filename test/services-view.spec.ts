@@ -1,24 +1,21 @@
-import * as jQuery from 'jquery';
 import * as angular from 'angular';
 import 'angular-mocks';
 
-import '../app/app';
+import {TestHelpers} from '../test/utils/testHelpers';
 import {ComponentTest} from '../test/utils/ComponentTest';
 import {ServicesViewController} from '../src/components/services-view/services-view.controller';
 import {servicesData} from '../app/mockServices/mockData/services';
 import {imagesData} from '../app/mockServices/mockData/openshift-images';
 
-import 'angular-drag-and-drop-lists';
-import 'angular-patternfly';
-import 'angular-ui-bootstrap';
-import 'angular-animate';
-
 describe('servicesView', () => {
   var services: any, images: any;
   var componentTest: ComponentTest<ServicesViewController>;
+  var testHelpers: TestHelpers = new TestHelpers();
 
   beforeEach( () => {
-    angular.mock.module('catalogApp');
+    testHelpers.initTests();
+
+    angular.mock.module('webCatalog', 'openshiftCommonUI', 'mockServices');
   });
 
   beforeEach(() => {
