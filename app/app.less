@@ -4,8 +4,11 @@
 @import (css) "~angular-patternfly/dist/styles/angular-patternfly.css";
 @import (css) "~origin-web-common/dist/origin-web-common.css";
 
+
+@import '~bootstrap/less/variables.less';
 @import '~patternfly/dist/less/color-variables.less';
 @import '~patternfly/dist/less/variables.less';
+
 
 @font-path: "./fonts";
 
@@ -18,4 +21,12 @@
   min-height: 100%;
   position: relative;
   margin: 0 20px;
+}
+
+.layout-pf.layout-pf-fixed body {
+  padding-top: 48px;
+
+  @media (min-width: @screen-sm-min) {
+    padding-top: 90px;
+  }
 }

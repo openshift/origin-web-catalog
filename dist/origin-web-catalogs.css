@@ -76,7 +76,7 @@
   background-color: #ededed;
   border-left: 1px solid #bbb;
   padding: 0 15px 0 10px;
-  margin: 10px 15px 10px 0;
+  margin: 0 15px 10px 0;
 }
 @media (min-width: 768px) {
   .landing-side-bar {
