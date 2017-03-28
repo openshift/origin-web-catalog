@@ -1,9 +1,8 @@
 <div class="config-top">
-  <div class="title">Configuration</div>
   <form class="form-horizontal config-form">
     <div class="form-group">
-      <label class="col-sm-2 control-label" for="project">Project</label>
-      <div class="col-sm-10">
+      <label class="col-sm-4 control-label" for="project">Add to Project</label>
+      <div class="col-sm-8">
         <!-- TODO: handle duplicate display names -->
         <!-- TODO: let users create projects -->
         <select
@@ -17,22 +16,10 @@
 
     <!-- TODO: add parameters -->
     <!-- <div class="form-group"> -->
-    <!--   <label class="col-sm-2 control-label" for="field1">Field 1</label> -->
-    <!--   <div class="col-sm-10"> -->
+    <!--   <label class="col-sm-4 control-label" for="field1">Field 1</label> -->
+    <!--   <div class="col-sm-8"> -->
     <!--     <input class="form-control" type="text" id="field1"> -->
     <!--   </div> -->
     <!-- </div> -->
   </form>
-</div>
-<div class="config-bottom">
-  <button type="button" class="btn btn-default" ng-click="$ctrl.closePanel()">
-    Cancel
-  </button>
-  <button
-      type="button"
-      class="btn btn-primary order-btn"
-      ng-disabled="!$ctrl.selectedProject"
-      ng-click="$ctrl.provisionService()">
-    Order
-  </button>
 </div>

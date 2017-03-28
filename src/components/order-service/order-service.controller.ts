@@ -15,6 +15,7 @@ export class OrderServiceController implements angular.IController {
   private $filter: any;
   private DataService: any;
   private Logger: any;
+  private currentStepIndex: number;
 
   constructor($scope: any, $filter: any, DataService: any, Logger: any) {
     this.$scope = $scope;
@@ -29,29 +30,30 @@ export class OrderServiceController implements angular.IController {
     this.ctrl.serviceName = this.ctrl.serviceClass.name;
     this.ctrl.description = this.ctrl.serviceClass.description;
     this.ctrl.longDescription = this.ctrl.serviceClass.longDescription;
+    this.ctrl.plans = _.get(this, 'ctrl.serviceClass.resource.plans', []);
 
-    let plans = this.ctrl.serviceClass.resource.plans;
-    if (plans.length === 1) {
-      this.ctrl.selectedPlan = plans[0];
-      this.ctrl.steps = [{
-        id: 'configure',
-        selected: true
-      }, {
-        id: 'review-order'
-      }];
-    } else {
-      this.ctrl.steps = [{
-        id: 'select-plan',
-        selected: true
-      }, {
-        id: 'configure'
-      }, {
-        id: 'review-order'
-      }];
+    // Preselect the first plan. If there's only one plan, skip the wizard step.
+    this.ctrl.selectedPlan = _.first(this.ctrl.plans);
+    this.ctrl.planIndex = 0;
+    this.ctrl.steps = [{
+      id: 'plans',
+      label: 'Plans',
+      view: 'components/order-service/order-service-plans.html'
+    }, {
+      label: 'Configuration',
+      id: 'configure',
+      view: 'components/order-service/order-service-configure.html'
+    }, {
+      label: 'Results',
+      id: 'results',
+      view: 'components/order-service/order-service-review.html'
+    }];
+    if (this.ctrl.plans.length < 2) {
+      // Remove the plans step if there's only one plan.
+      this.ctrl.steps.shift();
     }
-    this.ctrl.currentStep = this.ctrl.steps[0];
+    this.gotoStep(this.ctrl.steps[0]);
     this.listProjects();
-
     this.ctrl.wizardReady = true;
   }
 
@@ -74,14 +76,26 @@ export class OrderServiceController implements angular.IController {
 
   public gotoStep(step: any) {
     this.ctrl.steps.forEach((step) => step.selected = false);
-    this.ctrl.currentStep.visited = true;
+    if (this.ctrl.currentStep) {
+      this.ctrl.currentStep.visited = true;
+    }
     this.ctrl.currentStep = step;
     this.ctrl.currentStep.selected = true;
+    this.currentStepIndex = _.findIndex(this.ctrl.steps, 'selected');
   }
 
-  public configureService (plan: any) {
+  public previousStep() {
+    let step = this.ctrl.steps[this.currentStepIndex - 1];
+    this.gotoStep(step);
+  }
+
+  public nextStep() {
+    let step = this.ctrl.steps[this.currentStepIndex + 1];
+    this.gotoStep(step);
+  }
+
+  public selectPlan(plan: any) {
     this.ctrl.selectedPlan = plan;
-    this.gotoStep(this.ctrl.steps[1]);
   }
 
   public provisionService() {
@@ -95,7 +109,7 @@ export class OrderServiceController implements angular.IController {
       // TODO: Handle async responses
       this.ctrl.orderComplete = true;
       this.ctrl.error = null;
-      this.gotoStepID('review-order');
+      this.gotoStepID('results');
     }, (e: any) => {
       this.ctrl.error = e;
     });

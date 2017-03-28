@@ -115,7 +115,9 @@ export class DataService implements IDataService {
       "apiVersion": "v1"
     };
     angular.extend(object, updateDate);
-    data.by().push(object);
+    if (data) {
+      data.by().push(object);
+    }
 
     this.$timeout(() => {
       deferred.resolve(object);

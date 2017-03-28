@@ -1,15 +1,24 @@
+@order-service-content-height: 300px;
+
 .order-service {
-  .container {
-    height: 100%;
-    width: 98%;
+  .wizard-pf-main {
+    // Room for fixed buttons.
+    margin-bottom: 58px;
+    // No sidebar.
+    margin-left: 0;
+    padding: 0;
   }
-  .row {
-    height: 100%;
+  .wizard-pf-steps .wizard-pf-steps-indicator {
+    padding-top: 10px;
+    height: 80px;
   }
 }
 .order-service-details {
-  height: 100%;
-  border-right: 1px solid @color-pf-black-400;
+  @media (min-width: @screen-sm-min) {
+    border-right: 1px solid @color-pf-black-400;
+    height: @order-service-content-height;
+  }
+  margin-top: 20px;
 
   .order-service-deails-top {
     height: 70%;
@@ -57,16 +66,16 @@
   }
 }
 .order-service-config {
-  height: 100%;
+  overflow-y: auto;
   padding-top: 2px;
   padding-right: 0px;
-  .step-content {
-    height: 100%;
+  @media (min-width: @screen-sm-min) {
+    height: @order-service-content-height;
   }
   .title {
     font-size: 16px;
     font-weight: 400;
-    border-bottom: 1px solid @color-pf-black-400;
+    margin-top: 20px;
     padding-bottom: 6px;
   }
   .sub-title {
@@ -78,19 +87,16 @@
     font-size: 14px;
     font-weight: 400;
   }
-  .order-line {
-    padding-top: 16px;
-    padding-bottom: 16px;
-    .col-md-2 {
-      padding-left: 2px;
-    }
-    .col-md-8  {
-      padding-left: 34px;
-      padding-right: 2px;
-    }
-    .btn {
+  .select-plans {
+    padding-left: 10px;
+    .plan-name {
+      display: inline-block;
+      font-size: 14px;
       margin-bottom: 5px;
-      padding: 0px 18px;
+      margin-top: -2px;
+    }
+    .radio {
+      margin-top: 15px;
     }
   }
   .config-top {
@@ -128,9 +134,6 @@
     margin-right: -13px;
     margin-top: 8px;
     margin-right: -10px;
-    .order-btn {
-      margin-left: 8px;
-    }
   }
   .success-check {
     color: @color-pf-green-400;

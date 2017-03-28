@@ -1,47 +1,80 @@
-<span class="order-service">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-5 order-service-details">
-        <div class="order-service-deails-top">
-          <div class="service-title">
-            <span ng-if="!$ctrl.imageUrl" class="icon {{$ctrl.iconClass}}"></span>
-            <!-- TODO: Need to size the image -->
-            <span ng-if="$ctrl.imageUrl"><img src="{{$ctrl.imageUrl}}"></span>
-            <span class="name">{{$ctrl.serviceName}}</span>
-            <span class="version" ng-if="$ctrl.currentStep.id != 1">{{$ctrl.selectedVersion}}</span>
+<div class="order-service wizard-pf-body">
+  <div class="wizard-pf-steps">
+    <ul class="wizard-pf-steps-indicator" ng-if="$ctrl.wizardReady">
+      <li class="wizard-pf-step" ng-class="{
+        active: step.selected,
+        visited: step.visited && !step.selected
+      }" ng-repeat="step in $ctrl.getSteps()" data-tabgroup="{{$index}}">
+        <a ng-click="$ctrl.stepClick(step)"><span class="wizard-pf-step-number">{{$index + 1}}</span><span class="wizard-pf-step-title">{{step.label}}</span></a>
+      </li>
+    </ul>
+  </div>
+  <div class="container-fluid wizard-pf-main">
+    <div class="col-sm-6 order-service-details">
+      <div class="order-service-deails-top">
+        <div class="service-title">
+          <span ng-if="!$ctrl.imageUrl" class="icon {{$ctrl.iconClass}}"></span>
+          <!-- TODO: Need to size the image -->
+          <span ng-if="$ctrl.imageUrl"><img src="{{$ctrl.imageUrl}}"></span>
+          <span class="name">{{$ctrl.serviceName}}</span>
+          <span class="version" ng-if="$ctrl.currentStep.id != 1">{{$ctrl.selectedVersion}}</span>
+        </div>
+        <div ng-if="$ctrl.currentStep.id === 'plans'">
+          <div ng-include="'components/order-service/order-service-details.html'"></div>
+        </div>
+        <div ng-if="$ctrl.currentStep.id !== 'plans'">
+          <div ng-if="$ctrl.selectedPlan" class="h3">
+            Plan {{$ctrl.selectedPlan.osbMetadata.displayName || $ctrl.selectedPlan.name}}
           </div>
-          <span ng-if="$ctrl.currentStep.id === 'select-plan'">
-            <div ng-include="'components/order-service/order-service-details.html'"></div>
-          </span>
-          <span ng-if="$ctrl.currentStep.id !== 'select-plan'">
-            <div ng-if="!$ctrl.selectedPlan.description">
-              <div ng-include="'components/order-service/order-service-details.html'"></div>
-              <div ng-if="$ctrl.selectedPlan" class="h3">
-                Selected Plan: {{$ctrl.selectedPlan.osbMetadata.displayName || $ctrl.selectedPlan.name}}
-              </div>
-            </div>
-            <div ng-if="$ctrl.selectedPlan.description">
-              <div class="h3">Plan {{$ctrl.selectedPlan.osbMetadata.displayName || $ctrl.selectedPlan.name}}</div>
-              <div>{{$ctrl.selectedPlan.description}}</div>
-            </div>
-          </span>
+          <div ng-include="'components/order-service/order-service-details.html'"></div>
         </div>
-        <div class="order-service-deails-bottom">
-          <ul class="wizard-pf-steps-indicator" ng-if="$ctrl.wizardReady">
-            <li class="wizard-pf-step" ng-class="{active: step.selected, visited: step.visited && !step.selected}" ng-repeat="step in $ctrl.getSteps()" data-tabgroup="{{$index}}">
-              <a ng-click="$ctrl.stepClick(step)"><span class="wizard-pf-step-number">{{$index + 1}}</span></a>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <div class="col-md-7 order-service-config">
-        <div ng-if="$ctrl.currentStep.id === 'select-plan'" class="step-content"
-             ng-include="'components/order-service/order-service-plans.html'"></div>
-        <div ng-if="$ctrl.currentStep.id === 'configure'" class="step-content"
-             ng-include="'components/order-service/order-service-configure.html'"></div>
-        <div ng-if="$ctrl.currentStep.id === 'review-order'" class="step-content"
-             ng-include="'components/order-service/order-service-review.html'"></div>
       </div>
     </div>
+    <div class="col-sm-6 order-service-config">
+      <div ng-include="$ctrl.currentStep.view" class="wizard-pf-contents"></div>
+    </div>
   </div>
-</span>
+  <div class="config-bottom modal-footer wizard-pf-footer">
+    <button
+        type="button"
+        class="btn btn-default btn-cancel wizard-pf-cancel wizard-pf-dismiss"
+        ng-disabled="$ctrl.currentStep.id === 'results'"
+        ng-click="$ctrl.closePanel()">
+      Cancel
+    </button>
+    <!-- Hide the button when only one plan. It will never be enabled. -->
+    <button
+        type="button"
+        class="btn btn-default wizard-pf-back"
+        ng-if="$ctrl.plans.length > 1"
+        ng-disabled="$ctrl.currentStep.id !== 'configure'"
+        ng-click="$ctrl.previousStep()">
+      <span class="fa fa-angle-left" aria-hidden="true"></span>
+      Back
+    </button>
+    <button
+        type="button"
+        class="btn btn-primary wizard-pf-next"
+        ng-if="$ctrl.currentStep.id !== 'configure' && $ctrl.currentStep.id !== 'results'"
+        ng-click="$ctrl.nextStep()">
+      Next
+      <span class="fa fa-angle-right" aria-hidden="true"></span>
+    </button>
+    <button
+        type="button"
+        class="btn btn-primary wizard-pf-next"
+        ng-if="$ctrl.currentStep.id === 'configure'"
+        ng-disabled="!$ctrl.selectedProject || $ctrl.currentStep.id === 'results'"
+        ng-click="$ctrl.provisionService()">
+      Create
+      <span class="fa fa-angle-right" aria-hidden="true"></span>
+    </button>
+    <button
+        type="button"
+        class="btn btn-primary wizard-pf-close wizard-pf-dismiss"
+        ng-if="$ctrl.currentStep.id === 'results'"
+        ng-click="$ctrl.closePanel()">
+      Close
+    </button>
+  </div>
+</div>
