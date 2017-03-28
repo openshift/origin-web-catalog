@@ -4,7 +4,9 @@
       <div class="col-md-5 order-service-details">
         <div class="order-service-deails-top">
           <div class="service-title">
-            <span class="icon {{$ctrl.serviceIcon}}"></span>
+            <span ng-if="!$ctrl.imageUrl" class="icon {{$ctrl.iconClass}}"></span>
+            <!-- TODO: Need to size the image -->
+            <span ng-if="$ctrl.imageUrl"><img src="{{$ctrl.imageUrl}}"></span>
             <span class="name">{{$ctrl.serviceName}}</span>
             <span class="version" ng-if="$ctrl.currentStep.id != 1">{{$ctrl.selectedVersion}}</span>
           </div>
@@ -12,13 +14,20 @@
             <div ng-include="'components/order-service/order-service-details.html'"></div>
           </span>
            <span ng-if="$ctrl.currentStep.id === 2 || $ctrl.currentStep.id === 3">
-            <div class="long-description">
-              {{$ctrl.serviceLongDescription}}
+            <div ng-if="!$ctrl.selectedPlan.description">
+              <div ng-include="'components/order-service/order-service-details.html'"></div>
+              <div ng-if="$ctrl.selectedPlan" class="h3">
+                Selected Plan: {{$ctrl.selectedPlan.osbMetadata.displayName || $ctrl.selectedPlan.name}}
+              </div>
+            </div>
+            <div ng-if="$ctrl.selectedPlan.description">
+              <div class="h3">Plan {{$ctrl.selectedPlan.osbMetadata.displayName || $ctrl.selectedPlan.name}}</div>
+              <div>{{$ctrl.selectedPlan.description}}</div>
             </div>
           </span>
         </div>
         <div class="order-service-deails-bottom">
-          <ul class="wizard-pf-steps-indicator" ng-class="{'invisible': !$ctrl.wizardReady}">
+          <ul class="wizard-pf-steps-indicator" ng-if="$ctrl.wizardReady">
             <li class="wizard-pf-step" ng-class="{active: step.selected, visited: step.visited && !step.selected}" ng-repeat="step in $ctrl.getSteps()" data-tabgroup="{{$index}}">
               <a ng-click="$ctrl.stepClick(step)"><span class="wizard-pf-step-number">{{$index + 1}}</span></a>
             </li>
@@ -27,7 +36,7 @@
       </div>
       <div class="col-md-7 order-service-config">
         <div ng-if="$ctrl.currentStep.id === 1" style="height: 100%"
-             ng-include="'components/order-service/order-service-pricing.html'"></div>
+             ng-include="'components/order-service/order-service-plans.html'"></div>
         <div ng-if="$ctrl.currentStep.id === 2" style="height: 100%"
              ng-include="'components/order-service/order-service-configure.html'"></div>
         <div ng-if="$ctrl.currentStep.id === 3" style="height: 100%"

@@ -1,77 +1,38 @@
-<div class="col-md-12 config-top">
+<div class="config-top">
   <div class="title">Configuration</div>
   <form class="form-horizontal config-form">
-
     <div class="form-group">
-      <label class="col-md-2 control-label">Field 1:</label>
-      <div class="col-md-10">
-        <input class="form-control" type="text"/>
+      <label class="col-sm-2 control-label" for="project">Project</label>
+      <div class="col-sm-10">
+        <!-- TODO: handle duplicate display names -->
+        <!-- TODO: let users create projects -->
+        <select
+            id="project"
+            ng-model="$ctrl.selectedProject"
+            ng-options="project as (project | displayName) for project in $ctrl.projects track by (project | uid)"
+            class="form-control">
+        </select>
       </div>
     </div>
 
-    <div class="form-group">
-      <label class="col-md-2 control-label">Field 2:</label>
-      <div class="col-md-10">
-        <input class="form-control" type="text"/>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label class="col-md-2 control-label">Field 3:</label>
-      <div class="col-md-10">
-        <input class="form-control" type="text"/>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label class="col-md-2 control-label">Field 4:</label>
-      <div class="col-md-10">
-        <input class="form-control" type="text"/>
-      </div>
-    </div>
+    <!-- TODO: add parameters -->
+    <!-- <div class="form-group"> -->
+    <!--   <label class="col-sm-2 control-label" for="field1">Field 1</label> -->
+    <!--   <div class="col-sm-10"> -->
+    <!--     <input class="form-control" type="text" id="field1"> -->
+    <!--   </div> -->
+    <!-- </div> -->
   </form>
-  <div class="adv-ops-container">
-    <a id="adv-ops-href" class="adv-ops-href" style="text-decoration:none;" ng-click="$ctrl.toggleAdvOps()" data-toggle="collapse" class="collapsed" translate>
-      Show advanced routing, build, deployment and source options
-    </a>
-  </div>
-  <div id="adv-ops" class="adv-ops collapse">
-    <form class="form-horizontal config-form">
-      <div class="form-group">
-        <label class="col-md-2 control-label">Field 5:</label>
-        <div class="col-md-10">
-          <input class="form-control" type="text"/>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label class="col-md-2 control-label">Field 6:</label>
-        <div class="col-md-10">
-          <input class="form-control" type="text"/>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label class="col-md-2 control-label">Field 7:</label>
-        <div class="col-md-10">
-          <input class="form-control" type="text"/>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label class="col-md-2 control-label">Field 8:</label>
-        <div class="col-md-10">
-          <input class="form-control" type="text"/>
-        </div>
-      </div>
-    </form>
-  </div>
 </div>
 <div class="config-bottom">
-  <button type="button" class="btn" ng-click="$ctrl.cancelOrder()">
+  <button type="button" class="btn btn-default" ng-click="$ctrl.closePanel()">
     Cancel
   </button>
-  <button type="button" class="btn btn-default btn-primary order-btn" ng-click="$ctrl.orderService()">
+  <button
+      type="button"
+      class="btn btn-primary order-btn"
+      ng-disabled="!$ctrl.selectedProject"
+      ng-click="$ctrl.provisionService()">
     Order
   </button>
 </div>

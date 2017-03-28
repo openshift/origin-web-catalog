@@ -2,7 +2,8 @@ import {OrderServiceController} from './order-service.controller';
 
 export const orderService: angular.IComponentOptions = {
   bindings: {
-    service: '<'
+    serviceClass: '<',
+    handleClose: '<'
   },
   controller: OrderServiceController,
   template: require('./order-service.html')
