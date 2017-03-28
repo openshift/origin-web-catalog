@@ -10,15 +10,6 @@
 .services-view-container {
   padding-left: 0px;
 
-  .sub-category-row {
-    overflow-y: auto;
-    max-height: 400px;
-
-    &.other {
-      margin-top: 24px;
-    }
-  }
-
   .title {
     font-size: 36px;
     font-weight: 700;
@@ -45,58 +36,63 @@
     }
   }
 
-  .services-sub-category-rows {
-    overflow-x: auto;
-    overflow-y: hidden;
-
-    .services-sub-categories:last-child {
-      margin-bottom: 0px;
-    }
-  }
-
   .services-sub-categories {
+    position: relative;
     font-size: 16px;
     padding-top: 4px;
     padding-left: 12px;
     margin-bottom: -8px;
     display: flex;
-    align-items: center;
+    flex-wrap: wrap;
+    align-items: flex-start;
 
-    .card {
+    .sub-cat-card {
       background-color: @color-pf-black-100;
-      border-top: 1px solid @color-pf-black-400;
-      border-left: 1px solid @color-pf-black-400;
-      border-right: 1px solid @color-pf-black-400;
-      border-bottom: 1px solid @color-pf-black-400;
+      border: 1px solid @color-pf-black-400;
       padding: 6px;
       margin: 8px;
       cursor: pointer;
-      min-height: 120px;
-      min-width: 100px;
-      display: flex;
-      justify-content: center;
-      align-items:center;
+      height: 120px;
+      width: 100px;
+      text-align: center;
+
+      &.other {
+        display: none;
+      }
 
       .inner-content {
+        height: 100%;
         display: flex;
         flex-direction: column;
         justify-content: center;
-        align-items:center;
       }
 
-      &.current-filter {
+      &.active {
         background-color: @color-pf-white;
-        border-bottom: none;
         border: none;
         color: inherit;
+        display: inline-block;
         height: 140px;
-        bottom: -10px;
-        position: relative;
+        margin-bottom: 150px;
         .inner-content {
-          position: relative;
-          bottom: 9px;
+          padding-bottom: 20px;
         }
       }
+
+      .card-expansion {
+        position: absolute;
+        left: 0px;
+        right: 0px;
+        overflow-y: auto;
+        .card-view-pf {
+          max-height: 410px;
+        }
+
+        &.other {
+          margin-top: -113px;
+        }
+      }
+
       .sub-cat-icon {
         font-size: 42px;
       }

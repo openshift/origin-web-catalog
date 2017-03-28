@@ -1,179 +1,174 @@
 import * as angular from 'angular';
 import * as _ from 'lodash';
+import * as $ from 'jquery';
 
 export class ServicesViewController implements angular.IController {
-    static $inject = ['Constants', 'Catalog', '$filter', '$scope'];
+  static $inject = ['Constants', 'Catalog', '$filter', '$scope', '$timeout'];
 
-    static readonly NO_SUBCATEGORY_ROW = -1;
+  public ctrl: any = this;
+  public cardViewConfig: any;
+  private constants: any;
+  private catalog: any;
+  private $filter: any;
+  private $scope: any;
+  private $timeout: any;
+  private serviceClassesLoaded = false;
+  private imageStreamsLoaded = false;
+  private debounceResize: any;
 
-    public ctrl: any = this;
-    public cardViewConfig: any;
-    private constants: any;
-    private catalog: any;
-    private $filter: any;
-    private $scope: any;
-    private subCatMaxRowLength: number = 10;
-    private serviceClassesLoaded = false;
-    private imageStreamsLoaded = false;
+  constructor(constants: any, catalog: any, $filter: any, $scope: any, $timeout: any) {
+    this.cardViewConfig = {
+      selectItems: false,
+      showSelectBox: false,
+      onClick: this.handleClick
+    };
+    this.constants = constants;
+    this.catalog = catalog;
+    this.$filter = $filter;
+    this.$scope = $scope;
+    this.$timeout = $timeout;
+    this.ctrl.loading = true;
+  }
 
-    constructor(constants: any, catalog: any, $filter: any, $scope: any) {
-        this.cardViewConfig = {
-            selectItems: false,
-            showSelectBox: false,
-            onClick: this.handleClick
-        };
-        this.constants = constants;
-        this.catalog = catalog;
-        this.$filter = $filter;
-        this.$scope = $scope;
-        this.ctrl.loading = true;
+  public $onInit() {
+    this.ctrl.allItems = [];
+    this.ctrl.currentFilter = 'all';
+    this.ctrl.currentSubFilter = null;
+    this.ctrl.orderingPanelvisible = false;
+
+    this.updateAll();
+
+    this.$scope.$on('cancelOrder', () => {
+      this.ctrl.closeOrderingPanel();
+    });
+
+    this.debounceResize = _.debounce(this.resizeExpansion, 50, { maxWait: 250 });
+    angular.element(window).bind('resize', this.debounceResize);
+    $(window).on('resize.services', this.debounceResize);
+  }
+
+  public $onChanges(onChangesObj: angular.IOnChangesObject) {
+    if (onChangesObj.serviceClasses && !onChangesObj.serviceClasses.isFirstChange()) {
+      this.ctrl.serviceClasses = onChangesObj.serviceClasses.currentValue;
+      this.serviceClassesLoaded = true;
+      this.updateServiceClasses();
     }
 
-    public $onInit() {
-        this.ctrl.allItems = [];
-        this.ctrl.currentFilter = 'all';
-        this.ctrl.currentSubFilter = null;
-        this.ctrl.expandSubCatRow = ServicesViewController.NO_SUBCATEGORY_ROW;
-        this.ctrl.orderingPanelvisible = false;
-
-        this.updateAll();
-
-        this.$scope.$on('cancelOrder', () => {
-            this.ctrl.closeOrderingPanel();
-        });
+    if (onChangesObj.imageStreams && !onChangesObj.imageStreams.isFirstChange()) {
+      this.ctrl.imageStreams = onChangesObj.imageStreams.currentValue;
+      this.imageStreamsLoaded = true;
+      this.updateImageStreams();
     }
+  }
 
-    public $onChanges(onChangesObj: angular.IOnChangesObject) {
-        if (onChangesObj.serviceClasses && !onChangesObj.serviceClasses.isFirstChange()) {
-            this.ctrl.serviceClasses = onChangesObj.serviceClasses.currentValue;
-            this.serviceClassesLoaded = true;
-            this.updateServiceClasses();
-        }
+  public $onDestroy() {
+    $(window).off('resize.services');
+  }
 
-        if (onChangesObj.imageStreams && !onChangesObj.imageStreams.isFirstChange()) {
-            this.ctrl.imageStreams = onChangesObj.imageStreams.currentValue;
-            this.imageStreamsLoaded = true;
-            this.updateImageStreams();
-        }
-    }
-
-    public filterByCategory(category: string, subCategory: string, updateSubCategories: boolean) {
-        if (category === 'all' && subCategory === 'all') {
-            this.ctrl.filteredItems = this.ctrl.allItems;
+  public filterByCategory(category: string, subCategory: string, updateSubCategories: boolean) {
+    if (category === 'all' && subCategory === 'all') {
+      this.ctrl.filteredItems =  this.ctrl.allItems;
+    } else {
+      this.ctrl.filteredItems = _.filter(this.ctrl.allItems, (item: any) => {
+        if (category !== 'all' && subCategory === 'all') {
+          return this.catalog.hasCategory(item, category);
+        } else if (category === 'all' && subCategory !== 'all') {
+          return this.catalog.hasSubCategory(item, subCategory);
         } else {
-            this.ctrl.filteredItems = _.filter(this.ctrl.allItems, (item: any) => {
-                if (category !== 'all' && subCategory === 'all') {
-                    return this.catalog.hasCategory(item, category);
-                } else if (category === 'all' && subCategory !== 'all') {
-                    return this.catalog.hasSubCategory(item, subCategory);
-                } else {
-                    return  this.catalog.hasCategory(item, category) && this.catalog.hasSubCategory(item, subCategory);
-                }
-            });
+          return  this.catalog.hasCategory(item, category) && this.catalog.hasSubCategory(item, subCategory);
         }
-
-        if (updateSubCategories) {
-            this.ctrl.subCategories = this.getSubCategories(category);
-        }
-
-        this.ctrl.expandSubCatRow = this.getRowOfSubCategory(subCategory);
-
-        this.ctrl.currentFilter = category;
-        this.ctrl.currentSubFilter = subCategory || 'all';
+      });
     }
 
-    public toggleExpand(subCategory: string) {
-        if (this.ctrl.currentSubFilter === subCategory) {
-            this.ctrl.currentSubFilter = null;
-            this.ctrl.expandSubCatRow = ServicesViewController.NO_SUBCATEGORY_ROW;
-        } else {
-            this.filterByCategory(this.ctrl.currentFilter, subCategory, false);
-        }
+    if (updateSubCategories) {
+      this.ctrl.subCategories = this.getSubCategories(category);
     }
 
-    public getSubCategories(category: string) {
-        let subCats = (category !== 'other') ? [{id: 'all', label:  'All'}] : [];
-        this.ctrl.categories.map(categoryObj => {
-            if (category === 'all' || category === categoryObj.id) {
-                subCats = subCats.concat(categoryObj.subCategories);
-            }
-        });
+    this.ctrl.currentFilter = category;
+    this.ctrl.currentSubFilter = subCategory || 'all';
+    this.updateActiveCardStyles();
+  }
 
-        subCats = this.makeRows(subCats);
-
-        return subCats;
-    };
-
-    public handleClick = (item: any, e: any) => {
-        this.ctrl.serviceToOrder = item;
-        this.ctrl.openOrderingPanel();
-    };
-
-    public openOrderingPanel() {
-        this.ctrl.orderingPanelvisible = true;
-    };
-
-    public closeOrderingPanel = () => {
-        this.ctrl.orderingPanelvisible = false;
-    };
-
-    private updateAll() {
-        this.updateServiceClasses();
-        this.updateImageStreams();
+  public toggleExpand(subCategory: string) {
+    if (this.ctrl.currentSubFilter === subCategory) {
+      this.ctrl.currentSubFilter = null;
+      this.updateActiveCardStyles();
+    } else {
+      this.filterByCategory(this.ctrl.currentFilter, subCategory, false);
     }
+  }
 
-    private updateState() {
-        this.ctrl.loading = ((_.isEmpty(this.ctrl.serviceClasses) && !this.serviceClassesLoaded) ||
-                             (_.isEmpty(this.ctrl.imageStreams) && !this.imageStreamsLoaded));
+  public getSubCategories(category: string) {
+    let subCats: any = (category !== 'other') ? [{id: 'all', label:  'All'}] : [];
+    this.ctrl.categories.map(categoryObj => {
+      if (category === 'all' || category === categoryObj.id) {
+        subCats = subCats.concat(categoryObj.subCategories);
+      }
+    });
+    return subCats;
+  };
 
-        if (!this.ctrl.loading) {
-            this.ctrl.filteredItems = this.ctrl.allItems;
-            this.ctrl.categories = this.catalog.removeEmptyCategories(this.ctrl.filteredItems);
-            this.ctrl.subCategories = this.getSubCategories('all');
-        }
+  public handleClick = (item: any, e: any) => {
+    this.ctrl.serviceToOrder = item;
+    this.ctrl.openOrderingPanel();
+  };
+
+  public openOrderingPanel() {
+    this.ctrl.orderingPanelvisible = true;
+  };
+
+  public closeOrderingPanel = () => {
+    this.ctrl.orderingPanelvisible = false;
+  };
+
+  private updateAll() {
+    this.updateServiceClasses();
+    this.updateImageStreams();
+  }
+
+  private updateState() {
+    this.ctrl.loading = ((_.isEmpty(this.ctrl.serviceClasses) && !this.serviceClassesLoaded) ||
+    (_.isEmpty(this.ctrl.imageStreams) && !this.imageStreamsLoaded));
+
+    if (!this.ctrl.loading) {
+      this.ctrl.filteredItems = this.ctrl.allItems;
+      this.ctrl.categories = this.catalog.removeEmptyCategories(this.ctrl.filteredItems);
+      this.ctrl.subCategories = this.getSubCategories('all');
     }
+  }
 
-    private updateServiceClasses() {
-        this.ctrl.allItems = this.ctrl.allItems.concat(this.normalizeData('service', this.ctrl.serviceClasses));
-        this.updateState();
-    }
+  private updateServiceClasses() {
+    this.ctrl.allItems = this.ctrl.allItems.concat(this.normalizeData('service', this.ctrl.serviceClasses));
+    this.updateState();
+  }
 
-    private updateImageStreams() {
-        this.ctrl.allItems = this.ctrl.allItems.concat(this.normalizeData('image', this.ctrl.imageStreams));
-        this.updateState();
-    }
+  private updateImageStreams() {
+    this.ctrl.allItems = this.ctrl.allItems.concat(this.normalizeData('image', this.ctrl.imageStreams));
+    this.updateState();
+  }
 
-    private makeRows(subCats: any) {
-        let subCatsRows: any = [];
-        for (let i = 0, len = subCats.length; i < len; i += this.subCatMaxRowLength) {
-            subCatsRows.push(subCats.slice(i, i + this.subCatMaxRowLength));
-        }
-        return subCatsRows;
-    }
+  private normalizeData = (type: string, items: any) => {
+    let retSvcs = [];
+    let objClass: any;
+    _.each(items, (item: any) => {
+      if (type === 'service') {
+        objClass = this.catalog.getServiceItem(item);
+      } else if (type === 'image') {
+        objClass = this.catalog.getImageItem(item);
+      }
+      retSvcs.push(objClass);
+    });
+    return retSvcs;
+  };
 
-    private getRowOfSubCategory(subCategory: string) {
-        for (let row = 0; row < this.ctrl.subCategories.length; row += 1) {
-            for (let card = 0; card < this.ctrl.subCategories[row].length; card += 1) {
-                if (this.ctrl.subCategories[row][card].id === subCategory) {
-                    return row;
-                }
-            }
-        }
+  private resizeExpansion() {
+    let activeCard = $('.sub-cat-card.active');
+    let contentHeight = activeCard.find('.card-view-pf').outerHeight();
+    activeCard.css('margin-bottom', contentHeight + 'px');
+  }
 
-        return 0;
-    }
-
-    private normalizeData = (type: string, items: any) => {
-        let retSvcs = [];
-        let objClass: any;
-        _.each(items, (item: any) => {
-            if (type === 'service') {
-                objClass = this.catalog.getServiceItem(item);
-            } else if (type === 'image') {
-                objClass = this.catalog.getImageItem(item);
-            }
-            retSvcs.push(objClass);
-        });
-        return retSvcs;
-    };
+  private updateActiveCardStyles() {
+    $('.sub-cat-card').css('margin-bottom', '');
+    this.$timeout(this.resizeExpansion, 50);
+  }
 }
