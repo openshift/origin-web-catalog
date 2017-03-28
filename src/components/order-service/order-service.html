@@ -10,10 +10,10 @@
             <span class="name">{{$ctrl.serviceName}}</span>
             <span class="version" ng-if="$ctrl.currentStep.id != 1">{{$ctrl.selectedVersion}}</span>
           </div>
-          <span ng-if="$ctrl.currentStep.id === 1">
+          <span ng-if="$ctrl.currentStep.id === 'select-plan'">
             <div ng-include="'components/order-service/order-service-details.html'"></div>
           </span>
-           <span ng-if="$ctrl.currentStep.id === 2 || $ctrl.currentStep.id === 3">
+          <span ng-if="$ctrl.currentStep.id !== 'select-plan'">
             <div ng-if="!$ctrl.selectedPlan.description">
               <div ng-include="'components/order-service/order-service-details.html'"></div>
               <div ng-if="$ctrl.selectedPlan" class="h3">
@@ -35,11 +35,11 @@
         </div>
       </div>
       <div class="col-md-7 order-service-config">
-        <div ng-if="$ctrl.currentStep.id === 1" style="height: 100%"
+        <div ng-if="$ctrl.currentStep.id === 'select-plan'" class="step-content"
              ng-include="'components/order-service/order-service-plans.html'"></div>
-        <div ng-if="$ctrl.currentStep.id === 2" style="height: 100%"
+        <div ng-if="$ctrl.currentStep.id === 'configure'" class="step-content"
              ng-include="'components/order-service/order-service-configure.html'"></div>
-        <div ng-if="$ctrl.currentStep.id === 3" style="height: 100%"
+        <div ng-if="$ctrl.currentStep.id === 'review-order'" class="step-content"
              ng-include="'components/order-service/order-service-review.html'"></div>
       </div>
     </div>

@@ -243,6 +243,9 @@
   padding-top: 2px;
   padding-right: 0px;
 }
+.order-service-config .step-content {
+  height: 100%;
+}
 .order-service-config .title {
   font-size: 16px;
   font-weight: 400;
