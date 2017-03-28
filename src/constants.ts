@@ -1,7 +1,7 @@
 import * as _ from 'lodash';
 
 // Assigns global constants
-var redHatApps: any = [
+var saasOfferings: any = [
   {id: 1, title:  'Microservices Application', icon: 'fa fa-cubes',  url: 'https://www.redhat.com/en/technologies/virtualization', description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.'},
   {id: 2, title:  'Mobile Application', icon: 'fa fa-mobile',  url: 'https://www.redhat.com/en/technologies/mobile', description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.'},
   {id: 3, title:  'Integration Application', icon: 'fa fa-plug',  url: 'https://www.redhat.com/en/technologies/cloud-computing', description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.'},
@@ -39,6 +39,7 @@ var categories: any = [
 ];
 
 export const allCategories = categories;
+export const allSaasOfferings = saasOfferings;
 
 _.set(window, 'OPENSHIFT_CONSTANTS.SERVICE_CATALOG_CATEGORIES', categories);
-_.set(window, 'OPENSHIFT_CONSTANTS.REDHAT_APPLICATIONS', redHatApps);
+_.set(window, 'OPENSHIFT_CONSTANTS.SAAS_OFFERINGS', saasOfferings);

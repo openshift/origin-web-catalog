@@ -1,7 +1,7 @@
 import * as angular from 'angular';
 import * as _ from 'lodash';
 
-export class RHListController implements angular.IController {
+export class SaasListController implements angular.IController {
   public ctrl: any = this;
   public cardViewConfig: any;
 
@@ -11,11 +11,10 @@ export class RHListController implements angular.IController {
       showSelectBox: false,
       onClick: this.handleClick
     };
-    this.ctrl.loading = true;
   }
 
-  public $onInit() {
-    this.ctrl.loading = _.isEmpty(this.ctrl.applications);
+  public hasSaasOfferings (): boolean {
+    return !_.isEmpty(this.ctrl.saasOfferings);
   }
 
   public handleClick(item: any, e: any) {
@@ -23,9 +22,8 @@ export class RHListController implements angular.IController {
   };
 
   public $onChanges(onChangesObj: angular.IOnChangesObject) {
-    if ((onChangesObj.applications && !onChangesObj.applications.isFirstChange()) ) {
-      this.ctrl.applications = onChangesObj.applications.currentValue;
-      this.ctrl.loading = false;
+    if ((onChangesObj.saasOfferings && !onChangesObj.saasOfferings.isFirstChange()) ) {
+      this.ctrl.saasOfferings = onChangesObj.saasOfferings.currentValue;
     }
   }
 }
