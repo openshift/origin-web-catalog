@@ -30,10 +30,25 @@ export class OrderServiceController implements angular.IController {
     this.ctrl.description = this.ctrl.serviceClass.description;
     this.ctrl.longDescription = this.ctrl.serviceClass.longDescription;
 
-    this.ctrl.steps = [ {id: 1, selected: true},
-                        {id: 2},
-                        {id: 3}
-                      ];
+    let plans = this.ctrl.serviceClass.resource.plans;
+    if (plans.length === 1) {
+      this.ctrl.selectedPlan = plans[0];
+      this.ctrl.steps = [{
+        id: 'configure',
+        selected: true
+      }, {
+        id: 'review-order'
+      }];
+    } else {
+      this.ctrl.steps = [{
+        id: 'select-plan',
+        selected: true
+      }, {
+        id: 'configure'
+      }, {
+        id: 'review-order'
+      }];
+    }
     this.ctrl.currentStep = this.ctrl.steps[0];
     this.listProjects();
 
@@ -80,7 +95,7 @@ export class OrderServiceController implements angular.IController {
       // TODO: Handle async responses
       this.ctrl.orderComplete = true;
       this.ctrl.error = null;
-      this.gotoStep(this.ctrl.steps[2]);
+      this.gotoStepID('review-order');
     }, (e: any) => {
       this.ctrl.error = e;
     });
@@ -123,5 +138,10 @@ export class OrderServiceController implements angular.IController {
     };
 
     return serviceInstance;
+  }
+
+  private gotoStepID(id: string) {
+    let step = _.find(this.ctrl.steps, { id: id });
+    this.gotoStep(step);
   }
 }
