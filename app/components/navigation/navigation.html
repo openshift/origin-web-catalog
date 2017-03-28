@@ -1,30 +1,39 @@
-<div pf-vertical-navigation items="$ctrl.navigationItems" brand-alt="{{$ctrl.applicationName}}" hidden-icons="true">
-    <div>
-        <ul class="nav navbar-nav navbar-right navbar-iconic">
-            <li uib-dropdown>
-                <a uib-dropdown-toggle class="nav-item-iconic" id="help-dropdown" href="">
-                    <span title="Help" class="fa pficon-help" aria-hidden="true"></span>
-                    <span class="sr-only">Help</span>
-                    <span class="caret" aria-hidden="true"></span>
-                </a>
-                <ul class="uib-dropdown-menu" aria-labelledby="help-dropdown"
-                    extension-point
-                    extension-name="nav-help-dropdown"
-                    extension-types="dom html"><!-- extension points generated here -->
-                </ul>
-            </li>
-            <li uib-dropdown ng-cloak ng-if="$ctrl.user">
-                <a href="" uib-dropdown-toggle id="user-dropdown" class="nav-item-iconic">
-                    <span class="pf-icon pficon-user" aria-hidden="true"></span>
-                    <span class="username truncate">{{$ctrl.user.fullName || $ctrl.user.metadata.name}}</span> <span class="caret" aria-hidden="true"></span>
-                </a>
-                <ul class="uib-dropdown-menu"
-                    aria-labelledby="user-dropdown"
-                    extension-point
-                    extension-name="nav-user-dropdown"
-                    extension-types="dom html"><!-- extension points generated here -->
-                </ul>
-            </li>
+<nav class="navbar navbar-default navbar-pf" role="navigation">
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" ng-click="$ctrl.navCollapsed = !$ctrl.navCollapsed" >
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <a class="navbar-brand">
+      {{$ctrl.applicationName}}
+    </a>
+  </div>
+  <div class="collapse navbar-collapse" ng-class="{in: !$ctrl.navCollapsed}">
+    <ul class="nav navbar-nav navbar-utility">
+      <li uib-dropdown class="dropdown" ng-cloak ng-if="$ctrl.user">
+        <a href="" uib-dropdown-toggle id="user-dropdown" class="dropdown-toggle nav-item-iconic">
+          <span class="pf-icon pficon-user" aria-hidden="true"></span>
+          <span class="username truncate">{{$ctrl.user.fullName || $ctrl.user.metadata.name}}</span> <span class="caret" aria-hidden="true"></span>
+        </a>
+        <ul class="uib-dropdown-menu"
+            aria-labelledby="user-dropdown"
+            extension-point
+            extension-name="nav-user-dropdown"
+            extension-types="dom html"><!-- extension points generated here -->
+          <li>
+            <a href="" ng-click="$ctrl.doLogout()">Logout</a>
+          </li>
         </ul>
-    </div>
-</div>
+      </li>
+    </ul>
+    <ul class="nav navbar-nav navbar-primary">
+      <li ng-repeat="navItem in $ctrl.navigationItems"  ng-class="{active: navItem.isActive}">
+        <a href=""  ng-click="$ctrl.onNavItemClick(navItem)">
+          {{navItem.title}}
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>

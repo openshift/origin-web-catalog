@@ -1,18 +1,21 @@
 import * as angular from 'angular';
 
 export class NavigationController implements angular.IController {
-  static $inject = ['$transitions', '$rootScope'];
+  static $inject = ['$transitions', '$rootScope', '$state'];
 
   public ctrl: any = this;
   public navigationItems: any;
   public applicationName: string;
+  public navCollapsed: boolean = true;
   private $transitions: any;
   private $rootScope: any;
+  private $state: any;
 
 
-  constructor($transitions: any, $rootScope: any) {
+  constructor($transitions: any, $rootScope: any, $state: any) {
     this.$transitions = $transitions;
     this.$rootScope = $rootScope;
+    this.$state = $state;
   };
 
   public $onInit() {
@@ -51,6 +54,11 @@ export class NavigationController implements angular.IController {
       _ctrl.user = newValue;
     });
   };
+
+  public onNavItemClick(navItem: any) {
+    this.$state.go(navItem.uiSref, navItem.uiSrefOptions);
+    this.ctrl.navCollapsed = true;
+  }
 
   public $onChanges(onChangesObj: angular.IOnChangesObject) {
     return;
