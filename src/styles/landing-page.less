@@ -1,88 +1,34 @@
-@sidebar-width: 320px;
-
-.landing-page {
-  background-color: @color-pf-black-200;
+.landing-main-area {
+  padding: (@grid-gutter-width / 2); // this is temp
+  @media(min-width: @screen-sm-min) {
+    flex: 1 1 0%;
+  }
 }
 
 .landing-page-container {
-  background-color: @color-pf-black-200;
-  bottom: 0;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  min-height: 100%;
-  overflow: visible;
-  position: relative;
-
-  @media (min-width: @screen-sm-min) {
-    top: @navbar-pf-height;
+  @media(min-width: @screen-sm-min) {
+    display: flex;
   }
-
-  &.snap-up-shown {
-    padding-bottom: 40px;
-  }
-}
-
-.landing-main-area {
-  margin: 15px 20px;
-  padding-right: 10px;
-
-  // TODO: Remove corresponding style in services-view.less (card-expansion)
-  // when sidebar is no longer fixed position.
-  @media (min-width: @screen-sm-min) {
-    margin-right: @sidebar-width;
-  }
-}
-
-.landing-side-bar {
-  background-color: @color-pf-black-200;
-  border-left: 1px solid @color-pf-black-400;
-  padding: 0 15px 0 10px;
-  margin: 0 15px 10px 0;
-
-  @media (min-width: @screen-sm-min) {
-    position: fixed;
-    top: @navbar-pf-height;
-    bottom: 0;
-    right: 0;
-    width: @sidebar-width - 20px;
-  }
-}
-
-.landing-header-area {
-
-}
-
-.landing-body-area {
-  padding-top: 15px;
 }
 
 .landing-search-area {
-  background: @color-pf-black-200;
-  left: 10px;
-  padding: 20px 0;
-  right: 10px;
-  z-index: @zindex-navbar-fixed - 50;
-
-  @media (min-width: @screen-sm-min) {
-    position : fixed;
-    right: @sidebar-width;
-    top: @navbar-pf-height;
-
-    .container-pf-nav-pf-vertical & {
-      left: @nav-pf-vertical-width;
-    }
-    .container-pf-nav-pf-vertical.collapsed-nav & {
-      left: @nav-pf-vertical-collapsed-width;
-    }
-  }
-
-
   .landing-search-form {
     text-align: center;
-    max-width: 600px;
     margin: 0 auto;
-
+    @media (min-width: @screen-sm-min) {
+      max-width: 600px;
+    }
+    button  {
+      .fa-search {
+        color: @color-pf-black-600;
+        font-size: 32px;
+      }
+      .pficon-close {
+        color: @color-pf-black-600;
+        font-size: 18px;
+        padding-top: 8px;
+      }
+    }
     .form-control {
       font-size: 18px;
     }
@@ -91,74 +37,32 @@
       height: 39px;
       line-height: 28px;
     }
-
-    button .fa-search {
-      color: @color-pf-black-600;
-      font-size: 32px;
-    }
-
-    button .pficon-close {
-      color: @color-pf-black-600;
-      font-size: 18px;
-      padding-top: 8px;
-    }
-    @media (min-width: @screen-sm-min) {
-      width: 80%;
-    }
   }
 }
 
+.landing-side-bar {
+  background-color: @sidebar-os-bg;
+  color: @color-pf-white;
+  @media(min-width: @screen-sm-min) {
+    flex: 0 1 auto;
+    width: 300px;
+  }
+  @media(min-width: @screen-md-min) {
+    width: 350px;
+  }
+  @media(min-width: @screen-lg-min) {
+    width: 450px;
+  }
+}
 
 .snap-container {
   display: none;
-
-  &.snap-down {
-    margin-top: 10px;
-    margin-bottom: -20px;
-    width: 100%;
-
-    .spacer {
-      flex: 1;
-      flex-direction: row;
-    }
-    @media (min-width: @screen-sm-min) {
-      display: flex;
-    }
+  text-align: center;
+  @media (min-width: @screen-sm-min) {
+    display: block;
   }
-
-  &.snap-up {
-    background-color: @color-pf-black-200;
-    bottom: 0;
-    left: 0;
-    padding-bottom: 10px;
-    padding-top: 5px;
-    position: fixed;
-    right: @sidebar-width;
-    z-index: 1030;
-
-    &.scrolled-down {
-      @media (min-width: @screen-sm-min) {
-        display: inherit;
-      }
-    }
-
-    .container-pf-nav-pf-vertical & {
-      left: @nav-pf-vertical-width;
-    }
-    .container-pf-nav-pf-vertical.collapsed-nav & {
-      left: @nav-pf-vertical-collapsed-width;
-    }
-
-    a {
-      position: relative;
-      left: 50%;
-    }
-  }
-
   a {
-
     &:hover, &:focus {
-      outline: none;
       text-decoration: none;
     }
   }
