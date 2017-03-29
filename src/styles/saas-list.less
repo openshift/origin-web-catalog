@@ -1,4 +1,4 @@
-.red-hat-apps-container {
+.saas-offerings-container {
   background: @color-pf-black-200;
   padding-left: 0px;
 
@@ -14,13 +14,25 @@
   .card-view-pf .card-content {
     background-color: @color-pf-white;
     cursor: pointer;
+    margin: 0;
+
+    @media (min-width: @screen-sm-min) {
+      margin: 2px 0 10px;
+    }
   }
 
   .card-view-pf .card {
-    height: 200px;
-    width: 260px;
+    height: 100%;
+    width: 100%;
     cursor: pointer;
     text-align: inherit;
+    margin-bottom: 8px;
+
+    @media (min-width: @screen-sm-min) {
+      height: 200px;
+      width: 260px;
+      margin-bottom: 20px;
+    }
   }
 
   .card-container {
@@ -28,7 +40,10 @@
 
     .card-header {
       display: table;
-      height: 70px;
+
+      @media (min-width: @screen-sm-min) {
+        height: 70px;
+      }
 
       .card-icon {
         display: table-cell;
@@ -49,8 +64,8 @@
     }
     .card-footer {
       display: table-cell;
-      height: 80px;
       vertical-align: middle;
+      height: 80px;
 
       .card-description {
         font-size: 14px;

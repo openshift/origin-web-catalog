@@ -442,55 +442,73 @@
   width: 100%;
   white-space: nowrap;
 }
-.red-hat-apps-container {
+.saas-offerings-container {
   background: #ededed;
   padding-left: 0px;
 }
-.red-hat-apps-container .spinner-container {
+.saas-offerings-container .spinner-container {
   padding-top: 60px;
   padding-bottom: 60px;
 }
-.red-hat-apps-container .card-view-pf {
+.saas-offerings-container .card-view-pf {
   padding-left: 21px;
 }
-.red-hat-apps-container .card-view-pf .card-content {
+.saas-offerings-container .card-view-pf .card-content {
   background-color: #fff;
   cursor: pointer;
+  margin: 0;
 }
-.red-hat-apps-container .card-view-pf .card {
-  height: 200px;
-  width: 260px;
+@media (min-width: 768px) {
+  .saas-offerings-container .card-view-pf .card-content {
+    margin: 2px 0 10px;
+  }
+}
+.saas-offerings-container .card-view-pf .card {
+  height: 100%;
+  width: 100%;
   cursor: pointer;
   text-align: inherit;
+  margin-bottom: 8px;
 }
-.red-hat-apps-container .card-container {
+@media (min-width: 768px) {
+  .saas-offerings-container .card-view-pf .card {
+    height: 200px;
+    width: 260px;
+    margin-bottom: 20px;
+  }
+}
+.saas-offerings-container .card-container {
   padding: 6px;
 }
-.red-hat-apps-container .card-container .card-header {
+.saas-offerings-container .card-container .card-header {
   display: table;
-  height: 70px;
 }
-.red-hat-apps-container .card-container .card-header .card-icon {
+@media (min-width: 768px) {
+  .saas-offerings-container .card-container .card-header {
+    height: 70px;
+  }
+}
+.saas-offerings-container .card-container .card-header .card-icon {
   display: table-cell;
   vertical-align: middle;
   text-align: center;
   width: 40px;
   font-size: 24px;
 }
-.red-hat-apps-container .card-container .card-header .card-icon.fa.fa-mobile {
+.saas-offerings-container .card-container .card-header .card-icon.fa.fa-mobile {
   font-size: 32px;
 }
-.red-hat-apps-container .card-container .card-header .card-title {
+.saas-offerings-container .card-container .card-header .card-title {
   vertical-align: middle;
   display: table-cell;
   padding-left: 8px;
 }
-.red-hat-apps-container .card-container .card-footer {
+.saas-offerings-container .card-container .card-footer {
   display: table-cell;
-  height: 80px;
   vertical-align: middle;
+  height: 80px;
 }
-.red-hat-apps-container .card-container .card-footer .card-description {
+.saas-offerings-container .card-container .card-footer .card-description {
   font-size: 14px;
 }
 .services-view {

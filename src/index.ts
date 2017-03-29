@@ -9,7 +9,7 @@ import {landingPage} from './components/landing-page/landing-page.component';
 import {orderService} from './components/order-service/order-service.component';
 import {overlayPanel} from './components/overlay-panel/overlay-panel.component';
 import {projectsSummary} from './components/projects-summary/projects-summary.component';
-import {rhAppsList} from './components/redhat-apps-list/rh-apps-list.component';
+import {saasList} from './components/saas-list/saas-list.component';
 import {servicesView} from './components/services-view/services-view.component';
 import {CatalogService} from './services/catalog.service';
 
@@ -24,5 +24,5 @@ angular
   .component('orderService', orderService)
   .component('overlayPanel', overlayPanel)
   .component('projectsSummary', projectsSummary)
-  .component('rhAppsList', rhAppsList)
+  .component('saasList', saasList)
   .component('servicesView', servicesView);

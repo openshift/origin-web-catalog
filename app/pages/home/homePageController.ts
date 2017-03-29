@@ -46,7 +46,8 @@ export class HomePageController {
       this.ctrl.imageStreams = {};
     });
 
-    this.ctrl.applications = this.constants.REDHAT_APPLICATIONS;
+    this.ctrl.saasOfferingsTitle = "What Do You Want to Build?";
+    this.ctrl.saasOfferings = this.constants.SAAS_OFFERINGS;
   };
 
   public navToProject = (project: any) => {
