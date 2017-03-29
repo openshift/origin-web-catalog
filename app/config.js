@@ -21,17 +21,23 @@ window.OPENSHIFT_CONFIG = {
       prefix: "/api"
     }
   },
-  additionalServers: [{
-    protocol: "https",
-    hostPort: "apiserver-svc-cat.10.0.0.25.xip.io:6443",
-    prefix: "/apis"
-  }],
   auth: {
     oauth_authorize_uri: "https://localhost:8443/oauth/authorize",
     oauth_redirect_base: "https://localhost:" + window.DEV_SERVER_PORT,
     oauth_client_id: "openshift-web-console",
     logout_uri: ""
   },
+/*
+ * Add Any additional servers to an 'additionalServers' block, example shown below:
+ *
+   additionalServers: [{
+    protocol: "https",
+    hostPort: "apiserver-svc-cat.127.0.0.1.xip.io",
+    prefix: "/apis",
+    required: true  // false to continue if connection fails
+  }],
+ *
+ */
   loggingURL: "",
   metricsURL: ""
 };
