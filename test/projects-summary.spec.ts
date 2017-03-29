@@ -160,13 +160,13 @@ describe('Projects Summary Panel', () => {
     var createButton = jQuery(element).find('.create-button');
     expect(createButton.length).toBe(1);
 
-    var createPanel = jQuery(element).find('.catalog-create-project-panel');
+    var createPanel = jQuery(element).find('.catalog-modal-create-project');
     expect(createPanel.length).toBe(0);
 
     componentTest.eventFire(createButton[0], 'click');
     componentTest.scope.$digest();
 
-    createPanel = jQuery(element).find('.catalog-create-project-panel');
+    createPanel = jQuery(element).find('.catalog-modal-create-project');
     expect(createPanel.length).toBe(1);
   });
 
@@ -177,7 +177,7 @@ describe('Projects Summary Panel', () => {
 
     $timeout.flush();
 
-    var editPanel = jQuery(element).find('.catalog-edit-project-panel');
+    var editPanel = jQuery(element).find('.catalog-modal-edit-project');
     expect(editPanel.length).toBe(0);
 
     var kebabButton = jQuery(element).find('.btn-link.uib-dropdown-toggle');
@@ -189,7 +189,7 @@ describe('Projects Summary Panel', () => {
     componentTest.eventFire(menuItems[0], 'click');
     componentTest.scope.$digest();
 
-    editPanel = jQuery(element).find('.catalog-edit-project-panel');
+    editPanel = jQuery(element).find('.catalog-modal-edit-project');
     expect(editPanel.length).toBe(1);
   });
 
@@ -270,7 +270,7 @@ describe('Projects Summary Panel', () => {
 
     $timeout.flush();
 
-    var countArea = jQuery(element).find('.projects-count-area');
+    var countArea = jQuery(element).find('.projects-count');
     expect(countArea.length).toBe(1);
 
     var projectTiles = jQuery(element).find('.project-tile');

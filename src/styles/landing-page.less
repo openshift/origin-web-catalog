@@ -41,17 +41,23 @@
 }
 
 .landing-side-bar {
-  background-color: @sidebar-os-bg;
+  background-color: @landing-side-bar-bg;
   color: @color-pf-white;
   @media(min-width: @screen-sm-min) {
     flex: 0 1 auto;
-    width: 300px;
+    width: 325px;
   }
   @media(min-width: @screen-md-min) {
-    width: 350px;
+    width: 375px;
   }
   @media(min-width: @screen-lg-min) {
     width: 450px;
+  }
+  a {
+    color: @color-pf-blue-300;
+    &:hover {
+      color: darken(@color-pf-blue-300, 10%);
+    }
   }
 }
 
