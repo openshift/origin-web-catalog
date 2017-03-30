@@ -20,7 +20,7 @@ export class CatalogService {
 
   public getImageItem(resource: any) {
     let imgStream = new ImageItem(resource, this);
-    return (imgStream.isBuilder && !imgStream.isHidden) ? imgStream : null;
+    return imgStream.builderSpecTagName ? imgStream : null;
   }
 
   public getCategoriesBySubCategories(tags: any) {
@@ -145,26 +145,55 @@ export class ImageItem implements IServiceItem {
   public description: string;
   public longDescription: string;
   public resource: any;
-  public isBuilder: boolean;
-  public isHidden: boolean;
+  public builderSpecTagName: any;
   private tags: any;
   private catalogSrv: CatalogService;
 
   constructor (image: any, catalogSrv : CatalogService) {
     this.resource = image;
     this.catalogSrv = catalogSrv;
-    this.tags = this.catalogSrv.$filter('imageStreamTagTags')(this.resource);
-    this.iconClass = this.getIcon();
-    this.name = this.getName();
-    this.description = this.getDescription();
-    this.longDescription = this.getLongDescription();
-    this.catsBySubCats = this.getCategoriesBySubCategories();
-    this.isBuilder = _.includes(this.tags, 'builder');
-    this.isHidden = _.includes(this.tags, 'hidden');
+    this.builderSpecTagName = this.getBuilderSpecTagName();
+    if (this.builderSpecTagName) {
+      this.tags = this.getTags();
+      this.iconClass = this.getIcon();
+      this.name = this.getName();
+      this.description = this.getDescription();
+      this.longDescription = this.getLongDescription();
+      this.catsBySubCats = this.getCategoriesBySubCategories();
+    }
+  }
+
+  // A valid specTag has a 'builder' tag. no 'hidden' tag, and exists in 'status.tags'.
+  private getBuilderSpecTagName() {
+    let validSpecTag: any;
+
+    if (!this.resource.status) {
+      return null;
+    }
+
+    if (this.resource.spec && this.resource.spec.tags) {
+      validSpecTag = _.find(this.resource.spec.tags, (specTag: any) => {
+        let specTagTags: any = _.get(specTag, 'annotations.tags');
+        if (specTagTags) {
+          specTagTags = specTagTags.split(/\s*,\s*/);
+          if (_.includes(specTagTags, 'builder') && !_.includes(specTagTags, 'hidden')) {
+            return _.some(this.resource.status.tags, (statusTag: any) => {
+              return statusTag.tag === specTag.name;
+            });
+          }
+        }
+      });
+    }
+
+    return validSpecTag ? validSpecTag.name : null;
+  }
+
+  private getTags() {
+    return this.catalogSrv.$filter('imageStreamTagTags')(this.resource, this.builderSpecTagName);
   }
 
   private getIcon() {
-    let icon = this.catalogSrv.$filter('imageStreamTagIconClass')(this.resource, this.resource.spec.tags[0].name);
+    let icon = this.catalogSrv.$filter('imageStreamTagIconClass')(this.resource, this.builderSpecTagName);
     icon = (icon.indexOf('icon-') !== -1) ? 'font-icon ' + icon : icon;
     return icon;
   }
