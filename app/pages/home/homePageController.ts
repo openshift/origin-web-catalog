@@ -46,7 +46,6 @@ export class HomePageController {
       this.ctrl.imageStreams = {};
     });
 
-    this.ctrl.saasOfferingsTitle = "What Do You Want to Build?";
     this.ctrl.saasOfferings = this.constants.SAAS_OFFERINGS;
   };
 
