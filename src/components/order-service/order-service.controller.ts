@@ -1,6 +1,7 @@
 import * as angular from 'angular';
 import * as _ from 'lodash';
 
+require("./order-service-details.html");
 require("./order-service-plans.html");
 require("./order-service-configure.html");
 require("./order-service-review.html");
