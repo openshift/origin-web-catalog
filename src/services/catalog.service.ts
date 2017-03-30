@@ -19,7 +19,8 @@ export class CatalogService {
   }
 
   public getImageItem(resource: any) {
-    return new ImageItem(resource, this);
+    let imgStream = new ImageItem(resource, this);
+    return (imgStream.isBuilder && !imgStream.isHidden) ? imgStream : null;
   }
 
   public getCategoriesBySubCategories(tags: any) {
@@ -145,6 +146,7 @@ export class ImageItem implements IServiceItem {
   public longDescription: string;
   public resource: any;
   public isBuilder: boolean;
+  public isHidden: boolean;
   private tags: any;
   private catalogSrv: CatalogService;
 
@@ -158,6 +160,7 @@ export class ImageItem implements IServiceItem {
     this.longDescription = this.getLongDescription();
     this.catsBySubCats = this.getCategoriesBySubCategories();
     this.isBuilder = _.includes(this.tags, 'builder');
+    this.isHidden = _.includes(this.tags, 'hidden');
   }
 
   private getIcon() {

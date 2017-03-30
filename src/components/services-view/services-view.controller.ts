@@ -156,7 +156,9 @@ export class ServicesViewController implements angular.IController {
       } else if (type === 'image') {
         objClass = this.catalog.getImageItem(item);
       }
-      retSvcs.push(objClass);
+      if (objClass) {
+        retSvcs.push(objClass);
+      }
     });
     return retSvcs;
   };
