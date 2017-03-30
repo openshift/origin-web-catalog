@@ -88,16 +88,23 @@
 .snap-container a:focus {
   text-decoration: none;
 }
-.order-service .container {
-  height: 100%;
-  width: 98%;
+.order-service .wizard-pf-main {
+  margin-bottom: 58px;
+  margin-left: 0;
+  padding: 0;
 }
-.order-service .row {
-  height: 100%;
+.order-service .wizard-pf-steps .wizard-pf-steps-indicator {
+  padding-top: 10px;
+  height: 80px;
 }
 .order-service-details {
-  height: 100%;
-  border-right: 1px solid #bbb;
+  margin-top: 20px;
+}
+@media (min-width: 768px) {
+  .order-service-details {
+    border-right: 1px solid #bbb;
+    height: 300px;
+  }
 }
 .order-service-details .order-service-deails-top {
   height: 70%;
@@ -143,17 +150,19 @@
   border-color: #39a5dc;
 }
 .order-service-config {
-  height: 100%;
+  overflow-y: auto;
   padding-top: 2px;
   padding-right: 0px;
 }
-.order-service-config .step-content {
-  height: 100%;
+@media (min-width: 768px) {
+  .order-service-config {
+    height: 300px;
+  }
 }
 .order-service-config .title {
   font-size: 16px;
   font-weight: 400;
-  border-bottom: 1px solid #bbb;
+  margin-top: 20px;
   padding-bottom: 6px;
 }
 .order-service-config .sub-title {
@@ -165,20 +174,17 @@
 .order-service-config .sub-title.first {
   padding-top: 12px;
 }
-.order-service-config .order-line {
-  padding-top: 16px;
-  padding-bottom: 16px;
+.order-service-config .select-plans {
+  padding-left: 10px;
 }
-.order-service-config .order-line .col-md-2 {
-  padding-left: 2px;
-}
-.order-service-config .order-line .col-md-8 {
-  padding-left: 34px;
-  padding-right: 2px;
-}
-.order-service-config .order-line .btn {
+.order-service-config .select-plans .plan-name {
+  display: inline-block;
+  font-size: 14px;
   margin-bottom: 5px;
-  padding: 0px 18px;
+  margin-top: -2px;
+}
+.order-service-config .select-plans .radio {
+  margin-top: 15px;
 }
 .order-service-config .config-top {
   height: 88%;
@@ -213,9 +219,6 @@
   margin-right: -13px;
   margin-top: 8px;
   margin-right: -10px;
-}
-.order-service-config .config-bottom .order-btn {
-  margin-left: 8px;
 }
 .order-service-config .success-check {
   color: #3f9c35;
@@ -256,9 +259,9 @@
 .catalogs-overlay-panel {
   background: white;
   border: 1px solid #bbb;
-  height: 50%;
   left: 20px;
-  min-height: 350px;
+  max-height: 90vh;
+  min-height: 450px;
   position: fixed;
   padding: 20px;
   right: 20px;
@@ -292,8 +295,7 @@
 .catalogs-overlay-panel-body {
   height: 100%;
   margin: auto 0;
-  padding: 0 20px;
-  width: 98%;
+  padding: 0;
 }
 .catalog-projects-summary-panel {
   padding: 20px 10px;

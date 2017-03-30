@@ -5,9 +5,12 @@
 .catalogs-overlay-panel {
   background: white;
   border: 1px solid @color-pf-black-400;
-  height: 50%;
+  // Need to remove the 50% height for now because it causes issues for the wizard layout.
+  // The wizard can be given a fixed height to achieve the styles we want.
+  // height: 50%;
   left: 20px;
-  min-height: 350px;
+  max-height: 90vh;
+  min-height: 450px;
   position: fixed;
   padding: 20px;
   right: 20px;
@@ -42,6 +45,5 @@
 .catalogs-overlay-panel-body {
   height: 100%;
   margin: auto 0;
-  padding: 0 20px;
-  width: 98%;
+  padding: 0;
 }

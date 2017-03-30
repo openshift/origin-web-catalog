@@ -1,21 +1,20 @@
-<!--
-  TODO: Update plan selection for current designs
--->
-<div ng-repeat="plan in $ctrl.serviceClass.resource.plans" class="col-md-6">
-  <div class="title">Plan {{plan.osbMetadata.displayName || plan.name}}</div>
-  <!-- TODO: truncate long text -->
-  <div ng-if="plan.description" class="sub-title first">{{plan.description}}</div>
-  <!-- TODO: show plan bullets -->
-  <div class="order-line row">
-    <div class="col-sm-6">
-      <span ng-if="plan.osbFree">Free</span>
-      <span ng-if="!plan.osbFree">Paid</span>
-    </div>
-    <div class="col-sm-6 text-right">
-      <button type="button" class="btn btn-default"
-              ng-click="$ctrl.configureService(plan)">
-        Order
-      </button>
+<div class="config-top">
+  <div class="select-plans">
+    <h3>Select a Plan</h3>
+    <div ng-repeat="plan in $ctrl.serviceClass.resource.plans" class="radio">
+      <label>
+        <input
+          type="radio"
+          ng-model="$ctrl.planIndex"
+          ng-change="$ctrl.selectPlan(plan)"
+          value="{{$index}}">
+        <span class="plan-name">{{plan.osbMetadata.displayName || plan.name}}</span>
+        <!-- TODO: truncate long text -->
+        <div ng-if="plan.description">{{plan.description}}</div>
+        <!-- TODO: show plan bullets -->
+        <div ng-if="plan.osbFree">Free</div>
+        <div ng-if="!plan.osbFree">Paid</div>
+      </label>
     </div>
   </div>
 </div>
