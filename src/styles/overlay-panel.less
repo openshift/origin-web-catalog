@@ -8,26 +8,26 @@
   // Need to remove the 50% height for now because it causes issues for the wizard layout.
   // The wizard can be given a fixed height to achieve the styles we want.
   // height: 50%;
-  left: 20px;
+  margin: 0 auto;
   max-height: 90vh;
+  max-width: 1200px;
   min-height: 450px;
-  position: fixed;
-  padding: 20px;
-  right: 20px;
-  top: @navbar-pf-height;
-  z-index: 1080;
-  &.ng-enter {
-    animation: modalSlideDown 1s ease forwards;
-  }
-  &.ng-leave {
-    animation: modalSlideUp 1s ease forwards;
+  overflow: auto;
+  padding: (@grid-gutter-width /2) @grid-gutter-width;
+  position: relative;
+
+  &.catalogs-overlay-panel-full-height {
+    height: 100%;
   }
 }
+
 .catalogs-overlay-panel-close {
-  font-size: 21px;
-  float: right;
-  cursor: pointer;
   color: @color-pf-black-600;
+  cursor: pointer;
+  font-size: 21px;
+  position: absolute;
+  right: 20px;
+  top: 15px;
 
   &.pficon-close {
     color: @color-pf-black-600;
@@ -42,8 +42,23 @@
   }
 }
 
-.catalogs-overlay-panel-body {
+.catalogs-overlay-panel-grow-height {
   height: 100%;
-  margin: auto 0;
-  padding: 0;
+  padding: @navbar-pf-height 0 (@grid-gutter-width /2);
+}
+
+.catalogs-overlay-panel-wrapper {
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: @zindex-modal;
+
+  &.ng-enter {
+    animation: modalSlideDown 0.75s ease forwards;
+  }
+  &.ng-leave {
+    animation: modalSlideUp 0.5s ease forwards;
+  }
 }
