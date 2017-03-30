@@ -1372,5 +1372,49 @@ export const imagesData = {
     },
     'kind': 'ImageStream',
         'apiVersion': 'v1'
-}
+},
+    'hidden': {
+        'metadata': {
+            'name': 'hidden'
+        },
+        'spec': {
+            'tags': [
+                {
+                    'name': '1',
+                    'annotations': {
+                        'tags': 'fooBar, builder, hidden',
+                    }
+                }
+            ]
+        },
+        'status': {
+            'tags': [
+                {
+                    'tag': '1'
+                }
+            ]
+        }
+    },
+    'no-spec-tag': {
+        'metadata': {
+            'name': 'no-spec-tag'
+        },
+        'spec': {
+            'tags': [
+                {
+                    'name': '1',
+                    'annotations': {
+                        'tags': 'fooBar, builder',
+                    }
+                }
+            ]
+        },
+        'status': {
+            'tags': [
+                {
+                    'tag': '2'
+                }
+            ]
+        }
+    }
 };
