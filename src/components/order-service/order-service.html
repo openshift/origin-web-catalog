@@ -40,9 +40,15 @@
     </div>
   </div>
   <div class="config-bottom modal-footer wizard-pf-footer">
+    <!--
+      Only use the `btn-cancel wizard-pf-cancel` classes when there's a Back
+      button, otherwise there's an odd gap between Cancel and Next when there
+      are only two buttons in the wizard.
+    -->
     <button
         type="button"
-        class="btn btn-default btn-cancel wizard-pf-cancel wizard-pf-dismiss"
+        class="btn btn-default wizard-pf-dismiss"
+        ng-class="{ 'btn-cancel wizard-pf-cancel': $ctrl.plans.length > 1 }"
         ng-disabled="$ctrl.currentStep.id === 'results'"
         ng-click="$ctrl.closePanel()">
       Cancel
