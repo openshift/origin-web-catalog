@@ -106,48 +106,55 @@
     height: 300px;
   }
 }
-.order-service-details .order-service-deails-top {
-  height: 70%;
+.order-service-details .order-service-details-top .icon {
+  font-size: 60px;
+  padding-right: 20px;
 }
-.order-service-details .order-service-deails-top .service-title {
-  display: flex;
-  align-items: center;
+@media (min-width: 450px) {
+  .order-service-details .order-service-details-top .icon {
+    font-size: 68px;
+  }
 }
-.order-service-details .order-service-deails-top .service-title .icon {
-  font-size: 68px;
-  padding-right: 18px;
-}
-.order-service-details .order-service-deails-top .service-title .name {
-  font-size: 22px;
+.order-service-details .order-service-details-top .service-title .name {
+  font-size: 18px;
   font-weight: 700;
   padding-right: 8px;
 }
-.order-service-details .order-service-deails-top .service-title .version {
+@media (min-width: 450px) {
+  .order-service-details .order-service-details-top .service-title .name {
+    font-size: 22px;
+  }
+}
+.order-service-details .order-service-details-top .service-title .version {
   font-size: 20px;
   font-weight: 700;
 }
-.order-service-details .order-service-deails-top .sub-title {
+.order-service-details .order-service-details-top .service-title-area {
+  min-height: 68px;
+  overflow: hidden;
+}
+.order-service-details .order-service-details-top .sub-title {
   font-size: 20px;
   font-weight: 600;
   color: #72767b;
 }
-.order-service-details .order-service-deails-top .version-dropdown {
+.order-service-details .order-service-details-top .version-dropdown {
   padding-top: 28px;
   cursor: pointer;
 }
-.order-service-details .order-service-deails-top .description {
+.order-service-details .order-service-details-top .description {
   padding-top: 8px;
 }
-.order-service-details .order-service-deails-bottom {
-  height: 30%;
-  padding-left: 180px;
-  padding-right: 180px;
+.order-service-details .order-service-description {
+  clear: both;
+  margin-top: 15px;
 }
-.order-service-details .order-service-deails-bottom .wizard-pf-steps-indicator .visited .wizard-pf-step-number {
-  cursor: pointer;
-  color: #030303;
-  background-color: #fff;
-  border-color: #39a5dc;
+.order-service-details .order-service-tags {
+  margin-left: -5px;
+}
+.order-service-details .order-service-tags .tag {
+  margin-left: 5px;
+  text-transform: uppercase;
 }
 .order-service-config {
   overflow-y: auto;

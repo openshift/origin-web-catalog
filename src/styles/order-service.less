@@ -1,3 +1,5 @@
+// Breakpoint for showing a smaller icon and service title.
+@order-service-title-sm-min: 450px;
 @order-service-content-height: 300px;
 
 .order-service {
@@ -20,24 +22,32 @@
   }
   margin-top: 20px;
 
-  .order-service-deails-top {
-    height: 70%;
-    .service-title {
-      display: flex;
-      align-items: center;
-      .icon {
+  .order-service-details-top {
+    .icon {
+      font-size: 60px;
+      padding-right: 20px;
+      @media (min-width: @order-service-title-sm-min) {
         font-size: 68px;
-        padding-right: 18px;
       }
+    }
+    .service-title {
       .name {
-        font-size: 22px;
+        font-size: 18px;
         font-weight: 700;
         padding-right: 8px;
+        @media (min-width: @order-service-title-sm-min) {
+          font-size: 22px;
+        }
       }
       .version {
         font-size: 20px;
         font-weight: 700;
       }
+    }
+    .service-title-area {
+      min-height: 68px;
+      // Keep text from wrapping under icon.
+      overflow: hidden;
     }
     .sub-title {
       font-size: 20px;
@@ -52,16 +62,15 @@
       padding-top: 8px;
     }
   }
-  .order-service-deails-bottom {
-    height: 30%;
-    padding-left: 180px;
-    padding-right: 180px;
-
-    .wizard-pf-steps-indicator .visited .wizard-pf-step-number {
-      cursor: pointer;
-      color: @color-pf-black;
-      background-color: @color-pf-white;
-      border-color: @color-pf-blue-300;
+  .order-service-description {
+    clear: both;
+    margin-top: 15px;
+  }
+  .order-service-tags {
+    margin-left: -5px;
+    .tag {
+      margin-left: 5px;
+      text-transform: uppercase;
     }
   }
 }
