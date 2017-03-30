@@ -11,19 +11,24 @@
   </div>
   <div class="container-fluid wizard-pf-main">
     <div class="col-sm-6 order-service-details">
-      <div class="order-service-deails-top">
-        <div class="service-title">
+      <div class="order-service-details-top">
+        <div class="pull-left">
           <span ng-if="!$ctrl.imageUrl" class="icon {{$ctrl.iconClass}}"></span>
           <!-- TODO: Need to size the image -->
           <span ng-if="$ctrl.imageUrl"><img src="{{$ctrl.imageUrl}}"></span>
-          <span class="name">{{$ctrl.serviceName}}</span>
-          <span class="version" ng-if="$ctrl.currentStep.id != 1">{{$ctrl.selectedVersion}}</span>
         </div>
-        <div ng-if="$ctrl.currentStep.id === 'plans'">
-          <div ng-include="'components/order-service/order-service-details.html'"></div>
+        <div class="service-title-area">
+          <div class="service-title">
+            <span class="name">{{$ctrl.serviceName}}</span>
+          </div>
+          <div ng-if="$ctrl.serviceClass.resource.osbTags" class="order-service-tags">
+            <span ng-repeat="tag in $ctrl.serviceClass.resource.osbTags" class="tag">
+              {{tag}}
+            </span>
+          </div>
         </div>
-        <div ng-if="$ctrl.currentStep.id !== 'plans'">
-          <div ng-if="$ctrl.selectedPlan" class="h3">
+        <div class="order-service-description">
+          <div ng-if="$ctrl.currentStep.id !== 'plans' && $ctrl.selectedPlan" class="h3">
             Plan {{$ctrl.selectedPlan.osbMetadata.displayName || $ctrl.selectedPlan.name}}
           </div>
           <div ng-include="'components/order-service/order-service-details.html'"></div>
