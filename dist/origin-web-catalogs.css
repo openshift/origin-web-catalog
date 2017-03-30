@@ -266,26 +266,24 @@
 .catalogs-overlay-panel {
   background: white;
   border: 1px solid #bbb;
-  left: 20px;
+  margin: 0 auto;
   max-height: 90vh;
+  max-width: 1200px;
   min-height: 450px;
-  position: fixed;
-  padding: 20px;
-  right: 20px;
-  top: 60px;
-  z-index: 1080;
+  overflow: auto;
+  padding: 20px 40px;
+  position: relative;
 }
-.catalogs-overlay-panel.ng-enter {
-  animation: modalSlideDown 1s ease forwards;
-}
-.catalogs-overlay-panel.ng-leave {
-  animation: modalSlideUp 1s ease forwards;
+.catalogs-overlay-panel.catalogs-overlay-panel-full-height {
+  height: 100%;
 }
 .catalogs-overlay-panel-close {
-  font-size: 21px;
-  float: right;
-  cursor: pointer;
   color: #72767b;
+  cursor: pointer;
+  font-size: 21px;
+  position: absolute;
+  right: 20px;
+  top: 15px;
 }
 .catalogs-overlay-panel-close.pficon-close {
   color: #72767b;
@@ -299,10 +297,23 @@
 .catalogs-overlay-panel-close.pficon-close:hover {
   color: #393f44;
 }
-.catalogs-overlay-panel-body {
+.catalogs-overlay-panel-grow-height {
   height: 100%;
-  margin: auto 0;
-  padding: 0;
+  padding: 60px 0 20px;
+}
+.catalogs-overlay-panel-wrapper {
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 1050;
+}
+.catalogs-overlay-panel-wrapper.ng-enter {
+  animation: modalSlideDown 0.75s ease forwards;
+}
+.catalogs-overlay-panel-wrapper.ng-leave {
+  animation: modalSlideUp 0.5s ease forwards;
 }
 .catalog-projects-summary-panel {
   padding: 20px 10px;
