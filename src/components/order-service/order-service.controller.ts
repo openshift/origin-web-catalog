@@ -1,11 +1,6 @@
 import * as angular from 'angular';
 import * as _ from 'lodash';
 
-require("./order-service-details.html");
-require("./order-service-plans.html");
-require("./order-service-configure.html");
-require("./order-service-review.html");
-
 export class OrderServiceController implements angular.IController {
 
   static $inject = ['$scope', '$filter', 'DataService', 'Logger'];
@@ -32,6 +27,7 @@ export class OrderServiceController implements angular.IController {
     this.ctrl.description = this.ctrl.serviceClass.description;
     this.ctrl.longDescription = this.ctrl.serviceClass.longDescription;
     this.ctrl.plans = _.get(this, 'ctrl.serviceClass.resource.plans', []);
+    this.ctrl.serviceDetails = require('./order-service-details.html');
 
     // Preselect the first plan. If there's only one plan, skip the wizard step.
     this.ctrl.selectedPlan = _.first(this.ctrl.plans);
@@ -39,15 +35,15 @@ export class OrderServiceController implements angular.IController {
     this.ctrl.steps = [{
       id: 'plans',
       label: 'Plans',
-      view: 'components/order-service/order-service-plans.html'
+      view: require('./order-service-plans.html')
     }, {
       label: 'Configuration',
       id: 'configure',
-      view: 'components/order-service/order-service-configure.html'
+      view: require('./order-service-configure.html')
     }, {
       label: 'Results',
       id: 'results',
-      view: 'components/order-service/order-service-review.html'
+      view: require('./order-service-review.html')
     }];
     if (this.ctrl.plans.length < 2) {
       // Remove the plans step if there's only one plan.

@@ -31,7 +31,7 @@
           <div ng-if="$ctrl.currentStep.id !== 'plans' && $ctrl.selectedPlan" class="h3">
             Plan {{$ctrl.selectedPlan.osbMetadata.displayName || $ctrl.selectedPlan.name}}
           </div>
-          <div ng-include="'components/order-service/order-service-details.html'"></div>
+          <div ng-include="$ctrl.serviceDetails"></div>
         </div>
       </div>
     </div>
