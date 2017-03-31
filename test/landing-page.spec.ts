@@ -7,25 +7,15 @@ import {ComponentTest} from '../test/utils/ComponentTest';
 import {LandingPageController} from '../src/components/landing-page/landing-page.controller';
 
 import 'angular-patternfly';
-import 'angular-animate';
 
 describe('landingPage', () => {
   var componentTest: ComponentTest<LandingPageController>;
-  var $timeout: any;
-  var $window: any;
   var testHelpers: TestHelpers = new TestHelpers();
 
   beforeEach( () => {
     testHelpers.initTests();
 
     angular.mock.module('webCatalog', 'openshiftCommonUI', 'mockServices');
-  });
-
-  beforeEach(() => {
-    inject(function (_$window_: any, _$timeout_: any) {
-      $window = _$window_;
-      $timeout = _$timeout_;
-    });
   });
 
   beforeEach(() => {
@@ -79,39 +69,5 @@ describe('landingPage', () => {
 
     var testSideArea = jQuery(sideArea).find('#testSide');
     expect(testSideArea.length).toBe(1);
-  });
-
-  it('should hide the snap up button when not scrolled', () => {
-    var element = componentTest.rawElement;
-
-    var snapUp = jQuery(element).find('.snap-container.snap-up');
-    expect(snapUp.length).toBe(1);
-
-    snapUp = jQuery(element).find('.snap-container.snap-up.scrolled-down');
-    expect(snapUp.length).toBe(0);
-  });
-
-  it('should show the snap up button when scrolled', () => {
-    var element = componentTest.rawElement;
-    var ctrl = componentTest.isoScope.$ctrl;
-
-    $timeout.flush();
-
-    var snapToElement: any = jQuery(element).find('.landing-body-area');
-    expect(snapToElement.length).toBe(1);
-
-    snapToElement.offsetTop = 800;
-    $window.scrollBy(0, 900);
-
-    // Create a fake scrolling event
-    var scrollEvent: any = new CustomEvent('scroll');
-
-    var snapUp = jQuery(element).find('.snap-container.snap-up.scrolled-down');
-    expect(snapUp.length).toBe(0);
-
-    ctrl.onScrollChange(scrollEvent);
-
-    snapUp = jQuery(element).find('.snap-container.snap-up.scrolled-down');
-    expect(snapUp.length).toBe(1);
   });
 });
