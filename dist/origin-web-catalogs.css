@@ -278,6 +278,9 @@
 .center {
   text-align: center;
 }
+body.overlay-open {
+  overflow: hidden;
+}
 .catalogs-overlay-modal {
   display: block;
 }
