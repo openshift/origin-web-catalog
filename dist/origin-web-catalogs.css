@@ -1,6 +1,23 @@
+@keyframes modalBackdropIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: .5;
+  }
+}
+@keyframes modalBackdropOut {
+  0% {
+    opacity: .5;
+  }
+  100% {
+    opacity: 0;
+  }
+}
 @keyframes modalSlideDown {
   0% {
-    margin-top: -50%;
+    margin-top: -25%;
+    opacity: .5;
   }
   100% {
     margin-top: 0%;
@@ -10,10 +27,11 @@
 @keyframes modalSlideUp {
   0% {
     margin-top: 0%;
+    opacity: 0.5;
   }
   100% {
-    margin-top: -50%;
-    opacity: 1;
+    margin-top: -25%;
+    opacity: 0;
   }
 }
 .landing-main-area {
@@ -260,12 +278,19 @@
 .center {
   text-align: center;
 }
-.catalogs-overlay-modal.modal {
+.catalogs-overlay-modal {
   display: block;
+}
+.catalogs-overlay-modal .modal-backdrop.ng-enter {
+  animation: modalBackdropIn 0.15s ease-out forwards;
+}
+.catalogs-overlay-modal .modal-backdrop.ng-leave {
+  animation: modalBackdropOut 0.45s ease-out forwards;
 }
 .catalogs-overlay-panel {
   background: white;
-  border: 1px solid #bbb;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
   margin: 0 auto;
   max-height: 90vh;
   max-width: 1200px;
@@ -310,10 +335,10 @@
   z-index: 1050;
 }
 .catalogs-overlay-panel-wrapper.ng-enter {
-  animation: modalSlideDown 0.75s ease forwards;
+  animation: modalSlideDown 0.3s ease-out forwards;
 }
 .catalogs-overlay-panel-wrapper.ng-leave {
-  animation: modalSlideUp 0.5s ease forwards;
+  animation: modalSlideUp 0.3s ease-out forwards;
 }
 .catalog-projects-summary-panel {
   padding: 20px 10px;
