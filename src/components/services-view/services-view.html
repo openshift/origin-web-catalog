@@ -20,7 +20,9 @@
       </span>
     </div>
 
-    <div class="services-sub-categories">
+    <!-- Do not show sub-category tiles for 'All' or 'Other' main categories -->
+
+    <div class="services-sub-categories" ng-if="$ctrl.currentFilter !== 'other' && $ctrl.currentFilter !== 'all'">
       <div ng-repeat="subCategory in $ctrl.subCategories"
            id="{{'sub-category-'+subCategory.id}}"
            class="sub-cat-card" ng-class="{'active': $ctrl.currentSubFilter === subCategory.id}">
@@ -29,7 +31,7 @@
           <div class="sub-cat-label">{{subCategory.label}}</div>
         </div>
         <div ng-if="$ctrl.currentSubFilter === subCategory.id || $ctrl.currentFilter === 'other'"
-           class="card-expansion" ng-class="{'other': $ctrl.currentFilter === 'other'}"
+           class="card-expansion"
            pf-card-view config="$ctrl.cardViewConfig" items="$ctrl.filteredItems">
           <div class="card-container">
             <div ng-if="!item.imageUrl" class="card-icon {{item.iconClass}}"></div>
@@ -37,6 +39,18 @@
             <div class="card-name">{{item.name}}</div>
           </div>
         </div>
+      </div>
+    </div>
+
+    <!-- Show catalog cards for 'All' and 'Other' main categories -->
+
+    <div ng-if="$ctrl.currentFilter === 'other' || $ctrl.currentFilter === 'all'"
+         class="card-expansion no-sub-cats"
+         pf-card-view config="$ctrl.cardViewConfig" items="$ctrl.filteredItems">
+      <div class="card-container">
+        <div ng-if="!item.imageUrl" class="card-icon {{item.iconClass}}"></div>
+        <div ng-if="item.imageUrl" class="card-img"><img src="{{item.imageUrl}}"></div>
+        <div class="card-name">{{item.name}}</div>
       </div>
     </div>
   </div>
