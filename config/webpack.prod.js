@@ -18,8 +18,13 @@ module.exports = webpackMerge(commonConfig, {
 
   plugins: [
     new webpack.optimize.UglifyJsPlugin({ // https://github.com/angular/angular/issues/10618
-      mangle: {
-        keep_fnames: true
+      compress: {},
+      mangle: {},
+      beautify: {
+        beautify: true,
+        indent_level: 0, // Don't waste characters indenting
+        space_colon: false, // Don't waste characters
+        width: 1000
       }
     }),
     new ExtractTextPlugin('[name].css'),
