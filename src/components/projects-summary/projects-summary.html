@@ -3,29 +3,30 @@
     <span class="fa fa-plus"></span>
     <span class="create-button-text">Create Project</span>
   </button>
-  <div class="catalog-create-project-panel" ng-if="$ctrl.showNewProjectPanel">
-    <div class="arrow"></div>
-    <div class="catalog-create-project-title">
-      <span>Create Project</span>
-      <a href="" class="pull-right" ng-click="$ctrl.closeNewProjectPanel()">
-        <span class="catalog-create-project-close pficon pficon-close"></span>
-      </a>
-    </div>
-    <create-project alerts="$ctrl.alerts" is-dialog="true" redirect-action="$ctrl.onNewProject" on-cancel="$ctrl.closeNewProjectPanel"></create-project>
-  </div>
-
   <div ng-if="$ctrl.showGetStarted">
-    <h2>Getting Started</h2>
+    <h2 class="primary">Getting Started</h2>
     <div class="getting-started-panel">
       {{$ctrl.gettingStartedText}}
     </div>
   </div>
+  <h2 class="primary" ng-if="!$ctrl.showGetStarted">My Projects</h2>
+  <div class="catalog-modal catalog-modal-create-project" ng-if="$ctrl.showNewProjectPanel">
+    <h4 class="catalog-modal-title">
+      Create Project
+    </h4>
+    <create-project alerts="$ctrl.alerts" is-dialog="true" redirect-action="$ctrl.onNewProject" on-cancel="$ctrl.closeNewProjectPanel"></create-project>
+    <a href="" class="catalog-modal-close" ng-click="$ctrl.closeNewProjectPanel()">
+      <span class="pficon pficon-close"></span>
+    </a>
+  </div>
+
+
   <div ng-if="!$ctrl.showGetStarted" class="catalog-project-summary-list">
-    <div ng-if="$ctrl.totalProjects > $ctrl.maxDisplayProjects" class="projects-count-area">
-      <span class="counter-text">{{$ctrl.maxDisplayProjects}}</span>
-      <span>of</span>
-      <span class="counter-text">{{$ctrl.totalProjects}}</span>
-      <span>Projects</span>
+    <div ng-if="$ctrl.totalProjects > $ctrl.maxDisplayProjects" class="projects-count">
+      <strong>{{$ctrl.maxDisplayProjects}}</strong>
+      of
+      <strong>{{$ctrl.totalProjects}}</strong>
+      Projects
       <a href="" class="projects-view-all" ng-click="$ctrl.showAllProjects()">View All</a>
     </div>
     <div id="catalog-projects-summary-list">
@@ -49,28 +50,29 @@
             </li>
           </ul>
         </div>
-        <div class="project-tile-header">
+        <h3 class="project-tile-header">
           <span ng-if="project.statusIconClass" class="project-status {{project.statusIconClass}}"></span>
           <a href="" ng-click="$ctrl.handleProjectClick(project)" class="project-title">{{project | displayName}}</a>
-          <span class="project-date">{{project.metadata.creationTimestamp | date: 'mediumDate'}}</span>
-        </div>
-        <div class="project-description">
+        </h3>
+        <p class="project-date">
+          {{project.metadata.creationTimestamp | date: 'mediumDate'}}
+        </p>
+        <div class="project-description" ng-if="project | description">
           {{project | description}}
         </div>
-        <div class="catalog-edit-project-panel" ng-if="$ctrl.showEditProjectPanel && $ctrl.edittingProject === project">
-          <div class="arrow"></div>
-          <div class="catalog-create-project-title">
-            Edit Project &ndash; {{$ctrl.edittingProject | displayName}}
-            <a href="" class="pull-right" ng-click="$ctrl.closeEditProjectPanel()">
-              <span class="catalog-create-project-close pficon pficon-close"></span>
-            </a>
-          </div>
+        <div class="catalog-modal catalog-modal-edit-project" ng-if="$ctrl.showEditProjectPanel && $ctrl.edittingProject === project">
+          <h4 class="catalog-modal-title">
+            Edit Project
+          </h4>
           <edit-project project="$ctrl.edittingProject" is-dialog="true" alerts="$ctrl.alerts" redirect-action="$ctrl.onEditProject" on-cancel="$ctrl.closeEditProjectPanel"></edit-project>
+          <a href="" class="catalog-modal-close" ng-click="$ctrl.closeEditProjectPanel()">
+            <span class="pficon pficon-close"></span>
+          </a>
         </div>
       </div>
     </div>
   </div>
-  <h3>Resources</h3>
+  <h2 class="secondary">Resources</h2>
   <span>
     {{$ctrl.resourcesText}}
   </span>

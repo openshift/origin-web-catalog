@@ -1,122 +1,185 @@
 .catalog-projects-summary-panel {
-  padding: 20px 10px;
-  width: 100%;
+  padding: (@grid-gutter-width / 2);
+  position: relative;
+
+  @media(min-width: @screen-md-min) {
+    padding-left: @grid-gutter-width;
+    padding-right: @grid-gutter-width;
+  }
 
   .create-button {
-    width: 100%;
-    font-size: 16px;
-    line-height: 33px;
+    font-size: @font-size-base + 1;
+    float: right;
   }
+
   .create-button-text {
     padding-left: 4px;
   }
 
-  .getting-started-panel {
-    border-top: 1px solid @color-pf-black-400;
-    height: 200px;
+  h2 {
+    &.primary {
+      margin-top: 0;
+    }
+    &.secondary {
+      font-size: @font-size-base + 6;
+    }
   }
 }
 
-.catalog-create-project-panel, .catalog-edit-project-panel {
+.catalog-modal {
   background-color: @color-pf-white;
   bottom: 0;
   color: @text-color;
   left: 0;
-  overflow: visible;
-  position: absolute;
-  padding: 15px;
+  position: fixed;
+  padding: 0 (@grid-gutter-width / 2) (@grid-gutter-width / 2);
   right: 0;
   top: 0;
-  z-index: 1080;
+  z-index: @zindex-dropdown;
 
-  @media (min-width: 768px) {
-    border: solid 1px @color-pf-black-700;
-    bottom: inherit;
-    left: inherit;
-    margin-top: 10px;
-    padding: 15px;
-    right: 20px;
-    top: inherit;
-    width: 400px;
-    z-index: 500;
-  }
-
-  .arrow {
-    display: block;
-    border-color: transparent transparent @color-pf-black-700;
-    border-width: 0 11px 11px;
-    border-style: solid;
+  @media (min-width: @screen-sm-min) {
+    border: 1px solid @dropdown-border;
+    bottom: auto;
+    box-shadow: 0 6px 12px rgba(0,0,0,.175);
     position: absolute;
-    height: 0;
-    width: 0;
-    left: 90%;
-    margin-left: -11px;
-    top: -11px;
+    top: auto;
 
-    &:after {
-      content: " ";
+    &:before {
+      content: "";
       display: block;
-      border-color: transparent transparent @color-pf-white;
+      border-color: transparent transparent @color-pf-black-150;
       border-style: solid;
-      border-width: 0 10px 10px;
-      position: absolute;
-      top: 1px;
-      width: 0;
+      border-width: 0 7px 7px;
       height: 0;
-      margin-left: -10px;
+      left: (@grid-gutter-width / 4);
+      position: absolute;
+      top: -7px;
+      width: 0;
+    }
+
+    &.catalog-modal-create-project {
+      left: (@grid-gutter-width / 2);
+      margin-top: 7px;
+      right: (@grid-gutter-width / 2);
+
+      &:before {
+        left: auto;
+        right: (@grid-gutter-width / 4);
+      }
+    }
+
+    &.catalog-modal-edit-project {
+      top: 40px;
     }
   }
 
-  .catalog-create-project-title {
-    font-size: 16px;
-    font-weight: 500;
+  @media (min-width: @screen-md-min) {
+    &.catalog-modal-create-project {
+      left: @grid-gutter-width;
+      right: @grid-gutter-width;
+    }
   }
-  .catalog-create-project-close {
-    font-size: 18px;
-    float: right;
+
+  .catalog-modal-close {
     color: @color-pf-black-600;
+    font-size: 14px;
+    line-height: 1;
+    position: absolute;
+    right: (@grid-gutter-width / 2);
+    top: (@grid-gutter-width / 4) + 1;
 
-    &.pficon-close {
-      color: @color-pf-black-600;
-      cursor: pointer;
-    }
-    &.pficon-close:hover {
+    &:hover {
       color: @color-pf-black-800;
     }
+  }
+
+  .catalog-modal-title {
+    background: @color-pf-black-150;
+    margin-left: -(@grid-gutter-width / 2);
+    margin-right: -(@grid-gutter-width / 2);
+    margin-top: 0;
+    padding: 10px @grid-gutter-width 10px (@grid-gutter-width / 2);
   }
 
   label.required:before {
     content: '*';
     position: absolute;
-    left: 5px;
+    left: 12px;
   }
 }
 
 .catalog-project-summary-list {
-  margin-top: 20px;
+  margin-bottom: @grid-gutter-width;
+  margin-top: 30px;
 
-  .counter-text {
-    font-weight: 700;
-  }
-  .projects-view-all {
+  .dropdown-kebab-pf {
     float: right;
+
+    .btn-link {
+      color: @color-pf-white;
+      margin-left: 0;
+    }
+
+    .dropdown-menu {
+      &:after {
+        border: 7px solid transparent;
+        border-bottom-color: @color-pf-white;
+        border-top-width: 0;
+        content: "";
+        display: block;
+        height: 0;
+        position: absolute;
+        right: 9px;
+        top: -7px;
+        vertical-align: middle;
+        width: 0;
+      }
+
+      &:before {
+        display: none;
+      }
+
+      &.dropdown-menu-right {
+        margin-top: 5px;
+        right: -14px;
+      }
+    }
+  }
+
+  .project-date {
+    color: @color-pf-black-500;
+    margin-bottom: 0;
+
+    + .project-description {
+      margin-top: 7px;
+    }
+  }
+
+  .project-description {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .project-tile {
-    background-color: @color-pf-white;
-    border: solid 1px @color-pf-black-500;
-    border-bottom: 0;
-    color: @text-color;
+    border-bottom: solid 1px @color-pf-black-700;
+    border-top: solid 1px @color-pf-black-700;
+    margin: -1px 0 0;
     padding: 10px;
-    width: 100%;
-
-    &:last-of-type {
-      border-bottom: solid 1px @color-pf-black-500;
-    }
+    position: relative;
   }
 
   .project-tile-header {
     display: flex;
+    line-height: 1.6;
+    margin-bottom: 0;
+    margin-top: 0;
+  }
+
+  .project-title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .project-status {
@@ -126,31 +189,11 @@
     top: 4px;
   }
 
-  .project-title {
-    flex: 1;
-    font-size: 14px;
-    overflow: hidden;
-    text-align: left;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+  .projects-count {
+    margin-bottom: 5px;
   }
 
-  .dropdown-kebab-pf {
+  .projects-view-all {
     float: right;
-  }
-
-  .project-date {
-    font-size: 10px;
-    margin: 5px 10px 0;
-    white-space: nowrap;
-  }
-
-  .project-description {
-    margin-top: 5px;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    width: 100%;
-    white-space: nowrap;
-
   }
 }
