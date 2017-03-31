@@ -30,7 +30,7 @@
           <div class="sub-cat-icon {{subCategory.icon}}" ng-if="subCategory.icon"></div>
           <div class="sub-cat-label">{{subCategory.label}}</div>
         </div>
-        <div ng-if="$ctrl.currentSubFilter === subCategory.id || $ctrl.currentFilter === 'other'"
+        <div ng-if="$ctrl.currentSubFilter === subCategory.id"
            class="card-expansion"
            pf-card-view config="$ctrl.cardViewConfig" items="$ctrl.filteredItems">
           <div class="card-container">

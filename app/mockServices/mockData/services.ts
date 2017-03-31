@@ -103,5 +103,17 @@ export const servicesData = {
       longDescription: 'some other service',
       'console.openshift.io/iconClass': 'fa fa-question'
     }
+  },
+  "test-serviceclass-jenkins": {
+    "metadata": {
+      "name": "test-serviceclass-jenkins",
+      "uid": "1",
+    },
+    osbTags: ['jenkins'],
+    osbMetadata: {
+      displayName: 'Test ServiceClass jenkins',
+      description: 'BUILDS SOURCE CODE',
+      longDescription: 'some other service'
+    }
   }
 };
