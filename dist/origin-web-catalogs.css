@@ -271,9 +271,6 @@
 .center {
   text-align: center;
 }
-body.overlay-open {
-  overflow: hidden;
-}
 .catalogs-overlay-modal {
   display: block;
 }
@@ -358,6 +355,23 @@ body.overlay-open {
 }
 .catalog-projects-summary-panel h2.secondary {
   font-size: 18px;
+}
+.catalog-projects-summary-panel .getting-started-panel {
+  margin-top: 40px;
+}
+.catalog-projects-summary-panel .getting-started-button {
+  width: 100%;
+  font-size: 13px;
+}
+.catalog-projects-summary-panel .getting-started-button.with-projects {
+  margin-top: 15px;
+}
+.catalog-projects-summary-panel .getting-started-button-text {
+  padding-left: 4px;
+}
+.catalog-projects-summary-panel .resources-panel {
+  margin-top: 40px;
+  border-top: solid 1px #4d5258;
 }
 .catalog-modal {
   background-color: #fff;
@@ -708,6 +722,123 @@ body.overlay-open {
   font-size: 16px;
   display: table-cell;
   vertical-align: middle;
+}
+.guided-tour-backdrop {
+  z-index: 1250;
+}
+div.hopscotch-bubble {
+  border-width: 1px;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+  border-color: #bbb;
+}
+div.hopscotch-bubble .hopscotch-actions {
+  background-color: #fff;
+  margin: -5px;
+  padding: 20px;
+}
+div.hopscotch-bubble .hopscotch-bubble-arrow-container .hopscotch-bubble-arrow-border:after {
+  content: " ";
+  border-color: transparent;
+  border-style: solid;
+  position: absolute;
+}
+div.hopscotch-bubble .hopscotch-bubble-arrow-container.down .hopscotch-bubble-arrow,
+div.hopscotch-bubble .hopscotch-bubble-arrow-container.left .hopscotch-bubble-arrow,
+div.hopscotch-bubble .hopscotch-bubble-arrow-container.right .hopscotch-bubble-arrow,
+div.hopscotch-bubble .hopscotch-bubble-arrow-container.up .hopscotch-bubble-arrow {
+  display: none;
+}
+div.hopscotch-bubble .hopscotch-bubble-arrow-container.down .hopscotch-bubble-arrow-border {
+  border-top-color: #bbb;
+  margin-top: -3px;
+}
+div.hopscotch-bubble .hopscotch-bubble-arrow-container.down .hopscotch-bubble-arrow-border:after {
+  border-color: #fff transparent transparent;
+  border-width: 17px 17px 0;
+  margin-left: -17px;
+  margin-top: -19px;
+}
+div.hopscotch-bubble .hopscotch-bubble-arrow-container.left {
+  top: 3px;
+}
+div.hopscotch-bubble .hopscotch-bubble-arrow-container.left .hopscotch-bubble-arrow-border {
+  border-right-color: #bbb;
+  margin-left: 5px;
+}
+div.hopscotch-bubble .hopscotch-bubble-arrow-container.left .hopscotch-bubble-arrow-border:after {
+  border-color: transparent #f5f5f5 transparent transparent;
+  border-width: 17px 17px 17px 0;
+  margin-left: 2px;
+  margin-top: -17px;
+}
+div.hopscotch-bubble .hopscotch-bubble-arrow-container.right {
+  top: 3px;
+}
+div.hopscotch-bubble .hopscotch-bubble-arrow-container.right .hopscotch-bubble-arrow-border {
+  margin-left: -5px;
+  border-left-color: #bbb;
+}
+div.hopscotch-bubble .hopscotch-bubble-arrow-container.right .hopscotch-bubble-arrow-border:after {
+  border-color: transparent transparent transparent #f5f5f5;
+  border-width: 17px 0 17px 17px;
+  margin-left: -19px;
+  margin-top: -17px;
+}
+div.hopscotch-bubble .hopscotch-bubble-arrow-container.up .hopscotch-bubble-arrow-border {
+  border-bottom-color: #bbb;
+  margin-top: 4px;
+}
+div.hopscotch-bubble .hopscotch-bubble-arrow-container.up .hopscotch-bubble-arrow-border:after {
+  border-color: transparent transparent #f5f5f5;
+  border-width: 0 17px 17px;
+  margin-left: -17px;
+  margin-top: 2px;
+}
+div.hopscotch-bubble .hopscotch-bubble-close {
+  right: 8px;
+  top: 7px;
+}
+div.hopscotch-bubble .hopscotch-bubble-container {
+  background-color: #f5f5f5;
+}
+div.hopscotch-bubble .hopscotch-content {
+  color: #4d5258;
+  background-color: #fff;
+  font-family: "Open Sans";
+  font-size: 12px;
+  margin: 11px -5px 0 -45px;
+  padding: 15px 20px 5px;
+}
+div.hopscotch-bubble h3 {
+  margin-top: 5px;
+  color: #4d5258;
+  font-family: "Open Sans";
+  padding-left: 10px;
+}
+div.hopscotch-bubble .hopscotch-bubble-number {
+  background: none;
+  background-color: #0088ce;
+  border-radius: 15px;
+  font-family: "Open Sans";
+  font-size: 16px;
+  margin-left: 10px;
+  padding: 0;
+}
+div.hopscotch-bubble .hopscotch-nav-button {
+  border-radius: 0;
+  font-family: "Open Sans";
+  font-size: 12px;
+}
+div.hopscotch-bubble .hopscotch-nav-button.next {
+  background-color: #0088ce;
+  background-image: none;
+  margin-left: 5px;
+}
+div.hopscotch-bubble .hopscotch-nav-button.prev {
+  color: #030303;
+}
+body.overlay-open {
+  overflow: hidden;
 }
 
 /*# sourceMappingURL=origin-web-catalogs.css.map*/

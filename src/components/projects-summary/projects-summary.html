@@ -3,13 +3,8 @@
     <span class="fa fa-plus"></span>
     <span class="create-button-text">Create Project</span>
   </button>
-  <div ng-if="$ctrl.showGetStarted">
-    <h2 class="primary">Getting Started</h2>
-    <div class="getting-started-panel">
-      {{$ctrl.gettingStartedText}}
-    </div>
-  </div>
-  <h2 class="primary" ng-if="!$ctrl.showGetStarted">My Projects</h2>
+  <h2 class="primary" ng-if="!$ctrl.projects || $ctrl.projects.length < 1">Getting Started</h2>
+  <h2 class="primary" ng-if="$ctrl.projects && $ctrl.projects.length > 0">My Projects</h2>
   <div class="catalog-modal catalog-modal-create-project" ng-if="$ctrl.showNewProjectPanel">
     <h4 class="catalog-modal-title">
       Create Project
@@ -19,9 +14,7 @@
       <span class="pficon pficon-close"></span>
     </a>
   </div>
-
-
-  <div ng-if="!$ctrl.showGetStarted" class="catalog-project-summary-list">
+  <div ng-if="$ctrl.projects && $ctrl.projects.length > 0" class="catalog-project-summary-list">
     <div ng-if="$ctrl.totalProjects > $ctrl.maxDisplayProjects" class="projects-count">
       <strong>{{$ctrl.maxDisplayProjects}}</strong>
       of
@@ -72,15 +65,24 @@
       </div>
     </div>
   </div>
-  <h2 class="secondary">Resources</h2>
-  <span>
-    {{$ctrl.resourcesText}}
-  </span>
-  <div class="resources-panel">
-    <ul>
-      <li ng-repeat="resource in $ctrl.resources">
-        {{resource.text}}
-      </li>
-    </ul>
+  <div ng-if="$ctrl.showGetStarted">
+    <div class="getting-started-panel">
+      <h2 class="secondary" ng-if="$ctrl.projects && $ctrl.projects.length > 0">Getting Started</h2>
+      <button class="getting-started-button btn btn-default" ng-class="{'with-projects': $ctrl.projects && $ctrl.projects.length > 0}" ng-click="$ctrl.handleGettingStartedClick()">
+        <span class="fa fa-info-circle fa-2"></span>
+        <span class="getting-started-button-text">Start Guided Tour</span>
+      </button>
+    </div>
+    <div class="resources-panel">
+      <h2 class="secondary">Resources</h2>
+      <span>
+        {{$ctrl.resourcesText}}
+      </span>
+      <ul>
+        <li ng-repeat="resource in $ctrl.resources">
+          {{resource.text}}
+        </li>
+      </ul>
+    </div>
   </div>
 </div>
