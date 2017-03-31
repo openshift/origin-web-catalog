@@ -1,11 +1,6 @@
 import * as angular from 'angular';
 import * as _ from 'lodash';
 
-require("./order-service-details.html");
-require("./order-service-plans.html");
-require("./order-service-configure.html");
-require("./order-service-review.html");
-
 export class OrderServiceController implements angular.IController {
 
   static $inject = ['$scope', '$filter', 'DataService', 'Logger'];
@@ -39,15 +34,15 @@ export class OrderServiceController implements angular.IController {
     this.ctrl.steps = [{
       id: 'plans',
       label: 'Plans',
-      view: 'components/order-service/order-service-plans.html'
+      view: 'order-service/order-service-plans.html'
     }, {
       label: 'Configuration',
       id: 'configure',
-      view: 'components/order-service/order-service-configure.html'
+      view: 'order-service/order-service-configure.html'
     }, {
       label: 'Results',
       id: 'results',
-      view: 'components/order-service/order-service-review.html'
+      view: 'order-service/order-service-review.html'
     }];
     if (this.ctrl.plans.length < 2) {
       // Remove the plans step if there's only one plan.

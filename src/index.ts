@@ -25,4 +25,11 @@ angular
   .component('overlayPanel', overlayPanel)
   .component('projectsSummary', projectsSummary)
   .component('saasList', saasList)
-  .component('servicesView', servicesView);
+  .component('servicesView', servicesView)
+  .run(['$templateCache', function($templateCache: any) {
+    $templateCache.put('order-service/order-service-details.html', require('./components/order-service/order-service-details.html'));
+    $templateCache.put('order-service/order-service-details.html', require('./components/order-service/order-service-details.html'));
+    $templateCache.put('order-service/order-service-plans.html', require('./components/order-service/order-service-plans.html'));
+    $templateCache.put('order-service/order-service-configure.html', require('./components/order-service/order-service-configure.html'));
+    $templateCache.put('order-service/order-service-review.html', require('./components/order-service/order-service-review.html'));
+  }]);
