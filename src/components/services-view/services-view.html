@@ -49,7 +49,7 @@
          pf-card-view config="$ctrl.cardViewConfig" items="$ctrl.filteredItems">
       <div class="card-container">
         <div ng-if="!item.imageUrl" class="card-icon {{item.iconClass}}"></div>
-        <div ng-if="item.imageUrl" class="card-img"><img src="{{item.imageUrl}}"></div>
+        <div ng-if="item.imageUrl" class="card-img"><img ng-src="{{item.imageUrl}}"></div>
         <div class="card-name">{{item.name}}</div>
       </div>
     </div>
