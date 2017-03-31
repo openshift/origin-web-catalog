@@ -662,13 +662,6 @@ body.overlay-open {
   position: absolute;
   left: 0px;
   right: 0px;
-  overflow-y: auto;
-}
-.services-view-container .services-sub-categories .sub-cat-card .card-expansion .card-view-pf {
-  max-height: 410px;
-}
-.services-view-container .services-sub-categories .sub-cat-card .card-expansion.other {
-  margin-top: -113px;
 }
 .services-view-container .services-sub-categories .sub-cat-card .sub-cat-icon {
   font-size: 42px;
@@ -678,6 +671,15 @@ body.overlay-open {
 }
 .services-view-container .services-sub-categories a {
   cursor: pointer;
+}
+.services-view-container .card-expansion {
+  overflow-y: auto;
+}
+.services-view-container .card-expansion .card-view-pf {
+  max-height: 410px;
+}
+.services-view-container .card-expansion.no-sub-cats {
+  margin-top: 12px;
 }
 .services-view-container .card-view-pf {
   display: flex;

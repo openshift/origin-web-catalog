@@ -39,25 +39,17 @@ describe('servicesView', () => {
     expect(ctrl.orderingPanelvisible).toBe(false);
   });
 
-  // testing rendered HTML
-  it('should have the correct number of caegories, sub-categories, and service cards', () => {
+  it('should display the initial categories and correct number of catalog cards', () => {
     var element = componentTest.rawElement;
     // 4 main categories ('All', 'Languages', 'Databases', 'Other')
     // 'Middleware' should be hidden since mock data has no items with Middleware sub-categories
-    // 'CI/CD' should be hidden because it's only item 'Jenkins' is not a builder image
-    expect(jQuery(element).find('.services-categories a').length).toBe(4);
+    expect(jQuery(element).find('.services-categories a').length).toBe(5);
 
-    // 10 sub categories ('All', 'Java', 'Javascript',...'Other')
-    // 'Pipelines' + the 4 Middleware sub-categories should be hidden since mock data doesn't have
-    // items with these sub-categories.
-    // Jenkins, MySql, etc. hidden because they are not builder images
-    expect(jQuery(element).find('.sub-cat-label').length).toBe(10);
+    // 'All' category should be selected and the current filter
+    expect(jQuery(element).find('.services-categories .current-filter').html()).toBe('All');
 
-    // Show the service item cards (hidden by default)
-    componentTest.eventFire(element.querySelector('#sub-category-all .inner-content'), 'click');
-
-    // 14 cards/services
-    expect(jQuery(element).find('.card-name').length).toBe(14);
+    // 15 cards/services
+    expect(jQuery(element).find('.card-name').length).toBe(15);
   });
 
   it('should filter sub-categories and cards when main category is clicked', () => {
@@ -74,6 +66,7 @@ describe('servicesView', () => {
 
   it('should filter cards when sub-category is clicked', () => {
     var element = componentTest.rawElement;
+    componentTest.eventFire(element.querySelector('#category-databases'), 'click');
     componentTest.eventFire(element.querySelector('#sub-category-mongodb .inner-content'), 'click');
     // MongoDB image not shown because it isn't a builder image.
     expect(jQuery(element).find('.card-name').length).toBe(2);
@@ -81,6 +74,7 @@ describe('servicesView', () => {
 
   it('should show/hide cards when same sub-category is clicked twice', () => {
     var element = componentTest.rawElement;
+    componentTest.eventFire(element.querySelector('#category-databases'), 'click');
     componentTest.eventFire(element.querySelector('#sub-category-mongodb .inner-content'), 'click');
     expect(jQuery(element).find('.card-name').length).toBe(2);
     componentTest.eventFire(element.querySelector('#sub-category-mongodb .inner-content'), 'click');
@@ -96,4 +90,17 @@ describe('servicesView', () => {
     expect(jQuery(element).find('.card-name').length).toBe(1);
   });
 
+  it("should not display the 'All' sub-category when there is only one sub-category", () => {
+    var element = componentTest.rawElement;
+
+    componentTest.eventFire(element.querySelector('#category-cicd'), 'click');
+
+    // 'CI/CD' should only have a 'Jenkins' sub-category and no 'All' sub-category
+    let subCatCard: any = jQuery(element).find('.sub-cat-label');
+    expect(subCatCard.length).toBe(1);
+    expect(subCatCard.html()).toBe('Jenkins');
+
+    // Expansion card should be shown with one card
+    expect(jQuery(element).find('.card-name').length).toBe(1);
+  });
 });

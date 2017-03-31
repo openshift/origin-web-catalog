@@ -85,7 +85,7 @@ export class ServicesViewController implements angular.IController {
     }
 
     this.ctrl.currentFilter = category;
-    this.ctrl.currentSubFilter = subCategory || 'all';
+    this.ctrl.currentSubFilter = (this.ctrl.subCategories.length === 1) ? this.ctrl.subCategories[0].id : (subCategory || 'all');
     this.updateActiveCardStyles();
   }
 
@@ -99,12 +99,15 @@ export class ServicesViewController implements angular.IController {
   }
 
   public getSubCategories(category: string) {
-    let subCats: any = (category !== 'other') ? [{id: 'all', label:  'All'}] : [];
+    let subCats: any = [];
     this.ctrl.categories.map(categoryObj => {
-      if (category === 'all' || category === categoryObj.id) {
+      if (category === categoryObj.id) {
         subCats = subCats.concat(categoryObj.subCategories);
       }
     });
+    if (subCats.length > 1) {
+      subCats.unshift({id: 'all', label:  'All'});
+    }
     return subCats;
   };
 
