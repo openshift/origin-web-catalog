@@ -99,19 +99,6 @@
 .landing-side-bar a:hover {
   color: #228bc0;
 }
-.snap-container {
-  display: none;
-  text-align: center;
-}
-@media (min-width: 768px) {
-  .snap-container {
-    display: block;
-  }
-}
-.snap-container a:hover,
-.snap-container a:focus {
-  text-decoration: none;
-}
 .order-service .wizard-pf-main {
   margin-bottom: 58px;
   margin-left: 0;

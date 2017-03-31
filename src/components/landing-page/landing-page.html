@@ -23,14 +23,8 @@
       </div>
       <div class="landing-header-area" ng-transclude="landingheader">
       </div>
-      <div class="snap-container snap-down">
-        <a href="#" class="fa fa-arrow-circle-o-down fa-3x" ng-click="$ctrl.snapDown($event)"></a>
-      </div>
       <div class="landing-body-area">
         <div ng-transclude="landingbody"></div>
-      </div>
-      <div class="snap-container snap-up" ng-class="{'scrolled-down': $ctrl.showSnapDown}">
-        <a href="#" class="fa fa-arrow-circle-o-up fa-3x" ng-click="$ctrl.snapUp($event)"></a>
       </div>
     </div>
     <div class="landing-side-bar" ng-transclude="landingside">
