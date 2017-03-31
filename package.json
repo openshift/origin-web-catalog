@@ -51,6 +51,7 @@
     "@types/jquery": "^2.0.33",
     "@types/lodash": "^3.10.1",
     "@types/node": "^0.0.2",
+    "@types/urijs": "1.15.26",
     "angular-mocks": "1.5.11",
     "autoprefixer": "^6.0.3",
     "babel-core": "^6.2.1",

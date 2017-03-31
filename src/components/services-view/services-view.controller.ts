@@ -34,7 +34,7 @@ export class ServicesViewController implements angular.IController {
     this.ctrl.allItems = [];
     this.ctrl.currentFilter = 'all';
     this.ctrl.currentSubFilter = null;
-    this.ctrl.orderingPanelvisible = false;
+    this.ctrl.orderingPanelVisible = false;
 
     this.updateAll();
 
@@ -112,16 +112,23 @@ export class ServicesViewController implements angular.IController {
   };
 
   public handleClick = (item: any, e: any) => {
-    this.ctrl.serviceToOrder = item;
+    let kind = _.get(item, 'resource.kind');
+    if (kind === 'ImageStream') {
+      this.ctrl.selectedImageStream = item;
+      this.ctrl.selectedServiceClass = null;
+    } else {
+      this.ctrl.selectedImageStream = null;
+      this.ctrl.selectedServiceClass = item;
+    }
     this.ctrl.openOrderingPanel();
   };
 
   public openOrderingPanel() {
-    this.ctrl.orderingPanelvisible = true;
+    this.ctrl.orderingPanelVisible = true;
   };
 
   public closeOrderingPanel = () => {
-    this.ctrl.orderingPanelvisible = false;
+    this.ctrl.orderingPanelVisible = false;
   };
 
   private updateAll() {

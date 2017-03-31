@@ -50,17 +50,17 @@
       font-weight: 600;
       color: @color-pf-black-600;
     }
-    .version-dropdown {
-      padding-top: 28px;
-      cursor: pointer;
-    }
     .description {
-      padding-top: 8px;
+      white-space: pre-wrap;
     }
   }
-  .order-service-description {
+  .order-service-description-block {
     clear: both;
     margin-top: 15px;
+    .learn-more-link {
+      font-size: @font-size-small;
+      white-space: nowrap;
+    }
   }
   .order-service-tags {
     margin-left: -5px;
@@ -77,6 +77,11 @@
   @media (min-width: @screen-sm-min) {
     height: @order-service-content-height;
   }
+  .failure-messages {
+    margin: 20px auto;
+    max-width: 400px;
+    text-align: left;
+  }
   .title {
     font-size: 16px;
     font-weight: 400;
@@ -87,7 +92,6 @@
     &.first {
       padding-top: 12px;
     }
-    margin-bottom: -8px;
     padding-top: 24px;
     font-size: 14px;
     font-weight: 400;

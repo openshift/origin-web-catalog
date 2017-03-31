@@ -1,6 +1,15 @@
 <!-- TODO: Should not have two ordering panels, combine with services view -->
 <overlay-panel show-panel="$ctrl.orderingPanelVisible" show-close="true" handle-close="$ctrl.closeOrderingPanel">
-  <order-service service-class="$ctrl.serviceToOrder" handle-close="$ctrl.closeOrderingPanel"></order-service>
+  <order-service
+      ng-if="$ctrl.selectedServiceClass"
+      service-class="$ctrl.selectedServiceClass"
+      handle-close="$ctrl.closeOrderingPanel">
+  </order-service>
+  <create-from-builder
+      ng-if="$ctrl.selectedImageStream"
+      image-stream="$ctrl.selectedImageStream"
+      handle-close="$ctrl.closeOrderingPanel">
+  </create-from-builder>
 </overlay-panel>
 <div class="landing-search-area">
   <form role="form" class="landing-search-form search-pf has-button">

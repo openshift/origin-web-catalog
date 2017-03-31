@@ -27,11 +27,15 @@
             </span>
           </div>
         </div>
-        <div class="order-service-description">
+        <div class="order-service-description-block">
           <div ng-if="$ctrl.currentStep.id !== 'plans' && $ctrl.selectedPlan" class="h3">
             Plan {{$ctrl.selectedPlan.osbMetadata.displayName || $ctrl.selectedPlan.name}}
           </div>
-          <div ng-include="'order-service/order-service-details.html'"></div>
+          <p ng-if="$ctrl.description" ng-bind-html="$ctrl.description | linky : '_blank'" class="description"></p>
+          <p ng-if="$ctrl.longDescription" ng-bind-html="$ctrl.longDescription | linky : '_blank'" class="description"></p>
+          <p ng-if="$ctrl.serviceClass.resource.osbMetadata.documentationUrl">
+            <a ng-href="{{$ctrl.serviceClass.resource.osbMetadata.documentationUrl}}" target="_blank" class="learn-more-link">Learn More <i class="fa fa-external-link" aria-hidden="true"></i></a>
+          </p>
         </div>
       </div>
     </div>
@@ -78,7 +82,6 @@
         ng-disabled="!$ctrl.selectedProject || $ctrl.currentStep.id === 'results' || $ctrl.forms.orderConfigureForm.$invalid"
         ng-click="$ctrl.provisionService()">
       Create
-      <span class="fa fa-angle-right" aria-hidden="true"></span>
     </button>
     <button
         type="button"
