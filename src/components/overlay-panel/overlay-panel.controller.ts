@@ -1,4 +1,5 @@
 import * as angular from 'angular';
+import * as $ from 'jquery';
 
 export class OverlayPanelController implements angular.IController {
   static $inject = ['$element', '$timeout'];
@@ -30,6 +31,10 @@ export class OverlayPanelController implements angular.IController {
     }
   }
 
+  public $onDestroy() {
+    $('body').removeClass('overlay-open');
+  }
+
   public closePanel = () => {
     if (angular.isFunction(this.ctrl.handleClose)) {
       this.ctrl.handleClose();
@@ -41,6 +46,7 @@ export class OverlayPanelController implements angular.IController {
 
     this.$timeout(() => {
       this.ctrl.showOverlayPanel = true;
+      $('body').addClass('overlay-open');
     }, 500);
   };
 
@@ -49,6 +55,7 @@ export class OverlayPanelController implements angular.IController {
 
     this.$timeout(() => {
       this.ctrl.showOverlayPanel = false;
+      $('body').removeClass('overlay-open');
     }, 500);
   }
 }
