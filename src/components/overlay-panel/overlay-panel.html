@@ -1,5 +1,5 @@
-<div class="catalogs-overlay-modal ng-class="{'modal-open modal fade in': $ctrl.showOverlayPanel" role="dialog">
-  <div ng-if="$ctrl.showBackdrop" class="modal-backdrop fade in"></div>
+<div class="catalogs-overlay-modal" role="dialog">
+  <div ng-if="$ctrl.shown" class="modal-backdrop fade in"></div>
   <div ng-if="$ctrl.shown" class="catalogs-overlay-panel-wrapper">
     <div class="catalogs-overlay-panel-grow-height">
       <div class="catalogs-overlay-panel" ng-class="{'catalogs-overlay-panel-full-height' : $ctrl.fullHeight}">

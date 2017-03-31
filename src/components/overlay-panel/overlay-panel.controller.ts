@@ -11,7 +11,6 @@ export class OverlayPanelController implements angular.IController {
     this.$element = $element;
     this.$timeout = $timeout;
     this.ctrl.showOverlayPanel = false;
-    this.ctrl.showBackdrop = false;
     this.ctrl.shown = false;
   }
 
@@ -39,7 +38,6 @@ export class OverlayPanelController implements angular.IController {
 
   private showDialog = () => {
     this.ctrl.shown = true;
-    this.ctrl.showBackdrop = true;
 
     this.$timeout(() => {
       this.ctrl.showOverlayPanel = true;
@@ -50,9 +48,7 @@ export class OverlayPanelController implements angular.IController {
     this.ctrl.shown = false;
 
     this.$timeout(() => {
-      this.ctrl.showBackdrop = false;
       this.ctrl.showOverlayPanel = false;
     }, 500);
   }
 }
-

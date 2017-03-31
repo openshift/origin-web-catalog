@@ -1,10 +1,20 @@
-.catalogs-overlay-modal.modal {
+.catalogs-overlay-modal {
   display: block;
+
+  .modal-backdrop {
+    &.ng-enter {
+      animation: modalBackdropIn 0.15s ease-out forwards;
+    }
+    &.ng-leave {
+      animation: modalBackdropOut .45s ease-out forwards;
+    }
+  }
 }
 
 .catalogs-overlay-panel {
   background: white;
-  border: 1px solid @color-pf-black-400;
+  border: 1px solid @modal-content-border-color;
+  box-shadow: 0 3px 9px rgba(0,0,0,.5);
   // Need to remove the 50% height for now because it causes issues for the wizard layout.
   // The wizard can be given a fixed height to achieve the styles we want.
   // height: 50%;
@@ -56,9 +66,9 @@
   z-index: @zindex-modal;
 
   &.ng-enter {
-    animation: modalSlideDown 0.75s ease forwards;
+    animation: modalSlideDown 0.3s ease-out forwards;
   }
   &.ng-leave {
-    animation: modalSlideUp 0.5s ease forwards;
+    animation: modalSlideUp 0.3s ease-out forwards;
   }
 }
