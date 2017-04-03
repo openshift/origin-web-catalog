@@ -6,6 +6,7 @@ import {ConstantsService} from './mockConstants.service';
 import {DataService} from './mockData.service';
 import {ProjectsService} from './mockProjects.service';
 import {AlertMessageService} from './mockAlertMessage.service';
+import {KeywordService} from './mockKeywords.service';
 
 export class MockServicesModule {
 
@@ -25,7 +26,8 @@ export class MockServicesModule {
       .service('ProjectsService', ProjectsService)
       .service('AlertMessageService', AlertMessageService)
       .service('Logger', LoggerService)
-      .service('DataService', DataService);
+      .service('DataService', DataService)
+      .service('KeywordService', KeywordService);
   }
 
   public useMockServices() {
