@@ -4,14 +4,17 @@ import './styles/main.less';
 // Aphabetical order please
 require('./constants');
 
+// Services
+import {CatalogService} from './services/catalog.service';
+
 // Components, Alphabetical order please
+import {guidedTour} from './components/guided-tour/guided-tour.component';
 import {landingPage} from './components/landing-page/landing-page.component';
 import {orderService} from './components/order-service/order-service.component';
 import {overlayPanel} from './components/overlay-panel/overlay-panel.component';
 import {projectsSummary} from './components/projects-summary/projects-summary.component';
 import {saasList} from './components/saas-list/saas-list.component';
 import {servicesView} from './components/services-view/services-view.component';
-import {CatalogService} from './services/catalog.service';
 
 import './styles/main.less';
 
@@ -20,6 +23,7 @@ export const webCatalog: string = 'webCatalog';
 angular
   .module(webCatalog, ['patternfly', 'ngAnimate', 'ui.bootstrap'])
   .service('Catalog', CatalogService)
+  .component('guidedTour', guidedTour)
   .component('landingPage', landingPage)
   .component('orderService', orderService)
   .component('overlayPanel', overlayPanel)

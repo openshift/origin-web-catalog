@@ -3,7 +3,8 @@ import {ProjectsSummaryController} from './projects-summary.controller';
 export const projectsSummary: angular.IComponentOptions = {
   bindings: {
     projectSelect: '&',
-    showProjects: '&'
+    showProjects: '&',
+    startGettingStartedTour: '&'
   },
   controller: ProjectsSummaryController,
   template: require('./projects-summary.html')

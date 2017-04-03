@@ -112,7 +112,6 @@ describe('Projects Summary Panel', () => {
     $timeout.flush();
 
     expect(ctrl.loading).toBe(false);
-    expect(ctrl.showGetStarted).toBe(false);
 
     expect(ctrl.projects.length).toBe(1);
 
@@ -145,6 +144,26 @@ describe('Projects Summary Panel', () => {
 
     var projectTiles = jQuery(element).find('.project-tile');
     expect(projectTiles.length).toBe(0);
+
+    var gettinStartedPanel = jQuery(element).find('.getting-started-panel');
+    expect(gettinStartedPanel.length).toBe(1);
+  });
+
+  it('should show getting started when only one project exists', () => {
+    createProjectSummary();
+
+    var ctrl = componentTest.isoScope.$ctrl;
+    var element = componentTest.rawElement;
+
+    $timeout.flush();
+
+    expect(ctrl.loading).toBe(false);
+    expect(ctrl.showGetStarted).toBe(true);
+
+    expect(ctrl.projects.length).toBe(1);
+
+    var projectTiles = jQuery(element).find('.project-tile');
+    expect(projectTiles.length).toBe(1);
 
     var gettinStartedPanel = jQuery(element).find('.getting-started-panel');
     expect(gettinStartedPanel.length).toBe(1);

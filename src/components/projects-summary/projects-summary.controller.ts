@@ -84,7 +84,7 @@ export class ProjectsSummaryController implements angular.IController {
     this.ctrl.totalProjects = this.ctrl.projects.length;
     this.ctrl.projects = _.take(this.ctrl.projects, this.maxDisplayProjects);
     this.ctrl.loading = false;
-    this.ctrl.showGetStarted = _.isEmpty(this.ctrl.projects);
+    this.ctrl.showGetStarted = !this.ctrl.projects || this.ctrl.projects.length < 2;
   };
 
   public openNewProjectPanel() {
@@ -111,6 +111,13 @@ export class ProjectsSummaryController implements angular.IController {
   public onEditProject = (projectName: string) => {
     this.ctrl.showEditProjectPanel = false;
   };
+
+  public handleGettingStartedClick() {
+    var cb: any = this.ctrl.startGettingStartedTour();
+    if (cb) {
+      cb();
+    }
+  }
 
   public handleProjectClick(project: any) {
     var cb: any = this.ctrl.projectSelect();

@@ -15,14 +15,27 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
 }, function(e, t, n) {
     "use strict";
     t.__esModule = !0;
-    var i = n(22);
+    var i = n(24);
+    t.guidedTour = {
+        bindings: {
+            showTour: "<",
+            tourConfig: "<",
+            onTourEnd: "&"
+        },
+        controller: i.GuidedTourController,
+        template: n(17)
+    };
+}, function(e, t, n) {
+    "use strict";
+    t.__esModule = !0;
+    var i = n(25);
     t.landingPage = {
         bindings: {
             searchPlaceholder: "@",
             doSearchFn: "<"
         },
         controller: i.LandingPageController,
-        template: n(16),
+        template: n(18),
         transclude: {
             landingheader: "landingheader",
             landingbody: "landingbody",
@@ -32,19 +45,19 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
 }, function(e, t, n) {
     "use strict";
     t.__esModule = !0;
-    var i = n(23);
+    var i = n(26);
     t.orderService = {
         bindings: {
             serviceClass: "<",
             handleClose: "<"
         },
         controller: i.OrderServiceController,
-        template: n(17)
+        template: n(19)
     };
 }, function(e, t, n) {
     "use strict";
     t.__esModule = !0;
-    var i = n(24);
+    var i = n(27);
     t.overlayPanel = {
         bindings: {
             showClose: "<",
@@ -53,44 +66,47 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             fullHeight: "<"
         },
         controller: i.OverlayPanelController,
-        template: n(18),
+        template: n(20),
         transclude: !0
     };
 }, function(e, t, n) {
     "use strict";
     t.__esModule = !0;
-    var i = n(25);
+    var i = n(28);
     t.projectsSummary = {
         bindings: {
             projectSelect: "&",
-            showProjects: "&"
+            showProjects: "&",
+            startGettingStartedTour: "&"
         },
         controller: i.ProjectsSummaryController,
-        template: n(19)
+        template: n(21)
     };
 }, function(e, t, n) {
     "use strict";
     t.__esModule = !0;
-    var i = n(26);
+    var i = n(29);
     t.saasList = {
         bindings: {
             saasTitle: "<?",
             saasOfferings: "<"
         },
         controller: i.SaasListController,
-        template: n(20)
+        template: n(22)
     };
 }, function(e, t, n) {
     "use strict";
     t.__esModule = !0;
-    var i = n(27);
+    var i = n(30);
     t.servicesView = {
         bindings: {
             serviceClasses: "<",
-            imageStreams: "<"
+            imageStreams: "<",
+            selectedCatagory: "<",
+            selectedSubCategory: "<"
         },
         controller: i.ServicesViewController,
-        template: n(21)
+        template: n(23)
     };
 }, function(e, t, n) {
     "use strict";
@@ -221,7 +237,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
         return e.prototype.getServiceItem = function(e) {
             return new a(e, this);
         }, e.prototype.getImageItem = function(e) {
-            var t = new c(e, this);
+            var t = new o(e, this);
             return t.builderSpecTagName ? t : null;
         }, e.prototype.getCategoriesBySubCategories = function(e) {
             var t = this, n = {}, i = "other";
@@ -246,8 +262,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                     });
                 });
                 if (!s.isEmpty(a)) {
-                    var c = i.copy(n);
-                    c.subCategories = a, r.push(c);
+                    var o = i.copy(n);
+                    o.subCategories = a, r.push(o);
                 }
             }), r;
         }, e;
@@ -274,7 +290,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
         }, e;
     }();
     t.ServiceItem = a;
-    var c = function() {
+    var o = function() {
         function e(e, t) {
             this.resource = e, this.catalogSrv = t, this.builderSpecTagName = this.getBuilderSpecTagName(), 
             this.builderSpecTagName && (this.tags = this.getTags(), this.iconClass = this.getIcon(), 
@@ -305,7 +321,9 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             return this.catalogSrv.getCategoriesBySubCategories(this.tags);
         }, e;
     }();
-    t.ImageItem = c;
+    t.ImageItem = o;
+}, function(e, t) {
+    e.exports = '<div ng-show="$ctrl.showBackdrop" class="modal-backdrop fade guided-tour-backdrop " ng-click="$ctrl.cancelTour()"></div>\n';
 }, function(e, t) {
     e.exports = '<div class="landing-page">\n  <div class="landing-page-container" ng-class="{\'snap-up-shown\': $ctrl.showSnapDown}">\n    <div class="landing-main-area">\n      <div class="landing-search-area">\n        <form role="form" class="landing-search-form search-pf has-button">\n          <div class="form-group has-clear">\n            <div class="search-pf-input-group">\n              <label for="search1" class="sr-only">{{$ctrl.searchPlaceholder}}</label>\n              <input id="search1" type="search" class="form-control" placeholder="{{$ctrl.searchPlaceholder}}" ng-model="$ctrl.searchText" ng-keypress="($event.charCode==13)? $ctrl.onSearchButtonClick() : return">\n              <button type="button" ng-if="$ctrl.searchText" class="clear" aria-hidden="true">\n            <span class="pficon pficon-close">\n            </span>\n              </button>\n            </div>\n          </div>\n          <div class="form-group">\n            <button class="btn btn-default" type="button">\n          <span class="fa fa-search"  ng-click="$ctrl.onSearchButtonClick()">\n          </span>\n            </button>\n          </div>\n        </form>\n      </div>\n      <div class="landing-header-area" ng-transclude="landingheader">\n      </div>\n      <div class="landing-body-area">\n        <div ng-transclude="landingbody"></div>\n      </div>\n    </div>\n    <div class="landing-side-bar" ng-transclude="landingside">\n    </div>\n  </div>\n</div>\n';
 }, function(e, t) {
@@ -313,11 +331,50 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
 }, function(e, t) {
     e.exports = '<div class="catalogs-overlay-modal" role="dialog">\n  <div ng-if="$ctrl.shown" class="modal-backdrop fade in"></div>\n  <div ng-if="$ctrl.shown" class="catalogs-overlay-panel-wrapper">\n    <div class="catalogs-overlay-panel-grow-height">\n      <div class="catalogs-overlay-panel" ng-class="{\'catalogs-overlay-panel-full-height\' : $ctrl.fullHeight}">\n        <a ng-if="$ctrl.showClose" ng-click="$ctrl.closePanel()">\n          <span class="catalogs-overlay-panel-close pficon pficon-close"></span>\n        </a>\n        <div class="catalogs-overlay-panel-body" ng-transclude>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n';
 }, function(e, t) {
-    e.exports = '<div class="catalog-projects-summary-panel">\n  <button ng-if="$ctrl.canCreate" class="create-button btn btn-primary" ng-click="$ctrl.openNewProjectPanel()">\n    <span class="fa fa-plus"></span>\n    <span class="create-button-text">Create Project</span>\n  </button>\n  <div ng-if="$ctrl.showGetStarted">\n    <h2 class="primary">Getting Started</h2>\n    <div class="getting-started-panel">\n      {{$ctrl.gettingStartedText}}\n    </div>\n  </div>\n  <h2 class="primary" ng-if="!$ctrl.showGetStarted">My Projects</h2>\n  <div class="catalog-modal catalog-modal-create-project" ng-if="$ctrl.showNewProjectPanel">\n    <h4 class="catalog-modal-title">\n      Create Project\n    </h4>\n    <create-project alerts="$ctrl.alerts" is-dialog="true" redirect-action="$ctrl.onNewProject" on-cancel="$ctrl.closeNewProjectPanel"></create-project>\n    <a href="" class="catalog-modal-close" ng-click="$ctrl.closeNewProjectPanel()">\n      <span class="pficon pficon-close"></span>\n    </a>\n  </div>\n\n\n  <div ng-if="!$ctrl.showGetStarted" class="catalog-project-summary-list">\n    <div ng-if="$ctrl.totalProjects > $ctrl.maxDisplayProjects" class="projects-count">\n      <strong>{{$ctrl.maxDisplayProjects}}</strong>\n      of\n      <strong>{{$ctrl.totalProjects}}</strong>\n      Projects\n      <a href="" class="projects-view-all" ng-click="$ctrl.showAllProjects()">View All</a>\n    </div>\n    <div id="catalog-projects-summary-list">\n      <div ng-repeat="project in $ctrl.projects track by (project | uid)" class="project-tile">\n        <div class="dropdown  dropdown-kebab-pf" uib-dropdown="">\n          <button class="btn btn-link uib-dropdown-toggle" type="button" id="dropdownKebab" aria-haspopup="true" aria-expanded="true" uib-dropdown-toggle>\n            <span class="fa fa-ellipsis-v"></span>\n          </button>\n          <ul class="uib-dropdown-menu dropdown-menu-right" aria-labelledby="dropdownKebab">\n            <li><a href="" ng-click="$ctrl.editProject(project)">Edit</a></li>\n            <li>\n              <delete-link\n                  kind="Project"\n                  resource-name="{{project.metadata.name}}"\n                  project-name="{{project.metadata.name}}"\n                  display-name="{{(project | displayName)}}"\n                  type-name-to-confirm="true"\n                  stay-on-current-page="true"\n                  alerts="$ctrl.alerts">\n              </delete-link>\n            </li>\n          </ul>\n        </div>\n        <h3 class="project-tile-header">\n          <span ng-if="project.statusIconClass" class="project-status {{project.statusIconClass}}"></span>\n          <a href="" ng-click="$ctrl.handleProjectClick(project)" class="project-title">{{project | displayName}}</a>\n        </h3>\n        <p class="project-date">\n          {{project.metadata.creationTimestamp | date: \'mediumDate\'}}\n        </p>\n        <div class="project-description" ng-if="project | description">\n          {{project | description}}\n        </div>\n        <div class="catalog-modal catalog-modal-edit-project" ng-if="$ctrl.showEditProjectPanel && $ctrl.edittingProject === project">\n          <h4 class="catalog-modal-title">\n            Edit Project\n          </h4>\n          <edit-project project="$ctrl.edittingProject" is-dialog="true" alerts="$ctrl.alerts" redirect-action="$ctrl.onEditProject" on-cancel="$ctrl.closeEditProjectPanel"></edit-project>\n          <a href="" class="catalog-modal-close" ng-click="$ctrl.closeEditProjectPanel()">\n            <span class="pficon pficon-close"></span>\n          </a>\n        </div>\n      </div>\n    </div>\n  </div>\n  <h2 class="secondary">Resources</h2>\n  <span>\n    {{$ctrl.resourcesText}}\n  </span>\n  <div class="resources-panel">\n    <ul>\n      <li ng-repeat="resource in $ctrl.resources">\n        {{resource.text}}\n      </li>\n    </ul>\n  </div>\n</div>\n';
+    e.exports = '<div class="catalog-projects-summary-panel">\n  <button ng-if="$ctrl.canCreate" class="create-button btn btn-primary" ng-click="$ctrl.openNewProjectPanel()">\n    <span class="fa fa-plus"></span>\n    <span class="create-button-text">Create Project</span>\n  </button>\n  <h2 class="primary" ng-if="!$ctrl.projects || $ctrl.projects.length < 1">Getting Started</h2>\n  <h2 class="primary" ng-if="$ctrl.projects && $ctrl.projects.length > 0">My Projects</h2>\n  <div class="catalog-modal catalog-modal-create-project" ng-if="$ctrl.showNewProjectPanel">\n    <h4 class="catalog-modal-title">\n      Create Project\n    </h4>\n    <create-project alerts="$ctrl.alerts" is-dialog="true" redirect-action="$ctrl.onNewProject" on-cancel="$ctrl.closeNewProjectPanel"></create-project>\n    <a href="" class="catalog-modal-close" ng-click="$ctrl.closeNewProjectPanel()">\n      <span class="pficon pficon-close"></span>\n    </a>\n  </div>\n  <div ng-if="$ctrl.projects && $ctrl.projects.length > 0" class="catalog-project-summary-list">\n    <div ng-if="$ctrl.totalProjects > $ctrl.maxDisplayProjects" class="projects-count">\n      <strong>{{$ctrl.maxDisplayProjects}}</strong>\n      of\n      <strong>{{$ctrl.totalProjects}}</strong>\n      Projects\n      <a href="" class="projects-view-all" ng-click="$ctrl.showAllProjects()">View All</a>\n    </div>\n    <div id="catalog-projects-summary-list">\n      <div ng-repeat="project in $ctrl.projects track by (project | uid)" class="project-tile">\n        <div class="dropdown  dropdown-kebab-pf" uib-dropdown="">\n          <button class="btn btn-link uib-dropdown-toggle" type="button" id="dropdownKebab" aria-haspopup="true" aria-expanded="true" uib-dropdown-toggle>\n            <span class="fa fa-ellipsis-v"></span>\n          </button>\n          <ul class="uib-dropdown-menu dropdown-menu-right" aria-labelledby="dropdownKebab">\n            <li><a href="" ng-click="$ctrl.editProject(project)">Edit</a></li>\n            <li>\n              <delete-link\n                  kind="Project"\n                  resource-name="{{project.metadata.name}}"\n                  project-name="{{project.metadata.name}}"\n                  display-name="{{(project | displayName)}}"\n                  type-name-to-confirm="true"\n                  stay-on-current-page="true"\n                  alerts="$ctrl.alerts">\n              </delete-link>\n            </li>\n          </ul>\n        </div>\n        <h3 class="project-tile-header">\n          <span ng-if="project.statusIconClass" class="project-status {{project.statusIconClass}}"></span>\n          <a href="" ng-click="$ctrl.handleProjectClick(project)" class="project-title">{{project | displayName}}</a>\n        </h3>\n        <p class="project-date">\n          {{project.metadata.creationTimestamp | date: \'mediumDate\'}}\n        </p>\n        <div class="project-description" ng-if="project | description">\n          {{project | description}}\n        </div>\n        <div class="catalog-modal catalog-modal-edit-project" ng-if="$ctrl.showEditProjectPanel && $ctrl.edittingProject === project">\n          <h4 class="catalog-modal-title">\n            Edit Project\n          </h4>\n          <edit-project project="$ctrl.edittingProject" is-dialog="true" alerts="$ctrl.alerts" redirect-action="$ctrl.onEditProject" on-cancel="$ctrl.closeEditProjectPanel"></edit-project>\n          <a href="" class="catalog-modal-close" ng-click="$ctrl.closeEditProjectPanel()">\n            <span class="pficon pficon-close"></span>\n          </a>\n        </div>\n      </div>\n    </div>\n  </div>\n  <div ng-if="$ctrl.showGetStarted">\n    <div class="getting-started-panel">\n      <h2 class="secondary" ng-if="$ctrl.projects && $ctrl.projects.length > 0">Getting Started</h2>\n      <button class="getting-started-button btn btn-default" ng-class="{\'with-projects\': $ctrl.projects && $ctrl.projects.length > 0}" ng-click="$ctrl.handleGettingStartedClick()">\n        <span class="fa fa-info-circle fa-2"></span>\n        <span class="getting-started-button-text">Start Guided Tour</span>\n      </button>\n    </div>\n    <div class="resources-panel">\n      <h2 class="secondary">Resources</h2>\n      <span>\n        {{$ctrl.resourcesText}}\n      </span>\n      <ul>\n        <li ng-repeat="resource in $ctrl.resources">\n          {{resource.text}}\n        </li>\n      </ul>\n    </div>\n  </div>\n</div>\n';
 }, function(e, t) {
     e.exports = '<span ng-if="$ctrl.hasSaasOfferings()" class="saas-offerings-container">\n  <h1 ng-if="$ctrl.saasTitle">{{$ctrl.saasTitle}}</h1>\n  <div pf-card-view config="$ctrl.cardViewConfig" items="$ctrl.saasOfferings">\n    <div class="card-container">\n      <div class="card-header">\n        <span class="card-icon {{item.icon}}"></span>\n        <span class="card-title">{{item.title}}</span>\n      </div>\n      <div class="card-footer hidden-xs">\n        <truncate-long-text\n                class="card-description"\n                content="item.description"\n                limit="120"\n                use-word-boundary="true">\n        </truncate-long-text>\n      </div>\n    </div>\n  </div>\n</span>\n';
 }, function(e, t) {
     e.exports = '\n<div class="services-view">\n\n  <overlay-panel show-panel="$ctrl.orderingPanelvisible" show-close="true" handle-close="$ctrl.closeOrderingPanel">\n    <order-service service-class="$ctrl.serviceToOrder" handle-close="$ctrl.closeOrderingPanel"></order-service>\n  </overlay-panel>\n\n  <div ng-if="$ctrl.loading" class="spinner-container">\n    <div ng-class="{\'spinner spinner-xl\': $ctrl.loading}"></div>\n  </div>\n  <div ng-if="!$ctrl.loading" class="services-view-container">\n    <h1>Catalog</h1>\n\n    <div class="services-categories">\n      <a id="category-all" ng-class="{\'current-filter\': $ctrl.currentFilter === \'all\'}" ng-click="$ctrl.filterByCategory(\'all\', \'all\', true)">All</a> |\n      <span ng-repeat="category in $ctrl.categories">\n        <a id="{{\'category-\'+category.id}}" ng-class="{\'current-filter\': $ctrl.currentFilter === category.id}"\n           ng-click="$ctrl.filterByCategory(category.id, \'all\', true)">{{category.label}}</a>\n           {{$ctrl.categories.length !== ($index+1) ? \' | \' : \'\'}}\n      </span>\n    </div>\n\n    <!-- Do not show sub-category tiles for \'All\' or \'Other\' main categories -->\n\n    <div class="services-sub-categories" ng-if="$ctrl.currentFilter !== \'other\' && $ctrl.currentFilter !== \'all\'">\n      <div ng-repeat="subCategory in $ctrl.subCategories"\n           id="{{\'sub-category-\'+subCategory.id}}"\n           class="sub-cat-card" ng-class="{\'active\': $ctrl.currentSubFilter === subCategory.id}">\n        <div class="inner-content" ng-click="$ctrl.toggleExpand(subCategory.id)">\n          <div class="sub-cat-icon {{subCategory.icon}}" ng-if="subCategory.icon"></div>\n          <div class="sub-cat-label">{{subCategory.label}}</div>\n        </div>\n        <div ng-if="$ctrl.currentSubFilter === subCategory.id"\n           class="card-expansion"\n           pf-card-view config="$ctrl.cardViewConfig" items="$ctrl.filteredItems">\n          <div class="card-container">\n            <div ng-if="!item.imageUrl" class="card-icon {{item.iconClass}}"></div>\n            <div ng-if="item.imageUrl" class="card-img"><img ng-src="{{item.imageUrl}}"></div>\n            <div class="card-name">{{item.name}}</div>\n          </div>\n        </div>\n      </div>\n    </div>\n\n    <!-- Show catalog cards for \'All\' and \'Other\' main categories -->\n\n    <div ng-if="$ctrl.currentFilter === \'other\' || $ctrl.currentFilter === \'all\'"\n         class="card-expansion no-sub-cats"\n         pf-card-view config="$ctrl.cardViewConfig" items="$ctrl.filteredItems">\n      <div class="card-container">\n        <div ng-if="!item.imageUrl" class="card-icon {{item.iconClass}}"></div>\n        <div ng-if="item.imageUrl" class="card-img"><img ng-src="{{item.imageUrl}}"></div>\n        <div class="card-name">{{item.name}}</div>\n      </div>\n    </div>\n  </div>\n</div>\n';
+}, function(e, t, n) {
+    "use strict";
+    t.__esModule = !0;
+    var i = n(0), s = n(31), r = n(4), a = function() {
+        function e(e, t) {
+            var n = this;
+            this.ctrl = this, this.showBackdrop = !1, this.cancelTour = function() {
+                s.endTour();
+            }, this.handleTourStart = function() {
+                n.$timeout(function() {
+                    n.showBackdrop = !0, n.bodyElement.addClass("overlay-open");
+                });
+            }, this.handleTourEnd = function() {
+                n.$timeout(function() {
+                    n.ctrl.showTour = !1, n.showBackdrop = !1, n.bodyElement.removeClass("overlay-open");
+                    var e = n.ctrl.onTourEnd();
+                    e && e();
+                });
+            }, this.$document = e, this.$timeout = t, this.innerConfig = {
+                bubblePadding: 5,
+                arrowWidth: 15,
+                onStart: this.handleTourStart,
+                onEnd: this.handleTourEnd,
+                onClose: this.handleTourEnd,
+                showPrevButton: !0,
+                i18n: {
+                    nextBtn: "Next >",
+                    prevBtn: "< Back"
+                }
+            };
+        }
+        return e.prototype.$postLink = function() {
+            this.bodyElement = r(this.$document).find("body"), this.hopscotchConfig = {}, i.merge(this.hopscotchConfig, this.innerConfig, this.ctrl.tourConfig);
+        }, e.prototype.$onChanges = function(e) {
+            e.showTour && (this.ctrl.showTour ? s.startTour(this.hopscotchConfig) : s.endTour()), 
+            e.tourConfig && (this.hopscotchConfig = {}, i.merge(this.hopscotchConfig, this.innerConfig, this.ctrl.tourConfig));
+        }, e;
+    }();
+    a.$inject = [ "$document", "$timeout" ], t.GuidedTourController = a;
 }, function(e, t, n) {
     "use strict";
     t.__esModule = !0;
@@ -447,7 +504,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
     "use strict";
     t.__esModule = !0;
     var i = n(1), s = function() {
-        function e(e, t, n, s, r, a, c, o) {
+        function e(e, t, n, s, r, a, o, c) {
             var l = this;
             this.ctrl = this, this.showNewProjectPanel = !1, this.showEditwProjectPanel = !1, 
             this.alerts = [], this.projects = [], this.watches = [], this.maxDisplayProjects = 5, 
@@ -459,7 +516,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             }, this.onProjectsUpdate = function(e) {
                 var t = i.toArray(e.by("metadata.creationTimestamp")), n = l.$filter("orderObjectsByDate");
                 l.ctrl.projects = n(t, !0), l.ctrl.totalProjects = l.ctrl.projects.length, l.ctrl.projects = i.take(l.ctrl.projects, l.maxDisplayProjects), 
-                l.ctrl.loading = !1, l.ctrl.showGetStarted = i.isEmpty(l.ctrl.projects);
+                l.ctrl.loading = !1, l.ctrl.showGetStarted = !l.ctrl.projects || l.ctrl.projects.length < 2;
             }, this.closeNewProjectPanel = function() {
                 l.ctrl.showNewProjectPanel = !1;
             }, this.onNewProject = function(e) {
@@ -471,7 +528,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             }, this.onEditProject = function(e) {
                 l.ctrl.showEditProjectPanel = !1;
             }, this.$element = e, this.$scope = t, this.$filter = n, this.ProjectsService = s, 
-            this.Logger = r, this.AuthService = a, this.DataService = c, this.AlertMessageService = o;
+            this.Logger = r, this.AuthService = a, this.DataService = o, this.AlertMessageService = c;
         }
         return e.prototype.$onInit = function() {
             var e = this;
@@ -493,6 +550,9 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             }), this.AuthService.withUser().then(this.onVerifyUser);
         }, e.prototype.openNewProjectPanel = function() {
             this.ctrl.showNewProjectPanel = !0;
+        }, e.prototype.handleGettingStartedClick = function() {
+            var e = this.ctrl.startGettingStartedTour();
+            e && e();
         }, e.prototype.handleProjectClick = function(e) {
             var t = this.ctrl.projectSelect();
             t && t(e);
@@ -600,15 +660,17 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
         }, e;
     }();
     a.$inject = [ "Constants", "Catalog", "$filter", "$scope", "$timeout" ], t.ServicesViewController = a;
+}, function(e, t) {
+    e.exports = hopscotch;
 }, function(e, t, n) {
     "use strict";
     t.__esModule = !0;
     var i = n(0);
-    n(2), n(14);
-    var s = n(8), r = n(9), a = n(10), c = n(11), o = n(12), l = n(13), d = n(15);
-    n(2), t.webCatalog = "webCatalog", i.module(t.webCatalog, [ "patternfly", "ngAnimate", "ui.bootstrap" ]).service("Catalog", d.CatalogService).component("landingPage", s.landingPage).component("orderService", r.orderService).component("overlayPanel", a.overlayPanel).component("projectsSummary", c.projectsSummary).component("saasList", o.saasList).component("servicesView", l.servicesView).run([ "$templateCache", function(e) {
+    n(2), n(15);
+    var s = n(16), r = n(8), a = n(9), o = n(10), c = n(11), l = n(12), d = n(13), p = n(14);
+    n(2), t.webCatalog = "webCatalog", i.module(t.webCatalog, [ "patternfly", "ngAnimate", "ui.bootstrap" ]).service("Catalog", s.CatalogService).component("guidedTour", r.guidedTour).component("landingPage", a.landingPage).component("orderService", o.orderService).component("overlayPanel", c.overlayPanel).component("projectsSummary", l.projectsSummary).component("saasList", d.saasList).component("servicesView", p.servicesView).run([ "$templateCache", function(e) {
         e.put("order-service/order-service-details.html", n(3)), e.put("order-service/order-service-details.html", n(3)), 
         e.put("order-service/order-service-plans.html", n(6)), e.put("order-service/order-service-configure.html", n(5)), 
         e.put("order-service/order-service-review.html", n(7));
     } ]);
-} ], [ 28 ]);
+} ], [ 32 ]);
