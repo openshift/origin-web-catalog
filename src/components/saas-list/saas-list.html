@@ -7,7 +7,12 @@
         <span class="card-title">{{item.title}}</span>
       </div>
       <div class="card-footer hidden-xs">
-        <div class="card-description">{{item.description}}</div>
+        <truncate-long-text
+                class="card-description"
+                content="item.description"
+                limit="120"
+                use-word-boundary="true">
+        </truncate-long-text>
       </div>
     </div>
   </div>
