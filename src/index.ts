@@ -4,6 +4,10 @@ import './styles/main.less';
 // Aphabetical order please
 require('./constants');
 
+
+// Filters
+import {projectUrlFilter} from './filters/projectUrl';
+
 // Components, Alphabetical order please
 import {landingPage} from './components/landing-page/landing-page.component';
 import {orderService} from './components/order-service/order-service.component';
@@ -18,8 +22,9 @@ import './styles/main.less';
 export const webCatalog: string = 'webCatalog';
 
 angular
-  .module(webCatalog, ['patternfly', 'ngAnimate', 'ui.bootstrap'])
+  .module(webCatalog, ['patternfly', 'ngAnimate', 'ui.bootstrap', 'angularMoment'])
   .service('Catalog', CatalogService)
+  .filter('projectUrl', projectUrlFilter)
   .component('landingPage', landingPage)
   .component('orderService', orderService)
   .component('overlayPanel', overlayPanel)

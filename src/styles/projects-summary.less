@@ -16,6 +16,23 @@
     padding-left: 4px;
   }
 
+  .getting-started-button {
+    width: 100%;
+    font-size: @font-size-base + 1;
+
+    &.with-projects {
+      margin-top: 15px;
+    }
+  }
+
+  .getting-started-button-text {
+    padding-left: 4px;
+  }
+
+  .getting-started-panel {
+    margin-top: @grid-gutter-width;
+  }
+
   h2 {
     &.primary {
       margin-top: 0;
@@ -23,6 +40,11 @@
     &.secondary {
       font-size: @font-size-base + 6;
     }
+  }
+
+  .resources-panel {
+    margin-top: @grid-gutter-width;
+    border-top: solid 1px @color-pf-black-700;
   }
 }
 
@@ -155,12 +177,6 @@
     }
   }
 
-  .project-description {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
   .project-tile {
     border-bottom: solid 1px @color-pf-black-700;
     border-top: solid 1px @color-pf-black-700;
@@ -195,5 +211,11 @@
 
   .projects-view-all {
     float: right;
+  }
+}
+
+.catalogs-resources {
+  .resources-description {
+    margin-top: 7px;
   }
 }

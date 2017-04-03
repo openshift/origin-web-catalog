@@ -1,5 +1,15 @@
 import * as _ from 'lodash';
 
+_.set(window, 'OPENSHIFT_CONSTANTS.HELP_BASE_URL', "https://docs.openshift.org/latest/");
+var HELP: any = {
+  "new_app":                 "dev_guide/application_lifecycle/new_app.html",
+  "application_health":      "dev_guide/application_health.html",
+  "authorization":           "architecture/additional_concepts/authorization.html",
+  "deployments":             "dev_guide/deployments/how_deployments_work.html",
+  "default":                 "welcome/index.html"
+  };
+_.set(window, 'OPENSHIFT_CONSTANTS.HELP', HELP);
+
 // Assigns global constants
 var saasOfferings: any = [
   {id: 1, title:  'Microservices Application', icon: 'fa fa-cubes',  url: 'https://www.redhat.com/en/technologies/virtualization', description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.'},
@@ -43,3 +53,36 @@ export const allSaasOfferings = saasOfferings;
 
 _.set(window, 'OPENSHIFT_CONSTANTS.SERVICE_CATALOG_CATEGORIES', categories);
 _.set(window, 'OPENSHIFT_CONSTANTS.SAAS_OFFERINGS', saasOfferings);
+
+
+var resources: any = {
+  description: 'Lorem ipsum dolor sit amet, consectular adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud',
+  links: [
+    {
+      title: 'Welcome',
+      help: 'default'
+    },
+    {
+      title: 'Building a new Application',
+      help: 'new_app'
+    },
+    {
+      title: 'Authorization',
+      help: 'authorization'
+    },
+    {
+      title: 'Deployments',
+      help: 'deployments'
+    },
+    {
+      title: 'Application Health',
+      help: 'application_health'
+    },
+    {
+      title: 'Visit us on Facebook',
+      href: 'http://facebook.com/RedHatInc'
+    }
+  ]
+};
+
+_.set(window, 'OPENSHIFT_CONSTANTS.CATALOG_HELP_RESOURCES', resources);
