@@ -75,7 +75,7 @@
         type="button"
         class="btn btn-primary wizard-pf-next"
         ng-if="$ctrl.currentStep.id === 'configure'"
-        ng-disabled="!$ctrl.selectedProject || $ctrl.currentStep.id === 'results'"
+        ng-disabled="!$ctrl.selectedProject || $ctrl.currentStep.id === 'results' || $ctrl.forms.orderConfigureForm.$invalid"
         ng-click="$ctrl.provisionService()">
       Create
       <span class="fa fa-angle-right" aria-hidden="true"></span>

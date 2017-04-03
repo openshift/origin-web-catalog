@@ -1,19 +1,6 @@
 <div class="config-top">
-  <form class="form-horizontal config-form">
-    <div class="form-group">
-      <label class="col-sm-4 control-label" for="project">Add to Project</label>
-      <div class="col-sm-8">
-        <!-- TODO: handle duplicate display names -->
-        <!-- TODO: let users create projects -->
-        <select
-            id="project"
-            ng-model="$ctrl.selectedProject"
-            ng-options="project as (project | displayName) for project in $ctrl.projects track by (project | uid)"
-            class="form-control">
-        </select>
-      </div>
-    </div>
-
+  <form name="$ctrl.forms.orderConfigureForm" class="form-horizontal config-form">
+    <select-project selected-project="$ctrl.selectedProject" name-taken="$ctrl.nameTaken"></select-project>
     <!-- TODO: add parameters -->
     <!-- <div class="form-group"> -->
     <!--   <label class="col-sm-4 control-label" for="field1">Field 1</label> -->
@@ -22,4 +9,7 @@
     <!--   </div> -->
     <!-- </div> -->
   </form>
+  <div ng-if="$ctrl.error" class="col-sm-12 has-error">
+    <span class="help-block">{{$ctrl.error}}</span>
+  </div>
 </div>

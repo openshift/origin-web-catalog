@@ -27,9 +27,11 @@ export class OrderServiceController implements angular.IController {
     this.ctrl.description = this.ctrl.serviceClass.description;
     this.ctrl.longDescription = this.ctrl.serviceClass.longDescription;
     this.ctrl.plans = _.get(this, 'ctrl.serviceClass.resource.plans', []);
+    this.ctrl.forms = {};
 
     // Preselect the first plan. If there's only one plan, skip the wizard step.
     this.ctrl.selectedPlan = _.first(this.ctrl.plans);
+    this.ctrl.selectedProject = {};
     this.ctrl.planIndex = 0;
     this.ctrl.steps = [{
       id: 'plans',
@@ -49,7 +51,7 @@ export class OrderServiceController implements angular.IController {
       this.ctrl.steps.shift();
     }
     this.gotoStep(this.ctrl.steps[0]);
-    this.listProjects();
+    this.ctrl.nameTaken = false;
     this.ctrl.wizardReady = true;
   }
 
@@ -94,7 +96,44 @@ export class OrderServiceController implements angular.IController {
     this.ctrl.selectedPlan = plan;
   }
 
+  public invalidNewProject() {
+    // test whether selectedProject is actually a newProject obj. and if passed name validation
+    return this.isNewProject() && !this.ctrl.selectedProject.validName;
+  }
+
   public provisionService() {
+    if (this.isNewProject()) {
+      // the selectedProject is actually a newProject object
+      let newProjName = this.ctrl.selectedProject.metadata.name;
+      let newProjDisplayName = this.ctrl.selectedProject.metadata.annotations['new-display-name'];
+      let newProjDesc = this.$filter('description')(this.ctrl.selectedProject);
+      let projReqObj: any = {
+        apiVersion: "v1",
+        kind: "ProjectRequest",
+        metadata: {
+          name: newProjName
+        },
+        displayName: newProjDisplayName,
+        description: newProjDesc
+      };
+      this.DataService
+        .create('projectrequests', null, projReqObj, this.$scope)
+        .then( (data: any) => {
+          this.createService();
+        }, (result: any) => {
+          var data = result.data || {};
+          if (data.reason === 'AlreadyExists') {
+            this.ctrl.nameTaken = true;
+          } else {
+            this.ctrl.error = data.message || 'An error occurred creating the project.';
+          }
+        });
+    } else {
+      this.createService();
+    }
+  }
+
+  public createService() {
     let serviceInstance = this.makeServiceInstance();
     this.DataService.create({
       group: 'servicecatalog.k8s.io',
@@ -111,40 +150,26 @@ export class OrderServiceController implements angular.IController {
     });
   }
 
-  public $onChanges(onChangesObj: angular.IOnChangesObject) {
-    return;
-  }
-
-  public $doCheck() {
-    return;
-  }
-
   public closePanel() {
     if (angular.isFunction(this.ctrl.handleClose)) {
       this.ctrl.handleClose();
     }
   }
 
-  private listProjects() {
-    this.DataService.list('projects', this.$scope).then((response: any) => {
-      this.ctrl.projects = _.sortBy(response.by('metadata.name'), this.$filter('displayName'));
-      this.ctrl.selectedProject = _.first(this.ctrl.projects);
-    });
-  }
-
   private makeServiceInstance() {
     let serviceClassName = _.get(this, 'ctrl.serviceClass.resource.metadata.name');
+
     let serviceInstance = {
       kind: 'Instance',
       apiVersion: 'servicecatalog.k8s.io/v1alpha1',
       metadata: {
         namespace: this.ctrl.selectedProject.metadata.name,
         generateName: serviceClassName + '-'
-      },
-      spec: {
-        serviceClassName: serviceClassName,
-        planName: this.ctrl.selectedPlan.name
-      }
+       },
+       spec: {
+         serviceClassName: serviceClassName,
+         planName: this.ctrl.selectedPlan.name
+       }
     };
 
     return serviceInstance;
@@ -153,5 +178,9 @@ export class OrderServiceController implements angular.IController {
   private gotoStepID(id: string) {
     let step = _.find(this.ctrl.steps, { id: id });
     this.gotoStep(step);
+  }
+
+  private isNewProject(): boolean {
+    return this.ctrl.selectedProject && !_.has(this.ctrl.selectedProject, 'metadata.uid');
   }
 }

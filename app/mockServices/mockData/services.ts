@@ -29,7 +29,10 @@ export const servicesData = {
       displayName: 'Test ServiceClass Node.js',
       description: 'BUILDS SOURCE CODE',
       longDescription: 'run nodejs applications on CentOS 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/openshift-s2i/s2i-wildfly/blob/mast…',
-    }
+    },
+    plans: [
+      {name: 'rh-ded-topic', osbGuid: '1', displayName: 'Red Hat - Dedicated - Topic', description: '$.65 / 1 Million messages', bullets: ['One', 'Two', 'Three']}
+    ]
   },
   "test-serviceclass-perl": {
     "metadata": {
@@ -41,7 +44,10 @@ export const servicesData = {
       displayName: 'Test ServiceClass Perl',
       description: 'BUILDS SOURCE CODE',
       longDescription: 'run Perl applications on CentOS 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/openshift-s2i/s2i-wildfly/blob/mast…',
-    }
+    },
+    plans: [
+      {name: 'rh-ded-topic', osbGuid: '1', displayName: 'Red Hat - Dedicated - Topic', description: '$.65 / 1 Million messages', bullets: ['One', 'Two', 'Three']}
+    ]
   },
   "test-serviceclass-ruby": {
     "metadata": {
@@ -53,7 +59,10 @@ export const servicesData = {
       displayName: 'Test ServiceClass Ruby-Mongo',
       description: 'BUILDS SOURCE CODE',
       longDescription: 'run ruby applications on CentOS 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/openshift-s2i/s2i-wildfly/blob/mast…',
-    }
+    },
+    plans: [
+      {name: 'rh-ded-topic', osbGuid: '1', displayName: 'Red Hat - Dedicated - Topic', description: '$.65 / 1 Million messages', bullets: ['One', 'Two', 'Three']}
+    ]
   },
   "test-serviceclass-php": {
     "metadata": {
@@ -65,7 +74,10 @@ export const servicesData = {
       displayName: 'Test ServiceClass PHP',
       description: 'BUILDS SOURCE CODE',
       longDescription: 'run PHP applications on CentOS 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/openshift-s2i/s2i-wildfly/blob/mast…',
-    }
+    },
+    plans: [
+      {name: 'rh-ded-topic', osbGuid: '1', displayName: 'Red Hat - Dedicated - Topic', description: '$.65 / 1 Million messages', bullets: ['One', 'Two', 'Three']}
+    ]
   },
   "test-serviceclass-mongo": {
     "metadata": {
@@ -77,7 +89,10 @@ export const servicesData = {
       displayName: 'Test ServiceClass MongoDB',
       description: 'BUILDS SOURCE CODE',
       longDescription: 'run MongoDB applications on CentOS 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/openshift-s2i/s2i-wildfly/blob/mast…',
-    }
+    },
+    plans: [
+      {name: 'rh-ded-topic', osbGuid: '1', displayName: 'Red Hat - Dedicated - Topic', description: '$.65 / 1 Million messages', bullets: ['One', 'Two', 'Three']}
+    ]
   },
   "test-serviceclass-mysql": {
     "metadata": {
@@ -89,7 +104,10 @@ export const servicesData = {
       displayName: 'Test ServiceClass mySQL',
       description: 'BUILDS SOURCE CODE',
       longDescription: 'run MongoDB applications. For more information about using this builder image, including OpenShift considerations, see https://github.com/openshift-s2i/s2i-wildfly/blob/mast…',
-    }
+    },
+    plans: [
+      {name: 'rh-ded-topic', osbGuid: '1', displayName: 'Red Hat - Dedicated - Topic', description: '$.65 / 1 Million messages', bullets: ['One', 'Two', 'Three']}
+    ]
   },
   "test-serviceclass-other": {
     "metadata": {
@@ -102,7 +120,10 @@ export const servicesData = {
       description: 'BUILDS SOURCE CODE',
       longDescription: 'some other service',
       'console.openshift.io/iconClass': 'fa fa-question'
-    }
+    },
+    plans: [
+      {name: 'rh-ded-topic', osbGuid: '1', displayName: 'Red Hat - Dedicated - Topic', description: '$.65 / 1 Million messages', bullets: ['One', 'Two', 'Three']}
+    ]
   },
   "test-serviceclass-jenkins": {
     "metadata": {
@@ -114,6 +135,9 @@ export const servicesData = {
       displayName: 'Test ServiceClass jenkins',
       description: 'BUILDS SOURCE CODE',
       longDescription: 'some other service'
-    }
+    },
+    plans: [
+      {name: 'rh-ded-topic', osbGuid: '1', displayName: 'Red Hat - Dedicated - Topic', description: '$.65 / 1 Million messages', bullets: ['One', 'Two', 'Three']}
+    ]
   }
 };

@@ -6,6 +6,7 @@ require('patternfly/dist/js/patternfly');
 require('angular-patternfly/dist/angular-patternfly');
 require('angular-ui-bootstrap/ui-bootstrap');
 require('angular-ui-bootstrap/ui-bootstrap-tpls');
+require('ui-select/dist/select');
 require('angular-sanitize/angular-sanitize');
 require('angular-moment/angular-moment');
 

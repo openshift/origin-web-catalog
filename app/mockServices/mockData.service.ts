@@ -95,10 +95,9 @@ export class DataService implements IDataService {
   public create(resource: any, name: any, object: any, context: any, opts: any) {
     let deferred = this.$q.defer();
     var data: any = this.getMockData(resource, context);
-
     var updateDate: any = {
       "metadata": {
-        "name": object.metadata.name,
+        "name": object.name || object.metadata.name,
         "creationTimestamp": new Date().getTime(),
         "uid": new Date().getTime(),
         "annotations": {
@@ -117,14 +116,26 @@ export class DataService implements IDataService {
     };
     angular.extend(object, updateDate);
     if (data) {
-      data.by().push(object);
+      let dupName: boolean = _.some(data._data, (dObj: any) => {
+          return dObj.metadata.name === (object.name || object.metadata.name);
+        });
+      if (!dupName) {
+        data.by().push(object);
+        this.$timeout(() => {
+          deferred.resolve(object);
+          this.updateWatchers(resource, context);
+        }, 300);
+      } else {
+        this.$timeout(() => {
+          deferred.reject({data: {reason: 'AlreadyExists'}});
+        }, 300);
+      }
+    } else {
+      this.$timeout(() => {
+        deferred.resolve(object);
+        this.updateWatchers(resource, context);
+      }, 300);
     }
-
-    this.$timeout(() => {
-      deferred.resolve(object);
-      this.updateWatchers(resource, context);
-
-    }, 300);
 
     return deferred.promise;
   }
