@@ -39,12 +39,17 @@
 }
 @media (min-width: 768px) {
   .landing-main-area {
-    flex: 1 1 0%;
+    margin-right: 325px;
   }
 }
-@media (min-width: 768px) {
-  .landing-page-container {
-    display: flex;
+@media (min-width: 992px) {
+  .landing-main-area {
+    margin-right: 375px;
+  }
+}
+@media (min-width: 1200px) {
+  .landing-main-area {
+    margin-right: 450px;
   }
 }
 .landing-search-area .landing-search-form {
@@ -79,7 +84,12 @@
 }
 @media (min-width: 768px) {
   .landing-side-bar {
-    flex: 0 1 auto;
+    bottom: 0;
+    overflow: hidden;
+    overflow-y: auto;
+    position: fixed;
+    right: 0;
+    top: 72px;
     width: 325px;
   }
 }

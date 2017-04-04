@@ -1,13 +1,13 @@
 .landing-main-area {
   padding: (@grid-gutter-width / 2); // this is temp
   @media(min-width: @screen-sm-min) {
-    flex: 1 1 0%;
+    margin-right: @landing-side-bar-width-sm;
   }
-}
-
-.landing-page-container {
-  @media(min-width: @screen-sm-min) {
-    display: flex;
+  @media(min-width: @screen-md-min) {
+    margin-right: @landing-side-bar-width-md;
+  }
+  @media(min-width: @screen-lg-min) {
+    margin-right: @landing-side-bar-width-lg;
   }
 }
 
@@ -44,14 +44,19 @@
   background-color: @landing-side-bar-bg;
   color: @color-pf-white;
   @media(min-width: @screen-sm-min) {
-    flex: 0 1 auto;
-    width: 325px;
+    bottom: 0;
+    overflow: hidden;
+    overflow-y: auto;
+    position: fixed;
+    right: 0;
+    top: @landing-side-bar-top-offset;
+    width: @landing-side-bar-width-sm;
   }
   @media(min-width: @screen-md-min) {
-    width: 375px;
+    width: @landing-side-bar-width-md;
   }
   @media(min-width: @screen-lg-min) {
-    width: 450px;
+    width: @landing-side-bar-width-lg;
   }
   a {
     color: @color-pf-blue-300;

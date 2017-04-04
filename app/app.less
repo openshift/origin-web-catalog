@@ -14,10 +14,18 @@
 
 
 @media(min-width: @screen-sm-min){
+  body, html, main {
+    height: 100%;
+    overflow: hidden;
+  }
   body {
     padding-top: @navbar-height;
   }
+  main {
+    overflow-y: auto;
+  }
 }
+
 .main-container {
   padding: 0 (@grid-gutter-width / 2);
 }
