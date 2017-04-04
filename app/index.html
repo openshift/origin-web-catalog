@@ -10,14 +10,14 @@
   </head>
 
   <body class="ng-cloak surface-shaded">
-    <div>
-      <navigation>
-      </navigation>
-      <div class="pf-framework-content">
-        <main ng-view class="pf-framework-view">
-          <ui-view></ui-view>
-        </main>
-      </div>
-    </div>
+   <div class="catalog-application">
+     <navigation class="catalog-navigation">
+     </navigation>
+     <div class="pf-framework-content catalog-body">
+       <div class="catalog-content">
+         <main ui-view class="pf-framework-view catalog-view"></main>
+       </div>
+     </div>
+   </div>
   </body>
 </html>

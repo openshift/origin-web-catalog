@@ -1,0 +1,49 @@
+html, body {
+  height: 100%;
+  overflow: hidden;
+  width: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.catalog-application {
+  display: flex;
+  flex-direction: column;
+  height:100%;
+}
+
+.catalog-navigation {
+  position:relative;
+}
+
+.catalog-body {
+  display: flex;
+  flex: 1;
+  margin: 0;
+  min-height: 0;
+  padding: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.catalog-content {
+  display: flex;
+  width: 100%;
+}
+
+.catalog-view {
+  display: flex;
+  flex: 1;
+  overflow:auto;
+  &.stop-scrolling {
+    overflow: hidden;
+  }
+  .catalog-view-content {
+    flex: 1;
+  }
+}
+
