@@ -20,28 +20,28 @@ describe('Projects Summary Panel', () => {
   var $q: any;
   var ProjectsService: any;
   var DataService: any;
-  var selectedProject: any;
-  var selectCallCount: number = 0;
-  var showProjectsCallCount: number = 0;
+  var viewMembershipProject: any;
+  var viewMembershipCallCount: number = 0;
+  var showTourCount: number = 0;
   var expectedCanCreate: boolean = true;
 
-  var testProjectSelect = function(project: any) {
-    selectedProject = project;
-    selectCallCount++;
+  var testShowTour = function() {
+    showTourCount++;
   };
 
-  var testShowProjects = function(project: any) {
-    showProjectsCallCount++;
+  var testViewMembership = function(project: any) {
+    viewMembershipProject = project;
+    viewMembershipCallCount++;
   };
 
   var createProjectSummary = function() {
-    var projectsSummaryHtml: string = '<projects-summary project-select="testProjectSelect" show-projects="testShowProjects"></projects-summary>';
+    var projectsSummaryHtml: string = '<projects-summary view-edit-membership="testViewMembership" start-getting-started-tour="testShowTour"></projects-summary>';
 
     componentTest = new ComponentTest<ProjectsSummaryController>(projectsSummaryHtml);
 
     var attributes: any = {
-      testProjectSelect: testProjectSelect,
-      testShowProjects: testShowProjects,
+      testViewMembership: testViewMembership,
+      testShowTour: testShowTour,
     };
 
     componentTest.createComponent(attributes);
@@ -64,9 +64,14 @@ describe('Projects Summary Panel', () => {
   });
 
   beforeEach(() => {
+    expectedCanCreate = true;
     spyOn(ProjectsService, 'canCreate').and.callFake(function() {
       let deferred = this.$q.defer();
-      deferred.resolve(expectedCanCreate);
+      if (!expectedCanCreate) {
+        deferred.reject({status: 403});
+      } else {
+        deferred.resolve();
+      }
       return deferred.promise;
     });
   });
@@ -76,8 +81,8 @@ describe('Projects Summary Panel', () => {
     createProjectSummary();
 
     var ctrl = componentTest.isoScope.$ctrl;
-    expect(ctrl.projectSelect()).toBe(testProjectSelect);
-    expect(ctrl.showProjects()).toBe(testShowProjects);
+    expect(ctrl.viewEditMembership()).toBe(testViewMembership);
+    expect(ctrl.startGettingStartedTour()).toBe(testShowTour);
   });
 
   it('should show the create button when allowed', () => {
@@ -100,7 +105,7 @@ describe('Projects Summary Panel', () => {
     $timeout.flush();
 
     var createButton = jQuery(element).find('.create-button');
-    expect(createButton.length).toBe(1);
+    expect(createButton.length).toBe(0);
   });
 
   it('should show the existing projects in the projects list', () => {
@@ -112,7 +117,6 @@ describe('Projects Summary Panel', () => {
     $timeout.flush();
 
     expect(ctrl.loading).toBe(false);
-    expect(ctrl.showGetStarted).toBe(false);
 
     expect(ctrl.projects.length).toBe(1);
 
@@ -150,6 +154,26 @@ describe('Projects Summary Panel', () => {
     expect(gettinStartedPanel.length).toBe(1);
   });
 
+  it('should show getting started when only one project exists', () => {
+    createProjectSummary();
+
+    var ctrl = componentTest.isoScope.$ctrl;
+    var element = componentTest.rawElement;
+
+    $timeout.flush();
+
+    expect(ctrl.loading).toBe(false);
+    expect(ctrl.showGetStarted).toBe(true);
+
+    expect(ctrl.projects.length).toBe(1);
+
+    var projectTiles = jQuery(element).find('.project-tile');
+    expect(projectTiles.length).toBe(1);
+
+    var gettinStartedPanel = jQuery(element).find('.getting-started-panel');
+    expect(gettinStartedPanel.length).toBe(1);
+  });
+
   it('should show the create project panel when Create Project button is clicked', () => {
     createProjectSummary();
 
@@ -170,6 +194,26 @@ describe('Projects Summary Panel', () => {
     expect(createPanel.length).toBe(1);
   });
 
+  it('should call the edit/view membership callback when the Edit and View Membership menu item is clicked', () => {
+    createProjectSummary();
+
+    var element = componentTest.rawElement;
+
+    $timeout.flush();
+
+    expect(viewMembershipProject).toBeUndefined();
+    expect(viewMembershipCallCount).toBe(0);
+
+    var menuItems = jQuery(element).find('.catalog-project-summary-list li > a');
+    expect(menuItems.length).toBe(3);
+
+    componentTest.eventFire(menuItems[0], 'click');
+    componentTest.scope.$digest();
+
+    expect(viewMembershipProject).toBeDefined();
+    expect(viewMembershipCallCount).toBe(1);
+  });
+
   it('should show the edit project panel when the Edit menu item is clicked', () => {
     createProjectSummary();
 
@@ -183,10 +227,10 @@ describe('Projects Summary Panel', () => {
     var kebabButton = jQuery(element).find('.btn-link.uib-dropdown-toggle');
     expect(kebabButton.length).toBe(1);
 
-    var menuItems = jQuery(element).find('li > a');
-    expect(menuItems.length).toBe(2);
+    var menuItems = jQuery(element).find('.catalog-project-summary-list li > a');
+    expect(menuItems.length).toBe(3);
 
-    componentTest.eventFire(menuItems[0], 'click');
+    componentTest.eventFire(menuItems[1], 'click');
     componentTest.scope.$digest();
 
     editPanel = jQuery(element).find('.catalog-modal-edit-project');
@@ -206,10 +250,10 @@ describe('Projects Summary Panel', () => {
     var kebabButton = jQuery(element).find('.btn-link.uib-dropdown-toggle');
     expect(kebabButton.length).toBe(1);
 
-    var menuItems = jQuery(element).find('li > a');
-    expect(menuItems.length).toBe(2);
+    var menuItems = jQuery(element).find('.catalog-project-summary-list li > a');
+    expect(menuItems.length).toBe(3);
 
-    componentTest.eventFire(menuItems[1], 'click');
+    componentTest.eventFire(menuItems[2], 'click');
     componentTest.scope.$digest();
 
     deleteDialog = jQuery(element).find('.delete-resource-modal');
@@ -277,58 +321,22 @@ describe('Projects Summary Panel', () => {
     expect(projectTiles.length).toBe(5);
   });
 
-  it('should call the show all projects callback when the View All link is clicked', () => {
-    spyOn(DataService, 'list').and.callFake(function(resource: any, context: any, callback: any, opts: any) {
-      let deferred = this.$q.defer();
-      var mockProjects: any = [];
 
-      for (var i: number = 0; i < 10; i++) {
-        var nextProject: any = _.cloneDeep(projectsData[0]);
-        nextProject.metadata.uid += i;
-        mockProjects.push(nextProject);
-      }
-
-      var overData: DataServiceData = new DataServiceData(mockProjects);
-
-      callback(overData);
-
-      deferred.resolve(overData);
-      return deferred.promise;
-    });
-
+  it('should call the start guided tour callback when the start tour button is clicked', () => {
     createProjectSummary();
 
     var element = componentTest.rawElement;
 
     $timeout.flush();
 
-    var viewAllLink = jQuery(element).find('.projects-view-all');
-    expect(viewAllLink.length).toBe(1);
+    var starTourButton = jQuery(element).find('.getting-started-button ');
+    expect(starTourButton.length).toBe(1);
 
-    expect(showProjectsCallCount).toBe(0);
+    expect(showTourCount).toBe(0);
 
-    componentTest.eventFire(viewAllLink[0], 'click');
+    componentTest.eventFire(starTourButton[0], 'click');
     componentTest.scope.$digest();
 
-    expect(showProjectsCallCount).toBe(1);
-  });
-
-  it('should call the select project callback when the project name is clicked', () => {
-    createProjectSummary();
-
-    var element = componentTest.rawElement;
-
-    $timeout.flush();
-
-    var projectTitle = jQuery(element).find('.project-tile .project-title');
-    expect(projectTitle.length).toBe(1);
-
-    expect(selectCallCount).toBe(0);
-
-    componentTest.eventFire(projectTitle[0], 'click');
-    componentTest.scope.$digest();
-
-    expect(selectedProject).toBe(projectsData[0]);
-    expect(selectCallCount).toBe(1);
+    expect(showTourCount).toBe(1);
   });
 });

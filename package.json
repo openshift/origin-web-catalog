@@ -29,6 +29,7 @@
     "angular": "1.5.11",
     "angular-animate": "1.5.11",
     "angular-drag-and-drop-lists": "2.0.0",
+    "angular-moment": "1.0.0",
     "angular-patternfly": "3.20.0",
     "angular-sanitize": "1.5.11",
     "angular-ui-bootstrap": "0.14.x",

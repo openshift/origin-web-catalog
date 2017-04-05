@@ -5,6 +5,7 @@ require('angular-ui-bootstrap/ui-bootstrap-tpls');
 require('angular-sanitize/angular-sanitize');
 require('angular-drag-and-drop-lists/angular-drag-and-drop-lists.min.js');
 require('angular-animate/angular-animate.min.js');
+require('angular-moment/angular-moment');
 
 require('jquery/dist/jquery.min.js');
 require('lodash/index.js');

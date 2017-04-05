@@ -363,11 +363,28 @@ body.overlay-open {
 .catalog-projects-summary-panel .create-button-text {
   padding-left: 4px;
 }
+.catalog-projects-summary-panel .getting-started-button {
+  width: 100%;
+  font-size: 13px;
+}
+.catalog-projects-summary-panel .getting-started-button.with-projects {
+  margin-top: 15px;
+}
+.catalog-projects-summary-panel .getting-started-button-text {
+  padding-left: 4px;
+}
+.catalog-projects-summary-panel .getting-started-panel {
+  margin-top: 40px;
+}
 .catalog-projects-summary-panel h2.primary {
   margin-top: 0;
 }
 .catalog-projects-summary-panel h2.secondary {
   font-size: 18px;
+}
+.catalog-projects-summary-panel .resources-panel {
+  margin-top: 40px;
+  border-top: solid 1px #4d5258;
 }
 .catalog-modal {
   background-color: #fff;
@@ -480,11 +497,6 @@ body.overlay-open {
 .catalog-project-summary-list .project-date + .project-description {
   margin-top: 7px;
 }
-.catalog-project-summary-list .project-description {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
 .catalog-project-summary-list .project-tile {
   border-bottom: solid 1px #4d5258;
   border-top: solid 1px #4d5258;
@@ -514,6 +526,9 @@ body.overlay-open {
 }
 .catalog-project-summary-list .projects-view-all {
   float: right;
+}
+.catalogs-resources .resources-description {
+  margin-top: 7px;
 }
 .saas-offerings-container {
   background: #ededed;

@@ -98,8 +98,9 @@ export class DataService implements IDataService {
 
     var updateDate: any = {
       "metadata": {
-        "name": object.name,
+        "name": object.metadata.name,
         "creationTimestamp": new Date().getTime(),
+        "uid": new Date().getTime(),
         "annotations": {
           "openshift.io/description": object.description,
           "openshift.io/display-name": object.displayName,

@@ -15,14 +15,14 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
 }, function(e, t, n) {
     "use strict";
     t.__esModule = !0;
-    var i = n(22);
+    var i = n(23);
     t.landingPage = {
         bindings: {
             searchPlaceholder: "@",
             doSearchFn: "<"
         },
         controller: i.LandingPageController,
-        template: n(16),
+        template: n(17),
         transclude: {
             landingheader: "landingheader",
             landingbody: "landingbody",
@@ -32,19 +32,19 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
 }, function(e, t, n) {
     "use strict";
     t.__esModule = !0;
-    var i = n(23);
+    var i = n(24);
     t.orderService = {
         bindings: {
             serviceClass: "<",
             handleClose: "<"
         },
         controller: i.OrderServiceController,
-        template: n(17)
+        template: n(18)
     };
 }, function(e, t, n) {
     "use strict";
     t.__esModule = !0;
-    var i = n(24);
+    var i = n(25);
     t.overlayPanel = {
         bindings: {
             showClose: "<",
@@ -53,49 +53,61 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             fullHeight: "<"
         },
         controller: i.OverlayPanelController,
-        template: n(18),
+        template: n(19),
         transclude: !0
     };
 }, function(e, t, n) {
     "use strict";
     t.__esModule = !0;
-    var i = n(25);
+    var i = n(26);
     t.projectsSummary = {
         bindings: {
-            projectSelect: "&",
-            showProjects: "&"
+            baseProjectUrl: "@",
+            projectsUrl: "@",
+            viewEditMembership: "&",
+            startGettingStartedTour: "&"
         },
         controller: i.ProjectsSummaryController,
-        template: n(19)
-    };
-}, function(e, t, n) {
-    "use strict";
-    t.__esModule = !0;
-    var i = n(26);
-    t.saasList = {
-        bindings: {
-            saasTitle: "<?",
-            saasOfferings: "<"
-        },
-        controller: i.SaasListController,
         template: n(20)
     };
 }, function(e, t, n) {
     "use strict";
     t.__esModule = !0;
     var i = n(27);
+    t.saasList = {
+        bindings: {
+            saasTitle: "<?",
+            saasOfferings: "<"
+        },
+        controller: i.SaasListController,
+        template: n(21)
+    };
+}, function(e, t, n) {
+    "use strict";
+    t.__esModule = !0;
+    var i = n(28);
     t.servicesView = {
         bindings: {
             serviceClasses: "<",
             imageStreams: "<"
         },
         controller: i.ServicesViewController,
-        template: n(21)
+        template: n(22)
     };
 }, function(e, t, n) {
     "use strict";
     t.__esModule = !0;
-    var i = n(1), s = [ {
+    var i = n(1);
+    i.set(window, "OPENSHIFT_CONSTANTS.HELP_BASE_URL", "https://docs.openshift.org/latest/");
+    var s = {
+        new_app: "dev_guide/application_lifecycle/new_app.html",
+        application_health: "dev_guide/application_health.html",
+        authorization: "architecture/additional_concepts/authorization.html",
+        deployments: "dev_guide/deployments/how_deployments_work.html",
+        default: "welcome/index.html"
+    };
+    i.set(window, "OPENSHIFT_CONSTANTS.HELP", s);
+    var r = [ {
         id: 1,
         title: "Microservices Application",
         icon: "fa fa-cubes",
@@ -119,7 +131,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
         icon: "fa fa-cubes",
         url: "https://www.redhat.com/en/technologies/management",
         description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.  This is way too long! Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt."
-    } ], r = [ {
+    } ], a = [ {
         id: "languages",
         label: "Languages",
         iconClassDefault: "fa fa-code",
@@ -209,8 +221,40 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             label: "Other"
         } ]
     } ];
-    t.allCategories = r, t.allSaasOfferings = s, i.set(window, "OPENSHIFT_CONSTANTS.SERVICE_CATALOG_CATEGORIES", r), 
-    i.set(window, "OPENSHIFT_CONSTANTS.SAAS_OFFERINGS", s);
+    t.allCategories = a, t.allSaasOfferings = r, i.set(window, "OPENSHIFT_CONSTANTS.SERVICE_CATALOG_CATEGORIES", a), 
+    i.set(window, "OPENSHIFT_CONSTANTS.SAAS_OFFERINGS", r);
+    var o = {
+        description: "Lorem ipsum dolor sit amet, consectular adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud",
+        links: [ {
+            title: "Welcome",
+            help: "default"
+        }, {
+            title: "Building a new Application",
+            help: "new_app"
+        }, {
+            title: "Authorization",
+            help: "authorization"
+        }, {
+            title: "Deployments",
+            help: "deployments"
+        }, {
+            title: "Application Health",
+            help: "application_health"
+        }, {
+            title: "Visit us on Facebook",
+            href: "http://facebook.com/RedHatInc"
+        } ]
+    };
+    i.set(window, "OPENSHIFT_CONSTANTS.CATALOG_HELP_RESOURCES", o);
+}, function(e, t, n) {
+    "use strict";
+    function i() {
+        return function(e, t) {
+            var n = t || "", i = e && e.metadata ? e.metadata.name : "";
+            return n.endsWith("/") || (n += "/"), n + i;
+        };
+    }
+    t.__esModule = !0, t.projectUrlFilter = i;
 }, function(e, t, n) {
     "use strict";
     t.__esModule = !0;
@@ -221,7 +265,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
         return e.prototype.getServiceItem = function(e) {
             return new a(e, this);
         }, e.prototype.getImageItem = function(e) {
-            var t = new c(e, this);
+            var t = new o(e, this);
             return t.builderSpecTagName ? t : null;
         }, e.prototype.getCategoriesBySubCategories = function(e) {
             var t = this, n = {}, i = "other";
@@ -246,8 +290,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                     });
                 });
                 if (!s.isEmpty(a)) {
-                    var c = i.copy(n);
-                    c.subCategories = a, r.push(c);
+                    var o = i.copy(n);
+                    o.subCategories = a, r.push(o);
                 }
             }), r;
         }, e;
@@ -274,7 +318,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
         }, e;
     }();
     t.ServiceItem = a;
-    var c = function() {
+    var o = function() {
         function e(e, t) {
             this.resource = e, this.catalogSrv = t, this.builderSpecTagName = this.getBuilderSpecTagName(), 
             this.builderSpecTagName && (this.tags = this.getTags(), this.iconClass = this.getIcon(), 
@@ -305,7 +349,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             return this.catalogSrv.getCategoriesBySubCategories(this.tags);
         }, e;
     }();
-    t.ImageItem = c;
+    t.ImageItem = o;
 }, function(e, t) {
     e.exports = '<div class="landing">\n  <div class="landing-main-area">\n    <div class="landing-search-area">\n      <form role="form" class="landing-search-form search-pf has-button">\n        <div class="form-group has-clear">\n          <div class="search-pf-input-group">\n            <label for="search1" class="sr-only">{{$ctrl.searchPlaceholder}}</label>\n            <input id="search1" type="search" class="form-control" placeholder="{{$ctrl.searchPlaceholder}}" ng-model="$ctrl.searchText" ng-keypress="($event.charCode==13)? $ctrl.onSearchButtonClick() : return">\n            <button type="button" ng-if="$ctrl.searchText" class="clear" aria-hidden="true">\n          <span class="pficon pficon-close">\n          </span>\n            </button>\n          </div>\n        </div>\n        <div class="form-group">\n          <button class="btn btn-default" type="button">\n        <span class="fa fa-search"  ng-click="$ctrl.onSearchButtonClick()">\n        </span>\n          </button>\n        </div>\n      </form>\n    </div>\n    <div class="landing-header-area" ng-transclude="landingheader">\n    </div>\n    <div class="landing-body-area">\n      <div ng-transclude="landingbody"></div>\n    </div>\n  </div>\n  <div class="landing-side-bar" ng-transclude="landingside"></div>\n</div>\n';
 }, function(e, t) {
@@ -313,7 +357,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
 }, function(e, t) {
     e.exports = '<div class="catalogs-overlay-modal" role="dialog">\n  <div ng-if="$ctrl.shown" class="modal-backdrop fade in"></div>\n  <div ng-if="$ctrl.shown" class="catalogs-overlay-panel-wrapper">\n    <div class="catalogs-overlay-panel-grow-height">\n      <div class="catalogs-overlay-panel" ng-class="{\'catalogs-overlay-panel-full-height\' : $ctrl.fullHeight}">\n        <a ng-if="$ctrl.showClose" ng-click="$ctrl.closePanel()">\n          <span class="catalogs-overlay-panel-close pficon pficon-close"></span>\n        </a>\n        <div class="catalogs-overlay-panel-body" ng-transclude>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n';
 }, function(e, t) {
-    e.exports = '<div class="catalog-projects-summary-panel">\n  <button ng-if="$ctrl.canCreate" class="create-button btn btn-primary" ng-click="$ctrl.openNewProjectPanel()">\n    <span class="fa fa-plus"></span>\n    <span class="create-button-text">Create Project</span>\n  </button>\n  <div ng-if="$ctrl.showGetStarted">\n    <h2 class="primary">Getting Started</h2>\n    <div class="getting-started-panel">\n      {{$ctrl.gettingStartedText}}\n    </div>\n  </div>\n  <h2 class="primary" ng-if="!$ctrl.showGetStarted">My Projects</h2>\n  <div class="catalog-modal catalog-modal-create-project" ng-if="$ctrl.showNewProjectPanel">\n    <h4 class="catalog-modal-title">\n      Create Project\n    </h4>\n    <create-project alerts="$ctrl.alerts" is-dialog="true" redirect-action="$ctrl.onNewProject" on-cancel="$ctrl.closeNewProjectPanel"></create-project>\n    <a href="" class="catalog-modal-close" ng-click="$ctrl.closeNewProjectPanel()">\n      <span class="pficon pficon-close"></span>\n    </a>\n  </div>\n\n\n  <div ng-if="!$ctrl.showGetStarted" class="catalog-project-summary-list">\n    <div ng-if="$ctrl.totalProjects > $ctrl.maxDisplayProjects" class="projects-count">\n      <strong>{{$ctrl.maxDisplayProjects}}</strong>\n      of\n      <strong>{{$ctrl.totalProjects}}</strong>\n      Projects\n      <a href="" class="projects-view-all" ng-click="$ctrl.showAllProjects()">View All</a>\n    </div>\n    <div id="catalog-projects-summary-list">\n      <div ng-repeat="project in $ctrl.projects track by (project | uid)" class="project-tile">\n        <div class="dropdown  dropdown-kebab-pf" uib-dropdown="">\n          <button class="btn btn-link uib-dropdown-toggle" type="button" id="dropdownKebab" aria-haspopup="true" aria-expanded="true" uib-dropdown-toggle>\n            <span class="fa fa-ellipsis-v"></span>\n          </button>\n          <ul class="uib-dropdown-menu dropdown-menu-right" aria-labelledby="dropdownKebab">\n            <li><a href="" ng-click="$ctrl.editProject(project)">Edit</a></li>\n            <li>\n              <delete-link\n                  kind="Project"\n                  resource-name="{{project.metadata.name}}"\n                  project-name="{{project.metadata.name}}"\n                  display-name="{{(project | displayName)}}"\n                  type-name-to-confirm="true"\n                  stay-on-current-page="true"\n                  alerts="$ctrl.alerts">\n              </delete-link>\n            </li>\n          </ul>\n        </div>\n        <h3 class="project-tile-header">\n          <span ng-if="project.statusIconClass" class="project-status {{project.statusIconClass}}"></span>\n          <a href="" ng-click="$ctrl.handleProjectClick(project)" class="project-title">{{project | displayName}}</a>\n        </h3>\n        <p class="project-date">\n          {{project.metadata.creationTimestamp | date: \'mediumDate\'}}\n        </p>\n        <div class="project-description" ng-if="project | description">\n          {{project | description}}\n        </div>\n        <div class="catalog-modal catalog-modal-edit-project" ng-if="$ctrl.showEditProjectPanel && $ctrl.edittingProject === project">\n          <h4 class="catalog-modal-title">\n            Edit Project\n          </h4>\n          <edit-project project="$ctrl.edittingProject" is-dialog="true" alerts="$ctrl.alerts" redirect-action="$ctrl.onEditProject" on-cancel="$ctrl.closeEditProjectPanel"></edit-project>\n          <a href="" class="catalog-modal-close" ng-click="$ctrl.closeEditProjectPanel()">\n            <span class="pficon pficon-close"></span>\n          </a>\n        </div>\n      </div>\n    </div>\n  </div>\n  <h2 class="secondary">Resources</h2>\n  <span>\n    {{$ctrl.resourcesText}}\n  </span>\n  <div class="resources-panel">\n    <ul>\n      <li ng-repeat="resource in $ctrl.resources">\n        {{resource.text}}\n      </li>\n    </ul>\n  </div>\n</div>\n';
+    e.exports = '<div class="catalog-projects-summary-panel">\n  <button ng-if="$ctrl.canCreate" class="create-button btn btn-primary" ng-click="$ctrl.openNewProjectPanel()">\n    <span class="fa fa-plus"></span>\n    <span class="create-button-text">Create Project</span>\n  </button>\n  <h2 class="primary" ng-if="!$ctrl.projects || !$ctrl.projects.length">Getting Started</h2>\n  <h2 class="primary" ng-if="$ctrl.projects && $ctrl.projects.length">My Projects</h2>\n  <div class="catalog-modal catalog-modal-create-project" ng-if="$ctrl.showNewProjectPanel">\n    <h4 class="catalog-modal-title">\n      Create Project\n    </h4>\n    <create-project alerts="$ctrl.alerts" is-dialog="true" redirect-action="$ctrl.onNewProject" on-cancel="$ctrl.closeNewProjectPanel"></create-project>\n    <a href="" class="catalog-modal-close" ng-click="$ctrl.closeNewProjectPanel()">\n      <span class="pficon pficon-close"></span>\n    </a>\n  </div>\n  <div ng-if="$ctrl.projects && $ctrl.projects.length" class="catalog-project-summary-list">\n    <div ng-if="$ctrl.totalProjects > $ctrl.maxDisplayProjects" class="projects-count">\n      <strong>{{$ctrl.maxDisplayProjects}}</strong>\n      of\n      <strong>{{$ctrl.totalProjects}}</strong>\n      Projects\n      <a href="{{$ctrl.projectsUrl}}" class="projects-view-all">View All</a>\n    </div>\n    <div id="catalog-projects-summary-list">\n      <div ng-repeat="project in $ctrl.projects track by (project | uid)" class="project-tile">\n        <div class="dropdown  dropdown-kebab-pf" uib-dropdown="">\n          <button class="btn btn-link uib-dropdown-toggle" type="button" id="dropdownKebab" aria-haspopup="true" aria-expanded="true" uib-dropdown-toggle>\n            <span class="fa fa-ellipsis-v"></span>\n          </button>\n          <ul class="uib-dropdown-menu dropdown-menu-right" aria-labelledby="dropdownKebab">\n            <li><a href="" ng-click="$ctrl.onViewMemebership(project)">View Membership</a></li>\n            <li><a href="" ng-click="$ctrl.editProject(project)">Edit Project</a></li>\n            <li>\n              <delete-link\n                  kind="Project"\n                  label="Delete Project"\n                  resource-name="{{project.metadata.name}}"\n                  project-name="{{project.metadata.name}}"\n                  display-name="{{(project | displayName)}}"\n                  type-name-to-confirm="true"\n                  stay-on-current-page="true"\n                  alerts="$ctrl.alerts">\n              </delete-link>\n            </li>\n          </ul>\n        </div>\n        <h3 class="project-tile-header">\n          <span ng-if="project.statusIconClass" class="project-status {{project.statusIconClass}}"></span>\n          <a href="{{project | projectUrl : $ctrl.baseProjectUrl}}" class="project-title">{{project | displayName}}</a>\n        </h3>\n        <p class="project-date">\n          <span ng-if="project | displayName : true"><span ng-bind-html="project.metadata.name"></span> &ndash;</span>\n          created\n          <span ng-if="project | annotation : \'openshift.io/requester\'">by <span ng-bind-html="project | annotation : \'openshift.io/requester\'"></span></span>\n          <span am-time-ago="project.metadata.creationTimestamp"></span>\n        </p>\n        <div class="project-description" ng-if="project | description">\n          <truncate-long-text content="project | description" use-word-boundary="true" limit="120"></truncate-long-text>\n        </div>\n        <div class="catalog-modal catalog-modal-edit-project" ng-if="$ctrl.showEditProjectPanel && $ctrl.edittingProject === project">\n          <h4 class="catalog-modal-title">\n            Edit Project\n          </h4>\n          <edit-project project="$ctrl.edittingProject" is-dialog="true" alerts="$ctrl.alerts" redirect-action="$ctrl.onEditProject" on-cancel="$ctrl.closeEditProjectPanel"></edit-project>\n          <a href="" class="catalog-modal-close" ng-click="$ctrl.closeEditProjectPanel()">\n            <span class="pficon pficon-close"></span>\n          </a>\n        </div>\n      </div>\n    </div>\n  </div>\n  <div ng-if="$ctrl.showGetStarted">\n    <div class="getting-started-panel">\n      <h2 class="secondary" ng-if="$ctrl.projects && $ctrl.projects.length > 0">Getting Started</h2>\n      <button class="getting-started-button btn btn-default" ng-class="{\'with-projects\': $ctrl.projects && $ctrl.projects.length}" ng-click="$ctrl.handleGettingStartedClick()">\n        <span class="fa fa-info-circle fa-2"></span>\n        <span class="getting-started-button-text">Start Guided Tour</span>\n      </button>\n    </div>\n    <div class="resources-panel">\n      <h2 class="secondary">Resources</h2>\n      <p>\n        {{$ctrl.resourceDescription}}\n      </p>\n      <ul>\n        <li ng-repeat="resource in $ctrl.resourceLinks">\n          <a href="{{resource.href}}" target="_blank" title="{{resource.href}}">{{resource.title}}</a>\n        </li>\n      </ul>\n    </div>\n  </div>\n</div>\n';
 }, function(e, t) {
     e.exports = '<span ng-if="$ctrl.hasSaasOfferings()" class="saas-offerings-container">\n  <h1 ng-if="$ctrl.saasTitle">{{$ctrl.saasTitle}}</h1>\n  <div pf-card-view config="$ctrl.cardViewConfig" items="$ctrl.saasOfferings">\n    <div class="card-container">\n      <div class="card-header">\n        <span class="card-icon {{item.icon}}"></span>\n        <span class="card-title">{{item.title}}</span>\n      </div>\n      <div class="card-footer hidden-xs">\n        <truncate-long-text\n                class="card-description"\n                content="item.description"\n                limit="120"\n                use-word-boundary="true">\n        </truncate-long-text>\n      </div>\n    </div>\n  </div>\n</span>\n';
 }, function(e, t) {
@@ -446,32 +490,39 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
 }, function(e, t, n) {
     "use strict";
     t.__esModule = !0;
-    var i = n(1), s = function() {
-        function e(e, t, n, s, r, a, c, o) {
-            var l = this;
+    var i = n(0), s = n(1), r = function() {
+        function e(e, t, n, r, a, o, c, l, d) {
+            var p = this;
             this.ctrl = this, this.showNewProjectPanel = !1, this.showEditwProjectPanel = !1, 
             this.alerts = [], this.projects = [], this.watches = [], this.maxDisplayProjects = 5, 
             this.onVerifyUser = function() {
-                l.ctrl.loading = !0, l.watches.push(l.DataService.watch("projects", l.$scope, l.onProjectsUpdate)), 
-                l.AlertMessageService.getAlerts().forEach(function(e) {
+                p.ctrl.loading = !0, p.watches.push(p.DataService.watch("projects", p.$scope, p.onProjectsUpdate)), 
+                p.AlertMessageService.getAlerts().forEach(function(e) {
                     this.ctrl.alerts[e.name] = e.data;
+                }), p.ctrl.resourceDescription = p.Constants.CATALOG_HELP_RESOURCES.description, 
+                p.ctrl.resourceLinks = s.clone(p.Constants.CATALOG_HELP_RESOURCES.links), s.forEach(p.ctrl.resourceLinks, function(e) {
+                    i.isDefined(e.help) && (e.href = p.Constants.HELP_BASE_URL + p.Constants.HELP[e.help]);
                 });
             }, this.onProjectsUpdate = function(e) {
-                var t = i.toArray(e.by("metadata.creationTimestamp")), n = l.$filter("orderObjectsByDate");
-                l.ctrl.projects = n(t, !0), l.ctrl.totalProjects = l.ctrl.projects.length, l.ctrl.projects = i.take(l.ctrl.projects, l.maxDisplayProjects), 
-                l.ctrl.loading = !1, l.ctrl.showGetStarted = i.isEmpty(l.ctrl.projects);
+                var t = s.toArray(e.by("metadata.creationTimestamp")), n = p.$filter("orderObjectsByDate");
+                p.ctrl.projects = n(t, !0), p.ctrl.totalProjects = p.ctrl.projects.length, p.ctrl.projects = s.take(p.ctrl.projects, p.maxDisplayProjects), 
+                p.ctrl.loading = !1, p.ctrl.showGetStarted = !p.ctrl.projects || p.ctrl.projects.length < 2;
             }, this.closeNewProjectPanel = function() {
-                l.ctrl.showNewProjectPanel = !1;
+                p.ctrl.showNewProjectPanel = !1;
             }, this.onNewProject = function(e) {
-                l.ctrl.showNewProjectPanel = !1;
+                p.ctrl.showNewProjectPanel = !1;
+            }, this.onViewMemebership = function(e) {
+                var t = p.ctrl.viewEditMembership();
+                t && t(e);
             }, this.editProject = function(e) {
-                l.ctrl.edittingProject = e, l.ctrl.showEditProjectPanel = !0;
+                p.ctrl.edittingProject = e, p.ctrl.showEditProjectPanel = !0;
             }, this.closeEditProjectPanel = function() {
-                l.ctrl.showEditProjectPanel = !1;
+                p.ctrl.showEditProjectPanel = !1;
             }, this.onEditProject = function(e) {
-                l.ctrl.showEditProjectPanel = !1;
-            }, this.$element = e, this.$scope = t, this.$filter = n, this.ProjectsService = s, 
-            this.Logger = r, this.AuthService = a, this.DataService = c, this.AlertMessageService = o;
+                p.ctrl.showEditProjectPanel = !1;
+            }, this.$element = e, this.$scope = t, this.$filter = n, this.ProjectsService = r, 
+            this.Logger = a, this.AuthService = o, this.DataService = c, this.Constants = l, 
+            this.AlertMessageService = d;
         }
         return e.prototype.$onInit = function() {
             var e = this;
@@ -481,18 +532,21 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 e.ctrl.canCreate = !1;
                 var n = t.data || {};
                 if (403 !== t.status) {
-                    var s = "Failed to determine create project permission";
-                    return 0 !== t.status && (s += " (" + t.status + ")"), void e.Logger.warn(s);
+                    var i = "Failed to determine create project permission";
+                    return 0 !== t.status && (i += " (" + t.status + ")"), void e.Logger.warn(i);
                 }
                 if (n.details) {
                     var r = [];
-                    i.forEach(n.details.causes || [], function(e) {
+                    s.forEach(n.details.causes || [], function(e) {
                         e.message && r.push(e.message);
                     }), r.length > 0 && (e.ctrl.newProjectMessage = r.join("\n"));
                 }
             }), this.AuthService.withUser().then(this.onVerifyUser);
         }, e.prototype.openNewProjectPanel = function() {
             this.ctrl.showNewProjectPanel = !0;
+        }, e.prototype.handleGettingStartedClick = function() {
+            var e = this.ctrl.startGettingStartedTour();
+            e && e();
         }, e.prototype.handleProjectClick = function(e) {
             var t = this.ctrl.projectSelect();
             t && t(e);
@@ -501,8 +555,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             e && e();
         }, e;
     }();
-    s.$inject = [ "$element", "$scope", "$filter", "ProjectsService", "Logger", "AuthService", "DataService", "AlertMessageService" ], 
-    t.ProjectsSummaryController = s;
+    r.$inject = [ "$element", "$scope", "$filter", "ProjectsService", "Logger", "AuthService", "DataService", "Constants", "AlertMessageService" ], 
+    t.ProjectsSummaryController = r;
 }, function(e, t, n) {
     "use strict";
     t.__esModule = !0;
@@ -605,10 +659,10 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
     t.__esModule = !0;
     var i = n(0);
     n(2), n(14);
-    var s = n(8), r = n(9), a = n(10), c = n(11), o = n(12), l = n(13), d = n(15);
-    n(2), t.webCatalog = "webCatalog", i.module(t.webCatalog, [ "patternfly", "ngAnimate", "ui.bootstrap" ]).service("Catalog", d.CatalogService).component("landingPage", s.landingPage).component("orderService", r.orderService).component("overlayPanel", a.overlayPanel).component("projectsSummary", c.projectsSummary).component("saasList", o.saasList).component("servicesView", l.servicesView).run([ "$templateCache", function(e) {
+    var s = n(15), r = n(8), a = n(9), o = n(10), c = n(11), l = n(12), d = n(13), p = n(16);
+    n(2), t.webCatalog = "webCatalog", i.module(t.webCatalog, [ "patternfly", "ngAnimate", "ui.bootstrap", "angularMoment" ]).service("Catalog", p.CatalogService).filter("projectUrl", s.projectUrlFilter).component("landingPage", r.landingPage).component("orderService", a.orderService).component("overlayPanel", o.overlayPanel).component("projectsSummary", c.projectsSummary).component("saasList", l.saasList).component("servicesView", d.servicesView).run([ "$templateCache", function(e) {
         e.put("order-service/order-service-details.html", n(3)), e.put("order-service/order-service-details.html", n(3)), 
         e.put("order-service/order-service-plans.html", n(6)), e.put("order-service/order-service-configure.html", n(5)), 
         e.put("order-service/order-service-review.html", n(7));
     } ]);
-} ], [ 28 ]);
+} ], [ 29 ]);

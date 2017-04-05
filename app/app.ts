@@ -7,6 +7,8 @@ require('angular-patternfly/dist/angular-patternfly');
 require('angular-ui-bootstrap/ui-bootstrap');
 require('angular-ui-bootstrap/ui-bootstrap-tpls');
 require('angular-sanitize/angular-sanitize');
+require('angular-moment/angular-moment');
+
 require('angular-drag-and-drop-lists/angular-drag-and-drop-lists.min.js');
 require('angular-animate/angular-animate.min.js');
 
@@ -53,13 +55,14 @@ if (mockServicesModule.useMockServices() !== true) {
 }
 
 angular
-  .module(catalogApp, ['webCatalog', 'openshiftCommonUI', commonServices, 'ui.router', 'patternfly'])
+  .module(catalogApp, ['webCatalog', 'openshiftCommonUI', commonServices, 'ui.router', 'patternfly', 'angularMoment'])
   .config(routesConfig)
   .component('oauth', oauth)
   .component('homepage', homePage)
   .component('servicespage', servicesPage)
   .component('projectspage', projectsPage)
   .component('errorpage', errorPage)
-  .component('navigation', navigation);
+  .component('navigation', navigation)
+  .constant('amTimeAgoConfig', {titleFormat: 'LLL'});
 
 hawtioPluginLoader.addModule(catalogApp);
