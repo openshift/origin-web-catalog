@@ -9,6 +9,7 @@ require('./constants');
 import {projectUrlFilter} from './filters/projectUrl';
 
 // Components, Alphabetical order please
+import {catalogSearch} from './components/catalog-search/catalog-search.component';
 import {landingPage} from './components/landing-page/landing-page.component';
 import {orderService} from './components/order-service/order-service.component';
 import {overlayPanel} from './components/overlay-panel/overlay-panel.component';
@@ -25,6 +26,7 @@ angular
   .module(webCatalog, ['patternfly', 'ngAnimate', 'ui.bootstrap', 'angularMoment'])
   .service('Catalog', CatalogService)
   .filter('projectUrl', projectUrlFilter)
+  .component('catalogSearch', catalogSearch)
   .component('landingPage', landingPage)
   .component('orderService', orderService)
   .component('overlayPanel', overlayPanel)
@@ -32,6 +34,7 @@ angular
   .component('saasList', saasList)
   .component('servicesView', servicesView)
   .run(['$templateCache', function($templateCache: any) {
+    $templateCache.put('catalog-search/catalog-search-result.html', require('./components/catalog-search/catalog-search-result.html'));
     $templateCache.put('order-service/order-service-details.html', require('./components/order-service/order-service-details.html'));
     $templateCache.put('order-service/order-service-details.html', require('./components/order-service/order-service-details.html'));
     $templateCache.put('order-service/order-service-plans.html', require('./components/order-service/order-service-plans.html'));

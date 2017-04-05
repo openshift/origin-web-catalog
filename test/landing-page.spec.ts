@@ -20,7 +20,7 @@ describe('landingPage', () => {
 
   beforeEach(() => {
     var landingPageHtml: string = '' +
-      '<landing-page search-placeholder="Test Placeholder">' +
+      '<landing-page>' +
       '  <landingheader>' +
       '    <div id="testHeader" style="height: 800px;">' +
       '      <h1>I am the header</h1>' +
@@ -40,12 +40,6 @@ describe('landingPage', () => {
       '';
     componentTest = new ComponentTest<LandingPageController>(landingPageHtml);
     componentTest.createComponent({});
-  });
-
-  // testing the isoScope $ctrl
-  it('should have the correct $ctrl properties', () => {
-    var ctrl = componentTest.isoScope.$ctrl;
-    expect(ctrl.searchPlaceholder).toBe('Test Placeholder');
   });
 
   // testing rendered HTML

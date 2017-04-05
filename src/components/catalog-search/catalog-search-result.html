@@ -1,0 +1,16 @@
+<a href="" class="catalog-search-match">
+  <span class="catalog-search-icon">
+    <span ng-if="match.model.imageUrl"><img ng-src="{{match.model.imageUrl}}"></span>
+    <span ng-if="!match.model.imageUrl && match.model.iconClass" ng-class="match.model.iconClass" class="icon"></span>
+  </span>
+  <div class="catalog-search-match-info">
+    <div class="catalog-search-match-label">
+      {{match.label}}
+    </div>
+    <div class="catalog-search-match-description">
+      <span ng-repeat="tag in (match.model.tags || match.model.resource.osbTags)" class="tag small text-muted">
+        {{tag}}
+      </span>
+    </div>
+  </div>
+</a>

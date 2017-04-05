@@ -1,0 +1,30 @@
+<!-- TODO: Should not have two ordering panels, combine with services view -->
+<overlay-panel show-panel="$ctrl.orderingPanelVisible" show-close="true" handle-close="$ctrl.closeOrderingPanel">
+  <order-service service-class="$ctrl.serviceToOrder" handle-close="$ctrl.closeOrderingPanel"></order-service>
+</overlay-panel>
+<div class="landing-search-area">
+  <form role="form" class="landing-search-form search-pf has-button">
+    <div class="form-group has-clear">
+      <div class="search-pf-input-group">
+        <label for="search-input" class="sr-only">Search Catalog</label>
+        <input
+            id="search-input"
+            type="search"
+            class="form-control"
+            placeholder="Search Catalog"
+            ng-model="$ctrl.searchText"
+            uib-typeahead="item.name for item in $ctrl.search($viewValue)"
+            typeahead-on-select="$ctrl.itemSelected($item)"
+            typeahead-template-url="catalog-search/catalog-search-result.html">
+        <button
+            type="button"
+            ng-if="$ctrl.searchText"
+            ng-click="$ctrl.searchText = ''"
+            class="clear">
+          <span class="sr-only">Clear Search Input</span>
+          <span class="pficon pficon-close" aria-hidden="true"></span>
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
