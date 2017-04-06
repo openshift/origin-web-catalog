@@ -158,10 +158,6 @@
   margin-left: 0;
   padding: 0;
 }
-.order-service .wizard-pf-steps .wizard-pf-steps-indicator {
-  padding-top: 10px;
-  height: 80px;
-}
 .order-service-details {
   margin-top: 20px;
 }
@@ -351,6 +347,12 @@ body.overlay-open {
 }
 .catalogs-overlay-panel.catalogs-overlay-panel-full-height {
   height: 100%;
+}
+.catalogs-overlay-panel.catalogs-overlay-panel-single-column {
+  max-width: 800px;
+}
+.catalogs-overlay-panel .wizard-pf-steps {
+  margin-top: -20px;
 }
 .catalogs-overlay-panel-close {
   color: #72767b;

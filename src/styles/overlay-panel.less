@@ -33,6 +33,15 @@ body.overlay-open {
   &.catalogs-overlay-panel-full-height {
     height: 100%;
   }
+
+  &.catalogs-overlay-panel-single-column {
+    max-width: 800px;
+  }
+
+  // Fix margin when a wizard is in the overlay panel
+  .wizard-pf-steps {
+    margin-top: -20px;
+  }
 }
 
 .catalogs-overlay-panel-close {

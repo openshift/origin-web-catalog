@@ -2,7 +2,7 @@
   <div ng-if="$ctrl.shown" class="modal-backdrop fade in"></div>
   <div ng-if="$ctrl.shown" class="catalogs-overlay-panel-wrapper">
     <div class="catalogs-overlay-panel-grow-height">
-      <div class="catalogs-overlay-panel" ng-class="{'catalogs-overlay-panel-full-height' : $ctrl.fullHeight}">
+      <div class="catalogs-overlay-panel" ng-class="{'catalogs-overlay-panel-full-height' : $ctrl.fullHeight, 'catalogs-overlay-panel-single-column' : $ctrl.singleColumn}">
         <a ng-if="$ctrl.showClose" ng-click="$ctrl.closePanel()">
           <span class="catalogs-overlay-panel-close pficon pficon-close"></span>
         </a>
