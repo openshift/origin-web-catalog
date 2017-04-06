@@ -35,7 +35,7 @@
   }
 }
 .landing-main-area {
-  padding: 20px;
+  background-color: #3ca2c9;
 }
 @media (min-width: 768px) {
   .landing-main-area {
@@ -548,74 +548,97 @@ body.overlay-open {
 .catalogs-resources .resources-description {
   margin-top: 7px;
 }
-.saas-offerings-container {
-  background: #ededed;
-  padding-left: 0px;
+.build-applications-view {
+  background: linear-gradient(rgba(0, 34, 53, 0.2), rgba(0, 34, 53, 0));
+  border-top: solid 1px rgba(0, 34, 53, 0.3);
+}
+.build-applications-view h1 {
+  color: #fff;
+  padding: 20px;
 }
 .saas-offerings-container .spinner-container {
   padding-top: 60px;
   padding-bottom: 60px;
 }
-.saas-offerings-container .card-view-pf {
-  padding-left: 21px;
+.saas-offerings-container .saas-list {
+  justify-content: space-around;
+  margin: 0 20px;
 }
-.saas-offerings-container .card-view-pf .card-content {
-  background-color: #fff;
+@media (min-width: 768px) {
+  .saas-offerings-container .saas-list {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+  }
+}
+.saas-offerings-container .saas-list .card {
+  border-bottom: solid 1px #fff;
+  color: #fff;
   cursor: pointer;
-  margin: 0;
+  display: flex;
+  padding: 2em 0;
+}
+.saas-offerings-container .saas-list .card:hover {
+  background-color: rgba(0, 67, 104, 0.8);
 }
 @media (min-width: 768px) {
-  .saas-offerings-container .card-view-pf .card-content {
-    margin: 2px 0 10px;
+  .saas-offerings-container .saas-list .card {
+    border-bottom: none;
+    flex: 0 1 250px;
+    padding: 2em;
   }
 }
-.saas-offerings-container .card-view-pf .card {
-  height: 100%;
-  width: 100%;
+.saas-offerings-container .saas-list .card:last-child {
+  border-bottom: none;
+}
+.saas-offerings-container .saas-list .card-content {
+  align-items: center;
   cursor: pointer;
-  text-align: inherit;
-  margin-bottom: 8px;
+  display: flex;
 }
 @media (min-width: 768px) {
-  .saas-offerings-container .card-view-pf .card {
-    height: 200px;
-    width: 260px;
-    margin-bottom: 20px;
+  .saas-offerings-container .saas-list .card-content {
+    flex-direction: column;
+    justify-content: space-around;
+    text-align: center;
   }
 }
-.saas-offerings-container .card-container {
-  padding: 6px;
-}
-.saas-offerings-container .card-container .card-header {
-  display: table;
-}
-@media (min-width: 768px) {
-  .saas-offerings-container .card-container .card-header {
-    height: 70px;
-  }
-}
-.saas-offerings-container .card-container .card-header .card-icon {
-  display: table-cell;
-  vertical-align: middle;
+.saas-offerings-container .saas-list .card-content .card-icon {
+  font-size: 24px;
   text-align: center;
   width: 40px;
-  font-size: 24px;
 }
-.saas-offerings-container .card-container .card-header .card-icon.fa.fa-mobile {
+.saas-offerings-container .saas-list .card-content .card-icon.fa.fa-mobile {
   font-size: 32px;
 }
-.saas-offerings-container .card-container .card-header .card-title {
-  vertical-align: middle;
-  display: table-cell;
-  padding-left: 8px;
+@media (min-width: 768px) {
+  .saas-offerings-container .saas-list .card-content .card-icon {
+    font-size: 72px;
+    margin-bottom: 20px;
+    width: 100%;
+  }
+  .saas-offerings-container .saas-list .card-content .card-icon.fa.fa-mobile {
+    font-size: 72px;
+  }
 }
-.saas-offerings-container .card-container .card-footer {
-  display: table-cell;
-  vertical-align: middle;
-  height: 80px;
-}
-.saas-offerings-container .card-container .card-footer .card-description {
+.saas-offerings-container .saas-list .card-content .card-title {
   font-size: 14px;
+  padding-left: 1em;
+}
+@media (min-width: 480px) {
+  .saas-offerings-container .saas-list .card-content .card-title {
+    font-size: 16px;
+  }
+}
+@media (min-width: 768px) {
+  .saas-offerings-container .saas-list .card-content .card-title {
+    padding-left: 0;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+}
+.saas-offerings-container .saas-list .card-content .card-description {
+  font-size: 12px;
 }
 .services-view {
   width: 100%;

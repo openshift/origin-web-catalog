@@ -3,15 +3,6 @@ import * as _ from 'lodash';
 
 export class SaasListController implements angular.IController {
   public ctrl: any = this;
-  public cardViewConfig: any;
-
-  constructor() {
-    this.cardViewConfig = {
-      selectItems: false,
-      showSelectBox: false,
-      onClick: this.handleClick
-    };
-  }
 
   public hasSaasOfferings (): boolean {
     return !_.isEmpty(this.ctrl.saasOfferings);

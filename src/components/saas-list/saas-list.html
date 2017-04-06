@@ -1,14 +1,12 @@
 <span ng-if="$ctrl.hasSaasOfferings()" class="saas-offerings-container">
   <h1 ng-if="$ctrl.saasTitle">{{$ctrl.saasTitle}}</h1>
-  <div pf-card-view config="$ctrl.cardViewConfig" items="$ctrl.saasOfferings">
-    <div class="card-container">
-      <div class="card-header">
+  <div class="saas-list" items="$ctrl.saasOfferings">
+    <div class="card" ng-repeat="item in $ctrl.saasOfferings">
+      <div class="card-content" ng-click="$ctrl.handleClick(item)">
         <span class="card-icon {{item.icon}}"></span>
         <span class="card-title">{{item.title}}</span>
-      </div>
-      <div class="card-footer hidden-xs">
         <truncate-long-text
-                class="card-description"
+                class="card-description hidden-xs"
                 content="item.description"
                 limit="120"
                 use-word-boundary="true">

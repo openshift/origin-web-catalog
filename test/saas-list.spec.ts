@@ -37,7 +37,7 @@ describe('saasOfferingsList', () => {
     expect(ctrl.saasOfferings.length).toBe(4);
 
     var element = componentTest.rawElement;
-    expect($(element).find('.card-container').length).toBe(4);
+    expect($(element).find('.card').length).toBe(4);
   });
 
   it('should hide SaaS Offerings when none are defined', () => {
@@ -49,6 +49,6 @@ describe('saasOfferingsList', () => {
     expect(ctrl.hasSaasOfferings()).toBeFalsy();
 
     var element = componentTest.rawElement;
-    expect($(element).find('.card-container').length).toBe(0);
+    expect($(element).find('.card').length).toBe(0);
   });
 });

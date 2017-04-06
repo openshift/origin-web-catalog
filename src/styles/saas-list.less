@@ -1,76 +1,101 @@
+.build-applications-view {
+  background: linear-gradient(fade(@color-pf-blue-700, 20%), fade(@color-pf-blue-700, 0%));
+  border-top: solid 1px fade(@color-pf-blue-700, 30%);
+
+  h1 {
+    color: @saas-text;
+    padding: (@grid-gutter-width / 2);
+  }
+}
+
 .saas-offerings-container {
-  background: @color-pf-black-200;
-  padding-left: 0px;
 
   .spinner-container {
     padding-top: 60px;
     padding-bottom: 60px;
   }
 
-  .card-view-pf {
-    padding-left: 21px;
-  }
-
-  .card-view-pf .card-content {
-    background-color: @color-pf-white;
-    cursor: pointer;
-    margin: 0;
+  .saas-list {
+    justify-content: space-around;
+    margin: 0 (@grid-gutter-width / 2);
 
     @media (min-width: @screen-sm-min) {
-      margin: 2px 0 10px;
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: row;
     }
-  }
 
-  .card-view-pf .card {
-    height: 100%;
-    width: 100%;
-    cursor: pointer;
-    text-align: inherit;
-    margin-bottom: 8px;
+    .card {
+      border-bottom: solid 1px @saas-text;
+      color: @saas-text;
+      cursor: pointer;
+      display: flex;
+      padding: 2em 0;
 
-    @media (min-width: @screen-sm-min) {
-      height: 200px;
-      width: 260px;
-      margin-bottom: 20px;
-    }
-  }
-
-  .card-container {
-    padding: 6px;
-
-    .card-header {
-      display: table;
+      &:hover {
+        background-color: @saas-hover;
+      }
 
       @media (min-width: @screen-sm-min) {
-        height: 70px;
+        border-bottom: none;
+        flex: 0 1 250px;
+        padding: 2em;;
+      }
+
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+
+    .card-content {
+      align-items: center;
+      cursor: pointer;
+      display: flex;
+
+      @media (min-width: @screen-sm-min) {
+        flex-direction: column;
+        justify-content: space-around;
+        text-align: center;
       }
 
       .card-icon {
-        display: table-cell;
-        vertical-align: middle;
+        font-size: 24px;
         text-align: center;
         width: 40px;
-        font-size: 24px;
 
         &.fa.fa-mobile {
           font-size: 32px;
         }
+
+        @media (min-width: @screen-sm-min) {
+          font-size: 72px;
+          margin-bottom: 20px;
+          width: 100%;
+
+          &.fa.fa-mobile {
+            font-size: 72px;
+          }
+        }
       }
+
       .card-title {
-        vertical-align: middle;
-        display: table-cell;
-        padding-left: 8px;
+        font-size: @font-size-base + 2;
+        padding-left: 1em;
+
+        @media (min-width: 480px) {
+          font-size: @font-size-base + 4;
+        }
+
+        @media (min-width: @screen-sm-min) {
+          padding-left: 0;
+          font-weight: 700;
+          margin-bottom: 10px;
+        }
       }
-    }
-    .card-footer {
-      display: table-cell;
-      vertical-align: middle;
-      height: 80px;
 
       .card-description {
-        font-size: 14px;
+        font-size: @font-size-base;
       }
     }
   }
 }
-
