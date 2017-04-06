@@ -34,6 +34,26 @@ describe('Projects Summary Panel', () => {
     viewMembershipCallCount++;
   };
 
+  var setProjectList = function(numProjects: number) {
+    spyOn(DataService, 'list').and.callFake(function(resource: any, context: any, callback: any, opts: any) {
+      let deferred = this.$q.defer();
+      var mockProjects: any = [];
+
+      for (var i: number = 0; i < numProjects; i++) {
+        var nextProject: any = _.cloneDeep(projectsData[0]);
+        nextProject.metadata.uid += i;
+        mockProjects.push(nextProject);
+      }
+
+      var overData: DataServiceData = new DataServiceData(mockProjects);
+
+      callback(overData);
+
+      deferred.resolve(overData);
+      return deferred.promise;
+    });
+  };
+
   var createProjectSummary = function() {
     var projectsSummaryHtml: string = '<projects-summary view-edit-membership="testViewMembership" start-getting-started-tour="testShowTour"></projects-summary>';
 
@@ -109,6 +129,7 @@ describe('Projects Summary Panel', () => {
   });
 
   it('should show the existing projects in the projects list', () => {
+    setProjectList(1);
     createProjectSummary();
 
     var ctrl = componentTest.isoScope.$ctrl;
@@ -125,16 +146,7 @@ describe('Projects Summary Panel', () => {
   });
 
   it('should show getting started when no existing projects', () => {
-    spyOn(DataService, 'list').and.callFake(function(resource: any, context: any, callback: any, opts: any) {
-      let deferred = this.$q.defer();
-      var emptyData: DataServiceData = new DataServiceData([]);
-
-      callback(emptyData);
-
-      deferred.resolve(emptyData);
-      return deferred.promise;
-    });
-
+    setProjectList(0);
     createProjectSummary();
 
     var ctrl = componentTest.isoScope.$ctrl;
@@ -155,6 +167,7 @@ describe('Projects Summary Panel', () => {
   });
 
   it('should show getting started when only one project exists', () => {
+    setProjectList(1);
     createProjectSummary();
 
     var ctrl = componentTest.isoScope.$ctrl;
@@ -175,6 +188,7 @@ describe('Projects Summary Panel', () => {
   });
 
   it('should show the create project panel when Create Project button is clicked', () => {
+    setProjectList(1);
     createProjectSummary();
 
     var element = componentTest.rawElement;
@@ -195,6 +209,7 @@ describe('Projects Summary Panel', () => {
   });
 
   it('should call the edit/view membership callback when the Edit and View Membership menu item is clicked', () => {
+    setProjectList(1);
     createProjectSummary();
 
     var element = componentTest.rawElement;
@@ -215,6 +230,7 @@ describe('Projects Summary Panel', () => {
   });
 
   it('should show the edit project panel when the Edit menu item is clicked', () => {
+    setProjectList(1);
     createProjectSummary();
 
     var element = componentTest.rawElement;
@@ -238,6 +254,7 @@ describe('Projects Summary Panel', () => {
   });
 
   it('should show the delete confirmation panel when then Delete menu item is clicked', () => {
+    setProjectList(1);
     createProjectSummary();
 
     var element = componentTest.rawElement;
@@ -261,24 +278,7 @@ describe('Projects Summary Panel', () => {
   });
 
   it ('should not show projects count area when 5 or less projects', () => {
-    spyOn(DataService, 'list').and.callFake(function(resource: any, context: any, callback: any, opts: any) {
-      let deferred = this.$q.defer();
-      var mockProjects: any = [];
-
-      for (var i: number = 0; i < 5; i++) {
-        var nextProject: any = _.cloneDeep(projectsData[0]);
-        nextProject.metadata.uid += i;
-        mockProjects.push(nextProject);
-      }
-
-      var overData: DataServiceData = new DataServiceData(mockProjects);
-
-      callback(overData);
-
-      deferred.resolve(overData);
-      return deferred.promise;
-    });
-
+    setProjectList(5);
     createProjectSummary();
 
     var element = componentTest.rawElement;
@@ -290,24 +290,7 @@ describe('Projects Summary Panel', () => {
   });
 
   it ('should show projects count area and only 5 projects when more than 5 projects exist.', () => {
-    spyOn(DataService, 'list').and.callFake(function(resource: any, context: any, callback: any, opts: any) {
-      let deferred = this.$q.defer();
-      var mockProjects: any = [];
-
-      for (var i: number = 0; i < 10; i++) {
-        var nextProject: any = _.cloneDeep(projectsData[0]);
-        nextProject.metadata.uid += i;
-        mockProjects.push(nextProject);
-      }
-
-      var overData: DataServiceData = new DataServiceData(mockProjects);
-
-      callback(overData);
-
-      deferred.resolve(overData);
-      return deferred.promise;
-    });
-
+    setProjectList(10);
     createProjectSummary();
 
     var element = componentTest.rawElement;
@@ -323,6 +306,7 @@ describe('Projects Summary Panel', () => {
 
 
   it('should call the start guided tour callback when the start tour button is clicked', () => {
+    setProjectList(1);
     createProjectSummary();
 
     var element = componentTest.rawElement;

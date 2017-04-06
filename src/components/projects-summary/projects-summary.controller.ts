@@ -65,12 +65,12 @@ export class ProjectsSummaryController implements angular.IController {
           // TODO: Toast Notification
         }
       }
+    }).finally(() => {
+      this.init();
     });
-
-    this.AuthService.withUser().then(this.onVerifyUser);
   }
 
-  public onVerifyUser = () => {
+  public init = () => {
     this.ctrl.loading = true;
     this.watches.push(this.DataService.watch('projects', this.$scope, this.onProjectsUpdate));
     this.AlertMessageService.getAlerts().forEach(function(alert: any) {

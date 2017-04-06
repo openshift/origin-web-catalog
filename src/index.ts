@@ -10,20 +10,21 @@ import {projectUrlFilter} from './filters/projectUrl';
 
 // Components, Alphabetical order please
 import {catalogSearch} from './components/catalog-search/catalog-search.component';
+import {CatalogService} from './services/catalog.service';
 import {landingPage} from './components/landing-page/landing-page.component';
 import {orderService} from './components/order-service/order-service.component';
 import {overlayPanel} from './components/overlay-panel/overlay-panel.component';
 import {projectsSummary} from './components/projects-summary/projects-summary.component';
 import {saasList} from './components/saas-list/saas-list.component';
+import {selectProject} from './components/select-project/select-project.component';
 import {servicesView} from './components/services-view/services-view.component';
-import {CatalogService} from './services/catalog.service';
 
 import './styles/main.less';
 
 export const webCatalog: string = 'webCatalog';
 
 angular
-  .module(webCatalog, ['patternfly', 'ngAnimate', 'ui.bootstrap', 'angularMoment'])
+  .module(webCatalog, ['patternfly', 'ngAnimate', 'ui.bootstrap', 'angularMoment', 'ui.select'])
   .service('Catalog', CatalogService)
   .filter('projectUrl', projectUrlFilter)
   .component('catalogSearch', catalogSearch)
@@ -32,6 +33,7 @@ angular
   .component('overlayPanel', overlayPanel)
   .component('projectsSummary', projectsSummary)
   .component('saasList', saasList)
+  .component('selectProject', selectProject)
   .component('servicesView', servicesView)
   .run(['$templateCache', function($templateCache: any) {
     $templateCache.put('catalog-search/catalog-search-result.html', require('./components/catalog-search/catalog-search-result.html'));
