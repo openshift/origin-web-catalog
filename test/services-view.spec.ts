@@ -36,7 +36,7 @@ describe('servicesView', () => {
     var ctrl = componentTest.isoScope.$ctrl;
     expect(ctrl.currentFilter).toBe('all');
     expect(ctrl.currentSubFilter).toBeNull();
-    expect(ctrl.orderingPanelvisible).toBe(false);
+    expect(ctrl.orderingPanelVisible).toBe(false);
   });
 
   it('should display the initial categories and correct number of catalog cards', () => {

@@ -57,7 +57,14 @@ export class CatalogSearchController implements angular.IController {
   }
 
   public itemSelected(item: any) {
-    this.ctrl.serviceToOrder = item;
+    let kind = _.get(item, 'resource.kind');
+    if (kind === 'ImageStream') {
+      this.ctrl.selectedImageStream = item;
+      this.ctrl.selectedServiceClass = null;
+    } else {
+      this.ctrl.selectedImageStream = null;
+      this.ctrl.selectedServiceClass = item;
+    }
     this.ctrl.orderingPanelVisible = true;
     this.ctrl.searchText = '';
   }

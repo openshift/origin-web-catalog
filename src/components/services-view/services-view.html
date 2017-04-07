@@ -1,8 +1,17 @@
 
 <div class="services-view">
 
-  <overlay-panel show-panel="$ctrl.orderingPanelvisible" show-close="true" handle-close="$ctrl.closeOrderingPanel">
-    <order-service service-class="$ctrl.serviceToOrder" handle-close="$ctrl.closeOrderingPanel"></order-service>
+  <overlay-panel show-panel="$ctrl.orderingPanelVisible" show-close="true" handle-close="$ctrl.closeOrderingPanel">
+    <order-service
+        ng-if="$ctrl.selectedServiceClass"
+        service-class="$ctrl.selectedServiceClass"
+        handle-close="$ctrl.closeOrderingPanel">
+    </order-service>
+    <create-from-builder
+        ng-if="$ctrl.selectedImageStream"
+        image-stream="$ctrl.selectedImageStream"
+        handle-close="$ctrl.closeOrderingPanel">
+    </create-from-builder>
   </overlay-panel>
 
   <div ng-if="$ctrl.loading" class="spinner-container">

@@ -13,7 +13,8 @@
       "node",
       "jasmine",
       "es6-shim",
-      "lodash"
+      "lodash",
+      "urijs"
     ]
   },
   "compileOnSave": false,
