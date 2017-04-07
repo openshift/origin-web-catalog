@@ -18,16 +18,16 @@
     <div ng-class="{'spinner spinner-xl': $ctrl.loading}"></div>
   </div>
   <div ng-if="!$ctrl.loading" class="services-view-container">
-    <h1>Catalog</h1>
+    <h1>Browse Catalog</h1>
 
-    <div class="services-categories">
-      <a id="category-all" ng-class="{'current-filter': $ctrl.currentFilter === 'all'}" ng-click="$ctrl.filterByCategory('all', 'all', true)">All</a> |
-      <span ng-repeat="category in $ctrl.categories">
-        <a id="{{'category-'+category.id}}" ng-class="{'current-filter': $ctrl.currentFilter === category.id}"
-           ng-click="$ctrl.filterByCategory(category.id, 'all', true)">{{category.label}}</a>
-           {{$ctrl.categories.length !== ($index+1) ? ' | ' : ''}}
-      </span>
-    </div>
+    <ul class="nav nav-tabs nav-tabs-pf">
+      <li ng-class="{'active': $ctrl.currentFilter === 'all'}">
+        <a id="category-all" ng-click="$ctrl.filterByCategory('all', 'all', true)">All</a>
+      </li>
+      <li ng-repeat="category in $ctrl.categories" ng-class="{'active': $ctrl.currentFilter === category.id}">
+        <a id="{{'category-'+category.id}}" ng-click="$ctrl.filterByCategory(category.id, 'all', true)">{{category.label}}</a>
+      </li>
+    </ul>
 
     <!-- Do not show sub-category tiles for 'All' or 'Other' main categories -->
 
