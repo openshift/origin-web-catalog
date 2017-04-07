@@ -32,16 +32,14 @@
             <li><a href="" ng-click="$ctrl.onViewMemebership(project)">View Membership</a></li>
             <li><a href="" ng-click="$ctrl.editProject(project)">Edit Project</a></li>
             <li>
-              <delete-link
-                  kind="Project"
+              <delete-project
                   label="Delete Project"
-                  resource-name="{{project.metadata.name}}"
                   project-name="{{project.metadata.name}}"
                   display-name="{{(project | displayName)}}"
                   type-name-to-confirm="true"
                   stay-on-current-page="true"
                   alerts="$ctrl.alerts">
-              </delete-link>
+              </delete-project>
             </li>
           </ul>
         </div>
