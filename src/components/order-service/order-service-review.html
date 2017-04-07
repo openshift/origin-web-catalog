@@ -1,7 +1,7 @@
 <div class="col-md-12 center review-panel">
   <div ng-if="!$ctrl.error">
     <div ng-if="!$ctrl.orderComplete">
-      <h3 class="mar-top-none center">
+      <h3 class="center">
         <span class="fa fa-spinner fa-pulse fa-3x fa-fw" aria-hidden="true"></span>
       </h3>
       <h3 class="center">
@@ -9,10 +9,10 @@
       </h3>
     </div>
     <div ng-if="$ctrl.orderComplete">
-      <h3 class="mar-top-none">
+      <h3>
         <strong>{{$ctrl.serviceName}}</strong> has been added to <strong>{{$ctrl.selectedProject | displayName}}</strong> successfully
       </h3>
-      <div class="alert alert-info mar-top-xxl mar-bottom-xl">
+      <div class="alert alert-info">
         <span class="pficon pficon-info" aria-hidden="true"></span>
         <span class="sr-only">Info</span>
         Continue to your project to bind this service to your application. Binding this service creates a secret containing the information necessary for your application to use the service.
