@@ -377,6 +377,7 @@ body.overlay-open {
 }
 .catalogs-overlay-panel {
   background: white;
+  color: #363636;
   border: 1px solid rgba(0, 0, 0, 0.2);
   box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
   margin: 0 auto;
@@ -473,6 +474,17 @@ body.overlay-open {
 .catalog-projects-summary-panel .resources-panel {
   margin-top: 40px;
   border-top: solid 1px #4d5258;
+}
+.catalog-projects-summary-panel .services-view .services-item {
+  color: #fff;
+  flex: 0 1 33%;
+  padding-left: 0px;
+}
+.catalog-projects-summary-panel .services-view .services-items-inner {
+  background-image: none;
+}
+.catalog-projects-summary-panel .services-view .services-items-inner-shadow-covers {
+  background-image: none;
 }
 .catalog-modal {
   background-color: #fff;
@@ -729,6 +741,7 @@ body.overlay-open {
 }
 .services-view .services-item {
   color: #363636;
+  cursor: pointer;
   display: flex;
   min-height: 160px;
   flex: 0 1 auto;

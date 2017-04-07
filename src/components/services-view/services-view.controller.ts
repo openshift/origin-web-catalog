@@ -109,6 +109,7 @@ export class ServicesViewController implements angular.IController {
       this.ctrl.selectedImageStream = null;
       this.ctrl.selectedServiceClass = item;
     }
+    this.setRecentlyViewed();
     this.ctrl.openOrderingPanel();
   };
 
@@ -179,5 +180,36 @@ export class ServicesViewController implements angular.IController {
 
   private updateActiveCardStyles() {
     this.$timeout(this.resizeExpansion, 50);
+  }
+
+  private setRecentlyViewed() {
+    let serviceToOrder: any = this.ctrl.selectedImageStream || this.ctrl.selectedServiceClass;
+    let recentlyViewed: any = localStorage.getItem('catalog-recently-viewed-services');
+
+    // convert from strings to objects
+    recentlyViewed = recentlyViewed ? JSON.parse(recentlyViewed) : [];
+    recentlyViewed = _.map(recentlyViewed, (item: any) => {
+      return JSON.parse(item);
+    });
+
+    // if previously viewed, remove from list
+    recentlyViewed.map((item, index, array) => {
+      if (item.resource.metadata.uid === serviceToOrder.resource.metadata.uid) {
+        array.splice(index, 1);
+      }
+    });
+
+    // limit to 3 max.
+    if (recentlyViewed.length >= 3) {
+      recentlyViewed.pop();
+    }
+
+    // convert back to strings for local strorage
+    recentlyViewed = _.map(recentlyViewed, (item: any) => {
+      return JSON.stringify(item);
+    });
+
+    recentlyViewed.unshift(JSON.stringify(serviceToOrder));
+    localStorage.setItem('catalog-recently-viewed-services', JSON.stringify(recentlyViewed));
   }
 }
