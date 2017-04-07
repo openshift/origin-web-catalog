@@ -8,6 +8,7 @@
 @import '~bootstrap/less/variables.less';
 @import '~patternfly/dist/less/color-variables.less';
 @import '~patternfly/dist/less/variables.less';
+@import '../src/styles/variables.less';
 
 @font-path: "./fonts";
 @import "./styles/_openshift-logos-icon.less";
@@ -24,6 +25,17 @@
   }
   main {
     overflow-y: auto;
+    width: calc(100% ~"-" @landing-side-bar-width-sm);
+  }
+}
+
+main {
+  @media(min-width: @screen-md-min) {
+    width: calc(100% ~"-" @landing-side-bar-width-md);
+  }
+
+  @media(min-width: @screen-lg-min) {
+    width: calc(100% ~"-" @landing-side-bar-width-lg);
   }
 }
 

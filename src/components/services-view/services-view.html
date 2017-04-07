@@ -1,4 +1,3 @@
-
 <div class="services-view">
 
   <overlay-panel show-panel="$ctrl.orderingPanelVisible" show-close="true" handle-close="$ctrl.closeOrderingPanel">
@@ -29,37 +28,49 @@
       </li>
     </ul>
 
-    <!-- Do not show sub-category tiles for 'All' or 'Other' main categories -->
+    <!-- Do not show sub-category items for 'All' or 'Other' main categories -->
 
     <div class="services-sub-categories" ng-if="$ctrl.currentFilter !== 'other' && $ctrl.currentFilter !== 'all'">
       <div ng-repeat="subCategory in $ctrl.subCategories"
-           id="{{'sub-category-'+subCategory.id}}"
-           class="sub-cat-card" ng-class="{'active': $ctrl.currentSubFilter === subCategory.id}">
-        <div class="inner-content" ng-click="$ctrl.toggleExpand(subCategory.id)">
-          <div class="sub-cat-icon {{subCategory.icon}}" ng-if="subCategory.icon"></div>
-          <div class="sub-cat-label">{{subCategory.label}}</div>
+           id="{{'services-sub-category-'+subCategory.id}}"
+           class="services-sub-category" ng-class="{'active': $ctrl.currentSubFilter === subCategory.id}">
+        <div class="services-sub-category-tab" ng-click="$ctrl.toggleExpand(subCategory.id)">
+          <div class="services-sub-category-tab-icon {{subCategory.icon}}" ng-if="subCategory.icon"></div>
+          <div class="services-sub-category-tab-name">{{subCategory.label}}</div>
         </div>
-        <div ng-if="$ctrl.currentSubFilter === subCategory.id"
-           class="card-expansion"
-           pf-card-view config="$ctrl.cardViewConfig" items="$ctrl.filteredItems">
-          <div class="card-container">
-            <div ng-if="!item.imageUrl" class="card-icon font-icon {{item.iconClass}}"></div>
-            <div ng-if="item.imageUrl" class="card-img"><img ng-src="{{item.imageUrl}}"></div>
-            <div class="card-name">{{item.name}}</div>
+        <div ng-if="$ctrl.currentSubFilter === subCategory.id" class="services-items">
+          <div class="services-items-inner">
+            <div class="services-items-inner-shadow-covers">
+              <div class="services-item" ng-repeat="item in $ctrl.filteredItems" ng-click="$ctrl.handleClick(item)">
+                <div ng-if="!item.imageUrl" class="services-item-icon">
+                  <span class="{{item.iconClass}}"></span>
+                </div>
+                <div ng-if="item.imageUrl" class="services-item-icon services-item-img">
+                  <img ng-src="{{item.imageUrl}}">
+                </div>
+                <div class="services-item-name">{{item.name}}</div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Show catalog cards for 'All' and 'Other' main categories -->
+    <!-- Show catalog item for 'All' and 'Other' main categories -->
 
-    <div ng-if="$ctrl.currentFilter === 'other' || $ctrl.currentFilter === 'all'"
-         class="card-expansion no-sub-cats"
-         pf-card-view config="$ctrl.cardViewConfig" items="$ctrl.filteredItems">
-      <div class="card-container">
-        <div ng-if="!item.imageUrl" class="card-icon {{item.iconClass}}"></div>
-        <div ng-if="item.imageUrl" class="card-img"><img ng-src="{{item.imageUrl}}"></div>
-        <div class="card-name">{{item.name}}</div>
+    <div ng-if="$ctrl.currentFilter === 'other' || $ctrl.currentFilter === 'all'" class="services-items">
+      <div class="services-items-inner">
+        <div class="services-items-inner-shadow-covers">
+          <div class="services-item" ng-repeat="item in $ctrl.filteredItems" ng-click="$ctrl.handleClick(item)">
+            <div ng-if="!item.imageUrl" class="services-item-icon">
+              <span class="{{item.iconClass}}"></span>
+            </div>
+            <div ng-if="item.imageUrl" class="services-item-icon services-item-img">
+              <img ng-src="{{item.imageUrl}}">
+            </div>
+            <div class="services-item-name">{{item.name}}</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

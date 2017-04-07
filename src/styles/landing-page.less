@@ -1,16 +1,43 @@
-.landing-main-area {
+.catalog-search-match {
+  height: 45px;
+  .catalog-search-match-info {
+    display: inline-block;
+    vertical-align: top;
+  }
+  .catalog-search-match-label {
+    font-weight: 600;
+  }
+  .catalog-search-icon {
+    display: inline-block;
+    margin-right: 10px;
+    text-align: center;
+    width: 30px;
+  }
+  .icon {
+    font-size: 28px;
+  }
+  img {
+    max-height: 28px;
+    max-width: 28px;
+  }
+  .tag {
+    margin-right: 5px;
+    text-transform: uppercase;
+  }
+}
 
+.landing-header-area {
+  // Height of search bar plus padding of search bar
+  padding-top: ((2.2 * @font-size-base + 4) + (2 * (@grid-gutter-width / 4)));
+
+  @media (min-width: @screen-sm-min) {
+    padding-top: ((2.2 * @font-size-base + 4) + (2 * (@grid-gutter-width / 3)));
+  }
+}
+
+.landing-main-area {
   background: @landing-bg;
   background-size: @landing-bg-size;
-  @media(min-width: @screen-sm-min) {
-    margin-right: @landing-side-bar-width-sm;
-  }
-  @media(min-width: @screen-md-min) {
-    margin-right: @landing-side-bar-width-md;
-  }
-  @media(min-width: @screen-lg-min) {
-    margin-right: @landing-side-bar-width-lg;
-  }
 }
 
 .landing-search-area {
@@ -32,6 +59,7 @@
     padding-right: @landing-side-bar-width-lg;
   }
 }
+
 .landing-search-form {
   margin: 0 auto;
   width: 100%;
@@ -66,49 +94,12 @@
   }
 }
 
-.catalog-search-match {
-  height: 45px;
-  .catalog-search-match-info {
-    display: inline-block;
-    vertical-align: top;
-  }
-  .catalog-search-match-label {
-    font-weight: 600;
-  }
-  .catalog-search-icon {
-    display: inline-block;
-    margin-right: 10px;
-    text-align: center;
-    width: 30px;
-  }
-  .icon {
-    font-size: 28px;
-  }
-  img {
-    max-height: 28px;
-    max-width: 28px;
-  }
-  .tag {
-    margin-right: 5px;
-    text-transform: uppercase;
-  }
-}
-
-.landing-header-area {
-  // Height of search bar plus padding of search bar
-  padding-top: ((2.2 * @font-size-base + 4) + (2 * (@grid-gutter-width / 4)));
-    @media (min-width: @screen-sm-min) {
-        padding-top: ((2.2 * @font-size-base + 4) + (2 * (@grid-gutter-width / 3)));
-    }
-}
-
 .landing-side-bar {
   background-color: @landing-side-bar-bg;
   color: @color-pf-white;
   z-index: @zindex-navbar-fixed + 1;
   @media(min-width: @screen-sm-min) {
     bottom: 0;
-    overflow: hidden;
     overflow-y: auto;
     position: fixed;
     right: 0;

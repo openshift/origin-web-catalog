@@ -49,7 +49,7 @@ describe('servicesView', () => {
     expect(jQuery(element).find('.nav-tabs-pf .active a').html()).toBe('All');
 
     // 15 cards/services
-    expect(jQuery(element).find('.card-name').length).toBe(15);
+    expect(jQuery(element).find('.services-item-name').length).toBe(15);
   });
 
   it('should filter sub-categories and cards when main category is clicked', () => {
@@ -58,27 +58,27 @@ describe('servicesView', () => {
     componentTest.eventFire(element.querySelector('#category-languages'), 'click');
 
     // 7 sub categories under category 'Languages' ('All', 'Java', 'Javascript',...'Python')
-    expect(jQuery(element).find('.sub-cat-label').length).toBe(7);
+    expect(jQuery(element).find('.services-sub-category-tab-name').length).toBe(7);
 
     // 11 'language' cards/services
-    expect(jQuery(element).find('.card-name').length).toBe(11);
+    expect(jQuery(element).find('.services-item-name').length).toBe(11);
   });
 
   it('should filter cards when sub-category is clicked', () => {
     var element = componentTest.rawElement;
     componentTest.eventFire(element.querySelector('#category-databases'), 'click');
-    componentTest.eventFire(element.querySelector('#sub-category-mongodb .inner-content'), 'click');
+    componentTest.eventFire(element.querySelector('#services-sub-category-mongodb .services-sub-category-tab'), 'click');
     // MongoDB image not shown because it isn't a builder image.
-    expect(jQuery(element).find('.card-name').length).toBe(2);
+    expect(jQuery(element).find('.services-item-name').length).toBe(2);
   });
 
   it('should show/hide cards when same sub-category is clicked twice', () => {
     var element = componentTest.rawElement;
     componentTest.eventFire(element.querySelector('#category-databases'), 'click');
-    componentTest.eventFire(element.querySelector('#sub-category-mongodb .inner-content'), 'click');
-    expect(jQuery(element).find('.card-name').length).toBe(2);
-    componentTest.eventFire(element.querySelector('#sub-category-mongodb .inner-content'), 'click');
-    expect(jQuery(element).find('.card-name').length).toBe(0);
+    componentTest.eventFire(element.querySelector('#services-sub-category-mongodb .services-sub-category-tab'), 'click');
+    expect(jQuery(element).find('.services-item-name').length).toBe(2);
+    componentTest.eventFire(element.querySelector('#services-sub-category-mongodb .services-sub-category-tab'), 'click');
+    expect(jQuery(element).find('.services-item-name').length).toBe(0);
   });
 
   it("should categorize 'Other' items", () => {
@@ -87,7 +87,7 @@ describe('servicesView', () => {
     componentTest.eventFire(element.querySelector('#category-other'), 'click');
 
     // 1 'other' card
-    expect(jQuery(element).find('.card-name').length).toBe(1);
+    expect(jQuery(element).find('.services-item-name').length).toBe(1);
   });
 
   it("should not display the 'All' sub-category when there is only one sub-category", () => {
@@ -96,11 +96,11 @@ describe('servicesView', () => {
     componentTest.eventFire(element.querySelector('#category-cicd'), 'click');
 
     // 'CI/CD' should only have a 'Jenkins' sub-category and no 'All' sub-category
-    let subCatCard: any = jQuery(element).find('.sub-cat-label');
+    let subCatCard: any = jQuery(element).find('.services-sub-category-tab-name');
     expect(subCatCard.length).toBe(1);
     expect(subCatCard.html()).toBe('Jenkins');
 
     // Expansion card should be shown with one card
-    expect(jQuery(element).find('.card-name').length).toBe(1);
+    expect(jQuery(element).find('.services-item-name').length).toBe(1);
   });
 });

@@ -6,7 +6,6 @@ export class ServicesViewController implements angular.IController {
   static $inject = ['Constants', 'Catalog', '$filter', '$scope', '$timeout'];
 
   public ctrl: any = this;
-  public cardViewConfig: any;
   private constants: any;
   private catalog: any;
   private $filter: any;
@@ -17,11 +16,6 @@ export class ServicesViewController implements angular.IController {
   private debounceResize: any;
 
   constructor(constants: any, catalog: any, $filter: any, $scope: any, $timeout: any) {
-    this.cardViewConfig = {
-      selectItems: false,
-      showSelectBox: false,
-      onClick: this.handleClick
-    };
     this.constants = constants;
     this.catalog = catalog;
     this.$filter = $filter;
@@ -182,13 +176,13 @@ export class ServicesViewController implements angular.IController {
   };
 
   private resizeExpansion() {
-    let activeCard = $('.sub-cat-card.active');
-    let contentHeight = activeCard.find('.card-view-pf').outerHeight();
-    activeCard.css('margin-bottom', contentHeight + 'px');
+    $('.services-sub-category').removeAttr('style');
+    let activeCat = $('.services-sub-category.active');
+    let contentHeight = activeCat.find('.services-items').innerHeight();
+    activeCat.css('margin-bottom', contentHeight + 'px');
   }
 
   private updateActiveCardStyles() {
-    $('.sub-cat-card').css('margin-bottom', '');
     this.$timeout(this.resizeExpansion, 50);
   }
 }
