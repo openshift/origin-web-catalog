@@ -6,7 +6,7 @@ cache:
   - node_modules
   - bower_components
 before_script:
-  - make clean build
+  - make build
 script:
   - hack/test-headless.sh test
   - hack/verify-dist.sh
