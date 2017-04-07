@@ -1,44 +1,36 @@
-<div class="col-md-12 center">
+<div class="col-md-12 center review-panel">
   <div ng-if="!$ctrl.error">
-    <div class="title">
-      Your Order is Complete <span class="fa fa-check success-check"></span>
+    <div ng-if="!$ctrl.orderComplete">
+      <h3 class="mar-top-none center">
+        <span class="fa fa-spinner fa-pulse fa-3x fa-fw" aria-hidden="true"></span>
+      </h3>
+      <h3 class="center">
+        The service is being provisioned
+      </h3>
     </div>
-    <div class="sub-title center">
-      Continue to your project to bind the service to your application.
-    </div>
-    <div class="launch-service">
-      <!-- FIXME: Only works in the console -->
-      <!-- TODO: Provide direct link to bind action? -->
-      <a ng-href="project/{{$ctrl.selectedProject.metadata.name}}/overview" class="btn btn-primary order-btn">
-        View Project
-      </a>
+    <div ng-if="$ctrl.orderComplete">
+      <h3 class="mar-top-none">
+        <strong>{{$ctrl.serviceName}}</strong> has been added to <strong>{{$ctrl.selectedProject | displayName}}</strong> successfully
+      </h3>
+      <div class="alert alert-info mar-top-xxl mar-bottom-xl">
+        <span class="pficon pficon-info" aria-hidden="true"></span>
+        <span class="sr-only">Info</span>
+        Continue to your project to bind this service to your application. Binding this service creates a secret containing the information necessary for your application to use the service.
+      </div>
     </div>
   </div>
-  <div ng-if="$ctrl.error">
+  <div class="review-failure" ng-if="$ctrl.error">
     <div class="title">Order Failed <span class="fa fa-times text-danger"></span></div>
     <div class="sub-title center">
-      <span ng-if="$ctrl.error.data.message">
-        {{$ctrl.error.data.message | upperFirst}}
+      <span ng-if="$ctrl.error.message || $ctrl.error.Message ">
+        {{$ctrl.error.message || $ctrl.error.Message | upperFirst}}
       </span>
-      <span ng-if="!$ctrl.error.data.message">
+      <span ng-if="!$ctrl.error.message || $ctrl.error.Message">
         An error occurred ordering the service.
       </span>
     </div>
   </div>
-  <div>
-    <a class="close-href" href="" ng-click="$ctrl.closePanel()">Close</a> this panel to browse other services.
+  <div class="footer-panel">
+    <button class="view-btn btn btn-primary" href="" ng-click="$ctrl.viewProjectPanel()">View Project</button>
   </div>
-  <!-- <div class="related-services-container"> -->
-  <!--   <span class="related-services-label">Related Services</span> -->
-  <!--   <span class="related-services-row"> -->
-  <!--     <div class="card"> -->
-  <!--       <div class="card-icon font-icon icon-jenkins"></div> -->
-  <!--       <div class="card-name">Jenkins</div> -->
-  <!--     </div> -->
-  <!--     <div class="card"> -->
-  <!--       <div class="card-icon font-icon icon-mysql-database"></div> -->
-  <!--       <div class="card-name">mySQL</div> -->
-  <!--     </div> -->
-  <!--   </span> -->
-  <!-- </div> -->
 </div>

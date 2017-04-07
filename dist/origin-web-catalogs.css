@@ -289,16 +289,19 @@
   margin-top: 8px;
   margin-right: -10px;
 }
+.order-service-config .footer-panel {
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  text-align: center;
+}
 .order-service-config .success-check {
   color: #3f9c35;
 }
 .order-service-config .launch-service {
   padding-top: 30px;
   padding-bottom: 14px;
-}
-.order-service-config .close-href {
-  cursor: pointer;
-  font-size: 12px;
 }
 .order-service-config .related-services-container {
   background-color: #ededed;
@@ -318,6 +321,12 @@
   float: right;
   margin-right: 6px;
   padding: 11px;
+}
+.order-service-config .review-panel {
+  height: 100%;
+}
+.order-service-config .wizard-pf-contents {
+  height: 100%;
 }
 .center {
   text-align: center;
