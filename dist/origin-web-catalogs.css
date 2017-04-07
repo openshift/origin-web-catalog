@@ -37,9 +37,6 @@
 .landing-main-area {
   background-color: #3ca2c9;
 }
-.landing-main-area h1 {
-  margin-left: 20px;
-}
 @media (min-width: 768px) {
   .landing-main-area {
     margin-right: 325px;
@@ -679,19 +676,34 @@ body.overlay-open {
   padding-top: 100px;
   padding-bottom: 100px;
 }
-.services-view-container {
-  padding-left: 0px;
+.services-view-container h1 {
+  background-color: rgba(0, 34, 53, 0.6);
+  color: #fff;
+  margin: 0;
+  padding: 10px 20px;
 }
-.services-view-container .title {
-  font-size: 36px;
-  font-weight: 700;
-  padding-left: 6px;
-  color: #72767b;
+.services-view-container .nav-tabs-pf {
+  background-color: rgba(0, 34, 53, 0.9);
+  border: none;
+  padding-left: 20px;
 }
-.services-view-container .sub-title {
-  font-size: 24px;
-  font-weight: 400;
-  color: #72767b;
+.services-view-container .nav-tabs-pf a {
+  color: #fff;
+  cursor: pointer;
+}
+.services-view-container .nav-tabs-pf a:hover {
+  color: #39a5dc;
+}
+.services-view-container .nav-tabs-pf a:hover:before {
+  display: none;
+}
+.services-view-container .nav-tabs-pf li.active > a {
+  color: #39a5dc;
+}
+.services-view-container .nav-tabs-pf li.active > a:before {
+  background: #39a5dc;
+  bottom: 0;
+  display: block;
 }
 .services-view-container .current-filter {
   color: #72767b;

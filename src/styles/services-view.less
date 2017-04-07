@@ -8,19 +8,38 @@
 }
 
 .services-view-container {
-  padding-left: 0px;
 
-  .title {
-    font-size: 36px;
-    font-weight: 700;
-    padding-left: 6px;
-    color: @color-pf-black-600;
+  h1 {
+    background-color: fade(@color-pf-blue-700, 60%);
+    color: @color-pf-white;
+    margin: 0;
+    padding: (@grid-gutter-width / 4) (@grid-gutter-width / 2);
   }
 
-  .sub-title {
-    font-size: 24px;
-    font-weight: 400;
-    color: @color-pf-black-600;
+  .nav-tabs-pf{
+    background-color: fade(@color-pf-blue-700, 90%);
+    border: none;
+    padding-left: (@grid-gutter-width / 2);
+    a {
+      color: @color-pf-white;
+      cursor: pointer;
+
+      &:hover {
+        color: @color-pf-blue-300;
+
+        &:before{
+          display: none;
+        }
+      }
+    }
+    li.active > a {
+      color: @color-pf-blue-300;
+      &:before {
+        background: @color-pf-blue-300;
+        bottom: 0;
+        display: block;
+      }
+    }
   }
 
   .current-filter {

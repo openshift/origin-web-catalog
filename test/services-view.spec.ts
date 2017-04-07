@@ -43,10 +43,10 @@ describe('servicesView', () => {
     var element = componentTest.rawElement;
     // 4 main categories ('All', 'Languages', 'Databases', 'Other')
     // 'Middleware' should be hidden since mock data has no items with Middleware sub-categories
-    expect(jQuery(element).find('.services-categories a').length).toBe(5);
+    expect(jQuery(element).find('.nav-tabs-pf a').length).toBe(5);
 
     // 'All' category should be selected and the current filter
-    expect(jQuery(element).find('.services-categories .current-filter').html()).toBe('All');
+    expect(jQuery(element).find('.nav-tabs-pf .active a').html()).toBe('All');
 
     // 15 cards/services
     expect(jQuery(element).find('.card-name').length).toBe(15);
