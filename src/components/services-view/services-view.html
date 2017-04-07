@@ -9,6 +9,7 @@
     </order-service>
     <create-from-builder
         ng-if="$ctrl.selectedImageStream"
+        base-project-url="{{$ctrl.baseProjectUrl}}"
         image-stream="$ctrl.selectedImageStream"
         handle-close="$ctrl.closeOrderingPanel">
     </create-from-builder>
