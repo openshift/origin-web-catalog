@@ -1069,12 +1069,16 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             this.ctrl.loading = s.isEmpty(this.ctrl.serviceClasses) && !this.serviceClassesLoaded || s.isEmpty(this.ctrl.imageStreams) && !this.imageStreamsLoaded, 
             this.ctrl.loading || (this.ctrl.filteredItems = this.ctrl.allItems, this.ctrl.categories = this.catalog.removeEmptyCategories(this.ctrl.filteredItems), 
             this.ctrl.subCategories = this.getSubCategories("all"));
+        }, e.prototype.sort = function(e) {
+            return s.sortByAll(e, [ function(e) {
+                return e.name.toLowerCase();
+            }, "resource.kind", "resource.metadata.name" ]);
         }, e.prototype.updateServiceClasses = function() {
-            this.ctrl.allItems = this.ctrl.allItems.concat(this.normalizeData("service", this.ctrl.serviceClasses)), 
-            this.updateState();
+            var e = this.ctrl.allItems.concat(this.normalizeData("service", this.ctrl.serviceClasses));
+            this.ctrl.allItems = this.sort(e), this.updateState();
         }, e.prototype.updateImageStreams = function() {
-            this.ctrl.allItems = this.ctrl.allItems.concat(this.normalizeData("image", this.ctrl.imageStreams)), 
-            this.updateState();
+            var e = this.ctrl.allItems.concat(this.normalizeData("image", this.ctrl.imageStreams));
+            this.ctrl.allItems = this.sort(e), this.updateState();
         }, e.prototype.resizeExpansion = function() {
             var e = a(".sub-cat-card.active"), t = e.find(".card-view-pf").outerHeight();
             e.css("margin-bottom", t + "px");
