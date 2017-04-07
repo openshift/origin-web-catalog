@@ -31,6 +31,8 @@
     </div>
   </div>
   <div class="footer-panel">
-    <button class="view-btn btn btn-primary" href="" ng-click="$ctrl.viewProjectPanel()">View Project</button>
+    <button class="view-btn btn btn-primary">
+      <a href="{{$ctrl.selectedProject | projectUrl : $ctrl.baseProjectUrl}}">View Project</a>
+    </button>
   </div>
 </div>

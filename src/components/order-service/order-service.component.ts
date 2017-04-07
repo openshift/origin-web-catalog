@@ -2,6 +2,7 @@ import {OrderServiceController} from './order-service.controller';
 
 export const orderService: angular.IComponentOptions = {
   bindings: {
+    baseProjectUrl: '@',
     serviceClass: '<',
     handleClose: '<'
   },

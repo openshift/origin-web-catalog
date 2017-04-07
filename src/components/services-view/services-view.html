@@ -3,6 +3,7 @@
   <overlay-panel show-panel="$ctrl.orderingPanelVisible" show-close="true" handle-close="$ctrl.closeOrderingPanel">
     <order-service
         ng-if="$ctrl.selectedServiceClass"
+        base-project-url="{{$ctrl.baseProjectUrl}}"
         service-class="$ctrl.selectedServiceClass"
         handle-close="$ctrl.closeOrderingPanel">
     </order-service>

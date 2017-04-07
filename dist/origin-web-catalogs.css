@@ -307,6 +307,13 @@
   right: 0;
   text-align: center;
 }
+.order-service-config .footer-panel a {
+  color: #fff;
+}
+.order-service-config .footer-panel a:hover {
+  color: #fff;
+  text-decoration: none;
+}
 .order-service-config .success-check {
   color: #3f9c35;
 }
