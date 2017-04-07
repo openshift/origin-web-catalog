@@ -12,6 +12,7 @@ export class OrderServiceController implements angular.IController {
   private DataService: any;
   private Logger: any;
   private currentStepIndex: number;
+  private watches: any[] = [];
 
   constructor($scope: any, $filter: any, DataService: any, Logger: any) {
     this.$scope = $scope;
@@ -61,7 +62,7 @@ export class OrderServiceController implements angular.IController {
 
   public stepClick(step: any) {
     // Prevent returning to previous steps if the order is complete.
-    if (this.ctrl.orderComplete) {
+    if (this.ctrl.currentStep.id === 'results') {
       return;
     }
 
@@ -73,7 +74,7 @@ export class OrderServiceController implements angular.IController {
   }
 
   public gotoStep(step: any) {
-    this.ctrl.steps.forEach((step) => step.selected = false);
+    this.ctrl.steps.forEach((step: any) => step.selected = false);
     if (this.ctrl.currentStep) {
       this.ctrl.currentStep.visited = true;
     }
@@ -135,19 +136,25 @@ export class OrderServiceController implements angular.IController {
 
   public createService() {
     let serviceInstance = this.makeServiceInstance();
-    this.DataService.create({
+    let resource = {
       group: 'servicecatalog.k8s.io',
       resource: 'instances'
-    }, null, serviceInstance, {
+    };
+    let context = {
       namespace: this.ctrl.selectedProject.metadata.name
-    }).then(() => {
-      // TODO: Handle async responses
-      this.ctrl.orderComplete = true;
-      this.ctrl.error = null;
+    };
+
+    this.DataService.create(resource, null, serviceInstance, context).then((data: any) => {
+      this.ctrl.orderInProgress = true;
+      this.watchResults(resource, data, context);
       this.gotoStepID('results');
     }, (e: any) => {
       this.ctrl.error = e;
     });
+  }
+
+  public $onDestroy() {
+    this.DataService.unwatchAll(this.watches);
   }
 
   public closePanel() {
@@ -182,5 +189,15 @@ export class OrderServiceController implements angular.IController {
 
   private isNewProject(): boolean {
     return this.ctrl.selectedProject && !_.has(this.ctrl.selectedProject, 'metadata.uid');
+  }
+
+  private watchResults = (resource: any, data: any, context: any) => {
+    this.watches.push(this.DataService.watchObject(resource, data.metadata.name, context, (instanceData: any, action: any) => {
+      var conditions: any = _.get(instanceData, 'status.conditions');
+      var readyCondition: any = _.find(conditions, {type: "Ready"});
+
+      this.ctrl.orderComplete = readyCondition && readyCondition.status === 'True';
+      this.ctrl.error = _.find(conditions, {type: "ProvisionFailed"});
+    }));
   }
 }

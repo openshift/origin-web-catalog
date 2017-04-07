@@ -15,7 +15,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
 }, function(e, t) {
     e.exports = '<div class="config-top">\n  <div class="select-plans">\n    <h3>Select a Plan</h3>\n    <div ng-repeat="plan in $ctrl.serviceClass.resource.plans" class="radio">\n      <label>\n        <input\n          type="radio"\n          ng-model="$ctrl.planIndex"\n          ng-change="$ctrl.selectPlan(plan)"\n          value="{{$index}}">\n        <span class="plan-name">{{plan.osbMetadata.displayName || plan.name}}</span>\n        <!-- TODO: truncate long text -->\n        <div ng-if="plan.description">{{plan.description}}</div>\n        <!-- TODO: show plan bullets -->\n        <div ng-if="plan.osbFree">Free</div>\n        <div ng-if="!plan.osbFree">Paid</div>\n      </label>\n    </div>\n  </div>\n</div>\n';
 }, function(e, t) {
-    e.exports = '<div class="col-md-12 center">\n  <div ng-if="!$ctrl.error">\n    <div class="title">\n      Your Order is Complete <span class="fa fa-check success-check"></span>\n    </div>\n    <div class="sub-title center">\n      Continue to your project to bind the service to your application.\n    </div>\n    <div class="launch-service">\n      <!-- FIXME: Only works in the console -->\n      <!-- TODO: Provide direct link to bind action? -->\n      <a ng-href="project/{{$ctrl.selectedProject.metadata.name}}/overview" class="btn btn-primary order-btn">\n        View Project\n      </a>\n    </div>\n  </div>\n  <div ng-if="$ctrl.error">\n    <div class="title">Order Failed <span class="fa fa-times text-danger"></span></div>\n    <div class="sub-title center">\n      <span ng-if="$ctrl.error.data.message">\n        {{$ctrl.error.data.message | upperFirst}}\n      </span>\n      <span ng-if="!$ctrl.error.data.message">\n        An error occurred ordering the service.\n      </span>\n    </div>\n  </div>\n  <div>\n    <a class="close-href" href="" ng-click="$ctrl.closePanel()">Close</a> this panel to browse other services.\n  </div>\n  <!-- <div class="related-services-container"> -->\n  <!--   <span class="related-services-label">Related Services</span> -->\n  <!--   <span class="related-services-row"> -->\n  <!--     <div class="card"> -->\n  <!--       <div class="card-icon font-icon icon-jenkins"></div> -->\n  <!--       <div class="card-name">Jenkins</div> -->\n  <!--     </div> -->\n  <!--     <div class="card"> -->\n  <!--       <div class="card-icon font-icon icon-mysql-database"></div> -->\n  <!--       <div class="card-name">mySQL</div> -->\n  <!--     </div> -->\n  <!--   </span> -->\n  <!-- </div> -->\n</div>\n';
+    e.exports = '<div class="col-md-12 center review-panel">\n  <div ng-if="!$ctrl.error">\n    <div ng-if="!$ctrl.orderComplete">\n      <h3 class="mar-top-none center">\n        <span class="fa fa-spinner fa-pulse fa-3x fa-fw" aria-hidden="true"></span>\n      </h3>\n      <h3 class="center">\n        The service is being provisioned\n      </h3>\n    </div>\n    <div ng-if="$ctrl.orderComplete">\n      <h3 class="mar-top-none">\n        <strong>{{$ctrl.serviceName}}</strong> has been added to <strong>{{$ctrl.selectedProject | displayName}}</strong> successfully\n      </h3>\n      <div class="alert alert-info mar-top-xxl mar-bottom-xl">\n        <span class="pficon pficon-info" aria-hidden="true"></span>\n        <span class="sr-only">Info</span>\n        Continue to your project to bind this service to your application. Binding this service creates a secret containing the information necessary for your application to use the service.\n      </div>\n    </div>\n  </div>\n  <div class="review-failure" ng-if="$ctrl.error">\n    <div class="title">Order Failed <span class="fa fa-times text-danger"></span></div>\n    <div class="sub-title center">\n      <span ng-if="$ctrl.error.message || $ctrl.error.Message ">\n        {{$ctrl.error.message || $ctrl.error.Message | upperFirst}}\n      </span>\n      <span ng-if="!$ctrl.error.message || $ctrl.error.Message">\n        An error occurred ordering the service.\n      </span>\n    </div>\n  </div>\n  <div class="footer-panel">\n    <button class="view-btn btn btn-primary" href="" ng-click="$ctrl.viewProjectPanel()">View Project</button>\n  </div>\n</div>\n';
 }, function(e, t, n) {
     "use strict";
     t.__esModule = !0;
@@ -749,7 +749,17 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
     t.__esModule = !0;
     var r = n(1), s = n(0), a = function() {
         function e(e, t, n, r) {
-            this.ctrl = this, this.$scope = e, this.$filter = t, this.DataService = n, this.Logger = r;
+            var a = this;
+            this.ctrl = this, this.watches = [], this.watchResults = function(e, t, n) {
+                a.watches.push(a.DataService.watchObject(e, t.metadata.name, n, function(e, t) {
+                    var n = s.get(e, "status.conditions"), r = s.find(n, {
+                        type: "Ready"
+                    });
+                    a.ctrl.orderComplete = r && "True" === r.status, a.ctrl.error = s.find(n, {
+                        type: "ProvisionFailed"
+                    });
+                }));
+            }, this.$scope = e, this.$filter = t, this.DataService = n, this.Logger = r;
         }
         return e.prototype.$onInit = function() {
             this.ctrl.iconClass = this.ctrl.serviceClass.iconClass || "fa fa-cubes", this.ctrl.imageUrl = this.ctrl.serviceClass.imageUrl, 
@@ -773,7 +783,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
         }, e.prototype.getSteps = function() {
             return this.ctrl.steps;
         }, e.prototype.stepClick = function(e) {
-            this.ctrl.orderComplete || e.visited && this.gotoStep(e);
+            "results" !== this.ctrl.currentStep.id && e.visited && this.gotoStep(e);
         }, e.prototype.gotoStep = function(e) {
             this.ctrl.steps.forEach(function(e) {
                 return e.selected = !1;
@@ -809,17 +819,19 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 });
             } else this.createService();
         }, e.prototype.createService = function() {
-            var e = this, t = this.makeServiceInstance();
-            this.DataService.create({
+            var e = this, t = this.makeServiceInstance(), n = {
                 group: "servicecatalog.k8s.io",
                 resource: "instances"
-            }, null, t, {
+            }, r = {
                 namespace: this.ctrl.selectedProject.metadata.name
-            }).then(function() {
-                e.ctrl.orderComplete = !0, e.ctrl.error = null, e.gotoStepID("results");
+            };
+            this.DataService.create(n, null, t, r).then(function(t) {
+                e.ctrl.orderInProgress = !0, e.watchResults(n, t, r), e.gotoStepID("results");
             }, function(t) {
                 e.ctrl.error = t;
             });
+        }, e.prototype.$onDestroy = function() {
+            this.DataService.unwatchAll(this.watches);
         }, e.prototype.closePanel = function() {
             r.isFunction(this.ctrl.handleClose) && this.ctrl.handleClose();
         }, e.prototype.makeServiceInstance = function() {
