@@ -1,6 +1,7 @@
 .landing-main-area {
-  background-color: @landing-main-bg;
-  
+
+  background: @landing-bg;
+  background-size: @landing-bg-size;
   @media(min-width: @screen-sm-min) {
     margin-right: @landing-side-bar-width-sm;
   }
@@ -13,7 +14,7 @@
 }
 
 .landing-search-area {
-  border-bottom: solid 1px @color-pf-blue-200;
+  border-bottom: solid 1px @search-area-border;
   padding: (@grid-gutter-width / 4);
   @media (min-width: @screen-sm-min) {
     padding: (@grid-gutter-width / 3);
