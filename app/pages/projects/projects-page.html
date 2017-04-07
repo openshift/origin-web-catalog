@@ -68,17 +68,15 @@
                             </a>
                           </span>
                           <span title="Delete Project">
-                            <delete-link
+                            <delete-project
                                 class="fa-lg project-action-item"
-                                kind="Project"
-                                resource-name="{{project.metadata.name}}"
                                 project-name="{{project.metadata.name}}"
                                 display-name="{{(project.displayName || project.metadata.name)}}"
                                 type-name-to-confirm="true"
                                 stay-on-current-page="true"
                                 alerts="alerts"
                                 button-only>
-                            </delete-link>
+                            </delete-project>
                           </span>
           </div>
           <div class="list-view-pf-main-info">
