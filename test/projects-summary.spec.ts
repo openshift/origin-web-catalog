@@ -8,6 +8,8 @@ import {ComponentTest} from '../test/utils/ComponentTest';
 import {ProjectsSummaryController} from '../src/components/projects-summary/projects-summary.controller';
 import {DataServiceData} from '../app/mockServices/mockData.service';
 import {projectsData} from '../app/mockServices/mockData/projects';
+import {servicesData} from '../app/mockServices/mockData/services';
+import {imagesData} from '../app/mockServices/mockData/openshift-images';
 
 import 'angular-patternfly';
 import 'angular-animate';
@@ -20,6 +22,9 @@ describe('Projects Summary Panel', () => {
   var $q: any;
   var ProjectsService: any;
   var DataService: any;
+  var RecentlyViewed: any;
+  var services: any;
+  var images: any;
   var viewMembershipProject: any;
   var viewMembershipCallCount: number = 0;
   var showTourCount: number = 0;
@@ -56,11 +61,18 @@ describe('Projects Summary Panel', () => {
   };
 
   var createProjectSummary = function() {
-    var projectsSummaryHtml: string = '<projects-summary view-edit-membership="testViewMembership" start-getting-started-tour="testShowTour"></projects-summary>';
+    var projectsSummaryHtml: string = '<projects-summary ' +
+      'service-classes="services" ' +
+      'image-streams="images" ' +
+      'view-edit-membership="testViewMembership" ' +
+      'start-getting-started-tour="testShowTour">' +
+      '</projects-summary>';
 
     componentTest = new ComponentTest<ProjectsSummaryController>(projectsSummaryHtml);
 
     var attributes: any = {
+      services: services,
+      images: images,
       testViewMembership: testViewMembership,
       testShowTour: testShowTour,
     };
@@ -75,17 +87,21 @@ describe('Projects Summary Panel', () => {
   });
 
   beforeEach(() => {
-    inject(function (_$window_: any, _$timeout_: any, _$q_: any, _ProjectsService_: any, _DataService_: any) {
+    inject(function (_$window_: any, _$timeout_: any, _$q_: any, _ProjectsService_: any, _DataService_: any, _RecentlyViewedServiceItems_: any) {
       $window = _$window_;
       $timeout = _$timeout_;
       $q = _$q_;
       ProjectsService = _ProjectsService_;
       DataService = _DataService_;
+      RecentlyViewed = _RecentlyViewedServiceItems_;
     });
   });
 
   beforeEach(() => {
     expectedCanCreate = true;
+    services = angular.copy(servicesData);
+    images = angular.copy(imagesData);
+
     spyOn(ProjectsService, 'canCreate').and.callFake(function() {
       let deferred = this.$q.defer();
       if (!expectedCanCreate) {
@@ -100,6 +116,14 @@ describe('Projects Summary Panel', () => {
       }
       return deferred.promise;
     });
+
+    // clear any 'recently viewed items' from local storage
+    localStorage.removeItem('catalog-recently-viewed-services');
+  });
+
+  afterEach(() => {
+    // clear any 'recently viewed items' from local storage
+    localStorage.removeItem('catalog-recently-viewed-services');
   });
 
   // testing the isoScope $ctrl
@@ -364,5 +388,26 @@ describe('Projects Summary Panel', () => {
 
     expect(message.length).toBe(1);
     expect(message[0].innerHTML.trim().startsWith('A cluster admin can create a project')).toBe(true);
+  });
+
+  it("should show Recently Viewed items", () => {
+    createProjectSummary();
+
+    var element = componentTest.rawElement;
+
+    // should be no recently viewed items
+    var recentlyViewedItems = jQuery(element).find('.services-item-name');
+    expect(recentlyViewedItems.length).toBe(0);
+
+    RecentlyViewed.addItem('nodejs');
+    RecentlyViewed.addItem('perl');
+    componentTest.scope.$digest();
+
+    recentlyViewedItems = jQuery(element).find('.services-item-name');
+    expect(recentlyViewedItems.length).toBe(2);
+
+    // Ordered by last added is first in list
+    expect(jQuery(recentlyViewedItems[0]).text()).toBe('Perl');
+    expect(jQuery(recentlyViewedItems[1]).text()).toBe('Node.js');
   });
 });

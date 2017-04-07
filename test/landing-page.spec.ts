@@ -51,10 +51,10 @@ describe('landingPage', () => {
   it('should include the correct transclusions', () => {
     var element = componentTest.rawElement;
 
-    var headerArea = jQuery(element).find('.landing-search-area');
-    expect(headerArea.length).toBe(1);
+    var searchArea = jQuery(element).find('.landing-search-area');
+    expect(searchArea.length).toBe(1);
 
-    var testSearchArea = jQuery(headerArea).find('#testSearch');
+    var testSearchArea = jQuery(searchArea).find('#testSearch');
     expect(testSearchArea.length).toBe(1);
 
     var headerArea = jQuery(element).find('.landing-header-area');

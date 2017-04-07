@@ -1,19 +1,21 @@
 import * as _ from 'lodash';
 
 export class CatalogSearchController implements angular.IController {
-  static $inject = ['$q', 'Catalog', 'KeywordService'];
+  static $inject = ['$scope', '$q', 'Catalog', 'KeywordService'];
 
   public ctrl: any = this;
 
   private Catalog: any;
   private KeywordService: any;
   private allItems: any[];
+  private $scope: any;
   private $q: any;
   private loaded: boolean = false;
   // Used when the user starts typing before the items have loaded.
   private searchDeferred: ng.IDeferred<any[]>;
 
-  constructor($q: any, Catalog: any, KeywordService: any) {
+  constructor($scope: any, $q: any, Catalog: any, KeywordService: any) {
+    this.$scope = $scope;
     this.$q = $q;
     this.Catalog = Catalog;
     this.KeywordService = KeywordService;
@@ -57,20 +59,8 @@ export class CatalogSearchController implements angular.IController {
   }
 
   public itemSelected(item: any) {
-    let kind = _.get(item, 'resource.kind');
-    if (kind === 'ImageStream') {
-      this.ctrl.selectedImageStream = item;
-      this.ctrl.selectedServiceClass = null;
-    } else {
-      this.ctrl.selectedImageStream = null;
-      this.ctrl.selectedServiceClass = item;
-    }
-    this.ctrl.orderingPanelVisible = true;
+    this.$scope.$emit('open-overlay-panel', item);
     this.ctrl.searchText = '';
-  }
-
-  public closeOrderingPanel = () => {
-    this.ctrl.orderingPanelVisible = false;
   }
 
   public search(searchText: string) {

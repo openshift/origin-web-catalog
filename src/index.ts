@@ -20,6 +20,7 @@ import {projectsSummary} from './components/projects-summary/projects-summary.co
 import {saasList} from './components/saas-list/saas-list.component';
 import {selectProject} from './components/select-project/select-project.component';
 import {servicesView} from './components/services-view/services-view.component';
+import {RecentlyViewedServiceItems} from './services/recently-viewed-service-items.service.ts';
 
 import './styles/main.less';
 
@@ -29,6 +30,7 @@ angular
   .module(webCatalog, ['patternfly', 'ngAnimate', 'ui.bootstrap', 'angularMoment', 'ui.select'])
   .service('BuilderAppService', BuilderAppService)
   .service('Catalog', CatalogService)
+  .service('RecentlyViewedServiceItems', RecentlyViewedServiceItems)
   .filter('projectUrl', projectUrlFilter)
   .component('catalogSearch', catalogSearch)
   .component('createFromBuilder', createFromBuilder)

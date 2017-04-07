@@ -3,7 +3,21 @@ import * as $ from 'jquery';
 import * as _ from 'lodash';
 
 export class ProjectsSummaryController implements angular.IController {
-  static $inject = ['$element', '$scope', '$filter', 'ProjectsService', 'Logger', 'AuthService', 'DataService', 'Constants', 'AlertMessageService'];
+  // alphabetically please
+  static $inject = [
+    '$element',
+    '$filter',
+    '$rootScope',
+    '$scope',
+    'AlertMessageService',
+    'AuthService',
+    'Catalog',
+    'Constants',
+    'DataService',
+    'Logger',
+    'ProjectsService',
+    'RecentlyViewedServiceItems'
+  ];
 
   public ctrl: any = this;
   public showNewProjectPanel: boolean = false;
@@ -11,6 +25,7 @@ export class ProjectsSummaryController implements angular.IController {
   public alerts: any = [];
   public projects: any = [];
   private $element: any;
+  private $rootScope: any;
   private $scope: any;
   private $filter: any;
   private ProjectsService: any;
@@ -18,20 +33,40 @@ export class ProjectsSummaryController implements angular.IController {
   private AuthService: any;
   private DataService: any;
   private Constants: any;
+  private RecentlyViewed: any;
+  private Catalog: any;
   private AlertMessageService: any;
   private watches: any = [];
   private maxDisplayProjects: number = 5;
+  private allItems: any;
 
-  constructor ($element: any, $scope: any, $filter: any, ProjectsService: any, Logger: any, AuthService: any, DataService: any, Constants: any, AlertMessageService: any) {
+  // alphabetically please
+  constructor (
+      $element: any,
+      $filter: any,
+      $rootScope: any,
+      $scope: any,
+      AlertMessageService: any,
+      AuthService: any,
+      Catalog: any,
+      Constants: any,
+      DataService: any,
+      Logger: any,
+      ProjectsService: any,
+      RecentlyViewedServiceItems: any
+    ) {
     this.$element = $element;
-    this.$scope = $scope;
     this.$filter = $filter;
-    this.ProjectsService = ProjectsService;
-    this.Logger = Logger;
-    this.AuthService = AuthService;
-    this.DataService = DataService;
-    this.Constants = Constants;
+    this.$rootScope = $rootScope;
+    this.$scope = $scope;
     this.AlertMessageService = AlertMessageService;
+    this.AuthService = AuthService;
+    this.Catalog = Catalog;
+    this.Constants = Constants;
+    this.DataService = DataService;
+    this.Logger = Logger;
+    this.ProjectsService = ProjectsService;
+    this.RecentlyViewed = RecentlyViewedServiceItems;
   }
 
   public $onInit () {
@@ -93,7 +128,37 @@ export class ProjectsSummaryController implements angular.IController {
         nextResource.href = this.Constants.HELP_BASE_URL + (nextResource.help ? this.Constants.HELP[nextResource.help] : '');
       }
     });
+
+    this.$rootScope.$on('recently-viewed-updated', () => {
+      this.ctrl.recentlyViewedItems = this.getRecentlyViewedItems();
+    });
   };
+
+  public $onChanges(onChangesObj: angular.IOnChangesObject) {
+    if (onChangesObj.serviceClasses || onChangesObj.imageStreams) {
+      if (!this.ctrl.serviceClasses && !this.ctrl.imageStreams) {
+        return;
+      }
+
+      // Convert service classes to ServiceItem, which is needed for the ordering panel.
+      let items = _.map(this.ctrl.serviceClasses, (serviceClass) => {
+        return this.Catalog.getServiceItem(serviceClass);
+      });
+
+      // Convert builders to ImageItem.
+      items = items.concat(_.map(this.ctrl.imageStreams, (imageStream) => {
+        return this.Catalog.getImageItem(imageStream);
+      }));
+
+      // Remove null items (non-builder images).
+      items = _.reject(items, (item) => {
+        return !item;
+      });
+
+      this.allItems = _.indexBy(items, 'resource.metadata.uid');
+      this.ctrl.recentlyViewedItems = this.getRecentlyViewedItems();
+    }
+  }
 
   public onProjectsUpdate = (projectData: any) => {
     var projects: any = _.toArray(projectData.by('metadata.creationTimestamp'));
@@ -158,6 +223,10 @@ export class ProjectsSummaryController implements angular.IController {
     }
   }
 
+  public orderService(item: any) {
+    this.$scope.$emit('open-overlay-panel', item);
+  }
+
   public showAllProjects() {
     var cb: any = this.ctrl.showProjects();
     if (cb) {
@@ -174,4 +243,24 @@ export class ProjectsSummaryController implements angular.IController {
     $('.catalog-projects-summary-modal-backrop').remove();
   }
 
+  private getRecentlyViewedItems() {
+    if (!this.allItems) {
+      return;
+    }
+
+    // recentItems is an array of uids
+    let recentItems: any = this.RecentlyViewed.getItems();
+
+    // replace uids with IServiceItems
+    let items: any = _.map(recentItems, (uid: any) => {
+      return this.allItems[uid];
+    });
+
+    // Remove null items
+    items = _.reject(items, (item) => {
+      return !item;
+    });
+
+    return items;
+  }
 }

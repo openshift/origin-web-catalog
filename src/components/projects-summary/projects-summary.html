@@ -99,4 +99,25 @@
       </ul>
     </div>
   </div>
+  <div ng-if="$ctrl.recentlyViewedItems.length">
+    <h2 class="secondary">Recently Viewed</h2>
+    <div class="services-view">
+      <div class="services-view-container">
+        <div class="services-items-inner">
+          <div class="services-items-inner-shadow-covers">
+            <a href="" class="services-item" ng-repeat="item in $ctrl.recentlyViewedItems track by (item.resource | uid)"
+                 ng-click="$ctrl.orderService(item)">
+              <div ng-if="!item.imageUrl" class="services-item-icon">
+                <span class="{{item.iconClass}}"></span>
+              </div>
+              <div ng-if="item.imageUrl" class="services-item-icon services-item-img">
+                <img ng-src="{{item.imageUrl}}">
+              </div>
+              <div class="services-item-name" aria-hidden="true">{{item.name}}</div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
