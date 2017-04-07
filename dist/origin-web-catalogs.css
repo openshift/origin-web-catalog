@@ -78,7 +78,6 @@
   background-size: cover;
   border-bottom: solid 1px #043d67;
   padding: 10px;
-  position: fixed;
   width: 100%;
   z-index: 1030;
 }
@@ -86,6 +85,7 @@
   .landing-search-area {
     padding: 13.33333333px;
     padding-right: 325px;
+    position: fixed;
   }
 }
 @media (min-width: 992px) {
