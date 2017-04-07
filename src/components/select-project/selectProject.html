@@ -22,7 +22,7 @@
     ng-if="$ctrl.isNewProject()">
   <div class="form-group">
     <label for="name" class="col-sm-4 control-label required">Project Name</label>
-    <span class="col-sm-8" ng-class="{'has-error': ($ctrl.forms.createProjectForm.name.$error.pattern && $ctrl.forms.createProjectForm.name.$touched) || nameTaken}">
+    <div class="col-sm-8" ng-class="{'has-error': ($ctrl.forms.createProjectForm.name.$error.pattern && $ctrl.forms.createProjectForm.name.$touched) || $ctrl.nameTaken}">
       <input class="form-control"
           name="name"
           id="name"
@@ -40,52 +40,46 @@
           autocorrect="off"
           autocapitalize="off"
           spellcheck="false">
-    </span>
-    <div>
-      <span class="col-sm-4"></span>
-      <span class="col-sm-8 help-block">A unique name for the project.</span>
-    </div>
-    <div class="has-error" ng-if="$ctrl.forms.createProjectForm.name.$error.minlength && $ctrl.forms.createProjectForm.name.$touched">
-      <span class="col-sm-4"></span>
-      <span id="nameHelp" class="col-sm-8 help-block">
-        Name must have at least two characters.
-      </span>
-    </div>
-    <div class="has-error" ng-if="$ctrl.forms.createProjectForm.name.$error.pattern && $ctrl.forms.createProjectForm.name.$touched">
-      <span class="col-sm-4"></span>
-      <span id="nameHelp" class="col-sm-8 help-block">
-        Project names may only contain lower-case letters, numbers, and dashes.
-        They may not start or end with a dash.
-      </span>
-    </div>
-    <div class="has-error" ng-if="$ctrl.nameTaken">
-      <span class="col-sm-4"></span>
-      <span class="col-sm-8 help-block">
-        This name is already in use. Please choose a different name.
-      </span>
+      <div class="help-block">A unique name for the project.</div>
+      <div class="has-error" ng-if="$ctrl.forms.createProjectForm.name.$error.minlength && $ctrl.forms.createProjectForm.name.$touched">
+        <span id="nameHelp" class="help-block">
+          Name must have at least two characters.
+        </span>
+      </div>
+      <div class="has-error" ng-if="$ctrl.forms.createProjectForm.name.$error.pattern && $ctrl.forms.createProjectForm.name.$touched">
+        <span id="nameHelp" class="help-block">
+          Project names may only contain lower-case letters, numbers, and dashes.
+          They may not start or end with a dash.
+        </span>
+      </div>
+      <div class="has-error" ng-if="$ctrl.nameTaken">
+        <span class="help-block">
+          This name is already in use. Please choose a different name.
+        </span>
+      </div>
     </div>
   </div>
 
   <div class="form-group">
     <label for="displayName" class="col-sm-4 control-label">Project Display Name</label>
-    <span class="col-sm-8">
-      <input class="form-control col-sm-8"
+    <div class="col-sm-8">
+      <input class="form-control"
         name="displayName"
         id="displayName"
         placeholder="My Project"
         type="text"
         ng-model="$ctrl.selectedProject.metadata.annotations['new-display-name']">
-    </span>
+    </div>
   </div>
 
   <div class="form-group">
     <label for="description" class="col-sm-4 control-label">Project Description</label>
-    <span class="col-sm-8">
+    <div class="col-sm-8">
       <textarea class="form-control"
         name="description"
         id="description"
         placeholder="A short description."
         ng-model="$ctrl.selectedProject.metadata.annotations['openshift.io/description']"></textarea>
-    </span>
+    </div>
   </div>
 </ng-form>
