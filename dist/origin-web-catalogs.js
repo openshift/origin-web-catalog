@@ -517,7 +517,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
         return e.prototype.getImage = function() {
             return s.get(this.resource, "osbMetadata.imageUrl", "");
         }, e.prototype.getIcon = function() {
-            return s.get(this.resource, [ "osbMetadata", "console.openshift.io/iconClass" ], "fa fa-cubes");
+            var e = s.get(this.resource, [ "osbMetadata", "console.openshift.io/iconClass" ], "fa fa-cubes");
+            return e = -1 !== e.indexOf("icon-") ? "font-icon " + e : e;
         }, e.prototype.getName = function() {
             return s.get(this.resource, "osbMetadata.displayName", this.resource.metadata.name);
         }, e.prototype.getDescription = function() {
