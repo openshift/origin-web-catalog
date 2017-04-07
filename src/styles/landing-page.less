@@ -14,10 +14,22 @@
 }
 
 .landing-search-area {
+  background: @landing-bg;
+  background-size: @landing-bg-size;
   border-bottom: solid 1px @search-area-border;
   padding: (@grid-gutter-width / 4);
+  position: fixed;
+  width: 100%;
+  z-index: @zindex-navbar-fixed;
   @media (min-width: @screen-sm-min) {
     padding: (@grid-gutter-width / 3);
+    padding-right: @landing-side-bar-width-sm;
+  }
+  @media(min-width: @screen-md-min) {
+    padding-right: @landing-side-bar-width-md;
+  }
+  @media(min-width: @screen-lg-min) {
+    padding-right: @landing-side-bar-width-lg;
   }
 }
 .landing-search-form {
@@ -38,6 +50,7 @@
     }
   }
   .dropdown-menu {
+    margin-top: 0;
     width: 100%;
     // Styles need to be specific enough to override defaults.
     > li > a.catalog-search-match {
@@ -81,9 +94,18 @@
   }
 }
 
+.landing-header-area {
+  // Height of search bar plus padding of search bar
+  padding-top: ((2.2 * @font-size-base + 4) + (2 * (@grid-gutter-width / 4)));
+    @media (min-width: @screen-sm-min) {
+        padding-top: ((2.2 * @font-size-base + 4) + (2 * (@grid-gutter-width / 3)));
+    }
+}
+
 .landing-side-bar {
   background-color: @landing-side-bar-bg;
   color: @color-pf-white;
+  z-index: @zindex-navbar-fixed + 1;
   @media(min-width: @screen-sm-min) {
     bottom: 0;
     overflow: hidden;
