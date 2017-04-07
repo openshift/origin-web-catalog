@@ -147,13 +147,21 @@ export class ServicesViewController implements angular.IController {
     }
   }
 
+  private sort(items: any[]) {
+    // Perform a case-insensitive sort on display name, falling back to kind
+    // and metadata.name for a stable sort when items have the same display name.
+    return _.sortByAll(items, [(item) => item.name.toLowerCase(), 'resource.kind', 'resource.metadata.name']);
+  }
+
   private updateServiceClasses() {
-    this.ctrl.allItems = this.ctrl.allItems.concat(this.normalizeData('service', this.ctrl.serviceClasses));
+    let allItems = this.ctrl.allItems.concat(this.normalizeData('service', this.ctrl.serviceClasses));
+    this.ctrl.allItems = this.sort(allItems);
     this.updateState();
   }
 
   private updateImageStreams() {
-    this.ctrl.allItems = this.ctrl.allItems.concat(this.normalizeData('image', this.ctrl.imageStreams));
+    let allItems = this.ctrl.allItems.concat(this.normalizeData('image', this.ctrl.imageStreams));
+    this.ctrl.allItems = this.sort(allItems);
     this.updateState();
   }
 
