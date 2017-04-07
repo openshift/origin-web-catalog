@@ -117,7 +117,9 @@ export class ServiceItem implements IServiceItem {
   }
 
   private getIcon() {
-    return _.get(this.resource, ['osbMetadata', 'console.openshift.io/iconClass'], 'fa fa-cubes');
+    let icon = _.get(this.resource, ['osbMetadata', 'console.openshift.io/iconClass'], 'fa fa-cubes');
+    icon = (icon.indexOf('icon-') !== -1) ? 'font-icon ' + icon : icon;
+    return icon;
   }
 
   private getName() {
