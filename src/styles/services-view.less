@@ -1,5 +1,6 @@
 .services-view {
   .services-item {
+    color: @text-color;
     display: flex;
     min-height: 160px;
     flex: 0 1 auto;
@@ -28,7 +29,9 @@
       width: 16.6667%;
     }
 
+    &:focus,
     &:hover {
+      text-decoration: none;
       .services-item-icon:after {
         border: 2px solid @link-color;
         border-radius: 100px;
@@ -103,10 +106,6 @@
     padding: 15px (@grid-gutter-width / 2) 0;
     position: relative;
 
-    a {
-      cursor: pointer;
-    }
-
     .services-items {
       border-bottom: 1px solid @color-pf-black-300;
       border-top: 1px solid @color-pf-black-300;
@@ -123,7 +122,6 @@
   }
 
   .services-sub-category {
-    cursor: pointer;
     background-color: @color-pf-white;
     border: 1px solid @color-pf-black-300;
     display: inline-block;
@@ -131,7 +129,6 @@
 
     &.active .services-sub-category-tab {
       color: @text-color !important;
-
       &:after { // shim to hide bottom border
         background: @color-pf-white;
         bottom: -1px;
@@ -161,8 +158,10 @@
       position: relative;
       text-align: center;
 
+      &:focus,
       &:hover {
         color: @link-color;
+        text-decoration: none;
       }
     }
 
@@ -187,7 +186,6 @@
 
       a {
         color: @color-pf-white;
-        cursor: pointer;
 
         &:hover {
           color: @color-pf-blue-300;

@@ -629,8 +629,6 @@ body.overlay-open {
 }
 .saas-offerings-container .saas-list .card {
   border-bottom: solid 1px #fff;
-  color: #fff;
-  cursor: pointer;
   display: flex;
   padding: 2em 0;
 }
@@ -649,7 +647,7 @@ body.overlay-open {
 }
 .saas-offerings-container .saas-list .card-content {
   align-items: center;
-  cursor: pointer;
+  color: #fff;
   display: flex;
 }
 @media (min-width: 768px) {
@@ -658,6 +656,10 @@ body.overlay-open {
     justify-content: space-around;
     text-align: center;
   }
+}
+.saas-offerings-container .saas-list .card-content:focus,
+.saas-offerings-container .saas-list .card-content:hover {
+  text-decoration: none;
 }
 .saas-offerings-container .saas-list .card-content .card-icon {
   font-size: 24px;
@@ -697,6 +699,7 @@ body.overlay-open {
   font-size: 12px;
 }
 .services-view .services-item {
+  color: #363636;
   display: flex;
   min-height: 160px;
   flex: 0 1 auto;
@@ -730,6 +733,11 @@ body.overlay-open {
     width: 16.6667%;
   }
 }
+.services-view .services-item:focus,
+.services-view .services-item:hover {
+  text-decoration: none;
+}
+.services-view .services-item:focus .services-item-icon:after,
 .services-view .services-item:hover .services-item-icon:after {
   border: 2px solid #0088ce;
   border-radius: 100px;
@@ -741,6 +749,7 @@ body.overlay-open {
   top: 50%;
   width: 90px;
 }
+.services-view .services-item:focus .services-item-name,
 .services-view .services-item:hover .services-item-name {
   color: #0088ce;
 }
@@ -794,9 +803,6 @@ body.overlay-open {
   padding: 15px 20px 0;
   position: relative;
 }
-.services-view .services-sub-categories a {
-  cursor: pointer;
-}
 .services-view .services-sub-categories .services-items {
   border-bottom: 1px solid #d1d1d1;
   border-top: 1px solid #d1d1d1;
@@ -810,7 +816,6 @@ body.overlay-open {
   overflow-y: auto;
 }
 .services-view .services-sub-category {
-  cursor: pointer;
   background-color: #fff;
   border: 1px solid #d1d1d1;
   display: inline-block;
@@ -845,8 +850,10 @@ body.overlay-open {
   position: relative;
   text-align: center;
 }
+.services-view .services-sub-category .services-sub-category-tab:focus,
 .services-view .services-sub-category .services-sub-category-tab:hover {
   color: #0088ce;
+  text-decoration: none;
 }
 .services-view .services-sub-category .services-sub-category-tab-icon {
   font-size: 36px;
@@ -865,7 +872,6 @@ body.overlay-open {
 }
 .services-view .services-view-container .nav-tabs-pf a {
   color: #fff;
-  cursor: pointer;
 }
 .services-view .services-view-container .nav-tabs-pf a:hover {
   color: #39a5dc;

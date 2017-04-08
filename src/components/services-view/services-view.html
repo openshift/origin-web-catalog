@@ -23,10 +23,10 @@
 
     <ul class="nav nav-tabs nav-tabs-pf">
       <li ng-class="{'active': $ctrl.currentFilter === 'all'}">
-        <a id="category-all" ng-click="$ctrl.filterByCategory('all', 'all', true)">All</a>
+        <a href="" id="category-all" ng-click="$ctrl.filterByCategory('all', 'all', true)">All</a>
       </li>
       <li ng-repeat="category in $ctrl.categories" ng-class="{'active': $ctrl.currentFilter === category.id}">
-        <a id="{{'category-'+category.id}}" ng-click="$ctrl.filterByCategory(category.id, 'all', true)">{{category.label}}</a>
+        <a href="" id="{{'category-'+category.id}}" ng-click="$ctrl.filterByCategory(category.id, 'all', true)">{{category.label}}</a>
       </li>
     </ul>
 
@@ -36,14 +36,14 @@
       <div ng-repeat="subCategory in $ctrl.subCategories"
            id="{{'services-sub-category-'+subCategory.id}}"
            class="services-sub-category" ng-class="{'active': $ctrl.currentSubFilter === subCategory.id}">
-        <div class="services-sub-category-tab" ng-click="$ctrl.selectSubCategory(subCategory.id)">
+        <a href="" class="services-sub-category-tab" ng-click="$ctrl.selectSubCategory(subCategory.id)">
           <div class="services-sub-category-tab-icon {{subCategory.icon}}" ng-if="subCategory.icon"></div>
           <div class="services-sub-category-tab-name">{{subCategory.label}}</div>
-        </div>
+        </a>
         <div ng-if="$ctrl.currentSubFilter === subCategory.id" class="services-items">
           <div class="services-items-inner">
             <div class="services-items-inner-shadow-covers">
-              <div class="services-item" ng-repeat="item in $ctrl.filteredItems" ng-click="$ctrl.handleClick(item)">
+              <a href="" class="services-item" ng-repeat="item in $ctrl.filteredItems" ng-click="$ctrl.handleClick(item)">
                 <div ng-if="!item.imageUrl" class="services-item-icon">
                   <span class="{{item.iconClass}}"></span>
                 </div>
@@ -52,7 +52,7 @@
                 </div>
                 <div class="services-item-name">{{item.name}}</div>
               </div>
-            </div>
+            </a>
           </div>
         </div>
       </div>
@@ -63,7 +63,7 @@
     <div ng-if="$ctrl.currentFilter === 'other' || $ctrl.currentFilter === 'all'" class="services-items">
       <div class="services-items-inner">
         <div class="services-items-inner-shadow-covers">
-          <div class="services-item" ng-repeat="item in $ctrl.filteredItems" ng-click="$ctrl.handleClick(item)">
+          <a href="" class="services-item" ng-repeat="item in $ctrl.filteredItems" ng-click="$ctrl.handleClick(item)">
             <div ng-if="!item.imageUrl" class="services-item-icon">
               <span class="{{item.iconClass}}"></span>
             </div>
@@ -72,7 +72,7 @@
             </div>
             <div class="services-item-name">{{item.name}}</div>
           </div>
-        </div>
+        </a>
       </div>
     </div>
   </div>
