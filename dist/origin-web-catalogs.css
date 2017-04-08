@@ -61,9 +61,6 @@
   margin-right: 5px;
   text-transform: uppercase;
 }
-.landing-header-area {
-  padding-top: 50.4px;
-}
 @media (min-width: 768px) {
   .landing-header-area {
     padding-top: 57.06666667px;
