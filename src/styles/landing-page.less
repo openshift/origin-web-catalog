@@ -1,5 +1,4 @@
 .catalog-search-match {
-  height: 45px;
   .catalog-search-match-info {
     display: inline-block;
     vertical-align: top;
@@ -80,11 +79,6 @@
   .dropdown-menu {
     margin-top: 0;
     width: 100%;
-    // Styles need to be specific enough to override defaults.
-    > li > a.catalog-search-match {
-      padding-bottom: 5px;
-      padding-top: 5px;
-    }
     // important needed to override styles declared important in PatternFly
     .active > a.catalog-search-match, :focus{
       background-color: @color-pf-blue-50 !important;
