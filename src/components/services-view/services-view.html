@@ -36,7 +36,7 @@
       <div ng-repeat="subCategory in $ctrl.subCategories"
            id="{{'services-sub-category-'+subCategory.id}}"
            class="services-sub-category" ng-class="{'active': $ctrl.currentSubFilter === subCategory.id}">
-        <div class="services-sub-category-tab" ng-click="$ctrl.toggleExpand(subCategory.id)">
+        <div class="services-sub-category-tab" ng-click="$ctrl.selectSubCategory(subCategory.id)">
           <div class="services-sub-category-tab-icon {{subCategory.icon}}" ng-if="subCategory.icon"></div>
           <div class="services-sub-category-tab-name">{{subCategory.label}}</div>
         </div>
