@@ -44,7 +44,7 @@
 .catalog-search-match .catalog-search-match-label {
   font-weight: 600;
 }
-.catalog-search-match .catalog-search-icon {
+.catalog-search-match .catalog-search-match-icon {
   display: inline-block;
   margin-right: 10px;
   text-align: center;
@@ -77,6 +77,16 @@
   padding: 10px;
   width: 100%;
   z-index: 1030;
+}
+.landing-search-area .catalog-search-icon {
+  color: #39a5dc;
+  font-size: 16px;
+  left: 12px;
+  position: absolute;
+  top: 7px;
+}
+.landing-search-area .catalog-search-input {
+  text-indent: 30px;
 }
 @media (min-width: 768px) {
   .landing-search-area {

@@ -7,7 +7,7 @@
   .catalog-search-match-label {
     font-weight: 600;
   }
-  .catalog-search-icon {
+  .catalog-search-match-icon {
     display: inline-block;
     margin-right: 10px;
     text-align: center;
@@ -45,6 +45,16 @@
   padding: (@grid-gutter-width / 4);
   width: 100%;
   z-index: @zindex-navbar-fixed;
+  .catalog-search-icon {
+    color: @color-pf-blue-300;
+    font-size: 16px;
+    left: 12px;
+    position: absolute;
+    top: 7px;
+  }
+  .catalog-search-input {
+    text-indent: 30px;
+  }
   @media (min-width: @screen-sm-min) {
     padding: (@grid-gutter-width / 3);
     padding-right: @landing-side-bar-width-sm;

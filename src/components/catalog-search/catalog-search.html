@@ -16,10 +16,11 @@
     <div class="form-group has-clear">
       <div class="search-pf-input-group">
         <label for="search-input" class="sr-only">Search Catalog</label>
+        <span class="fa fa-search catalog-search-icon" aria-hidden="true"></span>
         <input
             id="search-input"
             type="search"
-            class="form-control"
+            class="form-control catalog-search-input"
             placeholder="Search Catalog"
             ng-model="$ctrl.searchText"
             uib-typeahead="item.name for item in $ctrl.search($viewValue)"
