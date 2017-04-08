@@ -72,15 +72,6 @@ describe('servicesView', () => {
     expect(jQuery(element).find('.services-item-name').length).toBe(2);
   });
 
-  it('should show/hide cards when same sub-category is clicked twice', () => {
-    var element = componentTest.rawElement;
-    componentTest.eventFire(element.querySelector('#category-databases'), 'click');
-    componentTest.eventFire(element.querySelector('#services-sub-category-mongodb .services-sub-category-tab'), 'click');
-    expect(jQuery(element).find('.services-item-name').length).toBe(2);
-    componentTest.eventFire(element.querySelector('#services-sub-category-mongodb .services-sub-category-tab'), 'click');
-    expect(jQuery(element).find('.services-item-name').length).toBe(0);
-  });
-
   it("should categorize 'Other' items", () => {
     var element = componentTest.rawElement;
 

@@ -69,7 +69,7 @@ export class ServicesViewController implements angular.IController {
         } else if (category === 'all' && subCategory !== 'all') {
           return this.catalog.hasSubCategory(item, subCategory);
         } else {
-          return  this.catalog.hasCategory(item, category) && this.catalog.hasSubCategory(item, subCategory);
+          return this.catalog.hasCategory(item, category) && this.catalog.hasSubCategory(item, subCategory);
         }
       });
     }
@@ -83,13 +83,8 @@ export class ServicesViewController implements angular.IController {
     this.updateActiveCardStyles();
   }
 
-  public toggleExpand(subCategory: string) {
-    if (this.ctrl.currentSubFilter === subCategory) {
-      this.ctrl.currentSubFilter = null;
-      this.updateActiveCardStyles();
-    } else {
-      this.filterByCategory(this.ctrl.currentFilter, subCategory, false);
-    }
+  public selectSubCategory(subCategory: string) {
+    this.filterByCategory(this.ctrl.currentFilter, subCategory, false);
   }
 
   public getSubCategories(category: string) {
