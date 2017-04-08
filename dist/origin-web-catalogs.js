@@ -15,7 +15,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
 }, function(e, t) {
     e.exports = '<div class="config-top">\n  <div class="select-plans">\n    <h3>Select a Plan</h3>\n    <div ng-repeat="plan in $ctrl.serviceClass.resource.plans" class="radio">\n      <label>\n        <input\n          type="radio"\n          ng-model="$ctrl.planIndex"\n          ng-change="$ctrl.selectPlan(plan)"\n          value="{{$index}}">\n        <span class="plan-name">{{plan.osbMetadata.displayName || plan.name}}</span>\n        <!-- TODO: truncate long text -->\n        <div ng-if="plan.description">{{plan.description}}</div>\n        <!-- TODO: show plan bullets -->\n        <div ng-if="plan.osbFree">Free</div>\n        <div ng-if="!plan.osbFree">Paid</div>\n      </label>\n    </div>\n  </div>\n</div>\n';
 }, function(e, t) {
-    e.exports = '<div class="col-md-12 center review-panel">\n  <div ng-if="!$ctrl.error">\n    <div ng-if="!$ctrl.orderComplete">\n      <h3 class="center">\n        <span class="fa fa-spinner fa-pulse fa-3x fa-fw" aria-hidden="true"></span>\n      </h3>\n      <h3 class="center">\n        The service is being provisioned\n      </h3>\n    </div>\n    <div ng-if="$ctrl.orderComplete">\n      <h3>\n        <strong>{{$ctrl.serviceName}}</strong> has been added to <strong>{{$ctrl.selectedProject | displayName}}</strong> successfully\n      </h3>\n      <div class="alert alert-info">\n        <span class="pficon pficon-info" aria-hidden="true"></span>\n        <span class="sr-only">Info</span>\n        Continue to your project to bind this service to your application. Binding this service creates a secret containing the information necessary for your application to use the service.\n      </div>\n    </div>\n  </div>\n  <div class="review-failure" ng-if="$ctrl.error">\n    <div class="title">Order Failed <span class="fa fa-times text-danger"></span></div>\n    <div class="sub-title center">\n      <span ng-if="$ctrl.error.message || $ctrl.error.Message ">\n        {{$ctrl.error.message || $ctrl.error.Message | upperFirst}}\n      </span>\n      <span ng-if="!$ctrl.error.message || $ctrl.error.Message">\n        An error occurred ordering the service.\n      </span>\n    </div>\n  </div>\n  <div class="footer-panel">\n    <button class="view-btn btn btn-primary">\n      <a href="{{$ctrl.selectedProject | projectUrl : $ctrl.baseProjectUrl}}">View Project</a>\n    </button>\n  </div>\n</div>\n';
+    e.exports = '<div class="col-md-12 center review-panel">\n  <div ng-if="!$ctrl.error">\n    <div ng-if="!$ctrl.orderComplete">\n      <h3 class="center">\n        <span class="fa fa-spinner fa-pulse fa-3x fa-fw" aria-hidden="true"></span>\n      </h3>\n      <h3 class="center">\n        The service is being provisioned\n      </h3>\n    </div>\n    <div ng-if="$ctrl.orderComplete">\n      <h3>\n        <strong>{{$ctrl.serviceName}}</strong> has been added to <strong>{{$ctrl.projectDisplayName}}</strong> successfully\n      </h3>\n      <div class="alert alert-info">\n        <span class="pficon pficon-info" aria-hidden="true"></span>\n        <span class="sr-only">Info</span>\n        Continue to your project to bind this service to your application. Binding this service creates a secret containing the information necessary for your application to use the service.\n      </div>\n    </div>\n  </div>\n  <div class="review-failure" ng-if="$ctrl.error">\n    <div class="title">Order Failed <span class="fa fa-times text-danger"></span></div>\n    <div class="sub-title center">\n      <span ng-if="$ctrl.error.message || $ctrl.error.Message ">\n        {{$ctrl.error.message || $ctrl.error.Message | upperFirst}}\n      </span>\n      <span ng-if="!$ctrl.error.message || $ctrl.error.Message">\n        An error occurred ordering the service.\n      </span>\n    </div>\n  </div>\n  <div class="footer-panel">\n    <button class="view-btn btn btn-primary">\n      <a href="{{$ctrl.selectedProject | projectUrl : $ctrl.baseProjectUrl}}">View Project</a>\n    </button>\n  </div>\n</div>\n';
 }, function(e, t, n) {
     "use strict";
     t.__esModule = !0;
@@ -815,13 +815,14 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                     displayName: n,
                     description: r
                 };
-                this.DataService.create("projectrequests", null, s, this.$scope).then(function(t) {
-                    e.createService();
+                this.DataService.create("projectrequests", null, s, this.$scope).then(function(r) {
+                    e.ctrl.projectDisplayName = n || t, e.createService();
                 }, function(t) {
                     var n = t.data || {};
                     "AlreadyExists" === n.reason ? e.ctrl.nameTaken = !0 : e.ctrl.error = n.message || "An error occurred creating the project.";
                 });
-            } else this.createService();
+            } else this.ctrl.projectDisplayName = this.$filter("displayName")(this.ctrl.selectedProject), 
+            this.createService();
         }, e.prototype.createService = function() {
             var e = this, t = this.makeServiceInstance(), n = {
                 group: "servicecatalog.k8s.io",
