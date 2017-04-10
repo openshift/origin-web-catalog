@@ -618,7 +618,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             return e ? this.loaded ? this.filterForKeywords(e) : (this.searchDeferred = this.$q.defer(), 
             this.searchDeferred.promise) : [];
         }, e.prototype.filterForKeywords = function(e) {
-            var t = this.KeywordService.generateKeywords(e), n = this.KeywordService.filterForKeywords(this.allItems, [ "name", "tags", "resource.osbMetadata.tags" ], t);
+            var t = this.KeywordService.generateKeywords(e), n = this.KeywordService.filterForKeywords(this.allItems, [ "name", "tags", "resource.osbTags" ], t);
             return r.take(n, 5);
         }, e;
     }();
