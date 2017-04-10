@@ -34,9 +34,6 @@
     opacity: 0;
   }
 }
-.catalog-search-match {
-  height: 45px;
-}
 .catalog-search-match .catalog-search-match-info {
   display: inline-block;
   vertical-align: top;
@@ -116,10 +113,6 @@
 .landing-search-form .dropdown-menu {
   margin-top: 0;
   width: 100%;
-}
-.landing-search-form .dropdown-menu > li > a.catalog-search-match {
-  padding-bottom: 5px;
-  padding-top: 5px;
 }
 .landing-search-form .dropdown-menu .active > a.catalog-search-match,
 .landing-search-form .dropdown-menu :focus {
