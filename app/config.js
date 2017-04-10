@@ -40,3 +40,5 @@ window.OPENSHIFT_VERSION = {
   openshift: "dev-mode",
   kubernetes: "dev-mode"
 };
+
+window.OPENSHIFT_CONSOLE_BASE_URL = "https://localhost:9000/dev-console";
