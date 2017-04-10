@@ -27,8 +27,6 @@
 
     .card {
       border-bottom: solid 1px @saas-text;
-      color: @saas-text;
-      cursor: pointer;
       display: flex;
       padding: 2em 0;
 
@@ -49,13 +47,18 @@
 
     .card-content {
       align-items: center;
-      cursor: pointer;
+      color: @saas-text;
       display: flex;
 
       @media (min-width: @screen-sm-min) {
         flex-direction: column;
         justify-content: space-around;
         text-align: center;
+      }
+
+      &:focus,
+      &:hover {
+        text-decoration: none;
       }
 
       .card-icon {
