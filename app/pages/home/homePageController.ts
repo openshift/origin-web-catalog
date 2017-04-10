@@ -23,6 +23,10 @@ export class HomePageController {
   };
 
   public $onInit() {
+    // Assume a development environment for the console. Remove the trailing slash if set.
+    let consoleBaseUrl = _.get(window, 'OPENSHIFT_CONSOLE_BASE_URL', 'https://localhost:9000/dev-console').replace(/\/$/, '');
+    this.ctrl.baseProjectUrl = consoleBaseUrl + "/project";
+    this.ctrl.projectsUrl = consoleBaseUrl + "/projects";
     this.authService.withUser().then(() => {
       this.update();
     });

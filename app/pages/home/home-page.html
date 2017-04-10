@@ -5,9 +5,9 @@
     </div>
   </landingheader>
   <landingbody>
-    <services-view service-classes="$ctrl.serviceClasses" image-streams="$ctrl.imageStreams" base-project-url="/project"></services-view>
+    <services-view service-classes="$ctrl.serviceClasses" image-streams="$ctrl.imageStreams" base-project-url="{{$ctrl.baseProjectUrl}}"></services-view>
   </landingbody>
   <landingside>
-    <projects-summary base-project-url="/project" projects-url="/projects"></projects-summary>
+    <projects-summary base-project-url="{{$ctrl.baseProjectUrl}}" projects-url="{{$ctrl.projectsUrl}}"></projects-summary>
   </landingside>
 </landing-page>
