@@ -1,6 +1,5 @@
 .build-applications-view {
   background: linear-gradient(fade(@color-pf-blue-700, 20%), fade(@color-pf-blue-700, 0%));
-  border-top: solid 1px fade(@color-pf-blue-700, 30%);
 
   h1 {
     color: @saas-text;
@@ -10,34 +9,34 @@
 
 .saas-offerings-container {
 
-  .spinner-container {
-    padding-top: 60px;
-    padding-bottom: 60px;
-  }
-
   .saas-list {
     justify-content: space-around;
-    margin: 0 (@grid-gutter-width / 2);
 
     @media (min-width: @screen-sm-min) {
       display: flex;
       flex-wrap: wrap;
-      flex-direction: row;
+      margin: 0;
     }
 
     .card {
-      border-bottom: solid 1px @saas-text;
+      border-bottom: solid 1px @saas-border-bottom-color;
+      color: @saas-text;
+      cursor: pointer;
       display: flex;
-      padding: 2em 0;
-
-      &:hover {
-        background-color: @saas-hover;
-      }
+      padding: (@grid-gutter-width / 2);
 
       @media (min-width: @screen-sm-min) {
         border-bottom: none;
-        flex: 0 1 250px;
-        padding: 2em;;
+        flex: 0 1 auto;
+        width: 50%;
+      }
+
+      @media (min-width: @screen-lg-min) {
+        width: 25%;
+      }
+
+      &:hover {
+        background-color: @saas-hover;
       }
 
       &:last-child {
@@ -49,6 +48,7 @@
       align-items: center;
       color: @saas-text;
       display: flex;
+      flex: 1 1 0%; // IE 11
 
       @media (min-width: @screen-sm-min) {
         flex-direction: column;
@@ -61,22 +61,31 @@
         text-decoration: none;
       }
 
+      .card-description {
+        font-size: @font-size-base;
+        max-width: 100%; // IE 11
+      }
+
       .card-icon {
         font-size: 24px;
         text-align: center;
-        width: 40px;
 
-        &.fa.fa-mobile {
-          font-size: 32px;
+        @media(max-width: @screen-xs-max) {
+          width: 40px;
         }
 
         @media (min-width: @screen-sm-min) {
           font-size: 72px;
-          margin-bottom: 20px;
-          width: 100%;
+          min-height: 100px;
+        }
 
-          &.fa.fa-mobile {
-            font-size: 72px;
+        &.fa.fa-mobile {
+          font-size: 32px;
+
+          @media (min-width: @screen-sm-min) {
+            font-size: 100px;
+            position: relative;
+            top: -18px;
           }
         }
       }
@@ -90,15 +99,17 @@
         }
 
         @media (min-width: @screen-sm-min) {
-          padding-left: 0;
           font-weight: 700;
           margin-bottom: 10px;
+          max-width: 100%; // IE 11
+          padding-left: 0;
         }
       }
-
-      .card-description {
-        font-size: @font-size-base;
-      }
     }
+  }
+
+  .spinner-container {
+    padding-top: 60px;
+    padding-bottom: 60px;
   }
 }
