@@ -120,6 +120,7 @@ export class OrderServiceController implements angular.IController {
       this.DataService
         .create('projectrequests', null, projReqObj, this.$scope)
         .then( (data: any) => {
+          this.ctrl.projectDisplayName = newProjDisplayName || newProjName;
           this.createService();
         }, (result: any) => {
           var data = result.data || {};
@@ -130,6 +131,7 @@ export class OrderServiceController implements angular.IController {
           }
         });
     } else {
+      this.ctrl.projectDisplayName = this.$filter('displayName')(this.ctrl.selectedProject);
       this.createService();
     }
   }
