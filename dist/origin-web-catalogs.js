@@ -525,7 +525,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
         }, e.prototype.getName = function() {
             return s.get(this.resource, "osbMetadata.displayName", this.resource.metadata.name);
         }, e.prototype.getDescription = function() {
-            return s.get(this.resource, "osbMetadata.description", "");
+            return s.get(this.resource, "description", "");
         }, e.prototype.getLongDescription = function() {
             return s.get(this.resource, "osbMetadata.longDescription", "");
         }, e.prototype.getCategoriesBySubCategories = function() {

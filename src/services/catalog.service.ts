@@ -127,7 +127,7 @@ export class ServiceItem implements IServiceItem {
   }
 
   private getDescription() {
-    return _.get(this.resource, 'osbMetadata.description', '');
+    return _.get(this.resource, 'description', '');
   }
 
   private getLongDescription() {
