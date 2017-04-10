@@ -21,6 +21,11 @@ describe('landingPage', () => {
   beforeEach(() => {
     var landingPageHtml: string = '' +
       '<landing-page>' +
+      '  <landingsearch>' +
+      '    <div id="testSearch">' +
+      '      <h1>I am the search</h1>' +
+      '    </div>' +
+      '  </landingsearch>' +
       '  <landingheader>' +
       '    <div id="testHeader" style="height: 800px;">' +
       '      <h1>I am the header</h1>' +
@@ -45,6 +50,12 @@ describe('landingPage', () => {
   // testing rendered HTML
   it('should include the correct transclusions', () => {
     var element = componentTest.rawElement;
+
+    var headerArea = jQuery(element).find('.landing-search-area');
+    expect(headerArea.length).toBe(1);
+
+    var testSearchArea = jQuery(headerArea).find('#testSearch');
+    expect(testSearchArea.length).toBe(1);
 
     var headerArea = jQuery(element).find('.landing-header-area');
     expect(headerArea.length).toBe(1);

@@ -1,6 +1,6 @@
 <div class="landing">
   <div class="landing-main-area">
-    <catalog-search service-classes="$ctrl.serviceClasses" image-streams="$ctrl.imageStreams"></catalog-search>
+    <div class="landing-search-area" ng-transclude="landingsearch"></div>
     <div class="landing-header-area" ng-transclude="landingheader"></div>
     <div class="landing-body-area">
       <div ng-transclude="landingbody"></div>
