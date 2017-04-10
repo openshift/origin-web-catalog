@@ -1,4 +1,7 @@
-<landing-page service-classes="$ctrl.serviceClasses" image-streams="$ctrl.imageStreams">
+<landing-page>
+  <landingsearch>
+    <catalog-search service-classes="$ctrl.serviceClasses" image-streams="$ctrl.imageStreams" base-project-url="{{$ctrl.baseProjectUrl}}"></catalog-search>
+  </landingsearch>
   <landingheader>
     <div class="build-applications-view">
       <saas-list saas-title="$ctrl.saasOfferingsTitle" saas-offerings="$ctrl.saasOfferings"></saas-list>
