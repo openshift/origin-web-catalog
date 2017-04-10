@@ -57,7 +57,7 @@ describe('landingPage', () => {
     var testSearchArea = jQuery(headerArea).find('#testSearch');
     expect(testSearchArea.length).toBe(1);
 
-    var headerArea = jQuery(element).find('.landing-header-area');
+    headerArea = jQuery(element).find('.landing-header-area');
     expect(headerArea.length).toBe(1);
 
     var testHeaderArea = jQuery(headerArea).find('#testHeader');
