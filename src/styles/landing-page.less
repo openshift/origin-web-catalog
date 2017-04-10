@@ -25,10 +25,19 @@
   }
 }
 
-@media (min-width: @screen-sm-min) {
-  .landing-header-area {
-    // Height of search bar plus padding of search bar
-    padding-top: ((2.2 * @font-size-base + 4) + (2 * (@grid-gutter-width / 3)));
+.landing {
+  @media(min-width: @screen-sm-min) {
+    bottom: 0;
+    overflow-y: auto;
+    position: absolute;
+    top: @landing-offset-top;
+    width: calc(100% ~"-" @landing-side-bar-width-sm);
+  }
+  @media(min-width: @screen-md-min) {
+    width: calc(100% ~"-" @landing-side-bar-width-md);
+  }
+  @media(min-width: @screen-lg-min) {
+    width: calc(100% ~"-" @landing-side-bar-width-lg);
   }
 }
 
@@ -55,15 +64,15 @@
     text-indent: 30px;
   }
   @media (min-width: @screen-sm-min) {
-    padding: (@grid-gutter-width / 3);
-    padding-right: @landing-side-bar-width-sm;
     position: fixed;
+    top: @navbar-height;
+    width: calc(100% ~"-" @landing-side-bar-width-sm);
   }
   @media(min-width: @screen-md-min) {
-    padding-right: @landing-side-bar-width-md;
+    width: calc(100% ~"-" @landing-side-bar-width-md);
   }
   @media(min-width: @screen-lg-min) {
-    padding-right: @landing-side-bar-width-lg;
+    width: calc(100% ~"-" @landing-side-bar-width-lg);
   }
 }
 

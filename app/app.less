@@ -15,27 +15,13 @@
 @import "./styles/variables.less";
 
 
-@media(min-width: @screen-sm-min){
+@media(min-width: @screen-sm-min) {
   body, html, main {
     height: 100%;
     overflow: hidden;
   }
   body {
     padding-top: @navbar-height;
-  }
-  main {
-    overflow-y: auto;
-    width: calc(100% ~"-" @landing-side-bar-width-sm);
-  }
-}
-
-main {
-  @media(min-width: @screen-md-min) {
-    width: calc(100% ~"-" @landing-side-bar-width-md);
-  }
-
-  @media(min-width: @screen-lg-min) {
-    width: calc(100% ~"-" @landing-side-bar-width-lg);
   }
 }
 
