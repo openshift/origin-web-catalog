@@ -294,7 +294,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
     "use strict";
     function r() {
         return function(e, t) {
-            var n = t || "", r = e && e.metadata ? e.metadata.name : "";
+            var n = t || "project/", r = e && e.metadata ? e.metadata.name : "";
             return n.endsWith("/") || (n += "/"), n + r;
         };
     }
