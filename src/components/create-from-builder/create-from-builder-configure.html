@@ -88,7 +88,8 @@
       </div>
     </div>
 
-    <div ng-if="$ctrl.selectedProject && $ctrl.istag" class="form-group">
+    <!-- Only show the link for existing projects. It will be broken for new projects. -->
+    <div ng-if="$ctrl.selectedProject.metadata.uid && $ctrl.istag" class="form-group">
       <div class="col-sm-8 col-sm-offset-4">
         If you have a private Git repository or need to change application defaults, view
         <a href="" ng-click="$ctrl.navigateToAdvancedForm()">advanced options</a>.
