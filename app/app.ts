@@ -21,6 +21,7 @@ let hawtioPluginLoader = require('hawtio-core/dist/hawtio-core');
 require('urijs');
 require('urijs/src/URITemplate.js');
 require('angular-utf8-base64');
+require('hopscotch/dist/js/hopscotch.js');
 
 try {
   require('./config.local.js');
@@ -33,6 +34,7 @@ import {homePage} from './pages/home/homePage';
 import {servicesPage} from './pages/services/servicesPage';
 import {projectsPage} from './pages/projects/projectsPage';
 import {errorPage} from './pages/error/errorPage';
+import {logoutPage} from './pages/logout/logoutPage';
 import {navigation} from './components/navigation/navigation.component';
 import {MockServicesModule} from './mockServices/mockServices.module';
 
@@ -63,6 +65,7 @@ angular
   .component('servicespage', servicesPage)
   .component('projectspage', projectsPage)
   .component('errorpage', errorPage)
+  .component('logoutpage', logoutPage)
   .component('navigation', navigation)
   .constant('amTimeAgoConfig', {titleFormat: 'LLL'});
 

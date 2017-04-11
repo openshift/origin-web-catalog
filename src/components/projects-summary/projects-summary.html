@@ -86,9 +86,9 @@
   <div ng-if="$ctrl.showGetStarted">
     <div class="getting-started-panel">
       <h2 class="secondary" ng-if="$ctrl.projects && $ctrl.projects.length > 0">Getting Started</h2>
-      <button class="getting-started-button btn btn-default" ng-class="{'with-projects': $ctrl.projects && $ctrl.projects.length}" ng-click="$ctrl.handleGettingStartedClick()">
+      <button ng-if="$ctrl.startTour()" class="getting-started-button btn btn-default hidden-xs" ng-class="{'with-projects': $ctrl.projects && $ctrl.projects.length}" ng-click="$ctrl.handleGettingStartedClick()">
         <span class="fa fa-info-circle fa-2"></span>
-        <span class="getting-started-button-text">Start Guided Tour</span>
+        <span class="getting-started-button-text">Take Home Page Tour</span>
       </button>
     </div>
     <div class="resources-panel">

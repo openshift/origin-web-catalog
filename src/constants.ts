@@ -82,3 +82,77 @@ var resources: any = {
 };
 
 _.set(window, 'OPENSHIFT_CONSTANTS.CATALOG_HELP_RESOURCES', resources);
+
+var showAllCatalogs = function() {
+  $('body').find('.services-view-container .nav-tabs a')[0].click();
+};
+
+var showCategories = function() {
+  $($('body').find('.services-view-container .nav-tabs li')[1]).find('a')[0].click();
+  setTimeout(function() {
+    $('body').find('.services-sub-category-tab')[1].click();
+  });
+};
+
+var homePageTourSteps = {
+  id: "getting-started-tour",
+  steps: [
+    {
+      title: "Create Project",
+      content: "Projects allow you to organize and manage your content. Projects require a unique name, and optionally can include a display name, and description",
+      target: ".catalog-projects-summary-panel .create-button",
+      targetScrollElement: '.landing-side-bar',
+      placement: "left"
+    },
+    {
+      title: "Search Catalog",
+      content: "Search by name, description, keyword, or label to quickly locate items in the catalog that you want to add to your project.",
+      target: ".landing-search-area .landing-search-form",
+      placement: "bottom",
+      fixedElement: true
+    },
+    {
+      title: "Browse Catalog",
+      content: "If you don’t know exactly what you are looking for, you can browse all available catalog items under the first tab in the catalog.",
+      target: ".services-view-container",
+      targetScrollElement: '.landing',
+      placement: "top",
+      xOffset: 20,
+      preShow: showAllCatalogs
+    },
+    {
+      title: "Browse by Category",
+      content: "A secondary level of categorization is available to further narrow your search.",
+      target: ".services-view-container .nav-tabs li:nth-child(2)",
+      targetScrollElement: '.landing',
+      placement: "top",
+      preShow: showCategories
+    },
+    {
+      title: "Configure a Resource",
+      content: "Clicking on a catalog item will open a panel allowing you to configure and create within a project.",
+      target: ".services-sub-category.active .services-items .services-item",
+      targetScrollElement: '.landing',
+      placement: "right"
+    },
+    {
+      title: "Additional Help",
+      content: "Additional resources can be found here or you can always access the help icon in the top banner for more information.",
+      target: ".resources-panel",
+      targetScrollElement: '.landing-side-bar',
+      placement: "left"
+    }
+  ]
+};
+
+var guidedTours = {
+  landing_page_tour: {
+    enabled: true,
+    auto_launch: true,
+    steps: homePageTourSteps
+  }
+};
+
+_.set(window, 'OPENSHIFT_CONSTANTS.GUIDED_TOURS', guidedTours);
+
+

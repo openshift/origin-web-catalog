@@ -6,7 +6,7 @@ export const projectsSummary: angular.IComponentOptions = {
     catalogItems: '<',
     projectsUrl: '@',
     viewEditMembership: '&',
-    startGettingStartedTour: '&'
+    startTour: '&'
   },
   controller: ProjectsSummaryController,
   template: require('./projects-summary.html')
