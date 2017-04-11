@@ -12,15 +12,13 @@
   <div class="container-fluid wizard-pf-main">
     <div class="col-sm-6 order-service-details">
       <div class="order-service-details-top">
-        <div class="pull-left">
+        <div class="service-icon">
           <span class="icon {{$ctrl.imageStream.iconClass}}"></span>
         </div>
         <div class="service-title-area">
           <div class="service-title">
-            <span class="name">
-              {{$ctrl.imageStream.name}}
-              {{$ctrl.istag.name}}
-            </span>
+            {{$ctrl.imageStream.name}}
+            {{$ctrl.istag.name}}
           </div>
           <div class="order-service-tags">
             <span ng-repeat="tag in $ctrl.istag.annotations.tags.split(',')" class="tag">
@@ -28,14 +26,14 @@
             </span>
           </div>
         </div>
-        <div class="order-service-description-block">
-          <p ng-bind-html="$ctrl.istag.annotations.description | linky : '_blank'" class="builder-description"></p>
-          <p ng-if="$ctrl.istag.annotations.sampleRepo">
-            Sample Repository:
-            <!-- TODO: Use Git link filter, needs to be added to origin-web-common -->
-            <span ng-bind-html="$ctrl.istag.annotations.sampleRepo | linky : '_blank'">
-          </p>
-        </div>
+      </div>
+      <div class="order-service-description-block">
+        <p ng-bind-html="$ctrl.istag.annotations.description | linky : '_blank'" class="description"></p>
+        <p ng-if="$ctrl.istag.annotations.sampleRepo">
+          Sample Repository:
+          <!-- TODO: Use Git link filter, needs to be added to origin-web-common -->
+          <span ng-bind-html="$ctrl.istag.annotations.sampleRepo | linky : '_blank'">
+        </p>
       </div>
     </div>
     <div class="col-sm-6 order-service-config">
