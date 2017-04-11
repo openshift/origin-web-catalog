@@ -108,7 +108,8 @@
 .landing-side-bar {
   background-color: @landing-side-bar-bg;
   color: @color-pf-white;
-  z-index: @zindex-navbar-fixed + 1;
+  // Needs to be less than the navbar so dropdown menus don't open under the sidebar.
+  z-index: @zindex-navbar-fixed - 1;
   @media(min-width: @screen-sm-min) {
     bottom: 0;
     overflow-y: auto;
