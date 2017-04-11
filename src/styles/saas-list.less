@@ -21,9 +21,7 @@
     .card {
       border-bottom: solid 1px @saas-border-bottom-color;
       color: @saas-text;
-      cursor: pointer;
       display: flex;
-      padding: (@grid-gutter-width / 2);
 
       @media (min-width: @screen-sm-min) {
         border-bottom: none;
@@ -49,6 +47,7 @@
       color: @saas-text;
       display: flex;
       flex: 1 1 0%; // IE 11
+      padding: (@grid-gutter-width / 2);
 
       @media (min-width: @screen-sm-min) {
         flex-direction: column;
