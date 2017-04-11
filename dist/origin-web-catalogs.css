@@ -147,7 +147,7 @@
 .landing-side-bar {
   background-color: #2C343D;
   color: #fff;
-  z-index: 1031;
+  z-index: 1029;
 }
 @media (min-width: 768px) {
   .landing-side-bar {
