@@ -21,9 +21,7 @@
     .card {
       border-bottom: solid 1px @saas-border-bottom-color;
       color: @saas-text;
-      cursor: pointer;
       display: flex;
-      padding: (@grid-gutter-width / 2);
 
       @media (min-width: @screen-sm-min) {
         border-bottom: none;
@@ -49,10 +47,10 @@
       color: @saas-text;
       display: flex;
       flex: 1 1 0%; // IE 11
+      padding: (@grid-gutter-width / 2);
 
       @media (min-width: @screen-sm-min) {
         flex-direction: column;
-        justify-content: space-around;
         text-align: center;
       }
 
@@ -67,6 +65,8 @@
       }
 
       .card-icon {
+        align-items: center;
+        display: flex;
         font-size: 24px;
         text-align: center;
 
@@ -77,16 +77,16 @@
         @media (min-width: @screen-sm-min) {
           font-size: 72px;
           min-height: 100px;
+          padding-bottom: 10px;
         }
 
-        &.fa.fa-mobile {
-          font-size: 32px;
+        @media (min-width: @screen-lg-min) {
+          font-size: 108px;
+        }
 
-          @media (min-width: @screen-sm-min) {
-            font-size: 100px;
-            position: relative;
-            top: -18px;
-          }
+        img {
+          max-height: 1em;
+          max-width: 100%;
         }
       }
 
@@ -103,6 +103,9 @@
           margin-bottom: 10px;
           max-width: 100%; // IE 11
           padding-left: 0;
+        }
+        @media (min-width: @screen-lg-min) {
+          font-size: @font-size-base + 6;
         }
       }
     }

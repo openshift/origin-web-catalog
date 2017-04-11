@@ -645,9 +645,7 @@ body.overlay-open {
 .saas-offerings-container .saas-list .card {
   border-bottom: solid 1px rgba(0, 34, 53, 0.6);
   color: #fff;
-  cursor: pointer;
   display: flex;
-  padding: 20px;
 }
 @media (min-width: 768px) {
   .saas-offerings-container .saas-list .card {
@@ -672,11 +670,11 @@ body.overlay-open {
   color: #fff;
   display: flex;
   flex: 1 1 0%;
+  padding: 20px;
 }
 @media (min-width: 768px) {
   .saas-offerings-container .saas-list .card-content {
     flex-direction: column;
-    justify-content: space-around;
     text-align: center;
   }
 }
@@ -689,6 +687,8 @@ body.overlay-open {
   max-width: 100%;
 }
 .saas-offerings-container .saas-list .card-content .card-icon {
+  align-items: center;
+  display: flex;
   font-size: 24px;
   text-align: center;
 }
@@ -701,17 +701,17 @@ body.overlay-open {
   .saas-offerings-container .saas-list .card-content .card-icon {
     font-size: 72px;
     min-height: 100px;
+    padding-bottom: 10px;
   }
 }
-.saas-offerings-container .saas-list .card-content .card-icon.fa.fa-mobile {
-  font-size: 32px;
-}
-@media (min-width: 768px) {
-  .saas-offerings-container .saas-list .card-content .card-icon.fa.fa-mobile {
-    font-size: 100px;
-    position: relative;
-    top: -18px;
+@media (min-width: 1200px) {
+  .saas-offerings-container .saas-list .card-content .card-icon {
+    font-size: 108px;
   }
+}
+.saas-offerings-container .saas-list .card-content .card-icon img {
+  max-height: 1em;
+  max-width: 100%;
 }
 .saas-offerings-container .saas-list .card-content .card-title {
   font-size: 14px;
@@ -728,6 +728,11 @@ body.overlay-open {
     margin-bottom: 10px;
     max-width: 100%;
     padding-left: 0;
+  }
+}
+@media (min-width: 1200px) {
+  .saas-offerings-container .saas-list .card-content .card-title {
+    font-size: 18px;
   }
 }
 .saas-offerings-container .spinner-container {

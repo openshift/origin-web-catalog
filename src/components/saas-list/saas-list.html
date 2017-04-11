@@ -3,7 +3,7 @@
   <div class="saas-list" items="$ctrl.saasOfferings">
     <div class="card" ng-repeat="item in $ctrl.saasOfferings">
       <a href="" class="card-content" ng-click="$ctrl.handleClick(item)">
-        <span class="card-icon {{item.icon}}"></span>
+        <span class="card-icon {{item.icon}}"><img ng-if="item.image" ng-src="{{item.image}}"></span>
         <span class="card-title">{{item.title}}</span>
         <truncate-long-text
                 class="card-description hidden-xs"
