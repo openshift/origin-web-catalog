@@ -33,6 +33,7 @@ import {homePage} from './pages/home/homePage';
 import {servicesPage} from './pages/services/servicesPage';
 import {projectsPage} from './pages/projects/projectsPage';
 import {errorPage} from './pages/error/errorPage';
+import {logoutPage} from './pages/logout/logoutPage';
 import {navigation} from './components/navigation/navigation.component';
 import {MockServicesModule} from './mockServices/mockServices.module';
 
@@ -63,6 +64,7 @@ angular
   .component('servicespage', servicesPage)
   .component('projectspage', projectsPage)
   .component('errorpage', errorPage)
+  .component('logoutpage', logoutPage)
   .component('navigation', navigation)
   .constant('amTimeAgoConfig', {titleFormat: 'LLL'});
 

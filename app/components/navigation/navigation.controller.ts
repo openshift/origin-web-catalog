@@ -60,6 +60,10 @@ export class NavigationController implements angular.IController {
     this.ctrl.navCollapsed = true;
   }
 
+  public doLogout() {
+    this.$state.go('logout');
+ }
+
   public $onChanges(onChangesObj: angular.IOnChangesObject) {
     return;
   }
