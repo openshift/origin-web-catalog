@@ -10,15 +10,16 @@
   "dependencies": {
     "angular": "1.5.11",
     "angular-moment": "1.0.0",
-    "angular-resource": "1.5.11",
-    "angular-sanitize": "1.5.11",
-    "angular-route": "1.5.11",
     "angular-bootstrap": "0.14.3",
     "angular-patternfly": "3.21.0",
-    "patternfly": "3.21.0",
+    "angular-resource": "1.5.11",
+    "angular-route": "1.5.11",
+    "angular-sanitize": "1.5.11",
+    "hopscotch": "~0.2.7",
     "jquery": "2.1.4",
     "lodash": "3.10.1",
-    "origin-web-common": "~0.0.12"
+    "origin-web-common": "~0.0.12",
+    "patternfly": "3.21.0"
   },
   "devDependencies": {
     "ace-builds": "1.2.2",
