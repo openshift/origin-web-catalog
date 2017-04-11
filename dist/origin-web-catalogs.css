@@ -189,54 +189,61 @@
     height: 300px;
   }
 }
-.order-service-details .order-service-details-top .icon {
+.order-service-details .order-service-details-top {
+  align-items: center;
+  display: flex;
+}
+.order-service-details .order-service-details-top .service-icon {
+  margin-right: 15px;
+}
+.order-service-details .order-service-details-top .service-icon .icon {
   font-size: 60px;
-  padding-right: 20px;
 }
 @media (min-width: 450px) {
-  .order-service-details .order-service-details-top .icon {
-    font-size: 68px;
+  .order-service-details .order-service-details-top .service-icon .icon {
+    font-size: 64px;
   }
 }
-.order-service-details .order-service-details-top .service-title .name {
-  font-size: 18px;
-  font-weight: 700;
-  padding-right: 8px;
+.order-service-details .order-service-details-top .service-icon .image img {
+  max-height: 52px;
+  max-width: 52px;
 }
 @media (min-width: 450px) {
-  .order-service-details .order-service-details-top .service-title .name {
+  .order-service-details .order-service-details-top .service-icon .image img {
+    max-height: 60px;
+    max-width: 60px;
+  }
+}
+.order-service-details .order-service-details-top .service-title {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+@media (min-width: 450px) {
+  .order-service-details .order-service-details-top .service-title {
     font-size: 22px;
   }
-}
-.order-service-details .order-service-details-top .service-title .version {
-  font-size: 20px;
-  font-weight: 700;
-}
-.order-service-details .order-service-details-top .service-title-area {
-  min-height: 68px;
-  overflow: hidden;
 }
 .order-service-details .order-service-details-top .sub-title {
   font-size: 20px;
   font-weight: 600;
   color: #72767b;
 }
-.order-service-details .order-service-details-top .description {
-  white-space: pre-wrap;
-}
 .order-service-details .order-service-description-block {
-  clear: both;
   margin-top: 15px;
+}
+.order-service-details .order-service-description-block .description {
+  white-space: pre-wrap;
 }
 .order-service-details .order-service-description-block .learn-more-link {
   font-size: 11px;
   white-space: nowrap;
 }
 .order-service-details .order-service-tags {
-  margin-left: -5px;
+  margin-top: 5px;
 }
 .order-service-details .order-service-tags .tag {
-  margin-left: 5px;
+  margin-right: 5px;
   text-transform: uppercase;
 }
 .order-service-config {
@@ -802,7 +809,6 @@ body.overlay-open {
 .services-view .services-item-icon img {
   max-height: 50px;
   max-width: 50px;
-  z-index: 0;
 }
 .services-view .services-item-name {
   flex: 1 1 0%;
