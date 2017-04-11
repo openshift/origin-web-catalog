@@ -28,9 +28,13 @@
           </div>
         </div>
         <div class="order-service-description-block">
-          <div ng-if="$ctrl.currentStep.id !== 'plans' && $ctrl.selectedPlan" class="h3">
-            Plan {{$ctrl.selectedPlan.osbMetadata.displayName || $ctrl.selectedPlan.name}}
-          </div>
+          <p ng-if="$ctrl.currentStep.id !== 'plans' && ($ctrl.selectedPlan.osbMetadata.displayName || $ctrl.selectedPlan.description)">
+            <span ng-if="$ctrl.selectedPlan.osbMetadata.displayName">
+              Plan {{$ctrl.selectedPlan.osbMetadata.displayName}}
+              <span ng-if="$ctrl.selectedPlan.description">&ndash;</span>
+            </span>
+            <span ng-if="$ctrl.selectedPlan.description">{{$ctrl.selectedPlan.description}}</span>
+          </p>
           <p ng-if="$ctrl.description" ng-bind-html="$ctrl.description | linky : '_blank'" class="description"></p>
           <p ng-if="$ctrl.longDescription" ng-bind-html="$ctrl.longDescription | linky : '_blank'" class="description"></p>
           <p ng-if="$ctrl.serviceClass.resource.osbMetadata.documentationUrl">
