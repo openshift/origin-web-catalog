@@ -38,7 +38,7 @@ export class LandingPageTourService implements ILandingPageTourService {
 
     this.addStep(stepConstants.search,
       {
-        title: "Search Resources",
+        title: "Search Catalog",
         content: "Search by name, description, keyword, or label to quickly locate items in the catalog that you want to add to your project.",
         target: ".landing-search-area .landing-search-form",
         placement: "bottom",
@@ -49,18 +49,20 @@ export class LandingPageTourService implements ILandingPageTourService {
       {
         title: "Build Applications",
         content: "Build applications from a quickstart or popular framework.",
-        target: ".saas-list .card",
+        target: ".saas-list .card .card-icon",
         targetScrollElement: '.landing',
         placement: "right",
+        yOffset: 10
       });
 
     this.addStep(stepConstants.catalogs,
       {
         title: "Browse Catalog",
         content: "If you don’t know exactly what you are looking for, you can browse all available catalog items under the first tab in the catalog.",
-        target: "#category-all",
+        target: ".services-view-container",
         targetScrollElement: '.landing',
         placement: "top",
+        xOffset: 20,
         preShow: this.showAllCatalogs
       });
 
@@ -70,9 +72,8 @@ export class LandingPageTourService implements ILandingPageTourService {
         content: "A secondary level of categorization is available to further narrow your search.",
         target: ".services-view-container ul li:nth-child(2)",
         targetScrollElement: '.landing',
-        placement: "right",
-        preShow: this.showLanguagesCatalogs,
-        delay: 100
+        placement: "top",
+        preShow: this.showLanguagesCatalogs
       });
 
     this.addStep(stepConstants.catalogItem,
@@ -87,7 +88,7 @@ export class LandingPageTourService implements ILandingPageTourService {
     this.addStep(stepConstants.help,
       {
         title: "Additional Help",
-        content: "Additional resources can be found here or you can always access the help icon in the masthead for more information.",
+        content: "Additional resources can be found here or you can always access the help icon in the top banner for more information.",
         target: ".resources-panel",
         targetScrollElement: '.landing-side-bar',
         placement: "left"

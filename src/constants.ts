@@ -94,7 +94,7 @@ var homePageTourSteps = {
     show: true
   },
   search: {
-    title: "Search Resources",
+    title: "Search Catalog",
     content: "Search by name, description, keyword, or label to quickly locate items in the catalog that you want to add to your project.",
     show: true
   },
@@ -120,7 +120,7 @@ var homePageTourSteps = {
   },
   help: {
     title: "Additional Help",
-    content: "Additional resources can be found here or you can always access the help icon in the masthead for more information.",
+    content: "Additional resources can be found here or you can always access the help icon in the top banner for more information.",
     show: true
   }
 };

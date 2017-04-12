@@ -66,7 +66,7 @@ export class GuidedTourService implements IGuidedTourService {
       step.fixedElement = true;
 
       // Since we use a title area, move up to get arrow out of title area
-      if (step.placement === 'right' || step.placement === 'left' ) {
+      if (angular.isUndefined(step.yOffset) && (step.placement === 'right' || step.placement === 'left' )) {
         step.yOffset = -45;
       }
     });
