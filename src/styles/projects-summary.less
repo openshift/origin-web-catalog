@@ -48,6 +48,12 @@
   }
 }
 
+.catalog-projects-summary-modal-backrop.modal-backdrop {
+  background-color: transparent;
+  cursor: not-allowed;
+  z-index: @zindex-navbar-fixed - 1;
+}
+
 .catalog-modal {
   background-color: @color-pf-white;
   bottom: 0;
@@ -57,7 +63,7 @@
   padding: 0 (@grid-gutter-width / 2) (@grid-gutter-width / 2);
   right: 0;
   top: 0;
-  z-index: @zindex-dropdown;
+  z-index: @zindex-modal;
 
   @media (min-width: @screen-sm-min) {
     border: 1px solid @dropdown-border;

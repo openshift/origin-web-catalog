@@ -1,4 +1,5 @@
 import * as angular from 'angular';
+import * as $ from 'jquery';
 import * as _ from 'lodash';
 
 export class ProjectsSummaryController implements angular.IController {
@@ -100,14 +101,17 @@ export class ProjectsSummaryController implements angular.IController {
 
   public openNewProjectPanel() {
     this.ctrl.showNewProjectPanel = true;
+    this.showModalBackdrop();
   }
 
   public closeNewProjectPanel = () => {
     this.ctrl.showNewProjectPanel = false;
+    this.hideModalBackdrop();
   };
 
   public onNewProject = (projectName: string) => {
     this.ctrl.showNewProjectPanel = false;
+    this.hideModalBackdrop();
   };
 
   public onViewMemebership = (project: any) => {
@@ -120,14 +124,17 @@ export class ProjectsSummaryController implements angular.IController {
   public editProject = (project: any) => {
     this.ctrl.edittingProject = project;
     this.ctrl.showEditProjectPanel = true;
+    this.showModalBackdrop();
   };
 
   public closeEditProjectPanel = () => {
     this.ctrl.showEditProjectPanel = false;
+    this.hideModalBackdrop();
   };
 
   public onEditProject = (projectName: string) => {
     this.ctrl.showEditProjectPanel = false;
+    this.hideModalBackdrop();
   };
 
   public handleGettingStartedClick() {
@@ -150,4 +157,14 @@ export class ProjectsSummaryController implements angular.IController {
       cb();
     }
   }
+
+  private showModalBackdrop() {
+    var backdropElement = '<div class="catalog-projects-summary-modal-backrop modal-backdrop fade in"></div>';
+    this.$element.append(backdropElement);
+  }
+
+  private hideModalBackdrop() {
+    $('.catalog-projects-summary-modal-backrop').remove();
+  }
+
 }
