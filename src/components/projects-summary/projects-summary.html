@@ -1,3 +1,16 @@
+<overlay-panel show-panel="$ctrl.orderingPanelVisible" show-close="true" handle-close="$ctrl.closeOrderingPanel">
+  <order-service
+      ng-if="$ctrl.selectedServiceClass"
+      service-class="$ctrl.selectedServiceClass"
+      handle-close="$ctrl.closeOrderingPanel">
+  </order-service>
+  <create-from-builder
+      ng-if="$ctrl.selectedImageStream"
+      image-stream="$ctrl.selectedImageStream"
+      handle-close="$ctrl.closeOrderingPanel">
+  </create-from-builder>
+</overlay-panel>
+
 <div class="catalog-projects-summary-panel">
   <button ng-if="$ctrl.canCreate" class="create-button btn btn-primary" ng-click="$ctrl.openNewProjectPanel()">
     <span class="fa fa-plus"></span>
@@ -86,6 +99,27 @@
           <a href="{{resource.href}}" target="_blank" title="{{resource.href}}">{{resource.title}}</a>
         </li>
       </ul>
+    </div>
+  </div>
+  <div ng-if="$ctrl.recentlyViewedItems && $ctrl.recentlyViewedItems.length > 0">
+    <h2 class="primary">Recently Viewed</h2>
+    <div class="services-view">
+      <div class="services-view-container">
+        <div class="services-items-inner">
+          <div class="services-items-inner-shadow-covers">
+            <div class="services-item" ng-repeat="item in $ctrl.recentlyViewedItems track by item.resource.metadata.uid"
+                 ng-click="$ctrl.orderService(item)">
+              <div ng-if="!item.imageUrl" class="services-item-icon">
+                <span class="{{item.iconClass}}"></span>
+              </div>
+              <div ng-if="item.imageUrl" class="services-item-icon services-item-img">
+                <img ng-src="{{item.imageUrl}}">
+              </div>
+              <div class="services-item-name">{{item.name}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

@@ -4,10 +4,10 @@ export const servicesData = {
       "name": "test-serviceclass-java-nodejs",
       "uid": "1",
     },
+    description: 'BUILDS SOURCE CODE',
     osbTags: ['java', 'nodejs'],
     osbMetadata: {
       displayName: 'Test ServiceClass Java-Node.js',
-      description: 'BUILDS SOURCE CODE',
       longDescription: 'Build and run Java applications on CentOS 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/openshift-s2i/s2i-wildfly/blob/mast…',
       documentationUrl: 'https://github.com/openshift/source-to-image'
     },
@@ -25,10 +25,10 @@ export const servicesData = {
       "name": "test-serviceclass-nodejs",
       "uid": "1",
     },
+    description: 'BUILDS SOURCE CODE',
     osbTags: ['nodejs'],
     osbMetadata: {
       displayName: 'Test ServiceClass Node.js',
-      description: 'BUILDS SOURCE CODE',
       longDescription: 'run nodejs applications on CentOS 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/openshift-s2i/s2i-wildfly/blob/mast…',
     },
     plans: [
@@ -40,10 +40,10 @@ export const servicesData = {
       "name": "test-serviceclass-perl",
       "uid": "1",
     },
+    description: 'BUILDS SOURCE CODE',
     osbTags: ['perl'],
     osbMetadata: {
       displayName: 'Test ServiceClass Perl',
-      description: 'BUILDS SOURCE CODE',
       longDescription: 'run Perl applications on CentOS 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/openshift-s2i/s2i-wildfly/blob/mast…',
     },
     plans: [
@@ -55,10 +55,10 @@ export const servicesData = {
       "name": "test-serviceclass-ruby-mongo",
       "uid": "1",
     },
+    description: 'BUILDS SOURCE CODE',
     osbTags: ['ruby', 'mongodb'],
     osbMetadata: {
       displayName: 'Test ServiceClass Ruby-Mongo',
-      description: 'BUILDS SOURCE CODE',
       longDescription: 'run ruby applications on CentOS 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/openshift-s2i/s2i-wildfly/blob/mast…',
     },
     plans: [
@@ -70,10 +70,10 @@ export const servicesData = {
       "name": "test-serviceclass-php",
       "uid": "1",
     },
+    description: 'BUILDS SOURCE CODE',
     osbTags: ['php'],
     osbMetadata: {
       displayName: 'Test ServiceClass PHP',
-      description: 'BUILDS SOURCE CODE',
       longDescription: 'run PHP applications on CentOS 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/openshift-s2i/s2i-wildfly/blob/mast…',
     },
     plans: [
@@ -85,10 +85,10 @@ export const servicesData = {
       "name": "test-serviceclass-mongo",
       "uid": "1",
     },
+    description: 'BUILDS SOURCE CODE',
     osbTags: ['mongodb'],
     osbMetadata: {
       displayName: 'Test ServiceClass MongoDB',
-      description: 'BUILDS SOURCE CODE',
       longDescription: 'run MongoDB applications on CentOS 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/openshift-s2i/s2i-wildfly/blob/mast…',
     },
     plans: [
@@ -100,10 +100,10 @@ export const servicesData = {
       "name": "test-serviceclass-mysql",
       "uid": "1",
     },
+    description: 'BUILDS SOURCE CODE',
     osbTags: ['mysql'],
     osbMetadata: {
       displayName: 'Test ServiceClass mySQL',
-      description: 'BUILDS SOURCE CODE',
       longDescription: 'run MongoDB applications. For more information about using this builder image, including OpenShift considerations, see https://github.com/openshift-s2i/s2i-wildfly/blob/mast…',
     },
     plans: [
@@ -115,10 +115,10 @@ export const servicesData = {
       "name": "test-serviceclass-other",
       "uid": "1",
     },
+    description: 'BUILDS SOURCE CODE',
     osbTags: ['fooBar'],
     osbMetadata: {
       displayName: 'Test ServiceClass Other',
-      description: 'BUILDS SOURCE CODE',
       longDescription: 'some other service',
       'console.openshift.io/iconClass': 'fa fa-question'
     },
@@ -131,10 +131,10 @@ export const servicesData = {
       "name": "test-serviceclass-jenkins",
       "uid": "1",
     },
+    description: 'BUILDS SOURCE CODE',
     osbTags: ['jenkins'],
     osbMetadata: {
       displayName: 'Test ServiceClass jenkins',
-      description: 'BUILDS SOURCE CODE',
       longDescription: 'some other service'
     },
     plans: [

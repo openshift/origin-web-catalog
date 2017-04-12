@@ -29,6 +29,14 @@ describe('servicesView', () => {
     );
     var attributes: any = { services: services, images: images};
     componentTest.createComponent(attributes);
+
+    // clear any 'recently viewed items' from local storage
+    localStorage.removeItem('catalog-recently-viewed-services');
+  });
+
+  afterEach(() => {
+    // clear any 'recently viewed items' from local storage
+    localStorage.removeItem('catalog-recently-viewed-services');
   });
 
   // testing the isoScope $ctrl
@@ -94,4 +102,43 @@ describe('servicesView', () => {
     // Expansion card should be shown with one card
     expect(jQuery(element).find('.services-item-name').length).toBe(1);
   });
+
+  it("should set Recently Viewed items", () => {
+    var element = componentTest.rawElement;
+
+    let items = jQuery(element).find('.services-items-inner a');
+
+    componentTest.eventFire(items[0], 'click');  // Node.js
+    componentTest.eventFire(items[1], 'click');  // Perl
+    componentTest.eventFire(items[2], 'click');  // PHP
+
+    let recentlyViewed: any = getRecentlyViewed();
+
+    // should list by most recently 'clicked'
+    expect(recentlyViewed.length).toBe(3);
+    expect(recentlyViewed[0].name).toBe('PHP');
+    expect(recentlyViewed[1].name).toBe('Perl');
+    expect(recentlyViewed[2].name).toBe('Node.js');
+
+    // should limit to 3 recently viewed items
+    componentTest.eventFire(items[3], 'click');  // Phython
+    recentlyViewed = getRecentlyViewed();
+    expect(recentlyViewed.length).toBe(3);
+    expect(recentlyViewed[0].name).toBe('Python');
+
+    // should move a previously viewed item to front of list
+    componentTest.eventFire(items[1], 'click');  // Perl, was third in revently viewed list
+    recentlyViewed = getRecentlyViewed();
+    expect(recentlyViewed.length).toBe(3);
+    expect(recentlyViewed[0].name).toBe('Perl');  // Should now be first
+  });
+
+  function getRecentlyViewed() {
+    let recentlyViewed: any = localStorage.getItem('catalog-recently-viewed-services');
+    recentlyViewed = recentlyViewed ? JSON.parse(recentlyViewed) : [];
+    recentlyViewed = _.map(recentlyViewed, (item: any) => {
+      return JSON.parse(item);
+    });
+    return recentlyViewed;
+  }
 });
