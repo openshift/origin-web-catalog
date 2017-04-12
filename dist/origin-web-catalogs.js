@@ -892,8 +892,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
 }, function(e, t, n) {
     "use strict";
     t.__esModule = !0;
-    var r = n(1), s = n(0), a = function() {
-        function e(e, t, n, a, i, c, o, l, d) {
+    var r = n(1), s = n(3), a = n(0), i = function() {
+        function e(e, t, n, s, i, c, o, l, d) {
             var p = this;
             this.ctrl = this, this.showNewProjectPanel = !1, this.showEditwProjectPanel = !1, 
             this.alerts = [], this.projects = [], this.watches = [], this.maxDisplayProjects = 5, 
@@ -902,27 +902,27 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 p.AlertMessageService.getAlerts().forEach(function(e) {
                     this.ctrl.alerts[e.name] = e.data;
                 }), p.ctrl.resourceDescription = p.Constants.CATALOG_HELP_RESOURCES.description, 
-                p.ctrl.resourceLinks = s.clone(p.Constants.CATALOG_HELP_RESOURCES.links), s.forEach(p.ctrl.resourceLinks, function(e) {
+                p.ctrl.resourceLinks = a.clone(p.Constants.CATALOG_HELP_RESOURCES.links), a.forEach(p.ctrl.resourceLinks, function(e) {
                     r.isDefined(e.help) && (e.href = p.Constants.HELP_BASE_URL + p.Constants.HELP[e.help]);
                 });
             }, this.onProjectsUpdate = function(e) {
-                var t = s.toArray(e.by("metadata.creationTimestamp")), n = p.$filter("orderObjectsByDate");
-                p.ctrl.projects = n(t, !0), p.ctrl.totalProjects = p.ctrl.projects.length, p.ctrl.projects = s.take(p.ctrl.projects, p.maxDisplayProjects), 
+                var t = a.toArray(e.by("metadata.creationTimestamp")), n = p.$filter("orderObjectsByDate");
+                p.ctrl.projects = n(t, !0), p.ctrl.totalProjects = p.ctrl.projects.length, p.ctrl.projects = a.take(p.ctrl.projects, p.maxDisplayProjects), 
                 p.ctrl.loading = !1, p.ctrl.showGetStarted = !p.ctrl.projects || p.ctrl.projects.length < 2;
             }, this.closeNewProjectPanel = function() {
-                p.ctrl.showNewProjectPanel = !1;
+                p.ctrl.showNewProjectPanel = !1, p.hideModalBackdrop();
             }, this.onNewProject = function(e) {
-                p.ctrl.showNewProjectPanel = !1;
+                p.ctrl.showNewProjectPanel = !1, p.hideModalBackdrop();
             }, this.onViewMemebership = function(e) {
                 var t = p.ctrl.viewEditMembership();
                 t && t(e);
             }, this.editProject = function(e) {
-                p.ctrl.edittingProject = e, p.ctrl.showEditProjectPanel = !0;
+                p.ctrl.edittingProject = e, p.ctrl.showEditProjectPanel = !0, p.showModalBackdrop();
             }, this.closeEditProjectPanel = function() {
-                p.ctrl.showEditProjectPanel = !1;
+                p.ctrl.showEditProjectPanel = !1, p.hideModalBackdrop();
             }, this.onEditProject = function(e) {
-                p.ctrl.showEditProjectPanel = !1;
-            }, this.$element = e, this.$scope = t, this.$filter = n, this.ProjectsService = a, 
+                p.ctrl.showEditProjectPanel = !1, p.hideModalBackdrop();
+            }, this.$element = e, this.$scope = t, this.$filter = n, this.ProjectsService = s, 
             this.Logger = i, this.AuthService = c, this.DataService = o, this.Constants = l, 
             this.AlertMessageService = d;
         }
@@ -938,16 +938,16 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                     return 0 !== t.status && (r += " (" + t.status + ")"), void e.Logger.warn(r);
                 }
                 if (n.details) {
-                    var a = [];
-                    s.forEach(n.details.causes || [], function(e) {
-                        e.message && a.push(e.message);
-                    }), a.length > 0 && (e.ctrl.newProjectMessage = a.join("\n"));
+                    var s = [];
+                    a.forEach(n.details.causes || [], function(e) {
+                        e.message && s.push(e.message);
+                    }), s.length > 0 && (e.ctrl.newProjectMessage = s.join("\n"));
                 }
             }).finally(function() {
                 e.init();
             });
         }, e.prototype.openNewProjectPanel = function() {
-            this.ctrl.showNewProjectPanel = !0;
+            this.ctrl.showNewProjectPanel = !0, this.showModalBackdrop();
         }, e.prototype.handleGettingStartedClick = function() {
             var e = this.ctrl.startGettingStartedTour();
             e && e();
@@ -957,10 +957,14 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
         }, e.prototype.showAllProjects = function() {
             var e = this.ctrl.showProjects();
             e && e();
+        }, e.prototype.showModalBackdrop = function() {
+            this.$element.append('<div class="catalog-projects-summary-modal-backrop modal-backdrop fade in"></div>');
+        }, e.prototype.hideModalBackdrop = function() {
+            s(".catalog-projects-summary-modal-backrop").remove();
         }, e;
     }();
-    a.$inject = [ "$element", "$scope", "$filter", "ProjectsService", "Logger", "AuthService", "DataService", "Constants", "AlertMessageService" ], 
-    t.ProjectsSummaryController = a;
+    i.$inject = [ "$element", "$scope", "$filter", "ProjectsService", "Logger", "AuthService", "DataService", "Constants", "AlertMessageService" ], 
+    t.ProjectsSummaryController = i;
 }, function(e, t, n) {
     "use strict";
     t.__esModule = !0;

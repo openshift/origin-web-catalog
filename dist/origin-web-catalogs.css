@@ -87,7 +87,7 @@
   border-bottom: solid 1px rgba(0, 34, 53, 0.6);
   padding: 10px;
   width: 100%;
-  z-index: 1030;
+  z-index: 1029;
 }
 .catalog-search .catalog-search-icon {
   color: #39a5dc;
@@ -481,6 +481,11 @@ body.overlay-open {
   margin-top: 40px;
   border-top: solid 1px #4d5258;
 }
+.catalog-projects-summary-modal-backrop.modal-backdrop {
+  background-color: transparent;
+  cursor: not-allowed;
+  z-index: 1029;
+}
 .catalog-modal {
   background-color: #fff;
   bottom: 0;
@@ -490,7 +495,7 @@ body.overlay-open {
   padding: 0 20px 20px;
   right: 0;
   top: 0;
-  z-index: 1000;
+  z-index: 1050;
 }
 @media (min-width: 768px) {
   .catalog-modal {
