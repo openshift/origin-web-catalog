@@ -175,18 +175,14 @@
 .landing-side-bar a:hover {
   color: #228bc0;
 }
-.order-service .wizard-pf-main {
-  margin-bottom: 58px;
-  margin-left: 0;
-  padding: 0;
-}
 .order-service-details {
-  margin-top: 20px;
+  flex: 0 1 auto;
+  padding: 0 20px;
 }
 @media (min-width: 768px) {
   .order-service-details {
     border-right: 1px solid #bbb;
-    height: 300px;
+    width: 50%;
   }
 }
 .order-service-details .order-service-details-top {
@@ -247,13 +243,15 @@
   text-transform: uppercase;
 }
 .order-service-config {
-  overflow-y: auto;
-  padding-top: 2px;
-  padding-right: 0px;
+  flex: 0 1 auto;
+  padding: 0 20px;
 }
 @media (min-width: 768px) {
   .order-service-config {
-    height: 300px;
+    width: 50%;
+  }
+  .order-service-config .form-horizontal .control-label {
+    padding-right: 0;
   }
 }
 .order-service-config .failure-messages {
@@ -275,8 +273,8 @@
 .order-service-config .sub-title.first {
   padding-top: 12px;
 }
-.order-service-config .select-plans {
-  padding-left: 10px;
+.order-service-config .select-plans h3 {
+  margin-top: 0;
 }
 .order-service-config .select-plans .plan-name {
   display: inline-block;
@@ -286,15 +284,6 @@
 }
 .order-service-config .select-plans .radio {
   margin-top: 15px;
-}
-.order-service-config .config-top {
-  height: 290px;
-  overflow-y: auto;
-  overflow-x: hidden;
-}
-.order-service-config .config-top .config-form {
-  width: 100%;
-  padding-top: 18px;
 }
 .order-service-config .config-top .adv-ops {
   height: 30%;
@@ -364,9 +353,6 @@
 .order-service-config .review-panel {
   height: 100%;
 }
-.order-service-config .wizard-pf-contents {
-  height: 100%;
-}
 .center {
   text-align: center;
 }
@@ -383,25 +369,61 @@ body.overlay-open {
   animation: modalBackdropOut 0.45s ease-out forwards;
 }
 .catalogs-overlay-panel {
-  background: white;
+  background: #fff;
   border: 1px solid rgba(0, 0, 0, 0.2);
   box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
   margin: 0 auto;
-  max-height: 90vh;
   max-width: 1200px;
-  min-height: 450px;
-  overflow: auto;
-  padding: 20px 40px;
+  padding-bottom: 56px;
   position: relative;
-}
-.catalogs-overlay-panel.catalogs-overlay-panel-full-height {
-  height: 100%;
 }
 .catalogs-overlay-panel.catalogs-overlay-panel-single-column {
   max-width: 800px;
 }
-.catalogs-overlay-panel .wizard-pf-steps {
-  margin-top: -20px;
+.catalogs-overlay-panel .wizard-pf-footer {
+  background: #fff;
+  padding-bottom: 15px;
+  padding-right: 40px;
+}
+.catalogs-overlay-panel .wizard-pf-main {
+  background-attachment: scroll;
+  background-image: radial-gradient(ellipse at top, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 75%), radial-gradient(ellipse at bottom, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 75%);
+  background-position: 0 0, 0 100%;
+  background-repeat: no-repeat;
+  background-size: 100% 6px;
+  height: auto;
+  margin-left: 0;
+  padding: 0;
+}
+.catalogs-overlay-panel .wizard-pf-main-inner-shadow-covers {
+  background-attachment: local;
+  background-image: linear-gradient(#fff 30%, rgba(255, 255, 255, 0)), linear-gradient(rgba(255, 255, 255, 0), #fff 70%);
+  background-position: 0 0, 0 100%;
+  background-repeat: no-repeat;
+  background-size: 100% 12px;
+  max-height: calc(100vh - 248px);
+  overflow-y: auto;
+  padding: 20px;
+}
+@media (min-width: 768px) {
+  .catalogs-overlay-panel .wizard-pf-main-inner-shadow-covers {
+    display: flex;
+  }
+}
+.catalogs-overlay-panel .wizard-pf-main-inner-shadow-covers input.form-control,
+.catalogs-overlay-panel .wizard-pf-main-inner-shadow-covers textarea.form-control {
+  background-color: transparent;
+}
+.catalogs-overlay-panel .wizard-pf-main-inner-shadow-covers input.form-control[disabled],
+.catalogs-overlay-panel .wizard-pf-main-inner-shadow-covers textarea.form-control[disabled],
+.catalogs-overlay-panel .wizard-pf-main-inner-shadow-covers input.form-control[readonly],
+.catalogs-overlay-panel .wizard-pf-main-inner-shadow-covers textarea.form-control[readonly] {
+  background-color: rgba(234, 234, 234, 0.5);
+}
+.catalogs-overlay-panel .wizard-pf-steps-indicator {
+  height: 52px;
+  margin: 30px 0;
+  padding: 0;
 }
 .catalogs-overlay-panel-close {
   color: #72767b;
@@ -424,7 +446,6 @@ body.overlay-open {
   color: #393f44;
 }
 .catalogs-overlay-panel-grow-height {
-  height: 100%;
   padding: 60px 0 20px;
 }
 .catalogs-overlay-panel-wrapper {
