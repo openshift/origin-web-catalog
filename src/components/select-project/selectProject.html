@@ -3,10 +3,10 @@
         <label class="col-sm-4 control-label" for="project">Add to Project</label>
       <div class="col-sm-8">
         <ui-select ng-model="$ctrl.selectedProject">
-          <ui-select-match placeholder="Project name">
+          <ui-select-match>
             {{$select.selected | displayName}}
           </ui-select-match>
-          <ui-select-choices repeat="project in $ctrl.projects | searchProjects : $select.search">
+          <ui-select-choices repeat="project in $ctrl.projects | searchProjects : $select.search track by (project | uid)">
             <span ng-bind-html="project | displayName | highlightKeywords : $select.search"></span>
                 <span ng-if="project | displayName : true" class="small text-muted">
                   <span ng-if="project.metadata.name">&ndash;</span>
