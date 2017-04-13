@@ -1,8 +1,8 @@
 <div class="services-view">
-  <div ng-if="$ctrl.loading" class="spinner-container">
-    <div ng-class="{'spinner spinner-xl': $ctrl.loading}"></div>
+  <div ng-if="!$ctrl.loaded" class="spinner-container">
+    <div class="spinner spinner-xl"></div>
   </div>
-  <div ng-if="!$ctrl.loading" class="services-view-container">
+  <div ng-if="$ctrl.loaded" class="services-view-container">
     <h1>Browse Catalog</h1>
 
     <ul class="nav nav-tabs nav-tabs-pf">
@@ -52,6 +52,7 @@
     <div ng-if="$ctrl.currentFilter === 'other' || $ctrl.currentFilter === 'all'" class="services-items">
       <div class="services-items-inner">
         <div class="services-items-inner-shadow-covers">
+          <div ng-if="$ctrl.isEmpty">There are no catalog items.</div>
           <a href="" class="services-item" ng-repeat="item in $ctrl.filteredItems" ng-click="$ctrl.handleClick(item)">
             <div ng-if="!item.imageUrl" class="services-item-icon">
               <span class="{{item.iconClass}}"></span>

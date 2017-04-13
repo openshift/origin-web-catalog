@@ -1,6 +1,6 @@
 <landing-page>
   <landingsearch>
-    <catalog-search service-classes="$ctrl.serviceClasses" image-streams="$ctrl.imageStreams" base-project-url="{{$ctrl.baseProjectUrl}}"></catalog-search>
+    <catalog-search catalog-items="$ctrl.catalogItems" base-project-url="{{$ctrl.baseProjectUrl}}"></catalog-search>
   </landingsearch>
   <landingheader>
     <div class="build-applications-view">
@@ -8,9 +8,9 @@
     </div>
   </landingheader>
   <landingbody>
-    <services-view service-classes="$ctrl.serviceClasses" image-streams="$ctrl.imageStreams" base-project-url="{{$ctrl.baseProjectUrl}}"></services-view>
+    <services-view catalog-items="$ctrl.catalogItems" base-project-url="{{$ctrl.baseProjectUrl}}"></services-view>
   </landingbody>
   <landingside>
-    <projects-summary service-classes="$ctrl.serviceClasses" image-streams="$ctrl.imageStreams" base-project-url="{{$ctrl.baseProjectUrl}}" projects-url="{{$ctrl.projectsUrl}}"></projects-summary>
+    <projects-summary catalog-items="$ctrl.catalogItems" base-project-url="{{$ctrl.baseProjectUrl}}" projects-url="{{$ctrl.projectsUrl}}"></projects-summary>
   </landingside>
 </landing-page>

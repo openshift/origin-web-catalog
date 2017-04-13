@@ -2,16 +2,60 @@ import * as angular from 'angular';
 import * as _ from 'lodash';
 
 export class CatalogService {
-  static $inject = ['Constants', '$filter'];
+  static $inject = ['$filter', '$q', 'Constants', 'DataService', 'Logger'];
 
   public $filter: any;
-  private constants: any;
-  private categories: any;
 
-  constructor(constants: any, $filter: any) {
-    this.constants = constants;
+  private $q: any;
+  private categories: any;
+  private constants: any;
+  private dataService: any;
+  private logger: any;
+
+  constructor($filter: any, $q: any, constants: any, DataService: any, Logger: any) {
     this.$filter = $filter;
+    this.$q = $q;
+    this.constants = constants;
     this.categories = this.constants.SERVICE_CATALOG_CATEGORIES;
+    this.dataService = DataService;
+    this.logger = Logger;
+  }
+
+  public getCatalogItems() {
+    return this.$q.all({
+      serviceClasses: this.dataService.list({
+        group: 'servicecatalog.k8s.io',
+        resource: 'serviceclasses'
+      }, {}),
+      imageStreams: this.dataService.list("imagestreams", {namespace: "openshift"})
+    }).then((values) => {
+      let serviceClasses: any = values.serviceClasses.by("metadata.name");
+      let imageStreams: any = values.imageStreams.by("metadata.name");
+      return this.convertToServiceItems(serviceClasses, imageStreams);
+    }, () => {
+      this.logger.log("Error Loading Catalog Items");
+    });
+  }
+
+  public convertToServiceItems(serviceClasses: any, imageStreams: any) {
+    // Convert service classes to ServiceItem
+    let items: any = _.map(serviceClasses, (serviceClass) => {
+      return this.getServiceItem(serviceClass);
+    });
+
+    // Convert builders to ImageItem.
+    items = items.concat(_.map(imageStreams, (imageStream) => {
+      return this.getImageItem(imageStream);
+    }));
+
+    // Remove null items (non-builder images).
+    items = _.reject(items, (item) => {
+      return !item;
+    });
+
+    // Perform a case-insensitive sort on display name, falling back to kind
+    // and metadata.name for a stable sort when items have the same display name.
+    return _.sortByAll(items, [(item: any) => item.name.toLowerCase(), 'resource.kind', 'resource.metadata.name']);
   }
 
   public getServiceItem(resource: any) {

@@ -135,27 +135,8 @@ export class ProjectsSummaryController implements angular.IController {
   };
 
   public $onChanges(onChangesObj: angular.IOnChangesObject) {
-    if (onChangesObj.serviceClasses || onChangesObj.imageStreams) {
-      if (!this.ctrl.serviceClasses && !this.ctrl.imageStreams) {
-        return;
-      }
-
-      // Convert service classes to ServiceItem, which is needed for the ordering panel.
-      let items = _.map(this.ctrl.serviceClasses, (serviceClass) => {
-        return this.Catalog.getServiceItem(serviceClass);
-      });
-
-      // Convert builders to ImageItem.
-      items = items.concat(_.map(this.ctrl.imageStreams, (imageStream) => {
-        return this.Catalog.getImageItem(imageStream);
-      }));
-
-      // Remove null items (non-builder images).
-      items = _.reject(items, (item) => {
-        return !item;
-      });
-
-      this.allItems = _.indexBy(items, 'resource.metadata.uid');
+    if (onChangesObj.catalogItems && this.ctrl.catalogItems) {
+      this.allItems = _.indexBy(this.ctrl.catalogItems, 'resource.metadata.uid');
       this.ctrl.recentlyViewedItems = this.getRecentlyViewedItems();
     }
   }

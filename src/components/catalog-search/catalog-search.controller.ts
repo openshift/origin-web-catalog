@@ -7,7 +7,6 @@ export class CatalogSearchController implements angular.IController {
 
   private Catalog: any;
   private KeywordService: any;
-  private allItems: any[];
   private $scope: any;
   private $q: any;
   private loaded: boolean = false;
@@ -26,27 +25,8 @@ export class CatalogSearchController implements angular.IController {
   }
 
   public $onChanges(onChangesObj: angular.IOnChangesObject) {
-    if (onChangesObj.serviceClasses || onChangesObj.imageStreams) {
-      if (!this.ctrl.serviceClasses && !this.ctrl.imageStreams) {
-        return;
-      }
+    if (onChangesObj.catalogItems && this.ctrl.catalogItems) {
 
-      // Convert service classes to ServiceItem, which is needed for the ordering panel.
-      let items = _.map(this.ctrl.serviceClasses, (serviceClass) => {
-        return this.Catalog.getServiceItem(serviceClass);
-      });
-
-      // Convert builders to ImageItem.
-      items = items.concat(_.map(this.ctrl.imageStreams, (imageStream) => {
-        return this.Catalog.getImageItem(imageStream);
-      }));
-
-      // Remove null items (non-builder images).
-      items = _.reject(items, (item) => {
-        return !item;
-      });
-
-      this.allItems = _.sortBy(items, 'name');
       this.loaded = true;
 
       // Show search results now if the user began typing before the items loaded.
@@ -79,7 +59,7 @@ export class CatalogSearchController implements angular.IController {
 
   private filterForKeywords(searchText: string) {
     let keywords = this.KeywordService.generateKeywords(searchText);
-    let items = this.KeywordService.filterForKeywords(this.allItems, ['name', 'tags', 'resource.osbTags'], keywords);
+    let items = this.KeywordService.filterForKeywords(this.ctrl.catalogItems, ['name', 'tags', 'resource.osbTags'], keywords);
     return _.take(items, 5);
   }
 }

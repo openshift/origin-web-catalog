@@ -21,8 +21,10 @@ describe('Projects Summary Panel', () => {
   var $window: any;
   var $q: any;
   var ProjectsService: any;
+  var Catalog: any;
   var DataService: any;
   var RecentlyViewed: any;
+  var catalogItems: any;
   var services: any;
   var images: any;
   var viewMembershipProject: any;
@@ -62,17 +64,15 @@ describe('Projects Summary Panel', () => {
 
   var createProjectSummary = function() {
     var projectsSummaryHtml: string = '<projects-summary ' +
-      'service-classes="services" ' +
-      'image-streams="images" ' +
-      'view-edit-membership="testViewMembership" ' +
-      'start-getting-started-tour="testShowTour">' +
+        'catalog-items="catalogItems" ' +
+        'view-edit-membership="testViewMembership" ' +
+        'start-getting-started-tour="testShowTour">' +
       '</projects-summary>';
 
     componentTest = new ComponentTest<ProjectsSummaryController>(projectsSummaryHtml);
 
     var attributes: any = {
-      services: services,
-      images: images,
+      catalogItems: catalogItems,
       testViewMembership: testViewMembership,
       testShowTour: testShowTour,
     };
@@ -87,11 +87,12 @@ describe('Projects Summary Panel', () => {
   });
 
   beforeEach(() => {
-    inject(function (_$window_: any, _$timeout_: any, _$q_: any, _ProjectsService_: any, _DataService_: any, _RecentlyViewedServiceItems_: any) {
+    inject(function (_$window_: any, _$timeout_: any, _$q_: any, _ProjectsService_: any, _Catalog_: any, _DataService_: any, _RecentlyViewedServiceItems_: any) {
       $window = _$window_;
       $timeout = _$timeout_;
       $q = _$q_;
       ProjectsService = _ProjectsService_;
+      Catalog = _Catalog_;
       DataService = _DataService_;
       RecentlyViewed = _RecentlyViewedServiceItems_;
     });
@@ -101,6 +102,7 @@ describe('Projects Summary Panel', () => {
     expectedCanCreate = true;
     services = angular.copy(servicesData);
     images = angular.copy(imagesData);
+    catalogItems = Catalog.convertToServiceItems(services, images);
 
     spyOn(ProjectsService, 'canCreate').and.callFake(function() {
       let deferred = this.$q.defer();
