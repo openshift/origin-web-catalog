@@ -1,38 +1,37 @@
-<div class="col-md-12 center review-panel">
-  <div ng-if="!$ctrl.error">
-    <div ng-if="!$ctrl.orderComplete">
-      <h3 class="center">
-        <span class="fa fa-spinner fa-pulse fa-3x fa-fw" aria-hidden="true"></span>
-      </h3>
-      <h3 class="center">
-        The service is being provisioned
-      </h3>
-    </div>
-    <div ng-if="$ctrl.orderComplete">
-      <h3>
-        <strong>{{$ctrl.serviceName}}</strong> has been added to <strong>{{$ctrl.projectDisplayName}}</strong> successfully
-      </h3>
-      <div class="alert alert-info">
-        <span class="pficon pficon-info" aria-hidden="true"></span>
-        <span class="sr-only">Info</span>
-        Continue to your project to bind this service to your application. Binding this service creates a secret containing the information necessary for your application to use the service.
-      </div>
-    </div>
+<div ng-if="!$ctrl.error">
+  <div ng-if="!$ctrl.orderComplete">
+    <h3 class="text-center">
+      <span class="fa fa-spinner fa-pulse fa-3x fa-fw" aria-hidden="true"></span>
+    </h3>
+    <h3 class="text-center">
+      The service is being provisioned
+    </h3>
   </div>
-  <div class="review-failure" ng-if="$ctrl.error">
-    <div class="title">Order Failed <span class="fa fa-times text-danger"></span></div>
-    <div class="sub-title center">
-      <span ng-if="$ctrl.error.message || $ctrl.error.Message ">
-        {{$ctrl.error.message || $ctrl.error.Message | upperFirst}}
-      </span>
-      <span ng-if="!$ctrl.error.message || $ctrl.error.Message">
-        An error occurred ordering the service.
-      </span>
+  <div ng-if="$ctrl.orderComplete">
+    <h3>
+      <span class="pficon pficon-ok"></span>
+      <strong>{{$ctrl.serviceName}}</strong> has been added to <strong>{{$ctrl.projectDisplayName}}</strong> successfully
+    </h3>
+    <div class="alert alert-info">
+      <span class="pficon pficon-info" aria-hidden="true"></span>
+      <span class="sr-only">Info</span>
+      Continue to your project to bind this service to your application. Binding this service creates a secret containing the information necessary for your application to use the service.
     </div>
   </div>
-  <div class="footer-panel">
-    <button class="view-btn btn btn-primary">
-      <a href="{{$ctrl.selectedProject | projectUrl : $ctrl.baseProjectUrl}}">View Project</a>
-    </button>
-  </div>
+</div>
+<div class="review-failure" ng-if="$ctrl.error">
+  <h3>Order Failed <span class="fa fa-times text-danger"></span></h3>
+  <h4>
+    <span ng-if="$ctrl.error.message || $ctrl.error.Message ">
+      {{$ctrl.error.message || $ctrl.error.Message | upperFirst}}
+    </span>
+    <span ng-if="!$ctrl.error.message || $ctrl.error.Message">
+      An error occurred ordering the service.
+    </span>
+  </h4>
+</div>
+<div class="footer-panel">
+  <button class="view-btn btn btn-primary">
+    <a href="{{$ctrl.selectedProject | projectUrl : $ctrl.baseProjectUrl}}">View Project</a>
+  </button>
 </div>

@@ -255,27 +255,12 @@
     padding-right: 0;
   }
 }
-.order-service-config .failure-messages {
-  margin: 20px auto;
-  max-width: 400px;
-  text-align: left;
-}
-.order-service-config .title {
-  font-size: 16px;
-  font-weight: 400;
-  margin-top: 20px;
-  padding-bottom: 6px;
-}
-.order-service-config .sub-title {
-  padding-top: 24px;
-  font-size: 14px;
-  font-weight: 400;
-}
-.order-service-config .sub-title.first {
-  padding-top: 12px;
-}
-.order-service-config .select-plans h3 {
+.order-service-config h3 {
+  line-height: 1.4;
   margin-top: 0;
+}
+.order-service-config h3 + .alert {
+  margin-top: 20px;
 }
 .order-service-config .select-plans .plan-name {
   display: inline-block;
@@ -312,10 +297,6 @@
   margin-right: -10px;
 }
 .order-service-config .footer-panel {
-  bottom: 0;
-  left: 0;
-  position: absolute;
-  right: 0;
   text-align: center;
 }
 .order-service-config .footer-panel a {
@@ -327,10 +308,6 @@
 }
 .order-service-config .success-check {
   color: #3f9c35;
-}
-.order-service-config .launch-service {
-  padding-top: 30px;
-  padding-bottom: 14px;
 }
 .order-service-config .related-services-container {
   background-color: #ededed;
@@ -350,12 +327,6 @@
   float: right;
   margin-right: 6px;
   padding: 11px;
-}
-.order-service-config .review-panel {
-  height: 100%;
-}
-.center {
-  text-align: center;
 }
 body.overlay-open {
   overflow: hidden;
@@ -403,6 +374,7 @@ body.overlay-open {
   background-repeat: no-repeat;
   background-size: 100% 12px;
   max-height: calc(100vh - 248px);
+  min-height: 300px;
   overflow-y: auto;
   padding: 20px;
 }
