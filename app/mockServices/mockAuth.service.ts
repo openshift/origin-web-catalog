@@ -35,6 +35,8 @@ export class AuthService implements IAuthService {
 
     return this.$q.when(user);
   };
+
+  public isLoggedIn() {
+    return false;
+  }
 }
-
-

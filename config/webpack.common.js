@@ -31,7 +31,8 @@ var prodExternals = {
   'bootstrap': 'bootstrap',
   'jquery': '$',
   'lodash': '_',
-  'urijs': 'URI'
+  'urijs': 'URI',
+  'hopscotch': 'hopscotch'
 };
 
 var serverEntry = {

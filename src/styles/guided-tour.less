@@ -1,0 +1,149 @@
+.guided-tour-backdrop {
+  z-index: @zindex-modal + 200;
+}
+
+// Note: variable used for clarity only, changing will require other changes as well due to hopscotch arrow container sizing
+@hopscotch-bubble-arrow-width: 10px;
+
+// Overridden hopscotch settings
+div.hopscotch-bubble {
+  border-color: @color-pf-black-400;
+  border-width: 1px;
+  box-shadow: 1px 1px 3px  rgba(0, 0, 0, .3);
+
+  .hopscotch-actions {
+    background-color: @color-pf-white;
+    margin: -5px;
+    padding: @grid-gutter-width / 2;
+  }
+
+  .hopscotch-bubble-arrow-container {
+
+    .hopscotch-bubble-arrow-border {
+      &:after {
+        content: " ";
+        border-color: transparent;
+        border-style: solid;
+        position: absolute;
+      }
+    }
+
+    // Use our own arrows
+    &.down, &.left, &.right, &.up  {
+      .hopscotch-bubble-arrow {
+        display: none;
+      }
+    }
+
+    &.down .hopscotch-bubble-arrow-border {
+      border-top-color: @color-pf-black-400;
+      border-width: @hopscotch-bubble-arrow-width;
+      margin-top: -(@hopscotch-bubble-arrow-width / 2);
+
+      &:after {
+        border-color: @color-pf-white transparent transparent;
+        border-width: @hopscotch-bubble-arrow-width @hopscotch-bubble-arrow-width 0;
+        margin-left: -@hopscotch-bubble-arrow-width;
+        margin-top: -(@hopscotch-bubble-arrow-width + 2px);
+      }
+    }
+
+    &.left {
+      top: 48px;
+
+      .hopscotch-bubble-arrow-border {
+        border-right-color: @color-pf-black-400;
+        border-width: @hopscotch-bubble-arrow-width;
+        margin-left: @hopscotch-bubble-arrow-width + 1px;
+
+        &:after {
+          border-color: transparent @color-pf-white transparent transparent;
+          border-width: @hopscotch-bubble-arrow-width @hopscotch-bubble-arrow-width @hopscotch-bubble-arrow-width 0;
+          margin-left: 2px;
+          margin-top: -@hopscotch-bubble-arrow-width;
+        }
+      }
+    }
+
+    &.right {
+      top: 48px;
+
+      .hopscotch-bubble-arrow-border {
+        border-left-color: @color-pf-black-400;
+        border-width: @hopscotch-bubble-arrow-width;
+        margin-left: -5px;
+
+        &:after {
+          border-color: transparent transparent transparent @color-pf-white;
+          border-width: @hopscotch-bubble-arrow-width 0 @hopscotch-bubble-arrow-width @hopscotch-bubble-arrow-width;
+          margin-left: -(@hopscotch-bubble-arrow-width + 2px);
+          margin-top: -@hopscotch-bubble-arrow-width;
+        }
+      }
+    }
+
+    &.up .hopscotch-bubble-arrow-border {
+      border-bottom-color: @color-pf-black-400;
+      border-width: @hopscotch-bubble-arrow-width;
+      margin-top: @hopscotch-bubble-arrow-width + 1px;
+
+      &:after {
+        border-color: transparent transparent @color-pf-black-150;
+        border-width: 0 @hopscotch-bubble-arrow-width @hopscotch-bubble-arrow-width;
+        margin-left: -@hopscotch-bubble-arrow-width;
+        margin-top: 2px;
+      }
+    }
+  }
+
+  .hopscotch-bubble-close {
+    right: 8px;
+    top: 7px;
+  }
+
+  .hopscotch-bubble-container {
+    background-color: @color-pf-black-150;
+  }
+
+  .hopscotch-content {
+    color: @color-pf-black-700;
+    background-color: @color-pf-white;
+    font-family: "Open Sans";
+    font-size: 12px;
+    margin: 11px -5px 0 -45px;
+    padding: 15px 20px 5px;
+  }
+
+  h3 {
+    margin-top: 6px;
+    color: @color-pf-black-700;
+    font-family: "Open Sans";
+    padding-left: 10px;
+  }
+
+  .hopscotch-bubble-number {
+    background: none;
+    background-color: @color-pf-blue-400;
+    border-radius: 15px;
+    font-family: "Open Sans";
+    font-size: 16px;
+    margin-left: 10px;
+    padding: 0;
+  }
+
+  .hopscotch-nav-button {
+    border-radius: 0;
+    font-family: "Open Sans";
+    font-size: 12px;
+
+    &.next {
+      background-color: @color-pf-blue-400;
+      background-image: none;
+      margin-left: 5px;
+    }
+
+    &.prev {
+      color: @color-pf-black;
+    }
+  }
+}

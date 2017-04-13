@@ -86,3 +86,43 @@ var resources: any = {
 };
 
 _.set(window, 'OPENSHIFT_CONSTANTS.CATALOG_HELP_RESOURCES', resources);
+
+var homePageTourSteps = {
+  createProject: {
+    title: "Create Project",
+    content: "Projects allow you to organize and manage your content. Projects require a unique name, and optionally can include a display name, and description",
+    show: true
+  },
+  search: {
+    title: "Search Catalog",
+    content: "Search by name, description, keyword, or label to quickly locate items in the catalog that you want to add to your project.",
+    show: true
+  },
+  saasList: {
+    title: "Build Applications",
+    content: "Build applications from a quickstart or popular framework.",
+    show: true
+  },
+  catalogs: {
+    title: "Browse Catalog",
+    content: "If you don’t know exactly what you are looking for, you can browse all available catalog items under the first tab in the catalog.",
+    show: true
+  },
+  category: {
+    title: "Browse by Category",
+    content: "A secondary level of categorization is available to further narrow your search.",
+    show: true
+  },
+  catalogItem: {
+    title: "Configure a Resource",
+    content: "Clicking on a catalog item will open a panel allowing you to configure and create within a project.",
+    show: true
+  },
+  help: {
+    title: "Additional Help",
+    content: "Additional resources can be found here or you can always access the help icon in the top banner for more information.",
+    show: true
+  }
+};
+
+_.set(window, 'OPENSHIFT_CONSTANTS.LANDING_PAGE_TOUR_STEPS', homePageTourSteps);

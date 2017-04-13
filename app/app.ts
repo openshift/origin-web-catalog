@@ -33,8 +33,10 @@ import {homePage} from './pages/home/homePage';
 import {servicesPage} from './pages/services/servicesPage';
 import {projectsPage} from './pages/projects/projectsPage';
 import {errorPage} from './pages/error/errorPage';
+import {logoutPage} from './pages/logout/logoutPage';
 import {navigation} from './components/navigation/navigation.component';
 import {MockServicesModule} from './mockServices/mockServices.module';
+import {LandingPageTourService} from './services/landingPageTourService';
 
 import 'angular-ui-router';
 import routesConfig from './routes';
@@ -58,11 +60,13 @@ if (mockServicesModule.useMockServices() !== true) {
 angular
   .module(catalogApp, ['webCatalog', 'openshiftCommonUI', commonServices, 'ui.router', 'patternfly', 'angularMoment'])
   .config(routesConfig)
+  .service('LandingPageTourService', LandingPageTourService)
   .component('oauth', oauth)
   .component('homepage', homePage)
   .component('servicespage', servicesPage)
   .component('projectspage', projectsPage)
   .component('errorpage', errorPage)
+  .component('logoutpage', logoutPage)
   .component('navigation', navigation)
   .constant('amTimeAgoConfig', {titleFormat: 'LLL'});
 

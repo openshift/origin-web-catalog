@@ -4,14 +4,16 @@ import './styles/main.less';
 // Aphabetical order please
 require('./constants');
 
-
 // Filters
 import {projectUrlFilter} from './filters/projectUrl';
 
-// Components, Alphabetical order please
+// Services
 import {BuilderAppService} from './services/builder-app.service';
-import {catalogSearch} from './components/catalog-search/catalog-search.component';
 import {CatalogService} from './services/catalog.service';
+import {GuidedTourService} from './services/guided-tour.service';
+
+// Components, Alphabetical order please
+import {catalogSearch} from './components/catalog-search/catalog-search.component';
 import {createFromBuilder} from './components/create-from-builder/create-from-builder.component';
 import {landingPage} from './components/landing-page/landing-page.component';
 import {orderService} from './components/order-service/order-service.component';
@@ -29,6 +31,7 @@ angular
   .module(webCatalog, ['patternfly', 'ngAnimate', 'ui.bootstrap', 'angularMoment', 'ui.select'])
   .service('BuilderAppService', BuilderAppService)
   .service('Catalog', CatalogService)
+  .service('GuidedTourService', GuidedTourService)
   .filter('projectUrl', projectUrlFilter)
   .component('catalogSearch', catalogSearch)
   .component('createFromBuilder', createFromBuilder)
