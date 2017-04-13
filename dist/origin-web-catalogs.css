@@ -60,6 +60,7 @@
 }
 @media (min-width: 768px) {
   .landing {
+    background-color: #fff;
     bottom: 0;
     overflow-y: auto;
     position: absolute;
@@ -872,16 +873,14 @@ body.overlay-open {
 }
 .services-view .services-sub-categories {
   align-items: flex-start;
-  background: #f2f2f2;
+  background: rgba(0, 34, 53, 0.9);
   display: flex;
   flex-wrap: wrap;
   padding: 15px 20px 0;
   position: relative;
 }
 .services-view .services-sub-categories .services-items {
-  border-bottom: 1px solid #d1d1d1;
   border-top: 1px solid #d1d1d1;
-  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.03);
   left: 0;
   position: absolute;
   right: 0;
