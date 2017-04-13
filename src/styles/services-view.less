@@ -146,6 +146,9 @@
         right: 0;
         z-index: 2;
       }
+      .services-sub-category-tab-image img {
+        opacity: 1;
+      }
     }
 
     &:last-child {
@@ -169,12 +172,35 @@
       &:hover {
         color: @link-color;
         text-decoration: none;
+        .services-sub-category-tab-image img {
+          opacity: 1;
+        }
       }
+    }
+
+    .services-sub-category-tab-icon,
+    .services-sub-category-tab-image {
+      margin: 0 0 5px;
     }
 
     .services-sub-category-tab-icon {
       font-size: 36px;
-      margin: 0 0 5px;
+    }
+
+    .services-sub-category-tab-image {
+      height: 36px;
+      position: relative;
+      img {
+        bottom: 0;
+        left: 0;
+        margin: auto;
+        max-height: 36px;
+        max-width: 36px;
+        opacity: .5;
+        position: absolute;
+        right: 0;
+        top: 0;
+      }
     }
   }
 
