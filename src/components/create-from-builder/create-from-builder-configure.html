@@ -18,7 +18,7 @@
     </div>
     <select-project selected-project="$ctrl.selectedProject" name-taken="$ctrl.projectNameTaken"></select-project>
     <div class="form-group">
-      <label class="col-sm-4 control-label" for="app-name">Application Name</label>
+      <label class="col-sm-4 control-label required" for="app-name">Application Name</label>
       <div class="col-sm-8" ng-class="{ 'has-error': $ctrl.builderForm.name.$touched && $ctrl.builderForm.name.$invalid }">
         <input
           class="form-control"
@@ -60,7 +60,7 @@
     </div>
 
     <div class="form-group">
-      <label class="col-sm-4 control-label" for="repository">Git Repository</label>
+      <label class="col-sm-4 control-label required" for="repository">Git Repository</label>
       <div class="col-sm-8" ng-class="{ 'has-error': $ctrl.builderForm.repository.$touched && $ctrl.builderForm.repository.$error.$required }">
         <input class="form-control"
           type="text"
