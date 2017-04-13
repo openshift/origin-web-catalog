@@ -55,7 +55,7 @@ export class SelectProjectController implements angular.IController {
   }
 
   public isNewProject(): boolean {
-    return this.ctrl.selectedProject && !_.has(this.ctrl.selectedProject, 'metadata.uid');
+    return this.ctrl.projects && this.ctrl.selectedProject && !_.has(this.ctrl.selectedProject, 'metadata.uid');
   }
 
   private listProjects() {
