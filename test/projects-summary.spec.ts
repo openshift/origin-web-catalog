@@ -24,6 +24,7 @@ describe('Projects Summary Panel', () => {
   var viewMembershipCallCount: number = 0;
   var showTourCount: number = 0;
   var expectedCanCreate: boolean = true;
+  var expectedCanCreateData: any;
 
   var testShowTour = function() {
     showTourCount++;
@@ -88,7 +89,12 @@ describe('Projects Summary Panel', () => {
     spyOn(ProjectsService, 'canCreate').and.callFake(function() {
       let deferred = this.$q.defer();
       if (!expectedCanCreate) {
-        deferred.reject({status: 403});
+        deferred.reject(
+          {
+            status: 403,
+            data: expectedCanCreateData
+          }
+        );
       } else {
         deferred.resolve();
       }
@@ -322,5 +328,41 @@ describe('Projects Summary Panel', () => {
     componentTest.scope.$digest();
 
     expect(showTourCount).toBe(1);
+  });
+
+  it('should show a defined message when unable to create projects', () => {
+    expectedCanCreate = false;
+    expectedCanCreateData = {
+      details: {
+        causes: [{message: "test message"}]
+      }
+    };
+
+    createProjectSummary();
+
+    var element = componentTest.rawElement;
+
+    $timeout.flush();
+
+    var message = jQuery(element).find('.catalog-projects-summary-panel > div > span');
+
+    expect(message.length).toBe(1);
+    expect(message[0].innerHTML).toBe("test message");
+  });
+
+  it('should show a default message when no defined message for unable to create projects', () => {
+    expectedCanCreate = false;
+    expectedCanCreateData = undefined;
+
+    createProjectSummary();
+
+    var element = componentTest.rawElement;
+
+    $timeout.flush();
+
+    var message = jQuery(element).find('.catalog-projects-summary-panel > div > span');
+
+    expect(message.length).toBe(1);
+    expect(message[0].innerHTML.trim().startsWith('A cluster admin can create a project')).toBe(true);
   });
 });

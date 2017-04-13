@@ -35,10 +35,19 @@ export class ProjectsSummaryController implements angular.IController {
   }
 
   public $onInit () {
+    this.ctrl.loading = true;
+
+    this.AuthService
+      .withUser()
+      .then((resp: any) => {
+        this.ctrl.user = resp;
+      });
+
     this.ProjectsService.canCreate().then(() => {
       this.ctrl.canCreate = true;
     }, (result) => {
       this.ctrl.canCreate = false;
+      this.ctrl.loading = false;
 
       var data = result.data || {};
 
@@ -72,7 +81,6 @@ export class ProjectsSummaryController implements angular.IController {
   }
 
   public init = () => {
-    this.ctrl.loading = true;
     this.watches.push(this.DataService.watch('projects', this.$scope, this.onProjectsUpdate));
     this.AlertMessageService.getAlerts().forEach(function(alert: any) {
       this.ctrl.alerts[alert.name] = alert.data;

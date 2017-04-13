@@ -1,10 +1,25 @@
-<div class="catalog-projects-summary-panel">
+<div ng-if="$ctrl.loading" class="catalog-projects-spinner-container">
+  <div class="spinner spinner-xl"></div>
+</div>
+<div class="catalog-projects-summary-panel" ng-show="!$ctrl.loading">
   <button ng-if="$ctrl.canCreate" class="create-button btn btn-primary" ng-click="$ctrl.openNewProjectPanel()">
     <span class="fa fa-plus"></span>
     <span class="create-button-text">Create Project</span>
   </button>
-  <h2 class="primary" ng-if="!$ctrl.projects || !$ctrl.projects.length">Getting Started</h2>
-  <h2 class="primary" ng-if="$ctrl.projects && $ctrl.projects.length">My Projects</h2>
+  <h2 class="summary-title secondary" ng-if="!$ctrl.projects || !$ctrl.projects.length">Getting Started</h2>
+  <h2 class="summary-title secondary" ng-if="$ctrl.projects && $ctrl.projects.length">
+    <a href="{{$ctrl.projectsUrl}}">My Projects</a>
+  </h2>
+  <div ng-if="!$ctrl.canCreate">
+    <span ng-if="!$ctrl.newProjectMessage">
+      A cluster admin can create a project for you by running the command:
+      <div class="code-block">
+        <code class="projects-instructions-link ">oadm new-project &lt;projectname&gt;
+   --admin={{$ctrl.user.metadata.name || '&lt;YourUsername&gt;'}}</code>
+      </div>
+    </span>
+    <span ng-if="$ctrl.newProjectMessage" ng-bind-html="$ctrl.newProjectMessage | linky : '_blank'"></span>
+  </div>
   <div class="catalog-modal catalog-modal-create-project" ng-if="$ctrl.showNewProjectPanel">
     <h4 class="catalog-modal-title">
       Create Project

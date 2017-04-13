@@ -42,10 +42,48 @@
     }
   }
 
+  .projects-instructions-link {
+    white-space: pre;
+    code {
+      display: inline-block;
+    }
+  }
+
+  .code-block {
+    background: @color-pf-black;
+    color: @color-pf-black-200;
+    margin-right: 15px;
+    margin-top: 5px;
+    opacity: 0.5;
+  }
+  code {
+    background: transparent;
+    border: none;
+    color: @color-pf-white;
+    white-space: normal;
+  }
+
   .resources-panel {
     margin-top: @grid-gutter-width;
     border-top: solid 1px @color-pf-black-700;
   }
+
+  .summary-title {
+    margin-top: 5px;
+    a {
+      color: @color-pf-white;
+      &:hover {
+        color: @link-color;
+        text-decoration: underline;
+      }
+    }
+  }
+
+}
+
+.catalog-projects-spinner-container {
+  padding-top: 60px;
+  padding-bottom: 60px;
 }
 
 .catalog-projects-summary-modal-backrop.modal-backdrop {

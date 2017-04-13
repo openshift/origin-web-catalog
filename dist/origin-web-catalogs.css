@@ -471,9 +471,42 @@ body.overlay-open {
 .catalog-projects-summary-panel h2.secondary {
   font-size: 18px;
 }
+.catalog-projects-summary-panel .projects-instructions-link {
+  white-space: pre;
+}
+.catalog-projects-summary-panel .projects-instructions-link code {
+  display: inline-block;
+}
+.catalog-projects-summary-panel .code-block {
+  background: #030303;
+  color: #ededed;
+  margin-right: 15px;
+  margin-top: 5px;
+  opacity: 0.5;
+}
+.catalog-projects-summary-panel code {
+  background: transparent;
+  border: none;
+  color: #fff;
+  white-space: normal;
+}
 .catalog-projects-summary-panel .resources-panel {
   margin-top: 40px;
   border-top: solid 1px #4d5258;
+}
+.catalog-projects-summary-panel .summary-title {
+  margin-top: 5px;
+}
+.catalog-projects-summary-panel .summary-title a {
+  color: #fff;
+}
+.catalog-projects-summary-panel .summary-title a:hover {
+  color: #0088ce;
+  text-decoration: underline;
+}
+.catalog-projects-spinner-container {
+  padding-top: 60px;
+  padding-bottom: 60px;
 }
 .catalog-projects-summary-modal-backrop.modal-backdrop {
   background-color: transparent;
