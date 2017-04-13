@@ -13,9 +13,7 @@
       Continue to your project to check the status of your application as it builds and deploys.
     </p>
     <div class="footer-panel">
-      <button class="view-btn btn btn-primary">
-        <a href="{{$ctrl.selectedProject | projectUrl : $ctrl.baseProjectUrl}}">View Project</a>
-      </button>
+      <a class="btn btn-primary" href="{{$ctrl.selectedProject | projectUrl : $ctrl.baseProjectUrl}}">View Project</a>
     </div>
   </div>
   <div ng-if="$ctrl.error">`
