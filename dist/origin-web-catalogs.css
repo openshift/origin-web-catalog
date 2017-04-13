@@ -909,6 +909,9 @@ body.overlay-open {
   right: 0;
   z-index: 2;
 }
+.services-view .services-sub-category.active .services-sub-category-tab .services-sub-category-tab-image img {
+  opacity: 1;
+}
 .services-view .services-sub-category:last-child {
   margin-bottom: 15px;
 }
@@ -930,9 +933,31 @@ body.overlay-open {
   color: #0088ce;
   text-decoration: none;
 }
+.services-view .services-sub-category .services-sub-category-tab:focus .services-sub-category-tab-image img,
+.services-view .services-sub-category .services-sub-category-tab:hover .services-sub-category-tab-image img {
+  opacity: 1;
+}
+.services-view .services-sub-category .services-sub-category-tab-icon,
+.services-view .services-sub-category .services-sub-category-tab-image {
+  margin: 0 0 5px;
+}
 .services-view .services-sub-category .services-sub-category-tab-icon {
   font-size: 36px;
-  margin: 0 0 5px;
+}
+.services-view .services-sub-category .services-sub-category-tab-image {
+  height: 36px;
+  position: relative;
+}
+.services-view .services-sub-category .services-sub-category-tab-image img {
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  max-height: 36px;
+  max-width: 36px;
+  opacity: .5;
+  position: absolute;
+  right: 0;
+  top: 0;
 }
 .services-view .services-view-container h1 {
   background-color: rgba(0, 34, 53, 0.6);

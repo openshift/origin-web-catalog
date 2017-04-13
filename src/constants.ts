@@ -21,7 +21,7 @@ var saasOfferings: any = [
 var categories: any = [
   {id: 'languages', label: 'Languages', iconClassDefault: 'fa fa-code', subCategories: [
     {id: 'java', label: 'Java', icon: 'font-icon icon-openjdk'},
-    {id: 'javascript', categoryAliases: ['nodejs', 'js'], label: 'Javascript', icon: 'font-icon icon-js'},
+    {id: 'javascript', categoryAliases: ['nodejs', 'js'], label: 'JavaScript', icon: 'font-icon icon-js'},
     {id: 'perl', label: 'Perl', icon: 'font-icon icon-perl'},
     {id: 'ruby', label: 'Ruby', icon: 'font-icon icon-ruby'},
     {id: 'php', label: 'PHP', icon: 'font-icon icon-php'},
