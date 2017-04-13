@@ -1,21 +1,12 @@
 // Breakpoint for showing a smaller icon and service title.
 @order-service-title-sm-min: 450px;
-@order-service-content-height: 300px;
 
-.order-service {
-  .wizard-pf-main {
-    // Room for fixed buttons.
-    margin-bottom: 58px;
-    // No sidebar.
-    margin-left: 0;
-    padding: 0;
-  }
-}
 .order-service-details {
-  margin-top: 20px;
+  flex: 0 1 auto;
+  padding: 0 (@grid-gutter-width / 2);
   @media (min-width: @screen-sm-min) {
     border-right: 1px solid @color-pf-black-400;
-    height: @order-service-content-height;
+    width: 50%;
   }
   .order-service-details-top {
     align-items: center;
@@ -72,11 +63,13 @@
   }
 }
 .order-service-config {
-  overflow-y: auto;
-  padding-top: 2px;
-  padding-right: 0px;
+  flex: 0 1 auto;
+  padding: 0 (@grid-gutter-width / 2);
   @media (min-width: @screen-sm-min) {
-    height: @order-service-content-height;
+    width: 50%;
+    .form-horizontal .control-label {
+      padding-right: 0;
+    }
   }
   .failure-messages {
     margin: 20px auto;
@@ -98,7 +91,9 @@
     font-weight: 400;
   }
   .select-plans {
-    padding-left: 10px;
+    h3 {
+      margin-top: 0;
+    }
     .plan-name {
       display: inline-block;
       font-size: 14px;
@@ -110,13 +105,6 @@
     }
   }
   .config-top {
-    height: 290px;
-    overflow-y: auto;
-    overflow-x: hidden;
-    .config-form {
-      width: 100%;
-      padding-top: 18px;
-    }
     .adv-ops {
       height: 30%;
     }
@@ -189,9 +177,6 @@
     }
   }
   .review-panel {
-    height: 100%;
-  }
-  .wizard-pf-contents {
     height: 100%;
   }
 }
