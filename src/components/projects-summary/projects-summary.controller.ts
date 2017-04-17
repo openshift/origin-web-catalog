@@ -86,7 +86,6 @@ export class ProjectsSummaryController implements angular.IController {
       this.ctrl.alerts[alert.name] = alert.data;
     });
 
-    this.ctrl.resourceDescription = this.Constants.CATALOG_HELP_RESOURCES.description;
     this.ctrl.resourceLinks = _.clone(this.Constants.CATALOG_HELP_RESOURCES.links);
 
     _.forEach(this.ctrl.resourceLinks, (nextResource: any) => {

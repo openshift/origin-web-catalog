@@ -463,7 +463,7 @@ body.overlay-open {
   padding-left: 4px;
 }
 .catalog-projects-summary-panel .getting-started-panel {
-  margin-top: 40px;
+  margin-top: 20px;
 }
 .catalog-projects-summary-panel h2.primary {
   margin-top: 0;
@@ -491,8 +491,7 @@ body.overlay-open {
   white-space: normal;
 }
 .catalog-projects-summary-panel .resources-panel {
-  margin-top: 40px;
-  border-top: solid 1px #4d5258;
+  margin-top: 20px;
 }
 .catalog-projects-summary-panel .summary-title {
   margin-top: 5px;
