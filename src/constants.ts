@@ -56,31 +56,30 @@ _.set(window, 'OPENSHIFT_CONSTANTS.SAAS_OFFERINGS', saasOfferings);
 
 
 var resources: any = {
-  description: 'Lorem ipsum dolor sit amet, consectular adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud',
   links: [
     {
-      title: 'Welcome',
-      help: 'default'
+      title: 'Documentation',
+      help: ''
     },
     {
-      title: 'Building a new Application',
-      help: 'new_app'
+      title: 'Developer Portal',
+      href: 'https://developers.openshift.com'
     },
     {
-      title: 'Authorization',
-      help: 'authorization'
+      title: 'Interactive Learning Portal',
+      href: 'https://openshift.katacoda.com'
     },
     {
-      title: 'Deployments',
-      help: 'deployments'
+      title: 'Local Development ',
+      href: 'https://www.openshift.org/minishift'
     },
     {
-      title: 'Application Health',
-      help: 'application_health'
+      title: 'YouTube',
+      href: 'https://www.youtube.com/user/rhopenshift'
     },
     {
-      title: 'Visit us on Facebook',
-      href: 'http://facebook.com/RedHatInc'
+      title: 'Blog',
+      href: 'https://blog.openshift.com'
     }
   ]
 };

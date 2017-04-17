@@ -35,10 +35,19 @@ export class ProjectsSummaryController implements angular.IController {
   }
 
   public $onInit () {
+    this.ctrl.loading = true;
+
+    this.AuthService
+      .withUser()
+      .then((resp: any) => {
+        this.ctrl.user = resp;
+      });
+
     this.ProjectsService.canCreate().then(() => {
       this.ctrl.canCreate = true;
     }, (result) => {
       this.ctrl.canCreate = false;
+      this.ctrl.loading = false;
 
       var data = result.data || {};
 
@@ -72,18 +81,16 @@ export class ProjectsSummaryController implements angular.IController {
   }
 
   public init = () => {
-    this.ctrl.loading = true;
     this.watches.push(this.DataService.watch('projects', this.$scope, this.onProjectsUpdate));
     this.AlertMessageService.getAlerts().forEach(function(alert: any) {
       this.ctrl.alerts[alert.name] = alert.data;
     });
 
-    this.ctrl.resourceDescription = this.Constants.CATALOG_HELP_RESOURCES.description;
     this.ctrl.resourceLinks = _.clone(this.Constants.CATALOG_HELP_RESOURCES.links);
 
     _.forEach(this.ctrl.resourceLinks, (nextResource: any) => {
       if (angular.isDefined(nextResource.help)) {
-        nextResource.href = this.Constants.HELP_BASE_URL + this.Constants.HELP[nextResource.help];
+        nextResource.href = this.Constants.HELP_BASE_URL + (nextResource.help ? this.Constants.HELP[nextResource.help] : '');
       }
     });
   };
