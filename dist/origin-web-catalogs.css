@@ -493,6 +493,9 @@ body.overlay-open {
 .catalog-projects-summary-panel .resources-panel {
   margin-top: 20px;
 }
+.catalog-projects-summary-panel .resources-panel ul {
+  padding-left: 20px;
+}
 .catalog-projects-summary-panel .summary-title {
   margin-top: 5px;
 }

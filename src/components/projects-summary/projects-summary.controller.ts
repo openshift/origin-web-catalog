@@ -90,7 +90,7 @@ export class ProjectsSummaryController implements angular.IController {
 
     _.forEach(this.ctrl.resourceLinks, (nextResource: any) => {
       if (angular.isDefined(nextResource.help)) {
-        nextResource.href = this.Constants.HELP_BASE_URL + this.Constants.HELP[nextResource.help];
+        nextResource.href = this.Constants.HELP_BASE_URL + (nextResource.help ? this.Constants.HELP[nextResource.help] : '');
       }
     });
   };
