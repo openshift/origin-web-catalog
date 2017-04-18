@@ -46,7 +46,7 @@ export class CreateFromBuilderController implements angular.IController {
     this.ctrl.versions = this.getVersions();
     this.ctrl.istag = _.first(this.ctrl.versions);
     this.ctrl.nameMaxLength = 24;
-    this.ctrl.namePattern = /[a-z]([-a-z0-9]*[a-z0-9])?/;
+    this.ctrl.namePattern = /^[a-z]([-a-z0-9]*[a-z0-9])?$/;
     this.ctrl.repositoryPattern = /^[a-z][a-z0-9+.-@]*:(\/\/)?[0-9a-z_-]+/;
   }
 
