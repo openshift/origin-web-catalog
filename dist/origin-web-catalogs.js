@@ -640,7 +640,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 id: "results",
                 view: "create-from-builder/create-from-builder-results.html"
             } ], this.ctrl.currentStep = this.ctrl.steps[0], this.ctrl.versions = this.getVersions(), 
-            this.ctrl.istag = s.first(this.ctrl.versions), this.ctrl.nameMaxLength = 24, this.ctrl.namePattern = /[a-z]([-a-z0-9]*[a-z0-9])?/, 
+            this.ctrl.istag = s.first(this.ctrl.versions), this.ctrl.nameMaxLength = 24, this.ctrl.namePattern = /^[a-z]([-a-z0-9]*[a-z0-9])?$/, 
             this.ctrl.repositoryPattern = /^[a-z][a-z0-9+.-@]*:(\/\/)?[0-9a-z_-]+/;
         }, e.prototype.stepClick = function(e) {
             "results" !== this.ctrl.currentStep.id && e.visited && this.gotoStep(e);
