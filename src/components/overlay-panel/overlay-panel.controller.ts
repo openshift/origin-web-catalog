@@ -2,14 +2,12 @@ import * as angular from 'angular';
 import * as $ from 'jquery';
 
 export class OverlayPanelController implements angular.IController {
-  static $inject = ['$element', '$timeout'];
+  static $inject = ['$timeout'];
 
   public ctrl: any = this;
-  private $element: any;
   private $timeout: any;
 
-  constructor ($element: any, $timeout: any) {
-    this.$element = $element;
+  constructor ($timeout: any) {
     this.$timeout = $timeout;
     this.ctrl.showOverlayPanel = false;
     this.ctrl.shown = false;
