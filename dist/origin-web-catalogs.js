@@ -393,6 +393,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                                 name: e.name + ":latest"
                             }
                         }
+                    }, {
+                        type: "ConfigChange"
                     } ],
                     template: {
                         metadata: {

@@ -143,6 +143,8 @@ export class BuilderAppService {
               name: config.name + ":latest"
             }
           }
+        }, {
+          type: "ConfigChange"
         }],
         template: {
           metadata: {
