@@ -28,13 +28,8 @@ export class ServicesViewController implements angular.IController {
     this.ctrl.allItems = [];
     this.ctrl.currentFilter = 'all';
     this.ctrl.currentSubFilter = null;
-    this.ctrl.orderingPanelVisible = false;
 
     this.updateAll();
-
-    this.$scope.$on('cancelOrder', () => {
-      this.ctrl.closeOrderingPanel();
-    });
 
     this.debounceResize = _.debounce(this.resizeExpansion, 50, { maxWait: 250 });
     angular.element(window).bind('resize', this.debounceResize);
@@ -101,23 +96,7 @@ export class ServicesViewController implements angular.IController {
   };
 
   public handleClick = (item: any, e: any) => {
-    let kind = _.get(item, 'resource.kind');
-    if (kind === 'ImageStream') {
-      this.ctrl.selectedImageStream = item;
-      this.ctrl.selectedServiceClass = null;
-    } else {
-      this.ctrl.selectedImageStream = null;
-      this.ctrl.selectedServiceClass = item;
-    }
-    this.ctrl.openOrderingPanel();
-  };
-
-  public openOrderingPanel() {
-    this.ctrl.orderingPanelVisible = true;
-  };
-
-  public closeOrderingPanel = () => {
-    this.ctrl.orderingPanelVisible = false;
+    this.$scope.$emit('open-overlay-panel', item);
   };
 
   private updateAll() {

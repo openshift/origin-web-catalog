@@ -1,18 +1,3 @@
-<!-- TODO: Should not have two ordering panels, combine with services view -->
-<overlay-panel show-panel="$ctrl.orderingPanelVisible" show-close="true" handle-close="$ctrl.closeOrderingPanel">
-  <order-service
-      ng-if="$ctrl.selectedServiceClass"
-      base-project-url="{{$ctrl.baseProjectUrl}}"
-      service-class="$ctrl.selectedServiceClass"
-      handle-close="$ctrl.closeOrderingPanel">
-  </order-service>
-  <create-from-builder
-      ng-if="$ctrl.selectedImageStream"
-      base-project-url="{{$ctrl.baseProjectUrl}}"
-      image-stream="$ctrl.selectedImageStream"
-      handle-close="$ctrl.closeOrderingPanel">
-  </create-from-builder>
-</overlay-panel>
 <div class="catalog-search">
   <form role="form" class="landing-search-form search-pf has-button">
     <div class="form-group has-clear">
