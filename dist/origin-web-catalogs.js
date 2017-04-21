@@ -763,16 +763,18 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             function t(e, t) {
                 var n = this;
                 this.ctrl = this, this.closeOrderingPanel = function() {
-                    n.ctrl.orderingPanelVisible = !1;
+                    var e = n.ctrl.selectedImageStream || n.ctrl.selectedServiceClass;
+                    n.RecentlyViewed.addItem(e.resource.metadata.uid), n.ctrl.orderingPanelVisible = !1;
                 }, this.$scope = e, this.RecentlyViewed = t;
             }
             return t.prototype.$onInit = function() {
                 var t = this;
                 this.ctrl.searchText = "", this.ctrl.orderingPanelVisible = !1, this.$scope.$on("open-overlay-panel", function(n, r) {
                     "ImageStream" === e.get(r, "resource.kind") ? (t.ctrl.selectedImageStream = r, t.ctrl.selectedServiceClass = null) : (t.ctrl.selectedImageStream = null, 
-                    t.ctrl.selectedServiceClass = r), t.RecentlyViewed.addItem(r.resource.metadata.uid), 
-                    t.ctrl.orderingPanelVisible = !0;
+                    t.ctrl.selectedServiceClass = r), t.ctrl.orderingPanelVisible = !0;
                 });
+            }, t.prototype.$onDestroy = function() {
+                this.ctrl.orderingPanelVisible && this.closeOrderingPanel();
             }, t;
         }();
         n.$inject = [ "$scope", "RecentlyViewedServiceItems" ], t.LandingPageController = n;

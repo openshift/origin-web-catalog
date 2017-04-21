@@ -25,12 +25,19 @@ export class LandingPageController implements angular.IController {
         this.ctrl.selectedImageStream = null;
         this.ctrl.selectedServiceClass = item;
       }
-      this.RecentlyViewed.addItem(item.resource.metadata.uid);
       this.ctrl.orderingPanelVisible = true;
     });
   }
 
+  public $onDestroy() {
+    if (this.ctrl.orderingPanelVisible) {
+      this.closeOrderingPanel();
+    }
+  }
+
   public closeOrderingPanel = () => {
+    let item: any = this.ctrl.selectedImageStream || this.ctrl.selectedServiceClass;
+    this.RecentlyViewed.addItem(item.resource.metadata.uid);
     this.ctrl.orderingPanelVisible = false;
   };
 }
