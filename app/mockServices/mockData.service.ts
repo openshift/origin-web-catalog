@@ -103,7 +103,7 @@ export class DataService implements IDataService {
         "annotations": {
           "openshift.io/description": object.description,
           "openshift.io/display-name": object.displayName,
-          "openshift.io/requester": "mock devleoper",
+          "openshift.io/requester": "mock developer",
         },
       },
       "spec": {
