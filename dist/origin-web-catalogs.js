@@ -2,9 +2,9 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
     e.exports = _;
 }, function(e, t) {
     e.exports = angular;
-}, function(e, t) {}, function(e, t) {
-    e.exports = $;
 }, function(e, t) {
+    e.exports = $;
+}, function(e, t) {}, function(e, t) {
     e.exports = '<a href="" class="catalog-search-match">\n  <span class="catalog-search-match-icon">\n    <span ng-if="match.model.imageUrl"><img ng-src="{{match.model.imageUrl}}"></span>\n    <span ng-if="!match.model.imageUrl && match.model.iconClass" ng-class="match.model.iconClass" class="icon"></span>\n  </span>\n  <div class="catalog-search-match-info">\n    <div class="catalog-search-match-label">\n      {{match.label}}\n    </div>\n    <div class="catalog-search-match-description">\n      <span ng-repeat="tag in (match.model.tags || match.model.resource.osbTags)" class="tag small text-muted">\n        {{tag}}\n      </span>\n    </div>\n  </div>\n</a>\n';
 }, function(e, t) {
     e.exports = '<div class="config-top">\n  <form name="$ctrl.builderForm" class="form-horizontal config-form">\n    <div class="form-group">\n      <label class="col-sm-4 control-label" for="version">Version</label>\n      <div class="col-sm-8">\n        <ui-select ng-model="$ctrl.istag" required search-enabled="false">\n          <ui-select-match>\n            {{$select.selected.name}}\n          </ui-select-match>\n          <ui-select-choices repeat="tag in $ctrl.versions track by tag.name">\n            {{tag.name}}\n            <small ng-repeat="otherTag in $ctrl.referencedBy[tag.name]">\n              <span ng-if="$first"> &mdash; </span>{{otherTag}}<span ng-if="!$last">,</span>\n            </small>\n          </ui-select-choices>\n        </ui-select>\n      </div>\n    </div>\n    <select-project selected-project="$ctrl.selectedProject" name-taken="$ctrl.projectNameTaken"></select-project>\n    <div class="form-group">\n      <label class="col-sm-4 control-label required" for="app-name">Application Name</label>\n      <div class="col-sm-8" ng-class="{ \'has-error\': $ctrl.builderForm.name.$touched && $ctrl.builderForm.name.$invalid }">\n        <input\n          class="form-control"\n          type="text"\n          id="app-name"\n          required\n          minlength="2"\n          ng-maxlength="$ctrl.nameMaxLength"\n          ng-pattern="$ctrl.namePattern"\n          ng-model="$ctrl.name"\n          name="name"\n          autocorrect="off"\n          autocapitalize="off"\n          spellcheck="false">\n        \x3c!-- Wait until users leave the field to avoid flashing errors as they type. --\x3e\n        <div ng-if="$ctrl.builderForm.name.$touched">\n          <div class="has-error" ng-show="$ctrl.builderForm.name.$error.required">\n            <span class="help-block">\n              Application name is required.\n            </span>\n          </div>\n          <div class="has-error" ng-show="$ctrl.builderForm.name.$error.pattern">\n            <span class="help-block">\n              Application name consists of lower-case letters, numbers, and dashes. It must start with a letter and can\'t end with a <code>-</code>.\n            </span>\n          </div>\n          <div class="has-error" ng-show="$ctrl.builderForm.name.$error.minlength">\n            <span class="help-block">\n              Application name must be at least 2 characters.\n            </span>\n          </div>\n          <div class="has-error" ng-show="$ctrl.builderForm.name.$error.maxlength">\n            <span class="help-block">\n              Application name can\'t be more than 24 characters.\n            </span>\n          </div>\n        </div>\n      </div>\n    </div>\n\n    <div class="form-group">\n      <label class="col-sm-4 control-label required" for="repository">Git Repository</label>\n      <div class="col-sm-8" ng-class="{ \'has-error\': $ctrl.builderForm.repository.$touched && $ctrl.builderForm.repository.$error.$required }">\n        <input class="form-control"\n          type="text"\n          id="repository"\n          name="repository"\n          required\n          ng-model="$ctrl.repository"\n          autocorrect="off"\n          autocapitalize="off"\n          spellcheck="false">\n        <div ng-if="$ctrl.istag.annotations.sampleRepo" class="help-block">\n          <a href="" ng-click="$ctrl.fillSampleRepo()">Try Sample Repository\n            <i class="fa fa-level-up" aria-hidden="true"></i></a>\n        </div>\n        <div class="has-error" ng-if="$ctrl.builderForm.repository.$touched && $ctrl.builderForm.repository.$error.$required">\n          <span class="help-block">\n            Git repository is required.\n          </span>\n        </div>\n        <div class="has-warning" ng-if="$ctrl.builderForm.repository.$touched && $ctrl.repository && !$ctrl.repositoryPattern.test($ctrl.repository)">\n          <span class="help-block">\n            This might not be a valid Git URL. Check that it is the correct URL to a remote Git repository.\n          </span>\n        </div>\n      </div>\n    </div>\n\n    \x3c!--\n      Only show the link for existing projects. It will be broken for new\n      projects.  Make `invisible` instead of using an ng-if so that the dialog\n      doesn\'t resize when the message appears.\n    --\x3e\n    <div ng-class="{ invisible: !$ctrl.selectedProject.metadata.uid || !$ctrl.istag }" class="form-group">\n      <div class="col-sm-8 col-sm-offset-4">\n        If you have a private Git repository or need to change application defaults, view\n        <a href="" ng-click="$ctrl.navigateToAdvancedForm()">advanced options</a>.\n      </div>\n    </div>\n  </form>\n</div>\n';
@@ -895,7 +895,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
 }, function(e, t, n) {
     "use strict";
     t.__esModule = !0;
-    var r = n(1), s = n(3), a = function() {
+    var r = n(1), s = n(2), a = function() {
         function e(e) {
             var t = this;
             this.ctrl = this, this.closePanel = function() {
@@ -922,7 +922,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
 }, function(e, t, n) {
     "use strict";
     t.__esModule = !0;
-    var r = n(1), s = n(3), a = n(0), i = function() {
+    var r = n(1), s = n(2), a = n(0), i = function() {
         function e(e, t, n, s, i, c, o, l, d, p, u, m) {
             var g = this;
             this.ctrl = this, this.showNewProjectPanel = !1, this.showEditwProjectPanel = !1, 
@@ -1085,7 +1085,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
 }, function(e, t, n) {
     "use strict";
     t.__esModule = !0;
-    var r = n(1), s = n(0), a = n(3), i = function() {
+    var r = n(1), s = n(0), a = n(2), i = function() {
         function e(e, t, n, r, a) {
             var i = this;
             this.ctrl = this, this.serviceClassesLoaded = !1, this.imageStreamsLoaded = !1, 
@@ -1159,9 +1159,9 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
     "use strict";
     t.__esModule = !0;
     var r = n(1);
-    n(2), n(19);
+    n(3), n(19);
     var s = n(20), a = n(21), i = n(10), c = n(22), o = n(11), l = n(12), d = n(13), p = n(14), u = n(15), m = n(16), g = n(17), h = n(18), f = n(23);
-    n(2), t.webCatalog = "webCatalog", r.module(t.webCatalog, [ "patternfly", "ngAnimate", "ui.bootstrap", "angularMoment", "ui.select" ]).service("BuilderAppService", a.BuilderAppService).service("Catalog", c.CatalogService).service("RecentlyViewedServiceItems", f.RecentlyViewedServiceItems).filter("projectUrl", s.projectUrlFilter).component("catalogSearch", i.catalogSearch).component("createFromBuilder", o.createFromBuilder).component("landingPage", l.landingPage).component("orderService", d.orderService).component("overlayPanel", p.overlayPanel).component("projectsSummary", u.projectsSummary).component("saasList", m.saasList).component("selectProject", g.selectProject).component("servicesView", h.servicesView).run([ "$templateCache", function(e) {
+    t.webCatalog = "webCatalog", r.module(t.webCatalog, [ "patternfly", "ngAnimate", "ui.bootstrap", "angularMoment", "ui.select" ]).service("BuilderAppService", a.BuilderAppService).service("Catalog", c.CatalogService).service("RecentlyViewedServiceItems", f.RecentlyViewedServiceItems).filter("projectUrl", s.projectUrlFilter).component("catalogSearch", i.catalogSearch).component("createFromBuilder", o.createFromBuilder).component("landingPage", l.landingPage).component("orderService", d.orderService).component("overlayPanel", p.overlayPanel).component("projectsSummary", u.projectsSummary).component("saasList", m.saasList).component("selectProject", g.selectProject).component("servicesView", h.servicesView).run([ "$templateCache", function(e) {
         e.put("catalog-search/catalog-search-result.html", n(4)), e.put("create-from-builder/create-from-builder-configure.html", n(5)), 
         e.put("create-from-builder/create-from-builder-results.html", n(6)), e.put("order-service/order-service-plans.html", n(8)), 
         e.put("order-service/order-service-configure.html", n(7)), e.put("order-service/order-service-review.html", n(9));

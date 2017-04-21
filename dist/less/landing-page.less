@@ -1,0 +1,134 @@
+.catalog-search-match {
+  .catalog-search-match-info {
+    display: inline-block;
+    vertical-align: top;
+  }
+  .catalog-search-match-label {
+    font-weight: 600;
+  }
+  .catalog-search-match-icon {
+    display: inline-block;
+    margin-right: 10px;
+    text-align: center;
+    width: 30px;
+  }
+  .icon {
+    font-size: 28px;
+  }
+  img {
+    max-height: 28px;
+    max-width: 28px;
+  }
+  .tag {
+    margin-right: 5px;
+    text-transform: uppercase;
+  }
+}
+
+.landing {
+  @media(min-width: @screen-sm-min) {
+    background-color: @color-pf-white;
+    bottom: 0;
+    overflow-y: auto;
+    position: absolute;
+    top: @landing-offset-top;
+    width: calc(100% ~"-" @landing-side-bar-width-sm);
+  }
+  @media(min-width: @screen-md-min) {
+    width: calc(100% ~"-" @landing-side-bar-width-md);
+  }
+  @media(min-width: @screen-lg-min) {
+    width: calc(100% ~"-" @landing-side-bar-width-lg);
+  }
+}
+
+.landing-main-area {
+  background: @landing-bg;
+  background-size: @landing-bg-size;
+}
+
+.catalog-search {
+  background: @landing-bg;
+  background-size: @landing-bg-size;
+  border-bottom: solid 1px @search-area-border;
+  padding: (@grid-gutter-width / 4);
+  width: 100%;
+  z-index: @zindex-navbar-fixed - 1;
+  .catalog-search-icon {
+    color: @color-pf-blue-300;
+    font-size: 16px;
+    left: 12px;
+    position: absolute;
+    top: 7px;
+  }
+  .catalog-search-input {
+    text-indent: 30px;
+  }
+  @media (min-width: @screen-sm-min) {
+    position: fixed;
+    top: @navbar-height;
+    width: calc(100% ~"-" @landing-side-bar-width-sm);
+  }
+  @media(min-width: @screen-md-min) {
+    width: calc(100% ~"-" @landing-side-bar-width-md);
+  }
+  @media(min-width: @screen-lg-min) {
+    width: calc(100% ~"-" @landing-side-bar-width-lg);
+  }
+}
+
+.landing-search-form {
+  margin: 0 auto;
+  width: 100%;
+  @media (min-width: @screen-sm-min) {
+    max-width: 600px;
+    width: 80%;
+  }
+  .search-pf-input-group{
+    .form-control{
+      font-size: (@font-size-base + 2);
+      height: 2.2em;
+    }
+    .pficon-close {
+      font-size: (@font-size-base + 4);
+      padding-top: .3em;
+    }
+  }
+  .dropdown-menu {
+    margin-top: 0;
+    width: 100%;
+    // important needed to override styles declared important in PatternFly
+    .active > a.catalog-search-match, :focus{
+      background-color: @color-pf-blue-50 !important;
+      border-color: @color-pf-blue-100 !important;
+      color: inherit !important;
+    }
+  }
+}
+
+.landing-side-bar {
+  background-color: @landing-side-bar-bg;
+  color: @color-pf-white;
+  // Needs to be less than the navbar so dropdown menus don't open under the sidebar.
+  z-index: @zindex-navbar-fixed - 1;
+  @media(min-width: @screen-sm-min) {
+    bottom: 0;
+    overflow-y: auto;
+    position: fixed;
+    right: 0;
+    top: @landing-side-bar-top-offset;
+    width: @landing-side-bar-width-sm;
+  }
+  @media(min-width: @screen-md-min) {
+    width: @landing-side-bar-width-md;
+  }
+  @media(min-width: @screen-lg-min) {
+    width: @landing-side-bar-width-lg;
+  }
+  a {
+    color: @color-pf-blue-300;
+    &:hover {
+      color: darken(@color-pf-blue-300, 10%);
+    }
+  }
+}

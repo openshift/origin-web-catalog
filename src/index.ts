@@ -22,8 +22,6 @@ import {selectProject} from './components/select-project/select-project.componen
 import {servicesView} from './components/services-view/services-view.component';
 import {RecentlyViewedServiceItems} from './services/recently-viewed-service-items.service.ts';
 
-import './styles/main.less';
-
 export const webCatalog: string = 'webCatalog';
 
 angular

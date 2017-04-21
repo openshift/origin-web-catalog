@@ -1,0 +1,281 @@
+.catalog-projects-summary-panel {
+  padding: (@grid-gutter-width / 2);
+  position: relative;
+
+  @media(min-width: @screen-lg-min) {
+    padding-left: @grid-gutter-width;
+    padding-right: @grid-gutter-width;
+  }
+
+  .create-button {
+    font-size: @font-size-base + 1;
+    float: right;
+  }
+
+  .create-button-text {
+    padding-left: 4px;
+  }
+
+  .getting-started-button {
+    width: 100%;
+    font-size: @font-size-base + 1;
+
+    &.with-projects {
+      margin-top: 15px;
+    }
+  }
+
+  .getting-started-button-text {
+    padding-left: 4px;
+  }
+
+  .getting-started-panel {
+    margin-top: @grid-gutter-width / 2;
+  }
+
+  h2 {
+    &.primary {
+      margin-top: 0;
+    }
+    &.secondary {
+      font-size: @font-size-base + 6;
+    }
+  }
+
+  .projects-instructions-link {
+    white-space: pre;
+    code {
+      display: inline-block;
+    }
+  }
+
+  .code-block {
+    background: @color-pf-black;
+    color: @color-pf-black-200;
+    margin-right: 15px;
+    margin-top: 5px;
+    opacity: 0.5;
+  }
+  code {
+    background: transparent;
+    border: none;
+    color: @color-pf-white;
+    white-space: normal;
+  }
+
+  .resources-panel {
+    margin-top: @grid-gutter-width / 2;
+
+    ul {
+      padding-left: @grid-gutter-width / 2;
+    }
+  }
+
+  .summary-title {
+    margin-top: 5px;
+    a {
+      color: @color-pf-white;
+      &:hover {
+        color: @link-color;
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .services-view {
+    .services-item {
+      color: @color-pf-white;
+      flex: 0 1 33%;
+      padding-left: 0px;
+    }
+    .services-items-inner {
+      background-image: none;
+    }
+    .services-items-inner-shadow-covers {
+      background-image: none;
+    }
+  }
+}
+
+.catalog-projects-spinner-container {
+  padding-top: 60px;
+  padding-bottom: 60px;
+}
+
+.catalog-projects-summary-modal-backrop.modal-backdrop {
+  background-color: transparent;
+  cursor: not-allowed;
+  z-index: @zindex-navbar-fixed - 1;
+}
+
+.catalog-modal {
+  background-color: @color-pf-white;
+  bottom: 0;
+  color: @text-color;
+  left: 0;
+  position: fixed;
+  padding: 0 (@grid-gutter-width / 2) (@grid-gutter-width / 2);
+  right: 0;
+  top: 0;
+  z-index: @zindex-modal;
+
+  @media (min-width: @screen-sm-min) {
+    border: 1px solid @dropdown-border;
+    bottom: auto;
+    box-shadow: 0 6px 12px rgba(0,0,0,.175);
+    position: absolute;
+    top: auto;
+
+    &:before {
+      content: "";
+      display: block;
+      border-color: transparent transparent @color-pf-black-150;
+      border-style: solid;
+      border-width: 0 7px 7px;
+      height: 0;
+      left: (@grid-gutter-width / 4);
+      position: absolute;
+      top: -7px;
+      width: 0;
+    }
+
+    &.catalog-modal-create-project {
+      left: (@grid-gutter-width / 2);
+      margin-top: 7px;
+      right: (@grid-gutter-width / 2);
+
+      &:before {
+        left: auto;
+        right: (@grid-gutter-width / 4);
+      }
+    }
+
+    &.catalog-modal-edit-project {
+      top: 40px;
+    }
+  }
+
+  @media (min-width: @screen-lg-min) {
+    &.catalog-modal-create-project {
+      left: @grid-gutter-width;
+      right: @grid-gutter-width;
+    }
+  }
+
+  .catalog-modal-close {
+    color: @color-pf-black-600;
+    font-size: 14px;
+    line-height: 1;
+    position: absolute;
+    right: (@grid-gutter-width / 2);
+    top: (@grid-gutter-width / 4) + 1;
+
+    &:hover {
+      color: @color-pf-black-800;
+    }
+  }
+
+  .catalog-modal-title {
+    background: @color-pf-black-150;
+    margin-left: -(@grid-gutter-width / 2);
+    margin-right: -(@grid-gutter-width / 2);
+    margin-top: 0;
+    padding: 10px @grid-gutter-width 10px (@grid-gutter-width / 2);
+  }
+
+  label.required:before {
+    content: '*';
+    position: absolute;
+    left: 12px;
+  }
+}
+
+.catalog-project-summary-list {
+  margin-bottom: @grid-gutter-width;
+  margin-top: 30px;
+
+  .dropdown-kebab-pf {
+    float: right;
+
+    .btn-link {
+      color: @color-pf-white;
+      margin-left: 0;
+    }
+
+    .dropdown-menu {
+      &:after {
+        border: 7px solid transparent;
+        border-bottom-color: @color-pf-white;
+        border-top-width: 0;
+        content: "";
+        display: block;
+        height: 0;
+        position: absolute;
+        right: 9px;
+        top: -7px;
+        vertical-align: middle;
+        width: 0;
+      }
+
+      &:before {
+        display: none;
+      }
+
+      &.dropdown-menu-right {
+        margin-top: 5px;
+        right: -14px;
+      }
+    }
+  }
+
+  .project-date {
+    color: @color-pf-black-500;
+    margin-bottom: 0;
+
+    + .project-description {
+      margin-top: 7px;
+    }
+  }
+
+  .project-tile {
+    border-bottom: solid 1px @color-pf-black-700;
+    border-top: solid 1px @color-pf-black-700;
+    margin: -1px 0 0;
+    padding: 10px;
+    position: relative;
+  }
+
+  .project-tile-header {
+    display: flex;
+    line-height: 1.6;
+    margin-bottom: 0;
+    margin-top: 0;
+  }
+
+  .project-title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .project-status {
+    padding-right: 5px;
+    font-size: 14px;
+    position: relative;
+    top: 4px;
+  }
+
+  .projects-count {
+    margin-bottom: 5px;
+  }
+
+  .projects-view-all {
+    float: right;
+  }
+}
+
+.catalogs-resources {
+  .resources-description {
+    margin-top: 7px;
+  }
+}

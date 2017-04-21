@@ -1,0 +1,118 @@
+.build-applications-view {
+  background: linear-gradient(fade(@color-pf-blue-700, 20%), fade(@color-pf-blue-700, 0%));
+
+  h1 {
+    color: @saas-text;
+    padding: (@grid-gutter-width / 2);
+  }
+}
+
+.saas-offerings-container {
+
+  .saas-list {
+    justify-content: space-around;
+
+    @media (min-width: @screen-sm-min) {
+      display: flex;
+      flex-wrap: wrap;
+      margin: 0;
+    }
+
+    .card {
+      border-bottom: solid 1px @saas-border-bottom-color;
+      color: @saas-text;
+      display: flex;
+
+      @media (min-width: @screen-sm-min) {
+        border-bottom: none;
+        flex: 0 1 auto;
+        width: 50%;
+      }
+
+      @media (min-width: @screen-lg-min) {
+        width: 25%;
+      }
+
+      &:hover {
+        background-color: @saas-hover;
+      }
+
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+
+    .card-content {
+      align-items: center;
+      color: @saas-text;
+      display: flex;
+      flex: 1 1 0%; // IE 11
+      padding: (@grid-gutter-width / 2);
+
+      @media (min-width: @screen-sm-min) {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      &:focus,
+      &:hover {
+        text-decoration: none;
+      }
+
+      .card-description {
+        font-size: @font-size-base;
+        max-width: 100%; // IE 11
+      }
+
+      .card-icon {
+        align-items: center;
+        display: flex;
+        font-size: 24px;
+        text-align: center;
+
+        @media(max-width: @screen-xs-max) {
+          width: 40px;
+        }
+
+        @media (min-width: @screen-sm-min) {
+          font-size: 72px;
+          min-height: 100px;
+          padding-bottom: 10px;
+        }
+
+        @media (min-width: @screen-lg-min) {
+          font-size: 108px;
+        }
+
+        img {
+          max-height: 1em;
+          max-width: 100%;
+        }
+      }
+
+      .card-title {
+        font-size: @font-size-base + 2;
+        padding-left: 1em;
+
+        @media (min-width: 480px) {
+          font-size: @font-size-base + 4;
+        }
+
+        @media (min-width: @screen-sm-min) {
+          font-weight: 700;
+          margin-bottom: 10px;
+          max-width: 100%; // IE 11
+          padding-left: 0;
+        }
+        @media (min-width: @screen-lg-min) {
+          font-size: @font-size-base + 6;
+        }
+      }
+    }
+  }
+
+  .spinner-container {
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+}
