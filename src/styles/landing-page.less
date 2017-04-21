@@ -34,11 +34,11 @@
     top: @landing-offset-top;
     width: calc(100% ~"-" @landing-side-bar-width-sm);
   }
-  @media(min-width: @screen-md-min) {
-    width: calc(100% ~"-" @landing-side-bar-width-md);
-  }
   @media(min-width: @screen-lg-min) {
     width: calc(100% ~"-" @landing-side-bar-width-lg);
+  }
+  @media(min-width: @screen-xl-min) {
+    width: calc(100% ~"-" @landing-side-bar-width-xl);
   }
 }
 
@@ -69,11 +69,11 @@
     top: @navbar-height;
     width: calc(100% ~"-" @landing-side-bar-width-sm);
   }
-  @media(min-width: @screen-md-min) {
-    width: calc(100% ~"-" @landing-side-bar-width-md);
-  }
   @media(min-width: @screen-lg-min) {
     width: calc(100% ~"-" @landing-side-bar-width-lg);
+  }
+  @media(min-width: @screen-xl-min) {
+    width: calc(100% ~"-" @landing-side-bar-width-xl);
   }
 }
 
@@ -119,16 +119,10 @@
     top: @landing-side-bar-top-offset;
     width: @landing-side-bar-width-sm;
   }
-  @media(min-width: @screen-md-min) {
-    width: @landing-side-bar-width-md;
-  }
   @media(min-width: @screen-lg-min) {
     width: @landing-side-bar-width-lg;
   }
-  a {
-    color: @color-pf-blue-300;
-    &:hover {
-      color: darken(@color-pf-blue-300, 10%);
-    }
+  @media(min-width: @screen-xl-min) {
+    width: @landing-side-bar-width-xl;
   }
 }

@@ -77,8 +77,64 @@
     flex-wrap: wrap;
     .services-item {
       color: @color-pf-white;
-      flex: 0 1 33%;
-      padding-left: 0px;
+      flex: 1 1 auto;
+      margin-bottom: 50px;
+      min-height: 120px;
+      padding: 0;
+      &:focus,
+      &:hover {
+        color: @landing-side-bar-link-color-hover;
+        .services-item-name {
+          color: @landing-side-bar-link-color-hover;
+        }
+      }
+      // Number of recent items displayed based on sidebar width at different viewport sizes
+      @media (max-width: @screen-xxs-max) {
+        &:nth-child(n+3) {
+          display: none; // display first 2
+        }
+      }
+      @media (min-width: @screen-xs-min) {
+        &:nth-child(n+4) {
+          display: none; // display first 3
+        }
+      }
+      @media (min-width: @screen-sm-min) and (max-width: @screen-md-max) {
+        &:nth-child(n+3) {
+          display: none; // display first 2
+        }
+      }
+      @media (min-width: @screen-lg-min) {
+        &:nth-child(n+4) {
+          display: none; // display first 3
+        }
+      }
+      @media (min-width: @screen-xl-min) {
+        &:nth-child(n+3) {
+          display: flex; // display first 4
+        }
+      }
+      .icon-ruby, .fa-question {
+        right: 1px;
+      }
+      .services-item-icon {
+        color: @text-color;
+        font-size: 30px;
+        height: 90px;
+        &:after {
+          background: @color-pf-white;
+          border-color: @landing-side-bar-bg;
+          height: 60px;
+          margin: -30px 0 0 -30px;
+          width: 60px;
+        }
+      }
+      .services-item-name {
+        color: @color-pf-white;
+        font-size: 12px;
+        font-weight: 300;
+        padding: 0 5px;
+      }
     }
   }
 
@@ -87,8 +143,8 @@
     a {
       color: @color-pf-white;
       &:hover {
-        color: @link-color;
-        text-decoration: underline;
+        color: @landing-side-bar-link-color-hover;
+        text-decoration: none;
       }
     }
   }
@@ -247,6 +303,14 @@
     line-height: 1.6;
     margin-bottom: 0;
     margin-top: 0;
+    a {
+      color: @landing-side-bar-link-color;
+      &:focus,
+      &:hover {
+        color: @landing-side-bar-link-color-hover;
+        text-decoration: none;
+      }
+    }
   }
 
   .project-title {

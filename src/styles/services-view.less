@@ -1,13 +1,14 @@
 .services-view {
   .services-item {
+    align-items: center;
     color: @text-color;
     display: flex;
     min-height: 160px;
-    flex: 0 1 auto;
     flex-direction: column;
     padding: (@grid-gutter-width / 8) (@grid-gutter-width / 4) (@grid-gutter-width / 2);
     text-align: center;
     width: 50%;
+    word-break: break-word;
 
     @media(min-width: @screen-xs-min) {
       width: 33.3333%;
@@ -33,15 +34,7 @@
     &:hover {
       text-decoration: none;
       .services-item-icon:after {
-        border: 2px solid @link-color;
-        border-radius: 100px;
-        content: "";
-        height: 90px;
-        margin: -45px 0 0 -45px;
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        width: 90px;
+        box-shadow: 0 0 0 2px @link-color;
       }
 
       .services-item-name {
@@ -49,14 +42,43 @@
       }
     }
 
+    .services-item-icon {
+      border-radius: 50%;
+      height: 90px;
+      width: 90px;
+      &:after {
+        border-radius: 100px;
+        box-shadow: 0 0 0 2px transparent;
+        content: "";
+        height: 90px;
+        left: 50%;
+        margin: -45px 0 0 -45px;
+        position: absolute;
+        top: 50%;
+        transition: box-shadow 125ms linear;
+        width: 90px;
+        will-change: box-shadow;
+      }
+
+      .font-icon,
+      .fa,
+      img {
+        position: relative;
+        // position above background
+        z-index: 1;
+      }
+    }
+
     .fa-cubes {
-      position: relative;
       right: -2px;
     }
 
     .icon-ruby, .fa-question {
-      position: relative;
       right: 2px;
+    }
+
+    .icon-wildfly {
+      right: -1px;
     }
   }
 
