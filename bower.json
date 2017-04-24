@@ -39,7 +39,7 @@
     "patternfly": "3.21.0",
     "jquery": "2.1.4",
     "lodash": "3.10.1",
-    "origin-web-common": "~0.0.12"
+    "origin-web-common": "~0.0.16"
   },
   "devDependencies": {
     "ace-builds": "1.2.2",
