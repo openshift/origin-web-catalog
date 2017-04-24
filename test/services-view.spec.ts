@@ -9,8 +9,10 @@ import {imagesData} from '../app/mockServices/mockData/openshift-images';
 
 describe('servicesView', () => {
   var services: any, images: any;
+  var catalogItems: any;
   var componentTest: ComponentTest<ServicesViewController>;
   var testHelpers: TestHelpers = new TestHelpers();
+  var Catalog: any;
 
   beforeEach( () => {
     testHelpers.initTests();
@@ -19,15 +21,22 @@ describe('servicesView', () => {
   });
 
   beforeEach(() => {
+    inject(function (_Catalog_: any) {
+      Catalog = _Catalog_;
+    });
+  });
+
+  beforeEach(() => {
     services = angular.copy(servicesData);
     images = angular.copy(imagesData);
+    catalogItems = Catalog.convertToServiceItems(services, images);
   });
 
   beforeEach(() => {
     componentTest = new ComponentTest<ServicesViewController>(
-        '<services-view service-classes=\"services\" image-streams=\"images\"></services-view>'
+        '<services-view catalog-items="catalogItems"></services-view>'
     );
-    var attributes: any = { services: services, images: images};
+    var attributes: any = {catalogItems: catalogItems};
     componentTest.createComponent(attributes);
   });
 
@@ -40,6 +49,7 @@ describe('servicesView', () => {
 
   it('should display the initial categories and correct number of catalog cards', () => {
     var element = componentTest.rawElement;
+
     // 4 main categories ('All', 'Languages', 'Databases', 'Other')
     // 'Middleware' should be hidden since mock data has no items with Middleware sub-categories
     expect(jQuery(element).find('.nav-tabs-pf a').length).toBe(5);

@@ -11,8 +11,6 @@ export class ServicesViewController implements angular.IController {
   private $filter: any;
   private $scope: any;
   private $timeout: any;
-  private serviceClassesLoaded = false;
-  private imageStreamsLoaded = false;
   private debounceResize: any;
 
   constructor(constants: any, catalog: any, $filter: any, $scope: any, $timeout: any) {
@@ -21,15 +19,13 @@ export class ServicesViewController implements angular.IController {
     this.$filter = $filter;
     this.$scope = $scope;
     this.$timeout = $timeout;
-    this.ctrl.loading = true;
+    this.ctrl.loaded = false;
+    this.ctrl.isEmpty = false;
   }
 
   public $onInit() {
-    this.ctrl.allItems = [];
     this.ctrl.currentFilter = 'all';
     this.ctrl.currentSubFilter = null;
-
-    this.updateAll();
 
     this.debounceResize = _.debounce(this.resizeExpansion, 50, { maxWait: 250 });
     angular.element(window).bind('resize', this.debounceResize);
@@ -37,16 +33,12 @@ export class ServicesViewController implements angular.IController {
   }
 
   public $onChanges(onChangesObj: angular.IOnChangesObject) {
-    if (onChangesObj.serviceClasses && !onChangesObj.serviceClasses.isFirstChange()) {
-      this.ctrl.serviceClasses = onChangesObj.serviceClasses.currentValue;
-      this.serviceClassesLoaded = true;
-      this.updateServiceClasses();
-    }
-
-    if (onChangesObj.imageStreams && !onChangesObj.imageStreams.isFirstChange()) {
-      this.ctrl.imageStreams = onChangesObj.imageStreams.currentValue;
-      this.imageStreamsLoaded = true;
-      this.updateImageStreams();
+    if (onChangesObj.catalogItems && this.ctrl.catalogItems) {
+      this.ctrl.filteredItems = this.ctrl.catalogItems;
+      this.ctrl.categories = this.catalog.removeEmptyCategories(this.ctrl.filteredItems);
+      this.ctrl.subCategories = this.getSubCategories('all');
+      this.ctrl.isEmpty = _.isEmpty(this.ctrl.catalogItems);
+      this.ctrl.loaded = true;
     }
   }
 
@@ -54,11 +46,11 @@ export class ServicesViewController implements angular.IController {
     $(window).off('resize.services');
   }
 
-  public filterByCategory(category: string, subCategory: string, updateSubCategories: boolean) {
+  public filterByCategory = (category: string, subCategory: string, updateSubCategories: boolean) => {
     if (category === 'all' && subCategory === 'all') {
-      this.ctrl.filteredItems =  this.ctrl.allItems;
+      this.ctrl.filteredItems =  this.ctrl.catalogItems;
     } else {
-      this.ctrl.filteredItems = _.filter(this.ctrl.allItems, (item: any) => {
+      this.ctrl.filteredItems = _.filter(this.ctrl.catalogItems, (item: any) => {
         if (category !== 'all' && subCategory === 'all') {
           return this.catalog.hasCategory(item, category);
         } else if (category === 'all' && subCategory !== 'all') {
@@ -97,56 +89,6 @@ export class ServicesViewController implements angular.IController {
 
   public handleClick = (item: any, e: any) => {
     this.$scope.$emit('open-overlay-panel', item);
-  };
-
-  private updateAll() {
-    this.updateServiceClasses();
-    this.updateImageStreams();
-  }
-
-  private updateState() {
-    this.ctrl.loading = ((_.isEmpty(this.ctrl.serviceClasses) && !this.serviceClassesLoaded) ||
-    (_.isEmpty(this.ctrl.imageStreams) && !this.imageStreamsLoaded));
-
-    if (!this.ctrl.loading) {
-      this.ctrl.filteredItems = this.ctrl.allItems;
-      this.ctrl.categories = this.catalog.removeEmptyCategories(this.ctrl.filteredItems);
-      this.ctrl.subCategories = this.getSubCategories('all');
-    }
-  }
-
-  private sort(items: any[]) {
-    // Perform a case-insensitive sort on display name, falling back to kind
-    // and metadata.name for a stable sort when items have the same display name.
-    return _.sortByAll(items, [(item) => item.name.toLowerCase(), 'resource.kind', 'resource.metadata.name']);
-  }
-
-  private updateServiceClasses() {
-    let allItems = this.ctrl.allItems.concat(this.normalizeData('service', this.ctrl.serviceClasses));
-    this.ctrl.allItems = this.sort(allItems);
-    this.updateState();
-  }
-
-  private updateImageStreams() {
-    let allItems = this.ctrl.allItems.concat(this.normalizeData('image', this.ctrl.imageStreams));
-    this.ctrl.allItems = this.sort(allItems);
-    this.updateState();
-  }
-
-  private normalizeData = (type: string, items: any) => {
-    let retSvcs = [];
-    let objClass: any;
-    _.each(items, (item: any) => {
-      if (type === 'service') {
-        objClass = this.catalog.getServiceItem(item);
-      } else if (type === 'image') {
-        objClass = this.catalog.getImageItem(item);
-      }
-      if (objClass) {
-        retSvcs.push(objClass);
-      }
-    });
-    return retSvcs;
   };
 
   private resizeExpansion() {
