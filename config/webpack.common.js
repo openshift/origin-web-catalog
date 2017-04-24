@@ -178,7 +178,10 @@ if (isProd) {
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
     new CopyWebpackPlugin([
-      {from: __dirname + '/assets'}
+      {
+        from: './src/styles',
+        to: 'less'
+      }
     ])
   )
 }

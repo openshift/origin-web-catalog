@@ -7,6 +7,27 @@
     "dist/origin-web-catalogs.js",
     "dist/origin-web-catalogs.css"
   ],
+  "ignore": [
+    ".babelrc",
+    ".bowerrc",
+    ".editorconfig",
+    ".eslintignore",
+    ".elsintrc",
+    ".gitignore",
+    ".travis.yml",
+    "karma.conf.js",
+    "tsconfig.json",
+    "tslint.json",
+    "webpack.config.js",
+    "app",
+    "bower_components",
+    "config",
+    "coverage",
+    "hack",
+    "node_modules",
+    "src",
+    "test"
+  ],
   "dependencies": {
     "angular": "1.5.11",
     "angular-moment": "1.0.0",

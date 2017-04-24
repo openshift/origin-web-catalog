@@ -1,0 +1,156 @@
+// Breakpoint for showing a smaller icon and service title.
+@order-service-title-sm-min: 450px;
+
+.order-service-details {
+  flex: 0 1 auto;
+  padding: 0 (@grid-gutter-width / 2);
+  @media (min-width: @screen-sm-min) {
+    border-right: 1px solid @color-pf-black-400;
+    width: 50%;
+  }
+  .order-service-details-top {
+    align-items: center;
+    display: flex;
+    .service-icon {
+      margin-right: 15px;
+      .icon {
+        font-size: 60px;
+        @media (min-width: @order-service-title-sm-min) {
+          font-size: 64px;
+        }
+      }
+      .image {
+        img {
+          max-height: 52px;
+          max-width: 52px;
+          @media (min-width: @order-service-title-sm-min) {
+            max-height: 60px;
+            max-width: 60px;
+          }
+        }
+      }
+    }
+    .service-title {
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 1.4;
+      @media (min-width: @order-service-title-sm-min) {
+        font-size: 22px;
+      }
+    }
+    .sub-title {
+      font-size: 20px;
+      font-weight: 600;
+      color: @color-pf-black-600;
+    }
+  }
+  .order-service-description-block {
+    margin-top: 15px;
+    .description {
+      white-space: pre-wrap;
+    }
+    .learn-more-link {
+      font-size: @font-size-small;
+      white-space: nowrap;
+    }
+  }
+  .order-service-tags {
+    margin-top: 5px;
+    .tag {
+      margin-right: 5px;
+      text-transform: uppercase;
+    }
+  }
+}
+.order-service-config {
+  flex: 0 1 auto;
+  padding: 0 (@grid-gutter-width / 2);
+  @media (min-width: @screen-sm-min) {
+    width: 50%;
+    .form-horizontal .control-label {
+      padding-right: 0;
+    }
+  } 
+  h3 {
+    line-height: 1.4;
+    margin-top: 0;
+    + .alert {
+      margin-top: 20px;
+    }
+  }  
+  .select-plans {
+    .plan-name {
+      display: inline-block;
+      font-size: 14px;
+      margin-bottom: 5px;
+      margin-top: -2px;
+    }
+    .radio {
+      margin-top: 15px;
+    }
+  }
+  .config-top {
+    .adv-ops {
+      height: 30%;
+    }
+    .adv-ops-href {
+      cursor: pointer;
+      font-size: 14px;
+      &::after {
+        content: '\f105';
+        font-family: 'FontAwesome';
+        padding-left: 10px;
+      }
+      &.collapsed {
+        &::after {
+          content: '\f107';
+        }
+      }
+    }
+    .adv-ops-container {
+      padding-top: 2px;
+    }
+  }
+  .config-bottom {
+    height: 12%;
+    float: right;
+    margin-right: -13px;
+    margin-top: 8px;
+    margin-right: -10px;
+  }
+  .footer-panel {
+    text-align: center;
+
+    a {
+      color: @color-pf-white;
+      &:hover {
+        color: @color-pf-white;
+        text-decoration: none;
+      }
+    }
+  }
+  .success-check {
+    color: @color-pf-green-400;
+  }
+  .related-services-container {
+    background-color: @color-pf-black-200;
+    margin-top: 62px;
+    padding: 14px;
+    display: flex;
+    align-items: center;
+    .related-services-label {
+      font-size: 14px;
+      font-weight: 600;
+      padding-right: 14px;
+    }
+    .related-services-row {
+      .card {
+        background-color: @color-pf-white;
+        border:1px solid @color-pf-black-400;
+        float: right;
+        margin-right: 6px;
+        padding: 11px;
+      }
+    }
+  }
+}
