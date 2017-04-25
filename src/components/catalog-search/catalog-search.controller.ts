@@ -59,7 +59,7 @@ export class CatalogSearchController implements angular.IController {
 
   private filterForKeywords(searchText: string) {
     let keywords = this.KeywordService.generateKeywords(searchText);
-    let items = this.KeywordService.filterForKeywords(this.ctrl.catalogItems, ['name', 'tags', 'resource.osbTags'], keywords);
+    let items = this.KeywordService.filterForKeywords(this.ctrl.catalogItems, ['name', 'tags'], keywords);
     return _.take(items, 5);
   }
 }

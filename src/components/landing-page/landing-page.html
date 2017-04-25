@@ -1,15 +1,15 @@
 <div class="landing">
   <overlay-panel show-panel="$ctrl.orderingPanelVisible" show-close="true" handle-close="$ctrl.closeOrderingPanel">
     <order-service
-        ng-if="$ctrl.selectedServiceClass"
+        ng-if="$ctrl.selectedItem.resource.kind === 'ServiceClass'"
         base-project-url="{{$ctrl.baseProjectUrl}}"
-        service-class="$ctrl.selectedServiceClass"
+        service-class="$ctrl.selectedItem"
         handle-close="$ctrl.closeOrderingPanel">
     </order-service>
     <create-from-builder
-        ng-if="$ctrl.selectedImageStream"
+        ng-if="$ctrl.selectedItem.resource.kind === 'ImageStream'"
         base-project-url="{{$ctrl.baseProjectUrl}}"
-        image-stream="$ctrl.selectedImageStream"
+        image-stream="$ctrl.selectedItem"
         handle-close="$ctrl.closeOrderingPanel">
     </create-from-builder>
   </overlay-panel>
