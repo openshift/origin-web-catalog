@@ -11,7 +11,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
 }, function(e, t) {
     e.exports = '<div class="center">\n  <div ng-if="!$ctrl.success && !$ctrl.error">\n    <h3>\n      Creating Application&hellip;\n    </h3>\n  </div>\n  <div ng-if="$ctrl.success">\n    <h3>\n      <span class="pficon pficon-ok"></span>\n      <strong>{{$ctrl.name}}</strong> has been created in <strong>{{$ctrl.selectedProject.metadata.name}}</strong> successfully\n    </h3>\n    <p>\n      Continue to your project to check the status of your application as it builds and deploys.\n    </p>\n    <div class="footer-panel">\n      <a class="btn btn-primary" href="{{$ctrl.selectedProject | projectUrl : $ctrl.baseProjectUrl}}">View Project</a>\n    </div>\n  </div>\n  <div ng-if="$ctrl.error">`\n    <h3>Error <span class="fa fa-times text-danger"></span></h3>\n    <h4>\n      <span ng-if="$ctrl.error.data.message">\n        {{$ctrl.error.data.message | upperFirst}}\n      </span>\n      <span ng-if="!$ctrl.error.data.message">\n        An error occurred creating the application.\n      </span>\n    </h4>\n    \x3c!-- TODO: Improve error message presentation --\x3e\n    <ul ng-if="$ctrl.error.failure.length" class="failure-messages">\n      <li ng-repeat="failure in $ctrl.error.failure">\n        {{failure.data.message}}\n      </li>\n    </ul>\n  </div>\n</div>\n';
 }, function(e, t) {
-    e.exports = '<div class="config-top">\n  <form name="$ctrl.forms.orderConfigureForm" class="form-horizontal config-form">\n    <select-project selected-project="$ctrl.selectedProject" name-taken="$ctrl.nameTaken"></select-project>\n    \x3c!-- TODO: add parameters --\x3e\n    \x3c!-- <div class="form-group"> --\x3e\n    \x3c!--   <label class="col-sm-4 control-label" for="field1">Field 1</label> --\x3e\n    \x3c!--   <div class="col-sm-8"> --\x3e\n    \x3c!--     <input class="form-control" type="text" id="field1"> --\x3e\n    \x3c!--   </div> --\x3e\n    \x3c!-- </div> --\x3e\n  </form>\n  <div ng-if="$ctrl.error" class="col-sm-12 has-error">\n    <span class="help-block">{{$ctrl.error}}</span>\n  </div>\n</div>\n';
+    e.exports = '<div class="config-top">\n  <form name="$ctrl.forms.orderConfigureForm" class="form-horizontal config-form">\n    <select-project selected-project="$ctrl.selectedProject" name-taken="$ctrl.nameTaken"></select-project>\n    <div class="form-group">\n      <label class="col-sm-4 control-label" for="serviceInstanceName">Service Instance Name</label>\n      <div class="col-sm-8">\n        <input class="form-control"\n               name="serviceInstanceName"\n               id="serviceInstanceName"\n               type="text"\n               placeholder="my-service-instance"\n               minlength="2"\n               maxlength="63"\n               pattern="[a-z0-9]([-a-z0-9]*[a-z0-9])?"\n               ng-model="$ctrl.serviceInstanceName"\n               ng-model-options="{ updateOn: \'default blur\' }"\n               ng-change="$ctrl.onServiceInstanceNameChange()"\n               autocorrect="off"\n               autocapitalize="off"\n               spellcheck="false"\n               aria-describedby="serviceInstanceNameHelp">\n        <div>\n          <span class="help-block">A unique name for the service instance.</span>\n        </div>\n        <div class="has-error">\n        <span id="serviceInstanceNameHelp" class="help-block"\n              ng-if="$ctrl.forms.orderConfigureForm.serviceInstanceName.$error.minlength && $ctrl.forms.orderConfigureForm.serviceInstanceName.$touched">\n          Name must have at least two characters.\n        </span>\n        </div>\n        <div class="has-error">\n        <span id="serviceInstanceNameHelp" class="help-block"\n              ng-if="$ctrl.forms.orderConfigureForm.serviceInstanceName.$error.pattern && $ctrl.forms.orderConfigureForm.serviceInstanceName.$touched">\n          Instance names may only contain lower-case letters, numbers, and dashes.\n          They may not start or end with a dash.\n        </span>\n        </div>\n        <div class="has-error">\n        <span class="help-block" ng-if="$ctrl.serviceInstanceNameTaken">\n          This name is already in use. Please choose a different name.\n        </span>\n        </div>\n      </div>\n    </div>\n    \x3c!-- TODO: add parameters --\x3e\n    \x3c!-- <div class="form-group"> --\x3e\n    \x3c!--   <label class="col-sm-4 control-label" for="field1">Field 1</label> --\x3e\n    \x3c!--   <div class="col-sm-8"> --\x3e\n    \x3c!--     <input class="form-control" type="text" id="field1"> --\x3e\n    \x3c!--   </div> --\x3e\n    \x3c!-- </div> --\x3e\n  </form>\n  <div ng-if="$ctrl.error" class="col-sm-12 has-error">\n    <span class="help-block">{{$ctrl.error}}</span>\n  </div>\n</div>\n';
 }, function(e, t) {
     e.exports = '<div class="config-top">\n  <div class="select-plans">\n    <h3>Select a Plan</h3>\n    <div ng-repeat="plan in $ctrl.serviceClass.resource.plans" class="radio">\n      <label>\n        <input\n          type="radio"\n          ng-model="$ctrl.planIndex"\n          ng-change="$ctrl.selectPlan(plan)"\n          value="{{$index}}">\n        <span class="plan-name">{{plan.osbMetadata.displayName || plan.name}}</span>\n        \x3c!-- TODO: truncate long text --\x3e\n        <div ng-if="plan.description">{{plan.description}}</div>\n        \x3c!-- TODO: show plan bullets --\x3e\n      </label>\n    </div>\n  </div>\n</div>\n';
 }, function(e, t) {
@@ -814,6 +814,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             this.ctrl.serviceName = this.ctrl.serviceClass.name, this.ctrl.description = this.ctrl.serviceClass.description, 
             this.ctrl.longDescription = this.ctrl.serviceClass.longDescription, this.ctrl.plans = a.get(this, "ctrl.serviceClass.resource.plans", []), 
             this.ctrl.forms = {}, this.ctrl.selectedPlan = a.first(this.ctrl.plans), this.ctrl.selectedProject = {}, 
+            this.ctrl.serviceInstanceName = "my-" + this.ctrl.serviceClass.resource.metadata.name, 
             this.ctrl.planIndex = 0, this.ctrl.steps = [ {
                 id: "plans",
                 label: "Plans",
@@ -827,7 +828,9 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 id: "results",
                 view: "order-service/order-service-review.html"
             } ], this.ctrl.plans.length < 2 && this.ctrl.steps.shift(), this.gotoStep(this.ctrl.steps[0]), 
-            this.ctrl.nameTaken = !1, this.ctrl.wizardReady = !0;
+            this.ctrl.nameTaken = !1, this.ctrl.serviceInstanceNameTaken = !1, this.ctrl.wizardReady = !0;
+        }, e.prototype.onServiceInstanceNameChange = function() {
+            this.ctrl.serviceInstanceNameTaken = !1, this.ctrl.forms.orderConfigureForm.serviceInstanceName.$setValidity("nameTaken", !this.ctrl.serviceInstanceNameTaken);
         }, e.prototype.getSteps = function() {
             return this.ctrl.steps;
         }, e.prototype.stepClick = function(e) {
@@ -877,7 +880,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             this.DataService.create(n, null, t, r).then(function(t) {
                 e.ctrl.orderInProgress = !0, e.watchResults(n, t, r), e.gotoStepID("results");
             }, function(t) {
-                e.ctrl.error = t;
+                var n = t.data || {};
+                "AlreadyExists" === n.reason ? e.ctrl.serviceInstanceNameTaken = !0 : e.ctrl.error = n.message || "An error occurred creating the instance.";
             });
         }, e.prototype.$onDestroy = function() {
             this.DataService.unwatchAll(this.watches);
@@ -890,7 +894,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 apiVersion: "servicecatalog.k8s.io/v1alpha1",
                 metadata: {
                     namespace: this.ctrl.selectedProject.metadata.name,
-                    generateName: e + "-"
+                    name: "" !== this.ctrl.serviceInstanceName ? this.ctrl.serviceInstanceName : null,
+                    generateName: "" !== this.ctrl.serviceInstanceName ? null : e + "-"
                 },
                 spec: {
                     serviceClassName: e,
@@ -938,7 +943,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
     "use strict";
     t.__esModule = !0;
     var r = n(1), a = n(2), s = n(0), i = function() {
-        function e(e, t, n, a, i, c, o, l, d, p, u, m) {
+        function e(e, t, n, a, i, c, o, l, d, p, m, u) {
             var g = this;
             this.ctrl = this, this.showNewProjectPanel = !1, this.showEditwProjectPanel = !1, 
             this.alerts = [], this.projects = [], this.watches = [], this.maxDisplayProjects = 5, 
@@ -969,7 +974,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 g.ctrl.showEditProjectPanel = !1, g.hideModalBackdrop();
             }, this.$element = e, this.$filter = t, this.$rootScope = n, this.$scope = a, this.AlertMessageService = i, 
             this.AuthService = c, this.Catalog = o, this.Constants = l, this.DataService = d, 
-            this.Logger = p, this.ProjectsService = u, this.RecentlyViewed = m;
+            this.Logger = p, this.ProjectsService = m, this.RecentlyViewed = u;
         }
         return e.prototype.$onInit = function() {
             var e = this;
@@ -1139,8 +1144,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
     t.__esModule = !0;
     var r = n(1);
     n(3), n(19);
-    var a = n(20), s = n(21), i = n(10), c = n(22), o = n(11), l = n(12), d = n(13), p = n(14), u = n(15), m = n(16), g = n(17), h = n(18), f = n(23);
-    t.webCatalog = "webCatalog", r.module(t.webCatalog, [ "patternfly", "ngAnimate", "ui.bootstrap", "angularMoment", "ui.select" ]).service("BuilderAppService", s.BuilderAppService).service("Catalog", c.CatalogService).service("RecentlyViewedServiceItems", f.RecentlyViewedServiceItems).filter("projectUrl", a.projectUrlFilter).component("catalogSearch", i.catalogSearch).component("createFromBuilder", o.createFromBuilder).component("landingPage", l.landingPage).component("orderService", d.orderService).component("overlayPanel", p.overlayPanel).component("projectsSummary", u.projectsSummary).component("saasList", m.saasList).component("selectProject", g.selectProject).component("servicesView", h.servicesView).run([ "$templateCache", function(e) {
+    var a = n(20), s = n(21), i = n(10), c = n(22), o = n(11), l = n(12), d = n(13), p = n(14), m = n(15), u = n(16), g = n(17), h = n(18), f = n(23);
+    t.webCatalog = "webCatalog", r.module(t.webCatalog, [ "patternfly", "ngAnimate", "ui.bootstrap", "angularMoment", "ui.select" ]).service("BuilderAppService", s.BuilderAppService).service("Catalog", c.CatalogService).service("RecentlyViewedServiceItems", f.RecentlyViewedServiceItems).filter("projectUrl", a.projectUrlFilter).component("catalogSearch", i.catalogSearch).component("createFromBuilder", o.createFromBuilder).component("landingPage", l.landingPage).component("orderService", d.orderService).component("overlayPanel", p.overlayPanel).component("projectsSummary", m.projectsSummary).component("saasList", u.saasList).component("selectProject", g.selectProject).component("servicesView", h.servicesView).run([ "$templateCache", function(e) {
         e.put("catalog-search/catalog-search-result.html", n(4)), e.put("create-from-builder/create-from-builder-configure.html", n(5)), 
         e.put("create-from-builder/create-from-builder-results.html", n(6)), e.put("order-service/order-service-plans.html", n(8)), 
         e.put("order-service/order-service-configure.html", n(7)), e.put("order-service/order-service-review.html", n(9));

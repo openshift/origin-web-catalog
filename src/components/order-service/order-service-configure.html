@@ -1,6 +1,47 @@
 <div class="config-top">
   <form name="$ctrl.forms.orderConfigureForm" class="form-horizontal config-form">
     <select-project selected-project="$ctrl.selectedProject" name-taken="$ctrl.nameTaken"></select-project>
+    <div class="form-group">
+      <label class="col-sm-4 control-label" for="serviceInstanceName">Service Instance Name</label>
+      <div class="col-sm-8">
+        <input class="form-control"
+               name="serviceInstanceName"
+               id="serviceInstanceName"
+               type="text"
+               placeholder="my-service-instance"
+               minlength="2"
+               maxlength="63"
+               pattern="[a-z0-9]([-a-z0-9]*[a-z0-9])?"
+               ng-model="$ctrl.serviceInstanceName"
+               ng-model-options="{ updateOn: 'default blur' }"
+               ng-change="$ctrl.onServiceInstanceNameChange()"
+               autocorrect="off"
+               autocapitalize="off"
+               spellcheck="false"
+               aria-describedby="serviceInstanceNameHelp">
+        <div>
+          <span class="help-block">A unique name for the service instance.</span>
+        </div>
+        <div class="has-error">
+        <span id="serviceInstanceNameHelp" class="help-block"
+              ng-if="$ctrl.forms.orderConfigureForm.serviceInstanceName.$error.minlength && $ctrl.forms.orderConfigureForm.serviceInstanceName.$touched">
+          Name must have at least two characters.
+        </span>
+        </div>
+        <div class="has-error">
+        <span id="serviceInstanceNameHelp" class="help-block"
+              ng-if="$ctrl.forms.orderConfigureForm.serviceInstanceName.$error.pattern && $ctrl.forms.orderConfigureForm.serviceInstanceName.$touched">
+          Instance names may only contain lower-case letters, numbers, and dashes.
+          They may not start or end with a dash.
+        </span>
+        </div>
+        <div class="has-error">
+        <span class="help-block" ng-if="$ctrl.serviceInstanceNameTaken">
+          This name is already in use. Please choose a different name.
+        </span>
+        </div>
+      </div>
+    </div>
     <!-- TODO: add parameters -->
     <!-- <div class="form-group"> -->
     <!--   <label class="col-sm-4 control-label" for="field1">Field 1</label> -->

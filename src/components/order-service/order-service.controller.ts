@@ -33,6 +33,7 @@ export class OrderServiceController implements angular.IController {
     // Preselect the first plan. If there's only one plan, skip the wizard step.
     this.ctrl.selectedPlan = _.first(this.ctrl.plans);
     this.ctrl.selectedProject = {};
+    this.ctrl.serviceInstanceName = "my-" + this.ctrl.serviceClass.resource.metadata.name;
     this.ctrl.planIndex = 0;
     this.ctrl.steps = [{
       id: 'plans',
@@ -53,7 +54,13 @@ export class OrderServiceController implements angular.IController {
     }
     this.gotoStep(this.ctrl.steps[0]);
     this.ctrl.nameTaken = false;
+    this.ctrl.serviceInstanceNameTaken = false;
     this.ctrl.wizardReady = true;
+  }
+
+  public onServiceInstanceNameChange() {
+    this.ctrl.serviceInstanceNameTaken = false;
+    this.ctrl.forms.orderConfigureForm.serviceInstanceName.$setValidity('nameTaken', !this.ctrl.serviceInstanceNameTaken);
   }
 
   public getSteps() {
@@ -150,8 +157,13 @@ export class OrderServiceController implements angular.IController {
       this.ctrl.orderInProgress = true;
       this.watchResults(resource, data, context);
       this.gotoStepID('results');
-    }, (e: any) => {
-      this.ctrl.error = e;
+    }, (result: any) => {
+      var data = result.data || {};
+      if (data.reason === 'AlreadyExists') {
+        this.ctrl.serviceInstanceNameTaken = true;
+      } else {
+        this.ctrl.error = data.message || 'An error occurred creating the instance.';
+      }
     });
   }
 
@@ -173,7 +185,8 @@ export class OrderServiceController implements angular.IController {
       apiVersion: 'servicecatalog.k8s.io/v1alpha1',
       metadata: {
         namespace: this.ctrl.selectedProject.metadata.name,
-        generateName: serviceClassName + '-'
+        name: this.ctrl.serviceInstanceName !== "" ? this.ctrl.serviceInstanceName : null,
+        generateName: this.ctrl.serviceInstanceName !== "" ? null : (serviceClassName + '-')
        },
        spec: {
          serviceClassName: serviceClassName,
