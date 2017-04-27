@@ -5,20 +5,27 @@ import 'angular-mocks';
 import {TestHelpers} from '../test/utils/testHelpers';
 import {ComponentTest} from '../test/utils/ComponentTest';
 import {SaasListController} from '../src/components/saas-list/saas-list.controller';
-import {allSaasOfferings} from '../src/constants';
 
 describe('saasOfferingsList', () => {
   var saasOfferings: any, saasTitle: string;
   var componentTest: ComponentTest<SaasListController>;
   var testHelpers: TestHelpers = new TestHelpers();
+  var Constants: any;
 
   beforeEach( () => {
     testHelpers.initTests();
-    angular.mock.module('webCatalog');
+
+    angular.mock.module('webCatalog', 'openshiftCommonUI', 'mockServices');
   });
 
   beforeEach(() => {
-    saasOfferings = angular.copy(allSaasOfferings);
+    inject(function (_Constants_: any) {
+      Constants = _Constants_;
+    });
+  });
+
+  beforeEach(() => {
+    saasOfferings = angular.copy(Constants.SAAS_OFFERINGS);
     saasTitle = 'What do you want to build?';
   });
 
