@@ -756,7 +756,7 @@ body.overlay-open {
   }
 }
 .saas-offerings-container .saas-list .card-content .card-icon img {
-  max-height: 1em;
+  height: 1em;
   max-width: 100%;
 }
 .saas-offerings-container .saas-list .card-content .card-title {
