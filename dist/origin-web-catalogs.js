@@ -262,8 +262,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             label: "Other"
         } ]
     } ];
-    t.allCategories = i, t.allSaasOfferings = a, r.set(window, "OPENSHIFT_CONSTANTS.SERVICE_CATALOG_CATEGORIES", i), 
-    r.set(window, "OPENSHIFT_CONSTANTS.SAAS_OFFERINGS", a);
+    r.set(window, "OPENSHIFT_CONSTANTS.SERVICE_CATALOG_CATEGORIES", i), r.set(window, "OPENSHIFT_CONSTANTS.SAAS_OFFERINGS", a);
     var c = {
         links: [ {
             title: "Documentation",

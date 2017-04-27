@@ -48,9 +48,6 @@ var categories: any = [
   ]}
 ];
 
-export const allCategories = categories;
-export const allSaasOfferings = saasOfferings;
-
 _.set(window, 'OPENSHIFT_CONSTANTS.SERVICE_CATALOG_CATEGORIES', categories);
 _.set(window, 'OPENSHIFT_CONSTANTS.SAAS_OFFERINGS', saasOfferings);
 
