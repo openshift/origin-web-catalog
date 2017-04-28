@@ -65,34 +65,33 @@
       }
 
       .card-icon {
-        align-items: center;
-        display: flex;
-        font-size: 24px;
-        text-align: center;
-
         @media(max-width: @screen-xs-max) {
+          margin-right: 10px;
+          text-align: center;
           width: 40px;
         }
-
-        @media (min-width: @screen-sm-min) {
-          font-size: 72px;
-          min-height: 100px;
-          padding-bottom: 10px;
+        .icon {
+          font-size: @card-icon-xs;
+          @media (min-width: @screen-sm-min) {
+            font-size: @card-icon-sm;
+          }
+          @media (min-width: @screen-lg-min) {
+            font-size: @card-icon-lg;
+          }
         }
-
-        @media (min-width: @screen-lg-min) {
-          font-size: 108px;
-        }
-
         img {
-          max-height: 1em;
-          max-width: 100%;
+          height: @card-icon-xs;
+          @media (min-width: @screen-sm-min) {
+            height: @card-icon-sm;
+          }
+          @media (min-width: @screen-lg-min) {
+            height: @card-icon-lg;
+          }
         }
       }
 
       .card-title {
         font-size: @font-size-base + 2;
-        padding-left: 1em;
 
         @media (min-width: 480px) {
           font-size: @font-size-base + 4;
@@ -101,6 +100,7 @@
         @media (min-width: @screen-sm-min) {
           font-weight: 700;
           margin-bottom: 10px;
+          margin-top: 10px;
           max-width: 100%; // IE 11
           padding-left: 0;
         }
