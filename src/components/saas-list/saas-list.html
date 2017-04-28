@@ -2,7 +2,7 @@
   <h1 ng-if="$ctrl.saasTitle">{{$ctrl.saasTitle}}</h1>
   <div class="saas-list" items="$ctrl.saasOfferings">
     <div class="card" ng-repeat="item in $ctrl.saasOfferings">
-      <a href="" class="card-content" ng-click="$ctrl.handleClick(item)">
+      <a ng-href="{{item.url}}" target="_blank" class="card-content">
         <span class="card-icon {{item.icon}}"><img ng-if="item.image" ng-src="{{item.image}}"></span>
         <span class="card-title">{{item.title}}</span>
         <truncate-long-text
