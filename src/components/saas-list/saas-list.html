@@ -3,8 +3,11 @@
   <div class="saas-list" items="$ctrl.saasOfferings">
     <div class="card" ng-repeat="item in $ctrl.saasOfferings">
       <a ng-href="{{item.url}}" target="_blank" class="card-content">
-        <span class="card-icon {{item.icon}}"><img ng-if="item.image" ng-src="{{item.image}}"></span>
-        <span class="card-title">{{item.title}}</span>
+        <div class="card-icon">
+          <img ng-if="item.image" ng-src="{{item.image}}" alt="">
+          <span ng-if="!item.image" class="icon {{item.icon}}" aria-hidden="true"></span>
+        </div>
+        <div class="card-title">{{item.title}}</div>
         <truncate-long-text
                 class="card-description hidden-xs"
                 content="item.description"
