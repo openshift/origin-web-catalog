@@ -86,25 +86,9 @@
 
   .services-items {
     background-color: @color-pf-white;
-    padding: (@grid-gutter-width / 2);
-  }
-
-  .services-items-inner {
-    background-attachment: scroll;
-    background-image: radial-gradient(ellipse at top, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 75%), radial-gradient(ellipse at bottom, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 75%);
-    background-position: 0 0, 0 100%;
-    background-repeat: no-repeat;
-    background-size: 100% 6px;
-  }
-
-  .services-items-inner-shadow-covers {
-    background-attachment: local;
-    background-image: linear-gradient(@color-pf-white 30%, rgba(255,255,255,0)), linear-gradient(rgba(255,255,255,0), @color-pf-white 70%);
-    background-position: 0 0, 0 100%;
-    background-repeat: no-repeat;
-    background-size: 100% 12px;
     display: flex;
     flex-wrap: wrap;
+    padding: (@grid-gutter-width / 2);
   }
 
   .services-sub-categories {
@@ -120,11 +104,6 @@
       left: 0;
       position: absolute;
       right: 0;
-    }
-
-    .services-items-inner {
-      max-height: 400px;
-      overflow-y: auto;
     }
   }
 
