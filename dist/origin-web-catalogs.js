@@ -498,9 +498,16 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 return n.getImageItem(e);
             })), r = a.reject(r, function(e) {
                 return !e;
-            }), a.sortByAll(r, [ function(e) {
-                return e.name.toLowerCase();
-            }, "resource.kind", "resource.metadata.name" ]);
+            }), r = r.sort(function(e, t) {
+                var n = a.get(e, "name", "").localeCompare(a.get(t, "name", ""), void 0, {
+                    sensitivity: "base"
+                });
+                return 0 === n && (n = a.get(e, "resource.kind", "").localeCompare(a.get(t, "resource.kind", ""), void 0, {
+                    sensitivity: "base"
+                })), 0 === n && (n = a.get(e, "resource.metadata.name", "").localeCompare(a.get(t, "resource.metadata.name", ""), void 0, {
+                    sensitivity: "base"
+                })), n;
+            });
         }, e.prototype.getServiceItem = function(e) {
             return new i(e, this);
         }, e.prototype.getImageItem = function(e) {

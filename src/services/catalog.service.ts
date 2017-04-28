@@ -55,7 +55,21 @@ export class CatalogService {
 
     // Perform a case-insensitive sort on display name, falling back to kind
     // and metadata.name for a stable sort when items have the same display name.
-    return _.sortByAll(items, [(item: any) => item.name.toLowerCase(), 'resource.kind', 'resource.metadata.name']);
+    items = items.sort((item1: any, item2: any) => {
+      let comparison = _.get(item1, 'name', '').localeCompare(_.get(item2, 'name', ''), undefined, {sensitivity: 'base'});
+
+      if (comparison === 0) {
+        comparison = _.get(item1, 'resource.kind', '').localeCompare(_.get(item2, 'resource.kind', ''), undefined, {sensitivity: 'base'});
+      }
+
+      if (comparison === 0) {
+        comparison = _.get(item1, 'resource.metadata.name', '').localeCompare(_.get(item2, 'resource.metadata.name', ''), undefined, {sensitivity: 'base'});
+      }
+
+      return comparison;
+    });
+
+    return items;
   }
 
   public getServiceItem(resource: any) {
