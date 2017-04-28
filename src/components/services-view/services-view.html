@@ -28,31 +28,6 @@
           <div class="services-sub-category-tab-name">{{subCategory.label}}</div>
         </a>
         <div ng-if="$ctrl.currentSubFilter === subCategory.id" class="services-items">
-          <div class="services-items-inner">
-            <div class="services-items-inner-shadow-covers">
-              <a href="" class="services-item" ng-repeat="item in $ctrl.filteredItems" ng-click="$ctrl.handleClick(item)">
-                <div ng-if="!item.imageUrl" class="services-item-icon">
-                  <span class="{{item.iconClass}}"></span>
-                </div>
-                <div ng-if="item.imageUrl" class="services-item-icon">
-                  <img ng-src="{{item.imageUrl}}" alt="">
-                </div>
-                <div class="services-item-name">
-                  {{item.name}}
-                </div>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Show catalog item for 'All' and 'Other' main categories -->
-
-    <div ng-if="$ctrl.currentFilter === 'other' || $ctrl.currentFilter === 'all'" class="services-items">
-      <div class="services-items-inner">
-        <div class="services-items-inner-shadow-covers">
-          <div ng-if="$ctrl.isEmpty">There are no catalog items.</div>
           <a href="" class="services-item" ng-repeat="item in $ctrl.filteredItems" ng-click="$ctrl.handleClick(item)">
             <div ng-if="!item.imageUrl" class="services-item-icon">
               <span class="{{item.iconClass}}"></span>
@@ -66,6 +41,23 @@
           </a>
         </div>
       </div>
+    </div>
+
+    <!-- Show catalog item for 'All' and 'Other' main categories -->
+
+    <div ng-if="$ctrl.currentFilter === 'other' || $ctrl.currentFilter === 'all'" class="services-items">
+      <div ng-if="$ctrl.isEmpty">There are no catalog items.</div>
+      <a href="" class="services-item" ng-repeat="item in $ctrl.filteredItems" ng-click="$ctrl.handleClick(item)">
+        <div ng-if="!item.imageUrl" class="services-item-icon">
+          <span class="{{item.iconClass}}"></span>
+        </div>
+        <div ng-if="item.imageUrl" class="services-item-icon">
+          <img ng-src="{{item.imageUrl}}" alt="">
+        </div>
+        <div class="services-item-name">
+          {{item.name}}
+        </div>
+      </a>
     </div>
   </div>
 </div>
