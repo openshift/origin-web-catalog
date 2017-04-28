@@ -9,24 +9,24 @@
 
 .saas-offerings-container {
 
-  .saas-list {
-    justify-content: space-around;
+  .saas-list{
+    display: flex;
+    overflow-x: scroll;
 
     @media (min-width: @screen-sm-min) {
-      display: flex;
       flex-wrap: wrap;
+      justify-content: space-around;
       margin: 0;
     }
 
     .card {
-      border-bottom: solid 1px @saas-border-bottom-color;
       color: @saas-text;
       display: flex;
+      flex: 0 0 auto;
+      width: 50%;
 
       @media (min-width: @screen-sm-min) {
-        border-bottom: none;
-        flex: 0 1 auto;
-        width: 50%;
+        flex-shrink: 1;
       }
 
       @media (min-width: @screen-lg-min) {
@@ -36,10 +36,6 @@
       &:hover {
         background-color: @saas-hover;
       }
-
-      &:last-child {
-        border-bottom: none;
-      }
     }
 
     .card-content {
@@ -47,12 +43,9 @@
       color: @saas-text;
       display: flex;
       flex: 1 1 0%; // IE 11
+      text-align: center;
+      flex-direction: column;
       padding: (@grid-gutter-width / 2);
-
-      @media (min-width: @screen-sm-min) {
-        flex-direction: column;
-        text-align: center;
-      }
 
       &:focus,
       &:hover {
@@ -67,12 +60,8 @@
       .card-icon {
         align-items: center;
         display: flex;
-        font-size: 24px;
+        font-size: 48px;
         text-align: center;
-
-        @media(max-width: @screen-xs-max) {
-          width: 40px;
-        }
 
         @media (min-width: @screen-sm-min) {
           font-size: 72px;
@@ -92,7 +81,6 @@
 
       .card-title {
         font-size: @font-size-base + 2;
-        padding-left: 1em;
 
         @media (min-width: 480px) {
           font-size: @font-size-base + 4;
@@ -102,7 +90,6 @@
           font-weight: 700;
           margin-bottom: 10px;
           max-width: 100%; // IE 11
-          padding-left: 0;
         }
         @media (min-width: @screen-lg-min) {
           font-size: @font-size-base + 6;
