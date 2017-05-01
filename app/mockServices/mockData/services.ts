@@ -1,5 +1,6 @@
 export const servicesData = {
   "test-serviceclass-java": {
+    kind: 'ServiceClass',
     "metadata": {
       "name": "test-serviceclass-java-nodejs",
       "uid": "1",
@@ -21,6 +22,7 @@ export const servicesData = {
     ]
   },
   "test-serviceclass-nodejs": {
+    kind: 'ServiceClass',
     "metadata": {
       "name": "test-serviceclass-nodejs",
       "uid": "2",
@@ -36,6 +38,7 @@ export const servicesData = {
     ]
   },
   "test-serviceclass-perl": {
+    kind: 'ServiceClass',
     "metadata": {
       "name": "test-serviceclass-perl",
       "uid": "3",
@@ -51,6 +54,7 @@ export const servicesData = {
     ]
   },
   "test-serviceclass-ruby": {
+    kind: 'ServiceClass',
     "metadata": {
       "name": "test-serviceclass-ruby-mongo",
       "uid": "4",
@@ -66,6 +70,7 @@ export const servicesData = {
     ]
   },
   "test-serviceclass-php": {
+    kind: 'ServiceClass',
     "metadata": {
       "name": "test-serviceclass-php",
       "uid": "5",
@@ -81,6 +86,7 @@ export const servicesData = {
     ]
   },
   "test-serviceclass-mongo": {
+    kind: 'ServiceClass',
     "metadata": {
       "name": "test-serviceclass-mongo",
       "uid": "6",
@@ -96,6 +102,7 @@ export const servicesData = {
     ]
   },
   "test-serviceclass-mysql": {
+    kind: 'ServiceClass',
     "metadata": {
       "name": "test-serviceclass-mysql",
       "uid": "7",
@@ -111,6 +118,7 @@ export const servicesData = {
     ]
   },
   "test-serviceclass-other": {
+    kind: 'ServiceClass',
     "metadata": {
       "name": "test-serviceclass-other",
       "uid": "8",
@@ -127,6 +135,7 @@ export const servicesData = {
     ]
   },
   "test-serviceclass-jenkins": {
+    kind: 'ServiceClass',
     "metadata": {
       "name": "test-serviceclass-jenkins",
       "uid": "9",

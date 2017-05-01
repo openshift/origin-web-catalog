@@ -21,23 +21,30 @@ export class CatalogService {
     this.logger = Logger;
   }
 
-  public getCatalogItems() {
-    return this.$q.all({
+  public getCatalogItems(includeTemplates: boolean) {
+    let promises: any = {
       serviceClasses: this.dataService.list({
         group: 'servicecatalog.k8s.io',
         resource: 'serviceclasses'
       }, {}),
-      imageStreams: this.dataService.list("imagestreams", {namespace: "openshift"})
-    }).then((values) => {
+      imageStreams: this.dataService.list("imagestreams", { namespace: "openshift" })
+    };
+
+    if (includeTemplates) {
+      promises.templates = this.dataService.list("templates", { namespace: "openshift" });
+    }
+
+    return this.$q.all(promises).then((values) => {
       let serviceClasses: any = values.serviceClasses.by("metadata.name");
       let imageStreams: any = values.imageStreams.by("metadata.name");
-      return this.convertToServiceItems(serviceClasses, imageStreams);
+      let templates: any = values.templates ? values.templates.by("metadata.name") : {};
+      return this.convertToServiceItems(serviceClasses, imageStreams, templates);
     }, () => {
       this.logger.log("Error Loading Catalog Items");
     });
   }
 
-  public convertToServiceItems(serviceClasses: any, imageStreams: any) {
+  public convertToServiceItems(serviceClasses: any, imageStreams: any, templates: any) {
     // Convert service classes to ServiceItem
     let items: any = _.map(serviceClasses, (serviceClass) => {
       return this.getServiceItem(serviceClass);
@@ -46,6 +53,10 @@ export class CatalogService {
     // Convert builders to ImageItem.
     items = items.concat(_.map(imageStreams, (imageStream) => {
       return this.getImageItem(imageStream);
+    }));
+
+    items = items.concat(_.map(templates, (template) => {
+      return this.getTemplateItem(template);
     }));
 
     // Remove null items (non-builder images).
@@ -79,6 +90,10 @@ export class CatalogService {
   public getImageItem(resource: any) {
     let imgStream = new ImageItem(resource, this);
     return imgStream.builderSpecTagName ? imgStream : null;
+  }
+
+  public getTemplateItem(resource: any) {
+    return new TemplateItem(resource, this);
   }
 
   public getCategoriesBySubCategories(tags: any) {
@@ -146,6 +161,7 @@ interface IServiceItem {
   catsBySubCats: any;
   description: string;
   longDescription: string;
+  tags: string[];
   resource: any;
 }
 
@@ -156,6 +172,7 @@ export class ServiceItem implements IServiceItem {
   public catsBySubCats: any;
   public description: string;
   public longDescription: string;
+  public tags: string[];
   public resource: any;
   private catalogSrv: CatalogService;
 
@@ -167,6 +184,7 @@ export class ServiceItem implements IServiceItem {
     this.name = this.getName();
     this.description = this.getDescription();
     this.longDescription = this.getLongDescription();
+    this.tags = this.getTags();
     this.catsBySubCats = this.getCategoriesBySubCategories();
   }
 
@@ -192,6 +210,10 @@ export class ServiceItem implements IServiceItem {
     return _.get(this.resource, 'osbMetadata.longDescription', '');
   }
 
+  private getTags() {
+    return _.get(this.resource, 'osbTags', []);
+  }
+
   private getCategoriesBySubCategories() {
     return this.catalogSrv.getCategoriesBySubCategories(this.resource.osbTags);
   }
@@ -204,9 +226,9 @@ export class ImageItem implements IServiceItem {
   public catsBySubCats: any;
   public description: string;
   public longDescription: string;
+  public tags: string[];
   public resource: any;
   public builderSpecTagName: any;
-  private tags: any;
   private catalogSrv: CatalogService;
 
   constructor (image: any, catalogSrv : CatalogService) {
@@ -266,9 +288,6 @@ export class ImageItem implements IServiceItem {
     return name;
   }
 
-  // TODO OpenShift Imagestreams desciptions/long descriptions vary depending
-  // on the 'version' (spec.tags[].annotations). Implement during ordering panel
-
   private getDescription() {
     return null;
   }
@@ -282,4 +301,56 @@ export class ImageItem implements IServiceItem {
   }
 }
 
+export class TemplateItem implements IServiceItem {
+  public iconClass: string;
+  public imageUrl: string;
+  public name: string;
+  public catsBySubCats: any;
+  public description: string;
+  public longDescription: string;
+  public tags: string[];
+  public resource: any;
+  private catalogSrv: CatalogService;
 
+  constructor (template: any, catalogSrv: CatalogService) {
+    this.resource = template;
+    this.catalogSrv = catalogSrv;
+    this.imageUrl = this.getImage();
+    this.iconClass = this.getIcon();
+    this.name = this.getName();
+    this.description = this.getDescription();
+    this.longDescription = this.getLongDescription();
+    this.tags = this.getTags();
+    this.catsBySubCats = this.getCategoriesBySubCategories();
+  }
+
+  private getImage() {
+    return '';
+  }
+
+  private getIcon() {
+    let icon = _.get(this.resource, 'metadata.annotations.iconClass', 'fa fa-cubes');
+    icon = (icon.indexOf('icon-') !== -1) ? 'font-icon ' + icon : icon;
+    return icon;
+  }
+
+  private getName() {
+    return this.catalogSrv.$filter('displayName')(this.resource);
+  }
+
+  private getDescription() {
+    return _.get(this.resource, 'metadata.annotations.description', '');
+  }
+
+  private getLongDescription() {
+    return _.get(this.resource, ['metadata', 'annotations', 'template.openshift.io/long-description'], '');
+  }
+
+  private getTags() {
+    return _.get(this.resource, 'metadata.annotations.tags', '').split(/\s*,\s*/);
+  }
+
+  private getCategoriesBySubCategories() {
+    return this.catalogSrv.getCategoriesBySubCategories(this.tags);
+  }
+}

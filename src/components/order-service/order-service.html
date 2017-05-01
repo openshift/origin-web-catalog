@@ -21,8 +21,8 @@
             <div class="service-title">
               {{$ctrl.serviceName}}
             </div>
-            <div ng-if="$ctrl.serviceClass.resource.osbTags" class="order-service-tags">
-              <span ng-repeat="tag in $ctrl.serviceClass.resource.osbTags" class="tag">
+            <div ng-if="$ctrl.serviceClass.tags" class="order-service-tags">
+              <span ng-repeat="tag in $ctrl.serviceClass.tags" class="tag">
                 {{tag}}
               </span>
             </div>

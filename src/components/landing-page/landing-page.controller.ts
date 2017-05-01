@@ -17,14 +17,15 @@ export class LandingPageController implements angular.IController {
     this.ctrl.orderingPanelVisible = false;
 
     this.$scope.$on('open-overlay-panel', (event: any, item: any) => {
-      let kind = _.get(item, 'resource.kind');
-      if (kind === 'ImageStream') {
-        this.ctrl.selectedImageStream = item;
-        this.ctrl.selectedServiceClass = null;
-      } else {
-        this.ctrl.selectedImageStream = null;
-        this.ctrl.selectedServiceClass = item;
+      if (item.resource.kind === 'Template') {
+        let cb = this.ctrl.onTemplateSelected();
+        if (cb) {
+          cb(item.resource);
+        }
+        return;
       }
+
+      this.ctrl.selectedItem = item;
       this.ctrl.orderingPanelVisible = true;
     });
   }
@@ -36,8 +37,7 @@ export class LandingPageController implements angular.IController {
   }
 
   public closeOrderingPanel = () => {
-    let item: any = this.ctrl.selectedImageStream || this.ctrl.selectedServiceClass;
-    this.RecentlyViewed.addItem(item.resource.metadata.uid);
+    this.RecentlyViewed.addItem(this.ctrl.selectedItem.resource.metadata.uid);
     this.ctrl.orderingPanelVisible = false;
-  };
+  }
 }

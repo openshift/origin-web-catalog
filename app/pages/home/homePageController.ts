@@ -25,20 +25,12 @@ export class HomePageController {
   };
 
   public update() {
-    this.Catalog.getCatalogItems().then( (catalogServiceItems: any) => {
+    this.Catalog.getCatalogItems(false).then( (catalogServiceItems: any) => {
       this.ctrl.catalogItems = catalogServiceItems;
     }, () => {
       this.ctrl.catalogItems = {};
     });
 
     this.ctrl.saasOfferings = this.constants.SAAS_OFFERINGS;
-  };
-
-  public navToProject = (project: any) => {
-    this.$state.go('projects/' + project.metadata.name);
-  };
-
-  public navToProjects = () => {
-    this.$state.go('projects');
   };
 }

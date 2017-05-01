@@ -46,7 +46,9 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
     t.__esModule = !0;
     var r = n(35);
     t.landingPage = {
-        bindings: {},
+        bindings: {
+            onTemplateSelected: "&"
+        },
         controller: r.LandingPageController,
         template: n(26),
         transclude: {
@@ -263,7 +265,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
         } ]
     } ];
     r.set(window, "OPENSHIFT_CONSTANTS.SERVICE_CATALOG_CATEGORIES", i), r.set(window, "OPENSHIFT_CONSTANTS.SAAS_OFFERINGS", s);
-    var c = {
+    var o = {
         links: [ {
             title: "Documentation",
             help: ""
@@ -284,7 +286,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             href: "https://blog.openshift.com"
         } ]
     };
-    r.set(window, "OPENSHIFT_CONSTANTS.CATALOG_HELP_RESOURCES", c);
+    r.set(window, "OPENSHIFT_CONSTANTS.CATALOG_HELP_RESOURCES", o);
 }, function(e, t, n) {
     "use strict";
     function r() {
@@ -474,9 +476,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             this.$filter = e, this.$q = t, this.constants = n, this.categories = this.constants.SERVICE_CATALOG_CATEGORIES, 
             this.dataService = r, this.logger = a;
         }
-        return e.prototype.getCatalogItems = function() {
-            var e = this;
-            return this.$q.all({
+        return e.prototype.getCatalogItems = function(e) {
+            var t = this, n = {
                 serviceClasses: this.dataService.list({
                     group: "servicecatalog.k8s.io",
                     resource: "serviceclasses"
@@ -484,21 +485,26 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 imageStreams: this.dataService.list("imagestreams", {
                     namespace: "openshift"
                 })
-            }).then(function(t) {
-                var n = t.serviceClasses.by("metadata.name"), r = t.imageStreams.by("metadata.name");
-                return e.convertToServiceItems(n, r);
+            };
+            return e && (n.templates = this.dataService.list("templates", {
+                namespace: "openshift"
+            })), this.$q.all(n).then(function(e) {
+                var n = e.serviceClasses.by("metadata.name"), r = e.imageStreams.by("metadata.name"), a = e.templates ? e.templates.by("metadata.name") : {};
+                return t.convertToServiceItems(n, r, a);
             }, function() {
-                e.logger.log("Error Loading Catalog Items");
+                t.logger.log("Error Loading Catalog Items");
             });
-        }, e.prototype.convertToServiceItems = function(e, t) {
-            var n = this, r = a.map(e, function(e) {
-                return n.getServiceItem(e);
+        }, e.prototype.convertToServiceItems = function(e, t, n) {
+            var r = this, s = a.map(e, function(e) {
+                return r.getServiceItem(e);
             });
-            return r = r.concat(a.map(t, function(e) {
-                return n.getImageItem(e);
-            })), r = a.reject(r, function(e) {
+            return s = s.concat(a.map(t, function(e) {
+                return r.getImageItem(e);
+            })), s = s.concat(a.map(n, function(e) {
+                return r.getTemplateItem(e);
+            })), s = a.reject(s, function(e) {
                 return !e;
-            }), r = r.sort(function(e, t) {
+            }), s = s.sort(function(e, t) {
                 var n = a.get(e, "name", "").localeCompare(a.get(t, "name", ""), void 0, {
                     sensitivity: "base"
                 });
@@ -511,8 +517,10 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
         }, e.prototype.getServiceItem = function(e) {
             return new i(e, this);
         }, e.prototype.getImageItem = function(e) {
-            var t = new c(e, this);
+            var t = new o(e, this);
             return t.builderSpecTagName ? t : null;
+        }, e.prototype.getTemplateItem = function(e) {
+            return new c(e, this);
         }, e.prototype.getCategoriesBySubCategories = function(e) {
             var t = this, n = {}, r = "other";
             return a.each(e, function(e) {
@@ -536,8 +544,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                     });
                 });
                 if (!a.isEmpty(i)) {
-                    var c = r.copy(n);
-                    c.subCategories = i, s.push(c);
+                    var o = r.copy(n);
+                    o.subCategories = i, s.push(o);
                 }
             }), s;
         }, e;
@@ -547,7 +555,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
         function e(e, t) {
             this.resource = e, this.catalogSrv = t, this.imageUrl = this.getImage(), this.iconClass = this.getIcon(), 
             this.name = this.getName(), this.description = this.getDescription(), this.longDescription = this.getLongDescription(), 
-            this.catsBySubCats = this.getCategoriesBySubCategories();
+            this.tags = this.getTags(), this.catsBySubCats = this.getCategoriesBySubCategories();
         }
         return e.prototype.getImage = function() {
             return a.get(this.resource, "osbMetadata.imageUrl", "");
@@ -560,12 +568,14 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             return a.get(this.resource, "description", "");
         }, e.prototype.getLongDescription = function() {
             return a.get(this.resource, "osbMetadata.longDescription", "");
+        }, e.prototype.getTags = function() {
+            return a.get(this.resource, "osbTags", []);
         }, e.prototype.getCategoriesBySubCategories = function() {
             return this.catalogSrv.getCategoriesBySubCategories(this.resource.osbTags);
         }, e;
     }();
     t.ServiceItem = i;
-    var c = function() {
+    var o = function() {
         function e(e, t) {
             this.resource = e, this.catalogSrv = t, this.builderSpecTagName = this.getBuilderSpecTagName(), 
             this.builderSpecTagName && (this.tags = this.getTags(), this.iconClass = this.getIcon(), 
@@ -596,7 +606,31 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             return this.catalogSrv.getCategoriesBySubCategories(this.tags);
         }, e;
     }();
-    t.ImageItem = c;
+    t.ImageItem = o;
+    var c = function() {
+        function e(e, t) {
+            this.resource = e, this.catalogSrv = t, this.imageUrl = this.getImage(), this.iconClass = this.getIcon(), 
+            this.name = this.getName(), this.description = this.getDescription(), this.longDescription = this.getLongDescription(), 
+            this.tags = this.getTags(), this.catsBySubCats = this.getCategoriesBySubCategories();
+        }
+        return e.prototype.getImage = function() {
+            return "";
+        }, e.prototype.getIcon = function() {
+            var e = a.get(this.resource, "metadata.annotations.iconClass", "fa fa-cubes");
+            return e = -1 !== e.indexOf("icon-") ? "font-icon " + e : e;
+        }, e.prototype.getName = function() {
+            return this.catalogSrv.$filter("displayName")(this.resource);
+        }, e.prototype.getDescription = function() {
+            return a.get(this.resource, "metadata.annotations.description", "");
+        }, e.prototype.getLongDescription = function() {
+            return a.get(this.resource, [ "metadata", "annotations", "template.openshift.io/long-description" ], "");
+        }, e.prototype.getTags = function() {
+            return a.get(this.resource, "metadata.annotations.tags", "").split(/\s*,\s*/);
+        }, e.prototype.getCategoriesBySubCategories = function() {
+            return this.catalogSrv.getCategoriesBySubCategories(this.tags);
+        }, e;
+    }();
+    t.TemplateItem = c;
 }, function(e, t, n) {
     "use strict";
     (function(e) {
@@ -624,9 +658,9 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
 }, function(e, t) {
     e.exports = '<div class="order-service wizard-pf-body">\n  <div class="wizard-pf-steps">\n    <ul class="wizard-pf-steps-indicator">\n      <li class="wizard-pf-step" ng-class="{\n        active: step.selected,\n        visited: step.visited && !step.selected\n      }" ng-repeat="step in $ctrl.steps" data-tabgroup="{{$index}}">\n        <a ng-click="$ctrl.stepClick(step)"><span class="wizard-pf-step-number">{{$index + 1}}</span><span class="wizard-pf-step-title">{{step.label}}</span></a>\n      </li>\n    </ul>\n  </div>\n  <div class="wizard-pf-main">\n    <div class="wizard-pf-main-inner-shadow-covers">\n      <div class="order-service-details">\n        <div class="order-service-details-top">\n          <div class="service-icon">\n            <span class="icon {{$ctrl.imageStream.iconClass}}"></span>\n          </div>\n          <div class="service-title-area">\n            <div class="service-title">\n              {{$ctrl.imageStream.name}}\n              {{$ctrl.istag.name}}\n            </div>\n            <div class="order-service-tags">\n              <span ng-repeat="tag in $ctrl.istag.annotations.tags.split(\',\')" class="tag">\n                {{tag}}\n              </span>\n            </div>\n          </div>\n        </div>\n        <div class="order-service-description-block">\n          <p ng-bind-html="$ctrl.istag.annotations.description | linky : \'_blank\'" class="description"></p>\n          <p ng-if="$ctrl.istag.annotations.sampleRepo">\n            Sample Repository:\n            \x3c!-- TODO: Use Git link filter, needs to be added to origin-web-common --\x3e\n            <span ng-bind-html="$ctrl.istag.annotations.sampleRepo | linky : \'_blank\'">\n          </p>\n        </div>\n      </div>\n      <div class="order-service-config">\n        <div ng-include="$ctrl.currentStep.view" class="wizard-pf-contents"></div>\n      </div>\n    </div>\n  </div>\n</div>\n<div class="config-bottom modal-footer wizard-pf-footer">\n  <button\n      type="button"\n      class="btn btn-default wizard-pf-dismiss"\n      ng-disabled="$ctrl.currentStep.id === \'results\'"\n      ng-click="$ctrl.closePanel()">\n    Cancel\n  </button>\n  <button\n      type="button"\n      class="btn btn-primary wizard-pf-next"\n      ng-if="$ctrl.currentStep.id === \'configure\'"\n      ng-disabled="!$ctrl.builderForm.$valid"\n      ng-click="$ctrl.createApp()">\n    Create\n  </button>\n  <button\n      type="button"\n      class="btn btn-primary wizard-pf-close wizard-pf-dismiss"\n      ng-if="$ctrl.currentStep.id === \'results\'"\n      ng-click="$ctrl.closePanel()">\n    Close\n  </button>\n</div>\n';
 }, function(e, t) {
-    e.exports = '<div class="landing">\n  <overlay-panel show-panel="$ctrl.orderingPanelVisible" show-close="true" handle-close="$ctrl.closeOrderingPanel">\n    <order-service\n        ng-if="$ctrl.selectedServiceClass"\n        base-project-url="{{$ctrl.baseProjectUrl}}"\n        service-class="$ctrl.selectedServiceClass"\n        handle-close="$ctrl.closeOrderingPanel">\n    </order-service>\n    <create-from-builder\n        ng-if="$ctrl.selectedImageStream"\n        base-project-url="{{$ctrl.baseProjectUrl}}"\n        image-stream="$ctrl.selectedImageStream"\n        handle-close="$ctrl.closeOrderingPanel">\n    </create-from-builder>\n  </overlay-panel>\n  <div class="landing-search-area" ng-transclude="landingsearch"></div>\n  <div class="landing-main-area">\n    <div class="landing-header-area" ng-transclude="landingheader"></div>\n    <div class="landing-body-area">\n      <div ng-transclude="landingbody"></div>\n    </div>\n  </div>\n  <div class="landing-side-bar" ng-transclude="landingside"></div>\n</div>\n';
+    e.exports = '<div class="landing">\n  <overlay-panel show-panel="$ctrl.orderingPanelVisible" show-close="true" handle-close="$ctrl.closeOrderingPanel">\n    <order-service\n        ng-if="$ctrl.selectedItem.resource.kind === \'ServiceClass\'"\n        base-project-url="{{$ctrl.baseProjectUrl}}"\n        service-class="$ctrl.selectedItem"\n        handle-close="$ctrl.closeOrderingPanel">\n    </order-service>\n    <create-from-builder\n        ng-if="$ctrl.selectedItem.resource.kind === \'ImageStream\'"\n        base-project-url="{{$ctrl.baseProjectUrl}}"\n        image-stream="$ctrl.selectedItem"\n        handle-close="$ctrl.closeOrderingPanel">\n    </create-from-builder>\n  </overlay-panel>\n  <div class="landing-search-area" ng-transclude="landingsearch"></div>\n  <div class="landing-main-area">\n    <div class="landing-header-area" ng-transclude="landingheader"></div>\n    <div class="landing-body-area">\n      <div ng-transclude="landingbody"></div>\n    </div>\n  </div>\n  <div class="landing-side-bar" ng-transclude="landingside"></div>\n</div>\n';
 }, function(e, t) {
-    e.exports = '<div class="order-service wizard-pf-body">\n  <div class="wizard-pf-steps">\n    <ul class="wizard-pf-steps-indicator" ng-if="$ctrl.wizardReady">\n      <li class="wizard-pf-step" ng-class="{\n        active: step.selected,\n        visited: step.visited && !step.selected\n      }" ng-repeat="step in $ctrl.getSteps()" data-tabgroup="{{$index}}">\n        <a ng-click="$ctrl.stepClick(step)"><span class="wizard-pf-step-number">{{$index + 1}}</span><span class="wizard-pf-step-title">{{step.label}}</span></a>\n      </li>\n    </ul>\n  </div>\n  <div class="wizard-pf-main">\n    <div class="wizard-pf-main-inner-shadow-covers">\n      <div class="order-service-details">\n        <div class="order-service-details-top">\n          <div class="service-icon">\n            <span ng-if="!$ctrl.imageUrl" class="icon {{$ctrl.iconClass}}"></span>\n            <span ng-if="$ctrl.imageUrl" class="image"><img ng-src="{{$ctrl.imageUrl}}" alt=""></span>\n          </div>\n          <div class="service-title-area">\n            <div class="service-title">\n              {{$ctrl.serviceName}}\n            </div>\n            <div ng-if="$ctrl.serviceClass.resource.osbTags" class="order-service-tags">\n              <span ng-repeat="tag in $ctrl.serviceClass.resource.osbTags" class="tag">\n                {{tag}}\n              </span>\n            </div>\n          </div>\n        </div>\n        <div class="order-service-description-block">\n          <p ng-if="$ctrl.currentStep.id !== \'plans\' && ($ctrl.selectedPlan.osbMetadata.displayName || $ctrl.selectedPlan.description)">\n            <span ng-if="$ctrl.selectedPlan.osbMetadata.displayName">\n              Plan {{$ctrl.selectedPlan.osbMetadata.displayName}}\n              <span ng-if="$ctrl.selectedPlan.description">&ndash;</span>\n            </span>\n            <span ng-if="$ctrl.selectedPlan.description">{{$ctrl.selectedPlan.description}}</span>\n          </p>\n          <p ng-if="$ctrl.description" ng-bind-html="$ctrl.description | linky : \'_blank\'" class="description"></p>\n          <p ng-if="$ctrl.longDescription" ng-bind-html="$ctrl.longDescription | linky : \'_blank\'" class="description"></p>\n          <p ng-if="$ctrl.serviceClass.resource.osbMetadata.documentationUrl">\n            <a ng-href="{{$ctrl.serviceClass.resource.osbMetadata.documentationUrl}}" target="_blank" class="learn-more-link">Learn More <i class="fa fa-external-link" aria-hidden="true"></i></a>\n          </p>\n        </div>\n      </div>\n      <div class="order-service-config">\n        <div ng-include="$ctrl.currentStep.view" class="wizard-pf-contents"></div>\n      </div>\n    </div>\n  </div>\n</div>\n<div class="config-bottom modal-footer wizard-pf-footer">\n  \x3c!--\n    Only use the `btn-cancel wizard-pf-cancel` classes when there\'s a Back\n    button, otherwise there\'s an odd gap between Cancel and Next when there\n    are only two buttons in the wizard.\n  --\x3e\n  <button\n      type="button"\n      class="btn btn-default wizard-pf-dismiss"\n      ng-class="{ \'btn-cancel wizard-pf-cancel\': $ctrl.plans.length > 1 }"\n      ng-disabled="$ctrl.currentStep.id === \'results\'"\n      ng-click="$ctrl.closePanel()">\n    Cancel\n  </button>\n  \x3c!-- Hide the button when only one plan. It will never be enabled. --\x3e\n  <button\n      type="button"\n      class="btn btn-default wizard-pf-back"\n      ng-if="$ctrl.plans.length > 1"\n      ng-disabled="$ctrl.currentStep.id !== \'configure\'"\n      ng-click="$ctrl.previousStep()">\n    <span class="fa fa-angle-left" aria-hidden="true"></span>\n    Back\n  </button>\n  <button\n      type="button"\n      class="btn btn-primary wizard-pf-next"\n      ng-if="$ctrl.currentStep.id !== \'configure\' && $ctrl.currentStep.id !== \'results\'"\n      ng-click="$ctrl.nextStep()">\n    Next\n    <span class="fa fa-angle-right" aria-hidden="true"></span>\n  </button>\n  <button\n      type="button"\n      class="btn btn-primary wizard-pf-next"\n      ng-if="$ctrl.currentStep.id === \'configure\'"\n      ng-disabled="!$ctrl.selectedProject || $ctrl.currentStep.id === \'results\' || $ctrl.forms.orderConfigureForm.$invalid"\n      ng-click="$ctrl.provisionService()">\n    Create\n  </button>\n  <button\n      type="button"\n      class="btn btn-primary wizard-pf-close wizard-pf-dismiss"\n      ng-if="$ctrl.currentStep.id === \'results\'"\n      ng-click="$ctrl.closePanel()">\n    Close\n  </button>\n</div>\n';
+    e.exports = '<div class="order-service wizard-pf-body">\n  <div class="wizard-pf-steps">\n    <ul class="wizard-pf-steps-indicator" ng-if="$ctrl.wizardReady">\n      <li class="wizard-pf-step" ng-class="{\n        active: step.selected,\n        visited: step.visited && !step.selected\n      }" ng-repeat="step in $ctrl.getSteps()" data-tabgroup="{{$index}}">\n        <a ng-click="$ctrl.stepClick(step)"><span class="wizard-pf-step-number">{{$index + 1}}</span><span class="wizard-pf-step-title">{{step.label}}</span></a>\n      </li>\n    </ul>\n  </div>\n  <div class="wizard-pf-main">\n    <div class="wizard-pf-main-inner-shadow-covers">\n      <div class="order-service-details">\n        <div class="order-service-details-top">\n          <div class="service-icon">\n            <span ng-if="!$ctrl.imageUrl" class="icon {{$ctrl.iconClass}}"></span>\n            <span ng-if="$ctrl.imageUrl" class="image"><img ng-src="{{$ctrl.imageUrl}}" alt=""></span>\n          </div>\n          <div class="service-title-area">\n            <div class="service-title">\n              {{$ctrl.serviceName}}\n            </div>\n            <div ng-if="$ctrl.serviceClass.tags" class="order-service-tags">\n              <span ng-repeat="tag in $ctrl.serviceClass.tags" class="tag">\n                {{tag}}\n              </span>\n            </div>\n          </div>\n        </div>\n        <div class="order-service-description-block">\n          <p ng-if="$ctrl.currentStep.id !== \'plans\' && ($ctrl.selectedPlan.osbMetadata.displayName || $ctrl.selectedPlan.description)">\n            <span ng-if="$ctrl.selectedPlan.osbMetadata.displayName">\n              Plan {{$ctrl.selectedPlan.osbMetadata.displayName}}\n              <span ng-if="$ctrl.selectedPlan.description">&ndash;</span>\n            </span>\n            <span ng-if="$ctrl.selectedPlan.description">{{$ctrl.selectedPlan.description}}</span>\n          </p>\n          <p ng-if="$ctrl.description" ng-bind-html="$ctrl.description | linky : \'_blank\'" class="description"></p>\n          <p ng-if="$ctrl.longDescription" ng-bind-html="$ctrl.longDescription | linky : \'_blank\'" class="description"></p>\n          <p ng-if="$ctrl.serviceClass.resource.osbMetadata.documentationUrl">\n            <a ng-href="{{$ctrl.serviceClass.resource.osbMetadata.documentationUrl}}" target="_blank" class="learn-more-link">Learn More <i class="fa fa-external-link" aria-hidden="true"></i></a>\n          </p>\n        </div>\n      </div>\n      <div class="order-service-config">\n        <div ng-include="$ctrl.currentStep.view" class="wizard-pf-contents"></div>\n      </div>\n    </div>\n  </div>\n</div>\n<div class="config-bottom modal-footer wizard-pf-footer">\n  \x3c!--\n    Only use the `btn-cancel wizard-pf-cancel` classes when there\'s a Back\n    button, otherwise there\'s an odd gap between Cancel and Next when there\n    are only two buttons in the wizard.\n  --\x3e\n  <button\n      type="button"\n      class="btn btn-default wizard-pf-dismiss"\n      ng-class="{ \'btn-cancel wizard-pf-cancel\': $ctrl.plans.length > 1 }"\n      ng-disabled="$ctrl.currentStep.id === \'results\'"\n      ng-click="$ctrl.closePanel()">\n    Cancel\n  </button>\n  \x3c!-- Hide the button when only one plan. It will never be enabled. --\x3e\n  <button\n      type="button"\n      class="btn btn-default wizard-pf-back"\n      ng-if="$ctrl.plans.length > 1"\n      ng-disabled="$ctrl.currentStep.id !== \'configure\'"\n      ng-click="$ctrl.previousStep()">\n    <span class="fa fa-angle-left" aria-hidden="true"></span>\n    Back\n  </button>\n  <button\n      type="button"\n      class="btn btn-primary wizard-pf-next"\n      ng-if="$ctrl.currentStep.id !== \'configure\' && $ctrl.currentStep.id !== \'results\'"\n      ng-click="$ctrl.nextStep()">\n    Next\n    <span class="fa fa-angle-right" aria-hidden="true"></span>\n  </button>\n  <button\n      type="button"\n      class="btn btn-primary wizard-pf-next"\n      ng-if="$ctrl.currentStep.id === \'configure\'"\n      ng-disabled="!$ctrl.selectedProject || $ctrl.currentStep.id === \'results\' || $ctrl.forms.orderConfigureForm.$invalid"\n      ng-click="$ctrl.provisionService()">\n    Create\n  </button>\n  <button\n      type="button"\n      class="btn btn-primary wizard-pf-close wizard-pf-dismiss"\n      ng-if="$ctrl.currentStep.id === \'results\'"\n      ng-click="$ctrl.closePanel()">\n    Close\n  </button>\n</div>\n';
 }, function(e, t) {
     e.exports = '<div class="catalogs-overlay-modal" role="dialog">\n  <div ng-if="$ctrl.shown" class="modal-backdrop fade in"></div>\n  <div ng-if="$ctrl.shown" class="catalogs-overlay-panel-wrapper">\n    <div class="catalogs-overlay-panel-grow-height">\n      <div class="catalogs-overlay-panel" ng-class="{\'catalogs-overlay-panel-single-column\' : $ctrl.singleColumn}">\n        <a ng-if="$ctrl.showClose" ng-click="$ctrl.closePanel()">\n          <span class="catalogs-overlay-panel-close pficon pficon-close"></span>\n        </a>\n        <div class="catalogs-overlay-panel-body" ng-transclude>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n';
 }, function(e, t) {
@@ -658,7 +692,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             return e ? this.loaded ? this.filterForKeywords(e) : (this.searchDeferred = this.$q.defer(), 
             this.searchDeferred.promise) : [];
         }, e.prototype.filterForKeywords = function(e) {
-            var t = this.KeywordService.generateKeywords(e), n = this.KeywordService.filterForKeywords(this.ctrl.catalogItems, [ "name", "tags", "resource.osbTags" ], t);
+            var t = this.KeywordService.generateKeywords(e), n = this.KeywordService.filterForKeywords(this.ctrl.catalogItems, [ "name", "tags" ], t);
             return r.take(n, 5);
         }, e;
     }();
@@ -777,28 +811,28 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
     t.CreateFromBuilderController = i;
 }, function(e, t, n) {
     "use strict";
-    (function(e) {
-        t.__esModule = !0;
-        var n = function() {
-            function t(e, t) {
-                var n = this;
-                this.ctrl = this, this.closeOrderingPanel = function() {
-                    var e = n.ctrl.selectedImageStream || n.ctrl.selectedServiceClass;
-                    n.RecentlyViewed.addItem(e.resource.metadata.uid), n.ctrl.orderingPanelVisible = !1;
-                }, this.$scope = e, this.RecentlyViewed = t;
-            }
-            return t.prototype.$onInit = function() {
-                var t = this;
-                this.ctrl.searchText = "", this.ctrl.orderingPanelVisible = !1, this.$scope.$on("open-overlay-panel", function(n, r) {
-                    "ImageStream" === e.get(r, "resource.kind") ? (t.ctrl.selectedImageStream = r, t.ctrl.selectedServiceClass = null) : (t.ctrl.selectedImageStream = null, 
-                    t.ctrl.selectedServiceClass = r), t.ctrl.orderingPanelVisible = !0;
-                });
-            }, t.prototype.$onDestroy = function() {
-                this.ctrl.orderingPanelVisible && this.closeOrderingPanel();
-            }, t;
-        }();
-        n.$inject = [ "$scope", "RecentlyViewedServiceItems" ], t.LandingPageController = n;
-    }).call(t, n(0));
+    t.__esModule = !0;
+    var r = function() {
+        function e(e, t) {
+            var n = this;
+            this.ctrl = this, this.closeOrderingPanel = function() {
+                n.RecentlyViewed.addItem(n.ctrl.selectedItem.resource.metadata.uid), n.ctrl.orderingPanelVisible = !1;
+            }, this.$scope = e, this.RecentlyViewed = t;
+        }
+        return e.prototype.$onInit = function() {
+            var e = this;
+            this.ctrl.searchText = "", this.ctrl.orderingPanelVisible = !1, this.$scope.$on("open-overlay-panel", function(t, n) {
+                if ("Template" === n.resource.kind) {
+                    var r = e.ctrl.onTemplateSelected();
+                    return void (r && r(n.resource));
+                }
+                e.ctrl.selectedItem = n, e.ctrl.orderingPanelVisible = !0;
+            });
+        }, e.prototype.$onDestroy = function() {
+            this.ctrl.orderingPanelVisible && this.closeOrderingPanel();
+        }, e;
+    }();
+    r.$inject = [ "$scope", "RecentlyViewedServiceItems" ], t.LandingPageController = r;
 }, function(e, t, n) {
     "use strict";
     t.__esModule = !0;
@@ -945,38 +979,38 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
     "use strict";
     t.__esModule = !0;
     var r = n(1), a = n(2), s = n(0), i = function() {
-        function e(e, t, n, a, i, c, o, l, d, p, u, m) {
-            var g = this;
+        function e(e, t, n, a, i, o, c, l, d, p, u, g) {
+            var m = this;
             this.ctrl = this, this.showNewProjectPanel = !1, this.showEditwProjectPanel = !1, 
             this.alerts = [], this.projects = [], this.watches = [], this.maxDisplayProjects = 5, 
             this.init = function() {
-                g.watches.push(g.DataService.watch("projects", g.$scope, g.onProjectsUpdate)), g.AlertMessageService.getAlerts().forEach(function(e) {
+                m.watches.push(m.DataService.watch("projects", m.$scope, m.onProjectsUpdate)), m.AlertMessageService.getAlerts().forEach(function(e) {
                     this.ctrl.alerts[e.name] = e.data;
-                }), g.ctrl.resourceLinks = s.clone(g.Constants.CATALOG_HELP_RESOURCES.links), s.forEach(g.ctrl.resourceLinks, function(e) {
-                    r.isDefined(e.help) && (e.href = g.Constants.HELP_BASE_URL + (e.help ? g.Constants.HELP[e.help] : ""));
-                }), g.$rootScope.$on("recently-viewed-updated", function() {
-                    g.ctrl.recentlyViewedItems = g.getRecentlyViewedItems();
+                }), m.ctrl.resourceLinks = s.clone(m.Constants.CATALOG_HELP_RESOURCES.links), s.forEach(m.ctrl.resourceLinks, function(e) {
+                    r.isDefined(e.help) && (e.href = m.Constants.HELP_BASE_URL + (e.help ? m.Constants.HELP[e.help] : ""));
+                }), m.$rootScope.$on("recently-viewed-updated", function() {
+                    m.ctrl.recentlyViewedItems = m.getRecentlyViewedItems();
                 });
             }, this.onProjectsUpdate = function(e) {
-                var t = s.toArray(e.by("metadata.creationTimestamp")), n = g.$filter("orderObjectsByDate");
-                g.ctrl.projects = n(t, !0), g.ctrl.totalProjects = g.ctrl.projects.length, g.ctrl.projects = s.take(g.ctrl.projects, g.maxDisplayProjects), 
-                g.ctrl.loading = !1, g.ctrl.showGetStarted = !g.ctrl.projects || g.ctrl.projects.length < 2;
+                var t = s.toArray(e.by("metadata.creationTimestamp")), n = m.$filter("orderObjectsByDate");
+                m.ctrl.projects = n(t, !0), m.ctrl.totalProjects = m.ctrl.projects.length, m.ctrl.projects = s.take(m.ctrl.projects, m.maxDisplayProjects), 
+                m.ctrl.loading = !1, m.ctrl.showGetStarted = !m.ctrl.projects || m.ctrl.projects.length < 2;
             }, this.closeNewProjectPanel = function() {
-                g.ctrl.showNewProjectPanel = !1, g.hideModalBackdrop();
+                m.ctrl.showNewProjectPanel = !1, m.hideModalBackdrop();
             }, this.onNewProject = function(e) {
-                g.ctrl.showNewProjectPanel = !1, g.hideModalBackdrop();
+                m.ctrl.showNewProjectPanel = !1, m.hideModalBackdrop();
             }, this.onViewMemebership = function(e) {
-                var t = g.ctrl.viewEditMembership();
+                var t = m.ctrl.viewEditMembership();
                 t && t(e);
             }, this.editProject = function(e) {
-                g.ctrl.edittingProject = e, g.ctrl.showEditProjectPanel = !0, g.showModalBackdrop();
+                m.ctrl.edittingProject = e, m.ctrl.showEditProjectPanel = !0, m.showModalBackdrop();
             }, this.closeEditProjectPanel = function() {
-                g.ctrl.showEditProjectPanel = !1, g.hideModalBackdrop();
+                m.ctrl.showEditProjectPanel = !1, m.hideModalBackdrop();
             }, this.onEditProject = function(e) {
-                g.ctrl.showEditProjectPanel = !1, g.hideModalBackdrop();
+                m.ctrl.showEditProjectPanel = !1, m.hideModalBackdrop();
             }, this.$element = e, this.$filter = t, this.$rootScope = n, this.$scope = a, this.AlertMessageService = i, 
-            this.AuthService = c, this.Catalog = o, this.Constants = l, this.DataService = d, 
-            this.Logger = p, this.ProjectsService = u, this.RecentlyViewed = m;
+            this.AuthService = o, this.Catalog = c, this.Constants = l, this.DataService = d, 
+            this.Logger = p, this.ProjectsService = u, this.RecentlyViewed = g;
         }
         return e.prototype.$onInit = function() {
             var e = this;
@@ -1146,8 +1180,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
     t.__esModule = !0;
     var r = n(1);
     n(3), n(19);
-    var a = n(20), s = n(21), i = n(10), c = n(22), o = n(11), l = n(12), d = n(13), p = n(14), u = n(15), m = n(16), g = n(17), h = n(18), f = n(23);
-    t.webCatalog = "webCatalog", r.module(t.webCatalog, [ "patternfly", "ngAnimate", "ui.bootstrap", "angularMoment", "ui.select" ]).service("BuilderAppService", s.BuilderAppService).service("Catalog", c.CatalogService).service("RecentlyViewedServiceItems", f.RecentlyViewedServiceItems).filter("projectUrl", a.projectUrlFilter).component("catalogSearch", i.catalogSearch).component("createFromBuilder", o.createFromBuilder).component("landingPage", l.landingPage).component("orderService", d.orderService).component("overlayPanel", p.overlayPanel).component("projectsSummary", u.projectsSummary).component("saasList", m.saasList).component("selectProject", g.selectProject).component("servicesView", h.servicesView).run([ "$templateCache", function(e) {
+    var a = n(20), s = n(21), i = n(10), o = n(22), c = n(11), l = n(12), d = n(13), p = n(14), u = n(15), g = n(16), m = n(17), h = n(18), f = n(23);
+    t.webCatalog = "webCatalog", r.module(t.webCatalog, [ "patternfly", "ngAnimate", "ui.bootstrap", "angularMoment", "ui.select" ]).service("BuilderAppService", s.BuilderAppService).service("Catalog", o.CatalogService).service("RecentlyViewedServiceItems", f.RecentlyViewedServiceItems).filter("projectUrl", a.projectUrlFilter).component("catalogSearch", i.catalogSearch).component("createFromBuilder", c.createFromBuilder).component("landingPage", l.landingPage).component("orderService", d.orderService).component("overlayPanel", p.overlayPanel).component("projectsSummary", u.projectsSummary).component("saasList", g.saasList).component("selectProject", m.selectProject).component("servicesView", h.servicesView).run([ "$templateCache", function(e) {
         e.put("catalog-search/catalog-search-result.html", n(4)), e.put("create-from-builder/create-from-builder-configure.html", n(5)), 
         e.put("create-from-builder/create-from-builder-results.html", n(6)), e.put("order-service/order-service-plans.html", n(8)), 
         e.put("order-service/order-service-configure.html", n(7)), e.put("order-service/order-service-review.html", n(9));
