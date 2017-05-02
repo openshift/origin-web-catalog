@@ -646,7 +646,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 var n = this.getItems();
                 e.remove(n, function(e) {
                     return e === t;
-                }), n.unshift(t), n = e.take(n, 3), this.setRecentlyViewedItems(n);
+                }), n.unshift(t), n = e.take(n, 4), this.setRecentlyViewedItems(n);
             }, t.prototype.setRecentlyViewedItems = function(e) {
                 localStorage.setItem("catalog-recently-viewed-services", JSON.stringify(e)), this.$rootScope.$emit("recently-viewed-updated");
             }, t;

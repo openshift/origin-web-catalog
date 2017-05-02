@@ -23,8 +23,8 @@ export class RecentlyViewedServiceItems {
     // add to front of list
     recentlyViewed.unshift(uid);
 
-    // limit to 3 items
-    recentlyViewed = _.take(recentlyViewed, 3);
+    // limit to 4 items
+    recentlyViewed = _.take(recentlyViewed, 4);
 
     this.setRecentlyViewedItems(recentlyViewed);
   }
