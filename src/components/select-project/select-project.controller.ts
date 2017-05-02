@@ -69,10 +69,17 @@ export class SelectProjectController implements angular.IController {
           }
         }
       };
-      this.ctrl.projects = _.sortBy(response.by('metadata.name'), this.$filter('displayName'));
 
-      // get most recently created
-      this.ctrl.selectedProject = this.$filter('mostRecent')(this.ctrl.projects);
+      let projects: any = response.by('metadata.name');
+      this.ctrl.projects = _.sortBy(projects, this.$filter('displayName'));
+
+      let selectedName: any = _.get(this, 'ctrl.selectedProject.metadata.name');
+      if (selectedName && projects[selectedName]) {
+        this.ctrl.selectedName = projects[selectedName];
+      } else {
+        // get most recently created
+        this.ctrl.selectedProject = this.$filter('mostRecent')(this.ctrl.projects);
+      }
 
       if (this.ctrl.canCreate) {
         this.ctrl.projects.unshift(createProject);
