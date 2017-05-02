@@ -18,9 +18,9 @@ function routesConfig($stateProvider: angular.ui.IStateProvider, $urlRouterProvi
       url: '/services',
       component: 'servicespage'
     })
-    .state('projects', {
-      url: '/projects',
-      component: 'projectspage'
+    .state('logout', {
+      url: '/logout',
+      component: 'logoutpage'
     })
     .state('error', {
       url: '/error',

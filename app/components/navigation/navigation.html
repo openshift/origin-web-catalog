@@ -12,6 +12,21 @@
   </div>
   <div class="collapse navbar-collapse" ng-class="{in: !$ctrl.navCollapsed}">
     <ul class="nav navbar-nav navbar-utility">
+      <li ng-if="$ctrl.tourConfig.enabled" uib-dropdown="" class="dropdown hidden-xs">
+        <a uib-dropdown-toggle="" class="nav-item-iconic dropdown-toggle" id="help-dropdown" href="" aria-haspopup="true" aria-expanded="false">
+          <span title="Help" class="fa pficon-help" aria-hidden="true"></span>
+          <span class="sr-only">Help</span>
+          <span class="caret" aria-hidden="true"></span>
+        </a>
+        <ul class="uib-dropdown-menu ng-isolate-scope dropdown-menu" aria-labelledby="help-dropdown" extension-point="" extension-name="nav-help-dropdown" extension-types="dom html">
+          <li class="ng-scope">
+            <a href="" ng-click="$ctrl.startTour()">
+              Home Page Tour
+            </a>
+          </li>
+        </ul>
+      </li>
+
       <li uib-dropdown class="dropdown" ng-cloak ng-if="$ctrl.user">
         <a href="" uib-dropdown-toggle id="user-dropdown" class="dropdown-toggle nav-item-iconic">
           <span class="pf-icon pficon-user" aria-hidden="true"></span>

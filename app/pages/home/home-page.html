@@ -11,6 +11,6 @@
     <services-view catalog-items="$ctrl.catalogItems" base-project-url="{{$ctrl.baseProjectUrl}}"></services-view>
   </landingbody>
   <landingside>
-    <projects-summary catalog-items="$ctrl.catalogItems" base-project-url="{{$ctrl.baseProjectUrl}}" projects-url="{{$ctrl.projectsUrl}}"></projects-summary>
+    <projects-summary start-tour="$ctrl.tourConfig.enabled ? $ctrl.startGuidedTour : undefined" catalog-items="$ctrl.catalogItems" base-project-url="{{$ctrl.baseProjectUrl}}" projects-url="{{$ctrl.projectsUrl}}"></projects-summary>
   </landingside>
 </landing-page>

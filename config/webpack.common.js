@@ -111,7 +111,7 @@ module.exports = {
       },
       {
         test: /origin-web-common/,
-        loader: 'imports-loader?Messenger=messenger/build/js/messenger,Logger=js-logger/src/logger,hawtioPluginLoader=hawtio-core/dist/hawtio-core,angular,URI=urijs/src/URI,this=>window'
+        loader: 'imports-loader?Messenger=messenger/build/js/messenger,Logger=js-logger/src/logger,hawtioPluginLoader=hawtio-core/dist/hawtio-core,angular,URI=urijs/src/URI,hopscotch=hopscotch/dist/js/hopscotch,this=>window'
       }
     ]
   }

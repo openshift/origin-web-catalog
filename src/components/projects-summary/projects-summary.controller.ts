@@ -21,7 +21,7 @@ export class ProjectsSummaryController implements angular.IController {
 
   public ctrl: any = this;
   public showNewProjectPanel: boolean = false;
-  public showEditwProjectPanel: boolean = false;
+  public showEditProjectPanel: boolean = false;
   public alerts: any = [];
   public projects: any = [];
   private $element: any;
@@ -191,7 +191,7 @@ export class ProjectsSummaryController implements angular.IController {
   };
 
   public handleGettingStartedClick() {
-    var cb: any = this.ctrl.startGettingStartedTour();
+    var cb: any = this.ctrl.startTour();
     if (cb) {
       cb();
     }
