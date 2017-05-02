@@ -40,29 +40,34 @@ body.overlay-open {
   }
 
   .wizard-pf-main {
-    background-attachment: scroll;
-    background-image: radial-gradient(ellipse at top, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 75%), radial-gradient(ellipse at bottom, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 75%);
-    background-position: 0 0, 0 100%;
-    background-repeat: no-repeat;
-    background-size: 100% 6px;
-    height: auto;
     margin-left: 0; // no sidebar
     padding: 0;
+
+    @media(max-width: @screen-xs-max) {
+      max-height: calc(100vh ~"-" (@navbar-pf-height + (@wizard-pf-steps-indicator-margin-top-bottom * 2) + @wizard-pf-steps-indicator-height + @wizard-pf-footer-height + (@grid-gutter-width / 2)));
+      .scroll-shadows-horizontal();
+    }
+
+    @media(min-width: @screen-sm-min) {
+      display: flex; // IE/Edge
+    }
   }
 
   .wizard-pf-main-inner-shadow-covers {
-    background-attachment: local;
-    background-image: linear-gradient(@color-pf-white 30%, rgba(255,255,255,0)), linear-gradient(rgba(255,255,255,0), @color-pf-white 70%);
-    background-position: 0 0, 0 100%;
-    background-repeat: no-repeat;
-    background-size: 100% 12px;
-    max-height: calc(100vh ~"-" (@navbar-pf-height + (@wizard-pf-steps-indicator-margin-top-bottom * 2) + @wizard-pf-steps-indicator-height + @wizard-pf-footer-height + (@grid-gutter-width / 2)));
-    min-height: 300px;
-    overflow-y: auto;
     padding: (@grid-gutter-width / 2);
+
+    @media(max-width: @screen-xs-max) {
+      overflow-y: auto;
+      .scroll-shadows-horizontal-covers();
+    }
 
     @media(min-width: @screen-sm-min) {
       display: flex;
+      flex: 1 1 auto;
+      max-height: calc(100vh ~"-" (@navbar-pf-height + (@wizard-pf-steps-indicator-margin-top-bottom * 2) + @wizard-pf-steps-indicator-height + @wizard-pf-footer-height + @grid-gutter-width));
+      min-height: 300px;
+      overflow: hidden;
+      padding-right: 0;
     }
 
     // so that input and textarea form-controls don't mask the inner scroll shadows
