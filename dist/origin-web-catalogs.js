@@ -1122,7 +1122,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 }, a = t.by("metadata.name");
                 e.ctrl.projects = r.sortBy(a, e.$filter("displayName"));
                 var s = r.get(e, "ctrl.selectedProject.metadata.name");
-                s && a[s] ? e.ctrl.selectedName = a[s] : e.ctrl.selectedProject = e.$filter("mostRecent")(e.ctrl.projects), 
+                s && a[s] ? e.ctrl.selectedProject = a[s] : e.ctrl.selectedProject = e.$filter("mostRecent")(e.ctrl.projects), 
                 e.ctrl.canCreate && e.ctrl.projects.unshift(n);
             });
         }, e;

@@ -75,7 +75,7 @@ export class SelectProjectController implements angular.IController {
 
       let selectedName: any = _.get(this, 'ctrl.selectedProject.metadata.name');
       if (selectedName && projects[selectedName]) {
-        this.ctrl.selectedName = projects[selectedName];
+        this.ctrl.selectedProject = projects[selectedName];
       } else {
         // get most recently created
         this.ctrl.selectedProject = this.$filter('mostRecent')(this.ctrl.projects);
