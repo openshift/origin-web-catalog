@@ -1,3 +1,14 @@
+.word-break {
+  word-wrap: break-word;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  min-width: 0;
+}
+.word-break-all {
+  word-break: break-all;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
 @keyframes modalBackdropIn {
   0% {
     opacity: 0;
