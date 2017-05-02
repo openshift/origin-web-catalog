@@ -1,31 +1,28 @@
 <ng-form>
-  <div class="form-group">
-    <label ng-class="{ 'col-sm-4': !$ctrl.stackedForm }" class="required control-label" for="project">Add to Project</label>
-    <div ng-class="{ 'col-sm-8': !$ctrl.stackedForm }">
-      <ui-select ng-model="$ctrl.selectedProject" required>
-        <ui-select-match>
-          {{$select.selected | displayName}}
-        </ui-select-match>
-        <ui-select-choices repeat="project in $ctrl.projects | searchProjects : $select.search track by (project | uid)">
-          <span ng-bind-html="project | displayName | highlightKeywords : $select.search"></span>
-              <span ng-if="project | displayName : true" class="small text-muted">
-                <span ng-if="project.metadata.name">&ndash;</span>
-                <span ng-bind-html="project.metadata.name | highlightKeywords : $select.search"></span>
-              </span>
-        </ui-select-choices>
-      </ui-select>
+    <div class="form-group">
+        <label class="col-sm-4 control-label" for="project">Add to Project</label>
+      <div class="col-sm-8">
+        <ui-select ng-model="$ctrl.selectedProject">
+          <ui-select-match>
+            {{$select.selected | displayName}}
+          </ui-select-match>
+          <ui-select-choices repeat="project in $ctrl.projects | searchProjects : $select.search track by (project | uid)">
+            <span ng-bind-html="project | displayName | highlightKeywords : $select.search"></span>
+                <span ng-if="project | displayName : true" class="small text-muted">
+                  <span ng-if="project.metadata.name">&ndash;</span>
+                  <span ng-bind-html="project.metadata.name | highlightKeywords : $select.search"></span>
+                </span>
+          </ui-select-choices>
+        </ui-select>
+      </div>
     </div>
-  </div>
 </ng-form>
 
 <ng-form name="$ctrl.forms.createProjectForm"
     ng-if="$ctrl.isNewProject()">
   <div class="form-group">
-    <label for="name" ng-class="{ 'col-sm-4': !$ctrl.stackedForm }" class="control-label required">Project Name</label>
-    <div ng-class="{
-        'col-sm-8': !$ctrl.stackedForm,
-        'has-error': ($ctrl.forms.createProjectForm.name.$error.pattern && $ctrl.forms.createProjectForm.name.$touched) || $ctrl.nameTaken
-      }">
+    <label for="name" class="col-sm-4 control-label required">Project Name</label>
+    <div class="col-sm-8" ng-class="{'has-error': ($ctrl.forms.createProjectForm.name.$error.pattern && $ctrl.forms.createProjectForm.name.$touched) || $ctrl.nameTaken}">
       <input class="form-control"
           name="name"
           id="name"
@@ -64,8 +61,8 @@
   </div>
 
   <div class="form-group">
-    <label for="displayName" ng-class="{ 'col-sm-4': !$ctrl.stackedForm }" class="control-label">Project Display Name</label>
-    <div ng-class="{ 'col-sm-8': !$ctrl.stackedForm }">
+    <label for="displayName" class="col-sm-4 control-label">Project Display Name</label>
+    <div class="col-sm-8">
       <input class="form-control"
         name="displayName"
         id="displayName"
@@ -76,8 +73,8 @@
   </div>
 
   <div class="form-group">
-    <label for="description" ng-class="{ 'col-sm-4': !$ctrl.stackedForm }" class="control-label">Project Description</label>
-    <div ng-class="{ 'col-sm-8': !$ctrl.stackedForm }">
+    <label for="description" class="col-sm-4 control-label">Project Description</label>
+    <div class="col-sm-8">
       <textarea class="form-control"
         name="description"
         id="description"
