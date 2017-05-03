@@ -1011,19 +1011,15 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
     "use strict";
     t.__esModule = !0;
     var r = n(1), a = n(2), s = function() {
-        function e(e) {
-            var t = this;
+        function e() {
+            var e = this;
             this.ctrl = this, this.closePanel = function() {
-                r.isFunction(t.ctrl.handleClose) && t.ctrl.handleClose();
+                r.isFunction(e.ctrl.handleClose) && e.ctrl.handleClose();
             }, this.showDialog = function() {
-                t.ctrl.shown = !0, t.$timeout(function() {
-                    t.ctrl.showOverlayPanel = !0, a("body").addClass("overlay-open");
-                }, 500);
+                e.ctrl.shown = !0, a("body").addClass("overlay-open");
             }, this.hideDialog = function() {
-                t.ctrl.shown = !1, t.$timeout(function() {
-                    t.ctrl.showOverlayPanel = !1, a("body").removeClass("overlay-open");
-                }, 500);
-            }, this.$timeout = e, this.ctrl.showOverlayPanel = !1, this.ctrl.shown = !1;
+                e.ctrl.shown = !1, a("body").removeClass("overlay-open");
+            }, this.ctrl.shown = !1;
         }
         return e.prototype.$postLink = function() {
             this.ctrl.showPanel && this.showDialog();
@@ -1033,7 +1029,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             a("body").removeClass("overlay-open");
         }, e;
     }();
-    s.$inject = [ "$timeout" ], t.OverlayPanelController = s;
+    t.OverlayPanelController = s;
 }, function(e, t, n) {
     "use strict";
     t.__esModule = !0;
