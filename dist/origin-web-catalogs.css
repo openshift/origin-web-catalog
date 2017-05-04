@@ -333,7 +333,9 @@
   margin-right: 6px;
   padding: 11px;
 }
-body.overlay-open {
+body.overlay-open,
+body.overlay-open .landing,
+body.overlay-open .landing-side-bar {
   overflow: hidden;
 }
 .catalogs-overlay-modal {
