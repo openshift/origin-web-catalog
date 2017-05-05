@@ -21,26 +21,42 @@ export class CatalogService {
   }
 
   public getCatalogItems(includeTemplates: boolean) {
-    let promises: any = {
-      serviceClasses: this.dataService.list({
-        group: 'servicecatalog.k8s.io',
-        resource: 'serviceclasses'
-      }, {}),
-      imageStreams: this.dataService.list("imagestreams", { namespace: "openshift" })
-    };
+    let deferred = this.$q.defer();
+    let catalogItems: any = {};
+    let totalNumPromises: number = includeTemplates ? 3 : 2;
+    let numPromisesExecuted: number = 0;
+    let errorMsg: any = [];
+
+    this.dataService.list({
+      group: 'servicecatalog.k8s.io',
+      resource: 'serviceclasses'
+    }, {}).then( (resources: any) => {
+      catalogItems.serviceClasses = resources.by("metadata.name");
+    }, () => {
+      errorMsg.push('service classes');
+    }).finally(() => {
+      this.returnCatalogItems(deferred, catalogItems, ++numPromisesExecuted, totalNumPromises, errorMsg);
+    });
+
+    this.dataService.list("imagestreams", {namespace: "openshift"}).then( (resources: any) => {
+      catalogItems.imageStreams = resources.by("metadata.name");
+    }, () => {
+      errorMsg.push('builder images');
+    }).finally(() => {
+      this.returnCatalogItems(deferred, catalogItems, ++numPromisesExecuted, totalNumPromises, errorMsg);
+    });
 
     if (includeTemplates) {
-      promises.templates = this.dataService.list("templates", { namespace: "openshift" });
+      this.dataService.list("templates", {namespace: "openshift"}).then((resources: any) => {
+        catalogItems.templates = resources.by("metadata.name");
+      }, () => {
+        errorMsg.push('templates');
+      }).finally(() => {
+        this.returnCatalogItems(deferred, catalogItems, ++numPromisesExecuted, totalNumPromises, errorMsg);
+      });
     }
 
-    return this.$q.all(promises).then((values) => {
-      let serviceClasses: any = values.serviceClasses.by("metadata.name");
-      let imageStreams: any = values.imageStreams.by("metadata.name");
-      let templates: any = values.templates ? values.templates.by("metadata.name") : {};
-      return this.convertToServiceItems(serviceClasses, imageStreams, templates);
-    }, () => {
-      this.logger.log("Error Loading Catalog Items");
-    });
+    return deferred.promise;
   }
 
   public convertToServiceItems(serviceClasses: any, imageStreams: any, templates: any) {
@@ -213,6 +229,36 @@ export class CatalogService {
     if (!otherSubCategory) {
       category.subCategories.push({id: 'other', label: 'Other'});
     }
+  }
+
+  private returnCatalogItems(deferred: any, catalogItems: any, numPromisesExecuted: number, totalNumPromises: number, errorMsg: any) {
+    if (numPromisesExecuted < totalNumPromises) {
+      return;
+    }
+
+    errorMsg = _.size(errorMsg) ? 'Unable to load all content for the catalog. Error loading ' + this.formatArray(errorMsg) : null;
+
+    let results: any = this.convertToServiceItems(catalogItems.serviceClasses,
+                                                  catalogItems.imageStreams,
+                                                  catalogItems.templates);
+
+    deferred.resolve([results, errorMsg]);
+  }
+
+  private formatArray(arr){
+    var outStr = "";
+    if (arr.length === 1) {
+      outStr = arr[0];
+    } else if (arr.length === 2) {
+      //joins all with "and" but no commas
+      //example: "bob and sam"
+      outStr = arr.join(' and ');
+    } else if (arr.length > 2) {
+      //joins all with commas, but last one gets ", and" (oxford comma!)
+      //example: "bob, joe, and sam"
+      outStr = arr.slice(0, -1).join(', ') + ', and ' + arr.slice(-1);
+    }
+    return outStr + '.';
   }
 }
 
