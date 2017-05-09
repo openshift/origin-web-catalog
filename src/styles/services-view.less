@@ -1,10 +1,14 @@
 .services-view {
+  @media(min-width: @screen-sm-min) {
+    margin-left: (@grid-gutter-width  / 2);
+    margin-right: (@grid-gutter-width  / 2);
+  }
   .services-item {
     align-items: center;
     color: @text-color;
     display: flex;
-    min-height: 160px;
     flex-direction: column;
+    height: (@services-icon-size + 70px);
     padding: (@grid-gutter-width / 8) (@grid-gutter-width / 4) (@grid-gutter-width / 2);
     text-align: center;
     width: 50%;
@@ -44,19 +48,19 @@
 
     .services-item-icon {
       border-radius: 50%;
-      height: 90px;
-      width: 90px;
+      height: @services-icon-size;
+      width: @services-icon-size;
       &:after {
         border-radius: 100px;
         box-shadow: 0 0 0 2px transparent;
         content: "";
-        height: 90px;
+        height: @services-icon-size;
         left: 50%;
-        margin: -45px 0 0 -45px;
+        margin: -(@services-icon-size / 2) 0 0 -(@services-icon-size / 2);
         position: absolute;
         top: 50%;
         transition: box-shadow 125ms linear;
-        width: 90px;
+        width: @services-icon-size;
         will-change: box-shadow;
       }
 
@@ -110,6 +114,7 @@
     background-color: @color-pf-white;
     display: flex;
     flex-wrap: wrap;
+    min-height: (@grid-gutter-width + (2 * (@services-icon-size + 70px)));
     padding: (@grid-gutter-width / 2);
   }
 
