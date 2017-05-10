@@ -542,23 +542,33 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             this.$filter = e, this.$q = t, this.constants = n, this.dataService = r, this.logger = a;
         }
         return e.prototype.getCatalogItems = function(e) {
-            var t = this, n = {
-                serviceClasses: this.dataService.list({
-                    group: "servicecatalog.k8s.io",
-                    resource: "serviceclasses"
-                }, {}),
-                imageStreams: this.dataService.list("imagestreams", {
-                    namespace: "openshift"
-                })
-            };
-            return e && (n.templates = this.dataService.list("templates", {
-                namespace: "openshift"
-            })), this.$q.all(n).then(function(e) {
-                var n = e.serviceClasses.by("metadata.name"), r = e.imageStreams.by("metadata.name"), a = e.templates ? e.templates.by("metadata.name") : {};
-                return t.convertToServiceItems(n, r, a);
+            var t = this, n = this.$q.defer(), r = {}, a = e ? 3 : 2, s = 0, i = [];
+            return this.dataService.list({
+                group: "servicecatalog.k8s.io",
+                resource: "serviceclasses"
+            }, {}).then(function(e) {
+                r.serviceClasses = e.by("metadata.name");
             }, function() {
-                t.logger.log("Error Loading Catalog Items");
-            });
+                i.push("service classes");
+            }).finally(function() {
+                t.returnCatalogItems(n, r, ++s, a, i);
+            }), this.dataService.list("imagestreams", {
+                namespace: "openshift"
+            }).then(function(e) {
+                r.imageStreams = e.by("metadata.name");
+            }, function() {
+                i.push("builder images");
+            }).finally(function() {
+                t.returnCatalogItems(n, r, ++s, a, i);
+            }), e && this.dataService.list("templates", {
+                namespace: "openshift"
+            }).then(function(e) {
+                r.templates = e.by("metadata.name");
+            }, function() {
+                i.push("templates");
+            }).finally(function() {
+                t.returnCatalogItems(n, r, ++s, a, i);
+            }), n.promise;
         }, e.prototype.convertToServiceItems = function(e, t, n) {
             var s = this;
             this.categories = r.copy(this.constants.SERVICE_CATALOG_CATEGORIES);
@@ -645,6 +655,16 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 id: "other",
                 label: "Other"
             });
+        }, e.prototype.returnCatalogItems = function(e, t, n, r, s) {
+            if (!(n < r)) {
+                s = a.size(s) ? "Unable to load all content for the catalog. Error loading " + this.formatArray(s) : null;
+                var i = this.convertToServiceItems(t.serviceClasses, t.imageStreams, t.templates);
+                e.resolve([ i, s ]);
+            }
+        }, e.prototype.formatArray = function(e) {
+            var t = "";
+            return 1 === e.length ? t = e[0] : 2 === e.length ? t = e.join(" and ") : e.length > 2 && (t = e.slice(0, -1).join(", ") + ", and " + e.slice(-1)), 
+            t + ".";
         }, e;
     }();
     s.$inject = [ "$filter", "$q", "Constants", "DataService", "Logger" ], t.CatalogService = s;

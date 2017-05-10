@@ -1,25 +1,31 @@
 
 export class HomePageController {
-  static $inject = ['$rootScope', '$state', '$timeout', 'AuthService', 'Catalog', 'Constants', 'GuidedTourService'];
+  static $inject = ['$rootScope', '$state', '$timeout', 'AlertMessageService', 'AuthService', 'Catalog', 'Constants',
+    'GuidedTourService', 'NotificationsService'];
 
   public ctrl: any = this;
   private $rootScope: any;
   private $state: any;
   private $timeout: any;
+  private AlertMessageService: any;
   private authService: any;
   private Catalog: any;
   private GuidedTourService: any;
   private constants: any;
   private tourConfig: any;
+  private NotificationsService: any;
 
-  constructor($rootScope: any, $state: any, $timeout: any, AuthService: any, Catalog: any, Constants: any, GuidedTourService: any) {
+  constructor($rootScope: any, $state: any, $timeout: any, AlertMessageService: any, AuthService: any, Catalog: any,
+              Constants: any, GuidedTourService: any, NotificationsService: any) {
     this.$rootScope = $rootScope;
     this.$state = $state;
     this.$timeout = $timeout;
+    this.AlertMessageService = AlertMessageService;
     this.authService = AuthService;
     this.Catalog = Catalog;
     this.GuidedTourService = GuidedTourService;
     this.constants = Constants;
+    this.NotificationsService = NotificationsService;
   };
 
   public $onInit() {
@@ -35,8 +41,20 @@ export class HomePageController {
   };
 
   public update() {
-    this.Catalog.getCatalogItems(false).then( (catalogServiceItems: any) => {
+    this.Catalog.getCatalogItems(false).then( _.spread((catalogServiceItems: any, errorMessage: any) => {
       this.ctrl.catalogItems = catalogServiceItems;
+
+      if (errorMessage) {
+        let alert = {
+          name: 'error-loading-catalog-items',
+          data: {
+            type: "warning",
+            message: errorMessage
+          }
+        };
+        this.AlertMessageService.addAlert(alert);
+        this.NotificationsService.addNotification(alert.data);
+      }
 
       if (_.get(this, 'tourConfig.auto_launch')) {
         // Check if this is the first time this user has visited the home page, if so launch the tour
@@ -48,7 +66,7 @@ export class HomePageController {
           }, 500);
         }
       }
-    }, () => {
+    }), () => {
       this.ctrl.catalogItems = {};
     });
 
