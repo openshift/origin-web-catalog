@@ -35,7 +35,7 @@
             <div ng-if="item.imageUrl" class="services-item-icon">
               <img ng-src="{{item.imageUrl}}" alt="">
             </div>
-            <div class="services-item-name">
+            <div class="services-item-name" title="{{item.name}}">
               {{item.name}}
             </div>
           </a>
@@ -54,7 +54,7 @@
         <div ng-if="item.imageUrl" class="services-item-icon">
           <img ng-src="{{item.imageUrl}}" alt="">
         </div>
-        <div class="services-item-name">
+        <div class="services-item-name" title="{{item.name}}">
           {{item.name}}
         </div>
       </a>

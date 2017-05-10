@@ -77,10 +77,11 @@
     flex-wrap: wrap;
     .services-item {
       color: @color-pf-white;
-      flex: 1 1 auto;
+      display: block;
       margin-bottom: 50px;
-      min-height: 120px;
+      min-height: 140px;
       padding: 0;
+      width: 33.3%;
       &:focus,
       &:hover {
         color: @landing-side-bar-link-color-hover;
@@ -89,7 +90,8 @@
         }
       }
       // Number of recent items displayed based on sidebar width at different viewport sizes
-      @media (max-width: @screen-xxs-max) {
+      @media (max-width: @screen-xxs-max), (min-width: @screen-sm-min) and (max-width: @screen-md-max) {
+        width: 50%;
         &:nth-child(n+3) {
           display: none; // display first 2
         }
@@ -99,19 +101,10 @@
           display: none; // display first 3
         }
       }
-      @media (min-width: @screen-sm-min) and (max-width: @screen-md-max) {
-        &:nth-child(n+3) {
-          display: none; // display first 2
-        }
-      }
-      @media (min-width: @screen-lg-min) {
-        &:nth-child(n+4) {
-          display: none; // display first 3
-        }
-      }
       @media (min-width: @screen-xl-min) {
+        width: 25%;
         &:nth-child(n+3) {
-          display: flex; // display first 4
+          display: block; // display first 4
         }
       }
       .icon-ruby, .fa-question {
@@ -127,6 +120,10 @@
           height: 60px;
           margin: -30px 0 0 -30px;
           width: 60px;
+        }
+        img {
+          max-height: 30%;
+          max-width: 30%;
         }
       }
       .services-item-name {
