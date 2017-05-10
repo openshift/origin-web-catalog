@@ -16,7 +16,6 @@ export class CatalogService {
     this.$filter = $filter;
     this.$q = $q;
     this.constants = constants;
-    this.categories = this.constants.SERVICE_CATALOG_CATEGORIES;
     this.dataService = DataService;
     this.logger = Logger;
   }
@@ -45,6 +44,8 @@ export class CatalogService {
   }
 
   public convertToServiceItems(serviceClasses: any, imageStreams: any, templates: any) {
+    this.categories = angular.copy(this.constants.SERVICE_CATALOG_CATEGORIES);
+
     // Convert service classes to ServiceItem
     let items: any = _.map(serviceClasses, (serviceClass) => {
       return this.getServiceItem(serviceClass);
@@ -96,30 +97,54 @@ export class CatalogService {
     return new TemplateItem(resource, this);
   }
 
-  public getCategoriesBySubCategories(tags: any) {
+  public getCategoriesBySubCategories(itemTags: any) {
     let catsBySubCats = {};
     let otherId = 'other';
+    let filteredSubCats: any;
+    let otherMainCategory: any = {
+      id: 'other', label: 'Other', subCategories: [
+        {id: 'other', label: 'Other'}
+      ]
+    };
 
-    _.each(tags, (tag) => {
-      _.each(this.categories, (category) => {
-        let subCat: any = _.find(category.subCategories, (subCategory: any) => {
-              return subCategory.id === tag || _.includes(subCategory.categoryAliases, tag);
-            }
-        );
-        if (subCat) {
-          catsBySubCats[subCat.id] = category.id;
-          return false;
+    _.each(this.categories, (category) => {
+      if (category.tags) {
+        if (!_.isEmpty(this.getMatchingTags(category.tags, itemTags))) {
+          filteredSubCats = this.filterSubCatsByTags(category.subCategories, itemTags);
+          if (!_.isEmpty(filteredSubCats)) {
+            _.each(filteredSubCats, (subCat) => {
+              this.categorize(catsBySubCats, category, subCat.id);
+            });
+          } else {
+            this.categorize(catsBySubCats, category, otherId);
+          }
         }
-      });  // .ea category
-    });  // .ea tag
+      } else {
+        filteredSubCats = this.filterSubCatsByTags(category.subCategories, itemTags);
+        if (!_.isEmpty(filteredSubCats)) {
+          _.each(filteredSubCats, (subCat) => {
+            this.categorize(catsBySubCats, category, subCat.id);
+          });
+        }
+      }
+    });  // .ea category
+
     if (_.isEmpty(catsBySubCats)) {
-      catsBySubCats[otherId] = otherId;
+      this.categorize(catsBySubCats, otherMainCategory, otherId);
     }
+
     return catsBySubCats;
   }
 
   public hasCategory(item: any, category: string) {
-    return _.includes(item.catsBySubCats, category);
+    let found: boolean = false;
+
+    _.each(item.catsBySubCats, (cats: any) => {
+      found = _.includes(cats, category);
+      return !found;  // to break out of _.each when found
+    });
+
+    return found;
   }
 
   public hasSubCategory(item: any, subCategory: string) {
@@ -139,7 +164,7 @@ export class CatalogService {
     _.each(categories, (category) => {
       let retSubCategories: any = _.filter(category.subCategories, (subCategory: any) => {
         return _.some(items, (item: any) => {
-          return this.hasSubCategory(item, subCategory.id);
+          return this.hasSubCategory(item, subCategory.id) && this.hasCategory(item, category.id);
         });
       });
 
@@ -151,6 +176,43 @@ export class CatalogService {
     }); // ea. category
 
     return retCategories;
+  }
+
+  private getMatchingTags(tagsOne: any, tagsTwo: any) {
+    return _.intersection(tagsOne, tagsTwo);
+  };
+
+  private filterSubCatsByTags(subCats: any, tags: any) {
+    return _.filter(subCats, (subCat: any) => {
+      return !_.isEmpty(this.getMatchingTags(subCat.tags, tags));
+    });
+  }
+
+  private categorize(catsBySubCats: any, category: any, subCategoryId: string) {
+
+    catsBySubCats[subCategoryId] = _.isArray(catsBySubCats[subCategoryId]) ? catsBySubCats[subCategoryId].concat([category.id]) : [category.id];
+
+    if (category.id === 'other') {
+      this.addOtherMainCategory(category);
+    } else if (subCategoryId === 'other') {
+      this.addOtherSubCategory(category);
+    }
+  }
+
+  private addOtherMainCategory(otherCategory: any) {
+    let foundOtherCategory: any = _.find(this.categories, {id: 'other'});
+
+    if (!foundOtherCategory) {
+      this.categories.push(otherCategory);
+    }
+  }
+
+  private addOtherSubCategory(category: any) {
+    let otherSubCategory: any = _.find(category.subCategories, {id: 'other'});
+
+    if (!otherSubCategory) {
+      category.subCategories.push({id: 'other', label: 'Other'});
+    }
   }
 }
 

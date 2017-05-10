@@ -19,32 +19,29 @@ var saasOfferings: any = [
 ];
 
 var categories: any = [
-  {id: 'languages', label: 'Languages', iconClassDefault: 'fa fa-code', subCategories: [
-    {id: 'java', label: 'Java', icon: 'font-icon icon-openjdk'},
-    {id: 'javascript', categoryAliases: ['nodejs', 'js'], label: 'JavaScript', icon: 'font-icon icon-js'},
-    {id: 'perl', label: 'Perl', icon: 'font-icon icon-perl'},
-    {id: 'ruby', label: 'Ruby', icon: 'font-icon icon-ruby'},
-    {id: 'php', label: 'PHP', icon: 'font-icon icon-php'},
-    {id: 'python', label: 'Python', icon: 'font-icon icon-python'}
+  {id: 'languages', label: 'Languages', subCategories: [
+    {id: 'java', label: 'Java', tags: ['java'], icon: 'font-icon icon-openjdk'},
+    {id: 'javascript', tags: ['javascript', 'nodejs', 'js'], label: 'JavaScript', icon: 'font-icon icon-js'},
+    {id: 'perl', label: 'Perl', tags: ['perl'], icon: 'font-icon icon-perl'},
+    {id: 'ruby', label: 'Ruby', tags: ['ruby'], icon: 'font-icon icon-ruby'},
+    {id: 'php', label: 'PHP', tags: ['php'], icon: 'font-icon icon-php'},
+    {id: 'python', label: 'Python', tags: ['python'], icon: 'font-icon icon-python'}
   ]},
   {id: 'databases', label: 'Databases', subCategories: [
-    {id: 'mongodb', label: 'Mongo', icon: 'font-icon icon-mongodb'},
-    {id: 'mysql', label: 'mySQL', icon: 'font-icon icon-mysql-database'},
-    {id: 'postgresql', label: 'Postgres', icon: 'font-icon icon-postgresql'},
-    {id: 'mariadb', label: 'MariaDB', icon: 'font-icon icon-mariadb'}
+    {id: 'mongodb', label: 'Mongo', tags: ['mongodb'], icon: 'font-icon icon-mongodb'},
+    {id: 'mysql', label: 'mySQL', tags: ['mysql'], icon: 'font-icon icon-mysql-database'},
+    {id: 'postgresql', label: 'Postgres', tags: ['postgresql'], icon: 'font-icon icon-postgresql'},
+    {id: 'mariadb', label: 'MariaDB', tags: ['mariadb'], icon: 'font-icon icon-mariadb'}
   ]},
   {id: 'middleware', label: 'Middleware', subCategories: [
-    {id: 'jboss', label: 'JBoss', icon: 'font-icon icon-openjdk'},
-    {id: 'fuse', label: 'Fuse', icon: 'font-icon icon-openjdk'},
-    {id: 'amq', label: 'A-MQ', icon: 'font-icon icon-openjdk'},
-    {id: 'bpm', label: 'BPM', icon: 'font-icon icon-openjdk'}
+    {id: 'jboss', label: 'JBoss', tags: ['jboss'], icon: 'font-icon icon-openjdk'},
+    {id: 'fuse', label: 'Fuse', tags: ['fuse'], icon: 'font-icon icon-openjdk'},
+    {id: 'amq', label: 'A-MQ', tags: ['amq'], icon: 'font-icon icon-openjdk'},
+    {id: 'bpm', label: 'BPM', tags: ['bpm'], icon: 'font-icon icon-openjdk'}
   ]},
   {id: 'cicd', label: 'CI/CD', subCategories: [
-    {id: 'jenkins', label: 'Jenkins', icon: 'font-icon icon-jenkins'},
-    {id: 'pipelines', label: 'Pipelines', icon: 'fa fa-clone'}
-  ]},
-  {id: 'other', label: 'Other' , subCategories: [
-    {id: 'other', label: 'Other'}
+    {id: 'jenkins', label: 'Jenkins', tags: ['jenkins'], icon: 'font-icon icon-jenkins'},
+    {id: 'pipelines', label: 'Pipelines', tags: ['pipelines'], icon: 'fa fa-clone'}
   ]}
 ];
 
