@@ -26,8 +26,9 @@
 }
 
 .landing {
+  background: @landing-bg;
+  background-size: @landing-bg-size;
   @media(min-width: @screen-sm-min) {
-    background-color: @color-pf-white;
     bottom: 0;
     overflow-y: auto;
     position: absolute;
@@ -40,11 +41,6 @@
   @media(min-width: @screen-xl-min) {
     width: calc(100% ~"-" @landing-side-bar-width-xl);
   }
-}
-
-.landing-main-area {
-  background: @landing-bg;
-  background-size: @landing-bg-size;
 }
 
 .catalog-search {
