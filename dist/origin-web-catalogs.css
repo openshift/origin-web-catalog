@@ -920,7 +920,7 @@ body.overlay-open .landing-side-bar {
   top: 50%;
   transition: border 125ms linear;
   width: 90px;
-  will-change: box-shadow;
+  will-change: border;
 }
 .services-view .services-item .services-item-icon .font-icon,
 .services-view .services-item .services-item-icon .fa,
