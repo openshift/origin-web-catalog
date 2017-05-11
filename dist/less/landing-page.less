@@ -1,19 +1,54 @@
-.catalog-search-match {
+.catalog-search {
+  background: @landing-bg;
+  background-size: @landing-bg-size;
+  border-bottom: solid 1px @search-area-border;
+  padding: (@grid-gutter-width / 4);
+  width: 100%;
+  z-index: @zindex-navbar-fixed - 1;
+  @media (min-width: @screen-sm-min) {
+    position: fixed;
+    top: @navbar-height;
+    width: calc(100% ~"-" @landing-side-bar-width-sm);
+  }
+  @media(min-width: @screen-lg-min) {
+    width: calc(100% ~"-" @landing-side-bar-width-lg);
+  }
+  @media(min-width: @screen-xl-min) {
+    width: calc(100% ~"-" @landing-side-bar-width-xl);
+  }
+  .catalog-search-icon {
+    color: @color-pf-blue-300;
+    font-size: 16px;
+    left: 12px;
+    position: absolute;
+    top: 7px;
+  }
+  .catalog-search-input {
+    text-indent: 30px;
+  }
   .catalog-search-match-info {
-    display: inline-block;
-    vertical-align: top;
+    flex: 1 1 0%; // for .word-break()
+    .word-break();
+  }
+}
+
+.catalog-search-match {
+  .catalog-search-match-icon {
+    flex: 0 0 40px;
+    padding-right: 5px;
+    padding-top: 2px;
+    text-align: center;
   }
   .catalog-search-match-label {
     font-weight: 600;
-  }
-  .catalog-search-match-icon {
-    display: inline-block;
-    margin-right: 10px;
-    text-align: center;
-    width: 30px;
+    max-height: 4.5em;  // limit to 3 lines
+    overflow: hidden;
   }
   .icon {
     font-size: 28px;
+    &.fa-cubes {
+      font-size: 24px;
+    }
   }
   img {
     max-height: 28px;
@@ -47,36 +82,6 @@
   background-size: @landing-bg-size;
 }
 
-.catalog-search {
-  background: @landing-bg;
-  background-size: @landing-bg-size;
-  border-bottom: solid 1px @search-area-border;
-  padding: (@grid-gutter-width / 4);
-  width: 100%;
-  z-index: @zindex-navbar-fixed - 1;
-  .catalog-search-icon {
-    color: @color-pf-blue-300;
-    font-size: 16px;
-    left: 12px;
-    position: absolute;
-    top: 7px;
-  }
-  .catalog-search-input {
-    text-indent: 30px;
-  }
-  @media (min-width: @screen-sm-min) {
-    position: fixed;
-    top: @navbar-height;
-    width: calc(100% ~"-" @landing-side-bar-width-sm);
-  }
-  @media(min-width: @screen-lg-min) {
-    width: calc(100% ~"-" @landing-side-bar-width-lg);
-  }
-  @media(min-width: @screen-xl-min) {
-    width: calc(100% ~"-" @landing-side-bar-width-xl);
-  }
-}
-
 .landing-search-form {
   margin: 0 auto;
   width: 100%;
@@ -97,6 +102,12 @@
   .dropdown-menu {
     margin-top: 0;
     width: 100%;
+    > li > a.catalog-search-match {
+      display: flex;
+      line-height: 1.5;
+      padding: 3px 10px 3px 5px;
+      white-space: normal;
+    }
     // important needed to override styles declared important in PatternFly
     .active > a.catalog-search-match, :focus{
       background-color: @color-pf-blue-50 !important;
