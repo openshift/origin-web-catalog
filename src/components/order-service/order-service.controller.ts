@@ -32,7 +32,6 @@ export class OrderServiceController implements angular.IController {
 
     // Preselect the first plan. If there's only one plan, skip the wizard step.
     this.ctrl.selectedPlan = _.first(this.ctrl.plans);
-    this.ctrl.selectedProject = {};
     this.ctrl.planIndex = 0;
     this.ctrl.steps = [{
       id: 'plans',

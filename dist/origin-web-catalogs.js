@@ -971,8 +971,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             this.ctrl.iconClass = this.ctrl.serviceClass.iconClass || "fa fa-cubes", this.ctrl.imageUrl = this.ctrl.serviceClass.imageUrl, 
             this.ctrl.serviceName = this.ctrl.serviceClass.name, this.ctrl.description = this.ctrl.serviceClass.description, 
             this.ctrl.longDescription = this.ctrl.serviceClass.longDescription, this.ctrl.plans = a.get(this, "ctrl.serviceClass.resource.plans", []), 
-            this.ctrl.forms = {}, this.ctrl.selectedPlan = a.first(this.ctrl.plans), this.ctrl.selectedProject = {}, 
-            this.ctrl.planIndex = 0, this.ctrl.steps = [ {
+            this.ctrl.forms = {}, this.ctrl.selectedPlan = a.first(this.ctrl.plans), this.ctrl.planIndex = 0, 
+            this.ctrl.steps = [ {
                 id: "plans",
                 label: "Plans",
                 view: "order-service/order-service-plans.html"
@@ -1233,7 +1233,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                     }
                 };
                 e.ctrl.projects = r.sortBy(t.by("metadata.name"), e.$filter("displayName")), e.ctrl.existingProjectNames = r.map(e.ctrl.projects, "metadata.name"), 
-                e.ctrl.selectedProject = e.$filter("mostRecent")(e.ctrl.projects), e.ctrl.canCreate && e.ctrl.projects.unshift(n);
+                e.ctrl.selectedProject || (e.ctrl.selectedProject = e.$filter("mostRecent")(e.ctrl.projects)), 
+                e.ctrl.canCreate && e.ctrl.projects.unshift(n);
             });
         }, e;
     }();

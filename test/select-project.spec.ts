@@ -41,7 +41,7 @@ describe('Select Project Component', () => {
   });
 
   var createSelectProjectDropdown = function() {
-    selectedProject = {};
+    selectedProject = null;
     nameTaken = false;
     var selectProjectHtml: string = '<select-project selected-project="selectedProject" name-taken="nameTaken"></select-project>';
     componentTest = new ComponentTest<SelectProjectController>(selectProjectHtml);
