@@ -245,7 +245,7 @@ export class CatalogService {
     deferred.resolve([results, errorMsg]);
   }
 
-  private formatArray(arr){
+  private formatArray(arr: string[]) {
     var outStr = "";
     if (arr.length === 1) {
       outStr = arr[0];
