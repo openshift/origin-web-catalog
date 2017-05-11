@@ -402,6 +402,7 @@ body.overlay-open .landing-side-bar {
   background-color: rgba(234, 234, 234, 0.5);
 }
 .catalogs-overlay-panel .wizard-pf-steps-indicator {
+  display: flex;
   height: 52px;
   margin: 30px 0;
   padding: 0;
