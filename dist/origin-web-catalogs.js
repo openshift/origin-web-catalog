@@ -570,18 +570,16 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 t.returnCatalogItems(n, r, ++s, a, i);
             }), n.promise;
         }, e.prototype.convertToServiceItems = function(e, t, n) {
-            var s = this;
-            this.categories = r.copy(this.constants.SERVICE_CATALOG_CATEGORIES);
-            var i = a.map(e, function(e) {
-                return s.getServiceItem(e);
+            var r = this, s = a.map(e, function(e) {
+                return r.getServiceItem(e);
             });
-            return i = i.concat(a.map(t, function(e) {
-                return s.getImageItem(e);
-            })), i = i.concat(a.map(n, function(e) {
-                return s.getTemplateItem(e);
-            })), i = a.reject(i, function(e) {
+            return s = s.concat(a.map(t, function(e) {
+                return r.getImageItem(e);
+            })), s = s.concat(a.map(n, function(e) {
+                return r.getTemplateItem(e);
+            })), s = a.reject(s, function(e) {
                 return !e;
-            }), i = i.sort(function(e, t) {
+            }), s = s.sort(function(e, t) {
                 var n = a.get(e, "name", "").localeCompare(a.get(t, "name", ""), void 0, {
                     sensitivity: "base"
                 });
@@ -590,7 +588,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 })), 0 === n && (n = a.get(e, "resource.metadata.name", "").localeCompare(a.get(t, "resource.metadata.name", ""), void 0, {
                     sensitivity: "base"
                 })), n;
-            });
+            }), this.categorizeItems(s), s;
         }, e.prototype.getServiceItem = function(e) {
             return new i(e, this);
         }, e.prototype.getImageItem = function(e) {
@@ -598,62 +596,57 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             return t.builderSpecTagName ? t : null;
         }, e.prototype.getTemplateItem = function(e) {
             return new c(e, this);
-        }, e.prototype.getCategoriesBySubCategories = function(e) {
-            var t, n = this, r = {}, s = "other", i = {
+        }, e.prototype.categorizeItems = function(e) {
+            var t, n, s = this;
+            this.categories = r.copy(this.constants.SERVICE_CATALOG_CATEGORIES), this.createAllAndOtherMainCategories();
+            var i = a.first(this.categories), o = a.get(i, "subCategories[0]"), c = a.last(this.categories), l = a.get(c, "subCategories[0]");
+            a.each(e, function(e) {
+                n = !1, a.each(s.categories, function(r) {
+                    r.tags ? a.isEmpty(s.getMatchingTags(r.tags, e.tags)) || (n = s.categorizeItem(e, r, "all"), 
+                    t = s.filterSubCatsByTags(r.subCategories, e.tags), a.isEmpty(t) ? s.categorizeItem(e, r, "other") : a.each(t, function(t) {
+                        s.categorizeItem(e, r, t);
+                    })) : (t = s.filterSubCatsByTags(r.subCategories, e.tags), a.isEmpty(t) || (n = s.categorizeItem(e, r, "all"), 
+                    a.each(t, function(t) {
+                        s.categorizeItem(e, r, t);
+                    })));
+                }), n || s.categorizeItem(e, c, l), s.categorizeItem(e, i, o);
+            });
+        }, e.prototype.categorizeItem = function(e, t, n) {
+            return a.isString(n) && (n = this.getAllOrOtherSubCategory(t, n)), n.items = a.isArray(n.items) ? n.items.concat([ e ]) : [ e ], 
+            t.hasItems = n.hasItems = !0;
+        }, e.prototype.createAllAndOtherMainCategories = function() {
+            this.categories.unshift({
+                id: "all",
+                label: "All",
+                subCategories: [ {
+                    id: "all",
+                    label: "All"
+                } ]
+            }), this.categories.push({
                 id: "other",
                 label: "Other",
                 subCategories: [ {
-                    id: "other",
-                    label: "Other"
+                    id: "all",
+                    label: "all"
                 } ]
-            };
-            return a.each(this.categories, function(i) {
-                i.tags ? a.isEmpty(n.getMatchingTags(i.tags, e)) || (t = n.filterSubCatsByTags(i.subCategories, e), 
-                a.isEmpty(t) ? n.categorize(r, i, s) : a.each(t, function(e) {
-                    n.categorize(r, i, e.id);
-                })) : (t = n.filterSubCatsByTags(i.subCategories, e), a.isEmpty(t) || a.each(t, function(e) {
-                    n.categorize(r, i, e.id);
-                }));
-            }), a.isEmpty(r) && this.categorize(r, i, s), r;
-        }, e.prototype.hasCategory = function(e, t) {
-            var n = !1;
-            return a.each(e.catsBySubCats, function(e) {
-                return !(n = a.includes(e, t));
-            }), n;
-        }, e.prototype.hasSubCategory = function(e, t) {
-            return a.has(e, [ "catsBySubCats", t ]);
-        }, e.prototype.removeEmptyCategories = function(e) {
-            var t = this, n = r.copy(this.categories), s = [];
-            return a.each(n, function(n) {
-                var i = a.filter(n.subCategories, function(r) {
-                    return a.some(e, function(e) {
-                        return t.hasSubCategory(e, r.id) && t.hasCategory(e, n.id);
-                    });
-                });
-                if (!a.isEmpty(i)) {
-                    var o = r.copy(n);
-                    o.subCategories = i, s.push(o);
-                }
-            }), s;
+            });
+        }, e.prototype.getAllOrOtherSubCategory = function(e, t) {
+            var n = a.find(e.subCategories, {
+                id: t
+            });
+            return n || ("other" === t ? (n = {
+                id: "other",
+                label: "Other"
+            }, e.subCategories.push(n)) : (n = {
+                id: "all",
+                label: "All"
+            }, e.subCategories.unshift(n))), n;
         }, e.prototype.getMatchingTags = function(e, t) {
             return a.intersection(e, t);
         }, e.prototype.filterSubCatsByTags = function(e, t) {
             var n = this;
             return a.filter(e, function(e) {
                 return !a.isEmpty(n.getMatchingTags(e.tags, t));
-            });
-        }, e.prototype.categorize = function(e, t, n) {
-            e[n] = a.isArray(e[n]) ? e[n].concat([ t.id ]) : [ t.id ], "other" === t.id ? this.addOtherMainCategory(t) : "other" === n && this.addOtherSubCategory(t);
-        }, e.prototype.addOtherMainCategory = function(e) {
-            a.find(this.categories, {
-                id: "other"
-            }) || this.categories.push(e);
-        }, e.prototype.addOtherSubCategory = function(e) {
-            a.find(e.subCategories, {
-                id: "other"
-            }) || e.subCategories.push({
-                id: "other",
-                label: "Other"
             });
         }, e.prototype.returnCatalogItems = function(e, t, n, r, s) {
             if (!(n < r)) {
@@ -672,7 +665,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
         function e(e, t) {
             this.resource = e, this.catalogSrv = t, this.imageUrl = this.getImage(), this.iconClass = this.getIcon(), 
             this.name = this.getName(), this.description = this.getDescription(), this.longDescription = this.getLongDescription(), 
-            this.tags = this.getTags(), this.catsBySubCats = this.getCategoriesBySubCategories();
+            this.tags = this.getTags();
         }
         return e.prototype.getImage = function() {
             return a.get(this.resource, "osbMetadata.imageUrl", "");
@@ -687,8 +680,6 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             return a.get(this.resource, "osbMetadata.longDescription", "");
         }, e.prototype.getTags = function() {
             return a.get(this.resource, "osbTags", []);
-        }, e.prototype.getCategoriesBySubCategories = function() {
-            return this.catalogSrv.getCategoriesBySubCategories(this.resource.osbTags);
         }, e;
     }();
     t.ServiceItem = i;
@@ -696,8 +687,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
         function e(e, t) {
             this.resource = e, this.catalogSrv = t, this.builderSpecTagName = this.getBuilderSpecTagName(), 
             this.builderSpecTagName && (this.tags = this.getTags(), this.iconClass = this.getIcon(), 
-            this.name = this.getName(), this.description = this.getDescription(), this.longDescription = this.getLongDescription(), 
-            this.catsBySubCats = this.getCategoriesBySubCategories());
+            this.name = this.getName(), this.description = this.getDescription(), this.longDescription = this.getLongDescription());
         }
         return e.prototype.getBuilderSpecTagName = function() {
             var e, t = this;
@@ -719,8 +709,6 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             return null;
         }, e.prototype.getLongDescription = function() {
             return null;
-        }, e.prototype.getCategoriesBySubCategories = function() {
-            return this.catalogSrv.getCategoriesBySubCategories(this.tags);
         }, e;
     }();
     t.ImageItem = o;
@@ -728,7 +716,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
         function e(e, t) {
             this.resource = e, this.catalogSrv = t, this.imageUrl = this.getImage(), this.iconClass = this.getIcon(), 
             this.name = this.getName(), this.description = this.getDescription(), this.longDescription = this.getLongDescription(), 
-            this.tags = this.getTags(), this.catsBySubCats = this.getCategoriesBySubCategories();
+            this.tags = this.getTags();
         }
         return e.prototype.getImage = function() {
             return "";
@@ -743,8 +731,6 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             return a.get(this.resource, [ "metadata", "annotations", "template.openshift.io/long-description" ], "");
         }, e.prototype.getTags = function() {
             return a.get(this.resource, "metadata.annotations.tags", "").split(/\s*,\s*/);
-        }, e.prototype.getCategoriesBySubCategories = function() {
-            return this.catalogSrv.getCategoriesBySubCategories(this.tags);
         }, e;
     }();
     t.TemplateItem = c;
@@ -787,7 +773,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
 }, function(e, t) {
     e.exports = '<ng-form>\n    <div class="form-group">\n        <label class="col-sm-4 control-label" for="project">Add to Project</label>\n      <div class="col-sm-8">\n        <ui-select ng-model="$ctrl.selectedProject">\n          <ui-select-match>\n            {{$select.selected | displayName}}\n          </ui-select-match>\n          <ui-select-choices repeat="project in $ctrl.projects | searchProjects : $select.search track by (project | uid)">\n            <span ng-bind-html="project | displayName | highlightKeywords : $select.search"></span>\n                <span ng-if="project | displayName : true" class="small text-muted">\n                  <span ng-if="project.metadata.name">&ndash;</span>\n                  <span ng-bind-html="project.metadata.name | highlightKeywords : $select.search"></span>\n                </span>\n          </ui-select-choices>\n        </ui-select>\n      </div>\n    </div>\n</ng-form>\n\n<ng-form name="$ctrl.forms.createProjectForm"\n    ng-if="$ctrl.isNewProject()">\n  <div class="form-group">\n    <label for="name" class="col-sm-4 control-label required">Project Name</label>\n    <div class="col-sm-8" ng-class="{\'has-error\': ($ctrl.forms.createProjectForm.name.$error.pattern && $ctrl.forms.createProjectForm.name.$touched) || $ctrl.nameTaken}">\n      <input class="form-control"\n          name="name"\n          id="name"\n          placeholder="my-project"\n          type="text"\n          required\n          take-focus\n          minlength="2"\n          maxlength="63"\n          pattern="[a-z0-9]([-a-z0-9]*[a-z0-9])?"\n          aria-describedby="nameHelp"\n          ng-model="$ctrl.selectedProject.metadata.name"\n          osc-unique="$ctrl.existingProjectNames"\n          ng-model-options="{ updateOn: \'default blur\' }"\n          ng-change="$ctrl.onNewProjectNameChange()"\n          autocorrect="off"\n          autocapitalize="off"\n          spellcheck="false">\n      <div class="help-block">A unique name for the project.</div>\n      <div class="has-error" ng-if="$ctrl.forms.createProjectForm.name.$error.minlength && $ctrl.forms.createProjectForm.name.$touched">\n        <span id="nameHelp" class="help-block">\n          Name must have at least two characters.\n        </span>\n      </div>\n      <div class="has-error" ng-if="$ctrl.forms.createProjectForm.name.$error.pattern && $ctrl.forms.createProjectForm.name.$touched">\n        <span id="nameHelp" class="help-block">\n          Project names may only contain lower-case letters, numbers, and dashes.\n          They may not start or end with a dash.\n        </span>\n      </div>\n      <div class="has-error" ng-if="$ctrl.nameTaken || $ctrl.forms.createProjectForm.name.$error.oscUnique">\n        <span class="help-block">\n          This name is already in use. Please choose a different name.\n        </span>\n      </div>\n    </div>\n  </div>\n\n  <div class="form-group">\n    <label for="displayName" class="col-sm-4 control-label">Project Display Name</label>\n    <div class="col-sm-8">\n      <input class="form-control"\n        name="displayName"\n        id="displayName"\n        placeholder="My Project"\n        type="text"\n        ng-model="$ctrl.selectedProject.metadata.annotations[\'new-display-name\']">\n    </div>\n  </div>\n\n  <div class="form-group">\n    <label for="description" class="col-sm-4 control-label">Project Description</label>\n    <div class="col-sm-8">\n      <textarea class="form-control"\n        name="description"\n        id="description"\n        placeholder="A short description."\n        ng-model="$ctrl.selectedProject.metadata.annotations[\'openshift.io/description\']"></textarea>\n    </div>\n  </div>\n</ng-form>\n';
 }, function(e, t) {
-    e.exports = '<div class="services-view">\n  <div ng-if="!$ctrl.loaded" class="spinner-container">\n    <div class="spinner spinner-xl"></div>\n  </div>\n  <div ng-if="$ctrl.loaded" class="services-view-container">\n    <h1>Browse Catalog</h1>\n\n    <ul class="nav nav-tabs nav-tabs-pf">\n      <li ng-class="{\'active\': $ctrl.currentFilter === \'all\'}">\n        <a href="" id="category-all" ng-click="$ctrl.filterByCategory(\'all\', \'all\', true)">All</a>\n      </li>\n      <li ng-repeat="category in $ctrl.categories" ng-class="{\'active\': $ctrl.currentFilter === category.id}">\n        <a href="" id="{{\'category-\'+category.id}}" ng-click="$ctrl.filterByCategory(category.id, \'all\', true)">{{category.label}}</a>\n      </li>\n    </ul>\n\n    \x3c!-- Do not show sub-category items for \'All\' or \'Other\' main categories --\x3e\n\n    <div class="services-sub-categories" ng-if="$ctrl.currentFilter !== \'other\' && $ctrl.currentFilter !== \'all\'">\n      <div ng-repeat="subCategory in $ctrl.subCategories"\n           class="services-sub-category" ng-class="{\'active\': $ctrl.currentSubFilter === subCategory.id}">\n        <a href=""  id="{{\'services-sub-category-\'+subCategory.id}}"\n           class="services-sub-category-tab" ng-click="$ctrl.selectSubCategory(subCategory.id)">\n          <div class="services-sub-category-tab-image" ng-if="subCategory.imageUrl">\n            <img ng-src="{{subCategory.imageUrl}}" alt="">\n          </div>\n          <div class="services-sub-category-tab-icon {{subCategory.icon}}" ng-if="subCategory.icon && !subCategory.imageUrl"></div>\n          <div class="services-sub-category-tab-name">{{subCategory.label}}</div>\n        </a>\n        <div ng-if="$ctrl.currentSubFilter === subCategory.id" class="services-items">\n          <a href="" class="services-item" ng-repeat="item in $ctrl.filteredItems" ng-click="$ctrl.handleClick(item)">\n            <div ng-if="!item.imageUrl" class="services-item-icon">\n              <span class="{{item.iconClass}}"></span>\n            </div>\n            <div ng-if="item.imageUrl" class="services-item-icon">\n              <img ng-src="{{item.imageUrl}}" alt="">\n            </div>\n            <div class="services-item-name" title="{{item.name}}">\n              {{item.name}}\n            </div>\n          </a>\n        </div>\n      </div>\n    </div>\n\n    \x3c!-- Show catalog item for \'All\' and \'Other\' main categories --\x3e\n\n    <div ng-if="$ctrl.currentFilter === \'other\' || $ctrl.currentFilter === \'all\'" class="services-items">\n      <div ng-if="$ctrl.isEmpty">There are no catalog items.</div>\n      <a href="" class="services-item" ng-repeat="item in $ctrl.filteredItems" ng-click="$ctrl.handleClick(item)">\n        <div ng-if="!item.imageUrl" class="services-item-icon">\n          <span class="{{item.iconClass}}"></span>\n        </div>\n        <div ng-if="item.imageUrl" class="services-item-icon">\n          <img ng-src="{{item.imageUrl}}" alt="">\n        </div>\n        <div class="services-item-name" title="{{item.name}}">\n          {{item.name}}\n        </div>\n      </a>\n    </div>\n  </div>\n</div>\n';
+    e.exports = '<div class="services-view">\n  <div ng-if="!$ctrl.loaded" class="spinner-container">\n    <div class="spinner spinner-xl"></div>\n  </div>\n  <div ng-if="$ctrl.loaded" class="services-view-container">\n    <h1>Browse Catalog</h1>\n\n    <ul class="nav nav-tabs nav-tabs-pf">\n      <li ng-repeat="category in $ctrl.categories"\n          ng-if="category.hasItems"\n          ng-class="{\'active\': $ctrl.currentFilter === category.id}">\n        <a href="" id="{{\'category-\'+category.id}}" ng-click="$ctrl.filterByCategory(category.id, \'all\', true)">{{category.label}}</a>\n      </li>\n    </ul>\n\n    \x3c!-- Do not show sub-category items for \'All\' or \'Other\' main categories --\x3e\n\n    <div class="services-sub-categories" ng-if="$ctrl.currentFilter !== \'other\' && $ctrl.currentFilter !== \'all\'">\n      <div ng-repeat="subCategory in $ctrl.subCategories"\n           ng-if="subCategory.hasItems"\n           class="services-sub-category" ng-class="{\'active\': $ctrl.currentSubFilter === subCategory.id}">\n        <a href=""  id="{{\'services-sub-category-\'+subCategory.id}}"\n           class="services-sub-category-tab" ng-click="$ctrl.selectSubCategory(subCategory.id)">\n          <div class="services-sub-category-tab-image" ng-if="subCategory.imageUrl">\n            <img ng-src="{{subCategory.imageUrl}}" alt="">\n          </div>\n          <div class="services-sub-category-tab-icon {{subCategory.icon}}" ng-if="subCategory.icon && !subCategory.imageUrl"></div>\n          <div class="services-sub-category-tab-name">{{subCategory.label}}</div>\n        </a>\n        <div ng-if="$ctrl.currentSubFilter === subCategory.id" class="services-items">\n          <a href="" class="services-item" ng-repeat="item in $ctrl.filteredItems" ng-click="$ctrl.handleClick(item)">\n            <div ng-if="!item.imageUrl" class="services-item-icon">\n              <span class="{{item.iconClass}}"></span>\n            </div>\n            <div ng-if="item.imageUrl" class="services-item-icon">\n              <img ng-src="{{item.imageUrl}}" alt="">\n            </div>\n            <div class="services-item-name" title="{{item.name}}">\n              {{item.name}}\n            </div>\n          </a>\n        </div>\n      </div>\n    </div>\n\n    \x3c!-- Show catalog item for \'All\' and \'Other\' main categories --\x3e\n\n    <div ng-if="$ctrl.currentFilter === \'other\' || $ctrl.currentFilter === \'all\'" class="services-items">\n      <div ng-if="$ctrl.isEmpty">There are no catalog items.</div>\n      <a href="" class="services-item" ng-repeat="item in $ctrl.filteredItems" ng-click="$ctrl.handleClick(item)">\n        <div ng-if="!item.imageUrl" class="services-item-icon">\n          <span class="{{item.iconClass}}"></span>\n        </div>\n        <div ng-if="item.imageUrl" class="services-item-icon">\n          <img ng-src="{{item.imageUrl}}" alt="">\n        </div>\n        <div class="services-item-name" title="{{item.name}}">\n          {{item.name}}\n        </div>\n      </a>\n    </div>\n  </div>\n</div>\n';
 }, function(e, t, n) {
     "use strict";
     t.__esModule = !0;
@@ -1092,38 +1078,38 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
     "use strict";
     t.__esModule = !0;
     var r = n(1), a = n(2), s = n(0), i = function() {
-        function e(e, t, n, a, i, o, c, l, d, p, g, u) {
-            var m = this;
+        function e(e, t, n, a, i, o, c, l, d, p, g, m) {
+            var u = this;
             this.ctrl = this, this.showNewProjectPanel = !1, this.showEditProjectPanel = !1, 
             this.alerts = [], this.projects = [], this.watches = [], this.maxDisplayProjects = 5, 
             this.init = function() {
-                m.watches.push(m.DataService.watch("projects", m.$scope, m.onProjectsUpdate)), m.AlertMessageService.getAlerts().forEach(function(e) {
+                u.watches.push(u.DataService.watch("projects", u.$scope, u.onProjectsUpdate)), u.AlertMessageService.getAlerts().forEach(function(e) {
                     this.ctrl.alerts[e.name] = e.data;
-                }), m.ctrl.resourceLinks = s.clone(m.Constants.CATALOG_HELP_RESOURCES.links), s.forEach(m.ctrl.resourceLinks, function(e) {
-                    r.isDefined(e.help) && (e.href = m.Constants.HELP_BASE_URL + (e.help ? m.Constants.HELP[e.help] : ""));
-                }), m.$rootScope.$on("recently-viewed-updated", function() {
-                    m.ctrl.recentlyViewedItems = m.getRecentlyViewedItems();
+                }), u.ctrl.resourceLinks = s.clone(u.Constants.CATALOG_HELP_RESOURCES.links), s.forEach(u.ctrl.resourceLinks, function(e) {
+                    r.isDefined(e.help) && (e.href = u.Constants.HELP_BASE_URL + (e.help ? u.Constants.HELP[e.help] : ""));
+                }), u.$rootScope.$on("recently-viewed-updated", function() {
+                    u.ctrl.recentlyViewedItems = u.getRecentlyViewedItems();
                 });
             }, this.onProjectsUpdate = function(e) {
-                var t = s.toArray(e.by("metadata.creationTimestamp")), n = m.$filter("orderObjectsByDate");
-                m.ctrl.projects = n(t, !0), m.ctrl.totalProjects = m.ctrl.projects.length, m.ctrl.projects = s.take(m.ctrl.projects, m.maxDisplayProjects), 
-                m.ctrl.loading = !1, m.ctrl.showGetStarted = !m.ctrl.projects || m.ctrl.projects.length < 2;
+                var t = s.toArray(e.by("metadata.creationTimestamp")), n = u.$filter("orderObjectsByDate");
+                u.ctrl.projects = n(t, !0), u.ctrl.totalProjects = u.ctrl.projects.length, u.ctrl.projects = s.take(u.ctrl.projects, u.maxDisplayProjects), 
+                u.ctrl.loading = !1, u.ctrl.showGetStarted = !u.ctrl.projects || u.ctrl.projects.length < 2;
             }, this.closeNewProjectPanel = function() {
-                m.ctrl.showNewProjectPanel = !1, m.hideModalBackdrop();
+                u.ctrl.showNewProjectPanel = !1, u.hideModalBackdrop();
             }, this.onNewProject = function(e) {
-                m.ctrl.showNewProjectPanel = !1, m.hideModalBackdrop();
+                u.ctrl.showNewProjectPanel = !1, u.hideModalBackdrop();
             }, this.onViewMemebership = function(e) {
-                var t = m.ctrl.viewEditMembership();
+                var t = u.ctrl.viewEditMembership();
                 t && t(e);
             }, this.editProject = function(e) {
-                m.ctrl.edittingProject = e, m.ctrl.showEditProjectPanel = !0, m.showModalBackdrop();
+                u.ctrl.edittingProject = e, u.ctrl.showEditProjectPanel = !0, u.showModalBackdrop();
             }, this.closeEditProjectPanel = function() {
-                m.ctrl.showEditProjectPanel = !1, m.hideModalBackdrop();
+                u.ctrl.showEditProjectPanel = !1, u.hideModalBackdrop();
             }, this.onEditProject = function(e) {
-                m.ctrl.showEditProjectPanel = !1, m.hideModalBackdrop();
+                u.ctrl.showEditProjectPanel = !1, u.hideModalBackdrop();
             }, this.$element = e, this.$filter = t, this.$rootScope = n, this.$scope = a, this.AlertMessageService = i, 
             this.AuthService = o, this.Catalog = c, this.Constants = l, this.DataService = d, 
-            this.Logger = p, this.ProjectsService = g, this.RecentlyViewed = u;
+            this.Logger = p, this.ProjectsService = g, this.RecentlyViewed = m;
         }
         return e.prototype.$onInit = function() {
             var e = this;
@@ -1244,27 +1230,29 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
     "use strict";
     t.__esModule = !0;
     var r = n(1), a = n(0), s = n(2), i = function() {
-        function e(e, t, n, r, s) {
-            var i = this;
+        function e(e, t, n, r, s, i) {
+            var o = this;
             this.ctrl = this, this.filterByCategory = function(e, t, n) {
-                i.ctrl.filteredItems = "all" === e && "all" === t ? i.ctrl.catalogItems : a.filter(i.ctrl.catalogItems, function(n) {
-                    return "all" !== e && "all" === t ? i.catalog.hasCategory(n, e) : "all" === e && "all" !== t ? i.catalog.hasSubCategory(n, t) : i.catalog.hasCategory(n, e) && i.catalog.hasSubCategory(n, t);
-                }), n && (i.ctrl.subCategories = i.getSubCategories(e)), i.ctrl.currentFilter = e, 
-                i.ctrl.currentSubFilter = 1 === i.ctrl.subCategories.length ? i.ctrl.subCategories[0].id : t || "all", 
-                i.updateActiveCardStyles();
+                var r, s;
+                r = a.find(o.ctrl.categories, {
+                    id: e
+                }), r ? (s = a.find(r.subCategories, {
+                    id: t
+                }), s ? o.ctrl.filteredItems = s.items : o.logger.error("Could not find subcategory '" + t + "' for category '" + e + "'")) : o.logger.error("Could not find category '" + e + "'"), 
+                n && (o.ctrl.subCategories = o.getSubCategories(e)), o.ctrl.currentFilter = e, o.ctrl.currentSubFilter = 1 === o.ctrl.subCategories.length ? o.ctrl.subCategories[0].id : t || "all", 
+                o.updateActiveCardStyles();
             }, this.handleClick = function(e, t) {
-                i.$scope.$emit("open-overlay-panel", e);
-            }, this.constants = e, this.catalog = t, this.$filter = n, this.$scope = r, this.$timeout = s, 
-            this.ctrl.loaded = !1, this.ctrl.isEmpty = !1;
+                o.$scope.$emit("open-overlay-panel", e);
+            }, this.constants = e, this.catalog = t, this.logger = n, this.$filter = r, this.$scope = s, 
+            this.$timeout = i, this.ctrl.loaded = !1, this.ctrl.isEmpty = !1;
         }
         return e.prototype.$onInit = function() {
-            this.ctrl.currentFilter = "all", this.ctrl.currentSubFilter = null, this.debounceResize = a.debounce(this.resizeExpansion, 50, {
+            this.debounceResize = a.debounce(this.resizeExpansion, 50, {
                 maxWait: 250
             }), r.element(window).bind("resize", this.debounceResize), s(window).on("resize.services", this.debounceResize);
         }, e.prototype.$onChanges = function(e) {
-            e.catalogItems && this.ctrl.catalogItems && (this.ctrl.filteredItems = this.ctrl.catalogItems, 
-            this.ctrl.categories = this.catalog.removeEmptyCategories(this.ctrl.filteredItems), 
-            this.ctrl.subCategories = this.getSubCategories("all"), this.ctrl.isEmpty = a.isEmpty(this.ctrl.catalogItems), 
+            e.catalogItems && this.ctrl.catalogItems && (this.ctrl.categories = this.catalog.categories, 
+            this.filterByCategory("all", "all", !0), this.ctrl.isEmpty = a.isEmpty(this.ctrl.catalogItems), 
             this.ctrl.loaded = !0);
         }, e.prototype.$onDestroy = function() {
             s(window).off("resize.services");
@@ -1274,10 +1262,9 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             var t = [];
             return this.ctrl.categories.map(function(n) {
                 e === n.id && (t = t.concat(n.subCategories));
-            }), t.length > 1 && t.unshift({
-                id: "all",
-                label: "All"
-            }), t;
+            }), t = a.filter(t, {
+                hasItems: !0
+            }), "all" === t[0].id && 2 === t.length && (t = a.drop(t, 1)), t;
         }, e.prototype.resizeExpansion = function() {
             s(".services-sub-category").removeAttr("style");
             var e = s(".services-sub-category.active"), t = e.find(".services-items").innerHeight();
@@ -1286,7 +1273,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             this.$timeout(this.resizeExpansion, 50);
         }, e;
     }();
-    i.$inject = [ "Constants", "Catalog", "$filter", "$scope", "$timeout" ], t.ServicesViewController = i;
+    i.$inject = [ "Constants", "Catalog", "Logger", "$filter", "$scope", "$timeout" ], 
+    t.ServicesViewController = i;
 }, function(e, t) {
     e.exports = URI;
 }, function(e, t, n) {
@@ -1294,8 +1282,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
     t.__esModule = !0;
     var r = n(1);
     n(3), n(19);
-    var a = n(20), s = n(21), i = n(10), o = n(22), c = n(11), l = n(12), d = n(13), p = n(14), g = n(15), u = n(16), m = n(17), h = n(18), f = n(23);
-    t.webCatalog = "webCatalog", r.module(t.webCatalog, [ "patternfly", "ngAnimate", "ui.bootstrap", "angularMoment", "ui.select" ]).service("BuilderAppService", s.BuilderAppService).service("Catalog", o.CatalogService).service("RecentlyViewedServiceItems", f.RecentlyViewedServiceItems).filter("projectUrl", a.projectUrlFilter).component("catalogSearch", i.catalogSearch).component("createFromBuilder", c.createFromBuilder).component("landingPage", l.landingPage).component("orderService", d.orderService).component("overlayPanel", p.overlayPanel).component("projectsSummary", g.projectsSummary).component("saasList", u.saasList).component("selectProject", m.selectProject).component("servicesView", h.servicesView).run([ "$templateCache", function(e) {
+    var a = n(20), s = n(21), i = n(10), o = n(22), c = n(11), l = n(12), d = n(13), p = n(14), g = n(15), m = n(16), u = n(17), h = n(18), f = n(23);
+    t.webCatalog = "webCatalog", r.module(t.webCatalog, [ "patternfly", "ngAnimate", "ui.bootstrap", "angularMoment", "ui.select" ]).service("BuilderAppService", s.BuilderAppService).service("Catalog", o.CatalogService).service("RecentlyViewedServiceItems", f.RecentlyViewedServiceItems).filter("projectUrl", a.projectUrlFilter).component("catalogSearch", i.catalogSearch).component("createFromBuilder", c.createFromBuilder).component("landingPage", l.landingPage).component("orderService", d.orderService).component("overlayPanel", p.overlayPanel).component("projectsSummary", g.projectsSummary).component("saasList", m.saasList).component("selectProject", u.selectProject).component("servicesView", h.servicesView).run([ "$templateCache", function(e) {
         e.put("catalog-search/catalog-search-result.html", n(4)), e.put("create-from-builder/create-from-builder-configure.html", n(5)), 
         e.put("create-from-builder/create-from-builder-results.html", n(6)), e.put("order-service/order-service-plans.html", n(8)), 
         e.put("order-service/order-service-configure.html", n(7)), e.put("order-service/order-service-review.html", n(9));

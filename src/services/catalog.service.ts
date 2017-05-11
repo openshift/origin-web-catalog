@@ -5,9 +5,8 @@ export class CatalogService {
   static $inject = ['$filter', '$q', 'Constants', 'DataService', 'Logger'];
 
   public $filter: any;
-
+  public categories: any;
   private $q: any;
-  private categories: any;
   private constants: any;
   private dataService: any;
   private logger: any;
@@ -60,8 +59,6 @@ export class CatalogService {
   }
 
   public convertToServiceItems(serviceClasses: any, imageStreams: any, templates: any) {
-    this.categories = angular.copy(this.constants.SERVICE_CATALOG_CATEGORIES);
-
     // Convert service classes to ServiceItem
     let items: any = _.map(serviceClasses, (serviceClass) => {
       return this.getServiceItem(serviceClass);
@@ -97,6 +94,8 @@ export class CatalogService {
       return comparison;
     });
 
+    this.categorizeItems(items);
+
     return items;
   }
 
@@ -113,85 +112,92 @@ export class CatalogService {
     return new TemplateItem(resource, this);
   }
 
-  public getCategoriesBySubCategories(itemTags: any) {
-    let catsBySubCats = {};
-    let otherId = 'other';
+  /**
+   * Creates an items array under each sub-category and categorizes each
+   * item accordingly.  Dynamically creates 'all' and 'other' main and sub-
+   * categories as needed.
+   */
+  private categorizeItems(items: any) {
     let filteredSubCats: any;
-    let otherMainCategory: any = {
-      id: 'other', label: 'Other', subCategories: [
-        {id: 'other', label: 'Other'}
-      ]
-    };
+    let itemCategorized: boolean;
+    this.categories = angular.copy(this.constants.SERVICE_CATALOG_CATEGORIES);
+    this.createAllAndOtherMainCategories();
 
-    _.each(this.categories, (category) => {
-      if (category.tags) {
-        if (!_.isEmpty(this.getMatchingTags(category.tags, itemTags))) {
-          filteredSubCats = this.filterSubCatsByTags(category.subCategories, itemTags);
+    let allMainCategory: any = _.first(this.categories);
+    let allSubCatOfAll: any = _.get(allMainCategory, 'subCategories[0]');
+    let otherMainCategory: any = _.last(this.categories);
+    let allSubCatOfOther: any = _.get(otherMainCategory, 'subCategories[0]');
+
+    _.each(items, (item) => {
+      itemCategorized = false;
+      _.each(this.categories, (category) => {
+        if (category.tags) {
+          if (!_.isEmpty(this.getMatchingTags(category.tags, item.tags))) {
+            itemCategorized = this.categorizeItem(item, category, 'all');
+            filteredSubCats = this.filterSubCatsByTags(category.subCategories, item.tags);
+            if (!_.isEmpty(filteredSubCats)) {
+              _.each(filteredSubCats, (subCategory) => {
+                this.categorizeItem(item, category, subCategory);
+              });
+            } else {
+              this.categorizeItem(item, category, 'other');
+            }
+          }
+        } else {
+          filteredSubCats = this.filterSubCatsByTags(category.subCategories, item.tags);
           if (!_.isEmpty(filteredSubCats)) {
-            _.each(filteredSubCats, (subCat) => {
-              this.categorize(catsBySubCats, category, subCat.id);
+            itemCategorized = this.categorizeItem(item, category, 'all');
+            _.each(filteredSubCats, (subCategory) => {
+              this.categorizeItem(item, category, subCategory);
             });
-          } else {
-            this.categorize(catsBySubCats, category, otherId);
           }
         }
-      } else {
-        filteredSubCats = this.filterSubCatsByTags(category.subCategories, itemTags);
-        if (!_.isEmpty(filteredSubCats)) {
-          _.each(filteredSubCats, (subCat) => {
-            this.categorize(catsBySubCats, category, subCat.id);
-          });
-        }
+      });  // .ea category
+      if (!itemCategorized) {
+        this.categorizeItem(item, otherMainCategory, allSubCatOfOther);
       }
-    });  // .ea category
+      this.categorizeItem(item, allMainCategory, allSubCatOfAll);
+    });  // .ea item
+  }
 
-    if (_.isEmpty(catsBySubCats)) {
-      this.categorize(catsBySubCats, otherMainCategory, otherId);
+  private categorizeItem(item: any, category: any, subCategory: any) {
+    if (_.isString(subCategory)) {
+      subCategory = this.getAllOrOtherSubCategory(category, subCategory);
     }
 
-    return catsBySubCats;
+    subCategory.items = _.isArray(subCategory.items) ? subCategory.items.concat([item]) : [item];
+
+    return category.hasItems = subCategory.hasItems = true;
   }
 
-  public hasCategory(item: any, category: string) {
-    let found: boolean = false;
-
-    _.each(item.catsBySubCats, (cats: any) => {
-      found = _.includes(cats, category);
-      return !found;  // to break out of _.each when found
+  private createAllAndOtherMainCategories() {
+    this.categories.unshift({
+      id: 'all', label: 'All', subCategories: [
+        {id: 'all', label: 'All'}
+      ]
     });
-
-    return found;
+    this.categories.push({
+      id: 'other', label: 'Other', subCategories: [
+        {id: 'all', label: 'all'}
+      ]
+    });
   }
 
-  public hasSubCategory(item: any, subCategory: string) {
-    return _.has(item, ['catsBySubCats', subCategory]);
-  }
+  private getAllOrOtherSubCategory(category: any, subCategory: string) {
 
-  /**
-   * Return a new Array of only those Categories and SubCategories which
-   * exist in the passed in items.
-   * @param items
-   * @returns {Array}
-   */
-  public removeEmptyCategories(items: IServiceItem) {
-    let categories = angular.copy(this.categories);
-    let retCategories = [];
+    let subCatObj: any = _.find(category.subCategories, {id: subCategory});
 
-    _.each(categories, (category) => {
-      let retSubCategories: any = _.filter(category.subCategories, (subCategory: any) => {
-        return _.some(items, (item: any) => {
-          return this.hasSubCategory(item, subCategory.id) && this.hasCategory(item, category.id);
-        });
-      });
-
-      if (!_.isEmpty(retSubCategories)) {
-        let retCategory = angular.copy(category);
-        retCategory.subCategories = retSubCategories;
-        retCategories.push(retCategory);
+    if (!subCatObj) {
+      if (subCategory === 'other') {
+        subCatObj = {id: 'other', label: 'Other'};
+        category.subCategories.push(subCatObj);
+      } else {
+        subCatObj = {id: 'all', label: 'All'};
+        category.subCategories.unshift(subCatObj);
       }
-    }); // ea. category
+    }
 
-    return retCategories;
+    return subCatObj;
   }
 
   private getMatchingTags(tagsOne: any, tagsTwo: any) {
@@ -202,33 +208,6 @@ export class CatalogService {
     return _.filter(subCats, (subCat: any) => {
       return !_.isEmpty(this.getMatchingTags(subCat.tags, tags));
     });
-  }
-
-  private categorize(catsBySubCats: any, category: any, subCategoryId: string) {
-
-    catsBySubCats[subCategoryId] = _.isArray(catsBySubCats[subCategoryId]) ? catsBySubCats[subCategoryId].concat([category.id]) : [category.id];
-
-    if (category.id === 'other') {
-      this.addOtherMainCategory(category);
-    } else if (subCategoryId === 'other') {
-      this.addOtherSubCategory(category);
-    }
-  }
-
-  private addOtherMainCategory(otherCategory: any) {
-    let foundOtherCategory: any = _.find(this.categories, {id: 'other'});
-
-    if (!foundOtherCategory) {
-      this.categories.push(otherCategory);
-    }
-  }
-
-  private addOtherSubCategory(category: any) {
-    let otherSubCategory: any = _.find(category.subCategories, {id: 'other'});
-
-    if (!otherSubCategory) {
-      category.subCategories.push({id: 'other', label: 'Other'});
-    }
   }
 
   private returnCatalogItems(deferred: any, catalogItems: any, numPromisesExecuted: number, totalNumPromises: number, errorMsg: any) {
@@ -266,7 +245,6 @@ interface IServiceItem {
   iconClass: string;
   imageUrl: string;
   name: string;
-  catsBySubCats: any;
   description: string;
   longDescription: string;
   tags: string[];
@@ -277,7 +255,6 @@ export class ServiceItem implements IServiceItem {
   public iconClass: string;
   public imageUrl: string;
   public name: string;
-  public catsBySubCats: any;
   public description: string;
   public longDescription: string;
   public tags: string[];
@@ -293,7 +270,6 @@ export class ServiceItem implements IServiceItem {
     this.description = this.getDescription();
     this.longDescription = this.getLongDescription();
     this.tags = this.getTags();
-    this.catsBySubCats = this.getCategoriesBySubCategories();
   }
 
   private getImage() {
@@ -321,17 +297,12 @@ export class ServiceItem implements IServiceItem {
   private getTags() {
     return _.get(this.resource, 'osbTags', []);
   }
-
-  private getCategoriesBySubCategories() {
-    return this.catalogSrv.getCategoriesBySubCategories(this.resource.osbTags);
-  }
 }
 
 export class ImageItem implements IServiceItem {
   public iconClass: string;
   public imageUrl: string;
   public name: string;
-  public catsBySubCats: any;
   public description: string;
   public longDescription: string;
   public tags: string[];
@@ -349,7 +320,6 @@ export class ImageItem implements IServiceItem {
       this.name = this.getName();
       this.description = this.getDescription();
       this.longDescription = this.getLongDescription();
-      this.catsBySubCats = this.getCategoriesBySubCategories();
     }
   }
 
@@ -403,17 +373,12 @@ export class ImageItem implements IServiceItem {
   private getLongDescription() {
     return null;
   }
-
-  private getCategoriesBySubCategories() {
-    return this.catalogSrv.getCategoriesBySubCategories(this.tags);
-  }
 }
 
 export class TemplateItem implements IServiceItem {
   public iconClass: string;
   public imageUrl: string;
   public name: string;
-  public catsBySubCats: any;
   public description: string;
   public longDescription: string;
   public tags: string[];
@@ -429,7 +394,6 @@ export class TemplateItem implements IServiceItem {
     this.description = this.getDescription();
     this.longDescription = this.getLongDescription();
     this.tags = this.getTags();
-    this.catsBySubCats = this.getCategoriesBySubCategories();
   }
 
   private getImage() {
@@ -456,9 +420,5 @@ export class TemplateItem implements IServiceItem {
 
   private getTags() {
     return _.get(this.resource, 'metadata.annotations.tags', '').split(/\s*,\s*/);
-  }
-
-  private getCategoriesBySubCategories() {
-    return this.catalogSrv.getCategoriesBySubCategories(this.tags);
   }
 }

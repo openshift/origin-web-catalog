@@ -3,19 +3,21 @@ import * as _ from 'lodash';
 import * as $ from 'jquery';
 
 export class ServicesViewController implements angular.IController {
-  static $inject = ['Constants', 'Catalog', '$filter', '$scope', '$timeout'];
+  static $inject = ['Constants', 'Catalog', 'Logger', '$filter', '$scope', '$timeout'];
 
   public ctrl: any = this;
   private constants: any;
   private catalog: any;
+  private logger: any;
   private $filter: any;
   private $scope: any;
   private $timeout: any;
   private debounceResize: any;
 
-  constructor(constants: any, catalog: any, $filter: any, $scope: any, $timeout: any) {
+  constructor(constants: any, catalog: any, logger: any, $filter: any, $scope: any, $timeout: any) {
     this.constants = constants;
     this.catalog = catalog;
+    this.logger = logger;
     this.$filter = $filter;
     this.$scope = $scope;
     this.$timeout = $timeout;
@@ -24,9 +26,6 @@ export class ServicesViewController implements angular.IController {
   }
 
   public $onInit() {
-    this.ctrl.currentFilter = 'all';
-    this.ctrl.currentSubFilter = null;
-
     this.debounceResize = _.debounce(this.resizeExpansion, 50, { maxWait: 250 });
     angular.element(window).bind('resize', this.debounceResize);
     $(window).on('resize.services', this.debounceResize);
@@ -34,9 +33,8 @@ export class ServicesViewController implements angular.IController {
 
   public $onChanges(onChangesObj: angular.IOnChangesObject) {
     if (onChangesObj.catalogItems && this.ctrl.catalogItems) {
-      this.ctrl.filteredItems = this.ctrl.catalogItems;
-      this.ctrl.categories = this.catalog.removeEmptyCategories(this.ctrl.filteredItems);
-      this.ctrl.subCategories = this.getSubCategories('all');
+      this.ctrl.categories = this.catalog.categories;
+      this.filterByCategory('all', 'all', true);
       this.ctrl.isEmpty = _.isEmpty(this.ctrl.catalogItems);
       this.ctrl.loaded = true;
     }
@@ -47,18 +45,19 @@ export class ServicesViewController implements angular.IController {
   }
 
   public filterByCategory = (category: string, subCategory: string, updateSubCategories: boolean) => {
-    if (category === 'all' && subCategory === 'all') {
-      this.ctrl.filteredItems =  this.ctrl.catalogItems;
+    let categoryObj: any;
+    let subCategoryObj: any;
+
+    categoryObj =  _.find(this.ctrl.categories, {id: category});
+    if (categoryObj) {
+      subCategoryObj = _.find(categoryObj.subCategories, {id: subCategory});
+      if (subCategoryObj) {
+        this.ctrl.filteredItems = subCategoryObj.items;
+      } else {
+        this.logger.error("Could not find subcategory '" + subCategory + "' for category '" + category + "'");
+      }
     } else {
-      this.ctrl.filteredItems = _.filter(this.ctrl.catalogItems, (item: any) => {
-        if (category !== 'all' && subCategory === 'all') {
-          return this.catalog.hasCategory(item, category);
-        } else if (category === 'all' && subCategory !== 'all') {
-          return this.catalog.hasSubCategory(item, subCategory);
-        } else {
-          return this.catalog.hasCategory(item, category) && this.catalog.hasSubCategory(item, subCategory);
-        }
-      });
+      this.logger.error("Could not find category '" + category + "'");
     }
 
     if (updateSubCategories) {
@@ -68,7 +67,7 @@ export class ServicesViewController implements angular.IController {
     this.ctrl.currentFilter = category;
     this.ctrl.currentSubFilter = (this.ctrl.subCategories.length === 1) ? this.ctrl.subCategories[0].id : (subCategory || 'all');
     this.updateActiveCardStyles();
-  }
+  };
 
   public selectSubCategory(subCategory: string) {
     this.filterByCategory(this.ctrl.currentFilter, subCategory, false);
@@ -81,8 +80,11 @@ export class ServicesViewController implements angular.IController {
         subCats = subCats.concat(categoryObj.subCategories);
       }
     });
-    if (subCats.length > 1) {
-      subCats.unshift({id: 'all', label:  'All'});
+    subCats = _.filter(subCats, {hasItems: true});
+    // if 'all' and one other sub-cat, remove the 'all' and just
+    // show the single subCat
+    if (subCats[0].id === 'all' && subCats.length === 2) {
+      subCats = _.drop(subCats, 1);
     }
     return subCats;
   };

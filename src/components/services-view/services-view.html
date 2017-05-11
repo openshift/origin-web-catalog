@@ -6,10 +6,9 @@
     <h1>Browse Catalog</h1>
 
     <ul class="nav nav-tabs nav-tabs-pf">
-      <li ng-class="{'active': $ctrl.currentFilter === 'all'}">
-        <a href="" id="category-all" ng-click="$ctrl.filterByCategory('all', 'all', true)">All</a>
-      </li>
-      <li ng-repeat="category in $ctrl.categories" ng-class="{'active': $ctrl.currentFilter === category.id}">
+      <li ng-repeat="category in $ctrl.categories"
+          ng-if="category.hasItems"
+          ng-class="{'active': $ctrl.currentFilter === category.id}">
         <a href="" id="{{'category-'+category.id}}" ng-click="$ctrl.filterByCategory(category.id, 'all', true)">{{category.label}}</a>
       </li>
     </ul>
@@ -18,6 +17,7 @@
 
     <div class="services-sub-categories" ng-if="$ctrl.currentFilter !== 'other' && $ctrl.currentFilter !== 'all'">
       <div ng-repeat="subCategory in $ctrl.subCategories"
+           ng-if="subCategory.hasItems"
            class="services-sub-category" ng-class="{'active': $ctrl.currentSubFilter === subCategory.id}">
         <a href=""  id="{{'services-sub-category-'+subCategory.id}}"
            class="services-sub-category-tab" ng-click="$ctrl.selectSubCategory(subCategory.id)">
