@@ -1,83 +1,29 @@
 // Breakpoint for showing a smaller icon and service title.
 @order-service-title-sm-min: 450px;
 
-.order-service-details {
-  flex: 0 1 auto;
-  padding: 0 (@grid-gutter-width / 2);
-  @media (min-width: @screen-sm-min) {
-    border-right: 1px solid @color-pf-black-400;
-    width: 50%;
-  }
-  .order-service-details-top {
-    align-items: center;
-    display: flex;
-    .service-icon {
-      margin-right: 15px;
-      .icon {
-        font-size: 60px;
-        @media (min-width: @order-service-title-sm-min) {
-          font-size: 64px;
-        }
-      }
-      .image {
-        img {
-          max-height: 52px;
-          max-width: 52px;
-          @media (min-width: @order-service-title-sm-min) {
-            max-height: 60px;
-            max-width: 60px;
-          }
-        }
-      }
-    }
-    .service-title {
-      font-size: 18px;
-      font-weight: 600;
-      line-height: 1.4;
-      @media (min-width: @order-service-title-sm-min) {
-        font-size: 22px;
-      }
-    }
-    .sub-title {
-      font-size: 20px;
-      font-weight: 600;
-      color: @color-pf-black-600;
-    }
-  }
-  .order-service-description-block {
-    margin-top: 15px;
-    .description {
-      white-space: pre-wrap;
-    }
-    .learn-more-link {
-      font-size: @font-size-small;
-      white-space: nowrap;
-    }
-  }
-  .order-service-tags {
-    margin-top: 5px;
-    .tag {
-      margin-right: 5px;
-      text-transform: uppercase;
-    }
-  }
-}
 .order-service-config {
-  flex: 0 1 auto;
   padding: 0 (@grid-gutter-width / 2);
   @media (min-width: @screen-sm-min) {
+    margin-bottom: -(@grid-gutter-width / 2);
+    margin-top: -(@grid-gutter-width / 2);
+    overflow-y: auto;
+    padding-right: @grid-gutter-width;
+    .scroll-shadows-horizontal(65%, 0.25);
     width: 50%;
+    _::-webkit-full-page-media, _:future, :root & { // only target Safari
+      .scroll-shadows-horizontal-with-covers(65%, 0.25);
+    }
     .form-horizontal .control-label {
       padding-right: 0;
     }
-  } 
+  }
   h3 {
     line-height: 1.4;
     margin-top: 0;
     + .alert {
       margin-top: 20px;
     }
-  }  
+  }
   .select-plans {
     .plan-name {
       display: inline-block;
@@ -90,6 +36,9 @@
     }
   }
   .config-top {
+    @media (min-width: @screen-sm-min) {
+      flex: 1 1 auto; // IE
+    }
     .adv-ops {
       height: 30%;
     }
@@ -151,6 +100,83 @@
         margin-right: 6px;
         padding: 11px;
       }
+    }
+  }
+}
+
+.order-service-details {
+  padding: 0 (@grid-gutter-width / 2);
+  @media (min-width: @screen-sm-min) {
+    border-right: 1px solid @color-pf-black-400;
+    overflow: hidden;
+    padding-bottom: (@grid-gutter-width / 2);
+    padding-top: (@grid-gutter-width / 2);
+    width: 50%;
+  }
+  .order-service-details-top {
+    align-items: center;
+    display: flex;
+    .service-icon {
+      margin-right: 15px;
+      .icon {
+        font-size: 60px;
+        @media (min-width: @order-service-title-sm-min) {
+          font-size: 64px;
+        }
+      }
+      .image {
+        img {
+          max-height: 52px;
+          max-width: 52px;
+          @media (min-width: @order-service-title-sm-min) {
+            max-height: 60px;
+            max-width: 60px;
+          }
+        }
+      }
+    }
+    .service-title {
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 1.4;
+      @media (min-width: @order-service-title-sm-min) {
+        font-size: 22px;
+      }
+    }
+    .sub-title {
+      font-size: 20px;
+      font-weight: 600;
+      color: @color-pf-black-600;
+    }
+  }
+  .order-service-description-block {
+    margin-top: 15px;
+    .description {
+      white-space: pre-wrap;
+    }
+    .learn-more-link {
+      font-size: @font-size-small;
+      white-space: nowrap;
+    }
+  }
+  .order-service-tags {
+    margin-top: 5px;
+    .tag {
+      margin-right: 5px;
+      text-transform: uppercase;
+    }
+  }
+}
+
+.wizard-pf-contents {
+  @media (min-width: @screen-sm-min) {
+    display: flex;
+    min-height: 100%;
+    padding-bottom: (@grid-gutter-width / 2);
+    padding-top: (@grid-gutter-width / 2);
+    .scroll-shadows-horizontal-covers();
+    _::-webkit-full-page-media, _:future, :root & { // only target Safari
+      background: none;
     }
   }
 }
