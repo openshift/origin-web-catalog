@@ -1078,7 +1078,7 @@ body.overlay-open .landing-side-bar {
   display: block;
 }
 .services-view .spinner-container {
-  background: #f2f2f2;
+  background: #fff;
   padding-top: 100px;
   padding-bottom: 100px;
 }
