@@ -7,19 +7,10 @@
     padding-right: @grid-gutter-width;
   }
 
-  code {
-    background: transparent;
-    border: none;
-    color: @color-pf-white;
-    white-space: normal;
-  }
-
   .code-block {
     background: @color-pf-black;
-    color: @color-pf-black-200;
-    margin-right: 15px;
     margin-top: 5px;
-    opacity: 0.5;
+    padding: 4px;
   }
 
   .create-button {
@@ -58,9 +49,13 @@
   }
 
   .projects-instructions-link {
-    white-space: pre;
-    code {
-      display: inline-block;
+    background: transparent;
+    color: @color-pf-black-400;
+    padding: 0;
+    white-space: normal;
+    .command-arg {
+      // Prevent word breaks in awkward places in the middle of an argument.
+      white-space: nowrap;
     }
   }
 
