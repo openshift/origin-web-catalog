@@ -153,5 +153,3 @@ var guidedTours = {
 };
 
 _.set(window, 'OPENSHIFT_CONSTANTS.GUIDED_TOURS', guidedTours);
-
-

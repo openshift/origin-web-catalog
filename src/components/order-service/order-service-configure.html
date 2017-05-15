@@ -1,13 +1,11 @@
 <div class="config-top">
   <form name="$ctrl.forms.orderConfigureForm" class="config-form">
     <select-project selected-project="$ctrl.selectedProject" name-taken="$ctrl.nameTaken"></select-project>
-    <!-- TODO: add parameters -->
-    <!-- <div class="form-group"> -->
-    <!--   <label class="col-sm-4 control-label" for="field1">Field 1</label> -->
-    <!--   <div class="col-sm-8"> -->
-    <!--     <input class="form-control" type="text" id="field1"> -->
-    <!--   </div> -->
-    <!-- </div> -->
+    <catalog-parameters
+      ng-if="$ctrl.selectedPlan.alphaInstanceCreateParameterSchema"
+      model="$ctrl.parameterData"
+      parameter-schema="$ctrl.selectedPlan.alphaInstanceCreateParameterSchema">
+    </catalog-parameters>
   </form>
   <div ng-if="$ctrl.error" class="has-error">
     <span class="help-block">{{$ctrl.error}}</span>

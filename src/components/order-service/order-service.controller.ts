@@ -48,6 +48,8 @@ export class OrderServiceController implements angular.IController {
     this.ctrl.longDescription = this.ctrl.serviceClass.longDescription;
     this.ctrl.plans = _.get(this, 'ctrl.serviceClass.resource.plans', []);
     this.ctrl.applications = [];
+    this.ctrl.parameterData = {};
+    this.ctrl.forms = {};
 
     // Preselect the first plan. If there's only one plan, skip the wizard step.
     this.ctrl.selectedPlan = _.first(this.ctrl.plans);
@@ -161,6 +163,8 @@ export class OrderServiceController implements angular.IController {
 
   public selectPlan(plan: any) {
     this.ctrl.selectedPlan = plan;
+    // Clear any previous parameter data since each plan has its own parameter schema.
+    this.ctrl.parameterData = {};
   }
 
   public provisionService = () => {
@@ -332,6 +336,18 @@ export class OrderServiceController implements angular.IController {
   private makeServiceInstance() {
     let serviceClassName = _.get(this, 'ctrl.serviceClass.resource.metadata.name');
 
+    // Omit parameters values that are the empty string. These are always
+    // optional parameters since you can't submit the form when it's missing
+    // required values. The template broker will not generate values for
+    // "generated" parameters that are there, even if the value is empty
+    // string, which breaks many templates.
+    //
+    // Check specifically for the empty string rather than truthiness so that
+    // we don't omit other values like `false` for boolean parameters.
+    let parameters: any = _.omit(this.ctrl.parameterData, (parameterValue) => {
+      return parameterValue === '';
+    });
+
     let serviceInstance = {
       kind: 'Instance',
       apiVersion: 'servicecatalog.k8s.io/v1alpha1',
@@ -341,7 +357,8 @@ export class OrderServiceController implements angular.IController {
        },
        spec: {
          serviceClassName: serviceClassName,
-         planName: this.ctrl.selectedPlan.name
+         planName: this.ctrl.selectedPlan.name,
+         parameters: parameters
        }
     };
 

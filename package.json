@@ -32,6 +32,8 @@
     "angular-moment": "1.0.0",
     "angular-patternfly": "3.24.0",
     "angular-sanitize": "1.5.11",
+    "angular-schema-form": "^0.8.13",
+    "angular-schema-form-bootstrap": "^0.2.0",
     "angular-ui-bootstrap": "0.14.x",
     "angular-ui-router": "1.0.0-beta.1",
     "bootstrap": "^3.3.6",
