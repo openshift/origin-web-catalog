@@ -3,7 +3,17 @@ import * as _ from 'lodash';
 import * as URI from 'urijs';
 
 export class CreateFromBuilderController implements angular.IController {
-  static $inject = ['$scope', '$filter', '$location', '$q', 'BuilderAppService', 'DataService', 'Logger'];
+  static $inject = [
+    '$scope',
+    '$filter',
+    '$location',
+    '$q',
+    'BuilderAppService',
+    'ProjectsService',
+    'DataService',
+    'BindingService',
+    'Logger',
+    'Constants'];
 
   public ctrl: any = this;
 
@@ -12,70 +22,98 @@ export class CreateFromBuilderController implements angular.IController {
   private $location: ng.ILocationService;
   private $q: ng.IQService;
   private BuilderAppService: any;
+  private ProjectsService: any;
   private DataService: any;
+  private BindingService: any;
   private Logger: any;
+  private watches: any[] = [];
+  private configStep: any;
+  private bindStep: any;
+  private reviewStep: any;
+  private selectedProjectWatch: any;
+  private validityWatcher: any;
 
   constructor($scope: ng.IScope,
               $filter: any,
               $location: ng.ILocationService,
               $q: ng.IQService,
               BuilderAppService: any,
+              ProjectsService: any,
               DataService: any,
-              Logger: any) {
+              BindingService: any,
+              Logger: any,
+              Constants: any) {
     this.$scope = $scope;
     this.$filter = $filter;
     this.$location = $location;
     this.$q = $q;
     this.BuilderAppService = BuilderAppService;
+    this.ProjectsService = ProjectsService;
     this.DataService = DataService;
+    this.BindingService = BindingService;
     this.Logger = Logger;
+    this.ctrl.serviceToBind = null;
+    this.ctrl.showPodPresets = _.get(Constants, ['ENABLE_TECH_PREVIEW_FEATURE', 'pod_presets'], false);
   }
 
   public $onInit() {
-    this.ctrl.steps = [{
+    this.configStep = {
       label: 'Configuration',
       id: 'configure',
       view: 'create-from-builder/create-from-builder-configure.html',
-      selected: true
-    }, {
+      valid: false,
+      allowed: true,
+      hidden: false,
+      onShow: this.showConfig
+    };
+    this.bindStep = {
+      label: 'Bind',
+      id: 'bind',
+      view: 'create-from-builder/create-from-builder-bind.html',
+      valid: true,
+      allowed: false,
+      hidden: false,
+      onShow: this.showBind
+    };
+    this.reviewStep = {
       label: 'Results',
       id: 'results',
-      view: 'create-from-builder/create-from-builder-results.html'
-    }];
-    this.ctrl.currentStep = this.ctrl.steps[0];
+      view: 'create-from-builder/create-from-builder-results.html',
+      valid: true,
+      allowed: false,
+      hidden: false,
+      prevEnabled: false,
+      onShow: this.showResults
+    };
+    this.ctrl.steps = [this.configStep, this.bindStep, this.reviewStep];
     this.ctrl.versions = this.getVersions();
     this.ctrl.istag = _.first(this.ctrl.versions);
     this.ctrl.nameMaxLength = 24;
     this.ctrl.namePattern = /^[a-z]([-a-z0-9]*[a-z0-9])?$/;
     this.ctrl.repositoryPattern = /^[a-z][a-z0-9+.-@]*:(\/\/)?[0-9a-z_-]+/;
-  }
+    this.ctrl.wizardDone = false;
+    this.ctrl.serviceToBind = '';
+    this.ctrl.updating = false;
 
-  public stepClick(step: any) {
-    // Don't let users return to previous steps if we've already completed the wizard.
-    if (this.ctrl.currentStep.id === 'results') {
-      return;
-    }
-
-    if (!step.visited) {
-      return;
-    }
-
-    this.gotoStep(step);
-  }
-
-  public gotoStep(step: any) {
-    this.ctrl.steps.forEach((step) => step.selected = false);
-    if (this.ctrl.currentStep) {
-      this.ctrl.currentStep.visited = true;
-    }
-    this.ctrl.currentStep = step;
-    this.ctrl.currentStep.selected = true;
+    this.ctrl.serviceInstances = [];
+    this.selectedProjectWatch = this.$scope.$watch(
+      () => {
+        return this.ctrl.selectedProject;
+      },
+      this.onProjectUpdate
+    );
   }
 
   public closePanel() {
     if (angular.isFunction(this.ctrl.handleClose)) {
       this.ctrl.handleClose();
     }
+  }
+
+  public $onDestroy() {
+    this.DataService.unwatchAll(this.watches);
+    this.selectedProjectWatch();
+    this.clearValidityWatcher();
   }
 
   // TODO: Handle sample context dir and git ref
@@ -97,40 +135,15 @@ export class CreateFromBuilderController implements angular.IController {
     }
   }
 
-  public createApp() {
-    this.createProjectIfNecessary().then(() => {
-      this.gotoStep(_.last(this.ctrl.steps));
-      // Get the image stream tag so we know what ports are exposed by the image.
-      this.getImageStreamTag().then((imageStreamTag: any) => {
-        let apiObjects = this.BuilderAppService.makeAPIObjects({
-          name: this.ctrl.name,
-          repository: this.ctrl.repository,
-          namespace: this.ctrl.selectedProject.metadata.name,
-          imageStreamTag: imageStreamTag
-        });
-        this.createAPIObjects(apiObjects);
-      }, (e: any) => {
-        this.ctrl.error = e;
-      });
-    }, (result) => {
-      let data = result.data || {};
-      if (data.reason === 'AlreadyExists') {
-        this.ctrl.projectNameTaken = true;
-      } else {
-        this.ctrl.error = data.message || 'An error occurred creating the project.';
-      }
-    });
-  };
-
   public navigateToAdvancedForm() {
     let template = 'project/{project}/create/fromimage?' +
-                     'imageStream={imageStream}&' +
-                     'imageTag={imageTag}&' +
-                     'namespace={namespace}&' +
-                     'displayName={displayName}&' +
-                     'name={name}&' +
-                     'sourceURI={sourceURI}&' +
-                     'advanced=true';
+      'imageStream={imageStream}&' +
+      'imageTag={imageTag}&' +
+      'namespace={namespace}&' +
+      'displayName={displayName}&' +
+      'name={name}&' +
+      'sourceURI={sourceURI}&' +
+      'advanced=true';
     let target = URI.expand(template, {
       project: this.ctrl.selectedProject.metadata.name,
       imageStream: this.ctrl.imageStream.resource.metadata.name,
@@ -151,46 +164,42 @@ export class CreateFromBuilderController implements angular.IController {
     this.$location.url(target);
   }
 
-  private createProjectIfNecessary() {
-    if (_.has(this.ctrl.selectedProject, 'metadata.uid')) {
-      return this.$q.when();
+  private clearValidityWatcher = () => {
+    if (this.validityWatcher) {
+      this.validityWatcher();
+      this.validityWatcher = undefined;
     }
+  };
 
-    // TODO: Common code from this controller and order service.
-    let newProjName = this.ctrl.selectedProject.metadata.name;
-    let newProjDisplayName = this.ctrl.selectedProject.metadata.annotations['new-display-name'];
-    let newProjDesc = this.$filter('description')(this.ctrl.selectedProject);
-    let projReqObj: any = {
-      apiVersion: "v1",
-      kind: "ProjectRequest",
-      metadata: {
-        name: newProjName
-      },
-      displayName: newProjDisplayName,
-      description: newProjDesc
-    };
-    return this.DataService.create('projectrequests', null, projReqObj, this.$scope);
-  }
+  private showConfig = () => {
+    this.clearValidityWatcher();
+    this.ctrl.nextTitle = 'Next >';
+    this.reviewStep.allowed = this.bindStep.hidden && this.configStep.valid;
 
-  private createAPIObjects(apiObjects: any[]) {
-    this.DataService.batch(apiObjects, {
-      namespace: this.ctrl.selectedProject.metadata.name
-    }).then((result) => {
-      if (result.failure.length) {
-        this.ctrl.error = result;
-      } else {
-        this.ctrl.success = true;
-      }
-    }, (e) => {
-      this.ctrl.error = e;
+    this.validityWatcher = this.$scope.$watch("$ctrl.builderForm.$valid", (isValid: any, lastValue: any) => {
+      this.configStep.valid = isValid;
     });
-  }
+  };
+
+  private showBind = () => {
+    this.clearValidityWatcher();
+    this.ctrl.nextTitle = 'Create';
+    this.reviewStep.allowed = true;
+  };
+
+  private showResults = () => {
+    this.clearValidityWatcher();
+    this.ctrl.nextTitle = 'Close';
+    this.ctrl.wizardDone = true;
+
+    this.createApp();
+  };
 
   private referencesSameImageStream(specTag: any) {
     return specTag.from &&
-           specTag.from.kind === 'ImageStreamTag' &&
-           specTag.from.name.indexOf(':') === -1 &&
-          !specTag.from.namespace;
+      specTag.from.kind === 'ImageStreamTag' &&
+      specTag.from.name.indexOf(':') === -1 &&
+      !specTag.from.namespace;
   }
 
   private getVersions() {
@@ -232,5 +241,161 @@ export class CreateFromBuilderController implements angular.IController {
   private getImageStreamTag() {
     let name = this.ctrl.imageStream.resource.metadata.name + ":" + this.ctrl.istag.name;
     return this.DataService.get("imagestreamtags", name, { namespace: 'openshift' });
+  }
+
+  private preselectService() {
+    var newestReady: any;
+    var newestNotReady: any;
+    var statusCondition: any = this.$filter('statusCondition');
+
+    _.each(this.ctrl.serviceInstances, function(instance: any) {
+      var ready = _.get(statusCondition(instance, 'Ready'), 'status') === 'True';
+      if (ready && (!newestReady || instance.metadata.creationTimestamp > newestReady.metadata.creationTimestamp)) {
+        newestReady = instance;
+      }
+      if (!ready && (!newestNotReady || instance.metadata.creationTimestamp > newestNotReady.metadata.creationTimestamp)) {
+        newestNotReady = instance;
+      }
+    });
+    this.ctrl.serviceToBind = _.get(newestReady, 'metadata.name') || _.get(newestNotReady, 'metadata.name');
+  };
+
+  private sortServiceInstances() {
+    if (this.ctrl.serviceInstances) {
+      var instances = _.toArray(this.ctrl.serviceInstances);
+      var statusCondition: any = this.$filter('statusCondition');
+
+      instances.sort(function(left: any, right: any) {
+        var leftReady: boolean = _.get(statusCondition(left, 'Ready'), 'status') === 'True';
+        var rightReady: boolean = _.get(statusCondition(right, 'Ready'), 'status') === 'True';
+
+        if (leftReady === rightReady) {
+          var leftCreated: any = _.get(left, 'metadata.creationTimestamp');
+          var rightCreated: any = _.get(right, 'metadata.creationTimestamp');
+          return  rightCreated.localeCompare(leftCreated);
+        } else {
+          return leftReady ? -1 : 1;
+        }
+      });
+      this.ctrl.serviceInstances = instances;
+    }
+  };
+
+  private updateBindability() {
+    this.bindStep.hidden = _.size(this.ctrl.serviceInstances) < 1;
+    if (this.bindStep.hidden) {
+      this.ctrl.nextTitle = "Create";
+    } else {
+      this.ctrl.nextTitle = "Next >";
+    }
+  }
+
+  private onProjectUpdate = () => {
+    if (this.isNewProject()) {
+      this.ctrl.serviceInstances = [];
+      this.updateBindability();
+    } else {
+      this.ctrl.updating = true;
+      this.ProjectsService.get(this.ctrl.selectedProject.metadata.name).then(_.spread((project, context) => {
+        var resource: any = {
+          group: 'servicecatalog.k8s.io',
+          resource: 'instances'
+        };
+        this.watches.push(this.DataService.watch(resource, context, (serviceInstances) => {
+          this.ctrl.serviceInstances = _.toArray(serviceInstances.by('metadata.name'));
+          this.sortServiceInstances();
+          this.preselectService();
+          this.ctrl.updating = false;
+          this.updateBindability();
+        }));
+      }));
+    }
+  };
+
+  private isNewProject() {
+    return !_.has(this.ctrl.selectedProject, 'metadata.uid');
+  }
+
+  private createApp() {
+    this.createProjectIfNecessary().then(() => {
+      // Get the image stream tag so we know what ports are exposed by the image.
+      this.getImageStreamTag().then((imageStreamTag: any) => {
+        let apiObjects = this.BuilderAppService.makeAPIObjects({
+          name: this.ctrl.name,
+          repository: this.ctrl.repository,
+          namespace: this.ctrl.selectedProject.metadata.name,
+          imageStreamTag: imageStreamTag
+        });
+        this.createAPIObjects(apiObjects);
+        if (this.ctrl.serviceToBind) {
+          this.bindService();
+        }
+      }, (e: any) => {
+        this.ctrl.error = e;
+      });
+    }, (result) => {
+      let data = result.data || {};
+      if (data.reason === 'AlreadyExists') {
+        this.ctrl.projectNameTaken = true;
+      } else {
+        this.ctrl.error = data.message || 'An error occurred creating the project.';
+      }
+    });
+  };
+
+  private createProjectIfNecessary() {
+    if (!this.isNewProject()) {
+      return this.$q.when();
+    }
+
+    // TODO: Common code from this controller and order service.
+    let newProjName = this.ctrl.selectedProject.metadata.name;
+    let newProjDisplayName = this.ctrl.selectedProject.metadata.annotations['new-display-name'];
+    let newProjDesc = this.$filter('description')(this.ctrl.selectedProject);
+    let projReqObj: any = {
+      apiVersion: "v1",
+      kind: "ProjectRequest",
+      metadata: {
+        name: newProjName
+      },
+      displayName: newProjDisplayName,
+      description: newProjDesc
+    };
+    return this.DataService.create('projectrequests', null, projReqObj, this.$scope);
+  }
+
+  private createAPIObjects(apiObjects: any[]) {
+    this.DataService.batch(apiObjects, {
+      namespace: this.ctrl.selectedProject.metadata.name
+    }).then((result) => {
+      if (result.failure.length) {
+        this.ctrl.error = result;
+      } else {
+        this.ctrl.success = true;
+      }
+    }, (e) => {
+      this.ctrl.error = e;
+    });
+  }
+
+  private bindService() {
+    this.ctrl.bindInProgress = true;
+    this.ctrl.bindError = false;
+    var context = {
+      namespace: _.get(this.ctrl.selectedProject, 'metadata.name')
+    };
+    this.BindingService.bindService(context, this.ctrl.serviceToBind, this.ctrl.name).then((binding: any) => {
+      this.ctrl.binding = binding;
+      this.ctrl.bindInProgress = false;
+      this.ctrl.bindComplete = true;
+      this.ctrl.bindError = null;
+      this.DataService.watchObject(this.BindingService.bindingResource, _.get(this.ctrl.binding, 'metadata.name'), context, (binding: any) => {
+        this.ctrl.binding = binding;
+      });
+    }, (e: any) => {
+      this.ctrl.bindInProgress = false;
+      this.ctrl.bindComplete = true;
+      this.ctrl.bindError = e;
+    });
   }
 }

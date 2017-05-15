@@ -1,34 +1,61 @@
 <div ng-if="!$ctrl.error">
   <div ng-if="!$ctrl.orderComplete">
-    <h3 class="text-center">
-      <span class="fa fa-spinner fa-pulse fa-3x fa-fw" aria-hidden="true"></span>
-    </h3>
-    <h3 class="text-center">
+    <div ng-if="$ctrl.shouldBindToApp === 'none'">
+      <h3 class="text-center">
+        <div class="spinner spinner-lg" aria-hidden="true"></div>
+      </h3>
+      <h3 class="text-center">
+        <span>The service is being provisioned</span>
+      </h3>
+    </div>
+    <div ng-if="$ctrl.shouldBindToApp !== 'none'" class="review-status">
+      <div class="spinner spinner-sm spinner-inline" aria-hidden="true"></div>
+    <h3 class="review-message">
       The service is being provisioned
     </h3>
   </div>
-  <div ng-if="$ctrl.orderComplete">
-    <h3>
-      <span class="pficon pficon-ok"></span>
-      <strong>{{$ctrl.serviceName}}</strong> has been added to <strong>{{$ctrl.projectDisplayName}}</strong> successfully
-    </h3>
-    <div class="alert alert-info">
-      <span class="pficon pficon-info" aria-hidden="true"></span>
-      <span class="sr-only">Info</span>
-      Continue to your project to bind this service to your application. Binding this service creates a secret containing the information necessary for your application to use the service.
-    </div>
-  </div>
 </div>
 <div class="review-failure" ng-if="$ctrl.error">
-  <h3>Order Failed <span class="fa fa-times text-danger"></span></h3>
-  <h4>
+  <div class="review-status">
+    <span class="pficon pficon-error-circle-o text-danger" aria-hidden="true"></span>
+    <span class="sr-only">Error</span>
+    <h3 class="review-message">
+      Order Failed
+    </h3>
+  </div>
+  <div class="sub-title">
     <span ng-if="$ctrl.error.message || $ctrl.error.Message ">
       {{$ctrl.error.message || $ctrl.error.Message | upperFirst}}
     </span>
     <span ng-if="!$ctrl.error.message || $ctrl.error.Message">
       An error occurred ordering the service.
     </span>
-  </h4>
+  </div>
+</div>
+<div ng-if="$ctrl.orderComplete">
+  <div class="review-status">
+    <span class="pficon pficon-ok" aria-hidden="true"></span>
+    <span class="sr-only">Success</span>
+    <h3 class="review-message">
+      <span>
+        <strong>{{$ctrl.serviceInstanceName}}</strong> has been added to <strong>{{$ctrl.projectDisplayName}}</strong> successfully
+      </span>
+    </h3>
+  </div>
+</div>
+<div ng-if="$ctrl.shouldBindToApp !== 'none'">
+  <bind-results error="$ctrl.bindError"
+                progress-inline="true"
+                binding="$ctrl.binding"
+                service-to-bind="$ctrl.serviceInstanceName"
+                application-to-bind="$ctrl.appToBind.metadata.name"
+                show-pod-presets="$ctrl.showPodPresets">
+  </bind-results>
+</div>
+<div class="alert alert-info" ng-if="$ctrl.orderComplete && $ctrl.shouldBindToApp === 'none'">
+  <span class="pficon pficon-info" aria-hidden="true"></span>
+  <span class="sr-only">Info</span>
+  Continue to your project to bind this service to your application. Binding this service creates a secret containing the information necessary for your application to use the service.
 </div>
 <div class="footer-panel">
   <a class="btn btn-primary" href="{{$ctrl.selectedProject | projectUrl : $ctrl.baseProjectUrl}}">View Project</a>

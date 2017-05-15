@@ -7,6 +7,8 @@ require('./constants');
 
 // Filters
 import {projectUrlFilter} from './filters/projectUrl';
+import {applicationHasDeploymentFilter} from './filters/applications';
+import {applicationHasDeploymentConfigFilter} from './filters/applications';
 
 // Components, Alphabetical order please
 import {BuilderAppService} from './services/builder-app.service';
@@ -30,6 +32,8 @@ angular
   .service('Catalog', CatalogService)
   .service('RecentlyViewedServiceItems', RecentlyViewedServiceItems)
   .filter('projectUrl', projectUrlFilter)
+  .filter('applicationHasDeployment', applicationHasDeploymentFilter)
+  .filter('applicationHasDeploymentConfig', applicationHasDeploymentConfigFilter)
   .component('catalogSearch', catalogSearch)
   .component('createFromBuilder', createFromBuilder)
   .component('landingPage', landingPage)
@@ -42,8 +46,10 @@ angular
   .run(['$templateCache', function($templateCache: any) {
     $templateCache.put('catalog-search/catalog-search-result.html', require('./components/catalog-search/catalog-search-result.html'));
     $templateCache.put('create-from-builder/create-from-builder-configure.html', require('./components/create-from-builder/create-from-builder-configure.html'));
+    $templateCache.put('create-from-builder/create-from-builder-bind.html', require('./components/create-from-builder/create-from-builder-bind.html'));
     $templateCache.put('create-from-builder/create-from-builder-results.html', require('./components/create-from-builder/create-from-builder-results.html'));
     $templateCache.put('order-service/order-service-plans.html', require('./components/order-service/order-service-plans.html'));
     $templateCache.put('order-service/order-service-configure.html', require('./components/order-service/order-service-configure.html'));
+    $templateCache.put('order-service/order-service-bind.html', require('./components/order-service/order-service-bind.html'));
     $templateCache.put('order-service/order-service-review.html', require('./components/order-service/order-service-review.html'));
   }]);
