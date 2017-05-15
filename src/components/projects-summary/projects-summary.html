@@ -14,8 +14,7 @@
     <span ng-if="!$ctrl.newProjectMessage">
       A cluster admin can create a project for you by running the command:
       <div class="code-block">
-        <code class="projects-instructions-link ">oadm new-project &lt;projectname&gt;
-   --admin={{$ctrl.user.metadata.name || '&lt;YourUsername&gt;'}}</code>
+        <code class="projects-instructions-link">oadm <span class="command-arg">new-project</span> &lt;projectname&gt; <span class="command-arg">--admin={{$ctrl.user.metadata.name || '&lt;YourUsername&gt;'}}</span></code>
       </div>
     </span>
     <span ng-if="$ctrl.newProjectMessage" ng-bind-html="$ctrl.newProjectMessage | linky : '_blank'"></span>
