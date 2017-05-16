@@ -33,9 +33,7 @@
     .service-title {
       font-size: 18px;
       font-weight: 600;
-      line-height: 1.4;
-      max-height: 4.2em; // limit to 3 lines
-      overflow: hidden;
+      .line-clamp(3, 1.4em); // limit to 3 lines
       @media (min-width: @order-service-title-sm-min) {
         font-size: 22px;
       }
@@ -53,12 +51,16 @@
   .order-service-description-block {
     margin-top: 15px;
     .description {
+      .line-clamp(5); // limit to 5 lines
       white-space: pre-wrap;
     }
     .learn-more-link {
       font-size: @font-size-small;
       white-space: nowrap;
     }
+  }
+  .order-service-documentation-url {
+    margin-top: 4px;
   }
   .order-service-tags {
     margin-top: 5px;

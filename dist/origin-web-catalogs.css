@@ -95,8 +95,13 @@
 }
 .catalog-search-match .catalog-search-match-label {
   font-weight: 600;
+  display: -webkit-box;
+  line-height: 1.5em;
   max-height: 4.5em;
   overflow: hidden;
+  padding: 0 !important;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
 }
 .catalog-search-match .icon {
   font-size: 28px;
@@ -233,9 +238,13 @@
 .order-service-details .order-service-details-top .service-title {
   font-size: 18px;
   font-weight: 600;
-  line-height: 1.4;
+  display: -webkit-box;
+  line-height: 1.4em;
   max-height: 4.2em;
   overflow: hidden;
+  padding: 0 !important;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
 }
 @media (min-width: 450px) {
   .order-service-details .order-service-details-top .service-title {
@@ -258,11 +267,21 @@
   margin-top: 15px;
 }
 .order-service-details .order-service-description-block .description {
+  display: -webkit-box;
+  line-height: 1.66666667;
+  max-height: 8.33333335em;
+  overflow: hidden;
+  padding: 0 !important;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 5;
   white-space: pre-wrap;
 }
 .order-service-details .order-service-description-block .learn-more-link {
   font-size: 11px;
   white-space: nowrap;
+}
+.order-service-details .order-service-documentation-url {
+  margin-top: 4px;
 }
 .order-service-details .order-service-tags {
   margin-top: 5px;
@@ -588,7 +607,8 @@ body.overlay-open .landing-side-bar {
   display: block;
   margin-bottom: 50px;
   min-height: 140px;
-  padding: 0;
+  padding-bottom: 0;
+  padding-top: 0;
   width: 33.3%;
 }
 .catalog-projects-summary-panel .services-view .services-item:focus,
@@ -1029,8 +1049,13 @@ body.overlay-open .landing-side-bar {
   flex: 1 1 0%;
   font-size: 14px;
   font-weight: 600;
-  line-height: 1.4;
-  max-height: 2.8em;
+  display: -webkit-box;
+  line-height: 1.4em;
+  max-height: 4.2em;
+  overflow: hidden;
+  padding: 0 !important;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
   position: relative;
   word-wrap: break-word;
 }
