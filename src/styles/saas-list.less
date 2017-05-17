@@ -14,8 +14,14 @@
 
     @media (min-width: @screen-sm-min) {
       display: flex;
-      flex-wrap: wrap;
       margin: 0;
+      &.expanded {
+        flex-wrap: wrap;
+      }
+    }
+
+    &.items-overflow {
+      justify-content: flex-start;
     }
 
     .card {
@@ -25,7 +31,7 @@
 
       @media (min-width: @screen-sm-min) {
         border-bottom: none;
-        flex: 0 1 auto;
+        flex: 0 0 auto;
         width: 50%;
       }
 
@@ -109,6 +115,29 @@
         }
       }
     }
+  }
+  .sass-list-expander {
+    color: @color-pf-white;
+    font-size: @font-size-base;
+    &:hover, &:focus {
+      color: @color-pf-white;
+      text-decoration: none;
+    }
+    &:after {
+      content: @fa-var-angle-down;
+      font-family: @icon-font-name-fa;
+      font-size: (@font-size-base + 2);
+      padding: 0 5px;
+    }
+    &.expanded {
+      &:after {
+        content: @fa-var-angle-up;
+      }
+    }
+  }
+  .sass-list-expander-container {
+    margin-bottom: (@grid-gutter-width / 4);
+    text-align: center;
   }
 
   .spinner-container {

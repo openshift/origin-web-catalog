@@ -116,7 +116,6 @@
   .landing {
     background-color: #fff;
     bottom: 0;
-    overflow-y: auto;
     position: absolute;
     top: 124px;
     width: calc(100% - 325px);
@@ -830,9 +829,14 @@ body.overlay-open .landing-side-bar {
 @media (min-width: 768px) {
   .saas-offerings-container .saas-list {
     display: flex;
-    flex-wrap: wrap;
     margin: 0;
   }
+  .saas-offerings-container .saas-list.expanded {
+    flex-wrap: wrap;
+  }
+}
+.saas-offerings-container .saas-list.items-overflow {
+  justify-content: flex-start;
 }
 .saas-offerings-container .saas-list .card {
   border-bottom: solid 1px rgba(0, 34, 53, 0.6);
@@ -842,7 +846,7 @@ body.overlay-open .landing-side-bar {
 @media (min-width: 768px) {
   .saas-offerings-container .saas-list .card {
     border-bottom: none;
-    flex: 0 1 auto;
+    flex: 0 0 auto;
     width: 50%;
   }
 }
@@ -932,6 +936,28 @@ body.overlay-open .landing-side-bar {
   .saas-offerings-container .saas-list .card-content .card-title {
     font-size: 18px;
   }
+}
+.saas-offerings-container .sass-list-expander {
+  color: #fff;
+  font-size: 12px;
+}
+.saas-offerings-container .sass-list-expander:hover,
+.saas-offerings-container .sass-list-expander:focus {
+  color: #fff;
+  text-decoration: none;
+}
+.saas-offerings-container .sass-list-expander:after {
+  content: "\F107";
+  font-family: "FontAwesome";
+  font-size: 14px;
+  padding: 0 5px;
+}
+.saas-offerings-container .sass-list-expander.expanded:after {
+  content: "\F106";
+}
+.saas-offerings-container .sass-list-expander-container {
+  margin-bottom: 10px;
+  text-align: center;
 }
 .saas-offerings-container .spinner-container {
   padding-top: 60px;
