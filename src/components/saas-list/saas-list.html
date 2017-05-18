@@ -1,6 +1,6 @@
 <span ng-if="$ctrl.hasSaasOfferings()" class="saas-offerings-container">
   <h1 ng-if="$ctrl.saasTitle">{{$ctrl.saasTitle}}</h1>
-  <div class="saas-list" items="$ctrl.saasOfferings">
+  <div class="saas-list" ng-class="{'expanded': $ctrl.sassListExpanded, 'items-overflow': $ctrl.itemsOverflow}" items="$ctrl.saasOfferings">
     <div class="card" ng-repeat="item in $ctrl.saasOfferings">
       <a ng-href="{{item.url}}" target="_blank" class="card-content">
         <div class="card-icon">
@@ -16,5 +16,11 @@
         </truncate-long-text>
       </a>
     </div>
+  </div>
+  <div ng-if="$ctrl.itemsOverflow" class="sass-list-expander-container">
+    <a href="" class="sass-list-expander" ng-class="{'expanded': $ctrl.sassListExpanded}" ng-click="$ctrl.toggleListExpand()">
+      <span ng-if="!$ctrl.sassListExpanded">Show More</span>
+      <span ng-if="$ctrl.sassListExpanded">Show Less</span>
+    </a>
   </div>
 </span>
