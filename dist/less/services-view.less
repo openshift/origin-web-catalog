@@ -96,8 +96,7 @@
     flex: 1 1 0%;
     font-size: 14px;
     font-weight: 600;
-    line-height: 1.4;
-    max-height: 2.8em; // so the third line overflows if it exists
+    .line-clamp(3, 1.4em); // limit to 3 lines
     position: relative;
     word-wrap: break-word;
   }

@@ -26,6 +26,9 @@
                 {{tag}}
               </span>
             </div>
+            <div ng-if="$ctrl.serviceClass.resource.osbMetadata.documentationUrl" class="order-service-documentation-url">
+              <a ng-href="{{$ctrl.serviceClass.resource.osbMetadata.documentationUrl}}" target="_blank" class="learn-more-link">Learn More <i class="fa fa-external-link" aria-hidden="true"></i></a>
+            </div>
           </div>
         </div>
         <div class="order-service-description-block">
@@ -38,9 +41,6 @@
           </p>
           <p ng-if="$ctrl.description" ng-bind-html="$ctrl.description | linky : '_blank'" class="description"></p>
           <p ng-if="$ctrl.longDescription" ng-bind-html="$ctrl.longDescription | linky : '_blank'" class="description"></p>
-          <p ng-if="$ctrl.serviceClass.resource.osbMetadata.documentationUrl">
-            <a ng-href="{{$ctrl.serviceClass.resource.osbMetadata.documentationUrl}}" target="_blank" class="learn-more-link">Learn More <i class="fa fa-external-link" aria-hidden="true"></i></a>
-          </p>
         </div>
       </div>
       <div class="order-service-config">
