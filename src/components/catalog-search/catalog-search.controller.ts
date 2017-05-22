@@ -1,19 +1,23 @@
 import * as _ from 'lodash';
 
 export class CatalogSearchController implements angular.IController {
-  static $inject = ['$scope', '$q', 'Catalog', 'KeywordService'];
+  static $inject = ['$rootScope', '$scope', '$q', 'Catalog', 'KeywordService'];
 
   public ctrl: any = this;
 
   private Catalog: any;
   private KeywordService: any;
+  private $rootScope: any;
   private $scope: any;
   private $q: any;
   private loaded: boolean = false;
+  private maxResultsToShow: number = 5;
+
   // Used when the user starts typing before the items have loaded.
   private searchDeferred: ng.IDeferred<any[]>;
 
-  constructor($scope: any, $q: any, Catalog: any, KeywordService: any) {
+  constructor($rootScope: any, $scope: any, $q: any, Catalog: any, KeywordService: any) {
+    this.$rootScope = $rootScope;
     this.$scope = $scope;
     this.$q = $q;
     this.Catalog = Catalog;
@@ -39,7 +43,11 @@ export class CatalogSearchController implements angular.IController {
   }
 
   public itemSelected(item: any) {
-    this.$scope.$emit('open-overlay-panel', item);
+    if (item.id === 'viewAll') {
+      this.$rootScope.$emit('filter-catalog-items', {searchText: this.ctrl.searchText});
+    } else {
+      this.$scope.$emit('open-overlay-panel', item);
+    }
     this.ctrl.searchText = '';
   }
 
@@ -60,6 +68,13 @@ export class CatalogSearchController implements angular.IController {
   private filterForKeywords(searchText: string) {
     let keywords = this.KeywordService.generateKeywords(searchText);
     let items = this.KeywordService.filterForKeywords(this.ctrl.catalogItems, ['name', 'tags'], keywords);
-    return _.take(items, 5);
+    let totalNumItems: number = _.size(items);
+    if (totalNumItems > this.maxResultsToShow) {
+      let results: any = _.take(items, this.maxResultsToShow);
+      results.push({id: 'viewAll', name: searchText, totalNumResults: totalNumItems});
+      return results;
+    } else {
+      return _.take(items, this.maxResultsToShow);
+    }
   }
 }

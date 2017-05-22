@@ -253,4 +253,111 @@ describe('servicesView', () => {
     // Expansion card should be shown with one card
     expect(jQuery(element).find('.services-item-name').length).toBe(1);
   });
+
+  it("should apply keyword filters correctly", () => {
+    createServiceView();
+
+    var element = componentTest.rawElement;
+
+    // 15 initial catalog items
+    expect(jQuery(element).find('.services-item-name').length).toBe(15);
+
+    let filterInput: any = jQuery(element).find('.filter-fields input');
+    expect(filterInput.length).toBe(1);
+
+    enterFilterKeyword(filterInput, "test");
+
+    // 9 catalog items with 'test' keyword
+    expect(jQuery(element).find('.services-item-name').length).toBe(9);
+
+    // 1 active filter tag
+    let keywordFilterTags: any = jQuery(element).find('.active-filter.label.label-info');
+    expect(keywordFilterTags.length).toBe(1);
+    expect(keywordFilterTags.text().trim()).toBe('Keyword: test');
+
+    // apply second keyword filter
+    enterFilterKeyword(filterInput, "node");
+
+    // 2 catalog items with 'test' and 'node' keywords
+    expect(jQuery(element).find('.services-item-name').length).toBe(2);
+
+    // 2 active filter tags
+    keywordFilterTags = jQuery(element).find('.active-filter.label.label-info');
+    expect(keywordFilterTags.length).toBe(2);
+    expect(keywordFilterTags.eq(1).text().trim()).toBe('Keyword: node');
+
+    // clear second keyword filter
+    componentTest.eventFire(keywordFilterTags.eq(1).find('.pficon-close')[0], 'click');
+
+    // back to 9 catalog items with 'test' keyword
+    expect(jQuery(element).find('.services-item-name').length).toBe(9);
+
+    // remove all filters
+    componentTest.eventFire(jQuery(element).find('.clear-filters')[0], 'click');
+
+    // back to the original 15 catalog items
+    expect(jQuery(element).find('.services-item-name').length).toBe(15);
+
+    // no keyword filter tags
+    expect(jQuery(element).find('.active-filter.label.label-info').length).toBe(0);
+  });
+
+  it("should remove filters when switching categories", () => {
+    createServiceView();
+
+    var element = componentTest.rawElement;
+
+    let filterInput: any = jQuery(element).find('.filter-fields input');
+    expect(filterInput.length).toBe(1);
+
+    enterFilterKeyword(filterInput, "test");
+
+    // 9 catalog items with 'test' keyword
+    expect(jQuery(element).find('.services-item-name').length).toBe(9);
+
+    // 1 active filter tag
+    let keywordFilterTags: any = jQuery(element).find('.active-filter.label.label-info');
+    expect(keywordFilterTags.length).toBe(1);
+    expect(keywordFilterTags.text().trim()).toBe('Keyword: test');
+
+    // swtich category
+    componentTest.eventFire(element.querySelector('#category-languages'), 'click');
+    componentTest.eventFire(element.querySelector('#services-sub-category-all'), 'click');
+
+    // should be no filter tags
+    expect(jQuery(element).find('.active-filter.label.label-info').length).toBe(0);
+
+    // should be 11 'languages' catalog items
+    expect(jQuery(element).find('.services-item-name').length).toBe(11);
+
+    filterInput = jQuery(element).find('.filter-fields input');
+    enterFilterKeyword(filterInput, "test");
+
+    // should be 5 languages catalog items with keyword 'test', and 1 keyword filter tag
+    expect(jQuery(element).find('.services-item-name').length).toBe(5);
+    expect(jQuery(element).find('.active-filter.label.label-info').length).toBe(1);
+
+    // click on 'ruby' sub-category
+    componentTest.eventFire(element.querySelector('#services-sub-category-ruby.services-sub-category-tab'), 'click');
+
+    // should be no filter tags
+    expect(jQuery(element).find('.active-filter.label.label-info').length).toBe(0);
+  });
 });
+
+function enterFilterKeyword(filterCtrl: any, keyword: string) {
+  // set input's new value
+  filterCtrl.val(keyword);
+
+  // dispatch change event
+  var event: any = document.createEvent("HTMLEvents");
+  event.initEvent("change", false, true);
+  filterCtrl[0].dispatchEvent(event);
+
+  // press ENTER key
+  event = document.createEvent("KeyboardEvent");
+  event.initKeyEvent ('keypress', true, false, null,
+    false, false, false, false,
+    13, 0);
+  filterCtrl[0].dispatchEvent(event);
+}
