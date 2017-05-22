@@ -763,6 +763,14 @@ body.overlay-open .landing-side-bar {
   margin-bottom: 40px;
   margin-top: 30px;
 }
+.catalog-project-summary-list a {
+  color: #39a5dc;
+}
+.catalog-project-summary-list a:focus,
+.catalog-project-summary-list a:hover {
+  color: #64b9e4;
+  text-decoration: none;
+}
 .catalog-project-summary-list .dropdown-kebab-pf {
   float: right;
 }
@@ -804,19 +812,17 @@ body.overlay-open .landing-side-bar {
   padding: 10px;
   position: relative;
 }
+.catalog-project-summary-list .project-tile.tile-click:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+.catalog-project-summary-list .project-tile.tile-click:hover .tile-target {
+  color: #64b9e4;
+}
 .catalog-project-summary-list .project-tile-header {
   display: flex;
   line-height: 1.6;
   margin-bottom: 0;
   margin-top: 0;
-}
-.catalog-project-summary-list .project-tile-header a {
-  color: #39a5dc;
-}
-.catalog-project-summary-list .project-tile-header a:focus,
-.catalog-project-summary-list .project-tile-header a:hover {
-  color: #64b9e4;
-  text-decoration: none;
 }
 .catalog-project-summary-list .project-title {
   overflow: hidden;
