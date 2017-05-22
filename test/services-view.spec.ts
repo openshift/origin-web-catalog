@@ -48,7 +48,8 @@ describe('servicesView', () => {
     createServiceView();
     var ctrl = componentTest.isoScope.$ctrl;
     expect(ctrl.currentFilter).toBe('all');
-    expect(ctrl.currentSubFilter).toBeNull();
+    expect(ctrl.currentSubFilter).toBe('all');
+    expect(ctrl.filteredItems.length).toBe(15);
   });
 
   it('should display the initial categories and correct number of catalog cards', () => {
