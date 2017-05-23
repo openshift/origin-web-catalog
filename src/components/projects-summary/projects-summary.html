@@ -37,7 +37,7 @@
       <a href="{{$ctrl.projectsUrl}}" class="projects-view-all">View All</a>
     </div>
     <div id="catalog-projects-summary-list">
-      <div ng-repeat="project in $ctrl.projects track by (project | uid)" class="project-tile">
+      <div ng-repeat="project in $ctrl.projects track by (project | uid)" class="project-tile tile-click">
         <div class="dropdown  dropdown-kebab-pf" uib-dropdown="">
           <button class="btn btn-link uib-dropdown-toggle" type="button" id="dropdownKebab" aria-haspopup="true" aria-expanded="true" uib-dropdown-toggle>
             <span class="fa fa-ellipsis-v"></span>
@@ -59,7 +59,7 @@
         </div>
         <h3 class="project-tile-header">
           <span ng-if="project.statusIconClass" class="project-status {{project.statusIconClass}}"></span>
-          <a href="{{project | projectUrl : $ctrl.baseProjectUrl}}" class="project-title">{{project | displayName}}</a>
+          <a href="{{project | projectUrl : $ctrl.baseProjectUrl}}" class="project-title tile-target">{{project | displayName}}</a>
         </h3>
         <p class="project-date">
           <span ng-if="project | displayName : true"><span ng-bind-html="project.metadata.name"></span> &ndash;</span>

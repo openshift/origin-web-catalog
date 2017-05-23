@@ -240,6 +240,15 @@
   margin-bottom: @grid-gutter-width;
   margin-top: 30px;
 
+  a {
+    color: @landing-side-bar-link-color;
+    &:focus,
+    &:hover {
+      color: @landing-side-bar-link-color-hover;
+      text-decoration: none;
+    }
+  }
+
   .dropdown-kebab-pf {
     float: right;
 
@@ -289,6 +298,12 @@
     margin: -1px 0 0;
     padding: 10px;
     position: relative;
+    &.tile-click:hover {
+      background: rgba(255,255,255,.03);
+      .tile-target {
+        color: @landing-side-bar-link-color-hover;
+      }
+    }
   }
 
   .project-tile-header {
@@ -296,14 +311,6 @@
     line-height: 1.6;
     margin-bottom: 0;
     margin-top: 0;
-    a {
-      color: @landing-side-bar-link-color;
-      &:focus,
-      &:hover {
-        color: @landing-side-bar-link-color-hover;
-        text-decoration: none;
-      }
-    }
   }
 
   .project-title {
