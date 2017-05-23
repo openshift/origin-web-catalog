@@ -98,8 +98,11 @@ export class OrderServiceController implements angular.IController {
     this.ctrl.nameTaken = false;
     this.ctrl.wizardReady = true;
     this.ctrl.wizardDone = false;
-    this.ctrl.updating = false;
 
+    // Set updating true initially so that the next button doesn't enable,
+    // disable, then enable again immediately.  The onProjectUpdate callback
+    // will set this back to false.
+    this.ctrl.updating = true;
     this.selectedProjectWatch = this.$scope.$watch(
       () => {
         return this.ctrl.selectedProject;

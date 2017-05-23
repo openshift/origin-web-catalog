@@ -1159,7 +1159,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 onShow: this.showResults
             }, this.ctrl.steps = [ this.planStep, this.configStep, this.bindStep, this.reviewStep ], 
             this.ctrl.nameTaken = !1, this.ctrl.wizardReady = !0, this.ctrl.wizardDone = !1, 
-            this.ctrl.updating = !1, this.selectedProjectWatch = this.$scope.$watch(function() {
+            this.ctrl.updating = !0, this.selectedProjectWatch = this.$scope.$watch(function() {
                 return e.ctrl.selectedProject;
             }, this.onProjectUpdate);
             var t = this.$filter("humanizeKind");
