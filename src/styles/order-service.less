@@ -1,5 +1,7 @@
 // Breakpoint for showing a smaller icon and service title.
 @order-service-title-sm-min: 450px;
+@order-service-page-height: 410px;
+@order-service-wizard-min-external-height: 300px;
 
 .order-service-details {
   flex: 0 1 auto;
@@ -77,7 +79,7 @@
     margin-bottom: -(@grid-gutter-width / 2);
     margin-top: -(@grid-gutter-width / 2);
     overflow-y: auto;
-    padding-right: @grid-gutter-width;
+    padding-right: 0;
     .scroll-shadows-horizontal(65%, 0.25);
     width: 50%;
     _::-webkit-full-page-media, _:future, :root & { // only target Safari
@@ -138,6 +140,7 @@
     margin-right: -10px;
   }
   .footer-panel {
+    padding-top: 10px;
     text-align: center;
 
     a {
@@ -147,6 +150,9 @@
         text-decoration: none;
       }
     }
+  }
+  .sub-title {
+    margin: -5px 0 10px 25px;
   }
   .success-check {
     color: @color-pf-green-400;
@@ -172,17 +178,29 @@
       }
     }
   }
+  .review-message {
+    padding-left: 10px;
+  }
+  .review-status {
+    display: flex;
+    font-size: 16px;
+
+    .pficon {
+      margin-top: 3px;
+    }
+    .spinner.spinner-sm {
+      height: 16px;
+      margin: 3px 0 0;
+      width: 16px;
+    }
+  }
 }
 
-.wizard-pf-contents {
+.order-service-wizard-step.wizard-pf-main {
   @media (min-width: @screen-sm-min) {
-    display: flex;
-    min-height: 100%;
-    padding-bottom: (@grid-gutter-width / 2);
-    padding-top: (@grid-gutter-width / 2);
-    .scroll-shadows-horizontal-covers();
-    _::-webkit-full-page-media, _:future, :root & { // only target Safari
-      background: none;
-    }
+    height: @order-service-page-height + @grid-gutter-width;
+    max-height: calc(100vh ~"-" @order-service-wizard-min-external-height);
+    min-height: 200px;
+    overflow-y: auto;
   }
 }

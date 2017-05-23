@@ -26,17 +26,18 @@ body.overlay-open {
   box-shadow: 0 3px 9px rgba(0,0,0,.5);
   margin: 0 auto;
   max-width: 1200px;
-  padding-bottom: @catalogs-overlay-panel-bottom-padding;
   position: relative;
 
   &.catalogs-overlay-panel-single-column {
     max-width: 800px;
   }
 
-  .wizard-pf-footer {
-    background: @color-pf-white;
-    padding-bottom: 15px;
-    padding-right: @grid-gutter-width;
+  .wizard-pf-contents {
+    @media (min-width: @screen-sm-min) {
+      display: flex; // only required for IE
+      flex: 1 1 auto;
+      width: 100%;
+    }
   }
 
   .wizard-pf-main {
@@ -53,6 +54,20 @@ body.overlay-open {
     }
   }
 
+  .wizard-pf-main-form-contents {
+    @media (min-width: @screen-sm-min) {
+      min-height: 100%;
+      padding: (@grid-gutter-width / 2) @grid-gutter-width (@grid-gutter-width / 2) (@grid-gutter-width / 2);
+      .form-horizontal .control-label {
+        padding-right: 0;
+      }
+      .scroll-shadows-horizontal-covers();
+      _::-webkit-full-page-media, _:future, :root & { // only target Safari
+        background: none;
+      }
+    }
+  }
+
   .wizard-pf-main-inner-shadow-covers {
     padding: (@grid-gutter-width / 2);
 
@@ -64,8 +79,6 @@ body.overlay-open {
     @media(min-width: @screen-sm-min) {
       display: flex;
       flex: 1 1 auto;
-      max-height: calc(100vh ~"-" (@navbar-pf-height + (@wizard-pf-steps-indicator-margin-top-bottom * 2) + @wizard-pf-steps-indicator-height + @wizard-pf-footer-height + @grid-gutter-width));
-      min-height: 300px;
       overflow: hidden;
       padding-right: 0;
     }
@@ -89,6 +102,9 @@ body.overlay-open {
     height: @wizard-pf-steps-indicator-height;
     margin: @wizard-pf-steps-indicator-margin-top-bottom 0;
     padding: 0;
+    @media(max-width: @screen-sm-min) {
+      margin-top: calc(@wizard-pf-steps-indicator-margin-top-bottom + 10px);
+    }
   }
 }
 

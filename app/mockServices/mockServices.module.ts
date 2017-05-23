@@ -3,6 +3,7 @@ import {AuthService} from './mockAuth.service';
 import {AuthCfgConstant} from './mockAuthCfg.constant';
 import {LoggerService} from './mockLogger.service';
 import {APIService} from './mockAPI.service';
+import {BindingService} from './mockBinding.service';
 import {ConstantsService} from './mockConstants.service';
 import {DataService} from './mockData.service';
 import {ProjectsService} from './mockProjects.service';
@@ -25,6 +26,7 @@ export class MockServicesModule {
       .constant('AUTH_CFG', AuthCfgConstant)
       .service('AuthService', AuthService)
       .service('APIService', APIService)
+      .service('BindingService', BindingService)
       .service('ProjectsService', ProjectsService)
       .service('AlertMessageService', AlertMessageService)
       .service('Logger', LoggerService)

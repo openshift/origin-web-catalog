@@ -299,7 +299,7 @@
     margin-bottom: -20px;
     margin-top: -20px;
     overflow-y: auto;
-    padding-right: 40px;
+    padding-right: 0;
     background-attachment: scroll;
     background-image: radial-gradient(ellipse at top, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0) 65%), radial-gradient(ellipse at bottom, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0) 65%);
     background-position: 0 0, 0 100%;
@@ -367,6 +367,7 @@
   margin-right: -10px;
 }
 .order-service-config .footer-panel {
+  padding-top: 10px;
   text-align: center;
 }
 .order-service-config .footer-panel a {
@@ -375,6 +376,9 @@
 .order-service-config .footer-panel a:hover {
   color: #fff;
   text-decoration: none;
+}
+.order-service-config .sub-title {
+  margin: -5px 0 10px 25px;
 }
 .order-service-config .success-check {
   color: #3f9c35;
@@ -398,22 +402,27 @@
   margin-right: 6px;
   padding: 11px;
 }
+.order-service-config .review-message {
+  padding-left: 10px;
+}
+.order-service-config .review-status {
+  display: flex;
+  font-size: 16px;
+}
+.order-service-config .review-status .pficon {
+  margin-top: 3px;
+}
+.order-service-config .review-status .spinner.spinner-sm {
+  height: 16px;
+  margin: 3px 0 0;
+  width: 16px;
+}
 @media (min-width: 768px) {
-  .wizard-pf-contents {
-    display: flex;
-    min-height: 100%;
-    padding-bottom: 20px;
-    padding-top: 20px;
-    background-attachment: local;
-    background-image: linear-gradient(#ffffff 30%, rgba(255, 255, 255, 0)), linear-gradient(rgba(255, 255, 255, 0), #ffffff 70%);
-    background-position: 0 0, 0 100%;
-    background-repeat: no-repeat;
-    background-size: 100% 12px;
-  }
-  .wizard-pf-contents _::-webkit-full-page-media,
-  .wizard-pf-contents _:future,
-  :root .wizard-pf-contents {
-    background: none;
+  .order-service-wizard-step.wizard-pf-main {
+    height: 450px;
+    max-height: calc(100vh - 300px);
+    min-height: 200px;
+    overflow-y: auto;
   }
 }
 body.overlay-open,
@@ -437,16 +446,17 @@ body.overlay-open .landing-side-bar {
   box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
   margin: 0 auto;
   max-width: 1200px;
-  padding-bottom: 56px;
   position: relative;
 }
 .catalogs-overlay-panel.catalogs-overlay-panel-single-column {
   max-width: 800px;
 }
-.catalogs-overlay-panel .wizard-pf-footer {
-  background: #fff;
-  padding-bottom: 15px;
-  padding-right: 40px;
+@media (min-width: 768px) {
+  .catalogs-overlay-panel .wizard-pf-contents {
+    display: flex;
+    flex: 1 1 auto;
+    width: 100%;
+  }
 }
 .catalogs-overlay-panel .wizard-pf-main {
   margin-left: 0;
@@ -467,6 +477,25 @@ body.overlay-open .landing-side-bar {
     display: flex;
   }
 }
+@media (min-width: 768px) {
+  .catalogs-overlay-panel .wizard-pf-main-form-contents {
+    min-height: 100%;
+    padding: 20px 40px 20px 20px;
+    background-attachment: local;
+    background-image: linear-gradient(#ffffff 30%, rgba(255, 255, 255, 0)), linear-gradient(rgba(255, 255, 255, 0), #ffffff 70%);
+    background-position: 0 0, 0 100%;
+    background-repeat: no-repeat;
+    background-size: 100% 12px;
+  }
+  .catalogs-overlay-panel .wizard-pf-main-form-contents .form-horizontal .control-label {
+    padding-right: 0;
+  }
+  .catalogs-overlay-panel .wizard-pf-main-form-contents _::-webkit-full-page-media,
+  .catalogs-overlay-panel .wizard-pf-main-form-contents _:future,
+  :root .catalogs-overlay-panel .wizard-pf-main-form-contents {
+    background: none;
+  }
+}
 .catalogs-overlay-panel .wizard-pf-main-inner-shadow-covers {
   padding: 20px;
 }
@@ -484,8 +513,6 @@ body.overlay-open .landing-side-bar {
   .catalogs-overlay-panel .wizard-pf-main-inner-shadow-covers {
     display: flex;
     flex: 1 1 auto;
-    max-height: calc(100vh - 268px);
-    min-height: 300px;
     overflow: hidden;
     padding-right: 0;
   }
@@ -505,6 +532,11 @@ body.overlay-open .landing-side-bar {
   height: 52px;
   margin: 30px 0;
   padding: 0;
+}
+@media (max-width: 768px) {
+  .catalogs-overlay-panel .wizard-pf-steps-indicator {
+    margin-top: calc(40px);
+  }
 }
 .catalogs-overlay-panel-close {
   color: #72767b;

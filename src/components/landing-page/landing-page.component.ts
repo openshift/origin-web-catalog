@@ -2,6 +2,7 @@ import {LandingPageController} from './landing-page.controller';
 
 export const landingPage: angular.IComponentOptions = {
   bindings: {
+    baseProjectUrl: '@',
     onTemplateSelected: '&'
   },
   controller: LandingPageController,

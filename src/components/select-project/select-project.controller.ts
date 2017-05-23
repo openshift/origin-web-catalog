@@ -73,12 +73,15 @@ export class SelectProjectController implements angular.IController {
       this.ctrl.existingProjectNames = _.map(this.ctrl.projects, 'metadata.name');
 
       // get most recently created
-      if (!this.ctrl.selectedProject) {
+      if (!this.ctrl.selectedProject && _.size(this.ctrl.projects) > 0) {
         this.ctrl.selectedProject = this.$filter('mostRecent')(this.ctrl.projects);
       }
 
       if (this.ctrl.canCreate) {
         this.ctrl.projects.unshift(createProject);
+        if (_.size(this.ctrl.projects) === 1) {
+          this.ctrl.selectedProject = createProject;
+        }
       }
     });
   }

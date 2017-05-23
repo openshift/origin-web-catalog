@@ -2,6 +2,12 @@ import * as angular from 'angular';
 import {servicesData} from './mockData/services';
 import {imagesData} from './mockData/openshift-images';
 import {projectsData} from './mockData/projects';
+import {deploymentConfigData} from './mockData/deploymentConfig';
+import {replicationControllersData} from './mockData/replicationControllers';
+import {deploymentsData} from './mockData/deployments';
+import {replicaSetsData} from './mockData/replicaSets';
+import {statefulSetsData} from './mockData/statefulSets';
+
 import * as _ from 'lodash';
 
 interface IDataService {
@@ -207,6 +213,22 @@ export class DataService implements IDataService {
       if (context.namespace === 'openshift') {
         returnData = new DataServiceData(angular.copy(imagesData));
       }
+      break;
+    case 'deploymentconfigs':
+      returnData = new DataServiceData(deploymentConfigData);
+      break;
+    case 'replicationcontrollers':
+      returnData = new DataServiceData(replicationControllersData);
+      break;
+    case 'deployments':
+      returnData = new DataServiceData(deploymentsData);
+      break;
+    case 'replicasets':
+      returnData = new DataServiceData(replicaSetsData);
+      break;
+    case 'statefulsets':
+      returnData = new DataServiceData(statefulSetsData);
+      break;
     }
 
     return returnData;
