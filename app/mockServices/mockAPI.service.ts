@@ -1,4 +1,5 @@
 interface IAPIService {
+  apiInfo(rgv: any): any;
   kindToResource(kind: string, humanize: boolean): string;
 }
 
@@ -10,6 +11,10 @@ export class APIService implements IAPIService {
 
   constructor ($filter: any) {
     this.$filter = $filter;
+  }
+
+  public apiInfo(rgv: any) {
+    return {};
   }
 
   public kindToResource(kind: string, humanize: boolean) {
@@ -36,7 +41,6 @@ export class APIService implements IAPIService {
 
     return resource;
   }
-
 }
 
 

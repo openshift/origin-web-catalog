@@ -2,19 +2,21 @@ import * as angular from 'angular';
 import * as _ from 'lodash';
 
 export class CatalogService {
-  static $inject = ['$filter', '$q', 'Constants', 'DataService', 'Logger'];
+  static $inject = ['$filter', '$q', 'Constants', 'APIService', 'DataService', 'Logger'];
 
   public $filter: any;
   public categories: any;
   private $q: any;
   private constants: any;
+  private apiService: any;
   private dataService: any;
   private logger: any;
 
-  constructor($filter: any, $q: any, constants: any, DataService: any, Logger: any) {
+  constructor($filter: any, $q: any, constants: any, APIService: any, DataService: any, Logger: any) {
     this.$filter = $filter;
     this.$q = $q;
     this.constants = constants;
+    this.apiService = APIService;
     this.dataService = DataService;
     this.logger = Logger;
   }
@@ -22,21 +24,27 @@ export class CatalogService {
   public getCatalogItems(includeTemplates: boolean) {
     let deferred = this.$q.defer();
     let catalogItems: any = {};
-    let totalNumPromises: number = includeTemplates ? 3 : 2;
+    let totalNumPromises: number = 0;
     let numPromisesExecuted: number = 0;
     let errorMsg: any = [];
 
-    this.dataService.list({
+    // Only request service classes if the kind is available.
+    let serviceClassResourceGroup = {
       group: 'servicecatalog.k8s.io',
       resource: 'serviceclasses'
-    }, {}).then( (resources: any) => {
-      catalogItems.serviceClasses = resources.by("metadata.name");
-    }, () => {
-      errorMsg.push('service classes');
-    }).finally(() => {
-      this.returnCatalogItems(deferred, catalogItems, ++numPromisesExecuted, totalNumPromises, errorMsg);
-    });
+    };
+    if (this.apiService.apiInfo(serviceClassResourceGroup)) {
+      ++totalNumPromises;
+      this.dataService.list(serviceClassResourceGroup, {}).then( (resources: any) => {
+        catalogItems.serviceClasses = resources.by("metadata.name");
+      }, () => {
+        errorMsg.push('service classes');
+      }).finally(() => {
+        this.returnCatalogItems(deferred, catalogItems, ++numPromisesExecuted, totalNumPromises, errorMsg);
+      });
+    }
 
+    ++totalNumPromises;
     this.dataService.list("imagestreams", {namespace: "openshift"}).then( (resources: any) => {
       catalogItems.imageStreams = resources.by("metadata.name");
     }, () => {
@@ -46,6 +54,7 @@ export class CatalogService {
     });
 
     if (includeTemplates) {
+      ++totalNumPromises;
       this.dataService.list("templates", {namespace: "openshift"}).then((resources: any) => {
         catalogItems.templates = resources.by("metadata.name");
       }, () => {
