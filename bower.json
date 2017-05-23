@@ -1,6 +1,6 @@
 {
   "name": "origin-web-catalog",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "license": "Apache-2.0",
   "main": [
     "dist/vendor-bundle.js",
@@ -39,7 +39,7 @@
     "patternfly": "3.24.0",
     "jquery": "2.1.4",
     "lodash": "3.10.1",
-    "origin-web-common": "~0.0.25"
+    "origin-web-common": "~0.0.26"
   },
   "devDependencies": {
     "ace-builds": "1.2.2",
