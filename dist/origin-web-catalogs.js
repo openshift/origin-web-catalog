@@ -558,21 +558,22 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
     "use strict";
     t.__esModule = !0;
     var i = n(1), r = n(0), a = function() {
-        function e(e, t, n, i, r) {
-            this.$filter = e, this.$q = t, this.constants = n, this.dataService = i, this.logger = r;
+        function e(e, t, n, i, r, a) {
+            this.$filter = e, this.$q = t, this.constants = n, this.apiService = i, this.dataService = r, 
+            this.logger = a;
         }
         return e.prototype.getCatalogItems = function(e) {
-            var t = this, n = this.$q.defer(), i = {}, r = e ? 3 : 2, a = 0, s = [];
-            return this.dataService.list({
+            var t = this, n = this.$q.defer(), i = {}, r = 0, a = 0, s = [], o = {
                 group: "servicecatalog.k8s.io",
                 resource: "serviceclasses"
-            }, {}).then(function(e) {
+            };
+            return this.apiService.apiInfo(o) && (++r, this.dataService.list(o, {}).then(function(e) {
                 i.serviceClasses = e.by("metadata.name");
             }, function() {
                 s.push("service classes");
             }).finally(function() {
                 t.returnCatalogItems(n, i, ++a, r, s);
-            }), this.dataService.list("imagestreams", {
+            })), ++r, this.dataService.list("imagestreams", {
                 namespace: "openshift"
             }).then(function(e) {
                 i.imageStreams = e.by("metadata.name");
@@ -580,7 +581,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 s.push("builder images");
             }).finally(function() {
                 t.returnCatalogItems(n, i, ++a, r, s);
-            }), e && this.dataService.list("templates", {
+            }), e && (++r, this.dataService.list("templates", {
                 namespace: "openshift"
             }).then(function(e) {
                 i.templates = e.by("metadata.name");
@@ -588,7 +589,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 s.push("templates");
             }).finally(function() {
                 t.returnCatalogItems(n, i, ++a, r, s);
-            }), n.promise;
+            })), n.promise;
         }, e.prototype.convertToServiceItems = function(e, t, n) {
             var i = this, a = r.map(e, function(e) {
                 return i.getServiceItem(e);
@@ -680,7 +681,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             t + ".";
         }, e;
     }();
-    a.$inject = [ "$filter", "$q", "Constants", "DataService", "Logger" ], t.CatalogService = a;
+    a.$inject = [ "$filter", "$q", "Constants", "APIService", "DataService", "Logger" ], 
+    t.CatalogService = a;
     var s = function() {
         function e(e, t) {
             this.resource = e, this.catalogSrv = t, this.imageUrl = this.getImage(), this.iconClass = this.getIcon(), 
