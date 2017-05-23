@@ -46,7 +46,7 @@ body.overlay-open {
 
     @media(max-width: @screen-xs-max) {
       max-height: calc(100vh ~"-" (@navbar-pf-height + (@wizard-pf-steps-indicator-margin-top-bottom * 2) + @wizard-pf-steps-indicator-height + @wizard-pf-footer-height + (@grid-gutter-width / 2)));
-      .scroll-shadows-horizontal();
+      .scroll-shadows-vertical();
     }
 
     @media(min-width: @screen-sm-min) {
@@ -61,7 +61,7 @@ body.overlay-open {
       .form-horizontal .control-label {
         padding-right: 0;
       }
-      .scroll-shadows-horizontal-covers();
+      .scroll-shadows-vertical-covers();
       _::-webkit-full-page-media, _:future, :root & { // only target Safari
         background: none;
       }
@@ -73,7 +73,7 @@ body.overlay-open {
 
     @media(max-width: @screen-xs-max) {
       overflow-y: auto;
-      .scroll-shadows-horizontal-covers();
+      .scroll-shadows-vertical-covers();
     }
 
     @media(min-width: @screen-sm-min) {
