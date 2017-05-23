@@ -1,6 +1,6 @@
 {
   "name": "origin-web-catalog",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "description": "The Openshift Web Catalogs Library",
   "scripts": {
     "clean": "rimraf dist && rimraf docs && rimraf coverage",
@@ -37,7 +37,7 @@
     "bootstrap": "^3.3.6",
     "font-awesome": "~4.7.0",
     "jquery": "~2.1.4",
-    "origin-web-common": "~0.0.25",
+    "origin-web-common": "~0.0.26",
     "paper-css": "^0.1.2",
     "patternfly": "3.24.0",
     "urijs": "1.18.0"
