@@ -27,6 +27,33 @@
   }
 }
 
+.showcase-app {
+  .catalog-search, .landing-side-bar {
+    @media (min-width: @screen-sm-min) {
+      top: @navbar-height;
+    }
+  }
+  .landing {
+    @media (min-width: @screen-sm-min) {
+      top: @landing-offset-top;
+    }
+  }
+  .navbar-brand {
+    cursor: default;
+    &:hover, &:focus {
+      color: @navbar-pf-active-color;
+    }
+  }
+  .navbar-header {
+    height: @navbar-height - 3px;
+    padding-top: 17px
+  }
+  .navbar-utility {
+    padding-top: 17px;
+  }
+
+}
+
 .main-container {
   padding: 0 (@grid-gutter-width / 2);
 }

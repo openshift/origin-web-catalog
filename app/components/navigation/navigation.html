@@ -6,9 +6,9 @@
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
     </button>
-    <a class="navbar-brand">
+    <span class="navbar-brand">
       {{$ctrl.applicationName}}
-    </a>
+    </span>
   </div>
   <div class="collapse navbar-collapse" ng-class="{in: !$ctrl.navCollapsed}">
     <ul class="nav navbar-nav navbar-utility">
@@ -41,13 +41,6 @@
             <a href="" ng-click="$ctrl.doLogout()">Logout</a>
           </li>
         </ul>
-      </li>
-    </ul>
-    <ul class="nav navbar-nav navbar-primary">
-      <li ng-repeat="navItem in $ctrl.navigationItems"  ng-class="{active: navItem.isActive}">
-        <a href=""  ng-click="$ctrl.onNavItemClick(navItem)">
-          {{navItem.title}}
-        </a>
       </li>
     </ul>
   </div>
