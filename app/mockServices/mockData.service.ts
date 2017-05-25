@@ -7,6 +7,7 @@ import {replicationControllersData} from './mockData/replicationControllers';
 import {deploymentsData} from './mockData/deployments';
 import {replicaSetsData} from './mockData/replicaSets';
 import {statefulSetsData} from './mockData/statefulSets';
+import {instanceData} from './mockData/instances';
 
 import * as _ from 'lodash';
 
@@ -228,6 +229,9 @@ export class DataService implements IDataService {
       break;
     case 'statefulsets':
       returnData = new DataServiceData(statefulSetsData);
+      break;
+    case 'instances':
+      returnData = new DataServiceData(instanceData);
       break;
     }
 
