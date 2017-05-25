@@ -75,6 +75,9 @@
 
 .order-service-config {
   padding: 0 (@grid-gutter-width / 2);
+  @media (max-width: @screen-xs-max) {
+    position: relative; // so label.required:before are positioned correctly
+  }
   @media (min-width: @screen-sm-min) {
     margin-bottom: -(@grid-gutter-width / 2);
     margin-top: -(@grid-gutter-width / 2);
@@ -84,9 +87,6 @@
     width: 50%;
     _::-webkit-full-page-media, _:future, :root & { // only target Safari
       .scroll-shadows-vertical-with-covers(65%, 0.25);
-    }
-    .form-horizontal .control-label {
-      padding-right: 0;
     }
   }
   h3 {
