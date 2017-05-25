@@ -2,7 +2,7 @@
   background: @landing-bg;
   background-size: @landing-bg-size;
   border-bottom: solid 1px @search-area-border;
-  padding: (@grid-gutter-width / 4);
+  padding: (@grid-gutter-width / 4) (@grid-gutter-width / 2);
   width: 100%;
   z-index: @zindex-navbar-fixed - 1;
   @media (min-width: @screen-sm-min) {
@@ -60,8 +60,9 @@
 }
 
 .landing {
+  background: @landing-bg;
+  background-size: @landing-bg-size;
   @media(min-width: @screen-sm-min) {
-    background-color: @color-pf-white;
     bottom: 0;
     overflow-x: hidden;
     overflow-y: auto;
@@ -77,9 +78,17 @@
   }
 }
 
+landingbody,
+.landing-body,
+.landing-body-area,
 .landing-main-area {
-  background: @landing-bg;
-  background-size: @landing-bg-size;
+  display: flex;
+  flex: 1 1 auto;
+}
+
+.landing-main-area {
+  flex-direction: column;
+  min-height: 100%;
 }
 
 .landing-search-form {

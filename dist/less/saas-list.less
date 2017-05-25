@@ -10,41 +10,32 @@
 .saas-offerings-container {
 
   .saas-list {
-    justify-content: space-around;
+    display: flex;
+    justify-content: flex-start;
+    margin: 0;
+    overflow-x: hidden;
 
-    @media (min-width: @screen-sm-min) {
-      display: flex;
-      margin: 0;
-      &.expanded {
-        flex-wrap: wrap;
-      }
+    @media (min-width: @screen-lg-min) {
+      justify-content: space-around;
     }
 
-    &.items-overflow {
-      justify-content: flex-start;
+    &.expanded {
+      flex-wrap: wrap;
     }
 
     .card {
-      border-bottom: solid 1px @saas-border-bottom-color;
       color: @saas-text;
       display: flex;
-
-      @media (min-width: @screen-sm-min) {
-        border-bottom: none;
-        flex: 0 0 auto;
-        width: 50%;
-      }
+      flex: 0 0 auto;
+      width: 50%;
 
       @media (min-width: @screen-lg-min) {
-        width: 25%;
+        flex: 1 1 auto;
+        width: auto;
       }
 
       &:hover {
         background-color: @saas-hover;
-      }
-
-      &:last-child {
-        border-bottom: none;
       }
     }
 
@@ -53,12 +44,10 @@
       color: @saas-text;
       display: flex;
       flex: 1 1 0%; // IE 11
+      flex-direction: column;
       padding: (@grid-gutter-width / 2);
-
-      @media (min-width: @screen-sm-min) {
-        flex-direction: column;
-        text-align: center;
-      }
+      text-align: center;
+      text-shadow: 1px 1px 3px rgba(0,0,0,.5);
 
       &:focus,
       &:hover {
@@ -67,29 +56,19 @@
 
       .card-description {
         font-size: @font-size-base;
+        line-height: 1.5;
         max-width: 100%; // IE 11
       }
 
       .card-icon {
-        @media(max-width: @screen-xs-max) {
-          margin-right: 10px;
-          text-align: center;
-          width: 40px;
-        }
         .icon {
-          font-size: @card-icon-xs;
-          @media (min-width: @screen-sm-min) {
-            font-size: @card-icon-sm;
-          }
+          font-size: @card-icon-sm;
           @media (min-width: @screen-lg-min) {
             font-size: @card-icon-lg;
           }
         }
         img {
-          height: @card-icon-xs;
-          @media (min-width: @screen-sm-min) {
-            height: @card-icon-sm;
-          }
+          height: @card-icon-sm;
           @media (min-width: @screen-lg-min) {
             height: @card-icon-lg;
           }
@@ -103,13 +82,13 @@
           font-size: @font-size-base + 4;
         }
 
-        @media (min-width: @screen-sm-min) {
-          font-weight: 700;
-          margin-bottom: 10px;
-          margin-top: 10px;
-          max-width: 100%; // IE 11
-          padding-left: 0;
-        }
+        font-weight: 700;
+        line-height: 1.4;
+        margin-bottom: 10px;
+        margin-top: 15px;
+        max-width: 100%; // IE 11
+        padding-left: 0;
+
         @media (min-width: @screen-lg-min) {
           font-size: @font-size-base + 6;
         }

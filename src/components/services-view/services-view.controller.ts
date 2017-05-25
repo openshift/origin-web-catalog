@@ -3,26 +3,29 @@ import * as _ from 'lodash';
 import * as $ from 'jquery';
 
 export class ServicesViewController implements angular.IController {
-  static $inject = ['Constants', 'Catalog', 'Logger', '$filter', '$scope', '$timeout'];
+  static $inject = ['Constants', 'Catalog', 'Logger', 'HTMLService', '$filter', '$scope', '$timeout'];
 
   public ctrl: any = this;
   private constants: any;
   private catalog: any;
   private logger: any;
+  private htmlService: any;
   private $filter: any;
   private $scope: any;
   private $timeout: any;
   private debounceResize: any;
 
-  constructor(constants: any, catalog: any, logger: any, $filter: any, $scope: any, $timeout: any) {
+  constructor(constants: any, catalog: any, logger: any, htmlService: any, $filter: any, $scope: any, $timeout: any) {
     this.constants = constants;
     this.catalog = catalog;
     this.logger = logger;
+    this.htmlService = htmlService;
     this.$filter = $filter;
     this.$scope = $scope;
     this.$timeout = $timeout;
     this.ctrl.loaded = false;
     this.ctrl.isEmpty = false;
+    this.ctrl.mobileView = 'categories';
   }
 
   public $onInit() {
@@ -44,32 +47,21 @@ export class ServicesViewController implements angular.IController {
     $(window).off('resize.services');
   }
 
-  public filterByCategory = (category: string, subCategory: string, updateSubCategories: boolean) => {
-    let categoryObj: any;
-    let subCategoryObj: any;
-
-    categoryObj =  _.find(this.ctrl.categories, {id: category});
-    if (categoryObj) {
-      subCategoryObj = _.find(categoryObj.subCategories, {id: subCategory});
-      if (subCategoryObj) {
-        this.ctrl.filteredItems = subCategoryObj.items;
-      } else {
-        this.logger.error("Could not find subcategory '" + subCategory + "' for category '" + category + "'");
-      }
-    } else {
-      this.logger.error("Could not find category '" + category + "'");
-    }
-
-    if (updateSubCategories) {
-      this.ctrl.subCategories = this.getSubCategories(category);
-    }
-
-    this.ctrl.currentFilter = category;
-    this.ctrl.currentSubFilter = (this.ctrl.subCategories.length === 1) ? this.ctrl.subCategories[0].id : (subCategory || 'all');
-    this.updateActiveCardStyles();
+  public selectCategory(category: string) {
+    this.ctrl.mobileView = 'subcategories';
+    this.filterByCategory(category, null, true);
   };
 
   public selectSubCategory(subCategory: string) {
+    this.ctrl.mobileView = 'items';
+
+    // Toggle the subcategory closed.
+    if (this.ctrl.currentSubFilter === subCategory && this.htmlService.getBreakpoint() !== 'xxs') {
+      subCategory = null;
+      // Edge case where the window size changes later after toggling a subcategory closed.
+      this.ctrl.mobileView = 'subcategories';
+    }
+
     this.filterByCategory(this.ctrl.currentFilter, subCategory, false);
   }
 
@@ -87,17 +79,53 @@ export class ServicesViewController implements angular.IController {
       subCats = _.drop(subCats, 1);
     }
     return subCats;
-  };
+  }
 
   public handleClick = (item: any, e: any) => {
     this.$scope.$emit('open-overlay-panel', item);
   };
 
-  private resizeExpansion() {
+  private filterByCategory(category: string, subCategory: string, updateSubCategories: boolean) {
+    let categoryObj: any;
+    let subCategoryObj: any;
+
+    if (category === 'all' || category === 'other') {
+      subCategory = 'all';
+    } else {
+      if (updateSubCategories) {
+        this.ctrl.subCategories = this.getSubCategories(category);
+      }
+      subCategory = (this.ctrl.subCategories.length === 1) ? this.ctrl.subCategories[0].id : (subCategory || null);
+    }
+
+    categoryObj =  _.find(this.ctrl.categories, {id: category});
+    if (categoryObj) {
+      if (subCategory) {
+        subCategoryObj = _.find(categoryObj.subCategories, {id: subCategory});
+        if (subCategoryObj) {
+          this.ctrl.filteredItems = subCategoryObj.items;
+        } else {
+          this.logger.error("Could not find subcategory '" + subCategory + "' for category '" + category + "'");
+        }
+      }
+    } else {
+      this.logger.error("Could not find category '" + category + "'");
+    }
+
+    this.ctrl.currentFilter = category;
+    this.ctrl.currentSubFilter = subCategory;
+    this.updateActiveCardStyles();
+  }
+
+  private resizeExpansion = () => {
+    let breakpoint = this.htmlService.getBreakpoint();
     $('.services-sub-category').removeAttr('style');
-    let activeCat = $('.services-sub-category.active');
-    let contentHeight = activeCat.find('.services-items').innerHeight();
-    activeCat.css('margin-bottom', contentHeight + 'px');
+    if (breakpoint !== 'xxs') {
+      // make room below the clicked subcategory for the items
+      let activeCat = $('.services-sub-category.active');
+      let contentHeight = activeCat.find('.services-items').outerHeight(true);
+      activeCat.css('margin-bottom', contentHeight + 'px');
+    }
   }
 
   private updateActiveCardStyles() {

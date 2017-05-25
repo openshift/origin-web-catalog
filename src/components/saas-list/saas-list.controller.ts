@@ -2,18 +2,20 @@ import * as angular from 'angular';
 import * as _ from 'lodash';
 
 export class SaasListController implements angular.IController {
-  static $inject = ['$scope', '$window', '$element'];
+  static $inject = ['$scope', '$window', '$element', 'BREAKPOINTS'];
 
   public ctrl: any = this;
   private $scope: any;
   private $window: any;
   private $element: any;
+  private BREAKPOINTS: any;
   private debounceResize: any;
 
-  constructor($scope: any, $window: any, $element: any) {
+  constructor($scope: any, $window: any, $element: any, BREAKPOINTS: any) {
     this.$scope = $scope;
     this.$window = $window;
     this.$element = $element;
+    this.BREAKPOINTS = BREAKPOINTS;
     this.ctrl.sassListExpanded = false;
     this.ctrl.itemsOverflow = false;
   }
@@ -47,9 +49,7 @@ export class SaasListController implements angular.IController {
   private updateListExpandVisibility() {
     var windowWidth: number = this.$window.innerWidth;
     var offeringCount: number = _.size(this.ctrl.saasOfferings);
-
-    this.ctrl.itemsOverflow = (windowWidth >= this.$window.patternfly.pfBreakpoints.tablet) &&
-      ((offeringCount > 4) || (windowWidth < this.$window.patternfly.pfBreakpoints.desktop && offeringCount > 2));
+    this.ctrl.itemsOverflow = (offeringCount > 2 && windowWidth < this.BREAKPOINTS.screenLgMin);
   }
 
   private onWindowResize = () => {
