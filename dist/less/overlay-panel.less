@@ -58,9 +58,7 @@ body.overlay-open {
     @media (min-width: @screen-sm-min) {
       min-height: 100%;
       padding: (@grid-gutter-width / 2) @grid-gutter-width (@grid-gutter-width / 2) (@grid-gutter-width / 2);
-      .form-horizontal .control-label {
-        padding-right: 0;
-      }
+      position: relative; // so label.required:before are positioned correctly
       .scroll-shadows-vertical-covers();
       _::-webkit-full-page-media, _:future, :root & { // only target Safari
         background: none;

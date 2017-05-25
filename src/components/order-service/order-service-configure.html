@@ -1,5 +1,5 @@
 <div class="config-top">
-  <form name="$ctrl.forms.orderConfigureForm" class="form-horizontal config-form">
+  <form name="$ctrl.forms.orderConfigureForm" class="config-form">
     <select-project selected-project="$ctrl.selectedProject" name-taken="$ctrl.nameTaken"></select-project>
     <!-- TODO: add parameters -->
     <!-- <div class="form-group"> -->
@@ -9,7 +9,7 @@
     <!--   </div> -->
     <!-- </div> -->
   </form>
-  <div ng-if="$ctrl.error" class="col-sm-12 has-error">
+  <div ng-if="$ctrl.error" class="has-error">
     <span class="help-block">{{$ctrl.error}}</span>
   </div>
 </div>

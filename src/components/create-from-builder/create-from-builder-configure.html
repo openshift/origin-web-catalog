@@ -1,25 +1,23 @@
 <div class="config-top">
-  <form name="$ctrl.builderForm" class="form-horizontal config-form">
+  <form name="$ctrl.builderForm" class="config-form">
     <div class="form-group">
-      <label class="col-sm-4 control-label" for="version">Version</label>
-      <div class="col-sm-8">
-        <ui-select ng-model="$ctrl.istag" required search-enabled="false">
-          <ui-select-match>
-            {{$select.selected.name}}
-          </ui-select-match>
-          <ui-select-choices repeat="tag in $ctrl.versions track by tag.name">
-            {{tag.name}}
-            <small ng-repeat="otherTag in $ctrl.referencedBy[tag.name]">
-              <span ng-if="$first"> &mdash; </span>{{otherTag}}<span ng-if="!$last">,</span>
-            </small>
-          </ui-select-choices>
-        </ui-select>
-      </div>
+      <label class="control-label" for="version">Version</label>
+      <ui-select ng-model="$ctrl.istag" required search-enabled="false">
+        <ui-select-match>
+          {{$select.selected.name}}
+        </ui-select-match>
+        <ui-select-choices repeat="tag in $ctrl.versions track by tag.name">
+          {{tag.name}}
+          <small ng-repeat="otherTag in $ctrl.referencedBy[tag.name]">
+            <span ng-if="$first"> &mdash; </span>{{otherTag}}<span ng-if="!$last">,</span>
+          </small>
+        </ui-select-choices>
+      </ui-select>
     </div>
     <select-project selected-project="$ctrl.selectedProject" name-taken="$ctrl.projectNameTaken"></select-project>
     <div class="form-group">
-      <label class="col-sm-4 control-label required" for="app-name">Application Name</label>
-      <div class="col-sm-8" ng-class="{ 'has-error': $ctrl.builderForm.name.$touched && $ctrl.builderForm.name.$invalid }">
+      <label class="control-label required" for="app-name">Application Name</label>
+      <div ng-class="{ 'has-error': $ctrl.builderForm.name.$touched && $ctrl.builderForm.name.$invalid }">
         <input
           class="form-control"
           type="text"
@@ -60,8 +58,8 @@
     </div>
 
     <div class="form-group">
-      <label class="col-sm-4 control-label required" for="repository">Git Repository</label>
-      <div class="col-sm-8" ng-class="{ 'has-error': $ctrl.builderForm.repository.$touched && $ctrl.builderForm.repository.$error.$required }">
+      <label class="control-label required" for="repository">Git Repository</label>
+      <div ng-class="{ 'has-error': $ctrl.builderForm.repository.$touched && $ctrl.builderForm.repository.$error.$required }">
         <input class="form-control"
           type="text"
           id="repository"
@@ -96,10 +94,8 @@
     <div ng-hide="$ctrl.selectedProject && !$ctrl.selectedProject.metadata.uid"
          ng-class="{ invisible: !$ctrl.selectedProject || !$ctrl.istag }"
          class="form-group">
-      <div class="col-sm-8 col-sm-offset-4">
-        If you have a private Git repository or need to change application defaults, view
-        <a href="" ng-click="$ctrl.navigateToAdvancedForm()">advanced options</a>.
-      </div>
+      If you have a private Git repository or need to change application defaults, view
+      <a href="" ng-click="$ctrl.navigateToAdvancedForm()">advanced options</a>.
     </div>
   </form>
 </div>

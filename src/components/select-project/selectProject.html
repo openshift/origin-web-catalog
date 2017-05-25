@@ -1,28 +1,26 @@
 <ng-form>
-    <div class="form-group">
-        <label class="col-sm-4 control-label" for="project">Add to Project</label>
-      <div class="col-sm-8">
-        <ui-select ng-model="$ctrl.selectedProject">
-          <ui-select-match>
-            {{$select.selected | displayName}}
-          </ui-select-match>
-          <ui-select-choices repeat="project in $ctrl.projects | searchProjects : $select.search track by (project | uid)">
-            <span ng-bind-html="project | displayName | highlightKeywords : $select.search"></span>
-                <span ng-if="project | displayName : true" class="small text-muted">
-                  <span ng-if="project.metadata.name">&ndash;</span>
-                  <span ng-bind-html="project.metadata.name | highlightKeywords : $select.search"></span>
-                </span>
-          </ui-select-choices>
-        </ui-select>
-      </div>
-    </div>
+  <div class="form-group">
+    <label class="control-label" for="project">Add to Project</label>
+    <ui-select ng-model="$ctrl.selectedProject">
+      <ui-select-match>
+        {{$select.selected | displayName}}
+      </ui-select-match>
+      <ui-select-choices repeat="project in $ctrl.projects | searchProjects : $select.search track by (project | uid)">
+        <span ng-bind-html="project | displayName | highlightKeywords : $select.search"></span>
+        <span ng-if="project | displayName : true" class="small text-muted">
+          <span ng-if="project.metadata.name">&ndash;</span>
+          <span ng-bind-html="project.metadata.name | highlightKeywords : $select.search"></span>
+        </span>
+      </ui-select-choices>
+    </ui-select>
+  </div>
 </ng-form>
 
 <ng-form name="$ctrl.forms.createProjectForm"
     ng-if="$ctrl.isNewProject()">
   <div class="form-group">
-    <label for="name" class="col-sm-4 control-label required">Project Name</label>
-    <div class="col-sm-8" ng-class="{'has-error': ($ctrl.forms.createProjectForm.name.$error.pattern && $ctrl.forms.createProjectForm.name.$touched) || $ctrl.nameTaken}">
+    <label for="name" class="control-label required">Project Name</label>
+    <div ng-class="{'has-error': ($ctrl.forms.createProjectForm.name.$error.pattern && $ctrl.forms.createProjectForm.name.$touched) || $ctrl.nameTaken}">
       <input class="form-control"
           name="name"
           id="name"
@@ -62,25 +60,21 @@
   </div>
 
   <div class="form-group">
-    <label for="displayName" class="col-sm-4 control-label">Project Display Name</label>
-    <div class="col-sm-8">
-      <input class="form-control"
-        name="displayName"
-        id="displayName"
-        placeholder="My Project"
-        type="text"
-        ng-model="$ctrl.selectedProject.metadata.annotations['new-display-name']">
-    </div>
+    <label for="displayName" class="control-label">Project Display Name</label>
+    <input class="form-control"
+      name="displayName"
+      id="displayName"
+      placeholder="My Project"
+      type="text"
+      ng-model="$ctrl.selectedProject.metadata.annotations['new-display-name']">
   </div>
 
   <div class="form-group">
-    <label for="description" class="col-sm-4 control-label">Project Description</label>
-    <div class="col-sm-8">
-      <textarea class="form-control"
-        name="description"
-        id="description"
-        placeholder="A short description."
-        ng-model="$ctrl.selectedProject.metadata.annotations['openshift.io/description']"></textarea>
-    </div>
+    <label for="description" class="control-label">Project Description</label>
+    <textarea class="form-control"
+      name="description"
+      id="description"
+      placeholder="A short description."
+      ng-model="$ctrl.selectedProject.metadata.annotations['openshift.io/description']"></textarea>
   </div>
 </ng-form>

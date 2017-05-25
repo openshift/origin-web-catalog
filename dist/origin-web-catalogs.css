@@ -294,6 +294,11 @@
 .order-service-config {
   padding: 0 20px;
 }
+@media (max-width: 767px) {
+  .order-service-config {
+    position: relative;
+  }
+}
 @media (min-width: 768px) {
   .order-service-config {
     margin-bottom: -20px;
@@ -315,9 +320,6 @@
     background-position: 0 0, 0 100%;
     background-repeat: no-repeat;
     background-size: 100% 12px, 100% 12px, 100% 6px, 100% 6px;
-  }
-  .order-service-config .form-horizontal .control-label {
-    padding-right: 0;
   }
 }
 .order-service-config h3 {
@@ -481,14 +483,12 @@ body.overlay-open .landing-side-bar {
   .catalogs-overlay-panel .wizard-pf-main-form-contents {
     min-height: 100%;
     padding: 20px 40px 20px 20px;
+    position: relative;
     background-attachment: local;
     background-image: linear-gradient(#ffffff 30%, rgba(255, 255, 255, 0)), linear-gradient(rgba(255, 255, 255, 0), #ffffff 70%);
     background-position: 0 0, 0 100%;
     background-repeat: no-repeat;
     background-size: 100% 12px;
-  }
-  .catalogs-overlay-panel .wizard-pf-main-form-contents .form-horizontal .control-label {
-    padding-right: 0;
   }
   .catalogs-overlay-panel .wizard-pf-main-form-contents _::-webkit-full-page-media,
   .catalogs-overlay-panel .wizard-pf-main-form-contents _:future,
