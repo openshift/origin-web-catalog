@@ -4,21 +4,6 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
     e.exports = angular;
 }, function(e, t) {
     e.exports = $;
-}, function(e, t, n) {
-    "use strict";
-    function i(e) {
-        var t = e("annotation");
-        return function(e) {
-            return t(e, "deployment.kubernetes.io/revision");
-        };
-    }
-    function r(e) {
-        var t = e("annotation");
-        return function(e) {
-            return t(e, "deploymentConfig");
-        };
-    }
-    t.__esModule = !0, t.applicationHasDeploymentFilter = i, t.applicationHasDeploymentConfigFilter = r;
 }, function(e, t) {}, function(e, t) {
     e.exports = '<a href="" class="catalog-search-match">\n  <span class="catalog-search-match-icon">\n    <span ng-if="match.model.imageUrl"><img ng-src="{{match.model.imageUrl}}"></span>\n    <span ng-if="!match.model.imageUrl && match.model.iconClass" ng-class="match.model.iconClass" class="icon"></span>\n  </span>\n  <div class="catalog-search-match-info">\n    <div class="catalog-search-match-label">\n      {{match.label}}\n    </div>\n    <div class="catalog-search-match-description">\n      <span ng-repeat="tag in (match.model.tags || match.model.resource.osbTags)" class="tag small text-muted">\n        {{tag}}\n      </span>\n    </div>\n  </div>\n</a>\n';
 }, function(e, t) {
@@ -38,39 +23,39 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
 }, function(e, t, n) {
     "use strict";
     t.__esModule = !0;
-    var i = n(36);
+    var r = n(35);
     t.catalogSearch = {
         bindings: {
             baseProjectUrl: "@",
             catalogItems: "<"
         },
-        controller: i.CatalogSearchController,
-        template: n(27)
+        controller: r.CatalogSearchController,
+        template: n(26)
     };
 }, function(e, t, n) {
     "use strict";
     t.__esModule = !0;
-    var i = n(37);
+    var r = n(36);
     t.createFromBuilder = {
         bindings: {
             baseProjectUrl: "@",
             imageStream: "<",
             handleClose: "<"
         },
-        controller: i.CreateFromBuilderController,
-        template: n(28)
+        controller: r.CreateFromBuilderController,
+        template: n(27)
     };
 }, function(e, t, n) {
     "use strict";
     t.__esModule = !0;
-    var i = n(38);
+    var r = n(37);
     t.landingPage = {
         bindings: {
             baseProjectUrl: "@",
             onTemplateSelected: "&"
         },
-        controller: i.LandingPageController,
-        template: n(29),
+        controller: r.LandingPageController,
+        template: n(28),
         transclude: {
             landingsearch: "landingsearch",
             landingheader: "landingheader",
@@ -81,20 +66,20 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
 }, function(e, t, n) {
     "use strict";
     t.__esModule = !0;
-    var i = n(39);
+    var r = n(38);
     t.orderService = {
         bindings: {
             baseProjectUrl: "@",
             serviceClass: "<",
             handleClose: "<"
         },
-        controller: i.OrderServiceController,
-        template: n(30)
+        controller: r.OrderServiceController,
+        template: n(29)
     };
 }, function(e, t, n) {
     "use strict";
     t.__esModule = !0;
-    var i = n(40);
+    var r = n(39);
     t.overlayPanel = {
         bindings: {
             showClose: "<",
@@ -102,14 +87,14 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             handleClose: "<",
             singleColumn: "<"
         },
-        controller: i.OverlayPanelController,
-        template: n(31),
+        controller: r.OverlayPanelController,
+        template: n(30),
         transclude: !0
     };
 }, function(e, t, n) {
     "use strict";
     t.__esModule = !0;
-    var i = n(41);
+    var r = n(40);
     t.projectsSummary = {
         bindings: {
             baseProjectUrl: "@",
@@ -118,59 +103,59 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             viewEditMembership: "&",
             startTour: "&"
         },
-        controller: i.ProjectsSummaryController,
-        template: n(32)
+        controller: r.ProjectsSummaryController,
+        template: n(31)
     };
 }, function(e, t, n) {
     "use strict";
     t.__esModule = !0;
-    var i = n(42);
+    var r = n(41);
     t.saasList = {
         bindings: {
             saasTitle: "<?",
             saasOfferings: "<"
         },
-        controller: i.SaasListController,
-        template: n(33)
+        controller: r.SaasListController,
+        template: n(32)
     };
 }, function(e, t, n) {
     "use strict";
     t.__esModule = !0;
-    var i = n(43);
+    var r = n(42);
     t.selectProject = {
         bindings: {
             selectedProject: "=",
             nameTaken: "<"
         },
-        controller: i.SelectProjectController,
-        template: n(34)
+        controller: r.SelectProjectController,
+        template: n(33)
     };
 }, function(e, t, n) {
     "use strict";
     t.__esModule = !0;
-    var i = n(44);
+    var r = n(43);
     t.servicesView = {
         bindings: {
             baseProjectUrl: "@",
             catalogItems: "<"
         },
-        controller: i.ServicesViewController,
-        template: n(35)
+        controller: r.ServicesViewController,
+        template: n(34)
     };
 }, function(e, t, n) {
     "use strict";
     (function(e) {
         t.__esModule = !0;
-        var i = n(0);
-        i.set(window, "OPENSHIFT_CONSTANTS.HELP_BASE_URL", "https://docs.openshift.org/latest/");
-        var r = {
+        var r = n(0);
+        r.set(window, "OPENSHIFT_CONSTANTS.HELP_BASE_URL", "https://docs.openshift.org/latest/");
+        var i = {
             new_app: "dev_guide/application_lifecycle/new_app.html",
             application_health: "dev_guide/application_health.html",
             authorization: "architecture/additional_concepts/authorization.html",
             deployments: "dev_guide/deployments/how_deployments_work.html",
             default: "welcome/index.html"
         };
-        i.set(window, "OPENSHIFT_CONSTANTS.HELP", r);
+        r.set(window, "OPENSHIFT_CONSTANTS.HELP", i);
         var a = [ {
             id: 1,
             title: "Microservices Application",
@@ -292,7 +277,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 icon: "fa fa-clone"
             } ]
         } ];
-        i.set(window, "OPENSHIFT_CONSTANTS.SERVICE_CATALOG_CATEGORIES", s), i.set(window, "OPENSHIFT_CONSTANTS.SAAS_OFFERINGS", a);
+        r.set(window, "OPENSHIFT_CONSTANTS.SERVICE_CATALOG_CATEGORIES", s), r.set(window, "OPENSHIFT_CONSTANTS.SAAS_OFFERINGS", a);
         var o = {
             links: [ {
                 title: "Documentation",
@@ -314,7 +299,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 href: "https://blog.openshift.com"
             } ]
         };
-        i.set(window, "OPENSHIFT_CONSTANTS.CATALOG_HELP_RESOURCES", o);
+        r.set(window, "OPENSHIFT_CONSTANTS.CATALOG_HELP_RESOURCES", o);
         var c = function() {
             e("body").find(".services-view-container .nav-tabs a")[0].click();
         }, l = function() {
@@ -371,37 +356,37 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 steps: d
             }
         };
-        i.set(window, "OPENSHIFT_CONSTANTS.GUIDED_TOURS", p);
+        r.set(window, "OPENSHIFT_CONSTANTS.GUIDED_TOURS", p);
     }).call(t, n(2));
 }, function(e, t, n) {
     "use strict";
-    function i() {
+    function r() {
         return function(e, t) {
-            var n = t || "project/", i = e && e.metadata ? e.metadata.name : "";
-            return n.endsWith("/") || (n += "/"), n + i;
+            var n = t || "project/", r = e && e.metadata ? e.metadata.name : "";
+            return n.endsWith("/") || (n += "/"), n + r;
         };
     }
-    t.__esModule = !0, t.projectUrlFilter = i;
+    t.__esModule = !0, t.projectUrlFilter = r;
 }, function(e, t, n) {
     "use strict";
     t.__esModule = !0;
-    var i = n(0), r = function() {
+    var r = n(0), i = function() {
         function e() {}
         return e.prototype.makeAPIObjects = function(e) {
-            var t = this.getPorts(e.imageStreamTag), n = i.first(t);
+            var t = this.getPorts(e.imageStreamTag), n = r.first(t);
             return [ this.makeImageStream(e), this.makeBuildConfig(e), this.makeDeploymentConfig(e, t), this.makeService(e, n), this.makeRoute(e, n) ];
         }, e.prototype.getPorts = function(e) {
-            var t = e.image, n = i.get(t, "dockerImageMetadata.Config.ExposedPorts") || i.get(t, "dockerImageMetadata.ContainerConfig.ExposedPorts", []);
+            var t = e.image, n = r.get(t, "dockerImageMetadata.Config.ExposedPorts") || r.get(t, "dockerImageMetadata.ContainerConfig.ExposedPorts", []);
             return this.parsePortsFromSpec(n);
         }, e.prototype.parsePortsFromSpec = function(e) {
             var t = [];
-            return i.each(e, function(e, n) {
-                var i = n.split("/");
-                1 === i.length && i.push("tcp");
-                var r = parseInt(i[0], 10);
-                isNaN(r) ? this.Logger.warn("Container port " + i[0] + " is not a number") : t.push({
-                    containerPort: r,
-                    protocol: i[1].toUpperCase()
+            return r.each(e, function(e, n) {
+                var r = n.split("/");
+                1 === r.length && r.push("tcp");
+                var i = parseInt(r[0], 10);
+                isNaN(i) ? this.Logger.warn("Container port " + r[0] + " is not a number") : t.push({
+                    containerPort: i,
+                    protocol: r[1].toUpperCase()
                 });
             }), t;
         }, e.prototype.getAnnotations = function() {
@@ -484,7 +469,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                     } ],
                     template: {
                         metadata: {
-                            labels: i.assign({
+                            labels: r.assign({
                                 deploymentconfig: e.name
                             }, this.getLabels(e))
                         },
@@ -553,60 +538,60 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             };
         }, e;
     }();
-    t.BuilderAppService = r;
+    t.BuilderAppService = i;
 }, function(e, t, n) {
     "use strict";
     t.__esModule = !0;
-    var i = n(1), r = n(0), a = function() {
-        function e(e, t, n, i, r, a) {
-            this.$filter = e, this.$q = t, this.constants = n, this.apiService = i, this.dataService = r, 
+    var r = n(1), i = n(0), a = function() {
+        function e(e, t, n, r, i, a) {
+            this.$filter = e, this.$q = t, this.constants = n, this.apiService = r, this.dataService = i, 
             this.logger = a;
         }
         return e.prototype.getCatalogItems = function(e) {
-            var t = this, n = this.$q.defer(), i = {}, r = 0, a = 0, s = [], o = {
+            var t = this, n = this.$q.defer(), r = {}, i = 0, a = 0, s = [], o = {
                 group: "servicecatalog.k8s.io",
                 resource: "serviceclasses"
             };
-            return this.apiService.apiInfo(o) && (++r, this.dataService.list(o, {}).then(function(e) {
-                i.serviceClasses = e.by("metadata.name");
+            return this.apiService.apiInfo(o) && (++i, this.dataService.list(o, {}).then(function(e) {
+                r.serviceClasses = e.by("metadata.name");
             }, function() {
                 s.push("service classes");
             }).finally(function() {
-                t.returnCatalogItems(n, i, ++a, r, s);
-            })), ++r, this.dataService.list("imagestreams", {
+                t.returnCatalogItems(n, r, ++a, i, s);
+            })), ++i, this.dataService.list("imagestreams", {
                 namespace: "openshift"
             }).then(function(e) {
-                i.imageStreams = e.by("metadata.name");
+                r.imageStreams = e.by("metadata.name");
             }, function() {
                 s.push("builder images");
             }).finally(function() {
-                t.returnCatalogItems(n, i, ++a, r, s);
-            }), e && (++r, this.dataService.list("templates", {
+                t.returnCatalogItems(n, r, ++a, i, s);
+            }), e && (++i, this.dataService.list("templates", {
                 namespace: "openshift"
             }).then(function(e) {
-                i.templates = e.by("metadata.name");
+                r.templates = e.by("metadata.name");
             }, function() {
                 s.push("templates");
             }).finally(function() {
-                t.returnCatalogItems(n, i, ++a, r, s);
+                t.returnCatalogItems(n, r, ++a, i, s);
             })), n.promise;
         }, e.prototype.convertToServiceItems = function(e, t, n) {
-            var i = this, a = r.map(e, function(e) {
-                return i.getServiceItem(e);
+            var r = this, a = i.map(e, function(e) {
+                return r.getServiceItem(e);
             });
-            return a = a.concat(r.map(t, function(e) {
-                return i.getImageItem(e);
-            })), a = a.concat(r.map(n, function(e) {
-                return i.getTemplateItem(e);
-            })), a = r.reject(a, function(e) {
+            return a = a.concat(i.map(t, function(e) {
+                return r.getImageItem(e);
+            })), a = a.concat(i.map(n, function(e) {
+                return r.getTemplateItem(e);
+            })), a = i.reject(a, function(e) {
                 return !e;
             }), a = a.sort(function(e, t) {
-                var n = r.get(e, "name", "").localeCompare(r.get(t, "name", ""), void 0, {
+                var n = i.get(e, "name", "").localeCompare(i.get(t, "name", ""), void 0, {
                     sensitivity: "base"
                 });
-                return 0 === n && (n = r.get(e, "resource.kind", "").localeCompare(r.get(t, "resource.kind", ""), void 0, {
+                return 0 === n && (n = i.get(e, "resource.kind", "").localeCompare(i.get(t, "resource.kind", ""), void 0, {
                     sensitivity: "base"
-                })), 0 === n && (n = r.get(e, "resource.metadata.name", "").localeCompare(r.get(t, "resource.metadata.name", ""), void 0, {
+                })), 0 === n && (n = i.get(e, "resource.metadata.name", "").localeCompare(i.get(t, "resource.metadata.name", ""), void 0, {
                     sensitivity: "base"
                 })), n;
             }), this.categorizeItems(a), a;
@@ -619,21 +604,21 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             return new c(e, this);
         }, e.prototype.categorizeItems = function(e) {
             var t, n, a = this;
-            this.categories = i.copy(this.constants.SERVICE_CATALOG_CATEGORIES), this.createAllAndOtherMainCategories();
-            var s = r.first(this.categories), o = r.get(s, "subCategories[0]"), c = r.last(this.categories), l = r.get(c, "subCategories[0]");
-            r.each(e, function(e) {
-                n = !1, r.each(a.categories, function(i) {
-                    i.tags ? r.isEmpty(a.getMatchingTags(i.tags, e.tags)) || (n = a.categorizeItem(e, i, "all"), 
-                    t = a.filterSubCatsByTags(i.subCategories, e.tags), r.isEmpty(t) ? a.categorizeItem(e, i, "other") : r.each(t, function(t) {
-                        a.categorizeItem(e, i, t);
-                    })) : (t = a.filterSubCatsByTags(i.subCategories, e.tags), r.isEmpty(t) || (n = a.categorizeItem(e, i, "all"), 
-                    r.each(t, function(t) {
-                        a.categorizeItem(e, i, t);
+            this.categories = r.copy(this.constants.SERVICE_CATALOG_CATEGORIES), this.createAllAndOtherMainCategories();
+            var s = i.first(this.categories), o = i.get(s, "subCategories[0]"), c = i.last(this.categories), l = i.get(c, "subCategories[0]");
+            i.each(e, function(e) {
+                n = !1, i.each(a.categories, function(r) {
+                    r.tags ? i.isEmpty(a.getMatchingTags(r.tags, e.tags)) || (n = a.categorizeItem(e, r, "all"), 
+                    t = a.filterSubCatsByTags(r.subCategories, e.tags), i.isEmpty(t) ? a.categorizeItem(e, r, "other") : i.each(t, function(t) {
+                        a.categorizeItem(e, r, t);
+                    })) : (t = a.filterSubCatsByTags(r.subCategories, e.tags), i.isEmpty(t) || (n = a.categorizeItem(e, r, "all"), 
+                    i.each(t, function(t) {
+                        a.categorizeItem(e, r, t);
                     })));
                 }), n || a.categorizeItem(e, c, l), a.categorizeItem(e, s, o);
             });
         }, e.prototype.categorizeItem = function(e, t, n) {
-            return r.isString(n) && (n = this.getAllOrOtherSubCategory(t, n)), n.items = r.isArray(n.items) ? n.items.concat([ e ]) : [ e ], 
+            return i.isString(n) && (n = this.getAllOrOtherSubCategory(t, n)), n.items = i.isArray(n.items) ? n.items.concat([ e ]) : [ e ], 
             t.hasItems = n.hasItems = !0;
         }, e.prototype.createAllAndOtherMainCategories = function() {
             this.categories.unshift({
@@ -652,7 +637,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 } ]
             });
         }, e.prototype.getAllOrOtherSubCategory = function(e, t) {
-            var n = r.find(e.subCategories, {
+            var n = i.find(e.subCategories, {
                 id: t
             });
             return n || ("other" === t ? (n = {
@@ -663,15 +648,15 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 label: "All"
             }, e.subCategories.unshift(n))), n;
         }, e.prototype.getMatchingTags = function(e, t) {
-            return r.intersection(e, t);
+            return i.intersection(e, t);
         }, e.prototype.filterSubCatsByTags = function(e, t) {
             var n = this;
-            return r.filter(e, function(e) {
-                return !r.isEmpty(n.getMatchingTags(e.tags, t));
+            return i.filter(e, function(e) {
+                return !i.isEmpty(n.getMatchingTags(e.tags, t));
             });
-        }, e.prototype.returnCatalogItems = function(e, t, n, i, a) {
-            if (!(n < i)) {
-                a = r.size(a) ? "Unable to load all content for the catalog. Error loading " + this.formatArray(a) : null;
+        }, e.prototype.returnCatalogItems = function(e, t, n, r, a) {
+            if (!(n < r)) {
+                a = i.size(a) ? "Unable to load all content for the catalog. Error loading " + this.formatArray(a) : null;
                 var s = this.convertToServiceItems(t.serviceClasses, t.imageStreams, t.templates);
                 e.resolve([ s, a ]);
             }
@@ -690,18 +675,18 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             this.tags = this.getTags();
         }
         return e.prototype.getImage = function() {
-            return r.get(this.resource, "osbMetadata.imageUrl", "");
+            return i.get(this.resource, "osbMetadata.imageUrl", "");
         }, e.prototype.getIcon = function() {
-            var e = r.get(this.resource, [ "osbMetadata", "console.openshift.io/iconClass" ], "fa fa-cubes");
+            var e = i.get(this.resource, [ "osbMetadata", "console.openshift.io/iconClass" ], "fa fa-cubes");
             return e = -1 !== e.indexOf("icon-") ? "font-icon " + e : e;
         }, e.prototype.getName = function() {
-            return r.get(this.resource, "osbMetadata.displayName", this.resource.metadata.name);
+            return i.get(this.resource, "osbMetadata.displayName", this.resource.metadata.name);
         }, e.prototype.getDescription = function() {
-            return r.get(this.resource, "description", "");
+            return i.get(this.resource, "description", "");
         }, e.prototype.getLongDescription = function() {
-            return r.get(this.resource, "osbMetadata.longDescription", "");
+            return i.get(this.resource, "osbMetadata.longDescription", "");
         }, e.prototype.getTags = function() {
-            return r.get(this.resource, "osbTags", []);
+            return i.get(this.resource, "osbTags", []);
         }, e;
     }();
     t.ServiceItem = s;
@@ -713,9 +698,9 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
         }
         return e.prototype.getBuilderSpecTagName = function() {
             var e, t = this;
-            return this.resource.status ? (this.resource.spec && this.resource.spec.tags && (e = r.find(this.resource.spec.tags, function(e) {
-                var n = r.get(e, "annotations.tags");
-                if (n && (n = n.split(/\s*,\s*/), r.includes(n, "builder") && !r.includes(n, "hidden"))) return r.some(t.resource.status.tags, function(t) {
+            return this.resource.status ? (this.resource.spec && this.resource.spec.tags && (e = i.find(this.resource.spec.tags, function(e) {
+                var n = i.get(e, "annotations.tags");
+                if (n && (n = n.split(/\s*,\s*/), i.includes(n, "builder") && !i.includes(n, "hidden"))) return i.some(t.resource.status.tags, function(t) {
                     return t.tag === e.name;
                 });
             })), e ? e.name : null) : null;
@@ -743,16 +728,16 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
         return e.prototype.getImage = function() {
             return "";
         }, e.prototype.getIcon = function() {
-            var e = r.get(this.resource, "metadata.annotations.iconClass", "fa fa-cubes");
+            var e = i.get(this.resource, "metadata.annotations.iconClass", "fa fa-cubes");
             return e = -1 !== e.indexOf("icon-") ? "font-icon " + e : e;
         }, e.prototype.getName = function() {
             return this.catalogSrv.$filter("displayName")(this.resource);
         }, e.prototype.getDescription = function() {
-            return r.get(this.resource, "metadata.annotations.description", "");
+            return i.get(this.resource, "metadata.annotations.description", "");
         }, e.prototype.getLongDescription = function() {
-            return r.get(this.resource, [ "metadata", "annotations", "template.openshift.io/long-description" ], "");
+            return i.get(this.resource, [ "metadata", "annotations", "template.openshift.io/long-description" ], "");
         }, e.prototype.getTags = function() {
-            return r.get(this.resource, "metadata.annotations.tags", "").split(/\s*,\s*/);
+            return i.get(this.resource, "metadata.annotations.tags", "").split(/\s*,\s*/);
         }, e;
     }();
     t.TemplateItem = c;
@@ -799,10 +784,10 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
 }, function(e, t, n) {
     "use strict";
     t.__esModule = !0;
-    var i = n(0), r = function() {
-        function e(e, t, n, i) {
+    var r = n(0), i = function() {
+        function e(e, t, n, r) {
             this.ctrl = this, this.loaded = !1, this.$scope = e, this.$q = t, this.Catalog = n, 
-            this.KeywordService = i;
+            this.KeywordService = r;
         }
         return e.prototype.$onInit = function() {
             this.ctrl.searchText = "";
@@ -818,15 +803,15 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             this.searchDeferred.promise) : [];
         }, e.prototype.filterForKeywords = function(e) {
             var t = this.KeywordService.generateKeywords(e), n = this.KeywordService.filterForKeywords(this.ctrl.catalogItems, [ "name", "tags" ], t);
-            return i.take(n, 5);
+            return r.take(n, 5);
         }, e;
     }();
-    r.$inject = [ "$scope", "$q", "Catalog", "KeywordService" ], t.CatalogSearchController = r;
+    i.$inject = [ "$scope", "$q", "Catalog", "KeywordService" ], t.CatalogSearchController = i;
 }, function(e, t, n) {
     "use strict";
     t.__esModule = !0;
-    var i = n(1), r = n(0), a = n(45), s = function() {
-        function e(e, t, n, i, a, s, o, c, l, d) {
+    var r = n(1), i = n(0), a = n(44), s = function() {
+        function e(e, t, n, r, a, s, o, c, l, d) {
             var p = this;
             this.ctrl = this, this.watches = [], this.clearValidityWatcher = function() {
                 p.validityWatcher && (p.validityWatcher(), p.validityWatcher = void 0);
@@ -841,19 +826,19 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 p.clearValidityWatcher(), p.ctrl.nextTitle = "Close", p.ctrl.wizardDone = !0, p.createApp();
             }, this.onProjectUpdate = function() {
                 p.isNewProject() ? (p.ctrl.serviceInstances = [], p.updateBindability()) : (p.ctrl.updating = !0, 
-                p.ProjectsService.get(p.ctrl.selectedProject.metadata.name).then(r.spread(function(e, t) {
+                p.ProjectsService.get(p.ctrl.selectedProject.metadata.name).then(i.spread(function(e, t) {
                     var n = {
                         group: "servicecatalog.k8s.io",
                         resource: "instances"
                     };
                     p.watches.push(p.DataService.watch(n, t, function(e) {
-                        p.ctrl.serviceInstances = r.toArray(e.by("metadata.name")), p.sortServiceInstances(), 
+                        p.ctrl.serviceInstances = i.toArray(e.by("metadata.name")), p.sortServiceInstances(), 
                         p.preselectService(), p.ctrl.updating = !1, p.updateBindability();
                     }));
                 })));
-            }, this.$scope = e, this.$filter = t, this.$location = n, this.$q = i, this.BuilderAppService = a, 
+            }, this.$scope = e, this.$filter = t, this.$location = n, this.$q = r, this.BuilderAppService = a, 
             this.ProjectsService = s, this.DataService = o, this.BindingService = c, this.Logger = l, 
-            this.ctrl.serviceToBind = null, this.ctrl.showPodPresets = r.get(d, [ "ENABLE_TECH_PREVIEW_FEATURE", "pod_presets" ], !1);
+            this.ctrl.serviceToBind = null, this.ctrl.showPodPresets = i.get(d, [ "ENABLE_TECH_PREVIEW_FEATURE", "pod_presets" ], !1);
         }
         return e.prototype.$onInit = function() {
             var e = this;
@@ -883,20 +868,20 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 prevEnabled: !1,
                 onShow: this.showResults
             }, this.ctrl.steps = [ this.configStep, this.bindStep, this.reviewStep ], this.ctrl.versions = this.getVersions(), 
-            this.ctrl.istag = r.first(this.ctrl.versions), this.ctrl.nameMaxLength = 24, this.ctrl.namePattern = /^[a-z]([-a-z0-9]*[a-z0-9])?$/, 
+            this.ctrl.istag = i.first(this.ctrl.versions), this.ctrl.nameMaxLength = 24, this.ctrl.namePattern = /^[a-z]([-a-z0-9]*[a-z0-9])?$/, 
             this.ctrl.repositoryPattern = /^[a-z][a-z0-9+.-@]*:(\/\/)?[0-9a-z_-]+/, this.ctrl.wizardDone = !1, 
             this.ctrl.serviceToBind = "", this.ctrl.updating = !1, this.ctrl.serviceInstances = [], 
             this.selectedProjectWatch = this.$scope.$watch(function() {
                 return e.ctrl.selectedProject;
             }, this.onProjectUpdate);
         }, e.prototype.closePanel = function() {
-            i.isFunction(this.ctrl.handleClose) && this.ctrl.handleClose();
+            r.isFunction(this.ctrl.handleClose) && this.ctrl.handleClose();
         }, e.prototype.$onDestroy = function() {
             this.DataService.unwatchAll(this.watches), this.selectedProjectWatch(), this.clearValidityWatcher();
         }, e.prototype.fillSampleRepo = function() {
-            if (this.ctrl.repository = r.get(this, "ctrl.istag.annotations.sampleRepo"), !this.ctrl.name && this.ctrl.repository) {
+            if (this.ctrl.repository = i.get(this, "ctrl.istag.annotations.sampleRepo"), !this.ctrl.name && this.ctrl.repository) {
                 var e = this.ctrl.repository.substr(this.ctrl.repository.lastIndexOf("/") + 1);
-                e = e.replace(/\.git$/, ""), e = r.trunc(e, this.ctrl.nameMaxLength), e = r.kebabCase(e), 
+                e = e.replace(/\.git$/, ""), e = i.trunc(e, this.ctrl.nameMaxLength), e = i.kebabCase(e), 
                 this.ctrl.namePattern.test(e) && (this.ctrl.name = e);
             }
         }, e.prototype.navigateToAdvancedForm = function() {
@@ -915,15 +900,15 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
         }, e.prototype.getVersions = function() {
             var e = this;
             this.ctrl.referencedBy = {};
-            var t = {}, n = {}, i = r.get(this, "ctrl.imageStream.resource.spec.tags", []);
-            r.each(i, function(i) {
-                if (e.referencesSameImageStream(i)) return t[i.name] = i.from.name, e.ctrl.referencedBy[i.from.name] = e.ctrl.referencedBy[i.from.name] || [], 
-                void e.ctrl.referencedBy[i.from.name].push(i.name);
-                var a = r.get(i, "annotations.tags", ""), s = a.split(/\s*,\s*/);
-                r.includes(s, "builder") && !r.includes(s, "hidden") && (n[i.name] = i);
+            var t = {}, n = {}, r = i.get(this, "ctrl.imageStream.resource.spec.tags", []);
+            i.each(r, function(r) {
+                if (e.referencesSameImageStream(r)) return t[r.name] = r.from.name, e.ctrl.referencedBy[r.from.name] = e.ctrl.referencedBy[r.from.name] || [], 
+                void e.ctrl.referencedBy[r.from.name].push(r.name);
+                var a = i.get(r, "annotations.tags", ""), s = a.split(/\s*,\s*/);
+                i.includes(s, "builder") && !i.includes(s, "hidden") && (n[r.name] = r);
             });
-            var a = [], s = r.get(this, "ctrl.imageStream.resource.status.tags", []);
-            return r.each(s, function(e) {
+            var a = [], s = i.get(this, "ctrl.imageStream.resource.status.tags", []);
+            return i.each(s, function(e) {
                 var t = n[e.tag];
                 t && a.push(t);
             }), a;
@@ -934,27 +919,27 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             });
         }, e.prototype.preselectService = function() {
             var e, t, n = this.$filter("statusCondition");
-            r.each(this.ctrl.serviceInstances, function(i) {
-                var a = "True" === r.get(n(i, "Ready"), "status");
-                a && (!e || i.metadata.creationTimestamp > e.metadata.creationTimestamp) && (e = i), 
-                a || t && !(i.metadata.creationTimestamp > t.metadata.creationTimestamp) || (t = i);
-            }), this.ctrl.serviceToBind = r.get(e, "metadata.name") || r.get(t, "metadata.name");
+            i.each(this.ctrl.serviceInstances, function(r) {
+                var a = "True" === i.get(n(r, "Ready"), "status");
+                a && (!e || r.metadata.creationTimestamp > e.metadata.creationTimestamp) && (e = r), 
+                a || t && !(r.metadata.creationTimestamp > t.metadata.creationTimestamp) || (t = r);
+            }), this.ctrl.serviceToBind = i.get(e, "metadata.name") || i.get(t, "metadata.name");
         }, e.prototype.sortServiceInstances = function() {
             if (this.ctrl.serviceInstances) {
-                var e = r.toArray(this.ctrl.serviceInstances), t = this.$filter("statusCondition");
+                var e = i.toArray(this.ctrl.serviceInstances), t = this.$filter("statusCondition");
                 e.sort(function(e, n) {
-                    var i = "True" === r.get(t(e, "Ready"), "status");
-                    if (i === ("True" === r.get(t(n, "Ready"), "status"))) {
-                        var a = r.get(e, "metadata.creationTimestamp");
-                        return r.get(n, "metadata.creationTimestamp").localeCompare(a);
+                    var r = "True" === i.get(t(e, "Ready"), "status");
+                    if (r === ("True" === i.get(t(n, "Ready"), "status"))) {
+                        var a = i.get(e, "metadata.creationTimestamp");
+                        return i.get(n, "metadata.creationTimestamp").localeCompare(a);
                     }
-                    return i ? -1 : 1;
+                    return r ? -1 : 1;
                 }), this.ctrl.serviceInstances = e;
             }
         }, e.prototype.updateBindability = function() {
-            this.bindStep.hidden = r.size(this.ctrl.serviceInstances) < 1, this.bindStep.hidden ? this.ctrl.nextTitle = "Create" : this.ctrl.nextTitle = "Next >";
+            this.bindStep.hidden = i.size(this.ctrl.serviceInstances) < 1, this.bindStep.hidden ? this.ctrl.nextTitle = "Create" : this.ctrl.nextTitle = "Next >";
         }, e.prototype.isNewProject = function() {
-            return !r.has(this.ctrl.selectedProject, "metadata.uid");
+            return !i.has(this.ctrl.selectedProject, "metadata.uid");
         }, e.prototype.createApp = function() {
             var e = this;
             this.createProjectIfNecessary().then(function() {
@@ -975,7 +960,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             });
         }, e.prototype.createProjectIfNecessary = function() {
             if (!this.isNewProject()) return this.$q.when();
-            var e = this.ctrl.selectedProject.metadata.name, t = this.ctrl.selectedProject.metadata.annotations["new-display-name"], n = this.$filter("description")(this.ctrl.selectedProject), i = {
+            var e = this.ctrl.selectedProject.metadata.name, t = this.ctrl.selectedProject.metadata.annotations["new-display-name"], n = this.$filter("description")(this.ctrl.selectedProject), r = {
                 apiVersion: "v1",
                 kind: "ProjectRequest",
                 metadata: {
@@ -984,7 +969,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 displayName: t,
                 description: n
             };
-            return this.DataService.create("projectrequests", null, i, this.$scope);
+            return this.DataService.create("projectrequests", null, r, this.$scope);
         }, e.prototype.createAPIObjects = function(e) {
             var t = this;
             this.DataService.batch(e, {
@@ -998,11 +983,11 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             var e = this;
             this.ctrl.bindInProgress = !0, this.ctrl.bindError = !1;
             var t = {
-                namespace: r.get(this.ctrl.selectedProject, "metadata.name")
+                namespace: i.get(this.ctrl.selectedProject, "metadata.name")
             };
             this.BindingService.bindService(t, this.ctrl.serviceToBind, this.ctrl.name).then(function(n) {
                 e.ctrl.binding = n, e.ctrl.bindInProgress = !1, e.ctrl.bindComplete = !0, e.ctrl.bindError = null, 
-                e.DataService.watchObject(e.BindingService.bindingResource, r.get(e.ctrl.binding, "metadata.name"), t, function(t) {
+                e.DataService.watchObject(e.BindingService.bindingResource, i.get(e.ctrl.binding, "metadata.name"), t, function(t) {
                     e.ctrl.binding = t;
                 });
             }, function(t) {
@@ -1015,7 +1000,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
 }, function(e, t, n) {
     "use strict";
     t.__esModule = !0;
-    var i = function() {
+    var r = function() {
         function e(e, t) {
             var n = this;
             this.ctrl = this, this.closeOrderingPanel = function() {
@@ -1026,8 +1011,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             var e = this;
             this.ctrl.searchText = "", this.ctrl.orderingPanelVisible = !1, this.$scope.$on("open-overlay-panel", function(t, n) {
                 if ("Template" === n.resource.kind) {
-                    var i = e.ctrl.onTemplateSelected();
-                    return void (i && i(n.resource));
+                    var r = e.ctrl.onTemplateSelected();
+                    return void (r && r(n.resource));
                 }
                 e.ctrl.selectedItem = n, e.ctrl.orderingPanelVisible = !0;
             });
@@ -1035,12 +1020,12 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             this.ctrl.orderingPanelVisible && this.closeOrderingPanel();
         }, e;
     }();
-    i.$inject = [ "$scope", "RecentlyViewedServiceItems" ], t.LandingPageController = i;
+    r.$inject = [ "$scope", "RecentlyViewedServiceItems" ], t.LandingPageController = r;
 }, function(e, t, n) {
     "use strict";
     t.__esModule = !0;
-    var i = n(1), r = n(0), a = function() {
-        function e(e, t, n, i, a, s, o) {
+    var r = n(1), i = n(0), a = function() {
+        function e(e, t, n, r, a, s, o) {
             var c = this;
             this.ctrl = this, this.watches = [], this.clearValidityWatcher = function() {
                 c.validityWatcher && (c.validityWatcher(), c.validityWatcher = void 0), c.ctrl.reviewStep.allowed = !1;
@@ -1060,7 +1045,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 c.clearValidityWatcher(), c.ctrl.nextTitle = "Close", c.ctrl.wizardDone = !0, c.provisionService();
             }, this.provisionService = function() {
                 if (c.ctrl.inProgress = !0, c.ctrl.orderComplete = !1, c.ctrl.error = !1, c.isNewProject()) {
-                    var e = c.ctrl.selectedProject.metadata.name, t = c.ctrl.selectedProject.metadata.annotations["new-display-name"], n = c.$filter("description")(c.ctrl.selectedProject), i = {
+                    var e = c.ctrl.selectedProject.metadata.name, t = c.ctrl.selectedProject.metadata.annotations["new-display-name"], n = c.$filter("description")(c.ctrl.selectedProject), r = {
                         apiVersion: "v1",
                         kind: "ProjectRequest",
                         metadata: {
@@ -1069,7 +1054,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                         displayName: t,
                         description: n
                     };
-                    c.DataService.create("projectrequests", null, i, c.$scope).then(function(n) {
+                    c.DataService.create("projectrequests", null, r, c.$scope).then(function(n) {
                         c.ctrl.projectDisplayName = t || e, c.createService();
                     }, function(e) {
                         var t = e.data || {};
@@ -1079,50 +1064,48 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 c.createService();
             }, this.onProjectUpdate = function() {
                 c.isNewProject() ? (c.ctrl.applications = [], c.updateBindability()) : (c.ctrl.updating = !0, 
-                c.ProjectsService.get(c.ctrl.selectedProject.metadata.name).then(r.spread(function(e, t) {
+                c.ProjectsService.get(c.ctrl.selectedProject.metadata.name).then(i.spread(function(e, t) {
                     c.ctrl.shouldBindToApp = "none", c.ctrl.serviceToBind = c.ctrl.serviceClass, c.DataService.list("deploymentconfigs", t).then(function(e) {
-                        c.deploymentConfigs = r.toArray(e.by("metadata.name")), c.sortApplications();
+                        c.deploymentConfigs = i.toArray(e.by("metadata.name")), c.sortApplications();
                     }), c.DataService.list("replicationcontrollers", t).then(function(e) {
-                        c.replicationControllers = r.reject(e.by("metadata.name"), c.applicationHasDeploymentConfigFilter), 
+                        c.replicationControllers = i.reject(e.by("metadata.name"), c.hasDeploymentConfigFilter), 
                         c.sortApplications();
                     }), c.DataService.list({
                         group: "extensions",
                         resource: "deployments"
                     }, t).then(function(e) {
-                        c.deployments = r.toArray(e.by("metadata.name")), c.sortApplications();
+                        c.deployments = i.toArray(e.by("metadata.name")), c.sortApplications();
                     }), c.DataService.list({
                         group: "extensions",
                         resource: "replicasets"
                     }, t).then(function(e) {
-                        c.replicaSets = r.reject(e.by("metadata.name"), c.applicationHasDeploymentFilter), 
-                        c.sortApplications();
+                        c.replicaSets = i.reject(e.by("metadata.name"), c.hasDeploymentFilter), c.sortApplications();
                     }), c.DataService.list({
                         group: "apps",
                         resource: "statefulsets"
                     }, t).then(function(e) {
-                        c.statefulSets = r.toArray(e.by("metadata.name")), c.sortApplications();
+                        c.statefulSets = i.toArray(e.by("metadata.name")), c.sortApplications();
                     });
                 })));
             }, this.watchResults = function(e, t, n) {
                 c.watches.push(c.DataService.watchObject(e, t.metadata.name, n, function(e, t) {
-                    var n = r.get(e, "status.conditions"), i = r.find(n, {
+                    var n = i.get(e, "status.conditions"), r = i.find(n, {
                         type: "Ready"
                     });
-                    c.ctrl.orderComplete = i && "True" === i.status, c.ctrl.error = r.find(n, {
+                    c.ctrl.orderComplete = r && "True" === r.status, c.ctrl.error = i.find(n, {
                         type: "ProvisionFailed"
                     });
                 }));
-            }, this.$scope = e, this.$filter = t, this.ProjectsService = n, this.DataService = i, 
-            this.BindingService = a, this.Logger = s, this.applicationHasDeploymentFilter = t("applicationHasDeployment"), 
-            this.applicationHasDeploymentConfigFilter = t("applicationHasDeploymentConfig"), 
-            this.ctrl.showPodPresets = r.get(o, [ "ENABLE_TECH_PREVIEW_FEATURE", "pod_presets" ], !1);
+            }, this.$scope = e, this.$filter = t, this.ProjectsService = n, this.DataService = r, 
+            this.BindingService = a, this.Logger = s, this.hasDeploymentFilter = t("hasDeployment"), 
+            this.hasDeploymentConfigFilter = t("hasDeploymentConfig"), this.ctrl.showPodPresets = i.get(o, [ "ENABLE_TECH_PREVIEW_FEATURE", "pod_presets" ], !1);
         }
         return e.prototype.$onInit = function() {
             var e = this;
             this.ctrl.iconClass = this.ctrl.serviceClass.iconClass || "fa fa-cubes", this.ctrl.imageUrl = this.ctrl.serviceClass.imageUrl, 
             this.ctrl.serviceName = this.ctrl.serviceClass.name, this.ctrl.description = this.ctrl.serviceClass.description, 
-            this.ctrl.longDescription = this.ctrl.serviceClass.longDescription, this.ctrl.plans = r.get(this, "ctrl.serviceClass.resource.plans", []), 
-            this.ctrl.applications = [], this.ctrl.selectedPlan = r.first(this.ctrl.plans), 
+            this.ctrl.longDescription = this.ctrl.serviceClass.longDescription, this.ctrl.plans = i.get(this, "ctrl.serviceClass.resource.plans", []), 
+            this.ctrl.applications = [], this.ctrl.selectedPlan = i.first(this.ctrl.plans), 
             this.ctrl.planIndex = 0, this.ctrl.appToBind = null, this.ctrl.configStepValid = !0, 
             this.planStep = {
                 id: "plans",
@@ -1172,11 +1155,11 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             var e = this, t = this.makeServiceInstance(), n = {
                 group: "servicecatalog.k8s.io",
                 resource: "instances"
-            }, i = {
+            }, r = {
                 namespace: this.ctrl.selectedProject.metadata.name
             };
-            this.DataService.create(n, null, t, i).then(function(t) {
-                e.ctrl.orderInProgress = !0, e.watchResults(n, t, i), e.ctrl.serviceInstanceName = r.get(t, "metadata.name"), 
+            this.DataService.create(n, null, t, r).then(function(t) {
+                e.ctrl.orderInProgress = !0, e.watchResults(n, t, r), e.ctrl.serviceInstanceName = i.get(t, "metadata.name"), 
                 "none" !== e.ctrl.shouldBindToApp && e.bindService();
             }, function(t) {
                 e.ctrl.error = t;
@@ -1185,11 +1168,11 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             var e = this;
             this.ctrl.bindInProgress = !0, this.ctrl.bindError = !1;
             var t = {
-                namespace: r.get(this.ctrl.selectedProject, "metadata.name")
+                namespace: i.get(this.ctrl.selectedProject, "metadata.name")
             };
             this.BindingService.bindService(t, this.ctrl.serviceInstanceName, this.ctrl.appToBind).then(function(n) {
                 e.ctrl.binding = n, e.ctrl.bindInProgress = !1, e.ctrl.bindComplete = !0, e.ctrl.bindError = null, 
-                e.DataService.watchObject(e.BindingService.bindingResource, r.get(e.ctrl.binding, "metadata.name"), t, function(t) {
+                e.DataService.watchObject(e.BindingService.bindingResource, i.get(e.ctrl.binding, "metadata.name"), t, function(t) {
                     e.ctrl.binding = t;
                 });
             }, function(t) {
@@ -1198,18 +1181,18 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
         }, e.prototype.$onDestroy = function() {
             this.DataService.unwatchAll(this.watches), this.selectedProjectWatch(), this.clearValidityWatcher();
         }, e.prototype.closePanel = function() {
-            i.isFunction(this.ctrl.handleClose) && this.ctrl.handleClose();
+            r.isFunction(this.ctrl.handleClose) && this.ctrl.handleClose();
         }, e.prototype.updateBindability = function() {
-            this.bindStep.hidden = r.size(this.ctrl.applications) < 1, this.reviewStep.allowed = this.bindStep.hidden, 
+            this.bindStep.hidden = i.size(this.ctrl.applications) < 1, this.reviewStep.allowed = this.bindStep.hidden, 
             this.bindStep.hidden ? this.ctrl.nextTitle = "Create" : this.ctrl.nextTitle = "Next >";
         }, e.prototype.sortApplications = function() {
             if (this.deploymentConfigs && this.deployments && this.replicationControllers && this.replicaSets && this.statefulSets) {
                 var e = this.deploymentConfigs.concat(this.deployments).concat(this.replicationControllers).concat(this.replicaSets).concat(this.statefulSets);
-                this.ctrl.applications = r.sortByAll(e, [ "metadata.name", "kind" ]), this.ctrl.updating = !1, 
+                this.ctrl.applications = i.sortByAll(e, [ "metadata.name", "kind" ]), this.ctrl.updating = !1, 
                 this.updateBindability();
             }
         }, e.prototype.makeServiceInstance = function() {
-            var e = r.get(this, "ctrl.serviceClass.resource.metadata.name");
+            var e = i.get(this, "ctrl.serviceClass.resource.metadata.name");
             return {
                 kind: "Instance",
                 apiVersion: "servicecatalog.k8s.io/v1alpha1",
@@ -1223,7 +1206,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 }
             };
         }, e.prototype.isNewProject = function() {
-            return !this.ctrl.selectedProject || !r.has(this.ctrl.selectedProject, "metadata.uid");
+            return !this.ctrl.selectedProject || !i.has(this.ctrl.selectedProject, "metadata.uid");
         }, e;
     }();
     a.$inject = [ "$scope", "$filter", "ProjectsService", "DataService", "BindingService", "Logger", "Constants" ], 
@@ -1231,15 +1214,15 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
 }, function(e, t, n) {
     "use strict";
     t.__esModule = !0;
-    var i = n(1), r = n(2), a = function() {
+    var r = n(1), i = n(2), a = function() {
         function e() {
             var e = this;
             this.ctrl = this, this.closePanel = function() {
-                i.isFunction(e.ctrl.handleClose) && e.ctrl.handleClose();
+                r.isFunction(e.ctrl.handleClose) && e.ctrl.handleClose();
             }, this.showDialog = function() {
-                e.ctrl.shown = !0, r("body").addClass("overlay-open");
+                e.ctrl.shown = !0, i("body").addClass("overlay-open");
             }, this.hideDialog = function() {
-                e.ctrl.shown = !1, r("body").removeClass("overlay-open");
+                e.ctrl.shown = !1, i("body").removeClass("overlay-open");
             }, this.ctrl.shown = !1;
         }
         return e.prototype.$postLink = function() {
@@ -1247,15 +1230,15 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
         }, e.prototype.$onChanges = function(e) {
             e.showPanel && (this.ctrl.showPanel ? this.showDialog() : this.hideDialog());
         }, e.prototype.$onDestroy = function() {
-            r("body").removeClass("overlay-open");
+            i("body").removeClass("overlay-open");
         }, e;
     }();
     t.OverlayPanelController = a;
 }, function(e, t, n) {
     "use strict";
     t.__esModule = !0;
-    var i = n(1), r = n(2), a = n(0), s = function() {
-        function e(e, t, n, r, s, o, c, l, d, p, h, m) {
+    var r = n(1), i = n(2), a = n(0), s = function() {
+        function e(e, t, n, i, s, o, c, l, d, p, h, m) {
             var g = this;
             this.ctrl = this, this.showNewProjectPanel = !1, this.showEditProjectPanel = !1, 
             this.alerts = [], this.projects = [], this.watches = [], this.maxDisplayProjects = 5, 
@@ -1263,7 +1246,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 g.watches.push(g.DataService.watch("projects", g.$scope, g.onProjectsUpdate)), g.AlertMessageService.getAlerts().forEach(function(e) {
                     this.ctrl.alerts[e.name] = e.data;
                 }), g.ctrl.resourceLinks = a.clone(g.Constants.CATALOG_HELP_RESOURCES.links), a.forEach(g.ctrl.resourceLinks, function(e) {
-                    i.isDefined(e.help) && (e.href = g.Constants.HELP_BASE_URL + (e.help ? g.Constants.HELP[e.help] : ""));
+                    r.isDefined(e.help) && (e.href = g.Constants.HELP_BASE_URL + (e.help ? g.Constants.HELP[e.help] : ""));
                 }), g.$rootScope.$on("recently-viewed-updated", function() {
                     g.ctrl.recentlyViewedItems = g.getRecentlyViewedItems();
                 });
@@ -1284,7 +1267,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 g.ctrl.showEditProjectPanel = !1, g.hideModalBackdrop();
             }, this.onEditProject = function(e) {
                 g.ctrl.showEditProjectPanel = !1, g.hideModalBackdrop();
-            }, this.$element = e, this.$filter = t, this.$rootScope = n, this.$scope = r, this.AlertMessageService = s, 
+            }, this.$element = e, this.$filter = t, this.$rootScope = n, this.$scope = i, this.AlertMessageService = s, 
             this.AuthService = o, this.Catalog = c, this.Constants = l, this.DataService = d, 
             this.Logger = p, this.ProjectsService = h, this.RecentlyViewed = m;
         }
@@ -1298,14 +1281,14 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 e.ctrl.canCreate = !1, e.ctrl.loading = !1;
                 var n = t.data || {};
                 if (403 !== t.status) {
-                    var i = "Failed to determine create project permission";
-                    return 0 !== t.status && (i += " (" + t.status + ")"), void e.Logger.warn(i);
+                    var r = "Failed to determine create project permission";
+                    return 0 !== t.status && (r += " (" + t.status + ")"), void e.Logger.warn(r);
                 }
                 if (n.details) {
-                    var r = [];
+                    var i = [];
                     a.forEach(n.details.causes || [], function(e) {
-                        e.message && r.push(e.message);
-                    }), r.length > 0 && (e.ctrl.newProjectMessage = r.join("\n"));
+                        e.message && i.push(e.message);
+                    }), i.length > 0 && (e.ctrl.newProjectMessage = i.join("\n"));
                 }
             }).finally(function() {
                 e.init();
@@ -1329,7 +1312,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
         }, e.prototype.showModalBackdrop = function() {
             this.$element.append('<div class="catalog-projects-summary-modal-backrop modal-backdrop fade in"></div>');
         }, e.prototype.hideModalBackdrop = function() {
-            r(".catalog-projects-summary-modal-backrop").remove();
+            i(".catalog-projects-summary-modal-backrop").remove();
         }, e.prototype.getRecentlyViewedItems = function() {
             var e = this;
             if (this.allItems) {
@@ -1347,31 +1330,31 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
 }, function(e, t, n) {
     "use strict";
     t.__esModule = !0;
-    var i = n(1), r = n(0), a = function() {
+    var r = n(1), i = n(0), a = function() {
         function e(e, t, n) {
-            var i = this;
+            var r = this;
             this.ctrl = this, this.onWindowResize = function() {
-                i.$scope.$evalAsync(function() {
-                    i.updateListExpandVisibility();
+                r.$scope.$evalAsync(function() {
+                    r.updateListExpandVisibility();
                 });
             }, this.$scope = e, this.$window = t, this.$element = n, this.ctrl.sassListExpanded = !1, 
             this.ctrl.itemsOverflow = !1;
         }
         return e.prototype.$postLink = function() {
-            this.debounceResize = r.debounce(this.onWindowResize, 50, {
+            this.debounceResize = i.debounce(this.onWindowResize, 50, {
                 maxWait: 250
-            }), i.element(this.$window).on("resize", this.debounceResize), this.updateListExpandVisibility();
+            }), r.element(this.$window).on("resize", this.debounceResize), this.updateListExpandVisibility();
         }, e.prototype.$onDestroy = function() {
-            i.element(this.$window).off("resize", this.debounceResize);
+            r.element(this.$window).off("resize", this.debounceResize);
         }, e.prototype.hasSaasOfferings = function() {
-            return !r.isEmpty(this.ctrl.saasOfferings);
+            return !i.isEmpty(this.ctrl.saasOfferings);
         }, e.prototype.$onChanges = function(e) {
             e.saasOfferings && !e.saasOfferings.isFirstChange() && (this.ctrl.saasOfferings = e.saasOfferings.currentValue, 
             this.updateListExpandVisibility());
         }, e.prototype.toggleListExpand = function() {
             this.ctrl.sassListExpanded = !this.ctrl.sassListExpanded;
         }, e.prototype.updateListExpandVisibility = function() {
-            var e = this.$window.innerWidth, t = r.size(this.ctrl.saasOfferings);
+            var e = this.$window.innerWidth, t = i.size(this.ctrl.saasOfferings);
             this.ctrl.itemsOverflow = e >= this.$window.patternfly.pfBreakpoints.tablet && (t > 4 || e < this.$window.patternfly.pfBreakpoints.desktop && t > 2);
         }, e;
     }();
@@ -1379,10 +1362,10 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
 }, function(e, t, n) {
     "use strict";
     t.__esModule = !0;
-    var i = n(0), r = function() {
-        function e(e, t, n, i, r, a) {
+    var r = n(0), i = function() {
+        function e(e, t, n, r, i, a) {
             this.ctrl = this, this.$scope = e, this.$filter = t, this.DataService = n, this.AuthService = a, 
-            this.ProjectsService = i, this.Logger = r;
+            this.ProjectsService = r, this.Logger = i;
         }
         return e.prototype.$onInit = function() {
             var e = this;
@@ -1401,7 +1384,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
         }, e.prototype.onNewProjectNameChange = function() {
             this.ctrl.nameTaken = !1, this.ctrl.forms.createProjectForm.name.$setValidity("nameTaken", !this.ctrl.nameTaken);
         }, e.prototype.isNewProject = function() {
-            return this.ctrl.projects && this.ctrl.selectedProject && !i.has(this.ctrl.selectedProject, "metadata.uid");
+            return this.ctrl.projects && this.ctrl.selectedProject && !r.has(this.ctrl.selectedProject, "metadata.uid");
         }, e.prototype.listProjects = function() {
             var e = this;
             this.DataService.list("projects", this.$scope).then(function(t) {
@@ -1413,41 +1396,41 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                         }
                     }
                 };
-                e.ctrl.projects = i.sortBy(t.by("metadata.name"), e.$filter("displayName")), e.ctrl.existingProjectNames = i.map(e.ctrl.projects, "metadata.name"), 
-                !e.ctrl.selectedProject && i.size(e.ctrl.projects) > 0 && (e.ctrl.selectedProject = e.$filter("mostRecent")(e.ctrl.projects)), 
-                e.ctrl.canCreate && (e.ctrl.projects.unshift(n), 1 === i.size(e.ctrl.projects) && (e.ctrl.selectedProject = n));
+                e.ctrl.projects = r.sortBy(t.by("metadata.name"), e.$filter("displayName")), e.ctrl.existingProjectNames = r.map(e.ctrl.projects, "metadata.name"), 
+                !e.ctrl.selectedProject && r.size(e.ctrl.projects) > 0 && (e.ctrl.selectedProject = e.$filter("mostRecent")(e.ctrl.projects)), 
+                e.ctrl.canCreate && (e.ctrl.projects.unshift(n), 1 === r.size(e.ctrl.projects) && (e.ctrl.selectedProject = n));
             });
         }, e;
     }();
-    r.$inject = [ "$scope", "$filter", "DataService", "ProjectsService", "Logger", "AuthService" ], 
-    t.SelectProjectController = r;
+    i.$inject = [ "$scope", "$filter", "DataService", "ProjectsService", "Logger", "AuthService" ], 
+    t.SelectProjectController = i;
 }, function(e, t, n) {
     "use strict";
     t.__esModule = !0;
-    var i = n(1), r = n(0), a = n(2), s = function() {
-        function e(e, t, n, i, a, s) {
+    var r = n(1), i = n(0), a = n(2), s = function() {
+        function e(e, t, n, r, a, s) {
             var o = this;
             this.ctrl = this, this.filterByCategory = function(e, t, n) {
-                var i, a;
-                i = r.find(o.ctrl.categories, {
+                var r, a;
+                r = i.find(o.ctrl.categories, {
                     id: e
-                }), i ? (a = r.find(i.subCategories, {
+                }), r ? (a = i.find(r.subCategories, {
                     id: t
                 }), a ? o.ctrl.filteredItems = a.items : o.logger.error("Could not find subcategory '" + t + "' for category '" + e + "'")) : o.logger.error("Could not find category '" + e + "'"), 
                 n && (o.ctrl.subCategories = o.getSubCategories(e)), o.ctrl.currentFilter = e, o.ctrl.currentSubFilter = 1 === o.ctrl.subCategories.length ? o.ctrl.subCategories[0].id : t || "all", 
                 o.updateActiveCardStyles();
             }, this.handleClick = function(e, t) {
                 o.$scope.$emit("open-overlay-panel", e);
-            }, this.constants = e, this.catalog = t, this.logger = n, this.$filter = i, this.$scope = a, 
+            }, this.constants = e, this.catalog = t, this.logger = n, this.$filter = r, this.$scope = a, 
             this.$timeout = s, this.ctrl.loaded = !1, this.ctrl.isEmpty = !1;
         }
         return e.prototype.$onInit = function() {
-            this.debounceResize = r.debounce(this.resizeExpansion, 50, {
+            this.debounceResize = i.debounce(this.resizeExpansion, 50, {
                 maxWait: 250
-            }), i.element(window).bind("resize", this.debounceResize), a(window).on("resize.services", this.debounceResize);
+            }), r.element(window).bind("resize", this.debounceResize), a(window).on("resize.services", this.debounceResize);
         }, e.prototype.$onChanges = function(e) {
             e.catalogItems && this.ctrl.catalogItems && (this.ctrl.categories = this.catalog.categories, 
-            this.filterByCategory("all", "all", !0), this.ctrl.isEmpty = r.isEmpty(this.ctrl.catalogItems), 
+            this.filterByCategory("all", "all", !0), this.ctrl.isEmpty = i.isEmpty(this.ctrl.catalogItems), 
             this.ctrl.loaded = !0);
         }, e.prototype.$onDestroy = function() {
             a(window).off("resize.services");
@@ -1457,9 +1440,9 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             var t = [];
             return this.ctrl.categories.map(function(n) {
                 e === n.id && (t = t.concat(n.subCategories));
-            }), t = r.filter(t, {
+            }), t = i.filter(t, {
                 hasItems: !0
-            }), "all" === t[0].id && 2 === t.length && (t = r.drop(t, 1)), t;
+            }), "all" === t[0].id && 2 === t.length && (t = i.drop(t, 1)), t;
         }, e.prototype.resizeExpansion = function() {
             a(".services-sub-category").removeAttr("style");
             var e = a(".services-sub-category.active"), t = e.find(".services-items").innerHeight();
@@ -1475,13 +1458,13 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
 }, function(e, t, n) {
     "use strict";
     t.__esModule = !0;
-    var i = n(1);
-    n(4), n(22);
-    var r = n(23), a = n(3), s = n(3), o = n(24), c = n(13), l = n(25), d = n(14), p = n(15), h = n(16), m = n(17), g = n(18), u = n(19), f = n(20), v = n(21), y = n(26);
-    t.webCatalog = "webCatalog", i.module(t.webCatalog, [ "patternfly", "ngAnimate", "ui.bootstrap", "angularMoment", "ui.select" ]).service("BuilderAppService", o.BuilderAppService).service("Catalog", l.CatalogService).service("RecentlyViewedServiceItems", y.RecentlyViewedServiceItems).filter("projectUrl", r.projectUrlFilter).filter("applicationHasDeployment", a.applicationHasDeploymentFilter).filter("applicationHasDeploymentConfig", s.applicationHasDeploymentConfigFilter).component("catalogSearch", c.catalogSearch).component("createFromBuilder", d.createFromBuilder).component("landingPage", p.landingPage).component("orderService", h.orderService).component("overlayPanel", m.overlayPanel).component("projectsSummary", g.projectsSummary).component("saasList", u.saasList).component("selectProject", f.selectProject).component("servicesView", v.servicesView).run([ "$templateCache", function(e) {
-        e.put("catalog-search/catalog-search-result.html", n(5)), e.put("create-from-builder/create-from-builder-configure.html", n(7)), 
-        e.put("create-from-builder/create-from-builder-bind.html", n(6)), e.put("create-from-builder/create-from-builder-results.html", n(8)), 
-        e.put("order-service/order-service-plans.html", n(11)), e.put("order-service/order-service-configure.html", n(10)), 
-        e.put("order-service/order-service-bind.html", n(9)), e.put("order-service/order-service-review.html", n(12));
+    var r = n(1);
+    n(3), n(21);
+    var i = n(22), a = n(23), s = n(12), o = n(24), c = n(13), l = n(14), d = n(15), p = n(16), h = n(17), m = n(18), g = n(19), u = n(20), v = n(25);
+    t.webCatalog = "webCatalog", r.module(t.webCatalog, [ "patternfly", "ngAnimate", "ui.bootstrap", "angularMoment", "ui.select" ]).service("BuilderAppService", a.BuilderAppService).service("Catalog", o.CatalogService).service("RecentlyViewedServiceItems", v.RecentlyViewedServiceItems).filter("projectUrl", i.projectUrlFilter).component("catalogSearch", s.catalogSearch).component("createFromBuilder", c.createFromBuilder).component("landingPage", l.landingPage).component("orderService", d.orderService).component("overlayPanel", p.overlayPanel).component("projectsSummary", h.projectsSummary).component("saasList", m.saasList).component("selectProject", g.selectProject).component("servicesView", u.servicesView).run([ "$templateCache", function(e) {
+        e.put("catalog-search/catalog-search-result.html", n(4)), e.put("create-from-builder/create-from-builder-configure.html", n(6)), 
+        e.put("create-from-builder/create-from-builder-bind.html", n(5)), e.put("create-from-builder/create-from-builder-results.html", n(7)), 
+        e.put("order-service/order-service-plans.html", n(10)), e.put("order-service/order-service-configure.html", n(9)), 
+        e.put("order-service/order-service-bind.html", n(8)), e.put("order-service/order-service-review.html", n(11));
     } ]);
-} ], [ 46 ]);
+} ], [ 45 ]);

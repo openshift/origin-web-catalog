@@ -7,8 +7,6 @@ require('./constants');
 
 // Filters
 import {projectUrlFilter} from './filters/projectUrl';
-import {applicationHasDeploymentFilter} from './filters/applications';
-import {applicationHasDeploymentConfigFilter} from './filters/applications';
 
 // Components, Alphabetical order please
 import {BuilderAppService} from './services/builder-app.service';
@@ -32,8 +30,6 @@ angular
   .service('Catalog', CatalogService)
   .service('RecentlyViewedServiceItems', RecentlyViewedServiceItems)
   .filter('projectUrl', projectUrlFilter)
-  .filter('applicationHasDeployment', applicationHasDeploymentFilter)
-  .filter('applicationHasDeploymentConfig', applicationHasDeploymentConfigFilter)
   .component('catalogSearch', catalogSearch)
   .component('createFromBuilder', createFromBuilder)
   .component('landingPage', landingPage)
