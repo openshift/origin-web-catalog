@@ -70,7 +70,7 @@
         <div class="project-description" ng-if="project | description">
           <truncate-long-text content="project | description" use-word-boundary="true" limit="120"></truncate-long-text>
         </div>
-        <div class="catalog-modal catalog-modal-edit-project" ng-if="$ctrl.showEditProjectPanel && $ctrl.edittingProject === project">
+        <div class="catalog-modal catalog-modal-edit-project tile-click-prevent" ng-if="$ctrl.showEditProjectPanel && $ctrl.edittingProject === project">
           <h4 class="catalog-modal-title">
             Edit Project
           </h4>
