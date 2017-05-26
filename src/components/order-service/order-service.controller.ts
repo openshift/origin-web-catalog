@@ -24,8 +24,8 @@ export class OrderServiceController implements angular.IController {
   private replicationControllers: any;
   private replicaSets: any;
   private statefulSets: any;
-  private applicationHasDeploymentFilter: any;
-  private applicationHasDeploymentConfigFilter: any;
+  private hasDeploymentFilter: any;
+  private hasDeploymentConfigFilter: any;
   private validityWatcher: any;
 
   constructor($scope: any, $filter: any, ProjectsService: any, DataService: any, BindingService: any, Logger: any, Constants: any) {
@@ -35,8 +35,8 @@ export class OrderServiceController implements angular.IController {
     this.DataService = DataService;
     this.BindingService = BindingService;
     this.Logger = Logger;
-    this.applicationHasDeploymentFilter = $filter('applicationHasDeployment');
-    this.applicationHasDeploymentConfigFilter = $filter('applicationHasDeploymentConfig');
+    this.hasDeploymentFilter = $filter('hasDeployment');
+    this.hasDeploymentConfigFilter = $filter('hasDeploymentConfig');
     this.ctrl.showPodPresets = _.get(Constants, ['ENABLE_TECH_PREVIEW_FEATURE', 'pod_presets'], false);
   }
 
@@ -284,7 +284,7 @@ export class OrderServiceController implements angular.IController {
           this.sortApplications();
         });
         this.DataService.list('replicationcontrollers', context).then((replicationControllerData: any) => {
-          this.replicationControllers = _.reject(replicationControllerData.by('metadata.name'), this.applicationHasDeploymentConfigFilter);
+          this.replicationControllers = _.reject(replicationControllerData.by('metadata.name'), this.hasDeploymentConfigFilter);
           this.sortApplications();
         });
         this.DataService.list({
@@ -298,7 +298,7 @@ export class OrderServiceController implements angular.IController {
           group: 'extensions',
           resource: 'replicasets'
         }, context).then((replicaSetData: any) => {
-          this.replicaSets = _.reject(replicaSetData.by('metadata.name'), this.applicationHasDeploymentFilter);
+          this.replicaSets = _.reject(replicaSetData.by('metadata.name'), this.hasDeploymentFilter);
           this.sortApplications();
         });
         this.DataService.list({
