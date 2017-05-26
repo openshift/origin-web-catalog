@@ -2,6 +2,7 @@ var webpackMerge = require('webpack-merge');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var commonConfig = require('./webpack.common.js');
 var helpers = require('./helpers');
+var FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 
 window = {};
 
@@ -25,7 +26,8 @@ module.exports = webpackMerge(commonConfig, {
   },
 
   plugins: [
-    new ExtractTextPlugin('[name].css')
+    new ExtractTextPlugin('[name].css'),
+    new FaviconsWebpackPlugin('./app/assets/img/favicon.png')
   ],
 
   devServer: {
