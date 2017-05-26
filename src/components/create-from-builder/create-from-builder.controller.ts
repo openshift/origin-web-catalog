@@ -11,6 +11,7 @@ export class CreateFromBuilderController implements angular.IController {
     'BuilderAppService',
     'ProjectsService',
     'DataService',
+    'APIService',
     'BindingService',
     'Logger',
     'Constants'];
@@ -24,6 +25,7 @@ export class CreateFromBuilderController implements angular.IController {
   private BuilderAppService: any;
   private ProjectsService: any;
   private DataService: any;
+  private APIService: any;
   private BindingService: any;
   private Logger: any;
   private watches: any[] = [];
@@ -40,6 +42,7 @@ export class CreateFromBuilderController implements angular.IController {
               BuilderAppService: any,
               ProjectsService: any,
               DataService: any,
+              APIService: any,
               BindingService: any,
               Logger: any,
               Constants: any) {
@@ -50,6 +53,7 @@ export class CreateFromBuilderController implements angular.IController {
     this.BuilderAppService = BuilderAppService;
     this.ProjectsService = ProjectsService;
     this.DataService = DataService;
+    this.APIService = APIService;
     this.BindingService = BindingService;
     this.Logger = Logger;
     this.ctrl.serviceToBind = null;
@@ -67,7 +71,7 @@ export class CreateFromBuilderController implements angular.IController {
       onShow: this.showConfig
     };
     this.bindStep = {
-      label: 'Bind',
+      label: 'Binding',
       id: 'bind',
       view: 'create-from-builder/create-from-builder-bind.html',
       valid: true,
@@ -102,6 +106,7 @@ export class CreateFromBuilderController implements angular.IController {
       },
       this.onProjectUpdate
     );
+    this.getServiceClasses();
   }
 
   public closePanel() {
@@ -287,8 +292,10 @@ export class CreateFromBuilderController implements angular.IController {
     }
     this.bindStep.hidden = _.size(this.ctrl.serviceInstances) < 1;
     if (this.bindStep.hidden) {
+      this.ctrl.serviceToBind = undefined;
       this.ctrl.nextTitle = "Create";
     } else {
+      this.preselectService();
       this.ctrl.nextTitle = "Next >";
     }
   }
@@ -299,15 +306,14 @@ export class CreateFromBuilderController implements angular.IController {
       this.updateBindability();
     } else {
       this.ctrl.updating = true;
-      this.ProjectsService.get(this.ctrl.selectedProject.metadata.name).then(_.spread((project, context) => {
+      this.ProjectsService.get(this.ctrl.selectedProject.metadata.name).then(_.spread((project: any, context: any) => {
         var resource: any = {
           group: 'servicecatalog.k8s.io',
           resource: 'instances'
         };
-        this.watches.push(this.DataService.watch(resource, context, (serviceInstances) => {
-          this.ctrl.serviceInstances = _.toArray(serviceInstances.by('metadata.name'));
+        this.watches.push(this.DataService.watch(resource, context, (serviceInstances: any) => {
+          this.ctrl.serviceInstances = _.filter(_.toArray(serviceInstances.by('metadata.name')), this.isServiceBindable);
           this.sortServiceInstances();
-          this.preselectService();
           this.ctrl.updating = false;
           this.updateBindability();
         }));
@@ -318,6 +324,10 @@ export class CreateFromBuilderController implements angular.IController {
   private isNewProject() {
     return !_.has(this.ctrl.selectedProject, 'metadata.uid');
   }
+
+  private isServiceBindable = (serviceInstance: any) => {
+    return this.BindingService.isServiceBindable(serviceInstance, this.ctrl.serviceClasses);
+  };
 
   private createApp() {
     this.createProjectIfNecessary().then((project: any) => {
@@ -338,12 +348,7 @@ export class CreateFromBuilderController implements angular.IController {
         this.ctrl.error = e;
       });
     }, (result) => {
-      let data = result.data || {};
-      if (data.reason === 'AlreadyExists') {
-        this.ctrl.projectNameTaken = true;
-      } else {
-        this.ctrl.error = data.message || 'An error occurred creating the project.';
-      }
+      this.ctrl.error = result;
     });
   };
 
@@ -402,4 +407,21 @@ export class CreateFromBuilderController implements angular.IController {
       this.ctrl.bindError = e;
     });
   }
+
+  private getServiceClasses() {
+    // Only request service classes if the kind is available.
+    let serviceClassResourceGroup = {
+      group: 'servicecatalog.k8s.io',
+      resource: 'serviceclasses'
+    };
+    if (this.APIService.apiInfo(serviceClassResourceGroup)) {
+      this.ctrl.updating = false;
+      this.DataService.list(serviceClassResourceGroup, {}).then( (resources: any) => {
+        this.ctrl.serviceClasses = resources.by("metadata.name");
+      }).finally(() => {
+        this.ctrl.updating = false;
+      });
+    }
+  }
+
 }

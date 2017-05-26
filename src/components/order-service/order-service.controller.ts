@@ -60,7 +60,7 @@ export class OrderServiceController implements angular.IController {
 
     this.planStep = {
       id: 'plans',
-      label: 'Plans',
+      label: 'Plan',
       view: 'order-service/order-service-plans.html',
       hidden: this.ctrl.plans.length < 2,
       allowed: true,
@@ -77,7 +77,7 @@ export class OrderServiceController implements angular.IController {
       onShow: this.showConfig
     };
     this.bindStep = {
-      label: 'Bind',
+      label: 'Binding',
       id: 'bind',
       view: 'order-service/order-service-bind.html',
       hidden: false,
@@ -111,11 +111,6 @@ export class OrderServiceController implements angular.IController {
       },
       this.onProjectUpdate
     );
-
-    var humanizeKind = this.$filter('humanizeKind');
-    this.ctrl.groupByKind = function(object: any) {
-      return humanizeKind(object.kind);
-    };
   }
 
   public clearValidityWatcher = () => {
@@ -128,13 +123,15 @@ export class OrderServiceController implements angular.IController {
 
   public showPlan = () => {
     this.clearValidityWatcher();
+    this.ctrl.configPageShown = false;
     this.ctrl.nextTitle = "Next >";
   };
 
   public showConfig = () => {
     this.clearValidityWatcher();
-    this.ctrl.nextTitle = 'Next >';
+    this.ctrl.configPageShown = true;
     this.reviewStep.allowed = this.bindStep.hidden && this.configStep.valid;
+    this.updateBindability();
 
     this.validityWatcher = this.$scope.$watch("$ctrl.forms.orderConfigureForm.$valid", (isValid: any, lastValue: any) => {
       this.configStep.valid = isValid;
@@ -145,6 +142,7 @@ export class OrderServiceController implements angular.IController {
 
   public showBind = () => {
     this.clearValidityWatcher();
+    this.ctrl.configPageShown = false;
     this.ctrl.nextTitle = 'Create';
     this.reviewStep.allowed = this.bindStep.valid;
 
@@ -156,6 +154,7 @@ export class OrderServiceController implements angular.IController {
 
   public showResults = () => {
     this.clearValidityWatcher();
+    this.ctrl.configPageShown = false;
     this.ctrl.nextTitle = "Close";
     this.ctrl.wizardDone = true;
     this.provisionService();
@@ -165,6 +164,8 @@ export class OrderServiceController implements angular.IController {
     this.ctrl.selectedPlan = plan;
     // Clear any previous parameter data since each plan has its own parameter schema.
     this.ctrl.parameterData = {};
+
+    this.updateBindability();
   }
 
   public provisionService = () => {
@@ -193,12 +194,7 @@ export class OrderServiceController implements angular.IController {
           this.ctrl.projectDisplayName = this.$filter('displayName')(this.ctrl.selectedProject);
           this.createService();
         }, (result: any) => {
-          var data = result.data || {};
-          if (data.reason === 'AlreadyExists') {
-            this.ctrl.nameTaken = true;
-          } else {
-            this.ctrl.error = data.message || 'An error occurred creating the project.';
-          }
+          this.ctrl.error = result.data;
         });
     } else {
       this.ctrl.projectDisplayName = this.$filter('displayName')(this.ctrl.selectedProject);
@@ -219,7 +215,7 @@ export class OrderServiceController implements angular.IController {
       this.ctrl.orderInProgress = true;
       this.watchResults(resource, data, context);
       this.ctrl.serviceInstanceName = _.get(data, 'metadata.name');
-      if (this.ctrl.shouldBindToApp !== 'none') {
+      if (this.ctrl.bindType !== 'none') {
         this.bindService();
       }
     }, (e: any) => {
@@ -233,7 +229,8 @@ export class OrderServiceController implements angular.IController {
     var context = {
       namespace: _.get(this.ctrl.selectedProject, 'metadata.name')
     };
-    this.BindingService.bindService(context, this.ctrl.serviceInstanceName, this.ctrl.appToBind).then((binding: any) => {
+    var application = this.ctrl.bindType === 'application' ? this.ctrl.appToBind : undefined;
+    this.BindingService.bindService(context, this.ctrl.serviceInstanceName, application).then((binding: any) => {
       this.ctrl.binding = binding;
       this.ctrl.bindInProgress = false;
       this.ctrl.bindComplete = true;
@@ -265,15 +262,28 @@ export class OrderServiceController implements angular.IController {
     if (this.ctrl.wizardDone) {
       return;
     }
-    this.bindStep.hidden = _.size(this.ctrl.applications) < 1;
-    this.reviewStep.allowed = this.bindStep.hidden;
 
-    if (this.bindStep.hidden) {
-      this.ctrl.nextTitle = "Create";
+    // Check the plan's bindable value specifically, if not set, then use the value from the serviceClass
+    var planBindable = _.get(this.ctrl.selectedPlan, "bindable");
+
+    if (planBindable === true) {
+      this.bindStep.hidden = false;
+    } else if (planBindable === false) {
+      this.bindStep.hidden = true;
     } else {
-      this.ctrl.nextTitle = "Next >";
+      this.bindStep.hidden = !_.get(this.ctrl.serviceClass, "resource.bindable");
     }
-  }
+
+    if (this.ctrl.configPageShown) {
+      this.reviewStep.allowed = this.bindStep.hidden;
+
+      if (this.bindStep.hidden) {
+        this.ctrl.nextTitle = "Create";
+      } else {
+        this.ctrl.nextTitle = "Next >";
+      }
+    }
+  };
 
   private onProjectUpdate = () => {
     if (this.isNewProject()) {
@@ -283,7 +293,7 @@ export class OrderServiceController implements angular.IController {
       this.ctrl.updating = true;
       this.ProjectsService.get(this.ctrl.selectedProject.metadata.name).then(_.spread((project: any, context: any) => {
 
-        this.ctrl.shouldBindToApp = "none";
+        this.ctrl.bindType = "none";
         this.ctrl.serviceToBind = this.ctrl.serviceClass;
 
         // Load all the "application" types
