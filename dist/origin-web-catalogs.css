@@ -690,8 +690,7 @@ body.overlay-open .landing-side-bar {
   width: 60px;
 }
 .catalog-projects-summary-panel .services-view .services-item .services-item-icon img {
-  max-height: 30%;
-  max-width: 30%;
+  max-height: 17px;
 }
 .catalog-projects-summary-panel .services-view .services-item .services-item-name {
   color: #fff;
@@ -1108,8 +1107,7 @@ body.overlay-open .landing-side-bar {
   position: relative;
 }
 .services-view .services-item-icon img {
-  max-height: 50px;
-  max-width: 50px;
+  max-height: 26px;
 }
 .services-view .services-item-name {
   flex: 1 1 0%;
