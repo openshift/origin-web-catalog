@@ -837,6 +837,13 @@ body.overlay-open .landing-side-bar {
 .catalog-project-summary-list .project-date + .project-description {
   margin-top: 7px;
 }
+.catalog-project-summary-list .project-date + .project-description .truncated-content {
+  white-space: pre-line;
+  word-wrap: break-word;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  min-width: 0;
+}
 .catalog-project-summary-list .project-tile {
   border-bottom: solid 1px #4d5258;
   border-top: solid 1px #4d5258;
