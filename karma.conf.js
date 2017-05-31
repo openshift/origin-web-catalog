@@ -3,7 +3,8 @@ var webpackConfig = require('./config/webpack.test');
 module.exports = function karmaConfig(config) {
   config.set({
     frameworks: [
-      'jasmine'
+      'jasmine',
+      'detectBrowsers'
     ],
 
     reporters: [
@@ -20,9 +21,23 @@ module.exports = function karmaConfig(config) {
 
     webpack:webpackConfig,
 
-    browsers: [
-      'Firefox'
-    ],
+    detectBrowsers: {
+      enabled: true,
+      usePhantomJS: false,
+      postDetection: function(availableBrowsers) {
+        var result = [];
+
+        if (availableBrowsers.indexOf('Safari') > -1) {
+          result.push('Safari');
+        } else if (availableBrowsers.indexOf('Firefox') > -1) {
+          result.push('Firefox');
+        } else {
+          result = availableBrowsers
+        }
+
+        return result;
+      }
+    },
 
     singleRun: true,
     captureTimeout: 60000,
