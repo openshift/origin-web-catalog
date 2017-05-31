@@ -23,6 +23,14 @@ import {MockServicesModule} from '../../app/mockServices/mockServices.module';
 
 export class TestHelpers {
 
+  constructor() {
+    beforeAll(() => {
+      window.onbeforeunload = () => {
+        return null;
+      };
+    });
+  }
+
   public initTests(): void {
     new MockServicesModule(window);
   }
