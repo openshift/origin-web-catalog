@@ -6,8 +6,8 @@ export const servicesData = {
       "uid": "1",
     },
     description: 'BUILDS SOURCE CODE',
-    osbTags: ['java', 'nodejs'],
-    osbMetadata: {
+    alphaTags: ['java', 'nodejs'],
+    externalMetadata: {
       displayName: 'Test ServiceClass Java-Node.js',
       longDescription: 'Build and run Java applications on CentOS 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/openshift-s2i/s2i-wildfly/blob/mast…',
       documentationUrl: 'https://github.com/openshift/source-to-image'
@@ -28,8 +28,8 @@ export const servicesData = {
       "uid": "2",
     },
     description: 'BUILDS SOURCE CODE',
-    osbTags: ['nodejs'],
-    osbMetadata: {
+    alphaTags: ['nodejs'],
+    externalMetadata: {
       displayName: 'Test ServiceClass Node.js',
       longDescription: 'run nodejs applications on CentOS 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/openshift-s2i/s2i-wildfly/blob/mast…',
     },
@@ -44,8 +44,8 @@ export const servicesData = {
       "uid": "3",
     },
     description: 'BUILDS SOURCE CODE',
-    osbTags: ['perl'],
-    osbMetadata: {
+    alphaTags: ['perl'],
+    externalMetadata: {
       displayName: 'Test ServiceClass Perl',
       longDescription: 'run Perl applications on CentOS 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/openshift-s2i/s2i-wildfly/blob/mast…',
     },
@@ -60,8 +60,8 @@ export const servicesData = {
       "uid": "4",
     },
     description: 'BUILDS SOURCE CODE',
-    osbTags: ['ruby', 'mongodb'],
-    osbMetadata: {
+    alphaTags: ['ruby', 'mongodb'],
+    externalMetadata: {
       displayName: 'Test ServiceClass Ruby-Mongo',
       longDescription: 'run ruby applications on CentOS 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/openshift-s2i/s2i-wildfly/blob/mast…',
     },
@@ -76,8 +76,8 @@ export const servicesData = {
       "uid": "5",
     },
     description: 'BUILDS SOURCE CODE',
-    osbTags: ['php'],
-    osbMetadata: {
+    alphaTags: ['php'],
+    externalMetadata: {
       displayName: 'Test ServiceClass PHP',
       longDescription: 'run PHP applications on CentOS 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/openshift-s2i/s2i-wildfly/blob/mast…',
     },
@@ -92,8 +92,8 @@ export const servicesData = {
       "uid": "6",
     },
     description: 'BUILDS SOURCE CODE',
-    osbTags: ['mongodb'],
-    osbMetadata: {
+    alphaTags: ['mongodb'],
+    externalMetadata: {
       displayName: 'Test ServiceClass MongoDB',
       longDescription: 'run MongoDB applications on CentOS 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/openshift-s2i/s2i-wildfly/blob/mast…',
     },
@@ -108,8 +108,8 @@ export const servicesData = {
       "uid": "7",
     },
     description: 'BUILDS SOURCE CODE',
-    osbTags: ['mysql'],
-    osbMetadata: {
+    alphaTags: ['mysql'],
+    externalMetadata: {
       displayName: 'Test ServiceClass mySQL',
       longDescription: 'run MongoDB applications. For more information about using this builder image, including OpenShift considerations, see https://github.com/openshift-s2i/s2i-wildfly/blob/mast…',
     },
@@ -124,8 +124,8 @@ export const servicesData = {
       "uid": "8",
     },
     description: 'BUILDS SOURCE CODE',
-    osbTags: ['fooBar'],
-    osbMetadata: {
+    alphaTags: ['fooBar'],
+    externalMetadata: {
       displayName: 'Test ServiceClass Other',
       longDescription: 'some other service',
       'console.openshift.io/iconClass': 'fa fa-question'
@@ -141,8 +141,8 @@ export const servicesData = {
       "uid": "9",
     },
     description: 'BUILDS SOURCE CODE',
-    osbTags: ['jenkins'],
-    osbMetadata: {
+    alphaTags: ['jenkins'],
+    externalMetadata: {
       displayName: 'Test ServiceClass jenkins',
       longDescription: 'some other service'
     },

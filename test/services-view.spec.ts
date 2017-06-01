@@ -136,7 +136,7 @@ describe('servicesView', () => {
           "name": "mycat-database",
           "uid": "10",
         },
-        osbTags: [
+        alphaTags: [
           "mycat",
           "database"
         ]
@@ -147,7 +147,7 @@ describe('servicesView', () => {
           "name": "mycat-other",
           "uid": "11",
         },
-        osbTags: [
+        alphaTags: [
           "mycat",
           "foobar"
         ]
@@ -196,7 +196,7 @@ describe('servicesView', () => {
           "name": "mycat-database",
           "uid": "10",
         },
-        osbTags: [
+        alphaTags: [
           "mycata",
           "mycatb",
           "database"

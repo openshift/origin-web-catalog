@@ -282,17 +282,17 @@ export class ServiceItem implements IServiceItem {
   }
 
   private getImage() {
-    return _.get(this.resource, 'osbMetadata.imageUrl', '');
+    return _.get(this.resource, 'externalMetadata.imageUrl', '');
   }
 
   private getIcon() {
-    let icon = _.get(this.resource, ['osbMetadata', 'console.openshift.io/iconClass'], 'fa fa-cubes');
+    let icon = _.get(this.resource, ['externalMetadata', 'console.openshift.io/iconClass'], 'fa fa-cubes');
     icon = (icon.indexOf('icon-') !== -1) ? 'font-icon ' + icon : icon;
     return icon;
   }
 
   private getName() {
-    return _.get(this.resource, 'osbMetadata.displayName', this.resource.metadata.name);
+    return _.get(this.resource, 'externalMetadata.displayName', this.resource.metadata.name);
   }
 
   private getDescription() {
@@ -300,11 +300,11 @@ export class ServiceItem implements IServiceItem {
   }
 
   private getLongDescription() {
-    return _.get(this.resource, 'osbMetadata.longDescription', '');
+    return _.get(this.resource, 'externalMetadata.longDescription', '');
   }
 
   private getTags() {
-    return _.get(this.resource, 'osbTags', []);
+    return _.get(this.resource, 'alphaTags', []);
   }
 }
 

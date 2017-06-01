@@ -8,7 +8,7 @@
           ng-model="$ctrl.planIndex"
           ng-change="$ctrl.selectPlan(plan)"
           value="{{$index}}">
-        <span class="plan-name">{{plan.osbMetadata.displayName || plan.name}}</span>
+        <span class="plan-name">{{plan.externalMetadata.displayName || plan.name}}</span>
         <!-- TODO: truncate long text -->
         <div ng-if="plan.description">{{plan.description}}</div>
         <!-- TODO: show plan bullets -->
