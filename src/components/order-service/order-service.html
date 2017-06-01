@@ -33,15 +33,15 @@
                   {{tag}}
                 </span>
               </div>
-              <div ng-if="$ctrl.serviceClass.resource.osbMetadata.documentationUrl" class="order-service-documentation-url">
-                <a ng-href="{{$ctrl.serviceClass.resource.osbMetadata.documentationUrl}}" target="_blank" class="learn-more-link">Learn More <i class="fa fa-external-link" aria-hidden="true"></i></a>
+              <div ng-if="$ctrl.serviceClass.resource.externalMetadata.documentationUrl" class="order-service-documentation-url">
+                <a ng-href="{{$ctrl.serviceClass.resource.externalMetadata.documentationUrl}}" target="_blank" class="learn-more-link">Learn More <i class="fa fa-external-link" aria-hidden="true"></i></a>
               </div>
             </div>
           </div>
           <div class="order-service-description-block">
-            <p ng-if="$ctrl.currentStep.id !== 'plans' && ($ctrl.selectedPlan.osbMetadata.displayName || $ctrl.selectedPlan.description)">
-              <span ng-if="$ctrl.selectedPlan.osbMetadata.displayName">
-                Plan {{$ctrl.selectedPlan.osbMetadata.displayName}}
+            <p ng-if="$ctrl.currentStep.id !== 'plans' && ($ctrl.selectedPlan.externalMetadata.displayName || $ctrl.selectedPlan.description)">
+              <span ng-if="$ctrl.selectedPlan.externalMetadata.displayName">
+                Plan {{$ctrl.selectedPlan.externalMetadata.displayName}}
                 <span ng-if="$ctrl.selectedPlan.description">&ndash;</span>
               </span>
               <span ng-if="$ctrl.selectedPlan.description">{{$ctrl.selectedPlan.description}}</span>
