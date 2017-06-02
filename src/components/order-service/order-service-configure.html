@@ -2,9 +2,9 @@
   <form name="$ctrl.forms.orderConfigureForm" class="config-form">
     <select-project selected-project="$ctrl.selectedProject" name-taken="$ctrl.nameTaken"></select-project>
     <catalog-parameters
-      ng-if="$ctrl.selectedPlan.alphaInstanceCreateParameterSchema"
+      ng-if="$ctrl.parameterSchema"
       model="$ctrl.parameterData"
-      parameter-schema="$ctrl.selectedPlan.alphaInstanceCreateParameterSchema">
+      parameter-schema="$ctrl.parameterSchema">
     </catalog-parameters>
   </form>
   <div ng-if="$ctrl.error" class="has-error">
