@@ -141,7 +141,7 @@ export class CatalogService {
       itemCategorized = false;
       _.each(this.categories, (category) => {
         if (category.tags) {
-          if (!_.isEmpty(this.getMatchingTags(category.tags, item.tags))) {
+          if (this.hasMatchingTags(category.tags, item.tags)) {
             itemCategorized = this.categorizeItem(item, category, 'all');
             filteredSubCats = this.filterSubCatsByTags(category.subCategories, item.tags);
             if (!_.isEmpty(filteredSubCats)) {
@@ -209,13 +209,18 @@ export class CatalogService {
     return subCatObj;
   }
 
-  private getMatchingTags(tagsOne: any, tagsTwo: any) {
-    return _.intersection(tagsOne, tagsTwo);
+  private hasMatchingTags(tagsOne: any, tagsTwo: any) {
+    return _.some(tagsOne, function(tagOne: string) {
+      let tagOneLower: string = tagOne.toLowerCase();
+      return _.some(tagsTwo, function(tagTwo: string){
+        return tagOneLower === tagTwo.toLowerCase();
+      });
+    });
   };
 
   private filterSubCatsByTags(subCats: any, tags: any) {
     return _.filter(subCats, (subCat: any) => {
-      return !_.isEmpty(this.getMatchingTags(subCat.tags, tags));
+      return this.hasMatchingTags(subCat.tags, tags);
     });
   }
 
