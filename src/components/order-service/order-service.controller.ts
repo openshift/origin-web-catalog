@@ -185,7 +185,8 @@ export class OrderServiceController implements angular.IController {
       this.DataService
         .create('projectrequests', null, projReqObj, this.$scope)
         .then( (data: any) => {
-          this.ctrl.projectDisplayName = newProjDisplayName || newProjName;
+          this.ctrl.selectedProject = data;
+          this.ctrl.projectDisplayName = this.$filter('displayName')(this.ctrl.selectedProject);
           this.createService();
         }, (result: any) => {
           var data = result.data || {};
@@ -257,6 +258,9 @@ export class OrderServiceController implements angular.IController {
   }
 
   private updateBindability() {
+    if (this.ctrl.wizardDone) {
+      return;
+    }
     this.bindStep.hidden = _.size(this.ctrl.applications) < 1;
     this.reviewStep.allowed = this.bindStep.hidden;
 
