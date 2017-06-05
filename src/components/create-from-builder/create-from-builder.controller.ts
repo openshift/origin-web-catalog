@@ -282,6 +282,9 @@ export class CreateFromBuilderController implements angular.IController {
   };
 
   private updateBindability() {
+    if (this.ctrl.wizardDone) {
+      return;
+    }
     this.bindStep.hidden = _.size(this.ctrl.serviceInstances) < 1;
     if (this.bindStep.hidden) {
       this.ctrl.nextTitle = "Create";
@@ -317,7 +320,8 @@ export class CreateFromBuilderController implements angular.IController {
   }
 
   private createApp() {
-    this.createProjectIfNecessary().then(() => {
+    this.createProjectIfNecessary().then((project: any) => {
+      this.ctrl.selectedProject = project;
       // Get the image stream tag so we know what ports are exposed by the image.
       this.getImageStreamTag().then((imageStreamTag: any) => {
         let apiObjects = this.BuilderAppService.makeAPIObjects({
@@ -345,7 +349,7 @@ export class CreateFromBuilderController implements angular.IController {
 
   private createProjectIfNecessary() {
     if (!this.isNewProject()) {
-      return this.$q.when();
+      return this.$q.when(this.ctrl.selectedProject);
     }
 
     // TODO: Common code from this controller and order service.

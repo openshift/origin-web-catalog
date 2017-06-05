@@ -952,13 +952,14 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 }), this.ctrl.serviceInstances = e;
             }
         }, e.prototype.updateBindability = function() {
-            this.bindStep.hidden = i.size(this.ctrl.serviceInstances) < 1, this.bindStep.hidden ? this.ctrl.nextTitle = "Create" : this.ctrl.nextTitle = "Next >";
+            this.ctrl.wizardDone || (this.bindStep.hidden = i.size(this.ctrl.serviceInstances) < 1, 
+            this.bindStep.hidden ? this.ctrl.nextTitle = "Create" : this.ctrl.nextTitle = "Next >");
         }, e.prototype.isNewProject = function() {
             return !i.has(this.ctrl.selectedProject, "metadata.uid");
         }, e.prototype.createApp = function() {
             var e = this;
-            this.createProjectIfNecessary().then(function() {
-                e.getImageStreamTag().then(function(t) {
+            this.createProjectIfNecessary().then(function(t) {
+                e.ctrl.selectedProject = t, e.getImageStreamTag().then(function(t) {
                     var n = e.BuilderAppService.makeAPIObjects({
                         name: e.ctrl.name,
                         repository: e.ctrl.repository,
@@ -974,7 +975,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 "AlreadyExists" === n.reason ? e.ctrl.projectNameTaken = !0 : e.ctrl.error = n.message || "An error occurred creating the project.";
             });
         }, e.prototype.createProjectIfNecessary = function() {
-            if (!this.isNewProject()) return this.$q.when();
+            if (!this.isNewProject()) return this.$q.when(this.ctrl.selectedProject);
             var e = this.ctrl.selectedProject.metadata.name, t = this.ctrl.selectedProject.metadata.annotations["new-display-name"], n = this.$filter("description")(this.ctrl.selectedProject), r = {
                 apiVersion: "v1",
                 kind: "ProjectRequest",
@@ -1069,8 +1070,9 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                         displayName: t,
                         description: n
                     };
-                    c.DataService.create("projectrequests", null, r, c.$scope).then(function(n) {
-                        c.ctrl.projectDisplayName = t || e, c.createService();
+                    c.DataService.create("projectrequests", null, r, c.$scope).then(function(e) {
+                        c.ctrl.selectedProject = e, c.ctrl.projectDisplayName = c.$filter("displayName")(c.ctrl.selectedProject), 
+                        c.createService();
                     }, function(e) {
                         var t = e.data || {};
                         "AlreadyExists" === t.reason ? c.ctrl.nameTaken = !0 : c.ctrl.error = t.message || "An error occurred creating the project.";
@@ -1198,8 +1200,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
         }, e.prototype.closePanel = function() {
             r.isFunction(this.ctrl.handleClose) && this.ctrl.handleClose();
         }, e.prototype.updateBindability = function() {
-            this.bindStep.hidden = i.size(this.ctrl.applications) < 1, this.reviewStep.allowed = this.bindStep.hidden, 
-            this.bindStep.hidden ? this.ctrl.nextTitle = "Create" : this.ctrl.nextTitle = "Next >";
+            this.ctrl.wizardDone || (this.bindStep.hidden = i.size(this.ctrl.applications) < 1, 
+            this.reviewStep.allowed = this.bindStep.hidden, this.bindStep.hidden ? this.ctrl.nextTitle = "Create" : this.ctrl.nextTitle = "Next >");
         }, e.prototype.sortApplications = function() {
             if (this.deploymentConfigs && this.deployments && this.replicationControllers && this.replicaSets && this.statefulSets) {
                 var e = this.deploymentConfigs.concat(this.deployments).concat(this.replicationControllers).concat(this.replicaSets).concat(this.statefulSets);
