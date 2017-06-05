@@ -289,6 +289,10 @@
 
     + .project-description {
       margin-top: 7px;
+      .truncated-content {
+        white-space: pre-line; // preserve newlines in descriptions
+        .word-break(); // break long, unbroken strings
+      }
     }
   }
 
