@@ -194,6 +194,11 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 label: "JavaScript",
                 icon: "font-icon icon-js"
             }, {
+                id: "dotnet",
+                label: ".NET",
+                tags: [ "dotnet" ],
+                icon: "font-icon icon-dotnet"
+            }, {
                 id: "perl",
                 label: "Perl",
                 tags: [ "perl" ],
@@ -213,6 +218,11 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 label: "Python",
                 tags: [ "python" ],
                 icon: "font-icon icon-python"
+            }, {
+                id: "golang",
+                label: "Go",
+                tags: [ "golang", "go" ],
+                icon: "font-icon icon-go-gopher"
             } ]
         }, {
             id: "databases",
@@ -608,7 +618,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             var s = i.first(this.categories), o = i.get(s, "subCategories[0]"), c = i.last(this.categories), l = i.get(c, "subCategories[0]");
             i.each(e, function(e) {
                 n = !1, i.each(a.categories, function(r) {
-                    r.tags ? i.isEmpty(a.getMatchingTags(r.tags, e.tags)) || (n = a.categorizeItem(e, r, "all"), 
+                    r.tags ? a.hasMatchingTags(r.tags, e.tags) && (n = a.categorizeItem(e, r, "all"), 
                     t = a.filterSubCatsByTags(r.subCategories, e.tags), i.isEmpty(t) ? a.categorizeItem(e, r, "other") : i.each(t, function(t) {
                         a.categorizeItem(e, r, t);
                     })) : (t = a.filterSubCatsByTags(r.subCategories, e.tags), i.isEmpty(t) || (n = a.categorizeItem(e, r, "all"), 
@@ -647,12 +657,17 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 id: "all",
                 label: "All"
             }, e.subCategories.unshift(n))), n;
-        }, e.prototype.getMatchingTags = function(e, t) {
-            return i.intersection(e, t);
+        }, e.prototype.hasMatchingTags = function(e, t) {
+            return i.some(e, function(e) {
+                var n = e.toLowerCase();
+                return i.some(t, function(e) {
+                    return n === e.toLowerCase();
+                });
+            });
         }, e.prototype.filterSubCatsByTags = function(e, t) {
             var n = this;
             return i.filter(e, function(e) {
-                return !i.isEmpty(n.getMatchingTags(e.tags, t));
+                return n.hasMatchingTags(e.tags, t);
             });
         }, e.prototype.returnCatalogItems = function(e, t, n, r, a) {
             if (!(n < r)) {
@@ -1460,8 +1475,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
     t.__esModule = !0;
     var r = n(1);
     n(3), n(21);
-    var i = n(22), a = n(23), s = n(12), o = n(24), c = n(13), l = n(14), d = n(15), p = n(16), h = n(17), m = n(18), g = n(19), u = n(20), v = n(25);
-    t.webCatalog = "webCatalog", r.module(t.webCatalog, [ "patternfly", "ngAnimate", "ui.bootstrap", "angularMoment", "ui.select" ]).service("BuilderAppService", a.BuilderAppService).service("Catalog", o.CatalogService).service("RecentlyViewedServiceItems", v.RecentlyViewedServiceItems).filter("projectUrl", i.projectUrlFilter).component("catalogSearch", s.catalogSearch).component("createFromBuilder", c.createFromBuilder).component("landingPage", l.landingPage).component("orderService", d.orderService).component("overlayPanel", p.overlayPanel).component("projectsSummary", h.projectsSummary).component("saasList", m.saasList).component("selectProject", g.selectProject).component("servicesView", u.servicesView).run([ "$templateCache", function(e) {
+    var i = n(22), a = n(23), s = n(12), o = n(24), c = n(13), l = n(14), d = n(15), p = n(16), h = n(17), m = n(18), g = n(19), u = n(20), f = n(25);
+    t.webCatalog = "webCatalog", r.module(t.webCatalog, [ "patternfly", "ngAnimate", "ui.bootstrap", "angularMoment", "ui.select" ]).service("BuilderAppService", a.BuilderAppService).service("Catalog", o.CatalogService).service("RecentlyViewedServiceItems", f.RecentlyViewedServiceItems).filter("projectUrl", i.projectUrlFilter).component("catalogSearch", s.catalogSearch).component("createFromBuilder", c.createFromBuilder).component("landingPage", l.landingPage).component("orderService", d.orderService).component("overlayPanel", p.overlayPanel).component("projectsSummary", h.projectsSummary).component("saasList", m.saasList).component("selectProject", g.selectProject).component("servicesView", u.servicesView).run([ "$templateCache", function(e) {
         e.put("catalog-search/catalog-search-result.html", n(4)), e.put("create-from-builder/create-from-builder-configure.html", n(6)), 
         e.put("create-from-builder/create-from-builder-bind.html", n(5)), e.put("create-from-builder/create-from-builder-results.html", n(7)), 
         e.put("order-service/order-service-plans.html", n(10)), e.put("order-service/order-service-configure.html", n(9)), 

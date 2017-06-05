@@ -22,10 +22,12 @@ var categories: any = [
   {id: 'languages', label: 'Languages', subCategories: [
     {id: 'java', label: 'Java', tags: ['java'], icon: 'font-icon icon-openjdk'},
     {id: 'javascript', tags: ['javascript', 'nodejs', 'js'], label: 'JavaScript', icon: 'font-icon icon-js'},
+    {id: 'dotnet', label: '.NET', tags: ['dotnet'], icon: 'font-icon icon-dotnet'},
     {id: 'perl', label: 'Perl', tags: ['perl'], icon: 'font-icon icon-perl'},
     {id: 'ruby', label: 'Ruby', tags: ['ruby'], icon: 'font-icon icon-ruby'},
     {id: 'php', label: 'PHP', tags: ['php'], icon: 'font-icon icon-php'},
-    {id: 'python', label: 'Python', tags: ['python'], icon: 'font-icon icon-python'}
+    {id: 'python', label: 'Python', tags: ['python'], icon: 'font-icon icon-python'},
+    {id: 'golang', label: 'Go', tags: ['golang', 'go'], icon: 'font-icon icon-go-gopher'},
   ]},
   {id: 'databases', label: 'Databases', subCategories: [
     {id: 'mongodb', label: 'Mongo', tags: ['mongodb'], icon: 'font-icon icon-mongodb'},
