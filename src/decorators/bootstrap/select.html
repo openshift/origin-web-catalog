@@ -1,0 +1,21 @@
+<div class="form-group {{form.htmlClass}} schema-form-select"
+     ng-class="{'has-error': form.disableErrorState !== true && hasError(), 'has-success': form.disableSuccessState !== true && hasSuccess(), 'has-feedback': form.feedback !== false}">
+   <label class="control-label {{form.labelHtmlClass}}" ng-class="{ required: form.required }" ng-show="showTitle()">
+    {{form.title}}
+  </label>
+  <div class="{{form.fieldWrapperHtmlClass}}">
+    <ui-select sf-field-model
+            ng-disabled="form.readonly"
+            ng-required="form.required"
+            sf-changed="form"
+            schema-validate="form">
+      <ui-select-match>
+        {{$select.selected.name}}
+      </ui-select-match>
+      <ui-select-choices repeat="item.value as item in form.titleMap | filter : $select.search">
+        <span ng-bind-html="item.name | highlightKeywords : $select.search"></span>
+      </ui-select-choices>
+    </ui-select>
+    <div class="help-block" sf-message="form.description"></div>
+  </div>
+</div>

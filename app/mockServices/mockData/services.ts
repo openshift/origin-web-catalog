@@ -13,7 +13,47 @@ export const servicesData = {
       documentationUrl: 'https://github.com/openshift/source-to-image'
     },
     plans: [
-      {name: 'rh-ded-topic', osbGuid: '1', displayName: 'Red Hat - Dedicated - Topic', description: '$.65 / 1 Million messages', bullets: ['One', 'Two', 'Three']},
+      {
+        name: 'rh-ded-topic', osbGuid: '1', displayName: 'Red Hat - Dedicated - Topic', description: '$.65 / 1 Million messages', bullets: ['One', 'Two', 'Three'],
+        alphaInstanceCreateParameterSchema: {
+          "$schema": "http://json-schema.org/draft-04/schema",
+          "type": "object",
+          "title": "Parameters",
+          "properties": {
+            "name": {
+              "title": "Queue Name",
+              "type": "string",
+              "maxLength": 63,
+              "default": "My Queue"
+            },
+            "email": {
+              "title": "Email",
+              "type": "string",
+              "pattern": "^\\S+@\\S+$",
+              "description": "Email address for alerts."
+            },
+            "protocol": {
+              "title": "Protocol",
+              "type": "string",
+              "default": "Java Message Service (JMS) 1.1",
+              "enum": [
+                "Java Message Service (JMS) 1.1",
+                "Transmission Control Protocol (TCP)",
+                "Advanced Message Queuing Protocol (AMQP) 1.0"
+              ]
+            },
+            "secure": {
+              "title": "Enable security",
+              "type": "boolean",
+              "default": true
+            }
+          },
+          "required": [
+            "name",
+            "protocol"
+          ]
+        }
+      },
       {name: 'rh-ded-queue', osbGuid: '2', displayName: 'Red Hat - Dedicated - Queue', description: '$.65 / 1 Million messages', bullets: ['Four', 'Five', 'Six']},
       {name: 'rh-shared-topic', osbGuid: '3', displayName: 'Red Hat - Shared - Topic', description: '$.60 / 1 Million messages', bullets: ['One', 'Two', 'Three']},
       {name: 'rh-shared-queue', osbGuid: '4', displayName: 'Red Hat - Shared - Queue', description: '$.60 / 1 Million messages', bullets: ['Four', 'Five', 'Six']},

@@ -22,6 +22,8 @@ require('urijs');
 require('urijs/src/URITemplate.js');
 require('angular-utf8-base64');
 require('hopscotch/dist/js/hopscotch.js');
+require('angular-schema-form');
+require('angular-schema-form-bootstrap');
 
 try {
   require('./config.local.js');
@@ -58,7 +60,7 @@ if (mockServicesModule.useMockServices() !== true) {
 }
 
 angular
-  .module(catalogApp, ['webCatalog', 'openshiftCommonUI', commonServices, 'ui.router', 'patternfly', 'angularMoment'])
+  .module(catalogApp, ['webCatalog', 'openshiftCommonUI', commonServices, 'ui.router', 'patternfly', 'angularMoment', 'schemaForm'])
   .config(routesConfig)
   .component('oauth', oauth)
   .component('homepage', homePage)
