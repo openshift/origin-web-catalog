@@ -1,6 +1,6 @@
 <div ng-if="!$ctrl.error">
   <div ng-if="!$ctrl.orderComplete">
-    <div ng-if="$ctrl.shouldBindToApp === 'none'">
+    <div ng-if="$ctrl.bindType === 'none'">
       <h3 class="text-center">
         <div class="spinner spinner-lg" aria-hidden="true"></div>
       </h3>
@@ -8,11 +8,12 @@
         <span>The service is being provisioned</span>
       </h3>
     </div>
-    <div ng-if="$ctrl.shouldBindToApp !== 'none'" class="review-status">
+    <div ng-if="$ctrl.bindType !== 'none'" class="review-status">
       <div class="spinner spinner-sm spinner-inline" aria-hidden="true"></div>
-    <h3 class="review-message">
-      The service is being provisioned
-    </h3>
+      <h3 class="review-message">
+        The service is being provisioned
+      </h3>
+    </div>
   </div>
 </div>
 <div class="review-failure" ng-if="$ctrl.error">
@@ -43,16 +44,17 @@
     </h3>
   </div>
 </div>
-<div ng-if="$ctrl.shouldBindToApp !== 'none'">
+<div ng-if="$ctrl.bindType !== 'none'">
   <bind-results error="$ctrl.bindError"
                 progress-inline="true"
                 binding="$ctrl.binding"
                 service-to-bind="$ctrl.serviceInstanceName"
+                bind-type="{{$ctrl.bindType}}"
                 application-to-bind="$ctrl.appToBind.metadata.name"
                 show-pod-presets="$ctrl.showPodPresets">
   </bind-results>
 </div>
-<div class="alert alert-info" ng-if="$ctrl.orderComplete && $ctrl.shouldBindToApp === 'none'">
+<div class="alert alert-info" ng-if="$ctrl.orderComplete && $ctrl.bindType === 'none'">
   <span class="pficon pficon-info" aria-hidden="true"></span>
   <span class="sr-only">Info</span>
   Continue to your project to bind this service to your application. Binding this service creates a secret containing the information necessary for your application to use the service.
