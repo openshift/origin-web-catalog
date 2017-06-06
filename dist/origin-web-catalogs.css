@@ -1022,6 +1022,15 @@ body.overlay-open .landing-side-bar {
 .saas-offerings-container .sass-list-expander.expanded:after {
   content: "\F106";
 }
+.saas-offerings-container .sass-list-expander.expanded .less {
+  display: inline;
+}
+.saas-offerings-container .sass-list-expander.expanded .more {
+  display: none;
+}
+.saas-offerings-container .sass-list-expander .less {
+  display: none;
+}
 .saas-offerings-container .sass-list-expander-container {
   margin-bottom: 10px;
   text-align: center;
