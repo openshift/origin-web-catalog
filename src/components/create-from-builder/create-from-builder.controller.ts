@@ -342,7 +342,7 @@ export class CreateFromBuilderController implements angular.IController {
         });
         this.createAPIObjects(apiObjects);
         if (this.ctrl.serviceToBind) {
-          this.bindService();
+          this.bindService(_.find(apiObjects, {kind: "DeploymentConfig"}));
         }
       }, (e: any) => {
         this.ctrl.error = e;
@@ -387,13 +387,13 @@ export class CreateFromBuilderController implements angular.IController {
     });
   }
 
-  private bindService() {
+  private bindService(application: any) {
     this.ctrl.bindInProgress = true;
     this.ctrl.bindError = false;
     var context = {
       namespace: _.get(this.ctrl.selectedProject, 'metadata.name')
     };
-    this.BindingService.bindService(context, this.ctrl.serviceToBind, this.ctrl.name).then((binding: any) => {
+    this.BindingService.bindService(context, this.ctrl.serviceToBind, application).then((binding: any) => {
       this.ctrl.binding = binding;
       this.ctrl.bindInProgress = false;
       this.ctrl.bindComplete = true;
