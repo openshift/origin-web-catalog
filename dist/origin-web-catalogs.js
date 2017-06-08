@@ -1014,7 +1014,9 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                         namespace: e.ctrl.selectedProject.metadata.name,
                         imageStreamTag: t
                     });
-                    e.createAPIObjects(n), e.ctrl.serviceToBind && e.bindService();
+                    e.createAPIObjects(n), e.ctrl.serviceToBind && e.bindService(i.find(n, {
+                        kind: "DeploymentConfig"
+                    }));
                 }, function(t) {
                     e.ctrl.error = t;
                 });
@@ -1042,19 +1044,19 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             }, function(e) {
                 t.ctrl.error = e;
             });
-        }, e.prototype.bindService = function() {
-            var e = this;
+        }, e.prototype.bindService = function(e) {
+            var t = this;
             this.ctrl.bindInProgress = !0, this.ctrl.bindError = !1;
-            var t = {
+            var n = {
                 namespace: i.get(this.ctrl.selectedProject, "metadata.name")
             };
-            this.BindingService.bindService(t, this.ctrl.serviceToBind, this.ctrl.name).then(function(n) {
-                e.ctrl.binding = n, e.ctrl.bindInProgress = !1, e.ctrl.bindComplete = !0, e.ctrl.bindError = null, 
-                e.DataService.watchObject(e.BindingService.bindingResource, i.get(e.ctrl.binding, "metadata.name"), t, function(t) {
-                    e.ctrl.binding = t;
+            this.BindingService.bindService(n, this.ctrl.serviceToBind, e).then(function(e) {
+                t.ctrl.binding = e, t.ctrl.bindInProgress = !1, t.ctrl.bindComplete = !0, t.ctrl.bindError = null, 
+                t.DataService.watchObject(t.BindingService.bindingResource, i.get(t.ctrl.binding, "metadata.name"), n, function(e) {
+                    t.ctrl.binding = e;
                 });
-            }, function(t) {
-                e.ctrl.bindInProgress = !1, e.ctrl.bindComplete = !0, e.ctrl.bindError = t;
+            }, function(e) {
+                t.ctrl.bindInProgress = !1, t.ctrl.bindComplete = !0, t.ctrl.bindError = e;
             });
         }, e.prototype.getServiceClasses = function() {
             var e = this, t = {
