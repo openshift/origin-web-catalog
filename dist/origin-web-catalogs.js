@@ -1316,38 +1316,37 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
     "use strict";
     t.__esModule = !0;
     var r = n(1), i = n(2), a = n(0), s = function() {
-        function e(e, t, n, i, s, o, c, l, d, p, m, h) {
-            var g = this;
+        function e(e, t, n, i, s, o, c, l, d, p, m) {
+            var h = this;
             this.ctrl = this, this.showNewProjectPanel = !1, this.showEditProjectPanel = !1, 
             this.alerts = [], this.projects = [], this.watches = [], this.maxDisplayProjects = 5, 
             this.init = function() {
-                g.watches.push(g.DataService.watch("projects", g.$scope, g.onProjectsUpdate)), g.AlertMessageService.getAlerts().forEach(function(e) {
-                    this.ctrl.alerts[e.name] = e.data;
-                }), g.ctrl.resourceLinks = a.clone(g.Constants.CATALOG_HELP_RESOURCES.links), a.forEach(g.ctrl.resourceLinks, function(e) {
-                    r.isDefined(e.help) && (e.href = g.Constants.HELP_BASE_URL + (e.help ? g.Constants.HELP[e.help] : ""));
-                }), g.$rootScope.$on("recently-viewed-updated", function() {
-                    g.ctrl.recentlyViewedItems = g.getRecentlyViewedItems();
+                h.watches.push(h.DataService.watch("projects", h.$scope, h.onProjectsUpdate)), h.ctrl.resourceLinks = a.clone(h.Constants.CATALOG_HELP_RESOURCES.links), 
+                a.forEach(h.ctrl.resourceLinks, function(e) {
+                    r.isDefined(e.help) && (e.href = h.Constants.HELP_BASE_URL + (e.help ? h.Constants.HELP[e.help] : ""));
+                }), h.$rootScope.$on("recently-viewed-updated", function() {
+                    h.ctrl.recentlyViewedItems = h.getRecentlyViewedItems();
                 });
             }, this.onProjectsUpdate = function(e) {
-                var t = a.toArray(e.by("metadata.creationTimestamp")), n = g.$filter("orderObjectsByDate");
-                g.ctrl.projects = n(t, !0), g.ctrl.totalProjects = g.ctrl.projects.length, g.ctrl.projects = a.take(g.ctrl.projects, g.maxDisplayProjects), 
-                g.ctrl.loading = !1, g.ctrl.showGetStarted = !g.ctrl.projects || g.ctrl.projects.length < 2;
+                var t = a.toArray(e.by("metadata.creationTimestamp")), n = h.$filter("orderObjectsByDate");
+                h.ctrl.projects = n(t, !0), h.ctrl.totalProjects = h.ctrl.projects.length, h.ctrl.projects = a.take(h.ctrl.projects, h.maxDisplayProjects), 
+                h.ctrl.loading = !1, h.ctrl.showGetStarted = !h.ctrl.projects || h.ctrl.projects.length < 2;
             }, this.closeNewProjectPanel = function() {
-                g.ctrl.showNewProjectPanel = !1, g.hideModalBackdrop();
+                h.ctrl.showNewProjectPanel = !1, h.hideModalBackdrop();
             }, this.onNewProject = function(e) {
-                g.ctrl.showNewProjectPanel = !1, g.hideModalBackdrop();
+                h.ctrl.showNewProjectPanel = !1, h.hideModalBackdrop();
             }, this.onViewMemebership = function(e) {
-                var t = g.ctrl.viewEditMembership();
+                var t = h.ctrl.viewEditMembership();
                 t && t(e);
             }, this.editProject = function(e) {
-                g.ctrl.edittingProject = e, g.ctrl.showEditProjectPanel = !0, g.showModalBackdrop();
+                h.ctrl.edittingProject = e, h.ctrl.showEditProjectPanel = !0, h.showModalBackdrop();
             }, this.closeEditProjectPanel = function() {
-                g.ctrl.showEditProjectPanel = !1, g.hideModalBackdrop();
+                h.ctrl.showEditProjectPanel = !1, h.hideModalBackdrop();
             }, this.onEditProject = function(e) {
-                g.ctrl.showEditProjectPanel = !1, g.hideModalBackdrop();
-            }, this.$element = e, this.$filter = t, this.$rootScope = n, this.$scope = i, this.AlertMessageService = s, 
-            this.AuthService = o, this.Catalog = c, this.Constants = l, this.DataService = d, 
-            this.Logger = p, this.ProjectsService = m, this.RecentlyViewed = h;
+                h.ctrl.showEditProjectPanel = !1, h.hideModalBackdrop();
+            }, this.$element = e, this.$filter = t, this.$rootScope = n, this.$scope = i, this.AuthService = s, 
+            this.Catalog = o, this.Constants = c, this.DataService = l, this.Logger = d, this.ProjectsService = p, 
+            this.RecentlyViewed = m;
         }
         return e.prototype.$onInit = function() {
             var e = this;
@@ -1403,7 +1402,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             }
         }, e;
     }();
-    s.$inject = [ "$element", "$filter", "$rootScope", "$scope", "AlertMessageService", "AuthService", "Catalog", "Constants", "DataService", "Logger", "ProjectsService", "RecentlyViewedServiceItems" ], 
+    s.$inject = [ "$element", "$filter", "$rootScope", "$scope", "AuthService", "Catalog", "Constants", "DataService", "Logger", "ProjectsService", "RecentlyViewedServiceItems" ], 
     t.ProjectsSummaryController = s;
 }, function(e, t, n) {
     "use strict";

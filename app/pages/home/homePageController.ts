@@ -1,13 +1,11 @@
 
 export class HomePageController {
-  static $inject = ['$rootScope', '$state', '$timeout', 'AlertMessageService', 'AuthService', 'Catalog', 'Constants',
-    'GuidedTourService', 'NotificationsService'];
+  static $inject = ['$rootScope', '$state', '$timeout', 'AuthService', 'Catalog', 'Constants', 'GuidedTourService', 'NotificationsService'];
 
   public ctrl: any = this;
   private $rootScope: any;
   private $state: any;
   private $timeout: any;
-  private AlertMessageService: any;
   private authService: any;
   private Catalog: any;
   private GuidedTourService: any;
@@ -15,12 +13,11 @@ export class HomePageController {
   private tourConfig: any;
   private NotificationsService: any;
 
-  constructor($rootScope: any, $state: any, $timeout: any, AlertMessageService: any, AuthService: any, Catalog: any,
+  constructor($rootScope: any, $state: any, $timeout: any, AuthService: any, Catalog: any,
               Constants: any, GuidedTourService: any, NotificationsService: any) {
     this.$rootScope = $rootScope;
     this.$state = $state;
     this.$timeout = $timeout;
-    this.AlertMessageService = AlertMessageService;
     this.authService = AuthService;
     this.Catalog = Catalog;
     this.GuidedTourService = GuidedTourService;
@@ -45,15 +42,10 @@ export class HomePageController {
       this.ctrl.catalogItems = catalogServiceItems;
 
       if (errorMessage) {
-        let alert = {
-          name: 'error-loading-catalog-items',
-          data: {
-            type: "warning",
-            message: errorMessage
-          }
-        };
-        this.AlertMessageService.addAlert(alert);
-        this.NotificationsService.addNotification(alert.data);
+        this.NotificationsService.addNotification({
+          type: "error",
+          message: errorMessage
+        });
       }
 
       if (_.get(this, 'tourConfig.auto_launch')) {
