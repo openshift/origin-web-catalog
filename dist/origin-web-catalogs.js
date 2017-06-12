@@ -1052,9 +1052,9 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             };
             this.BindingService.bindService(n, this.ctrl.serviceToBind, e).then(function(e) {
                 t.ctrl.binding = e, t.ctrl.bindInProgress = !1, t.ctrl.bindComplete = !0, t.ctrl.bindError = null, 
-                t.DataService.watchObject(t.BindingService.bindingResource, i.get(t.ctrl.binding, "metadata.name"), n, function(e) {
+                t.watches.push(t.DataService.watchObject(t.BindingService.bindingResource, i.get(t.ctrl.binding, "metadata.name"), n, function(e) {
                     t.ctrl.binding = e;
-                });
+                }));
             }, function(e) {
                 t.ctrl.bindInProgress = !1, t.ctrl.bindComplete = !0, t.ctrl.bindError = e;
             });
@@ -1244,9 +1244,9 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             }, n = "application" === this.ctrl.bindType ? this.ctrl.appToBind : void 0;
             this.BindingService.bindService(t, this.ctrl.serviceInstanceName, n).then(function(n) {
                 e.ctrl.binding = n, e.ctrl.bindInProgress = !1, e.ctrl.bindComplete = !0, e.ctrl.bindError = null, 
-                e.DataService.watchObject(e.BindingService.bindingResource, i.get(e.ctrl.binding, "metadata.name"), t, function(t) {
+                e.watches.push(e.DataService.watchObject(e.BindingService.bindingResource, i.get(e.ctrl.binding, "metadata.name"), t, function(t) {
                     e.ctrl.binding = t;
-                });
+                }));
             }, function(t) {
                 e.ctrl.bindInProgress = !1, e.ctrl.bindComplete = !0, e.ctrl.bindError = t;
             });
