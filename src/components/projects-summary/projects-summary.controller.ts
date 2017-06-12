@@ -9,7 +9,6 @@ export class ProjectsSummaryController implements angular.IController {
     '$filter',
     '$rootScope',
     '$scope',
-    'AlertMessageService',
     'AuthService',
     'Catalog',
     'Constants',
@@ -35,7 +34,6 @@ export class ProjectsSummaryController implements angular.IController {
   private Constants: any;
   private RecentlyViewed: any;
   private Catalog: any;
-  private AlertMessageService: any;
   private watches: any = [];
   private maxDisplayProjects: number = 5;
   private allItems: any;
@@ -46,7 +44,6 @@ export class ProjectsSummaryController implements angular.IController {
       $filter: any,
       $rootScope: any,
       $scope: any,
-      AlertMessageService: any,
       AuthService: any,
       Catalog: any,
       Constants: any,
@@ -59,7 +56,6 @@ export class ProjectsSummaryController implements angular.IController {
     this.$filter = $filter;
     this.$rootScope = $rootScope;
     this.$scope = $scope;
-    this.AlertMessageService = AlertMessageService;
     this.AuthService = AuthService;
     this.Catalog = Catalog;
     this.Constants = Constants;
@@ -117,10 +113,6 @@ export class ProjectsSummaryController implements angular.IController {
 
   public init = () => {
     this.watches.push(this.DataService.watch('projects', this.$scope, this.onProjectsUpdate));
-    this.AlertMessageService.getAlerts().forEach(function(alert: any) {
-      this.ctrl.alerts[alert.name] = alert.data;
-    });
-
     this.ctrl.resourceLinks = _.clone(this.Constants.CATALOG_HELP_RESOURCES.links);
 
     _.forEach(this.ctrl.resourceLinks, (nextResource: any) => {
