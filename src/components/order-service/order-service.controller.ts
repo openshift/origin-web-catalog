@@ -236,9 +236,9 @@ export class OrderServiceController implements angular.IController {
       this.ctrl.bindComplete = true;
       this.ctrl.bindError = null;
 
-      this.DataService.watchObject(this.BindingService.bindingResource, _.get(this.ctrl.binding, 'metadata.name'), context, (binding: any) => {
+      this.watches.push(this.DataService.watchObject(this.BindingService.bindingResource, _.get(this.ctrl.binding, 'metadata.name'), context, (binding: any) => {
         this.ctrl.binding = binding;
-      });
+      }));
     }, (e: any) => {
       this.ctrl.bindInProgress = false;
       this.ctrl.bindComplete = true;
