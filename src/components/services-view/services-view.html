@@ -2,24 +2,25 @@
   <div ng-if="!$ctrl.loaded" class="spinner-container">
     <div class="spinner spinner-xl"></div>
   </div>
-  <div ng-if="$ctrl.loaded" class="services-view-container">
+  <div ng-if="$ctrl.loaded" class="services-view-container mobile-{{$ctrl.mobileView}}-view">
     <h1>Browse Catalog</h1>
-
-    <ul class="nav nav-tabs nav-tabs-pf">
+    <ul class="nav nav-tabs nav-tabs-pf services-categories">
       <li ng-repeat="category in $ctrl.categories"
           ng-if="category.hasItems"
-          ng-class="{'active': $ctrl.currentFilter === category.id}">
-        <a href="" id="{{'category-'+category.id}}" ng-click="$ctrl.filterByCategory(category.id, 'all', true)">{{category.label}}</a>
+          ng-class="{ active: $ctrl.currentFilter === category.id }">
+        <a href="" id="{{'category-'+category.id}}" class="services-category-heading" ng-click="$ctrl.selectCategory(category.id)">{{category.label}}</a>
+        <a ng-click="$ctrl.mobileView = 'categories'" class="services-back-link" href="">Back</a>
       </li>
     </ul>
 
     <!-- Do not show sub-category items for 'All' or 'Other' main categories -->
-
-    <div class="services-sub-categories" ng-if="$ctrl.currentFilter !== 'other' && $ctrl.currentFilter !== 'all'">
-      <div ng-repeat="subCategory in $ctrl.subCategories"
+    <ul class="services-sub-categories"
+        ng-if="$ctrl.currentFilter !== 'other' && $ctrl.currentFilter !== 'all'">
+      <li ng-repeat="subCategory in $ctrl.subCategories"
            ng-if="subCategory.hasItems"
-           class="services-sub-category" ng-class="{'active': $ctrl.currentSubFilter === subCategory.id}">
-        <a href=""  id="{{'services-sub-category-'+subCategory.id}}"
+           class="services-sub-category"
+           ng-class="{ active: $ctrl.currentSubFilter === subCategory.id }">
+        <a href="" id="{{'services-sub-category-'+subCategory.id}}"
            class="services-sub-category-tab" ng-click="$ctrl.selectSubCategory(subCategory.id)">
           <div class="services-sub-category-tab-image" ng-if="subCategory.imageUrl">
             <img ng-src="{{subCategory.imageUrl}}" alt="">
@@ -27,7 +28,9 @@
           <div class="services-sub-category-tab-icon {{subCategory.icon}}" ng-if="subCategory.icon && !subCategory.imageUrl"></div>
           <div class="services-sub-category-tab-name">{{subCategory.label}}</div>
         </a>
-        <div ng-if="$ctrl.currentSubFilter === subCategory.id" class="services-items">
+       <a ng-click="$ctrl.mobileView = 'subcategories'" class="services-back-link" href="">Back</a>
+        <div ng-if="$ctrl.currentSubFilter === subCategory.id"
+             class="services-items">
           <a href="" class="services-item" ng-repeat="item in $ctrl.filteredItems" ng-click="$ctrl.handleClick(item)">
             <div ng-if="!item.imageUrl" class="services-item-icon">
               <span class="{{item.iconClass}}"></span>
@@ -40,11 +43,10 @@
             </div>
           </a>
         </div>
-      </div>
-    </div>
+      </li>
+    </ul>
 
     <!-- Show catalog item for 'All' and 'Other' main categories -->
-
     <div ng-if="$ctrl.currentFilter === 'other' || $ctrl.currentFilter === 'all'" class="services-items">
       <div ng-if="$ctrl.isEmpty">There are no catalog items.</div>
       <a href="" class="services-item" ng-repeat="item in $ctrl.filteredItems" ng-click="$ctrl.handleClick(item)">

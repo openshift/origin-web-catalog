@@ -58,10 +58,10 @@ describe('servicesView', () => {
 
     // 4 main categories ('All', 'Languages', 'Databases', 'Other')
     // 'Middleware' should be hidden since mock data has no items with Middleware sub-categories
-    expect(jQuery(element).find('.nav-tabs-pf a').length).toBe(5);
+    expect(jQuery(element).find('.nav-tabs-pf .services-category-heading').length).toBe(5);
 
     // 'All' category should be selected and the current filter
-    expect(jQuery(element).find('.nav-tabs-pf .active a').html()).toBe('All');
+    expect(jQuery(element).find('.nav-tabs-pf .active .services-category-heading').html()).toBe('All');
 
     // 15 cards/services
     expect(jQuery(element).find('.services-item-name').length).toBe(15);
@@ -72,6 +72,7 @@ describe('servicesView', () => {
     var element = componentTest.rawElement;
 
     componentTest.eventFire(element.querySelector('#category-languages'), 'click');
+    componentTest.eventFire(element.querySelector('#services-sub-category-all'), 'click');
 
     // 7 sub categories under category 'Languages' ('All', 'Java', 'Javascript',...'Python')
     expect(jQuery(element).find('.services-sub-category-tab-name').length).toBe(7);
@@ -162,9 +163,10 @@ describe('servicesView', () => {
     var element = componentTest.rawElement;
 
     // 2 main categories ('All', 'My Category')
-    expect(jQuery(element).find('.nav-tabs-pf a').length).toBe(2);
+    expect(jQuery(element).find('.nav-tabs-pf .services-category-heading').length).toBe(2);
 
     componentTest.eventFire(element.querySelector('#category-mycat'), 'click');
+    componentTest.eventFire(element.querySelector('#services-sub-category-all'), 'click');
 
     // 3 'mycat' sub categories ('All', 'Database', 'Other')
     expect(jQuery(element).find('.services-sub-category-tab-name').length).toBe(3);
@@ -212,15 +214,13 @@ describe('servicesView', () => {
     var element = componentTest.rawElement;
 
     // 3 main categories ('All', 'My Category A', 'My Category B')
-    expect(jQuery(element).find('.nav-tabs-pf a').length).toBe(3);
+    expect(jQuery(element).find('.nav-tabs-pf .services-category-heading').length).toBe(3);
 
     // Click on 'My Category A'
     componentTest.eventFire(element.querySelector('#category-mycata'), 'click');
 
     // 1 'mycata' sub category ('Database')
     expect(jQuery(element).find('.services-sub-category-tab-name').length).toBe(1);
-
-    componentTest.eventFire(element.querySelector('#services-sub-category-database'), 'click');
 
     // 1 'db' card
     var items: any = jQuery(element).find('.services-item-name');
@@ -232,8 +232,6 @@ describe('servicesView', () => {
 
     // 1 'mycatb' sub category ('Database')
     expect(jQuery(element).find('.services-sub-category-tab-name').length).toBe(1);
-
-    componentTest.eventFire(element.querySelector('#services-sub-category-database'), 'click');
 
     // 1 'db' card
     items = jQuery(element).find('.services-item-name');
