@@ -407,8 +407,8 @@ services-view,
           > a.services-back-link {
             display: inline-block;
             font-size: 10px;
-            margin-left: 15px;
-            padding-left: 15px;
+            margin-left: 15px !important; // TODO: remove "!important" when https://github.com/openshift/registry-image-widgets/issues/9 is fixed
+            padding-left: 15px !important;  // TODO: remove "!important" when https://github.com/openshift/registry-image-widgets/issues/9 is fixed
             width: auto;
 
             &:after {
@@ -442,6 +442,7 @@ services-view,
           background-color: fade(@color-pf-blue-700, 90%);
           float: none;
           margin-bottom: 1px;
+          padding-right: 0; // TODO: remove when https://github.com/openshift/registry-image-widgets/issues/9 is fixed
           position: relative;
 
           &.active {
@@ -463,7 +464,7 @@ services-view,
             color: @color-pf-white;
             display: inline-block;
             line-height: 1;
-            padding: (@grid-gutter-width / 4) (@grid-gutter-width / 2);
+            padding: (@grid-gutter-width / 4) (@grid-gutter-width / 2) !important; // TODO: remove "!important" when https://github.com/openshift/registry-image-widgets/issues/9 is fixed
             position: relative;
             width: 100%;
 
