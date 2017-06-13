@@ -5,7 +5,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
 }, function(e, t) {
     e.exports = $;
 }, function(e, t) {}, function(e, t) {
-    e.exports = '<a href="" class="catalog-search-match">\n  <span class="catalog-search-match-icon">\n    <span ng-if="match.model.imageUrl"><img ng-src="{{match.model.imageUrl}}"></span>\n    <span ng-if="!match.model.imageUrl && match.model.iconClass" ng-class="match.model.iconClass" class="icon"></span>\n  </span>\n  <div class="catalog-search-match-info">\n    <div class="catalog-search-match-label">\n      {{match.label}}\n    </div>\n    <div class="catalog-search-match-description">\n      <span ng-repeat="tag in (match.model.tags || match.model.resource.alphaTags)" class="tag small text-muted">\n        {{tag}}\n      </span>\n    </div>\n  </div>\n</a>\n';
+    e.exports = '<a href="" class="catalog-search-match">\n  <span class="catalog-search-match-icon" ng-if="match.model.id !== \'viewAll\'">\n    <span ng-if="match.model.imageUrl"><img ng-src="{{match.model.imageUrl}}"></span>\n    <span ng-if="!match.model.imageUrl && match.model.iconClass" ng-class="match.model.iconClass" class="icon"></span>\n  </span>\n  <div class="catalog-search-match-info" ng-if="match.model.id !== \'viewAll\'">\n    <div class="catalog-search-match-label">\n      {{match.label}}\n    </div>\n    <div class="catalog-search-match-description">\n      <span ng-repeat="tag in (match.model.tags || match.model.resource.alphaTags)" class="tag small text-muted">\n        {{tag}}\n      </span>\n    </div>\n  </div>\n  <span ng-if="match.model.id === \'viewAll\'" class="catalog-search-show-all">\n    View All {{match.model.totalNumResults}} Results for Keyword: {{match.model.name}} <span class="fa fa-angle-right"></span>\n  </span>\n</a>\n';
 }, function(e, t) {
     e.exports = '<bind-application-form application-name=\'$ctrl.imageStream.name\'\n                       form-name=\'$ctrl.bindForm\'\n                       allow-no-binding="true"\n                       service-instances="$ctrl.serviceInstances"\n                       service-classes="$ctrl.serviceClasses"\n                       service-to-bind="$ctrl.serviceToBind">\n</bind-application-form>\n';
 }, function(e, t) {
@@ -819,7 +819,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
 }, function(e, t) {
     e.exports = '<ng-form>\n  <div class="form-group">\n    <label class="control-label" for="project">Add to Project</label>\n    <ui-select ng-model="$ctrl.selectedProject">\n      <ui-select-match>\n        {{$select.selected | displayName}}\n      </ui-select-match>\n      <ui-select-choices repeat="project in $ctrl.projects | searchProjects : $select.search track by (project | uid)">\n        <span ng-bind-html="project | displayName | highlightKeywords : $select.search"></span>\n        <span ng-if="project | displayName : true" class="small text-muted">\n          <span ng-if="project.metadata.name">&ndash;</span>\n          <span ng-bind-html="project.metadata.name | highlightKeywords : $select.search"></span>\n        </span>\n      </ui-select-choices>\n    </ui-select>\n  </div>\n</ng-form>\n\n<ng-form name="$ctrl.forms.createProjectForm"\n    ng-if="$ctrl.isNewProject()">\n  <div class="form-group">\n    <label for="name" class="control-label required">Project Name</label>\n    <div ng-class="{\'has-error\': ($ctrl.forms.createProjectForm.name.$error.pattern && $ctrl.forms.createProjectForm.name.$touched) || $ctrl.nameTaken}">\n      <input class="form-control"\n          name="name"\n          id="name"\n          placeholder="my-project"\n          type="text"\n          required\n          take-focus\n          minlength="2"\n          maxlength="63"\n          pattern="[a-z0-9]([-a-z0-9]*[a-z0-9])?"\n          aria-describedby="nameHelp"\n          ng-model="$ctrl.selectedProject.metadata.name"\n          osc-unique="$ctrl.existingProjectNames"\n          ng-model-options="{ updateOn: \'default blur\' }"\n          ng-change="$ctrl.onNewProjectNameChange()"\n          autocorrect="off"\n          autocapitalize="off"\n          spellcheck="false">\n      <div class="help-block">A unique name for the project.</div>\n      <div class="has-error" ng-if="$ctrl.forms.createProjectForm.name.$error.minlength && $ctrl.forms.createProjectForm.name.$touched">\n        <span id="nameHelp" class="help-block">\n          Name must have at least two characters.\n        </span>\n      </div>\n      <div class="has-error" ng-if="$ctrl.forms.createProjectForm.name.$error.pattern && $ctrl.forms.createProjectForm.name.$touched">\n        <span id="nameHelp" class="help-block">\n          Project names may only contain lower-case letters, numbers, and dashes.\n          They may not start or end with a dash.\n        </span>\n      </div>\n      <div class="has-error" ng-if="$ctrl.nameTaken || $ctrl.forms.createProjectForm.name.$error.oscUnique">\n        <span class="help-block">\n          This name is already in use. Please choose a different name.\n        </span>\n      </div>\n    </div>\n  </div>\n\n  <div class="form-group">\n    <label for="displayName" class="control-label">Project Display Name</label>\n    <input class="form-control"\n      name="displayName"\n      id="displayName"\n      placeholder="My Project"\n      type="text"\n      ng-model="$ctrl.selectedProject.metadata.annotations[\'new-display-name\']">\n  </div>\n\n  <div class="form-group">\n    <label for="description" class="control-label">Project Description</label>\n    <textarea class="form-control"\n      name="description"\n      id="description"\n      placeholder="A short description."\n      ng-model="$ctrl.selectedProject.metadata.annotations[\'openshift.io/description\']"></textarea>\n  </div>\n</ng-form>\n';
 }, function(e, t) {
-    e.exports = '<div class="services-view">\n  <div ng-if="!$ctrl.loaded" class="spinner-container">\n    <div class="spinner spinner-xl"></div>\n  </div>\n  <div ng-if="$ctrl.loaded" class="services-view-container mobile-{{$ctrl.mobileView}}-view">\n    <h1>Browse Catalog</h1>\n    <ul class="nav nav-tabs nav-tabs-pf services-categories">\n      <li ng-repeat="category in $ctrl.categories"\n          ng-if="category.hasItems"\n          ng-class="{ active: $ctrl.currentFilter === category.id }">\n        <a href="" id="{{\'category-\'+category.id}}" class="services-category-heading" ng-click="$ctrl.selectCategory(category.id)">{{category.label}}</a>\n        <a ng-click="$ctrl.mobileView = \'categories\'" class="services-back-link" href="">Back</a>\n      </li>\n    </ul>\n\n    \x3c!-- Do not show sub-category items for \'All\' or \'Other\' main categories --\x3e\n    <ul class="services-sub-categories"\n        ng-if="$ctrl.currentFilter !== \'other\' && $ctrl.currentFilter !== \'all\'">\n      <li ng-repeat="subCategory in $ctrl.subCategories"\n           ng-if="subCategory.hasItems"\n           class="services-sub-category"\n           ng-class="{ active: $ctrl.currentSubFilter === subCategory.id }">\n        <a href="" id="{{\'services-sub-category-\'+subCategory.id}}"\n           class="services-sub-category-tab" ng-click="$ctrl.selectSubCategory(subCategory.id)">\n          <div class="services-sub-category-tab-image" ng-if="subCategory.imageUrl">\n            <img ng-src="{{subCategory.imageUrl}}" alt="">\n          </div>\n          <div class="services-sub-category-tab-icon {{subCategory.icon}}" ng-if="subCategory.icon && !subCategory.imageUrl"></div>\n          <div class="services-sub-category-tab-name">{{subCategory.label}}</div>\n        </a>\n       <a ng-click="$ctrl.mobileView = \'subcategories\'" class="services-back-link" href="">Back</a>\n        <div ng-if="$ctrl.currentSubFilter === subCategory.id"\n             class="services-items">\n          <a href="" class="services-item" ng-repeat="item in $ctrl.filteredItems" ng-click="$ctrl.handleClick(item)">\n            <div ng-if="!item.imageUrl" class="services-item-icon">\n              <span class="{{item.iconClass}}"></span>\n            </div>\n            <div ng-if="item.imageUrl" class="services-item-icon">\n              <img ng-src="{{item.imageUrl}}" alt="">\n            </div>\n            <div class="services-item-name" title="{{item.name}}">\n              {{item.name}}\n            </div>\n          </a>\n        </div>\n      </li>\n    </ul>\n\n    \x3c!-- Show catalog item for \'All\' and \'Other\' main categories --\x3e\n    <div ng-if="$ctrl.currentFilter === \'other\' || $ctrl.currentFilter === \'all\'" class="services-items">\n      <div ng-if="$ctrl.isEmpty">There are no catalog items.</div>\n      <a href="" class="services-item" ng-repeat="item in $ctrl.filteredItems" ng-click="$ctrl.handleClick(item)">\n        <div ng-if="!item.imageUrl" class="services-item-icon">\n          <span class="{{item.iconClass}}"></span>\n        </div>\n        <div ng-if="item.imageUrl" class="services-item-icon">\n          <img ng-src="{{item.imageUrl}}" alt="">\n        </div>\n        <div class="services-item-name" title="{{item.name}}">\n          {{item.name}}\n        </div>\n      </a>\n    </div>\n  </div>\n</div>\n';
+    e.exports = '<div class="services-view">\n  <div ng-if="!$ctrl.loaded" class="spinner-container">\n    <div class="spinner spinner-xl"></div>\n  </div>\n  <div ng-if="$ctrl.loaded" class="services-view-container mobile-{{$ctrl.mobileView}}-view">\n    <h1>Browse Catalog</h1>\n    <ul class="nav nav-tabs nav-tabs-pf services-categories">\n      <li ng-repeat="category in $ctrl.categories"\n          ng-if="category.hasItems"\n          ng-class="{ active: $ctrl.currentFilter === category.id }">\n        <a href="" id="{{\'category-\'+category.id}}" class="services-category-heading" ng-click="$ctrl.selectCategory(category.id)">{{category.label}}</a>\n        <a ng-click="$ctrl.mobileView = \'categories\'" class="services-back-link" href="">Back</a>\n      </li>\n    </ul>\n\n    \x3c!-- Do not show sub-category items for \'All\' or \'Other\' main categories --\x3e\n    <ul class="services-sub-categories"\n        ng-if="$ctrl.currentFilter !== \'other\' && $ctrl.currentFilter !== \'all\'">\n      <li ng-repeat="subCategory in $ctrl.subCategories"\n           ng-if="subCategory.hasItems"\n           class="services-sub-category"\n           ng-class="{ active: $ctrl.currentSubFilter === subCategory.id }">\n        <a href="" id="{{\'services-sub-category-\'+subCategory.id}}"\n           class="services-sub-category-tab" ng-click="$ctrl.selectSubCategory(subCategory.id)">\n          <div class="services-sub-category-tab-image" ng-if="subCategory.imageUrl">\n            <img ng-src="{{subCategory.imageUrl}}" alt="">\n          </div>\n          <div class="services-sub-category-tab-icon {{subCategory.icon}}" ng-if="subCategory.icon && !subCategory.imageUrl"></div>\n          <div class="services-sub-category-tab-name">{{subCategory.label}}</div>\n        </a>\n       <a ng-click="$ctrl.mobileView = \'subcategories\'" class="services-back-link" href="">Back</a>\n        <div ng-if="$ctrl.currentSubFilter === subCategory.id"\n          class="services-items">\n          <div pf-filter config="$ctrl.filterConfig"></div>\n          <a href="" class="services-item" ng-repeat="item in $ctrl.filteredItems" ng-click="$ctrl.handleClick(item)">\n            <div ng-if="!item.imageUrl" class="services-item-icon">\n              <span class="{{item.iconClass}}"></span>\n            </div>\n            <div ng-if="item.imageUrl" class="services-item-icon">\n              <img ng-src="{{item.imageUrl}}" alt="">\n            </div>\n            <div class="services-item-name" title="{{item.name}}">\n              {{item.name}}\n            </div>\n          </a>\n        </div>\n      </li>\n    </ul>\n\n    \x3c!-- Show catalog item for \'All\' and \'Other\' main categories --\x3e\n    <div ng-if="$ctrl.currentFilter === \'other\' || $ctrl.currentFilter === \'all\'" class="services-items">\n      <div ng-if="$ctrl.isEmpty">There are no catalog items.</div>\n      <div pf-filter config="$ctrl.filterConfig"></div>\n      <a href="" class="services-item" ng-repeat="item in $ctrl.filteredItems" ng-click="$ctrl.handleClick(item)">\n        <div ng-if="!item.imageUrl" class="services-item-icon">\n          <span class="{{item.iconClass}}"></span>\n        </div>\n        <div ng-if="item.imageUrl" class="services-item-icon">\n          <img ng-src="{{item.imageUrl}}" alt="">\n        </div>\n        <div class="services-item-name" title="{{item.name}}">\n          {{item.name}}\n        </div>\n      </a>\n    </div>\n  </div>\n</div>\n';
 }, function(e, t, n) {
     "use strict";
     t.__esModule = !0;
@@ -845,9 +845,9 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
     "use strict";
     t.__esModule = !0;
     var r = n(0), i = function() {
-        function e(e, t, n, r) {
-            this.ctrl = this, this.loaded = !1, this.$scope = e, this.$q = t, this.Catalog = n, 
-            this.KeywordService = r;
+        function e(e, t, n, r, i) {
+            this.ctrl = this, this.loaded = !1, this.maxResultsToShow = 5, this.$rootScope = e, 
+            this.$scope = t, this.$q = n, this.Catalog = r, this.KeywordService = i;
         }
         return e.prototype.$onInit = function() {
             this.ctrl.searchText = "";
@@ -857,16 +857,26 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 this.searchDeferred.resolve(t), this.searchDeferred = null;
             }
         }, e.prototype.itemSelected = function(e) {
-            this.$scope.$emit("open-overlay-panel", e), this.ctrl.searchText = "";
+            "viewAll" === e.id ? this.$rootScope.$emit("filter-catalog-items", {
+                searchText: this.ctrl.searchText
+            }) : this.$scope.$emit("open-overlay-panel", e), this.ctrl.searchText = "";
         }, e.prototype.search = function(e) {
             return e ? this.loaded ? this.filterForKeywords(e) : (this.searchDeferred = this.$q.defer(), 
             this.searchDeferred.promise) : [];
         }, e.prototype.filterForKeywords = function(e) {
-            var t = this.KeywordService.generateKeywords(e), n = this.KeywordService.filterForKeywords(this.ctrl.catalogItems, [ "name", "tags" ], t);
-            return r.take(n, 5);
+            var t = this.KeywordService.generateKeywords(e), n = this.KeywordService.filterForKeywords(this.ctrl.catalogItems, [ "name", "tags" ], t), i = r.size(n);
+            if (i > this.maxResultsToShow) {
+                var a = r.take(n, this.maxResultsToShow);
+                return a.push({
+                    id: "viewAll",
+                    name: e,
+                    totalNumResults: i
+                }), a;
+            }
+            return r.take(n, this.maxResultsToShow);
         }, e;
     }();
-    i.$inject = [ "$scope", "$q", "Catalog", "KeywordService" ], t.CatalogSearchController = i;
+    i.$inject = [ "$rootScope", "$scope", "$q", "Catalog", "KeywordService" ], t.CatalogSearchController = i;
 }, function(e, t, n) {
     "use strict";
     t.__esModule = !0;
@@ -1477,30 +1487,52 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
     "use strict";
     t.__esModule = !0;
     var r = n(1), i = n(0), a = n(2), s = function() {
-        function e(e, t, n, r, i, s, o) {
-            var c = this;
-            this.ctrl = this, this.handleClick = function(e, t) {
-                c.$scope.$emit("open-overlay-panel", e);
+        function e(e, t, n, r, s, o, c, l, d) {
+            var p = this;
+            this.ctrl = this, this.keywordFilterField = {
+                id: "keyword",
+                title: "Keyword",
+                placeholder: "Filter by keyword in Category",
+                filterType: "text"
+            }, this.handleClick = function(e, t) {
+                p.$scope.$emit("open-overlay-panel", e);
+            }, this.filterChange = function(e) {
+                p.filterByCategory(p.ctrl.currentFilter, p.ctrl.currentSubFilter, !1), p.ctrl.filterConfig.appliedFilters = e, 
+                e && e.length > 0 && i.each(e, function(e) {
+                    p.ctrl.filteredItems = p.filterForKeywords(e.value, p.ctrl.filteredItems);
+                }), p.updateFilterControls();
             }, this.resizeExpansion = function() {
-                var e = c.htmlService.getBreakpoint();
+                var e = p.htmlService.getBreakpoint();
                 if (a(".services-sub-category").removeAttr("style"), "xxs" !== e) {
                     var t = a(".services-sub-category.active"), n = t.find(".services-items").outerHeight(!0);
                     t.css("margin-bottom", n + "px");
                 }
-            }, this.constants = e, this.catalog = t, this.logger = n, this.htmlService = r, 
-            this.$filter = i, this.$scope = s, this.$timeout = o, this.ctrl.loaded = !1, this.ctrl.isEmpty = !1, 
-            this.ctrl.mobileView = "categories";
+            }, this.constants = e, this.catalog = t, this.keywordService = n, this.logger = r, 
+            this.htmlService = s, this.$filter = o, this.$rootScope = c, this.$scope = l, this.$timeout = d, 
+            this.ctrl.loaded = !1, this.ctrl.isEmpty = !1, this.ctrl.mobileView = "categories", 
+            this.ctrl.filterConfig = {};
         }
         return e.prototype.$onInit = function() {
+            var e = this;
             this.debounceResize = i.debounce(this.resizeExpansion, 50, {
                 maxWait: 250
-            }), r.element(window).bind("resize", this.debounceResize), a(window).on("resize.services", this.debounceResize);
+            }), r.element(window).bind("resize", this.debounceResize), a(window).on("resize.services", this.debounceResize), 
+            this.removeFilterListener = this.$rootScope.$on("filter-catalog-items", function(t, n) {
+                var i = r.copy(e.keywordFilterField);
+                i.value = n.searchText, e.ctrl.currentFilter = e.ctrl.currentSubFilter = "all", 
+                e.filterChange([ i ]);
+            }), this.ctrl.filterConfig = {
+                fields: [ this.keywordFilterField ],
+                resultsCount: 0,
+                appliedFilters: [],
+                onFilterChange: this.filterChange
+            };
         }, e.prototype.$onChanges = function(e) {
             e.catalogItems && this.ctrl.catalogItems && (this.ctrl.categories = this.catalog.categories, 
             this.filterByCategory("all", "all", !0), this.ctrl.isEmpty = i.isEmpty(this.ctrl.catalogItems), 
             this.ctrl.loaded = !0);
         }, e.prototype.$onDestroy = function() {
-            a(window).off("resize.services");
+            a(window).off("resize.services"), this.removeFilterListener();
         }, e.prototype.selectCategory = function(e) {
             this.ctrl.mobileView = "subcategories", this.filterByCategory(e, null, !0);
         }, e.prototype.selectSubCategory = function(e) {
@@ -1515,19 +1547,32 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             }), "all" === t[0].id && 2 === t.length && (t = i.drop(t, 1)), t;
         }, e.prototype.filterByCategory = function(e, t, n) {
             var r, a;
-            "all" === e || "other" === e ? t = "all" : (n && (this.ctrl.subCategories = this.getSubCategories(e)), 
+            this.clearAppliedFilters(), "all" === e || "other" === e ? t = "all" : (n && (this.ctrl.subCategories = this.getSubCategories(e)), 
             t = 1 === this.ctrl.subCategories.length ? this.ctrl.subCategories[0].id : t || null), 
             r = i.find(this.ctrl.categories, {
                 id: e
             }), r ? t && (a = i.find(r.subCategories, {
                 id: t
-            }), a ? this.ctrl.filteredItems = a.items : this.logger.error("Could not find subcategory '" + t + "' for category '" + e + "'")) : this.logger.error("Could not find category '" + e + "'"), 
-            this.ctrl.currentFilter = e, this.ctrl.currentSubFilter = t, this.updateActiveCardStyles();
+            }), a ? (this.ctrl.filteredItems = a.items, this.ctrl.totalCount = this.ctrl.filteredItems.length) : this.logger.error("Could not find subcategory '" + t + "' for category '" + e + "'")) : this.logger.error("Could not find category '" + e + "'"), 
+            this.ctrl.currentFilter = e, this.ctrl.currentSubFilter = t, this.updateActiveCardStyles(), 
+            this.updateFilterControls();
+        }, e.prototype.filterForKeywords = function(e, t) {
+            var n = this.keywordService.generateKeywords(e);
+            return this.keywordService.filterForKeywords(t, [ "name", "tags" ], n);
+        }, e.prototype.clearAppliedFilters = function() {
+            this.ctrl.filterConfig.appliedFilters = [];
         }, e.prototype.updateActiveCardStyles = function() {
             this.$timeout(this.resizeExpansion, 50);
+        }, e.prototype.updateFilterControls = function() {
+            var e = this;
+            this.$timeout(function() {
+                e.ctrl.filterConfig.appliedFilters.length > 0 ? (e.ctrl.filterConfig.resultsCount = e.ctrl.filteredItems.length, 
+                a(".toolbar-pf-results h5").text(e.ctrl.filterConfig.resultsCount + " of " + e.ctrl.totalCount + " items")) : (a(".toolbar-pf-results h5").text(e.ctrl.totalCount + " items"), 
+                e.ctrl.totalCount <= 1 ? a(".filter-pf.filter-fields input").attr("disabled", "") : a(".filter-pf.filter-fields input").removeAttr("disabled"));
+            }, 0);
         }, e;
     }();
-    s.$inject = [ "Constants", "Catalog", "Logger", "HTMLService", "$filter", "$scope", "$timeout" ], 
+    s.$inject = [ "Constants", "Catalog", "KeywordService", "Logger", "HTMLService", "$filter", "$rootScope", "$scope", "$timeout" ], 
     t.ServicesViewController = s;
 }, function(e, t) {
     e.exports = URI;
