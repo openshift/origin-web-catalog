@@ -248,23 +248,6 @@ export class CreateFromBuilderController implements angular.IController {
     return this.DataService.get("imagestreamtags", name, { namespace: 'openshift' });
   }
 
-  private preselectService() {
-    var newestReady: any;
-    var newestNotReady: any;
-    var statusCondition: any = this.$filter('statusCondition');
-
-    _.each(this.ctrl.serviceInstances, function(instance: any) {
-      var ready = _.get(statusCondition(instance, 'Ready'), 'status') === 'True';
-      if (ready && (!newestReady || instance.metadata.creationTimestamp > newestReady.metadata.creationTimestamp)) {
-        newestReady = instance;
-      }
-      if (!ready && (!newestNotReady || instance.metadata.creationTimestamp > newestNotReady.metadata.creationTimestamp)) {
-        newestNotReady = instance;
-      }
-    });
-    this.ctrl.serviceToBind = _.get(newestReady, 'metadata.name') || _.get(newestNotReady, 'metadata.name');
-  };
-
   private sortServiceInstances() {
     if (this.ctrl.serviceInstances) {
       var instances = _.toArray(this.ctrl.serviceInstances);
@@ -291,11 +274,10 @@ export class CreateFromBuilderController implements angular.IController {
       return;
     }
     this.bindStep.hidden = _.size(this.ctrl.serviceInstances) < 1;
+    this.ctrl.serviceToBind = "";
     if (this.bindStep.hidden) {
-      this.ctrl.serviceToBind = undefined;
       this.ctrl.nextTitle = "Create";
     } else {
-      this.preselectService();
       this.ctrl.nextTitle = "Next >";
     }
   }
