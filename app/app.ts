@@ -2,6 +2,7 @@
 
 import * as angular from 'angular';
 
+require('bootstrap/dist/js/bootstrap');
 require('patternfly/dist/js/patternfly');
 require('angular-patternfly/dist/angular-patternfly');
 require('angular-ui-bootstrap/ui-bootstrap');
