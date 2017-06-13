@@ -211,6 +211,13 @@ landingbody,
     width: 475px;
   }
 }
+.landing-side-bar .tooltip > .tooltip-arrow {
+  border-top-color: #fff;
+}
+.landing-side-bar .tooltip > .tooltip-inner {
+  background-color: #fff;
+  color: #292e34;
+}
 .order-service-details {
   flex: 0 1 auto;
   padding: 0 20px;
@@ -864,6 +871,7 @@ body.overlay-open .landing-side-bar {
   color: #64b9e4;
 }
 .catalog-project-summary-list .project-tile-header {
+  align-items: baseline;
   display: flex;
   line-height: 1.6;
   margin-bottom: 0;
@@ -871,6 +879,7 @@ body.overlay-open .landing-side-bar {
 }
 .catalog-project-summary-list .project-title {
   overflow: hidden;
+  margin-right: 7px;
   text-overflow: ellipsis;
   white-space: nowrap;
 }

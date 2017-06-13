@@ -58,8 +58,12 @@
           </ul>
         </div>
         <h3 class="project-tile-header">
-          <span ng-if="project.statusIconClass" class="project-status {{project.statusIconClass}}"></span>
           <a href="{{project | projectUrl : $ctrl.baseProjectUrl}}" class="project-title tile-target">{{project | displayName}}</a>
+          <span ng-if="project.status.phase != 'Active'"
+            data-toggle="tooltip"
+            data-container=".landing-side-bar"
+            title="This project has been marked for deletion."
+            class="pficon pficon-warning-triangle-o"></span>
         </h3>
         <p class="project-date">
           <span ng-if="project | displayName : true"><span ng-bind-html="project.metadata.name"></span> &ndash;</span>
