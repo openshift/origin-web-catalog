@@ -1321,8 +1321,8 @@ services-view,
   .services-view .services-view-container.mobile-subcategories-view .services-categories > li.active > a.services-back-link {
     display: inline-block;
     font-size: 10px;
-    margin-left: 15px;
-    padding-left: 15px;
+    margin-left: 15px !important;
+    padding-left: 15px !important;
     width: auto;
   }
   .services-view .services-view-container.mobile-items-view .services-sub-categories > li.active > a.services-back-link:after,
@@ -1351,6 +1351,7 @@ services-view,
     background-color: rgba(0, 34, 53, 0.9);
     float: none;
     margin-bottom: 1px;
+    padding-right: 0;
     position: relative;
   }
   .services-view .services-view-container .services-categories > li.active > a,
@@ -1371,7 +1372,7 @@ services-view,
     color: #fff;
     display: inline-block;
     line-height: 1;
-    padding: 10px 20px;
+    padding: 10px 20px !important;
     position: relative;
     width: 100%;
   }
