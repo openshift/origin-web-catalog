@@ -979,13 +979,6 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             return this.DataService.get("imagestreamtags", e, {
                 namespace: "openshift"
             });
-        }, e.prototype.preselectService = function() {
-            var e, t, n = this.$filter("statusCondition");
-            i.each(this.ctrl.serviceInstances, function(r) {
-                var a = "True" === i.get(n(r, "Ready"), "status");
-                a && (!e || r.metadata.creationTimestamp > e.metadata.creationTimestamp) && (e = r), 
-                a || t && !(r.metadata.creationTimestamp > t.metadata.creationTimestamp) || (t = r);
-            }), this.ctrl.serviceToBind = i.get(e, "metadata.name") || i.get(t, "metadata.name");
         }, e.prototype.sortServiceInstances = function() {
             if (this.ctrl.serviceInstances) {
                 var e = i.toArray(this.ctrl.serviceInstances), t = this.$filter("statusCondition");
@@ -1000,8 +993,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             }
         }, e.prototype.updateBindability = function() {
             this.ctrl.wizardDone || (this.bindStep.hidden = i.size(this.ctrl.serviceInstances) < 1, 
-            this.bindStep.hidden ? (this.ctrl.serviceToBind = void 0, this.ctrl.nextTitle = "Create") : (this.preselectService(), 
-            this.ctrl.nextTitle = "Next >"));
+            this.ctrl.serviceToBind = "", this.bindStep.hidden ? this.ctrl.nextTitle = "Create" : this.ctrl.nextTitle = "Next >");
         }, e.prototype.isNewProject = function() {
             return !i.has(this.ctrl.selectedProject, "metadata.uid");
         }, e.prototype.createApp = function() {
