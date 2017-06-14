@@ -114,11 +114,58 @@ services-view,
     flex: 1 1 auto;
     flex-wrap: wrap;
 
-    div:first-child {
-      flex: 0 1 100%;
-      margin-left: 4px;
-      margin-bottom: 10px;
-      margin-top: 10px;
+  }
+
+  .services-items-filter {
+    flex: 1 1 100%;
+    margin: (@grid-gutter-width / 2) (@grid-gutter-width / 2) (@grid-gutter-width / 4);
+
+    .filter-pf {
+      [pf-filter-fields],
+      [pf-filter-results] {
+        display: inline-block;
+      }
+
+      .filter-fields button { // TODO: remove when we support multiple filter types (more than just 'keyword filter')
+        display: none;
+      }
+
+      .form-group {
+        margin-bottom: 0;
+        margin-right: (@grid-gutter-width / 2);
+      }
+    }
+
+    .toolbar-pf-results {
+      border-top: none;
+      margin: 0;
+
+      .col-sm-12 {
+        float: left;
+        padding: 0;
+      }
+
+      h5,
+      p,
+      ul {
+        line-height: @line-height-base;
+        padding-bottom: @padding-base-vertical;
+        padding-top: @padding-base-vertical;
+      }
+
+      .list-inline {
+        margin-bottom: -5px;
+        padding-right: 5px;
+
+        > li {
+          margin-bottom: 5px;
+        }
+      }
+
+      p {
+        margin-right: (@grid-gutter-width / 4);
+        text-transform: capitalize;
+      }
     }
   }
 
@@ -137,13 +184,6 @@ services-view,
         margin: 10px (@grid-gutter-width / 2);
         position: absolute;
         right: 0;
-
-        div:first-child {
-          flex: 0 1 100%;
-          margin-left: 4px;
-          margin-bottom: 10px;
-          margin-top: 10px;
-        }
       }
     }
 
@@ -241,42 +281,6 @@ services-view,
       }
     }
 
-    .filter-pf {
-      background-color: @color-pf-white;
-
-      .filter-fields button { // TODO: remove when we support multiple filter types (more than just 'keyword filter')
-        display:none;
-      }
-
-      .toolbar-pf-results {
-        border-top: none;
-        left: -5px;
-        margin-top: 20px;
-        position: absolute;
-        top: 106px;
-        z-index: 1;
-
-        p {
-          text-transform: capitalize;
-        }
-
-        @media(max-width: @screen-xxs-max) {
-          left: -5px;
-          top: 60px;
-        }
-
-        @media (min-width: @screen-md-min) {
-          left: 284px;
-          top: 72px;
-          margin-top: 10px;
-        }
-
-        .list-inline {
-          padding-left: 6px;
-        }
-      }
-    }
-
     .services-categories {
       border: none;
       color: @color-pf-white;
@@ -321,29 +325,6 @@ services-view,
       li > a.services-back-link {
         // hidden by default
         display: none;
-      }
-
-      .toolbar-pf-results {
-        top: 36px;
-        left: -5px;
-
-        p {
-          text-transform: capitalize;
-        }
-
-        @media(max-width: @screen-xxs-max) {
-          left: -5px;
-          top: 55px;
-        }
-
-        @media (min-width: @screen-md-min) {
-          top: -7px;
-          left: 284px;
-        }
-
-        .list-inline {
-          padding-left: 6px;
-        }
       }
     }
 
