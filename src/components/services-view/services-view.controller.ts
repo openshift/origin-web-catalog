@@ -192,7 +192,7 @@ export class ServicesViewController implements angular.IController {
         this.ctrl.filterConfig.resultsCount = this.ctrl.filteredItems.length;
         $('.toolbar-pf-results h5').text(this.ctrl.filterConfig.resultsCount + ' of ' + this.ctrl.totalCount + ' items');
       } else {
-        $('.toolbar-pf-results h5').text(this.ctrl.totalCount + ' items');
+        $('.toolbar-pf-results h5').text(this.ctrl.totalCount + (this.ctrl.totalCount === 1 ? ' item' : ' items'));
         if (this.ctrl.totalCount <= 1) {
           $('.filter-pf.filter-fields input').attr('disabled', '');
         } else {

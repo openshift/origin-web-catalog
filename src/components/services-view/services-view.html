@@ -50,7 +50,7 @@
     <!-- Show catalog item for 'All' and 'Other' main categories -->
     <div ng-if="$ctrl.currentFilter === 'other' || $ctrl.currentFilter === 'all'" class="services-items">
       <div ng-if="$ctrl.isEmpty">There are no catalog items.</div>
-      <div pf-filter config="$ctrl.filterConfig" class="services-items-filter"></div>
+      <div ng-if="!$ctrl.isEmpty" pf-filter config="$ctrl.filterConfig" class="services-items-filter"></div>
       <a href="" class="services-item" ng-repeat="item in $ctrl.filteredItems" ng-click="$ctrl.handleClick(item)">
         <div ng-if="!item.imageUrl" class="services-item-icon">
           <span class="{{item.iconClass}}"></span>
