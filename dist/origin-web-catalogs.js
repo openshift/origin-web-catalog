@@ -178,7 +178,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             default: "welcome/index.html"
         };
         r.set(window, "OPENSHIFT_CONSTANTS.HELP", i);
-        var a = [ {
+        var s = [ {
             id: 1,
             title: "Microservices Application",
             icon: "fa fa-cubes",
@@ -202,7 +202,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             icon: "fa fa-cubes",
             url: "https://www.redhat.com/en/technologies/management",
             description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.  This is way too long! Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt."
-        } ], s = [ {
+        } ], a = [ {
             id: "languages",
             label: "Languages",
             subCategories: [ {
@@ -309,7 +309,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 icon: "fa fa-clone"
             } ]
         } ];
-        r.set(window, "OPENSHIFT_CONSTANTS.SERVICE_CATALOG_CATEGORIES", s), r.set(window, "OPENSHIFT_CONSTANTS.SAAS_OFFERINGS", a);
+        r.set(window, "OPENSHIFT_CONSTANTS.SERVICE_CATALOG_CATEGORIES", a), r.set(window, "OPENSHIFT_CONSTANTS.SAAS_OFFERINGS", s);
         var o = {
             links: [ {
                 title: "Documentation",
@@ -574,50 +574,50 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
 }, function(e, t, n) {
     "use strict";
     t.__esModule = !0;
-    var r = n(1), i = n(0), a = function() {
-        function e(e, t, n, r, i, a) {
+    var r = n(1), i = n(0), s = function() {
+        function e(e, t, n, r, i, s) {
             this.$filter = e, this.$q = t, this.constants = n, this.apiService = r, this.dataService = i, 
-            this.logger = a;
+            this.logger = s;
         }
         return e.prototype.getCatalogItems = function(e) {
-            var t = this, n = this.$q.defer(), r = {}, i = 0, a = 0, s = [], o = {
+            var t = this, n = this.$q.defer(), r = {}, i = 0, s = 0, a = [], o = {
                 group: "servicecatalog.k8s.io",
                 resource: "serviceclasses"
             };
             return this.apiService.apiInfo(o) && (++i, this.dataService.list(o, {}).then(function(e) {
                 r.serviceClasses = e.by("metadata.name");
             }, function() {
-                s.push("service classes");
+                a.push("service classes");
             }).finally(function() {
-                t.returnCatalogItems(n, r, ++a, i, s);
+                t.returnCatalogItems(n, r, ++s, i, a);
             })), ++i, this.dataService.list("imagestreams", {
                 namespace: "openshift"
             }).then(function(e) {
                 r.imageStreams = e.by("metadata.name");
             }, function() {
-                s.push("builder images");
+                a.push("builder images");
             }).finally(function() {
-                t.returnCatalogItems(n, r, ++a, i, s);
+                t.returnCatalogItems(n, r, ++s, i, a);
             }), e && (++i, this.dataService.list("templates", {
                 namespace: "openshift"
             }).then(function(e) {
                 r.templates = e.by("metadata.name");
             }, function() {
-                s.push("templates");
+                a.push("templates");
             }).finally(function() {
-                t.returnCatalogItems(n, r, ++a, i, s);
+                t.returnCatalogItems(n, r, ++s, i, a);
             })), n.promise;
         }, e.prototype.convertToServiceItems = function(e, t, n) {
-            var r = this, a = i.map(e, function(e) {
+            var r = this, s = i.map(e, function(e) {
                 return r.getServiceItem(e);
             });
-            return a = a.concat(i.map(t, function(e) {
+            return s = s.concat(i.map(t, function(e) {
                 return r.getImageItem(e);
-            })), a = a.concat(i.map(n, function(e) {
+            })), s = s.concat(i.map(n, function(e) {
                 return r.getTemplateItem(e);
-            })), a = i.reject(a, function(e) {
+            })), s = i.reject(s, function(e) {
                 return !e;
-            }), a = a.sort(function(e, t) {
+            }), s = s.sort(function(e, t) {
                 var n = i.get(e, "name", "").localeCompare(i.get(t, "name", ""), void 0, {
                     sensitivity: "base"
                 });
@@ -626,28 +626,28 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 })), 0 === n && (n = i.get(e, "resource.metadata.name", "").localeCompare(i.get(t, "resource.metadata.name", ""), void 0, {
                     sensitivity: "base"
                 })), n;
-            }), this.categorizeItems(a), a;
+            }), this.categorizeItems(s), s;
         }, e.prototype.getServiceItem = function(e) {
-            return new s(e, this);
+            return new a(e, this);
         }, e.prototype.getImageItem = function(e) {
             var t = new o(e, this);
             return t.builderSpecTagName ? t : null;
         }, e.prototype.getTemplateItem = function(e) {
             return new c(e, this);
         }, e.prototype.categorizeItems = function(e) {
-            var t, n, a = this;
+            var t, n, s = this;
             this.categories = r.copy(this.constants.SERVICE_CATALOG_CATEGORIES), this.createAllAndOtherMainCategories();
-            var s = i.first(this.categories), o = i.get(s, "subCategories[0]"), c = i.last(this.categories), l = i.get(c, "subCategories[0]");
+            var a = i.first(this.categories), o = i.get(a, "subCategories[0]"), c = i.last(this.categories), l = i.get(c, "subCategories[0]");
             i.each(e, function(e) {
-                n = !1, i.each(a.categories, function(r) {
-                    r.tags ? a.hasMatchingTags(r.tags, e.tags) && (n = a.categorizeItem(e, r, "all"), 
-                    t = a.filterSubCatsByTags(r.subCategories, e.tags), i.isEmpty(t) ? a.categorizeItem(e, r, "other") : i.each(t, function(t) {
-                        a.categorizeItem(e, r, t);
-                    })) : (t = a.filterSubCatsByTags(r.subCategories, e.tags), i.isEmpty(t) || (n = a.categorizeItem(e, r, "all"), 
+                n = !1, i.each(s.categories, function(r) {
+                    r.tags ? s.hasMatchingTags(r.tags, e.tags) && (n = s.categorizeItem(e, r, "all"), 
+                    t = s.filterSubCatsByTags(r.subCategories, e.tags), i.isEmpty(t) ? s.categorizeItem(e, r, "other") : i.each(t, function(t) {
+                        s.categorizeItem(e, r, t);
+                    })) : (t = s.filterSubCatsByTags(r.subCategories, e.tags), i.isEmpty(t) || (n = s.categorizeItem(e, r, "all"), 
                     i.each(t, function(t) {
-                        a.categorizeItem(e, r, t);
+                        s.categorizeItem(e, r, t);
                     })));
-                }), n || a.categorizeItem(e, c, l), a.categorizeItem(e, s, o);
+                }), n || s.categorizeItem(e, c, l), s.categorizeItem(e, a, o);
             });
         }, e.prototype.categorizeItem = function(e, t, n) {
             return i.isString(n) && (n = this.getAllOrOtherSubCategory(t, n)), n.items = i.isArray(n.items) ? n.items.concat([ e ]) : [ e ], 
@@ -691,11 +691,11 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             return i.filter(e, function(e) {
                 return n.hasMatchingTags(e.tags, t);
             });
-        }, e.prototype.returnCatalogItems = function(e, t, n, r, a) {
+        }, e.prototype.returnCatalogItems = function(e, t, n, r, s) {
             if (!(n < r)) {
-                a = i.size(a) ? "Unable to load all content for the catalog. Error loading " + this.formatArray(a) : null;
-                var s = this.convertToServiceItems(t.serviceClasses, t.imageStreams, t.templates);
-                e.resolve([ s, a ]);
+                s = i.size(s) ? "Unable to load all content for the catalog. Error loading " + this.formatArray(s) : null;
+                var a = this.convertToServiceItems(t.serviceClasses, t.imageStreams, t.templates);
+                e.resolve([ a, s ]);
             }
         }, e.prototype.formatArray = function(e) {
             var t = "";
@@ -703,9 +703,9 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             t + ".";
         }, e;
     }();
-    a.$inject = [ "$filter", "$q", "Constants", "APIService", "DataService", "Logger" ], 
-    t.CatalogService = a;
-    var s = function() {
+    s.$inject = [ "$filter", "$q", "Constants", "APIService", "DataService", "Logger" ], 
+    t.CatalogService = s;
+    var a = function() {
         function e(e, t) {
             this.resource = e, this.catalogSrv = t, this.imageUrl = this.getImage(), this.iconClass = this.getIcon(), 
             this.name = this.getName(), this.description = this.getDescription(), this.longDescription = this.getLongDescription(), 
@@ -726,7 +726,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             return i.get(this.resource, "alphaTags", []);
         }, e;
     }();
-    t.ServiceItem = s;
+    t.ServiceItem = a;
     var o = function() {
         function e(e, t) {
             this.resource = e, this.catalogSrv = t, this.builderSpecTagName = this.getBuilderSpecTagName(), 
@@ -819,7 +819,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
 }, function(e, t) {
     e.exports = '<ng-form>\n  <div class="form-group">\n    <label class="control-label" for="project">Add to Project</label>\n    <ui-select ng-model="$ctrl.selectedProject">\n      <ui-select-match>\n        {{$select.selected | displayName}}\n      </ui-select-match>\n      <ui-select-choices repeat="project in $ctrl.projects | searchProjects : $select.search track by (project | uid)">\n        <span ng-bind-html="project | displayName | highlightKeywords : $select.search"></span>\n        <span ng-if="project | displayName : true" class="small text-muted">\n          <span ng-if="project.metadata.name">&ndash;</span>\n          <span ng-bind-html="project.metadata.name | highlightKeywords : $select.search"></span>\n        </span>\n      </ui-select-choices>\n    </ui-select>\n  </div>\n</ng-form>\n\n<ng-form name="$ctrl.forms.createProjectForm"\n    ng-if="$ctrl.isNewProject()">\n  <div class="form-group">\n    <label for="name" class="control-label required">Project Name</label>\n    <div ng-class="{\'has-error\': ($ctrl.forms.createProjectForm.name.$error.pattern && $ctrl.forms.createProjectForm.name.$touched) || $ctrl.nameTaken}">\n      <input class="form-control"\n          name="name"\n          id="name"\n          placeholder="my-project"\n          type="text"\n          required\n          take-focus\n          minlength="2"\n          maxlength="63"\n          pattern="[a-z0-9]([-a-z0-9]*[a-z0-9])?"\n          aria-describedby="nameHelp"\n          ng-model="$ctrl.selectedProject.metadata.name"\n          osc-unique="$ctrl.existingProjectNames"\n          ng-model-options="{ updateOn: \'default blur\' }"\n          ng-change="$ctrl.onNewProjectNameChange()"\n          autocorrect="off"\n          autocapitalize="off"\n          spellcheck="false">\n      <div class="help-block">A unique name for the project.</div>\n      <div class="has-error" ng-if="$ctrl.forms.createProjectForm.name.$error.minlength && $ctrl.forms.createProjectForm.name.$touched">\n        <span id="nameHelp" class="help-block">\n          Name must have at least two characters.\n        </span>\n      </div>\n      <div class="has-error" ng-if="$ctrl.forms.createProjectForm.name.$error.pattern && $ctrl.forms.createProjectForm.name.$touched">\n        <span id="nameHelp" class="help-block">\n          Project names may only contain lower-case letters, numbers, and dashes.\n          They may not start or end with a dash.\n        </span>\n      </div>\n      <div class="has-error" ng-if="$ctrl.nameTaken || $ctrl.forms.createProjectForm.name.$error.oscUnique">\n        <span class="help-block">\n          This name is already in use. Please choose a different name.\n        </span>\n      </div>\n    </div>\n  </div>\n\n  <div class="form-group">\n    <label for="displayName" class="control-label">Project Display Name</label>\n    <input class="form-control"\n      name="displayName"\n      id="displayName"\n      placeholder="My Project"\n      type="text"\n      ng-model="$ctrl.selectedProject.metadata.annotations[\'new-display-name\']">\n  </div>\n\n  <div class="form-group">\n    <label for="description" class="control-label">Project Description</label>\n    <textarea class="form-control"\n      name="description"\n      id="description"\n      placeholder="A short description."\n      ng-model="$ctrl.selectedProject.metadata.annotations[\'openshift.io/description\']"></textarea>\n  </div>\n</ng-form>\n';
 }, function(e, t) {
-    e.exports = '<div class="services-view">\n  <div ng-if="!$ctrl.loaded" class="spinner-container">\n    <div class="spinner spinner-xl"></div>\n  </div>\n  <div ng-if="$ctrl.loaded" class="services-view-container mobile-{{$ctrl.mobileView}}-view">\n    <h1>Browse Catalog</h1>\n    <ul class="nav nav-tabs nav-tabs-pf services-categories">\n      <li ng-repeat="category in $ctrl.categories"\n          ng-if="category.hasItems"\n          ng-class="{ active: $ctrl.currentFilter === category.id }">\n        <a href="" id="{{\'category-\'+category.id}}" class="services-category-heading" ng-click="$ctrl.selectCategory(category.id)">{{category.label}}</a>\n        <a ng-click="$ctrl.mobileView = \'categories\'" class="services-back-link" href="">Back</a>\n      </li>\n    </ul>\n\n    \x3c!-- Do not show sub-category items for \'All\' or \'Other\' main categories --\x3e\n    <ul class="services-sub-categories"\n        ng-if="$ctrl.currentFilter !== \'other\' && $ctrl.currentFilter !== \'all\'">\n      <li ng-repeat="subCategory in $ctrl.subCategories"\n           ng-if="subCategory.hasItems"\n           class="services-sub-category"\n           ng-class="{ active: $ctrl.currentSubFilter === subCategory.id }">\n        <a href="" id="{{\'services-sub-category-\'+subCategory.id}}"\n           class="services-sub-category-tab" ng-click="$ctrl.selectSubCategory(subCategory.id)">\n          <div class="services-sub-category-tab-image" ng-if="subCategory.imageUrl">\n            <img ng-src="{{subCategory.imageUrl}}" alt="">\n          </div>\n          <div class="services-sub-category-tab-icon {{subCategory.icon}}" ng-if="subCategory.icon && !subCategory.imageUrl"></div>\n          <div class="services-sub-category-tab-name">{{subCategory.label}}</div>\n        </a>\n       <a ng-click="$ctrl.mobileView = \'subcategories\'" class="services-back-link" href="">Back</a>\n        <div ng-if="$ctrl.currentSubFilter === subCategory.id"\n          class="services-items">\n          <div pf-filter config="$ctrl.filterConfig"></div>\n          <a href="" class="services-item" ng-repeat="item in $ctrl.filteredItems" ng-click="$ctrl.handleClick(item)">\n            <div ng-if="!item.imageUrl" class="services-item-icon">\n              <span class="{{item.iconClass}}"></span>\n            </div>\n            <div ng-if="item.imageUrl" class="services-item-icon">\n              <img ng-src="{{item.imageUrl}}" alt="">\n            </div>\n            <div class="services-item-name" title="{{item.name}}">\n              {{item.name}}\n            </div>\n          </a>\n        </div>\n      </li>\n    </ul>\n\n    \x3c!-- Show catalog item for \'All\' and \'Other\' main categories --\x3e\n    <div ng-if="$ctrl.currentFilter === \'other\' || $ctrl.currentFilter === \'all\'" class="services-items">\n      <div ng-if="$ctrl.isEmpty">There are no catalog items.</div>\n      <div pf-filter config="$ctrl.filterConfig"></div>\n      <a href="" class="services-item" ng-repeat="item in $ctrl.filteredItems" ng-click="$ctrl.handleClick(item)">\n        <div ng-if="!item.imageUrl" class="services-item-icon">\n          <span class="{{item.iconClass}}"></span>\n        </div>\n        <div ng-if="item.imageUrl" class="services-item-icon">\n          <img ng-src="{{item.imageUrl}}" alt="">\n        </div>\n        <div class="services-item-name" title="{{item.name}}">\n          {{item.name}}\n        </div>\n      </a>\n    </div>\n  </div>\n</div>\n';
+    e.exports = '<div class="services-view">\n  <div ng-if="!$ctrl.loaded" class="spinner-container">\n    <div class="spinner spinner-xl"></div>\n  </div>\n  <div ng-if="$ctrl.loaded" class="services-view-container mobile-{{$ctrl.mobileView}}-view">\n    <h1>Browse Catalog</h1>\n    <ul class="nav nav-tabs nav-tabs-pf services-categories">\n      <li ng-repeat="category in $ctrl.categories"\n          ng-if="category.hasItems"\n          ng-class="{ active: $ctrl.currentFilter === category.id }">\n        <a href="" id="{{\'category-\'+category.id}}" class="services-category-heading" ng-click="$ctrl.selectCategory(category.id)">{{category.label}}</a>\n        <a ng-click="$ctrl.mobileView = \'categories\'" class="services-back-link" href="">Back</a>\n      </li>\n    </ul>\n\n    \x3c!-- Do not show sub-category items for \'All\' or \'Other\' main categories --\x3e\n    <ul class="services-sub-categories"\n        ng-if="$ctrl.currentFilter !== \'other\' && $ctrl.currentFilter !== \'all\'">\n      <li ng-repeat="subCategory in $ctrl.subCategories"\n           ng-if="subCategory.hasItems"\n           class="services-sub-category"\n           ng-class="{ active: $ctrl.currentSubFilter === subCategory.id }">\n        <a href="" id="{{\'services-sub-category-\'+subCategory.id}}"\n           class="services-sub-category-tab" ng-click="$ctrl.selectSubCategory(subCategory.id)">\n          <div class="services-sub-category-tab-image" ng-if="subCategory.imageUrl">\n            <img ng-src="{{subCategory.imageUrl}}" alt="">\n          </div>\n          <div class="services-sub-category-tab-icon {{subCategory.icon}}" ng-if="subCategory.icon && !subCategory.imageUrl"></div>\n          <div class="services-sub-category-tab-name">{{subCategory.label}}</div>\n        </a>\n       <a ng-click="$ctrl.mobileView = \'subcategories\'" class="services-back-link" href="">Back</a>\n        <div ng-if="$ctrl.currentSubFilter === subCategory.id"\n          class="services-items">\n          <div pf-filter config="$ctrl.filterConfig" class="services-items-filter"></div>\n          <a href="" class="services-item" ng-repeat="item in $ctrl.filteredItems" ng-click="$ctrl.handleClick(item)">\n            <div ng-if="!item.imageUrl" class="services-item-icon">\n              <span class="{{item.iconClass}}"></span>\n            </div>\n            <div ng-if="item.imageUrl" class="services-item-icon">\n              <img ng-src="{{item.imageUrl}}" alt="">\n            </div>\n            <div class="services-item-name" title="{{item.name}}">\n              {{item.name}}\n            </div>\n          </a>\n        </div>\n      </li>\n    </ul>\n\n    \x3c!-- Show catalog item for \'All\' and \'Other\' main categories --\x3e\n    <div ng-if="$ctrl.currentFilter === \'other\' || $ctrl.currentFilter === \'all\'" class="services-items">\n      <div ng-if="$ctrl.isEmpty">There are no catalog items.</div>\n      <div pf-filter config="$ctrl.filterConfig" class="services-items-filter"></div>\n      <a href="" class="services-item" ng-repeat="item in $ctrl.filteredItems" ng-click="$ctrl.handleClick(item)">\n        <div ng-if="!item.imageUrl" class="services-item-icon">\n          <span class="{{item.iconClass}}"></span>\n        </div>\n        <div ng-if="item.imageUrl" class="services-item-icon">\n          <img ng-src="{{item.imageUrl}}" alt="">\n        </div>\n        <div class="services-item-name" title="{{item.name}}">\n          {{item.name}}\n        </div>\n      </a>\n    </div>\n  </div>\n</div>\n';
 }, function(e, t, n) {
     "use strict";
     t.__esModule = !0;
@@ -866,12 +866,12 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
         }, e.prototype.filterForKeywords = function(e) {
             var t = this.KeywordService.generateKeywords(e), n = this.KeywordService.filterForKeywords(this.ctrl.catalogItems, [ "name", "tags" ], t), i = r.size(n);
             if (i > this.maxResultsToShow) {
-                var a = r.take(n, this.maxResultsToShow);
-                return a.push({
+                var s = r.take(n, this.maxResultsToShow);
+                return s.push({
                     id: "viewAll",
                     name: e,
                     totalNumResults: i
-                }), a;
+                }), s;
             }
             return r.take(n, this.maxResultsToShow);
         }, e;
@@ -880,8 +880,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
 }, function(e, t, n) {
     "use strict";
     t.__esModule = !0;
-    var r = n(1), i = n(0), a = n(52), s = function() {
-        function e(e, t, n, r, a, s, o, c, l, d, p) {
+    var r = n(1), i = n(0), s = n(52), a = function() {
+        function e(e, t, n, r, s, a, o, c, l, d, p) {
             var m = this;
             this.ctrl = this, this.watches = [], this.clearValidityWatcher = function() {
                 m.validityWatcher && (m.validityWatcher(), m.validityWatcher = void 0);
@@ -908,8 +908,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 })));
             }, this.isServiceBindable = function(e) {
                 return m.BindingService.isServiceBindable(e, m.ctrl.serviceClasses);
-            }, this.$scope = e, this.$filter = t, this.$location = n, this.$q = r, this.BuilderAppService = a, 
-            this.ProjectsService = s, this.DataService = o, this.APIService = c, this.BindingService = l, 
+            }, this.$scope = e, this.$filter = t, this.$location = n, this.$q = r, this.BuilderAppService = s, 
+            this.ProjectsService = a, this.DataService = o, this.APIService = c, this.BindingService = l, 
             this.Logger = d, this.ctrl.serviceToBind = null, this.ctrl.showPodPresets = i.get(p, [ "ENABLE_TECH_PREVIEW_FEATURE", "pod_presets" ], !1);
         }
         return e.prototype.$onInit = function() {
@@ -957,7 +957,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 this.ctrl.namePattern.test(e) && (this.ctrl.name = e);
             }
         }, e.prototype.navigateToAdvancedForm = function() {
-            var e = "project/{project}/create/fromimage?imageStream={imageStream}&imageTag={imageTag}&namespace={namespace}&displayName={displayName}&name={name}&sourceURI={sourceURI}&advanced=true", t = a.expand(e, {
+            var e = "project/{project}/create/fromimage?imageStream={imageStream}&imageTag={imageTag}&namespace={namespace}&displayName={displayName}&name={name}&sourceURI={sourceURI}&advanced=true", t = s.expand(e, {
                 project: this.ctrl.selectedProject.metadata.name,
                 imageStream: this.ctrl.imageStream.resource.metadata.name,
                 imageTag: this.ctrl.istag.name,
@@ -976,14 +976,14 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             i.each(r, function(r) {
                 if (e.referencesSameImageStream(r)) return t[r.name] = r.from.name, e.ctrl.referencedBy[r.from.name] = e.ctrl.referencedBy[r.from.name] || [], 
                 void e.ctrl.referencedBy[r.from.name].push(r.name);
-                var a = i.get(r, "annotations.tags", ""), s = a.split(/\s*,\s*/);
-                i.includes(s, "builder") && !i.includes(s, "hidden") && (n[r.name] = r);
+                var s = i.get(r, "annotations.tags", ""), a = s.split(/\s*,\s*/);
+                i.includes(a, "builder") && !i.includes(a, "hidden") && (n[r.name] = r);
             });
-            var a = [], s = i.get(this, "ctrl.imageStream.resource.status.tags", []);
-            return i.each(s, function(e) {
+            var s = [], a = i.get(this, "ctrl.imageStream.resource.status.tags", []);
+            return i.each(a, function(e) {
                 var t = n[e.tag];
-                t && a.push(t);
-            }), a;
+                t && s.push(t);
+            }), s;
         }, e.prototype.getImageStreamTag = function() {
             var e = this.ctrl.imageStream.resource.metadata.name + ":" + this.ctrl.istag.name;
             return this.DataService.get("imagestreamtags", e, {
@@ -995,8 +995,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 e.sort(function(e, n) {
                     var r = "True" === i.get(t(e, "Ready"), "status");
                     if (r === ("True" === i.get(t(n, "Ready"), "status"))) {
-                        var a = i.get(e, "metadata.creationTimestamp");
-                        return i.get(n, "metadata.creationTimestamp").localeCompare(a);
+                        var s = i.get(e, "metadata.creationTimestamp");
+                        return i.get(n, "metadata.creationTimestamp").localeCompare(s);
                     }
                     return r ? -1 : 1;
                 }), this.ctrl.serviceInstances = e;
@@ -1072,8 +1072,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             }));
         }, e;
     }();
-    s.$inject = [ "$scope", "$filter", "$location", "$q", "BuilderAppService", "ProjectsService", "DataService", "APIService", "BindingService", "Logger", "Constants" ], 
-    t.CreateFromBuilderController = s;
+    a.$inject = [ "$scope", "$filter", "$location", "$q", "BuilderAppService", "ProjectsService", "DataService", "APIService", "BindingService", "Logger", "Constants" ], 
+    t.CreateFromBuilderController = a;
 }, function(e, t, n) {
     "use strict";
     t.__esModule = !0;
@@ -1101,8 +1101,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
 }, function(e, t, n) {
     "use strict";
     t.__esModule = !0;
-    var r = n(1), i = n(0), a = function() {
-        function e(e, t, n, r, a, s, o, c) {
+    var r = n(1), i = n(0), s = function() {
+        function e(e, t, n, r, s, a, o, c) {
             var l = this;
             this.ctrl = this, this.watches = [], this.clearValidityWatcher = function() {
                 l.validityWatcher && (l.validityWatcher(), l.validityWatcher = void 0), l.ctrl.reviewStep.allowed = !1;
@@ -1175,7 +1175,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                     });
                 }));
             }, this.$scope = e, this.$filter = t, this.AuthService = n, this.ProjectsService = r, 
-            this.DataService = a, this.BindingService = s, this.Logger = o, this.hasDeploymentFilter = t("hasDeployment"), 
+            this.DataService = s, this.BindingService = a, this.Logger = o, this.hasDeploymentFilter = t("hasDeployment"), 
             this.hasDeploymentConfigFilter = t("hasDeploymentConfig"), this.sendRequesterUsername = !1, 
             this.ctrl.showPodPresets = i.get(c, [ "ENABLE_TECH_PREVIEW_FEATURE", "pod_presets" ], !1);
         }
@@ -1297,12 +1297,12 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             return !this.ctrl.selectedProject || !i.has(this.ctrl.selectedProject, "metadata.uid");
         }, e;
     }();
-    a.$inject = [ "$scope", "$filter", "AuthService", "ProjectsService", "DataService", "BindingService", "Logger", "Constants" ], 
-    a.REQUESTER_USERNAME_PARAM_NAME = "template.openshift.io/requester-username", t.OrderServiceController = a;
+    s.$inject = [ "$scope", "$filter", "AuthService", "ProjectsService", "DataService", "BindingService", "Logger", "Constants" ], 
+    s.REQUESTER_USERNAME_PARAM_NAME = "template.openshift.io/requester-username", t.OrderServiceController = s;
 }, function(e, t, n) {
     "use strict";
     t.__esModule = !0;
-    var r = n(1), i = n(2), a = function() {
+    var r = n(1), i = n(2), s = function() {
         function e() {
             var e = this;
             this.ctrl = this, this.closePanel = function() {
@@ -1321,25 +1321,25 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             i("body").removeClass("overlay-open");
         }, e;
     }();
-    t.OverlayPanelController = a;
+    t.OverlayPanelController = s;
 }, function(e, t, n) {
     "use strict";
     t.__esModule = !0;
-    var r = n(1), i = n(2), a = n(0), s = function() {
-        function e(e, t, n, i, s, o, c, l, d, p, m) {
+    var r = n(1), i = n(2), s = n(0), a = function() {
+        function e(e, t, n, i, a, o, c, l, d, p, m) {
             var h = this;
             this.ctrl = this, this.showNewProjectPanel = !1, this.showEditProjectPanel = !1, 
             this.alerts = [], this.projects = [], this.watches = [], this.maxDisplayProjects = 5, 
             this.init = function() {
-                h.watches.push(h.DataService.watch("projects", h.$scope, h.onProjectsUpdate)), h.ctrl.resourceLinks = a.clone(h.Constants.CATALOG_HELP_RESOURCES.links), 
-                a.forEach(h.ctrl.resourceLinks, function(e) {
+                h.watches.push(h.DataService.watch("projects", h.$scope, h.onProjectsUpdate)), h.ctrl.resourceLinks = s.clone(h.Constants.CATALOG_HELP_RESOURCES.links), 
+                s.forEach(h.ctrl.resourceLinks, function(e) {
                     r.isDefined(e.help) && (e.href = h.Constants.HELP_BASE_URL + (e.help ? h.Constants.HELP[e.help] : ""));
                 }), h.$rootScope.$on("recently-viewed-updated", function() {
                     h.ctrl.recentlyViewedItems = h.getRecentlyViewedItems();
                 });
             }, this.onProjectsUpdate = function(e) {
-                var t = a.toArray(e.by("metadata.creationTimestamp")), n = h.$filter("orderObjectsByDate");
-                h.ctrl.projects = n(t, !0), h.ctrl.totalProjects = h.ctrl.projects.length, h.ctrl.projects = a.take(h.ctrl.projects, h.maxDisplayProjects), 
+                var t = s.toArray(e.by("metadata.creationTimestamp")), n = h.$filter("orderObjectsByDate");
+                h.ctrl.projects = n(t, !0), h.ctrl.totalProjects = h.ctrl.projects.length, h.ctrl.projects = s.take(h.ctrl.projects, h.maxDisplayProjects), 
                 h.ctrl.loading = !1, h.ctrl.showGetStarted = !h.ctrl.projects || h.ctrl.projects.length < 2;
             }, this.closeNewProjectPanel = function() {
                 h.ctrl.showNewProjectPanel = !1, h.hideModalBackdrop();
@@ -1354,7 +1354,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 h.ctrl.showEditProjectPanel = !1, h.hideModalBackdrop();
             }, this.onEditProject = function(e) {
                 h.ctrl.showEditProjectPanel = !1, h.hideModalBackdrop();
-            }, this.$element = e, this.$filter = t, this.$rootScope = n, this.$scope = i, this.AuthService = s, 
+            }, this.$element = e, this.$filter = t, this.$rootScope = n, this.$scope = i, this.AuthService = a, 
             this.Catalog = o, this.Constants = c, this.DataService = l, this.Logger = d, this.ProjectsService = p, 
             this.RecentlyViewed = m;
         }
@@ -1373,7 +1373,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 }
                 if (n.details) {
                     var i = [];
-                    a.forEach(n.details.causes || [], function(e) {
+                    s.forEach(n.details.causes || [], function(e) {
                         e.message && i.push(e.message);
                     }), i.length > 0 && (e.ctrl.newProjectMessage = i.join("\n"));
                 }
@@ -1381,7 +1381,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 e.init();
             });
         }, e.prototype.$onChanges = function(e) {
-            e.catalogItems && this.ctrl.catalogItems && (this.allItems = a.indexBy(this.ctrl.catalogItems, "resource.metadata.uid"), 
+            e.catalogItems && this.ctrl.catalogItems && (this.allItems = s.indexBy(this.ctrl.catalogItems, "resource.metadata.uid"), 
             this.ctrl.recentlyViewedItems = this.getRecentlyViewedItems());
         }, e.prototype.openNewProjectPanel = function() {
             this.ctrl.showNewProjectPanel = !0, this.showModalBackdrop();
@@ -1403,21 +1403,21 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
         }, e.prototype.getRecentlyViewedItems = function() {
             var e = this;
             if (this.allItems) {
-                var t = this.RecentlyViewed.getItems(), n = a.map(t, function(t) {
+                var t = this.RecentlyViewed.getItems(), n = s.map(t, function(t) {
                     return e.allItems[t];
                 });
-                return n = a.reject(n, function(e) {
+                return n = s.reject(n, function(e) {
                     return !e;
                 });
             }
         }, e;
     }();
-    s.$inject = [ "$element", "$filter", "$rootScope", "$scope", "AuthService", "Catalog", "Constants", "DataService", "Logger", "ProjectsService", "RecentlyViewedServiceItems" ], 
-    t.ProjectsSummaryController = s;
+    a.$inject = [ "$element", "$filter", "$rootScope", "$scope", "AuthService", "Catalog", "Constants", "DataService", "Logger", "ProjectsService", "RecentlyViewedServiceItems" ], 
+    t.ProjectsSummaryController = a;
 }, function(e, t, n) {
     "use strict";
     t.__esModule = !0;
-    var r = n(1), i = n(0), a = function() {
+    var r = n(1), i = n(0), s = function() {
         function e(e, t, n, r) {
             var i = this;
             this.ctrl = this, this.onWindowResize = function() {
@@ -1445,13 +1445,13 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             this.ctrl.itemsOverflow = t > 2 && e < this.BREAKPOINTS.screenLgMin;
         }, e;
     }();
-    a.$inject = [ "$scope", "$window", "$element", "BREAKPOINTS" ], t.SaasListController = a;
+    s.$inject = [ "$scope", "$window", "$element", "BREAKPOINTS" ], t.SaasListController = s;
 }, function(e, t, n) {
     "use strict";
     t.__esModule = !0;
     var r = n(0), i = function() {
-        function e(e, t, n, r, i, a) {
-            this.ctrl = this, this.$scope = e, this.$filter = t, this.DataService = n, this.AuthService = a, 
+        function e(e, t, n, r, i, s) {
+            this.ctrl = this, this.$scope = e, this.$filter = t, this.DataService = n, this.AuthService = s, 
             this.ProjectsService = r, this.Logger = i;
         }
         return e.prototype.$onInit = function() {
@@ -1494,8 +1494,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
 }, function(e, t, n) {
     "use strict";
     t.__esModule = !0;
-    var r = n(1), i = n(0), a = n(2), s = function() {
-        function e(e, t, n, r, s, o, c, l, d) {
+    var r = n(1), i = n(0), s = n(2), a = function() {
+        function e(e, t, n, r, a, o, c, l, d) {
             var p = this;
             this.ctrl = this, this.keywordFilterField = {
                 id: "keyword",
@@ -1511,12 +1511,12 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 }), p.updateFilterControls();
             }, this.resizeExpansion = function() {
                 var e = p.htmlService.getBreakpoint();
-                if (a(".services-sub-category").removeAttr("style"), "xxs" !== e) {
-                    var t = a(".services-sub-category.active"), n = t.find(".services-items").outerHeight(!0);
+                if (s(".services-sub-category").removeAttr("style"), "xxs" !== e) {
+                    var t = s(".services-sub-category.active"), n = t.find(".services-items").outerHeight(!0);
                     t.css("margin-bottom", n + "px");
                 }
             }, this.constants = e, this.catalog = t, this.keywordService = n, this.logger = r, 
-            this.htmlService = s, this.$filter = o, this.$rootScope = c, this.$scope = l, this.$timeout = d, 
+            this.htmlService = a, this.$filter = o, this.$rootScope = c, this.$scope = l, this.$timeout = d, 
             this.ctrl.loaded = !1, this.ctrl.isEmpty = !1, this.ctrl.mobileView = "categories", 
             this.ctrl.filterConfig = {};
         }
@@ -1524,7 +1524,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             var e = this;
             this.debounceResize = i.debounce(this.resizeExpansion, 50, {
                 maxWait: 250
-            }), r.element(window).bind("resize", this.debounceResize), a(window).on("resize.services", this.debounceResize), 
+            }), r.element(window).bind("resize", this.debounceResize), s(window).on("resize.services", this.debounceResize), 
             this.removeFilterListener = this.$rootScope.$on("filter-catalog-items", function(t, n) {
                 var i = r.copy(e.keywordFilterField);
                 i.value = n.searchText, e.ctrl.currentFilter = e.ctrl.currentSubFilter = "all", 
@@ -1540,7 +1540,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             this.filterByCategory("all", "all", !0), this.ctrl.isEmpty = i.isEmpty(this.ctrl.catalogItems), 
             this.ctrl.loaded = !0);
         }, e.prototype.$onDestroy = function() {
-            a(window).off("resize.services"), this.removeFilterListener();
+            s(window).off("resize.services"), this.removeFilterListener();
         }, e.prototype.selectCategory = function(e) {
             this.ctrl.mobileView = "subcategories", this.filterByCategory(e, null, !0);
         }, e.prototype.selectSubCategory = function(e) {
@@ -1554,14 +1554,14 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 hasItems: !0
             }), "all" === t[0].id && 2 === t.length && (t = i.drop(t, 1)), t;
         }, e.prototype.filterByCategory = function(e, t, n) {
-            var r, a;
+            var r, s;
             this.clearAppliedFilters(), "all" === e || "other" === e ? t = "all" : (n && (this.ctrl.subCategories = this.getSubCategories(e)), 
             t = 1 === this.ctrl.subCategories.length ? this.ctrl.subCategories[0].id : t || null), 
             r = i.find(this.ctrl.categories, {
                 id: e
-            }), r ? t && (a = i.find(r.subCategories, {
+            }), r ? t && (s = i.find(r.subCategories, {
                 id: t
-            }), a ? (this.ctrl.filteredItems = a.items, this.ctrl.totalCount = this.ctrl.filteredItems.length) : this.logger.error("Could not find subcategory '" + t + "' for category '" + e + "'")) : this.logger.error("Could not find category '" + e + "'"), 
+            }), s ? (this.ctrl.filteredItems = s.items, this.ctrl.totalCount = this.ctrl.filteredItems.length) : this.logger.error("Could not find subcategory '" + t + "' for category '" + e + "'")) : this.logger.error("Could not find category '" + e + "'"), 
             this.ctrl.currentFilter = e, this.ctrl.currentSubFilter = t, this.updateActiveCardStyles(), 
             this.updateFilterControls();
         }, e.prototype.filterForKeywords = function(e, t) {
@@ -1575,13 +1575,13 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             var e = this;
             this.$timeout(function() {
                 e.ctrl.filterConfig.appliedFilters.length > 0 ? (e.ctrl.filterConfig.resultsCount = e.ctrl.filteredItems.length, 
-                a(".toolbar-pf-results h5").text(e.ctrl.filterConfig.resultsCount + " of " + e.ctrl.totalCount + " items")) : (a(".toolbar-pf-results h5").text(e.ctrl.totalCount + " items"), 
-                e.ctrl.totalCount <= 1 ? a(".filter-pf.filter-fields input").attr("disabled", "") : a(".filter-pf.filter-fields input").removeAttr("disabled"));
+                s(".toolbar-pf-results h5").text(e.ctrl.filterConfig.resultsCount + " of " + e.ctrl.totalCount + " items")) : (s(".toolbar-pf-results h5").text(e.ctrl.totalCount + " items"), 
+                e.ctrl.totalCount <= 1 ? s(".filter-pf.filter-fields input").attr("disabled", "") : s(".filter-pf.filter-fields input").removeAttr("disabled"));
             }, 0);
         }, e;
     }();
-    s.$inject = [ "Constants", "Catalog", "KeywordService", "Logger", "HTMLService", "$filter", "$rootScope", "$scope", "$timeout" ], 
-    t.ServicesViewController = s;
+    a.$inject = [ "Constants", "Catalog", "KeywordService", "Logger", "HTMLService", "$filter", "$rootScope", "$scope", "$timeout" ], 
+    t.ServicesViewController = a;
 }, function(e, t) {
     e.exports = URI;
 }, function(e, t, n) {
@@ -1589,8 +1589,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
     t.__esModule = !0;
     var r = n(1);
     n(3), n(27);
-    var i = n(28), a = n(29), s = n(17), o = n(18), c = n(30), l = n(19), d = n(20), p = n(21), m = n(22), h = n(23), g = n(24), u = n(25), f = n(26), v = n(31);
-    t.webCatalog = "webCatalog", r.module(t.webCatalog, [ "patternfly", "ngAnimate", "ui.bootstrap", "angularMoment", "ui.select", "schemaForm" ]).service("BuilderAppService", a.BuilderAppService).service("Catalog", c.CatalogService).service("RecentlyViewedServiceItems", v.RecentlyViewedServiceItems).filter("projectUrl", i.projectUrlFilter).component("catalogParameters", s.catalogParameters).component("catalogSearch", o.catalogSearch).component("createFromBuilder", l.createFromBuilder).component("landingPage", d.landingPage).component("orderService", p.orderService).component("overlayPanel", m.overlayPanel).component("projectsSummary", h.projectsSummary).component("saasList", g.saasList).component("selectProject", u.selectProject).component("servicesView", f.servicesView).run([ "$templateCache", function(e) {
+    var i = n(28), s = n(29), a = n(17), o = n(18), c = n(30), l = n(19), d = n(20), p = n(21), m = n(22), h = n(23), g = n(24), u = n(25), f = n(26), v = n(31);
+    t.webCatalog = "webCatalog", r.module(t.webCatalog, [ "patternfly", "ngAnimate", "ui.bootstrap", "angularMoment", "ui.select", "schemaForm" ]).service("BuilderAppService", s.BuilderAppService).service("Catalog", c.CatalogService).service("RecentlyViewedServiceItems", v.RecentlyViewedServiceItems).filter("projectUrl", i.projectUrlFilter).component("catalogParameters", a.catalogParameters).component("catalogSearch", o.catalogSearch).component("createFromBuilder", l.createFromBuilder).component("landingPage", d.landingPage).component("orderService", p.orderService).component("overlayPanel", m.overlayPanel).component("projectsSummary", h.projectsSummary).component("saasList", g.saasList).component("selectProject", u.selectProject).component("servicesView", f.servicesView).run([ "$templateCache", function(e) {
         e.put("catalog-search/catalog-search-result.html", n(4)), e.put("create-from-builder/create-from-builder-configure.html", n(6)), 
         e.put("create-from-builder/create-from-builder-bind.html", n(5)), e.put("create-from-builder/create-from-builder-results.html", n(7)), 
         e.put("order-service/order-service-plans.html", n(10)), e.put("order-service/order-service-configure.html", n(9)), 
