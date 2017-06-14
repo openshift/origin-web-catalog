@@ -170,6 +170,18 @@ services-view,
   }
 
   @media(min-width: @screen-xs-min) {
+    .services-no-sub-categories {
+      background: fade(@color-pf-blue-700, 90%);
+      display: flex;
+      flex: 1 1 auto;
+      padding: 15px (@grid-gutter-width / 2) 12px;
+      .services-items {
+        left: 0;
+        margin: 0 0 8px;
+        right: 0;
+      }
+    }
+
     .services-sub-categories {
       align-content: flex-start;
       align-items: flex-start;
