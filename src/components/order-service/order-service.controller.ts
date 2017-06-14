@@ -3,13 +3,16 @@ import * as _ from 'lodash';
 
 export class OrderServiceController implements angular.IController {
 
-  static $inject = ['$scope', '$filter', 'ProjectsService', 'DataService', 'BindingService', 'Logger', 'Constants'];
+  static $inject = ['$scope', '$filter', 'AuthService', 'ProjectsService', 'DataService', 'BindingService', 'Logger', 'Constants'];
+
+  static readonly REQUESTER_USERNAME_PARAM_NAME: string = 'template.openshift.io/requester-username';
 
   public ctrl: any = this;
   public $scope: any;
 
   private $filter: any;
   private ProjectsService: any;
+  private AuthService: any;
   private DataService: any;
   private BindingService: any;
   private Logger: any;
@@ -27,16 +30,26 @@ export class OrderServiceController implements angular.IController {
   private hasDeploymentFilter: any;
   private hasDeploymentConfigFilter: any;
   private validityWatcher: any;
+  private user: any;
 
-  constructor($scope: any, $filter: any, ProjectsService: any, DataService: any, BindingService: any, Logger: any, Constants: any) {
+  // Special case for the template broker. We need to send the send the current
+  // user as the requester-username parameter value, but hide it in the UI.
+  // This parameter will eventually be removed when the service catalog sends
+  // the current OpenShift user as part of the provision request.
+  private sendRequesterUsername: boolean;
+
+  constructor($scope: any, $filter: any, AuthService: any, ProjectsService: any, DataService: any, BindingService: any, Logger: any, Constants: any) {
     this.$scope = $scope;
     this.$filter = $filter;
+    this.AuthService = AuthService;
     this.ProjectsService = ProjectsService;
     this.DataService = DataService;
     this.BindingService = BindingService;
     this.Logger = Logger;
     this.hasDeploymentFilter = $filter('hasDeployment');
     this.hasDeploymentConfigFilter = $filter('hasDeploymentConfig');
+    // Set to the true when the parameter schema has REQUESTER_USERNAME_PARAM_NAME.
+    this.sendRequesterUsername = false;
     this.ctrl.showPodPresets = _.get(Constants, ['ENABLE_TECH_PREVIEW_FEATURE', 'pod_presets'], false);
   }
 
@@ -50,10 +63,6 @@ export class OrderServiceController implements angular.IController {
     this.ctrl.applications = [];
     this.ctrl.parameterData = {};
     this.ctrl.forms = {};
-
-    // Preselect the first plan. If there's only one plan, skip the wizard step.
-    this.ctrl.selectedPlan = _.first(this.ctrl.plans);
-    this.ctrl.planIndex = 0;
 
     this.ctrl.appToBind = null;
     this.ctrl.configStepValid = true;
@@ -98,8 +107,11 @@ export class OrderServiceController implements angular.IController {
 
     this.ctrl.steps = [this.planStep, this.configStep, this.bindStep, this.reviewStep];
     this.ctrl.nameTaken = false;
-    this.ctrl.wizardReady = true;
     this.ctrl.wizardDone = false;
+
+    // Preselect the first plan. If there's only one plan, skip the wizard step.
+    this.selectPlan(_.first(this.ctrl.plans));
+    this.ctrl.planIndex = 0;
 
     // Set updating true initially so that the next button doesn't enable,
     // disable, then enable again immediately.  The onProjectUpdate callback
@@ -111,6 +123,11 @@ export class OrderServiceController implements angular.IController {
       },
       this.onProjectUpdate
     );
+
+    this.AuthService.withUser().then((user) => {
+      this.user = user;
+      this.ctrl.wizardReady = true;
+    });
   }
 
   public clearValidityWatcher = () => {
@@ -164,7 +181,7 @@ export class OrderServiceController implements angular.IController {
     this.ctrl.selectedPlan = plan;
     // Clear any previous parameter data since each plan has its own parameter schema.
     this.ctrl.parameterData = {};
-
+    this.updateParameterSchema(plan);
     this.updateBindability();
   }
 
@@ -283,7 +300,19 @@ export class OrderServiceController implements angular.IController {
         this.ctrl.nextTitle = "Next >";
       }
     }
-  };
+  }
+
+  private updateParameterSchema(plan: any) {
+    let schema: any = _.get(plan, 'alphaInstanceCreateParameterSchema');
+    if (_.has(schema, ['properties', OrderServiceController.REQUESTER_USERNAME_PARAM_NAME])) {
+      schema = angular.copy(schema);
+      delete schema.properties[OrderServiceController.REQUESTER_USERNAME_PARAM_NAME];
+      this.sendRequesterUsername = true;
+    } else {
+      this.sendRequesterUsername = false;
+    }
+    this.ctrl.parameterSchema = schema;
+  }
 
   private onProjectUpdate = () => {
     if (this.isNewProject()) {
@@ -357,6 +386,11 @@ export class OrderServiceController implements angular.IController {
     let parameters: any = _.omit(this.ctrl.parameterData, (parameterValue) => {
       return parameterValue === '';
     });
+
+    // Send the requester-username if this is the template broker.
+    if (this.sendRequesterUsername) {
+      parameters[OrderServiceController.REQUESTER_USERNAME_PARAM_NAME] = this.user.metadata.name;
+    }
 
     let serviceInstance = {
       kind: 'Instance',
