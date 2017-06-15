@@ -317,6 +317,7 @@ export class OrderServiceController implements angular.IController {
   private onProjectUpdate = () => {
     if (this.isNewProject()) {
       this.ctrl.applications = [];
+      this.ctrl.updating = false;
       this.updateBindability();
     } else {
       this.ctrl.updating = true;

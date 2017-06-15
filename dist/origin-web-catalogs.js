@@ -1140,7 +1140,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 } else l.ctrl.projectDisplayName = l.$filter("displayName")(l.ctrl.selectedProject), 
                 l.createService();
             }, this.onProjectUpdate = function() {
-                l.isNewProject() ? (l.ctrl.applications = [], l.updateBindability()) : (l.ctrl.updating = !0, 
+                l.isNewProject() ? (l.ctrl.applications = [], l.ctrl.updating = !1, l.updateBindability()) : (l.ctrl.updating = !0, 
                 l.ProjectsService.get(l.ctrl.selectedProject.metadata.name).then(i.spread(function(e, t) {
                     l.ctrl.bindType = "none", l.ctrl.serviceToBind = l.ctrl.serviceClass, l.DataService.list("deploymentconfigs", t).then(function(e) {
                         l.deploymentConfigs = i.toArray(e.by("metadata.name")), l.sortApplications();
