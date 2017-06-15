@@ -15,6 +15,7 @@ export const servicesData = {
     plans: [
       {
         name: 'rh-ded-topic', osbGuid: '1', displayName: 'Red Hat - Dedicated - Topic', description: '$.65 / 1 Million messages', bullets: ['One', 'Two', 'Three'],
+        bindable: true,
         alphaInstanceCreateParameterSchema: {
           "$schema": "http://json-schema.org/draft-04/schema",
           "type": "object",
