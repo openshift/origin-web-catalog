@@ -1422,6 +1422,7 @@ services-view,
     background-color: rgba(0, 34, 53, 0.9);
     float: none;
     margin-bottom: 1px;
+    padding-right: 0;
     position: relative;
   }
   .services-view .services-view-container .services-categories > li.active > a,
