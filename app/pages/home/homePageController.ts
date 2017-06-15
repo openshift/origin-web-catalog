@@ -1,6 +1,6 @@
 
 export class HomePageController {
-  static $inject = ['$rootScope', '$state', '$timeout', 'AuthService', 'Catalog', 'Constants', 'GuidedTourService', 'NotificationsService'];
+  static $inject = ['$rootScope', '$state', '$timeout', 'AuthService', 'Catalog', 'Constants', 'GuidedTourService', 'HTMLService', 'NotificationsService'];
 
   public ctrl: any = this;
   private $rootScope: any;
@@ -9,18 +9,20 @@ export class HomePageController {
   private authService: any;
   private Catalog: any;
   private GuidedTourService: any;
+  private HTMLService: any;
   private constants: any;
   private tourConfig: any;
   private NotificationsService: any;
 
   constructor($rootScope: any, $state: any, $timeout: any, AuthService: any, Catalog: any,
-              Constants: any, GuidedTourService: any, NotificationsService: any) {
+              Constants: any, GuidedTourService: any, HTMLService: any, NotificationsService: any) {
     this.$rootScope = $rootScope;
     this.$state = $state;
     this.$timeout = $timeout;
     this.authService = AuthService;
     this.Catalog = Catalog;
     this.GuidedTourService = GuidedTourService;
+    this.HTMLService = HTMLService;
     this.constants = Constants;
     this.NotificationsService = NotificationsService;
   };
@@ -53,8 +55,9 @@ export class HomePageController {
         var viewedHomePageKey: string = "openshift/viewedHomePage/" + this.$rootScope.user.metadata.name;
         if (localStorage.getItem(viewedHomePageKey) !== 'true') {
           this.$timeout(() => {
-            localStorage.setItem(viewedHomePageKey, 'true');
-            this.startGuidedTour();
+            if (this.startGuidedTour()) {
+              localStorage.setItem(viewedHomePageKey, 'true');
+            }
           }, 500);
         }
       }
@@ -65,9 +68,16 @@ export class HomePageController {
     this.ctrl.saasOfferings = this.constants.SAAS_OFFERINGS;
   };
 
-  public startGuidedTour = () => {
-    if (this.tourConfig && this.tourConfig.enabled && this.tourConfig.steps) {
-      this.GuidedTourService.startTour(this.tourConfig.steps);
+  public startGuidedTour = () : boolean => {
+    if (this.HTMLService.isWindowBelowBreakpoint(this.HTMLService.WINDOW_SIZE_SM)) {
+      return false;
     }
+
+    if (!this.tourConfig || !this.tourConfig.enabled || !this.tourConfig.steps) {
+      return false;
+    }
+
+    this.GuidedTourService.startTour(this.tourConfig.steps);
+    return true;
   };
 }
