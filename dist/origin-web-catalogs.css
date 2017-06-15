@@ -1156,7 +1156,11 @@ services-view,
 }
 .services-view .services-items-filter .filter-pf .form-group {
   margin-bottom: 0;
-  margin-right: 20px;
+}
+@media (min-width: 335px) {
+  .services-view .services-items-filter .filter-pf .form-group {
+    margin-right: 20px;
+  }
 }
 .services-view .services-items-filter .toolbar-pf-results {
   border-top: none;
