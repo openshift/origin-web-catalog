@@ -5,6 +5,7 @@ export const servicesData = {
       "name": "test-serviceclass-java-nodejs",
       "uid": "1",
     },
+    bindable: true,
     description: 'BUILDS SOURCE CODE',
     alphaTags: ['java', 'nodejs'],
     externalMetadata: {
@@ -68,6 +69,7 @@ export const servicesData = {
       "name": "test-serviceclass-nodejs",
       "uid": "2",
     },
+    bindable: true,
     description: 'BUILDS SOURCE CODE',
     alphaTags: ['nodejs'],
     externalMetadata: {
@@ -84,6 +86,7 @@ export const servicesData = {
       "name": "test-serviceclass-perl",
       "uid": "3",
     },
+    bindable: true,
     description: 'BUILDS SOURCE CODE',
     alphaTags: ['perl'],
     externalMetadata: {
@@ -100,6 +103,7 @@ export const servicesData = {
       "name": "test-serviceclass-ruby-mongo",
       "uid": "4",
     },
+    bindable: true,
     description: 'BUILDS SOURCE CODE',
     alphaTags: ['ruby', 'mongodb'],
     externalMetadata: {
@@ -116,6 +120,7 @@ export const servicesData = {
       "name": "test-serviceclass-php",
       "uid": "5",
     },
+    bindable: true,
     description: 'BUILDS SOURCE CODE',
     alphaTags: ['php'],
     externalMetadata: {
@@ -132,6 +137,7 @@ export const servicesData = {
       "name": "test-serviceclass-mongo",
       "uid": "6",
     },
+    bindable: true,
     description: 'BUILDS SOURCE CODE',
     alphaTags: ['mongodb'],
     externalMetadata: {
@@ -148,6 +154,7 @@ export const servicesData = {
       "name": "test-serviceclass-mysql",
       "uid": "7",
     },
+    bindable: true,
     description: 'BUILDS SOURCE CODE',
     alphaTags: ['mysql'],
     externalMetadata: {
@@ -164,6 +171,7 @@ export const servicesData = {
       "name": "test-serviceclass-other",
       "uid": "8",
     },
+    bindable: true,
     description: 'BUILDS SOURCE CODE',
     alphaTags: ['fooBar'],
     externalMetadata: {
@@ -181,6 +189,7 @@ export const servicesData = {
       "name": "test-serviceclass-jenkins",
       "uid": "9",
     },
+    bindable: true,
     description: 'BUILDS SOURCE CODE',
     alphaTags: ['jenkins'],
     externalMetadata: {
