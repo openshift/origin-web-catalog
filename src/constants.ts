@@ -113,25 +113,24 @@ var homePageTourSteps = {
     {
       title: "Browse Catalog",
       content: "If you don’t know exactly what you are looking for, you can browse all available catalog items under the first tab in the catalog.",
-      target: ".services-view-container",
-      targetScrollElement: '.landing',
-      placement: "top",
+      target: ".services-view-container h1",
+      placement: "bottom",
       xOffset: 20,
+      delay: 300,
       preShow: showAllCatalogs
     },
     {
       title: "Browse by Category",
       content: "A secondary level of categorization is available to further narrow your search.",
       target: ".services-view-container .nav-tabs li:nth-child(2)",
-      targetScrollElement: '.landing',
-      placement: "top",
+      placement: "right",
+      delay: 200,
       preShow: showCategories
     },
     {
       title: "Configure a Resource",
       content: "Clicking on a catalog item will open a panel allowing you to configure and create within a project.",
       target: ".services-sub-category.active .services-items .services-item",
-      targetScrollElement: '.landing',
       placement: "right"
     },
     {

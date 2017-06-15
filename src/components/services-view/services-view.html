@@ -1,4 +1,4 @@
-<div class="services-view">
+<div class="services-view" ng-style="$ctrl.viewStyle">
   <div ng-if="!$ctrl.loaded" class="spinner-container">
     <div class="spinner spinner-xl"></div>
   </div>
@@ -48,20 +48,22 @@
     </ul>
 
     <!-- Show catalog item for 'All' and 'Other' main categories -->
-    <div ng-if="$ctrl.currentFilter === 'other' || $ctrl.currentFilter === 'all'" class="services-items">
-      <div ng-if="$ctrl.isEmpty">There are no catalog items.</div>
-      <div ng-if="!$ctrl.isEmpty" pf-filter config="$ctrl.filterConfig" class="services-items-filter"></div>
-      <a href="" class="services-item" ng-repeat="item in $ctrl.filteredItems" ng-click="$ctrl.handleClick(item)">
-        <div ng-if="!item.imageUrl" class="services-item-icon">
-          <span class="{{item.iconClass}}"></span>
-        </div>
-        <div ng-if="item.imageUrl" class="services-item-icon">
-          <img ng-src="{{item.imageUrl}}" alt="">
-        </div>
-        <div class="services-item-name" title="{{item.name}}">
-          {{item.name}}
-        </div>
-      </a>
+    <div ng-if="$ctrl.currentFilter === 'other' || $ctrl.currentFilter === 'all'" class="services-no-sub-categories">
+      <div class="services-items">
+        <div ng-if="$ctrl.isEmpty">There are no catalog items.</div>
+        <div ng-if="!$ctrl.isEmpty" pf-filter config="$ctrl.filterConfig" class="services-items-filter"></div>
+        <a href="" class="services-item" ng-repeat="item in $ctrl.filteredItems" ng-click="$ctrl.handleClick(item)">
+          <div ng-if="!item.imageUrl" class="services-item-icon">
+            <span class="{{item.iconClass}}"></span>
+          </div>
+          <div ng-if="item.imageUrl" class="services-item-icon">
+            <img ng-src="{{item.imageUrl}}" alt="">
+          </div>
+          <div class="services-item-name" title="{{item.name}}">
+            {{item.name}}
+          </div>
+        </a>
+      </div>
     </div>
   </div>
 </div>
