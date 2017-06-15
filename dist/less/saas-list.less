@@ -21,17 +21,29 @@
 
     &.expanded {
       flex-wrap: wrap;
+      justify-content: flex-start;
+      .card {
+        &:nth-child(n+3) {
+          display: flex; // display all in expanded mode
+        }
+      }
     }
 
     .card {
       color: @saas-text;
       display: flex;
-      flex: 0 0 auto;
-      width: 50%;
+      width: 25%;
 
+      @media (max-width: @screen-md-max) {
+        width: 50%;
+        &:nth-child(n+3) {
+          display: none; // display first 2
+        }
+      }
       @media (min-width: @screen-lg-min) {
-        flex: 1 1 auto;
-        width: auto;
+        &:nth-child(n+5) {
+          display: none; // display first 4
+        }
       }
 
       &:hover {

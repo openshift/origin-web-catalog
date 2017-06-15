@@ -1441,7 +1441,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             this.ctrl.sassListExpanded = !this.ctrl.sassListExpanded;
         }, e.prototype.updateListExpandVisibility = function() {
             var e = this.$window.innerWidth, t = i.size(this.ctrl.saasOfferings);
-            this.ctrl.itemsOverflow = t > 2 && e < this.BREAKPOINTS.screenLgMin;
+            this.ctrl.itemsOverflow = t > 4 || t > 2 && e < this.BREAKPOINTS.screenLgMin;
         }, e;
     }();
     s.$inject = [ "$scope", "$window", "$element", "BREAKPOINTS" ], t.SaasListController = s;

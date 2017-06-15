@@ -49,7 +49,7 @@ export class SaasListController implements angular.IController {
   private updateListExpandVisibility() {
     var windowWidth: number = this.$window.innerWidth;
     var offeringCount: number = _.size(this.ctrl.saasOfferings);
-    this.ctrl.itemsOverflow = (offeringCount > 2 && windowWidth < this.BREAKPOINTS.screenLgMin);
+    this.ctrl.itemsOverflow = (offeringCount > 4) || (offeringCount > 2 && windowWidth < this.BREAKPOINTS.screenLgMin);
   }
 
   private onWindowResize = () => {

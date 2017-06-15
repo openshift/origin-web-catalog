@@ -924,17 +924,27 @@ body.overlay-open .landing-side-bar {
 }
 .saas-offerings-container .saas-list.expanded {
   flex-wrap: wrap;
+  justify-content: flex-start;
+}
+.saas-offerings-container .saas-list.expanded .card:nth-child(n+3) {
+  display: flex;
 }
 .saas-offerings-container .saas-list .card {
   color: #fff;
   display: flex;
-  flex: 0 0 auto;
-  width: 50%;
+  width: 25%;
+}
+@media (max-width: 1199px) {
+  .saas-offerings-container .saas-list .card {
+    width: 50%;
+  }
+  .saas-offerings-container .saas-list .card:nth-child(n+3) {
+    display: none;
+  }
 }
 @media (min-width: 1200px) {
-  .saas-offerings-container .saas-list .card {
-    flex: 1 1 auto;
-    width: auto;
+  .saas-offerings-container .saas-list .card:nth-child(n+5) {
+    display: none;
   }
 }
 .saas-offerings-container .saas-list .card:hover {
