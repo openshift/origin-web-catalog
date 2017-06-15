@@ -1,6 +1,7 @@
 import * as angular from 'angular';
 import 'angular-mocks';
 import * as _ from 'lodash';
+import * as jQuery from 'jquery';
 
 import {TestHelpers} from '../test/utils/testHelpers';
 import {ComponentTest} from '../test/utils/ComponentTest';
@@ -34,6 +35,19 @@ describe('servicesView', () => {
     images = angular.copy(imagesData);
     catalogItems = Catalog.convertToServiceItems(services, images);
   });
+
+  var enterFilterKeyword = function(filterCtrl: any, keyword: string) {
+    // set input's new value
+    filterCtrl.val(keyword);
+
+    // dispatch change event
+    var event: any = document.createEvent("HTMLEvents");
+    event.initEvent("change", false, true);
+    filterCtrl[0].dispatchEvent(event);
+
+    // press ENTER key
+    componentTest.fireKeyPressEvent(filterCtrl[0], 13);
+  };
 
   var createServiceView = function() {
     componentTest = new ComponentTest<ServicesViewController>(
@@ -344,20 +358,3 @@ describe('servicesView', () => {
     expect(jQuery(element).find('.active-filter.label.label-info').length).toBe(0);
   });
 });
-
-function enterFilterKeyword(filterCtrl: any, keyword: string) {
-  // set input's new value
-  filterCtrl.val(keyword);
-
-  // dispatch change event
-  var event: any = document.createEvent("HTMLEvents");
-  event.initEvent("change", false, true);
-  filterCtrl[0].dispatchEvent(event);
-
-  // press ENTER key
-  event = document.createEvent("KeyboardEvent");
-  event.initKeyEvent ('keypress', true, false, null,
-    false, false, false, false,
-    13, 0);
-  filterCtrl[0].dispatchEvent(event);
-}

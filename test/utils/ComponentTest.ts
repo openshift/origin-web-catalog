@@ -39,4 +39,24 @@ export class ComponentTest<TController> {
     }
   }
 
+  public fireKeyPressEvent (element: any, keyCode: number) {
+    var win: any = window;
+    var keyboardEvent: any = new win.KeyboardEvent(
+      'keypress',
+      {
+        bubbles: true,
+        cancelable: true,
+        shiftKey: false
+      }
+    );
+
+    delete keyboardEvent.keyCode;
+    delete keyboardEvent.which;
+    Object.defineProperty(keyboardEvent, 'keyCode', {'value': keyCode});
+    Object.defineProperty(keyboardEvent, 'which', {'value': keyCode});
+
+    element.dispatchEvent(keyboardEvent);
+
+  }
+
 }
