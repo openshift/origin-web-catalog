@@ -1438,6 +1438,10 @@ services-view,
   .services-view .services-view-container .services-sub-categories > li.active .services-back-link {
     cursor: pointer;
   }
+  .services-view .services-view-container .services-categories > li:last-child,
+  .services-view .services-view-container .services-sub-categories > li:last-child {
+    margin-bottom: 0;
+  }
   .services-view .services-view-container .services-categories > li > a,
   .services-view .services-view-container .services-sub-categories > li > a {
     color: #fff;
