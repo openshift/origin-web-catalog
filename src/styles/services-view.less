@@ -132,7 +132,9 @@ services-view,
 
       .form-group {
         margin-bottom: 0;
-        margin-right: (@grid-gutter-width / 2);
+        @media(min-width: 335px) {
+          margin-right: (@grid-gutter-width / 2);
+        }
       }
     }
 
