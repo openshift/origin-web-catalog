@@ -881,32 +881,32 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
     t.__esModule = !0;
     var r = n(1), i = n(0), s = n(52), a = function() {
         function e(e, t, n, r, s, a, o, c, l, d, p) {
-            var m = this;
+            var h = this;
             this.ctrl = this, this.watches = [], this.clearValidityWatcher = function() {
-                m.validityWatcher && (m.validityWatcher(), m.validityWatcher = void 0);
+                h.validityWatcher && (h.validityWatcher(), h.validityWatcher = void 0);
             }, this.showConfig = function() {
-                m.clearValidityWatcher(), m.ctrl.nextTitle = "Next >", m.reviewStep.allowed = m.bindStep.hidden && m.configStep.valid, 
-                m.validityWatcher = m.$scope.$watch("$ctrl.builderForm.$valid", function(e, t) {
-                    m.configStep.valid = e;
+                h.clearValidityWatcher(), h.ctrl.nextTitle = "Next >", h.reviewStep.allowed = h.bindStep.hidden && h.configStep.valid, 
+                h.validityWatcher = h.$scope.$watch("$ctrl.builderForm.$valid", function(e, t) {
+                    h.configStep.valid = e;
                 });
             }, this.showBind = function() {
-                m.clearValidityWatcher(), m.ctrl.nextTitle = "Create", m.reviewStep.allowed = !0;
+                h.clearValidityWatcher(), h.ctrl.nextTitle = "Create", h.reviewStep.allowed = !0;
             }, this.showResults = function() {
-                m.clearValidityWatcher(), m.ctrl.nextTitle = "Close", m.ctrl.wizardDone = !0, m.createApp();
+                h.clearValidityWatcher(), h.ctrl.nextTitle = "Close", h.ctrl.wizardDone = !0, h.createApp();
             }, this.onProjectUpdate = function() {
-                m.isNewProject() ? (m.ctrl.serviceInstances = [], m.updateBindability()) : (m.ctrl.updating = !0, 
-                m.ProjectsService.get(m.ctrl.selectedProject.metadata.name).then(i.spread(function(e, t) {
+                h.isNewProject() ? (h.ctrl.serviceInstances = [], h.updateBindability()) : (h.ctrl.updating = !0, 
+                h.ProjectsService.get(h.ctrl.selectedProject.metadata.name).then(i.spread(function(e, t) {
                     var n = {
                         group: "servicecatalog.k8s.io",
                         resource: "instances"
                     };
-                    m.watches.push(m.DataService.watch(n, t, function(e) {
-                        m.ctrl.serviceInstances = i.filter(i.toArray(e.by("metadata.name")), m.isServiceBindable), 
-                        m.sortServiceInstances(), m.ctrl.updating = !1, m.updateBindability();
+                    h.watches.push(h.DataService.watch(n, t, function(e) {
+                        h.ctrl.serviceInstances = i.filter(i.toArray(e.by("metadata.name")), h.isServiceBindable), 
+                        h.sortServiceInstances(), h.ctrl.updating = !1, h.updateBindability();
                     }));
                 })));
             }, this.isServiceBindable = function(e) {
-                return m.BindingService.isServiceBindable(e, m.ctrl.serviceClasses);
+                return h.BindingService.isServiceBindable(e, h.ctrl.serviceClasses);
             }, this.$scope = e, this.$filter = t, this.$location = n, this.$q = r, this.BuilderAppService = s, 
             this.ProjectsService = a, this.DataService = o, this.APIService = c, this.BindingService = l, 
             this.Logger = d, this.ctrl.serviceToBind = null, this.ctrl.showPodPresets = i.get(p, [ "ENABLE_TECH_PREVIEW_FEATURE", "pod_presets" ], !1);
@@ -1325,37 +1325,37 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
     "use strict";
     t.__esModule = !0;
     var r = n(1), i = n(2), s = n(0), a = function() {
-        function e(e, t, n, i, a, o, c, l, d, p, m) {
-            var h = this;
+        function e(e, t, n, i, a, o, c, l, d, p, h) {
+            var m = this;
             this.ctrl = this, this.showNewProjectPanel = !1, this.showEditProjectPanel = !1, 
             this.alerts = [], this.projects = [], this.watches = [], this.maxDisplayProjects = 5, 
             this.init = function() {
-                h.watches.push(h.DataService.watch("projects", h.$scope, h.onProjectsUpdate)), h.ctrl.resourceLinks = s.clone(h.Constants.CATALOG_HELP_RESOURCES.links), 
-                s.forEach(h.ctrl.resourceLinks, function(e) {
-                    r.isDefined(e.help) && (e.href = h.Constants.HELP_BASE_URL + (e.help ? h.Constants.HELP[e.help] : ""));
-                }), h.$rootScope.$on("recently-viewed-updated", function() {
-                    h.ctrl.recentlyViewedItems = h.getRecentlyViewedItems();
+                m.watches.push(m.DataService.watch("projects", m.$scope, m.onProjectsUpdate)), m.ctrl.resourceLinks = s.clone(m.Constants.CATALOG_HELP_RESOURCES.links), 
+                s.forEach(m.ctrl.resourceLinks, function(e) {
+                    r.isDefined(e.help) && (e.href = m.Constants.HELP_BASE_URL + (e.help ? m.Constants.HELP[e.help] : ""));
+                }), m.$rootScope.$on("recently-viewed-updated", function() {
+                    m.ctrl.recentlyViewedItems = m.getRecentlyViewedItems();
                 });
             }, this.onProjectsUpdate = function(e) {
-                var t = s.toArray(e.by("metadata.creationTimestamp")), n = h.$filter("orderObjectsByDate");
-                h.ctrl.projects = n(t, !0), h.ctrl.totalProjects = h.ctrl.projects.length, h.ctrl.projects = s.take(h.ctrl.projects, h.maxDisplayProjects), 
-                h.ctrl.loading = !1, h.ctrl.showGetStarted = !h.ctrl.projects || h.ctrl.projects.length < 2;
+                var t = s.toArray(e.by("metadata.creationTimestamp")), n = m.$filter("orderObjectsByDate");
+                m.ctrl.projects = n(t, !0), m.ctrl.totalProjects = m.ctrl.projects.length, m.ctrl.projects = s.take(m.ctrl.projects, m.maxDisplayProjects), 
+                m.ctrl.loading = !1, m.ctrl.showGetStarted = !m.ctrl.projects || m.ctrl.projects.length < 2;
             }, this.closeNewProjectPanel = function() {
-                h.ctrl.showNewProjectPanel = !1, h.hideModalBackdrop();
+                m.ctrl.showNewProjectPanel = !1, m.hideModalBackdrop();
             }, this.onNewProject = function(e) {
-                h.ctrl.showNewProjectPanel = !1, h.hideModalBackdrop();
+                m.ctrl.showNewProjectPanel = !1, m.hideModalBackdrop();
             }, this.onViewMemebership = function(e) {
-                var t = h.ctrl.viewEditMembership();
+                var t = m.ctrl.viewEditMembership();
                 t && t(e);
             }, this.editProject = function(e) {
-                h.ctrl.edittingProject = e, h.ctrl.showEditProjectPanel = !0, h.showModalBackdrop();
+                m.ctrl.edittingProject = e, m.ctrl.showEditProjectPanel = !0, m.showModalBackdrop();
             }, this.closeEditProjectPanel = function() {
-                h.ctrl.showEditProjectPanel = !1, h.hideModalBackdrop();
+                m.ctrl.showEditProjectPanel = !1, m.hideModalBackdrop();
             }, this.onEditProject = function(e) {
-                h.ctrl.showEditProjectPanel = !1, h.hideModalBackdrop();
+                m.ctrl.showEditProjectPanel = !1, m.hideModalBackdrop();
             }, this.$element = e, this.$filter = t, this.$rootScope = n, this.$scope = i, this.AuthService = a, 
             this.Catalog = o, this.Constants = c, this.DataService = l, this.Logger = d, this.ProjectsService = p, 
-            this.RecentlyViewed = m;
+            this.RecentlyViewed = h;
         }
         return e.prototype.$onInit = function() {
             var e = this;
@@ -1495,25 +1495,28 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
     t.__esModule = !0;
     var r = n(1), i = n(0), s = n(2), a = function() {
         function e(e, t, n, r, a, o, c, l, d, p) {
-            var m = this;
+            var h = this;
             this.ctrl = this, this.keywordFilterField = {
                 id: "keyword",
                 title: "Keyword",
                 placeholder: "Filter by keyword in Category",
                 filterType: "text"
             }, this.handleClick = function(e, t) {
-                m.$scope.$emit("open-overlay-panel", e);
+                h.$scope.$emit("open-overlay-panel", e);
             }, this.filterChange = function(e) {
-                m.filterByCategory(m.ctrl.currentFilter, m.ctrl.currentSubFilter, !1), m.ctrl.filterConfig.appliedFilters = e, 
+                h.filterByCategory(h.ctrl.currentFilter, h.ctrl.currentSubFilter, !1), h.ctrl.filterConfig.appliedFilters = e, 
                 e && e.length > 0 && i.each(e, function(e) {
-                    m.ctrl.filteredItems = m.filterForKeywords(e.value, m.ctrl.filteredItems);
-                }), m.updateFilterControls();
+                    h.ctrl.filteredItems = h.filterForKeywords(e.value, h.ctrl.filteredItems);
+                }), h.updateFilterControls();
             }, this.resizeExpansion = function() {
-                var e = m.htmlService.getBreakpoint();
+                var e = h.htmlService.getBreakpoint();
                 if (s(".services-sub-category").removeAttr("style"), "xxs" !== e) {
                     var t = s(".services-sub-category.active"), n = t.find(".services-items").outerHeight(!0);
                     t.css("margin-bottom", n + "px");
                 }
+                h.htmlService.isWindowAboveBreakpoint(h.htmlService.WINDOW_SIZE_SM) ? h.scrollParent && !h.ctrl.viewStyle["min-height"] && (h.ctrl.viewStyle = {
+                    "min-height": "calc(100vh - " + h.scrollParent.getBoundingClientRect().top + "px)"
+                }) : h.ctrl.viewStyle = void 0;
             }, this.constants = e, this.catalog = t, this.keywordService = n, this.logger = r, 
             this.htmlService = a, this.element = o[0], this.$filter = c, this.$rootScope = l, 
             this.$scope = d, this.$timeout = p, this.ctrl.loaded = !1, this.ctrl.isEmpty = !1, 
@@ -1539,8 +1542,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             this.filterByCategory("all", "all", !0), this.ctrl.isEmpty = i.isEmpty(this.ctrl.catalogItems), 
             this.ctrl.loaded = !0);
         }, e.prototype.$postLink = function() {
-            this.scrollParent = this.getScrollParent(this.element), this.scrollParent && (this.ctrl.viewStyle = {
-                "min-height": "calc(100vh - " + this.scrollParent.offsetTop + "px)"
+            this.scrollParent = this.getScrollParent(this.element), this.scrollParent && this.htmlService.isWindowAboveBreakpoint(this.htmlService.WINDOW_SIZE_SM) && (this.ctrl.viewStyle = {
+                "min-height": "calc(100vh - " + this.scrollParent.getBoundingClientRect().top + "px)"
             });
         }, e.prototype.$onDestroy = function() {
             s(window).off("resize.services"), this.removeFilterListener();
@@ -1602,8 +1605,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
     t.__esModule = !0;
     var r = n(1);
     n(3), n(27);
-    var i = n(28), s = n(29), a = n(17), o = n(18), c = n(30), l = n(19), d = n(20), p = n(21), m = n(22), h = n(23), g = n(24), u = n(25), f = n(26), v = n(31);
-    t.webCatalog = "webCatalog", r.module(t.webCatalog, [ "patternfly", "ngAnimate", "ui.bootstrap", "angularMoment", "ui.select", "schemaForm" ]).service("BuilderAppService", s.BuilderAppService).service("Catalog", c.CatalogService).service("RecentlyViewedServiceItems", v.RecentlyViewedServiceItems).filter("projectUrl", i.projectUrlFilter).component("catalogParameters", a.catalogParameters).component("catalogSearch", o.catalogSearch).component("createFromBuilder", l.createFromBuilder).component("landingPage", d.landingPage).component("orderService", p.orderService).component("overlayPanel", m.overlayPanel).component("projectsSummary", h.projectsSummary).component("saasList", g.saasList).component("selectProject", u.selectProject).component("servicesView", f.servicesView).run([ "$templateCache", function(e) {
+    var i = n(28), s = n(29), a = n(17), o = n(18), c = n(30), l = n(19), d = n(20), p = n(21), h = n(22), m = n(23), g = n(24), u = n(25), f = n(26), v = n(31);
+    t.webCatalog = "webCatalog", r.module(t.webCatalog, [ "patternfly", "ngAnimate", "ui.bootstrap", "angularMoment", "ui.select", "schemaForm" ]).service("BuilderAppService", s.BuilderAppService).service("Catalog", c.CatalogService).service("RecentlyViewedServiceItems", v.RecentlyViewedServiceItems).filter("projectUrl", i.projectUrlFilter).component("catalogParameters", a.catalogParameters).component("catalogSearch", o.catalogSearch).component("createFromBuilder", l.createFromBuilder).component("landingPage", d.landingPage).component("orderService", p.orderService).component("overlayPanel", h.overlayPanel).component("projectsSummary", m.projectsSummary).component("saasList", g.saasList).component("selectProject", u.selectProject).component("servicesView", f.servicesView).run([ "$templateCache", function(e) {
         e.put("catalog-search/catalog-search-result.html", n(4)), e.put("create-from-builder/create-from-builder-configure.html", n(6)), 
         e.put("create-from-builder/create-from-builder-bind.html", n(5)), e.put("create-from-builder/create-from-builder-results.html", n(7)), 
         e.put("order-service/order-service-plans.html", n(10)), e.put("order-service/order-service-configure.html", n(9)), 
