@@ -972,18 +972,8 @@ body.overlay-open .landing-side-bar {
 .saas-offerings-container .saas-list .card-content .card-icon .icon {
   font-size: 72px;
 }
-@media (min-width: 1200px) {
-  .saas-offerings-container .saas-list .card-content .card-icon .icon {
-    font-size: 108px;
-  }
-}
 .saas-offerings-container .saas-list .card-content .card-icon img {
   height: 72px;
-}
-@media (min-width: 1200px) {
-  .saas-offerings-container .saas-list .card-content .card-icon img {
-    height: 108px;
-  }
 }
 .saas-offerings-container .saas-list .card-content .card-title {
   font-size: 14px;
@@ -1046,7 +1036,7 @@ services-view,
 }
 .services-view .services-item {
   color: #363636;
-  min-height: 160px;
+  min-height: 140px;
   overflow: hidden;
   padding: 5px 10px 20px;
   position: relative;
@@ -1093,15 +1083,15 @@ services-view,
 }
 .services-view .services-item .services-item-icon:after {
   border: 2px solid transparent;
-  border-radius: 100px;
+  border-radius: 84px;
   content: "";
-  height: 90px;
+  height: 84px;
   left: 50%;
-  margin: -45px 0 0 -45px;
+  margin: -42px 0 0 -42px;
   position: absolute;
   top: 50%;
   transition: border 125ms linear;
-  width: 90px;
+  width: 84px;
   will-change: border;
 }
 .services-view .services-item .services-item-icon .font-icon,
@@ -1124,7 +1114,7 @@ services-view,
   align-items: center;
   display: flex;
   font-size: 48px;
-  height: 110px;
+  height: 92px;
   justify-content: center;
   position: relative;
 }

@@ -7,7 +7,7 @@ services-view,
 .services-view {
   .services-item {
     color: @text-color;
-    min-height: 160px;
+    min-height: 140px;
     overflow: hidden;
     padding: (@grid-gutter-width / 8) (@grid-gutter-width / 4) (@grid-gutter-width / 2);
     position: relative;
@@ -50,15 +50,15 @@ services-view,
     .services-item-icon {
       &:after {
         border: 2px solid transparent;
-        border-radius: 100px;
+        border-radius: @service-item-size;
         content: "";
-        height: 90px;
+        height: @service-item-size;
         left: 50%;
-        margin: -45px 0 0 -45px;
+        margin: -(@service-item-size / 2) 0 0 -(@service-item-size / 2);
         position: absolute;
         top: 50%;
         transition: border 125ms linear;
-        width: 90px;
+        width: @service-item-size;
         will-change: border;
       }
 
@@ -88,7 +88,7 @@ services-view,
     align-items: center;
     display: flex;
     font-size: 48px;
-    height: 110px;
+    height: 92px;
     justify-content: center;
     position: relative;
 

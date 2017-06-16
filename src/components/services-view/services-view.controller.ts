@@ -74,9 +74,9 @@ export class ServicesViewController implements angular.IController {
 
   public $postLink() {
     this.scrollParent = this.getScrollParent(this.element);
-    if (this.scrollParent) {
+    if (this.scrollParent && this.htmlService.isWindowAboveBreakpoint(this.htmlService.WINDOW_SIZE_SM)) {
       this.ctrl.viewStyle = {
-        'min-height': 'calc(100vh - ' + this.scrollParent.offsetTop + 'px)'
+        'min-height': 'calc(100vh - ' + this.scrollParent.getBoundingClientRect().top + 'px)'
       };
     }
   }
@@ -217,6 +217,16 @@ export class ServicesViewController implements angular.IController {
       let activeCat = $('.services-sub-category.active');
       let contentHeight = activeCat.find('.services-items').outerHeight(true);
       activeCat.css('margin-bottom', contentHeight + 'px');
+    }
+
+    if (this.htmlService.isWindowAboveBreakpoint(this.htmlService.WINDOW_SIZE_SM)) {
+      if (this.scrollParent && !this.ctrl.viewStyle['min-height']) {
+        this.ctrl.viewStyle = {
+          'min-height': 'calc(100vh - ' + this.scrollParent.getBoundingClientRect().top + 'px)'
+        };
+      }
+    } else {
+      this.ctrl.viewStyle = undefined;
     }
   };
 
