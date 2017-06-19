@@ -18,6 +18,7 @@
         ng-if="$ctrl.currentFilter !== 'other' && $ctrl.currentFilter !== 'all'">
       <li ng-repeat="subCategory in $ctrl.subCategories"
            ng-if="subCategory.hasItems"
+           ng-attr-id="{{subCategory.id}}"
            class="services-sub-category"
            ng-class="{ active: $ctrl.currentSubFilter === subCategory.id }">
         <a href="" id="{{'services-sub-category-'+subCategory.id}}"
@@ -29,8 +30,7 @@
           <div class="services-sub-category-tab-name">{{subCategory.label}}</div>
         </a>
        <a ng-click="$ctrl.mobileView = 'subcategories'" class="services-back-link" href="">Back</a>
-        <div ng-if="$ctrl.currentSubFilter === subCategory.id"
-          class="services-items">
+        <div ng-if="$ctrl.currentSubFilter === subCategory.id" class="services-items">
           <div pf-filter config="$ctrl.filterConfig" class="services-items-filter"></div>
           <a href="" class="services-item" ng-repeat="item in $ctrl.filteredItems" ng-click="$ctrl.handleClick(item)">
             <div ng-if="!item.imageUrl" class="services-item-icon">
