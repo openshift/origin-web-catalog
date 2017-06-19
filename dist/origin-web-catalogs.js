@@ -1481,9 +1481,9 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                             "new-display-name": ""
                         }
                     }
-                };
-                e.ctrl.projects = r.sortBy(t.by("metadata.name"), e.$filter("displayName")), e.ctrl.existingProjectNames = r.map(e.ctrl.projects, "metadata.name"), 
-                !e.ctrl.selectedProject && r.size(e.ctrl.projects) > 0 && (e.ctrl.selectedProject = e.$filter("mostRecent")(e.ctrl.projects)), 
+                }, i = t.by("metadata.name");
+                i = r.reject(i, "metadata.deletionTimestamp"), e.ctrl.projects = r.sortBy(i, e.$filter("displayName")), 
+                e.ctrl.existingProjectNames = r.map(e.ctrl.projects, "metadata.name"), !e.ctrl.selectedProject && r.size(e.ctrl.projects) > 0 && (e.ctrl.selectedProject = e.$filter("mostRecent")(e.ctrl.projects)), 
                 e.ctrl.canCreate && (e.ctrl.projects.unshift(n), 1 === r.size(e.ctrl.projects) && (e.ctrl.selectedProject = n));
             });
         }, e;
