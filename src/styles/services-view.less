@@ -196,8 +196,10 @@ services-view,
       .services-items {
         left: 0;
         margin: 10px (@grid-gutter-width / 2);
+        opacity: 0;
         position: absolute;
         right: 0;
+        transition: opacity 100ms linear;
       }
     }
 
@@ -219,9 +221,18 @@ services-view,
           display: block;
           left: 50%;
           margin-left: -10px;
+          opacity: 0;
           position: absolute;
+          transition: opacity 100ms linear;
         }
         .services-sub-category-tab-image img {
+          opacity: 1;
+        }
+      }
+
+      &.active.items-shown {
+        .services-sub-category-tab:after,
+        .services-items {
           opacity: 1;
         }
       }

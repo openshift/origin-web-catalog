@@ -1213,8 +1213,10 @@ services-view,
   .services-view .services-sub-categories .services-items {
     left: 0;
     margin: 10px 20px;
+    opacity: 0;
     position: absolute;
     right: 0;
+    transition: opacity 100ms linear;
   }
   .services-view .services-sub-category {
     background-color: #fff;
@@ -1235,9 +1237,15 @@ services-view,
     display: block;
     left: 50%;
     margin-left: -10px;
+    opacity: 0;
     position: absolute;
+    transition: opacity 100ms linear;
   }
   .services-view .services-sub-category.active .services-sub-category-tab .services-sub-category-tab-image img {
+    opacity: 1;
+  }
+  .services-view .services-sub-category.active.items-shown .services-sub-category-tab:after,
+  .services-view .services-sub-category.active.items-shown .services-items {
     opacity: 1;
   }
   .services-view .services-sub-category .services-sub-category-tab {

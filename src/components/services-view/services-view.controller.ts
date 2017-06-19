@@ -5,6 +5,8 @@ import * as $ from 'jquery';
 export class ServicesViewController implements angular.IController {
   static $inject = ['Constants', 'Catalog', 'KeywordService', 'Logger', 'HTMLService', '$element', '$filter', '$rootScope', '$scope', '$timeout'];
 
+  static readonly MAX_RESIZE_RETRIES: number = 20;
+
   public ctrl: any = this;
   private constants: any;
   private catalog: any;
@@ -26,6 +28,14 @@ export class ServicesViewController implements angular.IController {
   };
   private removeFilterListener: any;
 
+  // Only resize to the difference bteween the old and new heights.
+  private previousSubCategoryHeight: number = 0;
+
+  // We resize the height of the expanded subcategories in JavaScript.
+  // Depending on the timing, the expanded content can have height 0 before the
+  // items render. Count how many times we try to read the height before giving up.
+  private resizeRetries: number = 0;
+
   constructor(constants: any, catalog: any, keywordService: any, logger: any, htmlService: any, $element: any, $filter: any, $rootScope: any, $scope: any, $timeout: any) {
     this.constants = constants;
     this.catalog = catalog;
@@ -44,7 +54,7 @@ export class ServicesViewController implements angular.IController {
   }
 
   public $onInit() {
-    this.debounceResize = _.debounce(this.resizeExpansion, 50, { maxWait: 250 });
+    this.debounceResize = _.debounce(() => this.resizeExpansion(false), 50, { maxWait: 250 });
     angular.element(window).bind('resize', this.debounceResize);
     $(window).on('resize.services', this.debounceResize);
 
@@ -209,18 +219,52 @@ export class ServicesViewController implements angular.IController {
     }
   }
 
-  private resizeExpansion = () => {
-    let breakpoint = this.htmlService.getBreakpoint();
-    $('.services-sub-category').removeAttr('style');
-    if (breakpoint !== 'xxs') {
-      // make room below the clicked subcategory for the items
-      let activeCat = $('.services-sub-category.active');
-      let contentHeight = activeCat.find('.services-items').outerHeight(true);
-      activeCat.css('margin-bottom', contentHeight + 'px');
+  private resizeExpansion(subCategoryChanged: boolean) {
+    // Unless at mobile, add a bottom margin to the tab to accommodate the
+    // subcategory content. The content element is a child of the tab.
+    if (this.ctrl.currentFilter !== 'all' &&
+        this.ctrl.currentFilter !== 'other' &&
+        this.ctrl.currentSubFilter &&
+        this.htmlService.isWindowAboveBreakpoint(this.htmlService.WINDOW_SIZE_XS)) {
+      // Give up if we are past the max retries.
+      if (this.resizeRetries > ServicesViewController.MAX_RESIZE_RETRIES) {
+        this.resizeRetries = 0;
+        return;
+      }
+
+      // Find the active category content, and calculate the size of the items.
+      let activeCat = $('#' + this.ctrl.currentSubFilter);
+      let servicesItems = activeCat.find('.services-items');
+      let contentHeight = servicesItems.outerHeight(true);
+      if (!contentHeight) {
+        // The content has not rendered yet. Try again in 50ms.
+        this.resizeRetries++;
+        setTimeout(() => this.resizeExpansion(subCategoryChanged), 50);
+      }
+
+      if (subCategoryChanged) {
+        // Remove any previous values set on other active tabs when the selection changes.
+        $('.services-sub-category').removeAttr('style').removeClass('items-shown');
+        activeCat.css('margin-bottom', this.previousSubCategoryHeight + 'px');
+        activeCat.animate({
+          'margin-bottom': contentHeight
+        }, 100, 'swing', () => {
+          activeCat.addClass('items-shown');
+        });
+      } else {
+        activeCat.css('margin-bottom', contentHeight + 'px');
+        activeCat.addClass('items-shown');
+      }
+
+      this.previousSubCategoryHeight = contentHeight;
+    } else {
+      $('.services-sub-category').removeAttr('style').removeClass('items-shown');
+      this.previousSubCategoryHeight = 0;
+      this.resizeRetries = 0;
     }
 
     if (this.htmlService.isWindowAboveBreakpoint(this.htmlService.WINDOW_SIZE_SM)) {
-      if (this.scrollParent && !this.ctrl.viewStyle['min-height']) {
+      if (this.scrollParent && !_.get(this.ctrl.viewStyle, 'min-height')) {
         this.ctrl.viewStyle = {
           'min-height': 'calc(100vh - ' + this.scrollParent.getBoundingClientRect().top + 'px)'
         };
@@ -228,10 +272,10 @@ export class ServicesViewController implements angular.IController {
     } else {
       this.ctrl.viewStyle = undefined;
     }
-  };
+  }
 
   private updateActiveCardStyles() {
-    this.$timeout(this.resizeExpansion, 50);
+    this.$timeout(() => this.resizeExpansion(true));
   }
 
   private updateFilterControls() {
