@@ -39,7 +39,7 @@
     <span class="sr-only">Success</span>
     <h3 class="review-message">
       <span>
-        <strong>{{$ctrl.serviceInstanceName}}</strong> has been added to <strong>{{$ctrl.projectDisplayName}}</strong> successfully
+        <strong>{{$ctrl.serviceInstance.metadata.name}}</strong> has been added to <strong>{{$ctrl.projectDisplayName}}</strong> successfully
       </span>
     </h3>
   </div>
@@ -48,7 +48,7 @@
   <bind-results error="$ctrl.bindError"
                 progress-inline="true"
                 binding="$ctrl.binding"
-                service-to-bind="$ctrl.serviceInstanceName"
+                service-to-bind="$ctrl.serviceInstance.metadata.name"
                 bind-type="{{$ctrl.bindType}}"
                 application-to-bind="$ctrl.appToBind.metadata.name"
                 show-pod-presets="$ctrl.showPodPresets">

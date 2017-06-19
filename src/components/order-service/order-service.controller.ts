@@ -231,7 +231,7 @@ export class OrderServiceController implements angular.IController {
     this.DataService.create(resource, null, serviceInstance, context).then((data: any) => {
       this.ctrl.orderInProgress = true;
       this.watchResults(resource, data, context);
-      this.ctrl.serviceInstanceName = _.get(data, 'metadata.name');
+      this.ctrl.serviceInstance = data;
       if (this.ctrl.bindType !== 'none') {
         this.bindService();
       }
@@ -247,7 +247,7 @@ export class OrderServiceController implements angular.IController {
       namespace: _.get(this.ctrl.selectedProject, 'metadata.name')
     };
     var application = this.ctrl.bindType === 'application' ? this.ctrl.appToBind : undefined;
-    this.BindingService.bindService(context, this.ctrl.serviceInstanceName, application).then((binding: any) => {
+    this.BindingService.bindService(this.ctrl.serviceInstance, application, this.ctrl.serviceClass.resource).then((binding: any) => {
       this.ctrl.binding = binding;
       this.ctrl.bindInProgress = false;
       this.ctrl.bindComplete = true;
