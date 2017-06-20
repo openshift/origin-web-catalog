@@ -236,7 +236,7 @@ export class OrderServiceController implements angular.IController {
         this.bindService();
       }
     }, (e: any) => {
-      this.ctrl.error = e;
+      this.ctrl.error = _.get(e, 'data');
     });
   }
 
