@@ -96,7 +96,7 @@ export class CreateFromBuilderController implements angular.IController {
     this.ctrl.namePattern = /^[a-z]([-a-z0-9]*[a-z0-9])?$/;
     this.ctrl.repositoryPattern = /^[a-z][a-z0-9+.-@]*:(\/\/)?[0-9a-z_-]+/;
     this.ctrl.wizardDone = false;
-    this.ctrl.serviceToBind = '';
+    this.ctrl.serviceToBind = null;
     this.ctrl.updating = false;
 
     this.ctrl.serviceInstances = [];
@@ -274,7 +274,7 @@ export class CreateFromBuilderController implements angular.IController {
       return;
     }
     this.bindStep.hidden = _.size(this.ctrl.serviceInstances) < 1;
-    this.ctrl.serviceToBind = "";
+    this.ctrl.serviceToBind = null;
     if (this.bindStep.hidden) {
       this.ctrl.nextTitle = "Create";
     } else {
@@ -372,10 +372,11 @@ export class CreateFromBuilderController implements angular.IController {
   private bindService(application: any) {
     this.ctrl.bindInProgress = true;
     this.ctrl.bindError = false;
-    var context = {
+    let context = {
       namespace: _.get(this.ctrl.selectedProject, 'metadata.name')
     };
-    this.BindingService.bindService(context, this.ctrl.serviceToBind, application).then((binding: any) => {
+    let serviceClass = this.BindingService.getServiceClassForInstance(this.ctrl.serviceToBind, this.ctrl.serviceClasses);
+    this.BindingService.bindService(this.ctrl.serviceToBind, application, serviceClass).then((binding: any) => {
       this.ctrl.binding = binding;
       this.ctrl.bindInProgress = false;
       this.ctrl.bindComplete = true;
