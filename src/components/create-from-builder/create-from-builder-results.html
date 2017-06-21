@@ -29,7 +29,7 @@
   <bind-results error="$ctrl.bindError"
                 progress-inline="true"
                 binding="$ctrl.binding"
-                service-to-bind="$ctrl.serviceToBind"
+                service-to-bind="$ctrl.serviceToBind.metadata.name"
                 bind-type="application"
                 application-to-bind="$ctrl.name"
                 show-pod-presets="$ctrl.showPodPresets">
