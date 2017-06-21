@@ -383,7 +383,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
         }, p = {
             landing_page_tour: {
                 enabled: !0,
-                auto_launch: !0,
+                auto_launch: !1,
                 steps: d
             }
         };
