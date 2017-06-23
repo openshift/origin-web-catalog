@@ -106,9 +106,6 @@
 .catalog-search-match .icon {
   font-size: 28px;
 }
-.catalog-search-match .icon.fa-cubes {
-  font-size: 24px;
-}
 .catalog-search-match img {
   max-height: 28px;
   max-width: 28px;
@@ -1099,9 +1096,6 @@ services-view,
 .services-view .services-item .services-item-icon img {
   position: relative;
   z-index: 1;
-}
-.services-view .services-item .fa-cubes {
-  right: -2px;
 }
 .services-view .services-item .icon-ruby,
 .services-view .services-item .fa-question {

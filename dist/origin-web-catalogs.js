@@ -713,7 +713,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
         return e.prototype.getImage = function() {
             return i.get(this.resource, "externalMetadata.imageUrl", "");
         }, e.prototype.getIcon = function() {
-            var e = i.get(this.resource, [ "externalMetadata", "console.openshift.io/iconClass" ], "fa fa-cubes");
+            var e = i.get(this.resource, [ "externalMetadata", "console.openshift.io/iconClass" ], "fa fa-clone");
             return e = -1 !== e.indexOf("icon-") ? "font-icon " + e : e;
         }, e.prototype.getName = function() {
             return i.get(this.resource, "externalMetadata.displayName", this.resource.metadata.name);
@@ -764,7 +764,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
         return e.prototype.getImage = function() {
             return "";
         }, e.prototype.getIcon = function() {
-            var e = i.get(this.resource, "metadata.annotations.iconClass", "fa fa-cubes");
+            var e = i.get(this.resource, "metadata.annotations.iconClass", "fa fa-clone");
             return e = -1 !== e.indexOf("icon-") ? "font-icon " + e : e;
         }, e.prototype.getName = function() {
             return this.catalogSrv.$filter("displayName")(this.resource);
@@ -1180,7 +1180,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
         }
         return e.prototype.$onInit = function() {
             var e = this;
-            this.ctrl.iconClass = this.ctrl.serviceClass.iconClass || "fa fa-cubes", this.ctrl.imageUrl = this.ctrl.serviceClass.imageUrl, 
+            this.ctrl.iconClass = this.ctrl.serviceClass.iconClass || "fa fa-clone", this.ctrl.imageUrl = this.ctrl.serviceClass.imageUrl, 
             this.ctrl.serviceName = this.ctrl.serviceClass.name, this.ctrl.description = this.ctrl.serviceClass.description, 
             this.ctrl.longDescription = this.ctrl.serviceClass.longDescription, this.ctrl.plans = i.get(this, "ctrl.serviceClass.resource.plans", []), 
             this.ctrl.applications = [], this.ctrl.parameterData = {}, this.ctrl.forms = {}, 

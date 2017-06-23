@@ -54,7 +54,7 @@ export class OrderServiceController implements angular.IController {
   }
 
   public $onInit() {
-    this.ctrl.iconClass = this.ctrl.serviceClass.iconClass || 'fa fa-cubes';
+    this.ctrl.iconClass = this.ctrl.serviceClass.iconClass || 'fa fa-clone';
     this.ctrl.imageUrl = this.ctrl.serviceClass.imageUrl;
     this.ctrl.serviceName = this.ctrl.serviceClass.name;
     this.ctrl.description = this.ctrl.serviceClass.description;
