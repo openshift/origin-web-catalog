@@ -45,7 +45,7 @@
     "urijs": "1.18.0"
   },
   "devDependencies": {
-    "@types/angular": "^1.5.16",
+    "@types/angular": "~1.5.16",
     "@types/angular-mocks": "^1.5.5",
     "@types/angular-ui-router": "^1.1.34",
     "@types/es6-shim": "^0.31.32",
