@@ -1218,8 +1218,9 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 prevEnabled: !1,
                 onShow: this.showResults
             }, this.ctrl.steps = [ this.planStep, this.configStep, this.bindStep, this.reviewStep ], 
-            this.ctrl.nameTaken = !1, this.ctrl.wizardDone = !1, this.selectPlan(i.first(this.ctrl.plans)), 
-            this.ctrl.planIndex = 0, this.ctrl.updating = !0, this.selectedProjectWatch = this.$scope.$watch(function() {
+            this.ctrl.nameTaken = !1, this.ctrl.wizardDone = !1, this.ctrl.bindType = "none", 
+            this.selectPlan(i.first(this.ctrl.plans)), this.ctrl.planIndex = 0, this.ctrl.updating = !0, 
+            this.selectedProjectWatch = this.$scope.$watch(function() {
                 return e.ctrl.selectedProject;
             }, this.onProjectUpdate), this.AuthService.withUser().then(function(t) {
                 e.user = t, e.ctrl.wizardReady = !0;

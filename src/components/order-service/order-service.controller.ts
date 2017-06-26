@@ -108,6 +108,7 @@ export class OrderServiceController implements angular.IController {
     this.ctrl.steps = [this.planStep, this.configStep, this.bindStep, this.reviewStep];
     this.ctrl.nameTaken = false;
     this.ctrl.wizardDone = false;
+    this.ctrl.bindType = "none";
 
     // Preselect the first plan. If there's only one plan, skip the wizard step.
     this.selectPlan(_.first(this.ctrl.plans));
