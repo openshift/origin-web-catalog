@@ -6,14 +6,16 @@ services-view,
 
 .services-view {
   .services-item {
+    animation: catalogItemFade 200ms ease-out; // enter animation
     color: @text-color;
     min-height: 140px;
     overflow: hidden;
-    padding: (@grid-gutter-width / 8) (@grid-gutter-width / 4) (@grid-gutter-width / 2);
+    padding: 0 (@grid-gutter-width / 4) (@grid-gutter-width / 2);
     position: relative;
     text-align: center;
     width: 50%;
     word-break: break-word;
+    z-index: 99; // place above the background
 
     @media(min-width: @screen-xs-min) {
       width: 33.3333%;
@@ -44,6 +46,14 @@ services-view,
 
       .services-item-name {
         color: @link-color;
+      }
+    }
+
+    &.ng-leave {
+      opacity: 1;
+      transition: 200ms ease-in opacity;
+      &.ng-leave-active {
+        opacity: 0;
       }
     }
 
@@ -113,7 +123,8 @@ services-view,
     display: flex;
     flex: 1 1 auto;
     flex-wrap: wrap;
-
+    padding-bottom: 30px; // give equal space below last row of service-items
+    z-index: 9; // elevate so that toggling tiles that cause repositioning do not overlay main content block
   }
 
   .services-items-filter {
@@ -132,7 +143,7 @@ services-view,
 
       .form-group {
         margin-bottom: 0;
-        @media(min-width: 335px) {
+        @media(min-width: 345px) {
           margin-right: (@grid-gutter-width / 2);
         }
       }
@@ -173,7 +184,6 @@ services-view,
 
   @media(min-width: @screen-xs-min) {
     .services-no-sub-categories {
-      background: fade(@color-pf-blue-700, 90%);
       display: flex;
       flex: 1 1 auto;
       padding: 15px (@grid-gutter-width / 2) 12px;
@@ -187,7 +197,6 @@ services-view,
     .services-sub-categories {
       align-content: flex-start;
       align-items: flex-start;
-      background: fade(@color-pf-blue-700, 90%);
       display: flex;
       flex: 1 1 auto;
       flex-wrap: wrap;
@@ -196,10 +205,8 @@ services-view,
       .services-items {
         left: 0;
         margin: 10px (@grid-gutter-width / 2);
-        opacity: 0;
         position: absolute;
         right: 0;
-        transition: opacity 100ms linear;
       }
     }
 
@@ -211,6 +218,7 @@ services-view,
       &.active .services-sub-category-tab {
         color: @text-color !important;
         &:after {
+          animation: catalogItemFade 200ms ease-out;
           border-bottom-color: @color-pf-white;
           border-bottom-style: solid;
           border-bottom-width: 10px;
@@ -221,18 +229,10 @@ services-view,
           display: block;
           left: 50%;
           margin-left: -10px;
-          opacity: 0;
+          opacity: 1;
           position: absolute;
-          transition: opacity 100ms linear;
         }
         .services-sub-category-tab-image img {
-          opacity: 1;
-        }
-      }
-
-      &.active.items-shown {
-        .services-sub-category-tab:after,
-        .services-items {
           opacity: 1;
         }
       }
@@ -306,6 +306,19 @@ services-view,
       }
     }
 
+    @media(min-width: 480px) {
+      .services-inner-container {
+        background: fade(@color-pf-blue-700, 90%);
+      }
+    }
+
+    @media(min-width: @screen-sm-min) {
+      .services-inner-container {
+        display: flex;
+        flex: 1 1 auto;
+      }
+    }
+
     .services-categories {
       border: none;
       color: @color-pf-white;
@@ -340,15 +353,57 @@ services-view,
           display: block;
         }
       }
+    }
 
+    .services-no-sub-categories,
+    .services-sub-categories {
+      // position so services-sub-categories and services-no-sub-categories are aligned, so they overlay during transition
+      &.ng-enter, &.ng-enter-prepare {
+        bottom: 0;
+        left: 0;
+        position: absolute;
+        right: 0;
+        top: 80px;
+      }
+    }
+
+    .services-no-sub-categories.ng-leave.ng-leave-active {
+      // fade out inner items
+      .services-item,
+      .services-items-filter {
+        animation: catalogItemFade 150ms ease-in reverse;
+        opacity: 0;
+      }
+    }
+
+    .services-no-sub-categories,
+    .services-sub-categories {
+
+      &.ng-enter, &.ng-enter-prepare {
+        transition: 200ms ease-out opacity;
+        opacity: 0;
+        &.ng-enter-active {
+          opacity: 1;
+        }
+      }
+
+      &.ng-enter-prepare {
+        display: none;
+      }
+
+      &.ng-leave {
+        opacity: 1;
+        transition: 200ms ease-in opacity;
+        &.ng-leave-active {
+          opacity: 0;
+        }
+      }
     }
 
     .services-sub-categories {
       list-style: none;
       margin-bottom: 0;
-
-      li > a.services-back-link {
-        // hidden by default
+      > li > a.services-back-link {
         display: none;
       }
     }
