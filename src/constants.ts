@@ -146,7 +146,7 @@ var homePageTourSteps = {
 var guidedTours = {
   landing_page_tour: {
     enabled: true,
-    auto_launch: true,
+    auto_launch: false,
     steps: homePageTourSteps
   }
 };
