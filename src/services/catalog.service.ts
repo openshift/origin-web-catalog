@@ -291,7 +291,7 @@ export class ServiceItem implements IServiceItem {
   }
 
   private getIcon() {
-    let icon = _.get(this.resource, ['externalMetadata', 'console.openshift.io/iconClass'], 'fa fa-cubes');
+    let icon = _.get(this.resource, ['externalMetadata', 'console.openshift.io/iconClass'], 'fa fa-clone');
     icon = (icon.indexOf('icon-') !== -1) ? 'font-icon ' + icon : icon;
     return icon;
   }
@@ -415,7 +415,7 @@ export class TemplateItem implements IServiceItem {
   }
 
   private getIcon() {
-    let icon = _.get(this.resource, 'metadata.annotations.iconClass', 'fa fa-cubes');
+    let icon = _.get(this.resource, 'metadata.annotations.iconClass', 'fa fa-clone');
     icon = (icon.indexOf('icon-') !== -1) ? 'font-icon ' + icon : icon;
     return icon;
   }
