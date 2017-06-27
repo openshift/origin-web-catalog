@@ -1,0 +1,66 @@
+// Mimick scrollbars from origin-web-console
+@console-bright-blue: #00a8e1;
+@sidebar-os-border-color: #050505;
+
+@scrollbar-thumb: rgba(0,0,0,.08);
+@scrollbar-thumb-inverse: rgba(255,255,255,.25);
+@scrollbar-thumb-hover: rgba(0,0,0,.18);
+@scrollbar-thumb-hover-inverse: rgba(255,255,255,.35);
+@scrollbar-track: rgba(0,0,0,.03);
+@scrollbar-track-inverse: @sidebar-os-border-color;
+@scrollbar-track-inverse-alt: rgba(255,255,255,.1);
+@scrollbar-track-landing: #042e43;
+@scrollbar-track-landing-side-bar: darken(@landing-side-bar-bg, 5%);
+@scrollbar-width: 15px;
+
+
+::-webkit-scrollbar {
+  height: 10px;
+  overflow: visible;
+  width: @scrollbar-width;
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-clip: padding-box;
+  background-color: @scrollbar-thumb;
+  border: solid transparent;
+  border-width: 1px 1px 1px 1px;
+  box-shadow: inset 1px 1px 0 rgba(0,0,0,.1),inset 0 -1px 0 rgba(0,0,0,.07);
+  max-height: 60px;
+  min-height: 28px;
+  padding: 100px 0 0;
+  &:active,
+  &:hover {
+    background-color: @scrollbar-thumb-hover;
+  }
+}
+
+::-webkit-scrollbar-track {
+  background-clip:padding-box;
+  background-color: @scrollbar-track;
+}
+
+.chromeless .middle,
+.landing,
+.landing-side-bar {
+  &::-webkit-scrollbar-thumb {
+    background-color: @scrollbar-thumb-inverse;
+    box-shadow: inset 1px 1px 0 rgba(255,255,255,.1),inset 0 -1px 0 rgba(255,255,255,.07);
+    &:active,
+    &:hover {
+      background-color: @scrollbar-thumb-hover-inverse;
+    }
+  }
+}
+
+.landing::-webkit-scrollbar-track {
+  background-color: @scrollbar-track-landing;
+}
+
+.landing-side-bar::-webkit-scrollbar-track {
+  background-color: @scrollbar-track-landing-side-bar;
+}
