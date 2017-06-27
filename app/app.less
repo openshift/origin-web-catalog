@@ -15,6 +15,7 @@
 @import '../src/styles/variables.less';
 
 @import "./styles/variables.less";
+@import "./styles/scrollbars.less";
 
 
 @media(min-width: @screen-sm-min) {
@@ -25,6 +26,33 @@
   body {
     padding-top: @navbar-height;
   }
+}
+
+.showcase-app {
+  .catalog-search, .landing-side-bar {
+    @media (min-width: @screen-sm-min) {
+      top: @navbar-height;
+    }
+  }
+  .landing {
+    @media (min-width: @screen-sm-min) {
+      top: @landing-offset-top;
+    }
+  }
+  .navbar-brand {
+    cursor: default;
+    &:hover, &:focus {
+      color: @navbar-pf-active-color;
+    }
+  }
+  .navbar-header {
+    height: @navbar-height - 3px;
+    padding-top: 17px
+  }
+  .navbar-utility {
+    padding-top: 17px;
+  }
+
 }
 
 .main-container {

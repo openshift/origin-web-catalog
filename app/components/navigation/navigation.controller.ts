@@ -4,7 +4,6 @@ export class NavigationController implements angular.IController {
   static $inject = ['$transitions', '$rootScope', '$state', '$timeout', 'Constants', 'GuidedTourService'];
 
   public ctrl: any = this;
-  public navigationItems: any;
   public applicationName: string;
   public navCollapsed: boolean = true;
   private $transitions: any;
@@ -26,23 +25,6 @@ export class NavigationController implements angular.IController {
 
   public $onInit() {
     this.ctrl.applicationName = 'OPENSHIFT WEB CATALOGS';
-    this.ctrl.navigationItems = [
-      {
-        title: 'Home',
-        iconClass: 'pficon pficon-home',
-        uiSref: 'home'
-      },
-      {
-        title: 'Services',
-        iconClass: 'pficon pficon-service',
-        uiSref: 'services'
-      },
-      {
-        title: 'Projects',
-        iconClass: 'pficon pficon-project',
-        uiSref: 'projects'
-      }
-    ];
 
     var _ctrl: any = this.ctrl;
     this.$transitions.onSuccess({to: true}, function(state: any) {
@@ -63,22 +45,9 @@ export class NavigationController implements angular.IController {
     this.tourConfig = this.Constants.GUIDED_TOURS ? this.Constants.GUIDED_TOURS.landing_page_tour : undefined;
   };
 
-  public onNavItemClick(navItem: any) {
-    this.$state.go(navItem.uiSref, navItem.uiSrefOptions);
-    this.ctrl.navCollapsed = true;
-  }
-
   public doLogout() {
     this.$state.go('logout');
  }
-
-  public $onChanges(onChangesObj: angular.IOnChangesObject) {
-    return;
-  }
-
-  public $doCheck() {
-    return;
-  }
 
   public startTour() {
     this.$state.go('home');
