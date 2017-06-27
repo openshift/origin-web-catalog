@@ -1,7 +1,7 @@
-<ng-form>
+<ng-form name="$ctrl.forms.selectProjectForm">
   <div class="form-group">
     <label class="control-label" for="project">Add to Project</label>
-    <ui-select ng-model="$ctrl.selectedProject">
+    <ui-select name="selectProject" ng-model="$ctrl.selectedProject" ng-change="$ctrl.onSelectProjectChange()">
       <ui-select-match>
         {{$select.selected | displayName}}
       </ui-select-match>
@@ -13,6 +13,11 @@
         </span>
       </ui-select-choices>
     </ui-select>
+    <div class="has-error" ng-if="$ctrl.forms.selectProjectForm.selectProject.$error.cannotAddToProject">
+        <span class="help-block">
+          You are not authorized to add to this project
+        </span>
+    </div>
   </div>
 </ng-form>
 

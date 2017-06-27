@@ -2,7 +2,7 @@ import * as angular from 'angular';
 import * as _ from 'lodash';
 
 export class SelectProjectController implements angular.IController {
-  static $inject = ['$scope', '$filter', 'DataService', 'ProjectsService', 'Logger', 'AuthService'];
+  static $inject = ['$scope', '$filter', 'DataService', 'ProjectsService', 'Logger', 'AuthService', 'AuthorizationService'];
 
   public ctrl: any = this;
   public $scope: any;
@@ -12,12 +12,14 @@ export class SelectProjectController implements angular.IController {
   private ProjectsService: any;
   private Logger: any;
   private AuthService: any;
+  private AuthorizationService: any;
 
-  constructor($scope: any, $filter: any, DataService: any, ProjectsService: any, Logger: any, AuthService: any) {
+  constructor($scope: any, $filter: any, DataService: any, ProjectsService: any, Logger: any, AuthService: any, AuthorizationService: any) {
     this.$scope = $scope;
     this.$filter = $filter;
     this.DataService = DataService;
     this.AuthService = AuthService;
+    this.AuthorizationService = AuthorizationService;
     this.ProjectsService = ProjectsService;
     this.Logger = Logger;
   }
@@ -49,6 +51,10 @@ export class SelectProjectController implements angular.IController {
     }
   }
 
+  public onSelectProjectChange () {
+    this.canIAddToProject();
+  }
+
   public onNewProjectNameChange() {
     this.ctrl.nameTaken = false;
     this.ctrl.forms.createProjectForm.name.$setValidity('nameTaken', !this.ctrl.nameTaken);
@@ -56,6 +62,16 @@ export class SelectProjectController implements angular.IController {
 
   public isNewProject(): boolean {
     return this.ctrl.projects && this.ctrl.selectedProject && !_.has(this.ctrl.selectedProject, 'metadata.uid');
+  }
+
+  private canIAddToProject(): boolean {
+    let canIAddToProject: boolean = true;
+
+    if (!this.isNewProject()) {
+      canIAddToProject = this.AuthorizationService.canIAddToProject(_.get(this.ctrl.selectedProject, 'metadata.name'));
+    }
+
+    return this.ctrl.forms.selectProjectForm.selectProject.$setValidity('cannotAddToProject', canIAddToProject);
   }
 
   private listProjects() {
@@ -88,6 +104,8 @@ export class SelectProjectController implements angular.IController {
           this.ctrl.selectedProject = createProject;
         }
       }
+
+      this.canIAddToProject();
     });
   }
 }
