@@ -105,13 +105,8 @@ module.exports = {
           'exports-loader?hawtioPluginLoader']
       },
       {
-        test: /messenger/,
-        loaders: ['imports-loader?angular',
-          'exports-loader?Messenger']
-      },
-      {
         test: /origin-web-common/,
-        loader: 'imports-loader?Messenger=messenger/build/js/messenger,Logger=js-logger/src/logger,hawtioPluginLoader=hawtio-core/dist/hawtio-core,angular,URI=urijs/src/URI,hopscotch=hopscotch/dist/js/hopscotch,this=>window'
+        loader: 'imports-loader?Logger=js-logger/src/logger,hawtioPluginLoader=hawtio-core/dist/hawtio-core,angular,URI=urijs/src/URI,hopscotch=hopscotch/dist/js/hopscotch,this=>window'
       }
     ]
   }
