@@ -164,6 +164,12 @@ export class OrderServiceController implements angular.IController {
     this.ctrl.nextTitle = 'Create';
     this.reviewStep.allowed = this.bindStep.valid;
 
+    if (this.isNewProject()) {
+      this.ctrl.projectDisplayName = this.ctrl.selectedProject.metadata.annotations['new-display-name'] || this.ctrl.selectedProject.metadata.name;
+    } else {
+      this.ctrl.projectDisplayName = this.$filter('displayName')(this.ctrl.selectedProject);
+    }
+
     this.validityWatcher = this.$scope.$watch("$ctrl.forms.bindForm.$valid", (isValid: any, lastValue: any) => {
       this.bindStep.valid = isValid;
       this.reviewStep.allowed = this.bindStep.valid;
