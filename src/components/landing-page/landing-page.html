@@ -15,7 +15,12 @@
   </overlay-panel>
   <div class="landing-search-area" ng-transclude="landingsearch"></div>
   <div class="landing-main-area">
-    <div class="landing-header-area" ng-transclude="landingheader"></div>
+    <div class="landing-header-area" ng-if="!$ctrl.collapsedHeader && $ctrl.showHeader" ng-transclude="landingheader"></div>
+    <div class="landing-header-expand-container" ng-if="$ctrl.collapsedHeader && $ctrl.showHeader">
+      <a href="" class="landing-header-expander" ng-click="$ctrl.expandHeader()">
+        {{$ctrl.collapsedHeaderText}}
+      </a>
+    </div>
     <div class="landing-body-area">
       <div class="landing-body" ng-transclude="landingbody"></div>
     </div>

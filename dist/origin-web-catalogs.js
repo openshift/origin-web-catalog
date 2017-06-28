@@ -74,7 +74,9 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
     t.landingPage = {
         bindings: {
             baseProjectUrl: "@",
-            onTemplateSelected: "&"
+            onTemplateSelected: "&",
+            showHeader: "<",
+            collapsedHeaderText: "@"
         },
         controller: r.LandingPageController,
         template: n(35),
@@ -806,7 +808,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
 }, function(e, t) {
     e.exports = '<div class="order-service">\n  <div pf-wizard\n       hide-header="true"\n       hide-sidebar="true"\n       step-class="order-service-wizard-step"\n       wizard-ready="$ctrl.wizardReady"\n       next-title="$ctrl.nextTitle"\n       on-finish="$ctrl.closePanel()"\n       on-cancel="$ctrl.closePanel()"\n       wizard-done="$ctrl.wizardDone">\n    <div pf-wizard-step ng-repeat="step in $ctrl.steps track by $index"\n         step-title="{{step.label}}"\n         wz-disabled="{{step.hidden}}"\n         allow-click-nav="step.allowed"\n         next-enabled="step.valid && !$ctrl.updating"\n         prev-enabled="step.prevEnabled"\n         on-show="step.onShow"\n         step-id="{{step.id}}"\n         step-priority="{{$index}}">\n      <div class="wizard-pf-main-inner-shadow-covers">\n        <div class="order-service-details">\n          <div class="order-service-details-top">\n            <div class="service-icon">\n              <span class="icon {{$ctrl.imageStream.iconClass}}"></span>\n            </div>\n            <div class="service-title-area">\n              <div class="service-title">\n                {{$ctrl.imageStream.name}}\n                {{$ctrl.istag.name}}\n              </div>\n              <div class="order-service-tags">\n                <span ng-repeat="tag in $ctrl.istag.annotations.tags.split(\',\')" class="tag">\n                  {{tag}}\n                </span>\n              </div>\n            </div>\n          </div>\n          <div class="order-service-description-block">\n            <p ng-bind-html="$ctrl.istag.annotations.description | linky : \'_blank\'" class="description"></p>\n            <p ng-if="$ctrl.istag.annotations.sampleRepo">\n              Sample Repository:\n              \x3c!-- TODO: Use Git link filter, needs to be added to origin-web-common --\x3e\n              <span ng-bind-html="$ctrl.istag.annotations.sampleRepo | linky : \'_blank\'">\n            </p>\n          </div>\n        </div>\n        <div class="order-service-config">\n          <div ng-include="step.view" class="wizard-pf-main-form-contents"></div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n';
 }, function(e, t) {
-    e.exports = '<div class="landing">\n  <overlay-panel show-panel="$ctrl.orderingPanelVisible" show-close="true" handle-close="$ctrl.closeOrderingPanel">\n    <order-service\n        ng-if="$ctrl.selectedItem.resource.kind === \'ServiceClass\'"\n        base-project-url="{{$ctrl.baseProjectUrl}}"\n        service-class="$ctrl.selectedItem"\n        handle-close="$ctrl.closeOrderingPanel">\n    </order-service>\n    <create-from-builder\n        ng-if="$ctrl.selectedItem.resource.kind === \'ImageStream\'"\n        base-project-url="{{$ctrl.baseProjectUrl}}"\n        image-stream="$ctrl.selectedItem"\n        handle-close="$ctrl.closeOrderingPanel">\n    </create-from-builder>\n  </overlay-panel>\n  <div class="landing-search-area" ng-transclude="landingsearch"></div>\n  <div class="landing-main-area">\n    <div class="landing-header-area" ng-transclude="landingheader"></div>\n    <div class="landing-body-area">\n      <div class="landing-body" ng-transclude="landingbody"></div>\n    </div>\n  </div>\n  <div class="landing-side-bar" ng-transclude="landingside"></div>\n</div>\n';
+    e.exports = '<div class="landing">\n  <overlay-panel show-panel="$ctrl.orderingPanelVisible" show-close="true" handle-close="$ctrl.closeOrderingPanel">\n    <order-service\n        ng-if="$ctrl.selectedItem.resource.kind === \'ServiceClass\'"\n        base-project-url="{{$ctrl.baseProjectUrl}}"\n        service-class="$ctrl.selectedItem"\n        handle-close="$ctrl.closeOrderingPanel">\n    </order-service>\n    <create-from-builder\n        ng-if="$ctrl.selectedItem.resource.kind === \'ImageStream\'"\n        base-project-url="{{$ctrl.baseProjectUrl}}"\n        image-stream="$ctrl.selectedItem"\n        handle-close="$ctrl.closeOrderingPanel">\n    </create-from-builder>\n  </overlay-panel>\n  <div class="landing-search-area" ng-transclude="landingsearch"></div>\n  <div class="landing-main-area">\n    <div class="landing-header-area" ng-if="!$ctrl.collapsedHeader && $ctrl.showHeader" ng-transclude="landingheader"></div>\n    <div class="landing-header-expand-container" ng-if="$ctrl.collapsedHeader && $ctrl.showHeader">\n      <a href="" class="landing-header-expander" ng-click="$ctrl.expandHeader()">\n        {{$ctrl.collapsedHeaderText}}\n      </a>\n    </div>\n    <div class="landing-body-area">\n      <div class="landing-body" ng-transclude="landingbody"></div>\n    </div>\n  </div>\n  <div class="landing-side-bar" ng-transclude="landingside"></div>\n</div>\n';
 }, function(e, t) {
     e.exports = '<div class="order-service">\n  <div pf-wizard\n       hide-header="true"\n       hide-sidebar="true"\n       step-class="order-service-wizard-step"\n       wizard-ready="$ctrl.wizardReady"\n       next-title="$ctrl.nextTitle"\n       on-finish="$ctrl.closePanel()"\n       on-cancel="$ctrl.closePanel()"\n       wizard-done="$ctrl.wizardDone">\n    <div pf-wizard-step ng-repeat="step in $ctrl.steps track by $index"\n         step-title="{{step.label}}"\n         wz-disabled="{{step.hidden}}"\n         allow-click-nav="step.allowed"\n         next-enabled="step.valid && !$ctrl.updating"\n         prev-enabled="step.prevEnabled"\n         on-show="step.onShow"\n         step-id="{{step.id}}"\n         step-priority="{{$index}}">\n      <div class="wizard-pf-main-inner-shadow-covers">\n        <div class="order-service-details">\n          <div class="order-service-details-top">\n            <div class="service-icon">\n              <span ng-if="!$ctrl.imageUrl" class="icon {{$ctrl.iconClass}}"></span>\n              <span ng-if="$ctrl.imageUrl" class="image"><img ng-src="{{$ctrl.imageUrl}}" alt=""></span>\n            </div>\n            <div class="service-title-area">\n              <div class="service-title">\n                {{$ctrl.serviceName}}\n              </div>\n              <div ng-if="$ctrl.serviceClass.tags" class="order-service-tags">\n                <span ng-repeat="tag in $ctrl.serviceClass.tags" class="tag">\n                  {{tag}}\n                </span>\n              </div>\n              <div ng-if="$ctrl.serviceClass.resource.externalMetadata.documentationUrl" class="order-service-documentation-url">\n                <a ng-href="{{$ctrl.serviceClass.resource.externalMetadata.documentationUrl}}" target="_blank" class="learn-more-link">Learn More <i class="fa fa-external-link" aria-hidden="true"></i></a>\n              </div>\n            </div>\n          </div>\n          <div class="order-service-description-block">\n            <p ng-if="$ctrl.currentStep.id !== \'plans\' && ($ctrl.selectedPlan.externalMetadata.displayName || $ctrl.selectedPlan.description)">\n              <span ng-if="$ctrl.selectedPlan.externalMetadata.displayName">\n                Plan {{$ctrl.selectedPlan.externalMetadata.displayName}}\n                <span ng-if="$ctrl.selectedPlan.description">&ndash;</span>\n              </span>\n              <span ng-if="$ctrl.selectedPlan.description">{{$ctrl.selectedPlan.description}}</span>\n            </p>\n            <p ng-if="$ctrl.description" ng-bind-html="$ctrl.description | linky : \'_blank\'" class="description"></p>\n            <p ng-if="$ctrl.longDescription" ng-bind-html="$ctrl.longDescription | linky : \'_blank\'" class="description"></p>\n          </div>\n        </div>\n        <div class="order-service-config">\n          <div ng-include="step.view" class="wizard-pf-main-form-contents"></div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n';
 }, function(e, t) {
@@ -1076,27 +1078,42 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
 }, function(e, t, n) {
     "use strict";
     t.__esModule = !0;
-    var r = function() {
-        function e(e, t) {
-            var n = this;
+    var r = n(1), i = n(0), s = function() {
+        function e(e, t, n, r) {
+            var i = this;
             this.ctrl = this, this.closeOrderingPanel = function() {
-                n.RecentlyViewed.addItem(n.ctrl.selectedItem.resource.metadata.uid), n.ctrl.orderingPanelVisible = !1;
-            }, this.$scope = e, this.RecentlyViewed = t;
+                i.RecentlyViewed.addItem(i.ctrl.selectedItem.resource.metadata.uid), i.ctrl.orderingPanelVisible = !1;
+            }, this.onResize = function() {
+                i.HTMLService.isWindowAboveBreakpoint(i.HTMLService.WINDOW_SIZE_SM) || i.$scope.$evalAsync(function() {
+                    i.ctrl.collapsedHeader = !1;
+                });
+            }, this.snapOn = function() {
+                i.HTMLService.isWindowAboveBreakpoint(i.HTMLService.WINDOW_SIZE_SM) && (i.ctrl.collapsedHeader = !0);
+            }, this.snapOff = function() {
+                i.ctrl.collapsedHeader = !1;
+            }, this.$scope = e, this.$rootScope = t, this.HTMLService = n, this.RecentlyViewed = r;
         }
         return e.prototype.$onInit = function() {
             var e = this;
-            this.ctrl.searchText = "", this.ctrl.orderingPanelVisible = !1, this.$scope.$on("open-overlay-panel", function(t, n) {
+            this.ctrl.searchText = "", this.ctrl.orderingPanelVisible = !1, this.debounceResize = i.debounce(this.onResize, 250, {
+                maxWait: 500
+            }), r.element(window).bind("resize", this.debounceResize), this.$scope.$on("open-overlay-panel", function(t, n) {
                 if ("Template" === n.resource.kind) {
                     var r = e.ctrl.onTemplateSelected();
                     return void (r && r(n.resource));
                 }
                 e.ctrl.selectedItem = n, e.ctrl.orderingPanelVisible = !0;
-            });
+            }), this.snapOnListener = this.$rootScope.$on("landing-page.main-area-snapped-up.on", this.snapOn), 
+            this.snapOffListener = this.$rootScope.$on("landing-page.main-area-snapped-up.off", this.snapOff);
         }, e.prototype.$onDestroy = function() {
-            this.ctrl.orderingPanelVisible && this.closeOrderingPanel();
+            this.ctrl.orderingPanelVisible && this.closeOrderingPanel(), this.snapOnListener(), 
+            this.snapOffListener();
+        }, e.prototype.expandHeader = function() {
+            this.ctrl.collapsedHeader = !1;
         }, e;
     }();
-    r.$inject = [ "$scope", "RecentlyViewedServiceItems" ], t.LandingPageController = r;
+    s.$inject = [ "$scope", "$rootScope", "HTMLService", "RecentlyViewedServiceItems" ], 
+    t.LandingPageController = s;
 }, function(e, t, n) {
     "use strict";
     t.__esModule = !0;
@@ -1543,20 +1560,10 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             e.catalogItems && this.ctrl.catalogItems && (this.ctrl.categories = this.catalog.categories, 
             this.filterByCategory("all", "all", !0), this.ctrl.isEmpty = i.isEmpty(this.ctrl.catalogItems), 
             this.ctrl.loaded = !0);
-        }, e.prototype.$postLink = function() {
-            this.scrollParent = this.getScrollParent(this.element), this.scrollParent && this.htmlService.isWindowAboveBreakpoint(this.htmlService.WINDOW_SIZE_SM) && (this.ctrl.viewStyle = {
-                "min-height": "calc(100vh - " + this.scrollParent.getBoundingClientRect().top + "px)"
-            });
         }, e.prototype.$onDestroy = function() {
             s(window).off("resize.services"), this.removeFilterListener();
         }, e.prototype.selectCategory = function(e) {
-            if (this.ctrl.mobileView = "subcategories", this.filterByCategory(e, null, !0), 
-            this.scrollParent) {
-                var t = s(this.scrollParent);
-                t.scrollTop() !== this.element.offsetTop && t.animate({
-                    scrollTop: this.element.offsetTop
-                }, 200);
-            }
+            this.ctrl.mobileView = "subcategories", this.filterByCategory(e, null, !0), this.$rootScope.$emit("landing-page.main-area-snapped-up.on");
         }, e.prototype.selectSubCategory = function(e) {
             this.ctrl.mobileView = "items", this.ctrl.currentSubFilter === e && "xxs" !== this.htmlService.getBreakpoint() && (e = null, 
             this.ctrl.mobileView = "subcategories"), this.filterByCategory(this.ctrl.currentFilter, e, !1);
@@ -1583,28 +1590,21 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             return this.keywordService.filterForKeywords(t, [ "name", "tags" ], n);
         }, e.prototype.clearAppliedFilters = function() {
             this.ctrl.filterConfig.appliedFilters = [];
-        }, e.prototype.getScrollParent = function(e) {
-            if (null === e || !(e instanceof Element)) return null;
-            var t = window.getComputedStyle(e).overflowY;
-            return "visible" !== t && "hidden" !== t ? e : this.getScrollParent(e.parentNode);
         }, e.prototype.resizeExpansion = function(t) {
             var n = this;
             if ("all" !== this.ctrl.currentFilter && "other" !== this.ctrl.currentFilter && this.ctrl.currentSubFilter && this.htmlService.isWindowAboveBreakpoint(this.htmlService.WINDOW_SIZE_XS)) {
                 if (this.resizeRetries > e.MAX_RESIZE_RETRIES) return void (this.resizeRetries = 0);
-                var r = s("#" + this.ctrl.currentSubFilter), a = r.find(".services-items"), o = a.outerHeight(!0);
-                o || (this.resizeRetries++, setTimeout(function() {
+                var r = s("#" + this.ctrl.currentSubFilter), i = r.find(".services-items"), a = i.outerHeight(!0);
+                a || (this.resizeRetries++, setTimeout(function() {
                     return n.resizeExpansion(t);
                 }, 50)), t ? (s(".services-sub-category").removeAttr("style").removeClass("items-shown"), 
                 r.css("margin-bottom", this.previousSubCategoryHeight + "px"), r.animate({
-                    "margin-bottom": o
+                    "margin-bottom": a
                 }, 100, "swing", function() {
                     r.addClass("items-shown");
-                })) : (r.css("margin-bottom", o + "px"), r.addClass("items-shown")), this.previousSubCategoryHeight = o;
+                })) : (r.css("margin-bottom", a + "px"), r.addClass("items-shown")), this.previousSubCategoryHeight = a;
             } else s(".services-sub-category").removeAttr("style").removeClass("items-shown"), 
             this.previousSubCategoryHeight = 0, this.resizeRetries = 0;
-            this.htmlService.isWindowAboveBreakpoint(this.htmlService.WINDOW_SIZE_SM) ? this.scrollParent && !i.get(this.ctrl.viewStyle, "min-height") && (this.ctrl.viewStyle = {
-                "min-height": "calc(100vh - " + this.scrollParent.getBoundingClientRect().top + "px)"
-            }) : this.ctrl.viewStyle = void 0;
         }, e.prototype.updateActiveCardStyles = function() {
             var e = this;
             this.$timeout(function() {
@@ -1628,8 +1628,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
     t.__esModule = !0;
     var r = n(1);
     n(3), n(27);
-    var i = n(28), s = n(29), a = n(17), o = n(18), c = n(30), l = n(19), d = n(20), p = n(21), h = n(22), m = n(23), g = n(24), u = n(25), f = n(26), v = n(31);
-    t.webCatalog = "webCatalog", r.module(t.webCatalog, [ "patternfly", "ngAnimate", "ui.bootstrap", "angularMoment", "ui.select", "schemaForm" ]).service("BuilderAppService", s.BuilderAppService).service("Catalog", c.CatalogService).service("RecentlyViewedServiceItems", v.RecentlyViewedServiceItems).filter("projectUrl", i.projectUrlFilter).component("catalogParameters", a.catalogParameters).component("catalogSearch", o.catalogSearch).component("createFromBuilder", l.createFromBuilder).component("landingPage", d.landingPage).component("orderService", p.orderService).component("overlayPanel", h.overlayPanel).component("projectsSummary", m.projectsSummary).component("saasList", g.saasList).component("selectProject", u.selectProject).component("servicesView", f.servicesView).run([ "$templateCache", function(e) {
+    var i = n(28), s = n(29), a = n(17), o = n(18), c = n(30), l = n(19), d = n(20), p = n(21), h = n(22), m = n(23), u = n(24), g = n(25), f = n(26), v = n(31);
+    t.webCatalog = "webCatalog", r.module(t.webCatalog, [ "patternfly", "ngAnimate", "ui.bootstrap", "angularMoment", "ui.select", "schemaForm" ]).service("BuilderAppService", s.BuilderAppService).service("Catalog", c.CatalogService).service("RecentlyViewedServiceItems", v.RecentlyViewedServiceItems).filter("projectUrl", i.projectUrlFilter).component("catalogParameters", a.catalogParameters).component("catalogSearch", o.catalogSearch).component("createFromBuilder", l.createFromBuilder).component("landingPage", d.landingPage).component("orderService", p.orderService).component("overlayPanel", h.overlayPanel).component("projectsSummary", m.projectsSummary).component("saasList", u.saasList).component("selectProject", g.selectProject).component("servicesView", f.servicesView).run([ "$templateCache", function(e) {
         e.put("catalog-search/catalog-search-result.html", n(4)), e.put("create-from-builder/create-from-builder-configure.html", n(6)), 
         e.put("create-from-builder/create-from-builder-bind.html", n(5)), e.put("create-from-builder/create-from-builder-results.html", n(7)), 
         e.put("order-service/order-service-plans.html", n(10)), e.put("order-service/order-service-configure.html", n(9)), 

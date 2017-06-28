@@ -95,6 +95,26 @@ landingbody,
   min-height: 100%;
 }
 
+.landing-header-expand-container {
+  margin: 5px 0;
+  text-align: center;
+}
+
+.landing-header-expander {
+  color: @color-pf-white;
+  font-size: @font-size-base;
+  &:hover, &:focus {
+    color: @color-pf-white;
+    text-decoration: none;
+  }
+  &:after {
+    content: @fa-var-angle-down;
+    font-family: @icon-font-name-fa;
+    font-size: (@font-size-base + 2);
+    padding: 0 5px;
+  }
+}
+
 .landing-search-form {
   margin: 0 auto;
   width: 100%;
