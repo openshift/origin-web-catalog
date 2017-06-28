@@ -7,11 +7,13 @@
         <input
             id="search-input"
             type="search"
+            autocomplete="off"
             class="form-control catalog-search-input"
             placeholder="Search Catalog"
             ng-model="$ctrl.searchText"
             uib-typeahead="item.name for item in $ctrl.search($viewValue)"
             typeahead-on-select="$ctrl.itemSelected($item)"
+            typeahead-focus-first="false"
             typeahead-template-url="catalog-search/catalog-search-result.html">
         <button
             type="button"

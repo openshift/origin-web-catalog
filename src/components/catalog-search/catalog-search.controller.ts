@@ -45,7 +45,7 @@ export class CatalogSearchController implements angular.IController {
   public itemSelected(item: any) {
     if (item.id === 'viewAll') {
       this.$rootScope.$emit('filter-catalog-items', {searchText: this.ctrl.searchText});
-    } else {
+    } else if (item.id !== 'viewNone') {
       this.$scope.$emit('open-overlay-panel', item);
     }
     this.ctrl.searchText = '';
@@ -69,12 +69,16 @@ export class CatalogSearchController implements angular.IController {
     let keywords = this.KeywordService.generateKeywords(searchText);
     let items = this.KeywordService.filterForKeywords(this.ctrl.catalogItems, ['name', 'tags'], keywords);
     let totalNumItems: number = _.size(items);
-    if (totalNumItems > this.maxResultsToShow) {
-      let results: any = _.take(items, this.maxResultsToShow);
-      results.push({id: 'viewAll', name: searchText, totalNumResults: totalNumItems});
-      return results;
-    } else {
-      return _.take(items, this.maxResultsToShow);
+    let results: any = _.take(items, this.maxResultsToShow);
+
+    if (totalNumItems === 0) {
+      results.push({id: 'viewNone', text: "No results found for Keyword: " + searchText, name: searchText});
+    } else if (totalNumItems === 1) {
+      results.push({id: 'viewAll', text: "View the result for Keyword: " + searchText, name: searchText});
+    } else if (totalNumItems > 1) {
+      results.push({id: 'viewAll', text: "View all " + totalNumItems + " results for Keyword: " + searchText, name: searchText});
     }
+
+    return results;
   }
 }

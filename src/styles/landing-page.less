@@ -63,6 +63,13 @@
   text-align: center;
 }
 
+.catalog-search-show-none {
+  cursor: default;
+  flex-grow: 1;
+  font-weight: 600;
+  text-align: center;
+}
+
 .landing {
   background: @landing-bg;
   background-size: @landing-bg-size;
@@ -126,6 +133,10 @@ landingbody,
       background-color: @color-pf-blue-50 !important;
       border-color: @color-pf-blue-100 !important;
       color: inherit !important;
+    }
+    .active > a.catalog-search-match.no-matches {
+      background-color: transparent !important;
+      border-color: transparent !important;
     }
   }
 }

@@ -1,9 +1,9 @@
-<a href="" class="catalog-search-match">
-  <span class="catalog-search-match-icon" ng-if="match.model.id !== 'viewAll'">
+<a href="" class="catalog-search-match" ng-class="{'no-matches': match.model.id === 'viewNone'}">
+  <span class="catalog-search-match-icon" ng-if="match.model.id !== 'viewAll' && match.model.id !== 'viewNone'">
     <span ng-if="match.model.imageUrl"><img ng-src="{{match.model.imageUrl}}"></span>
     <span ng-if="!match.model.imageUrl && match.model.iconClass" ng-class="match.model.iconClass" class="icon"></span>
   </span>
-  <div class="catalog-search-match-info" ng-if="match.model.id !== 'viewAll'">
+  <div class="catalog-search-match-info" ng-if="match.model.id !== 'viewAll' && match.model.id !== 'viewNone'">
     <div class="catalog-search-match-label">
       {{match.label}}
     </div>
@@ -13,7 +13,10 @@
       </span>
     </div>
   </div>
+  <span ng-if="match.model.id === 'viewNone'" class="catalog-search-show-none">
+    {{match.model.text}}
+  </span>
   <span ng-if="match.model.id === 'viewAll'" class="catalog-search-show-all">
-    View All {{match.model.totalNumResults}} Results for Keyword: {{match.model.name}} <span class="fa fa-angle-right"></span>
+    {{match.model.text}}  <span class="fa fa-angle-right"></span>
   </span>
 </a>
