@@ -67,9 +67,13 @@ export class SelectProjectController implements angular.IController {
   private canIAddToProject(): boolean {
     let canIAddToProject: boolean = true;
 
-    if (!this.isNewProject()) {
-      canIAddToProject = this.AuthorizationService.canIAddToProject(_.get(this.ctrl.selectedProject, 'metadata.name'));
-    }
+    // TODO AuthorizationService.canIAddToProject assumes that the ProjectsService.get has already completed performed
+    // but currently this happens after project change events fire and it happens in the various dialog controllers, not
+    // as part of this component.  For now always return true until we can resolve this.
+    //
+    // if (!this.isNewProject()) {
+    //   canIAddToProject = this.AuthorizationService.canIAddToProject(_.get(this.ctrl.selectedProject, 'metadata.name'));
+    // }
 
     return this.ctrl.forms.selectProjectForm.selectProject.$setValidity('cannotAddToProject', canIAddToProject);
   }
