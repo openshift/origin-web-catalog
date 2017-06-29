@@ -1480,9 +1480,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
         }, e.prototype.isNewProject = function() {
             return this.ctrl.projects && this.ctrl.selectedProject && !r.has(this.ctrl.selectedProject, "metadata.uid");
         }, e.prototype.canIAddToProject = function() {
-            var e = !0;
-            return this.isNewProject() || (e = this.AuthorizationService.canIAddToProject(r.get(this.ctrl.selectedProject, "metadata.name"))), 
-            this.ctrl.forms.selectProjectForm.selectProject.$setValidity("cannotAddToProject", e);
+            return this.ctrl.forms.selectProjectForm.selectProject.$setValidity("cannotAddToProject", !0);
         }, e.prototype.listProjects = function() {
             var e = this;
             this.DataService.list("projects", this.$scope).then(function(t) {
