@@ -23,7 +23,7 @@ export class ServicesViewController implements angular.IController {
   private keywordFilterField: any = {
     id: 'keyword',
     title:  'Keyword',
-    placeholder: 'Filter by keyword in Category',
+    placeholder: 'Filter by Keyword in Category',
     filterType: 'text'
   };
   private removeFilterListener: any;
