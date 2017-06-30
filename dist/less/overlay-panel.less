@@ -128,7 +128,10 @@ body.overlay-open {
 }
 
 .catalogs-overlay-panel-grow-height {
-  padding: @navbar-pf-height 0 (@grid-gutter-width / 2);
+  // only adding padding to the overlay panel if the viewport is taller than the panel plus the padding
+  @media(min-height: 545px) { // 465px (height of Safari in iPhone SE) + 80px (padding)
+    padding: @navbar-pf-height 0 (@grid-gutter-width / 2);
+  }
 }
 
 .catalogs-overlay-panel-wrapper {
