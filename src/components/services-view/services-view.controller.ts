@@ -191,6 +191,12 @@ export class ServicesViewController implements angular.IController {
   private filterChange = (filters: any) => {
     this.filterByCategory(this.ctrl.currentFilter, this.ctrl.currentSubFilter, false);
 
+    // only use filters which have a filter criteria 'value'
+    // prevents applying an empty keyword filter
+    // TODO: can remove the following line of code after angular-patternfly issue is fixed:
+    //   https://github.com/patternfly/angular-patternfly/issues/509
+    filters = _.filter(filters, 'value');
+
     this.ctrl.filterConfig.appliedFilters = filters;
 
     if (filters && filters.length > 0) {

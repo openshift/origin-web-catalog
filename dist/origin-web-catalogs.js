@@ -1515,8 +1515,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             }, this.previousSubCategoryHeight = 0, this.resizeRetries = 0, this.handleClick = function(e, t) {
                 p.$scope.$emit("open-overlay-panel", e);
             }, this.filterChange = function(e) {
-                p.filterByCategory(p.ctrl.currentFilter, p.ctrl.currentSubFilter, !1), p.ctrl.filterConfig.appliedFilters = e, 
-                e && e.length > 0 && i.each(e, function(e) {
+                p.filterByCategory(p.ctrl.currentFilter, p.ctrl.currentSubFilter, !1), e = i.filter(e, "value"), 
+                p.ctrl.filterConfig.appliedFilters = e, e && e.length > 0 && i.each(e, function(e) {
                     p.ctrl.filteredItems = p.filterForKeywords(e.value, p.ctrl.filteredItems);
                 }), p.updateFilterControls();
             }, this.constants = e, this.catalog = t, this.keywordService = n, this.logger = r, 
