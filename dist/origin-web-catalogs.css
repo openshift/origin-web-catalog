@@ -596,8 +596,10 @@ body.overlay-open .landing-side-bar {
 .catalogs-overlay-panel-close.pficon-close:hover {
   color: #393f44;
 }
-.catalogs-overlay-panel-grow-height {
-  padding: 60px 0 20px;
+@media (min-height: 545px) {
+  .catalogs-overlay-panel-grow-height {
+    padding: 60px 0 20px;
+  }
 }
 .catalogs-overlay-panel-wrapper {
   bottom: 0;
