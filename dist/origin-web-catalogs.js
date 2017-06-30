@@ -1510,7 +1510,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             this.ctrl = this, this.keywordFilterField = {
                 id: "keyword",
                 title: "Keyword",
-                placeholder: "Filter by keyword in Category",
+                placeholder: "Filter by Keyword in Category",
                 filterType: "text"
             }, this.previousSubCategoryHeight = 0, this.resizeRetries = 0, this.handleClick = function(e, t) {
                 p.$scope.$emit("open-overlay-panel", e);
