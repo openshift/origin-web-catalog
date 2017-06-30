@@ -95,6 +95,14 @@
   overflow-wrap: break-word;
   min-width: 0;
 }
+@media only screen and (max-device-width: 736px) and (-webkit-min-device-pixel-ratio: 0) {
+  .catalog-search .catalog-search-icon {
+    top: 9px;
+  }
+  .catalog-search .landing-search-form .search-pf-input-group .form-control {
+    font-size: 16px;
+  }
+}
 .catalog-search-match .catalog-search-match-icon {
   flex: 0 0 40px;
   padding-right: 5px;

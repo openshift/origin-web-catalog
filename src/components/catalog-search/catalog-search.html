@@ -14,7 +14,10 @@
             uib-typeahead="item.name for item in $ctrl.search($viewValue)"
             typeahead-on-select="$ctrl.itemSelected($item)"
             typeahead-focus-first="false"
-            typeahead-template-url="catalog-search/catalog-search-result.html">
+            typeahead-template-url="catalog-search/catalog-search-result.html"
+            autocorrect="off"
+            autocapitalize="off"
+            spellcheck="false">
         <button
             type="button"
             ng-if="$ctrl.searchText"
