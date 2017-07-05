@@ -240,13 +240,6 @@ landingbody,
     width: 475px;
   }
 }
-.landing-side-bar .tooltip > .tooltip-arrow {
-  border-top-color: #fff;
-}
-.landing-side-bar .tooltip > .tooltip-inner {
-  background-color: #fff;
-  color: #292e34;
-}
 .order-service-details {
   flex: 0 1 auto;
   padding: 0 20px;
