@@ -1,7 +1,11 @@
 <ng-form name="$ctrl.forms.selectProjectForm">
   <div class="form-group" ng-class="{'has-error' : $ctrl.forms.selectProjectForm.selectProject.$error.cannotAddToProject }">
     <label class="control-label" for="project">Add to Project</label>
-    <ui-select name="selectProject" ng-model="$ctrl.selectedProject" ng-change="$ctrl.onSelectProjectChange()">
+    <ui-select
+        name="selectProject"
+        ng-model="$ctrl.selectedProject"
+        ng-change="$ctrl.onSelectProjectChange()"
+        search-enabled="$ctrl.searchEnabled">
       <ui-select-match>
         {{$select.selected | displayName}}
       </ui-select-match>

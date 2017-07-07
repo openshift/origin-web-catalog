@@ -94,6 +94,7 @@ export class SelectProjectController implements angular.IController {
 
       filteredProjects = _.reject(filteredProjects, 'metadata.deletionTimestamp');
       this.ctrl.projects = _.sortBy(filteredProjects, this.$filter('displayName'));
+      this.ctrl.searchEnabled = !_.isEmpty(filteredProjects);
 
       this.ctrl.existingProjectNames = _.map(this.ctrl.projects, 'metadata.name');
 
