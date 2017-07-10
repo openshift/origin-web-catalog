@@ -132,7 +132,7 @@ export class CatalogService {
     this.categories = angular.copy(this.constants.SERVICE_CATALOG_CATEGORIES);
     this.createAllAndOtherMainCategories();
 
-    let allMainCategory: any = _.first(this.categories);
+    let allMainCategory: any = _.head(this.categories);
     let allSubCatOfAll: any = _.get(allMainCategory, 'subCategories[0]');
     let otherMainCategory: any = _.last(this.categories);
     let allSubCatOfOther: any = _.get(otherMainCategory, 'subCategories[0]');

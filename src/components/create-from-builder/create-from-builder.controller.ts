@@ -92,7 +92,7 @@ export class CreateFromBuilderController implements angular.IController {
     };
     this.ctrl.steps = [this.configStep, this.bindStep, this.reviewStep];
     this.ctrl.versions = this.getVersions();
-    this.ctrl.istag = _.first(this.ctrl.versions);
+    this.ctrl.istag = _.head(this.ctrl.versions);
     this.ctrl.nameMaxLength = 24;
     this.ctrl.namePattern = /^[a-z]([-a-z0-9]*[a-z0-9])?$/;
     this.ctrl.repositoryPattern = /^[a-z][a-z0-9+.-@]*:(\/\/)?[0-9a-z_-]+/;
@@ -135,7 +135,7 @@ export class CreateFromBuilderController implements angular.IController {
     if (!this.ctrl.name && this.ctrl.repository) {
       let name = this.ctrl.repository.substr(this.ctrl.repository.lastIndexOf('/') + 1);
       name = name.replace(/\.git$/, '');
-      name = _.trunc(name, this.ctrl.nameMaxLength);
+      name = _.truncate(name, this.ctrl.nameMaxLength);
       name = _.kebabCase(name);
 
       // Make sure it's a valid name before setting it.

@@ -32,7 +32,7 @@
           </a>
          <a ng-click="$ctrl.mobileView = 'subcategories'" class="services-back-link" href="">Back</a>
           <div ng-if="$ctrl.currentSubFilter === subCategory.id" class="services-items">
-            <div pf-filter config="$ctrl.filterConfig" class="services-items-filter"></div>
+            <pf-filter config="$ctrl.filterConfig" class="services-items-filter"></pf-filter>
             <a href="" class="services-item" ng-repeat="item in $ctrl.filteredItems track by item.resource.metadata.uid" ng-click="$ctrl.handleClick(item)">
               <div ng-if="!item.imageUrl" class="services-item-icon">
                 <span class="{{item.iconClass}}"></span>
@@ -52,7 +52,7 @@
       <div ng-if="$ctrl.currentFilter === 'other' || $ctrl.currentFilter === 'all'" class="services-no-sub-categories">
         <div class="services-items">
           <div ng-if="$ctrl.isEmpty">There are no catalog items.</div>
-          <div ng-if="!$ctrl.isEmpty" pf-filter config="$ctrl.filterConfig" class="services-items-filter"></div>
+          <pf-filter ng-if="!$ctrl.isEmpty" config="$ctrl.filterConfig" class="services-items-filter"></pf-filter>
           <a href="" class="services-item" ng-repeat="item in $ctrl.filteredItems track by item.resource.metadata.uid" ng-click="$ctrl.handleClick(item)">
             <div ng-if="!item.imageUrl" class="services-item-icon">
               <span class="{{item.iconClass}}"></span>

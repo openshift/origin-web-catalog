@@ -1,3 +1,4 @@
+import * as _ from 'lodash';
 
 export class HomePageController {
   static $inject = ['$rootScope', '$state', '$timeout', 'AuthService', 'Catalog', 'Constants', 'GuidedTourService', 'HTMLService', 'NotificationsService'];

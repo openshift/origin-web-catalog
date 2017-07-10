@@ -111,7 +111,7 @@ export class OrderServiceController implements angular.IController {
     this.ctrl.bindType = "none";
 
     // Preselect the first plan. If there's only one plan, skip the wizard step.
-    this.selectPlan(_.first(this.ctrl.plans));
+    this.selectPlan(_.head(this.ctrl.plans));
     this.ctrl.planIndex = 0;
 
     // Set updating true initially so that the next button doesn't enable,
@@ -374,7 +374,7 @@ export class OrderServiceController implements angular.IController {
         .concat(this.replicationControllers)
         .concat(this.replicaSets)
         .concat(this.statefulSets);
-      this.ctrl.applications = _.sortByAll(apiObjects, ['metadata.name', 'kind']);
+      this.ctrl.applications = _.sortBy(apiObjects, ['metadata.name', 'kind']);
       this.ctrl.updating = false;
       this.updateBindability();
     }
@@ -391,7 +391,7 @@ export class OrderServiceController implements angular.IController {
     //
     // Check specifically for the empty string rather than truthiness so that
     // we don't omit other values like `false` for boolean parameters.
-    let parameters: any = _.omit(this.ctrl.parameterData, (parameterValue) => {
+    let parameters: any = _.omitBy(this.ctrl.parameterData, (parameterValue) => {
       return parameterValue === '';
     });
 
