@@ -1153,7 +1153,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                         l.replicationControllers = i.reject(e.by("metadata.name"), l.hasDeploymentConfigFilter), 
                         l.sortApplications();
                     }), l.DataService.list({
-                        group: "extensions",
+                        group: "apps",
                         resource: "deployments"
                     }, t).then(function(e) {
                         l.deployments = i.toArray(e.by("metadata.name")), l.sortApplications();

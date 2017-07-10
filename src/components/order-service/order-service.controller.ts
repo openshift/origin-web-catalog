@@ -343,7 +343,7 @@ export class OrderServiceController implements angular.IController {
           this.sortApplications();
         });
         this.DataService.list({
-          group: 'extensions',
+          group: 'apps',
           resource: 'deployments'
         }, context).then((deploymentData: any) => {
           this.deployments = _.toArray(deploymentData.by('metadata.name'));
