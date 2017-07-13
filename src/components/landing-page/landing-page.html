@@ -1,3 +1,4 @@
+<div class="landing-search-area" ng-transclude="landingsearch"></div>
 <div class="landing">
   <overlay-panel show-panel="$ctrl.orderingPanelVisible" show-close="true" handle-close="$ctrl.closeOrderingPanel">
     <order-service
@@ -13,7 +14,6 @@
         handle-close="$ctrl.closeOrderingPanel">
     </create-from-builder>
   </overlay-panel>
-  <div class="landing-search-area" ng-transclude="landingsearch"></div>
   <div class="landing-main-area">
     <div class="landing-header-area" ng-transclude="landingheader"></div>
     <div class="landing-body-area">
