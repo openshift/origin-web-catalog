@@ -11,13 +11,19 @@ export class BuilderAppService {
     let ports = this.getPorts(config.imageStreamTag);
     let firstPort = _.first(ports);
 
-    return [
+    var objects: any[] = [
       this.makeImageStream(config),
       this.makeBuildConfig(config),
-      this.makeDeploymentConfig(config, ports),
-      this.makeService(config, firstPort),
-      this.makeRoute(config, firstPort)
+      this.makeDeploymentConfig(config, ports)
     ];
+
+    // Only create a service and route if there are ports in the builder image.
+    if (firstPort) {
+      objects.concat(this.makeService(config, firstPort));
+      objects.concat(this.makeRoute(config, firstPort));
+    }
+
+    return objects;
   }
 
   public getPorts(imageStreamTag: any) {
