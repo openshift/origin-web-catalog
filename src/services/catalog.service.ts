@@ -286,30 +286,30 @@ export class ServiceItem implements IServiceItem {
     this.tags = this.getTags();
   }
 
-  private getImage() {
-    return _.get(this.resource, 'externalMetadata.imageUrl', '');
+  private getImage(): string {
+    return _.get(this.resource, 'externalMetadata.imageUrl') as string || '';
   }
 
-  private getIcon() {
-    let icon = _.get(this.resource, ['externalMetadata', 'console.openshift.io/iconClass'], 'fa fa-clone');
+  private getIcon(): string {
+    let icon: string = _.get(this.resource, ['externalMetadata', 'console.openshift.io/iconClass']) as string || 'fa fa-clone';
     icon = (icon.indexOf('icon-') !== -1) ? 'font-icon ' + icon : icon;
     return icon;
   }
 
-  private getName() {
-    return _.get(this.resource, 'externalMetadata.displayName', this.resource.metadata.name);
+  private getName(): string {
+    return _.get(this.resource, 'externalMetadata.displayName') || this.resource.metadata.name;
   }
 
-  private getDescription() {
-    return _.get(this.resource, 'description', '');
+  private getDescription(): string {
+    return _.get(this.resource, 'description') as string || '';
   }
 
-  private getLongDescription() {
-    return _.get(this.resource, 'externalMetadata.longDescription', '');
+  private getLongDescription(): string {
+    return _.get(this.resource, 'externalMetadata.longDescription') as string || '';
   }
 
-  private getTags() {
-    return _.get(this.resource, 'alphaTags', []);
+  private getTags(): string[] {
+    return _.get(this.resource, 'alphaTags') as string[] || [];
   }
 }
 
