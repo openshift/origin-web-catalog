@@ -404,8 +404,9 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
     var r = n(0), i = function() {
         function e() {}
         return e.prototype.makeAPIObjects = function(e) {
-            var t = this.getPorts(e.imageStreamTag), n = r.first(t);
-            return [ this.makeImageStream(e), this.makeBuildConfig(e), this.makeDeploymentConfig(e, t), this.makeService(e, n), this.makeRoute(e, n) ];
+            var t = this.getPorts(e.imageStreamTag), n = r.first(t), i = [ this.makeImageStream(e), this.makeBuildConfig(e), this.makeDeploymentConfig(e, t) ];
+            return n && (i.concat(this.makeService(e, n)), i.concat(this.makeRoute(e, n))), 
+            i;
         }, e.prototype.getPorts = function(e) {
             var t = e.image, n = r.get(t, "dockerImageMetadata.Config.ExposedPorts") || r.get(t, "dockerImageMetadata.ContainerConfig.ExposedPorts", []);
             return this.parsePortsFromSpec(n);
