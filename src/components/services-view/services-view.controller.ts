@@ -18,7 +18,6 @@ export class ServicesViewController implements angular.IController {
   private $rootScope: any;
   private $scope: any;
   private $timeout: any;
-  private scrollParent: any;
   private debounceResize: any;
   private keywordFilterField: any = {
     id: 'keyword',
@@ -83,15 +82,6 @@ export class ServicesViewController implements angular.IController {
     }
   }
 
-  public $postLink() {
-    this.scrollParent = this.getScrollParent(this.element);
-    if (this.scrollParent && this.htmlService.isWindowAboveBreakpoint(this.htmlService.WINDOW_SIZE_SM)) {
-      this.ctrl.viewStyle = {
-        'min-height': 'calc(100vh - ' + this.scrollParent.getBoundingClientRect().top + 'px)'
-      };
-    }
-  }
-
   public $onDestroy() {
     $(window).off('resize.services');
     this.removeFilterListener();
@@ -101,18 +91,8 @@ export class ServicesViewController implements angular.IController {
     this.ctrl.mobileView = 'subcategories';
     this.filterByCategory(category, null, true);
 
-    // Scroll to show category browsing at the top of the page
-    if (this.scrollParent) {
-      let scrollElement: any = $(this.scrollParent);
-      if (scrollElement.scrollTop() !== this.element.offsetTop) {
-        scrollElement.animate(
-          {
-            scrollTop: this.element.offsetTop
-          },
-          200
-        );
-      }
-    }
+    // Snap to show category browsing at the top of the page
+    this.$rootScope.$emit('landing-page.main-area-snapped-up.on');
   }
 
   public selectSubCategory(subCategory: string) {
@@ -213,19 +193,6 @@ export class ServicesViewController implements angular.IController {
     this.ctrl.filterConfig.appliedFilters = [];
   }
 
-  private  getScrollParent(node: any) {
-    if (node === null || !(node instanceof Element)) {
-      return null;
-    }
-
-    let overflowY: string = window.getComputedStyle(node).overflowY;
-    if (overflowY !== 'visible' && overflowY !== 'hidden') {
-      return node;
-    } else {
-      return this.getScrollParent(node.parentNode);
-    }
-  }
-
   private resizeExpansion(subCategoryChanged: boolean) {
     // Unless at mobile, add a bottom margin to the tab to accommodate the
     // subcategory content. The content element is a child of the tab.
@@ -268,16 +235,6 @@ export class ServicesViewController implements angular.IController {
       $('.services-sub-category').removeAttr('style').removeClass('items-shown');
       this.previousSubCategoryHeight = 0;
       this.resizeRetries = 0;
-    }
-
-    if (this.htmlService.isWindowAboveBreakpoint(this.htmlService.WINDOW_SIZE_SM)) {
-      if (this.scrollParent && !_.get(this.ctrl.viewStyle, 'min-height')) {
-        this.ctrl.viewStyle = {
-          'min-height': 'calc(100vh - ' + this.scrollParent.getBoundingClientRect().top + 'px)'
-        };
-      }
-    } else {
-      this.ctrl.viewStyle = undefined;
     }
   }
 

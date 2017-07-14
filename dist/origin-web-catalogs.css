@@ -177,6 +177,25 @@ landingbody,
   flex-direction: column;
   min-height: 100%;
 }
+.landing-header-expand-container {
+  margin: 5px 0;
+  text-align: center;
+}
+.landing-header-expander {
+  color: #fff;
+  font-size: 12px;
+}
+.landing-header-expander:hover,
+.landing-header-expander:focus {
+  color: #fff;
+  text-decoration: none;
+}
+.landing-header-expander:after {
+  content: "\F107";
+  font-family: "FontAwesome";
+  font-size: 14px;
+  padding: 0 5px;
+}
 .landing-search-form {
   margin: 0 auto;
   width: 100%;
