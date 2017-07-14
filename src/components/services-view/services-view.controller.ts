@@ -62,6 +62,7 @@ export class ServicesViewController implements angular.IController {
       let keyWordFilter: any = angular.copy(this.keywordFilterField);
       keyWordFilter.value = searchCriteria.searchText;
       this.ctrl.currentFilter = this.ctrl.currentSubFilter = 'all';
+      this.ctrl.mobileView = 'subcategories';
       this.filterChange([keyWordFilter]);
     });
 
