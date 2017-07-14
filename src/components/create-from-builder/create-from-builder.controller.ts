@@ -31,6 +31,7 @@ export class CreateFromBuilderController implements angular.IController {
   private watches: any[] = [];
   private configStep: any;
   private bindStep: any;
+  private instancesSupported: boolean;
   private reviewStep: any;
   private selectedProjectWatch: any;
   private validityWatcher: any;
@@ -107,6 +108,10 @@ export class CreateFromBuilderController implements angular.IController {
       this.onProjectUpdate
     );
     this.getServiceClasses();
+    this.instancesSupported = !!this.APIService.apiInfo({
+      group: 'servicecatalog.k8s.io',
+      resource: 'instances'
+    });
   }
 
   public closePanel() {
@@ -283,23 +288,29 @@ export class CreateFromBuilderController implements angular.IController {
   }
 
   private onProjectUpdate = () => {
-    if (this.isNewProject()) {
+    if (!this.instancesSupported || this.isNewProject()) {
       this.ctrl.serviceInstances = [];
       this.updateBindability();
     } else {
       this.ctrl.updating = true;
-      this.ProjectsService.get(this.ctrl.selectedProject.metadata.name).then(_.spread((project: any, context: any) => {
-        var resource: any = {
-          group: 'servicecatalog.k8s.io',
-          resource: 'instances'
-        };
-        this.watches.push(this.DataService.watch(resource, context, (serviceInstances: any) => {
-          this.ctrl.serviceInstances = _.filter(_.toArray(serviceInstances.by('metadata.name')), this.isServiceBindable);
-          this.sortServiceInstances();
-          this.ctrl.updating = false;
-          this.updateBindability();
-        }));
-      }));
+      this.DataService.list({
+        group: 'servicecatalog.k8s.io',
+        resource: 'instances'
+      }, {
+        namespace: this.ctrl.selectedProject.metadata.name
+      }, null, {
+        errorNotification: false
+      }).then((serviceInstances: any) => {
+        this.ctrl.serviceInstances = _.filter(_.toArray(serviceInstances.by('metadata.name')), this.isServiceBindable);
+        this.sortServiceInstances();
+        this.ctrl.updating = false;
+        this.updateBindability();
+      }, (result) => {
+        this.Logger.warn('Failed to list instances in namespace ' + this.ctrl.selectedProject.metadata.name, result);
+        this.ctrl.updating = false;
+        this.ctrl.serviceInstances = [];
+        this.updateBindability();
+      });
     }
   };
 
