@@ -1536,7 +1536,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             this.removeFilterListener = this.$rootScope.$on("filter-catalog-items", function(t, n) {
                 var i = r.copy(e.keywordFilterField);
                 i.value = n.searchText, e.ctrl.currentFilter = e.ctrl.currentSubFilter = "all", 
-                e.filterChange([ i ]);
+                e.ctrl.mobileView = "subcategories", e.filterChange([ i ]);
             }), this.ctrl.filterConfig = {
                 fields: [ this.keywordFilterField ],
                 resultsCount: 0,
