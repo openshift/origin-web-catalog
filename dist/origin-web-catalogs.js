@@ -15,7 +15,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
 }, function(e, t) {
     e.exports = '<bind-service-form service-class="$ctrl.serviceClass.resource"\n                   service-class-name="$ctrl.serviceClass.name"\n                   applications="$ctrl.applications"\n                   form-name="$ctrl.forms.bindForm"\n                   allow-no-binding="true"\n                   project-name="$ctrl.projectDisplayName"\n                   bind-type="$ctrl.bindType"\n                   app-to-bind="$ctrl.appToBind">\n</bind-service-form>\n';
 }, function(e, t) {
-    e.exports = '<div class="config-top">\n  <form name="$ctrl.forms.orderConfigureForm" class="config-form">\n    <select-project selected-project="$ctrl.selectedProject" name-taken="$ctrl.nameTaken"></select-project>\n    <catalog-parameters\n      ng-if="$ctrl.parameterSchema"\n      model="$ctrl.parameterData"\n      parameter-schema="$ctrl.parameterSchema">\n    </catalog-parameters>\n  </form>\n  <div ng-if="$ctrl.error" class="has-error">\n    <span class="help-block">{{$ctrl.error}}</span>\n  </div>\n</div>\n';
+    e.exports = '<div class="config-top">\n  <form name="$ctrl.forms.orderConfigureForm" class="config-form">\n    <select-project selected-project="$ctrl.selectedProject" name-taken="$ctrl.nameTaken"></select-project>\n    <catalog-parameters\n      ng-if="$ctrl.parameterSchema.properties"\n      model="$ctrl.parameterData"\n      parameter-schema="$ctrl.parameterSchema">\n    </catalog-parameters>\n  </form>\n  <div ng-if="$ctrl.error" class="has-error">\n    <span class="help-block">{{$ctrl.error}}</span>\n  </div>\n</div>\n';
 }, function(e, t) {
     e.exports = '<div class="config-top">\n  <div class="select-plans">\n    <h3>Select a Plan</h3>\n    <div ng-repeat="plan in $ctrl.serviceClass.resource.plans" class="radio">\n      <label>\n        <input\n          type="radio"\n          ng-model="$ctrl.planIndex"\n          ng-change="$ctrl.selectPlan(plan)"\n          value="{{$index}}">\n        <span class="plan-name">{{plan.externalMetadata.displayName || plan.name}}</span>\n        \x3c!-- TODO: truncate long text --\x3e\n        <div ng-if="plan.description">{{plan.description}}</div>\n        \x3c!-- TODO: show plan bullets --\x3e\n      </label>\n    </div>\n  </div>\n</div>\n';
 }, function(e, t) {
@@ -712,18 +712,18 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             this.tags = this.getTags();
         }
         return e.prototype.getImage = function() {
-            return i.get(this.resource, "externalMetadata.imageUrl", "");
+            return i.get(this.resource, "externalMetadata.imageUrl") || "";
         }, e.prototype.getIcon = function() {
-            var e = i.get(this.resource, [ "externalMetadata", "console.openshift.io/iconClass" ], "fa fa-clone");
+            var e = i.get(this.resource, [ "externalMetadata", "console.openshift.io/iconClass" ]) || "fa fa-clone";
             return e = -1 !== e.indexOf("icon-") ? "font-icon " + e : e;
         }, e.prototype.getName = function() {
-            return i.get(this.resource, "externalMetadata.displayName", this.resource.metadata.name);
+            return i.get(this.resource, "externalMetadata.displayName") || this.resource.metadata.name;
         }, e.prototype.getDescription = function() {
-            return i.get(this.resource, "description", "");
+            return i.get(this.resource, "description") || "";
         }, e.prototype.getLongDescription = function() {
-            return i.get(this.resource, "externalMetadata.longDescription", "");
+            return i.get(this.resource, "externalMetadata.longDescription") || "";
         }, e.prototype.getTags = function() {
-            return i.get(this.resource, "alphaTags", []);
+            return i.get(this.resource, "alphaTags") || [];
         }, e;
     }();
     t.ServiceItem = a;
