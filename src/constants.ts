@@ -63,7 +63,7 @@ var resources: any = {
     },
     {
       title: 'Interactive Learning Portal',
-      href: 'https://openshift.katacoda.com'
+      href: 'https://learn.openshift.com'
     },
     {
       title: 'Local Development ',
