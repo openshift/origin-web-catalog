@@ -3,7 +3,7 @@ import * as _ from 'lodash';
 
 export class OrderServiceController implements angular.IController {
 
-  static $inject = ['$scope', '$filter', 'AuthService', 'ProjectsService', 'DataService', 'BindingService', 'Logger', 'Constants'];
+  static $inject = ['$scope', '$filter', 'AuthService', 'ProjectsService', 'DataService', 'BindingService', 'Logger', 'Constants', 'DNS1123_SUBDOMAIN_VALIDATION'];
 
   static readonly REQUESTER_USERNAME_PARAM_NAME: string = 'template.openshift.io/requester-username';
 
@@ -31,6 +31,7 @@ export class OrderServiceController implements angular.IController {
   private hasDeploymentConfigFilter: any;
   private validityWatcher: any;
   private user: any;
+  private DNS1123_SUBDOMAIN_VALIDATION: any;
 
   // Special case for the template broker. We need to send the send the current
   // user as the requester-username parameter value, but hide it in the UI.
@@ -38,7 +39,7 @@ export class OrderServiceController implements angular.IController {
   // the current OpenShift user as part of the provision request.
   private sendRequesterUsername: boolean;
 
-  constructor($scope: any, $filter: any, AuthService: any, ProjectsService: any, DataService: any, BindingService: any, Logger: any, Constants: any) {
+  constructor($scope: any, $filter: any, AuthService: any, ProjectsService: any, DataService: any, BindingService: any, Logger: any, Constants: any, DNS1123_SUBDOMAIN_VALIDATION: any) {
     this.$scope = $scope;
     this.$filter = $filter;
     this.AuthService = AuthService;
@@ -51,6 +52,7 @@ export class OrderServiceController implements angular.IController {
     // Set to the true when the parameter schema has REQUESTER_USERNAME_PARAM_NAME.
     this.sendRequesterUsername = false;
     this.ctrl.showPodPresets = _.get(Constants, ['ENABLE_TECH_PREVIEW_FEATURE', 'pod_presets'], false);
+    this.DNS1123_SUBDOMAIN_VALIDATION = DNS1123_SUBDOMAIN_VALIDATION;
   }
 
   public $onInit() {
@@ -218,7 +220,9 @@ export class OrderServiceController implements angular.IController {
   };
 
   public createService() {
-    let serviceInstance = this.makeServiceInstance();
+    let parameters = this.getParameters();
+    let secretName: string = _.isEmpty(parameters) ? null : this.generateSecretName();
+    let serviceInstance = this.makeServiceInstance(secretName);
     let resource = {
       group: 'servicecatalog.k8s.io',
       resource: 'instances'
@@ -226,10 +230,19 @@ export class OrderServiceController implements angular.IController {
     let context = {
       namespace: this.ctrl.selectedProject.metadata.name
     };
-    this.DataService.create(resource, null, serviceInstance, context).then((data: any) => {
+    this.DataService.create(resource, null, serviceInstance, context).then((serviceInstance: any) => {
       this.ctrl.orderInProgress = true;
-      this.watchResults(resource, data, context);
-      this.ctrl.serviceInstance = data;
+      this.watchResults(resource, serviceInstance, context);
+      this.ctrl.serviceInstance = serviceInstance;
+
+      // Create the parameters secret if necessary.
+      if (secretName) {
+        let secret = this.makeParametersSecret(secretName, parameters, serviceInstance);
+        this.DataService.create('secrets', null, secret, context).then(_.noop, (e: any) => {
+          this.ctrl.error = _.get(e, 'data');
+        });
+      }
+
       if (this.ctrl.bindType !== 'none') {
         this.bindService();
       }
@@ -371,9 +384,7 @@ export class OrderServiceController implements angular.IController {
     }
   }
 
-  private makeServiceInstance() {
-    let serviceClassName = _.get(this, 'ctrl.serviceClass.resource.metadata.name');
-
+  private getParameters(): any {
     // Omit parameters values that are the empty string. These are always
     // optional parameters since you can't submit the form when it's missing
     // required values. The template broker will not generate values for
@@ -391,7 +402,52 @@ export class OrderServiceController implements angular.IController {
       parameters[OrderServiceController.REQUESTER_USERNAME_PARAM_NAME] = this.user.metadata.name;
     }
 
-    let serviceInstance = {
+    return parameters;
+  }
+
+  private getServiceClassName(): string {
+    return _.get(this, 'ctrl.serviceClass.resource.metadata.name') as string;
+  };
+
+  private generateSecretName(): string {
+    let generateNameLength = 5;
+    // Truncate the class name if it's too long to append the generated name suffix.
+    let secretNamePrefix = _.truncate(this.getServiceClassName() + '-parameters', {
+      // `generateNameLength - 1` because we append a '-' and then a 5 char generated suffix
+      length: this.DNS1123_SUBDOMAIN_VALIDATION.maxlength - generateNameLength - 1,
+      omission: ''
+    });
+    return this.$filter('generateName')(secretNamePrefix + '-', generateNameLength) as string;
+  };
+
+  private makeParametersSecret(name: string, parameters: any, serviceInstance: any): any {
+    return {
+      apiVersion: 'v1',
+      kind: 'Secret',
+      metadata: {
+        name: name,
+        ownerReferences: [{
+          apiVersion: serviceInstance.apiVersion,
+          kind: serviceInstance.kind,
+          name: serviceInstance.metadata.name,
+          uid: serviceInstance.metadata.uid,
+          controller: false,
+          // TODO: Change to true when garbage collection works with service
+          // catalog resources. Setting to true now results in a 403 Forbidden
+          // error creating the secret.
+          blockOwnerDeletion: false
+        }]
+      },
+      type: 'Opaque',
+      stringData: {
+        parameters: JSON.stringify(parameters)
+      }
+    };
+  }
+
+  private makeServiceInstance(secretName: string) {
+    let serviceClassName = this.getServiceClassName();
+    let serviceInstance: any = {
       kind: 'Instance',
       apiVersion: 'servicecatalog.k8s.io/v1alpha1',
       metadata: {
@@ -400,10 +456,18 @@ export class OrderServiceController implements angular.IController {
        },
        spec: {
          serviceClassName: serviceClassName,
-         planName: this.ctrl.selectedPlan.name,
-         parameters: parameters
+         planName: this.ctrl.selectedPlan.name
        }
     };
+
+    if (secretName) {
+      serviceInstance.spec.parametersFrom = [{
+        secretKeyRef: {
+          name: secretName,
+          key: 'parameters'
+        }
+      }];
+    }
 
     return serviceInstance;
   }
