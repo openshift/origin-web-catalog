@@ -1,5 +1,5 @@
 <div class="order-service">
-  <div pf-wizard
+  <pf-wizard
        hide-header="true"
        hide-sidebar="true"
        step-class="order-service-wizard-step"
@@ -8,7 +8,7 @@
        on-finish="$ctrl.closePanel()"
        on-cancel="$ctrl.closePanel()"
        wizard-done="$ctrl.wizardDone">
-    <div pf-wizard-step ng-repeat="step in $ctrl.steps track by $index"
+    <pf-wizard-step ng-repeat="step in $ctrl.steps track by $index"
          step-title="{{step.label}}"
          wz-disabled="{{step.hidden}}"
          allow-click-nav="step.allowed"
@@ -54,6 +54,6 @@
           <div ng-include="step.view" class="wizard-pf-main-form-contents"></div>
         </div>
       </div>
-    </div>
-  </div>
+    </>
+  </>
 </div>

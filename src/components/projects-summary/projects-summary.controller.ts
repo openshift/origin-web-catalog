@@ -128,7 +128,7 @@ export class ProjectsSummaryController implements angular.IController {
 
   public $onChanges(onChangesObj: angular.IOnChangesObject) {
     if (onChangesObj.catalogItems && this.ctrl.catalogItems) {
-      this.allItems = _.indexBy(this.ctrl.catalogItems, 'resource.metadata.uid');
+      this.allItems = _.keyBy(this.ctrl.catalogItems, 'resource.metadata.uid');
       this.ctrl.recentlyViewedItems = this.getRecentlyViewedItems();
     }
   }

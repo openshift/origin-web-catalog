@@ -1,3 +1,5 @@
+import * as _ from 'lodash';
+
 export class RecentlyViewedServiceItems {
 
   static $inject = ['$rootScope'];

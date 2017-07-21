@@ -9,7 +9,7 @@ interface IBuilderAppConfig {
 export class BuilderAppService {
   public makeAPIObjects(config: IBuilderAppConfig) {
     let ports = this.getPorts(config.imageStreamTag);
-    let firstPort = _.first(ports);
+    let firstPort = _.head(ports);
 
     var objects: any[] = [
       this.makeImageStream(config),
@@ -154,7 +154,7 @@ export class BuilderAppService {
         }],
         template: {
           metadata: {
-            labels: _.assign({
+            labels: _.assignWith({
               deploymentconfig: config.name
             }, this.getLabels(config))
           },

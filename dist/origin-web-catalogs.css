@@ -1180,8 +1180,8 @@ services-view,
   flex: 1 1 100%;
   margin: 20px 20px 10px;
 }
-.services-view .services-items-filter .filter-pf [pf-filter-fields],
-.services-view .services-items-filter .filter-pf [pf-filter-results] {
+.services-view .services-items-filter .filter-pf pf-filter-fields,
+.services-view .services-items-filter .filter-pf pf-filter-results {
   display: inline-block;
 }
 .services-view .services-items-filter .filter-pf .filter-fields button {
