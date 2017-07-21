@@ -319,7 +319,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 href: "https://developers.openshift.com"
             }, {
                 title: "Interactive Learning Portal",
-                href: "https://openshift.katacoda.com"
+                href: "https://learn.openshift.com"
             }, {
                 title: "Local Development ",
                 href: "https://www.openshift.org/minishift"
