@@ -1167,6 +1167,7 @@ services-view,
   flex: 1 1 auto;
   flex-wrap: wrap;
   padding-bottom: 30px;
+  width: 100%;
   z-index: 9;
 }
 .services-view .services-items-filter {
