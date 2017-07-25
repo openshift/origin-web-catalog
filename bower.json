@@ -1,6 +1,6 @@
 {
   "name": "origin-web-catalog",
-  "version": "0.0.32",
+  "version": "0.0.33",
   "license": "Apache-2.0",
   "main": [
     "dist/vendor-bundle.js",
@@ -40,7 +40,7 @@
     "patternfly": "3.25.1",
     "jquery": "~3.2.1",
     "lodash": "~4.17.4",
-    "origin-web-common": "~0.0.42",
+    "origin-web-common": "~0.0.43",
     "angular-schema-form-bootstrap": "^0.2.0"
   },
   "devDependencies": {
