@@ -1,3 +1,16 @@
+.catalog-edit-project .origin-modal-popup {
+  @media (min-width: @screen-sm-min) {
+    margin-left: 5px;
+    margin-top: -25px;
+  }
+
+  &.position-above {
+    @media (min-width: @screen-sm-min) {
+      margin-top: 0;
+    }
+  }
+}
+
 .catalog-projects-summary-panel {
   padding: (@grid-gutter-width / 2);
   position: relative;
@@ -45,6 +58,18 @@
     }
     &.secondary {
       font-size: @font-size-base + 6;
+    }
+  }
+
+  .origin-modal-popup {
+    @media (min-width: @screen-sm-min) {
+      width: @landing-side-bar-width-sm - (.75 * @grid-gutter-width);
+    }
+    @media(min-width: @screen-lg-min) {
+      width: @landing-side-bar-width-lg - (2 * @grid-gutter-width);
+    }
+    @media(min-width: @screen-xl-min) {
+      width: @landing-side-bar-width-xl - (2 * @grid-gutter-width);
     }
   }
 
@@ -144,94 +169,6 @@
 .catalog-projects-spinner-container {
   padding-top: 60px;
   padding-bottom: 60px;
-}
-
-.catalog-projects-summary-modal-backrop.modal-backdrop {
-  background-color: transparent;
-  cursor: not-allowed;
-  z-index: @zindex-navbar-fixed - 1;
-}
-
-.catalog-modal {
-  background-color: @color-pf-white;
-  bottom: 0;
-  color: @text-color;
-  left: 0;
-  position: fixed;
-  padding: 0 (@grid-gutter-width / 2) (@grid-gutter-width / 2);
-  right: 0;
-  top: 0;
-  z-index: @zindex-modal;
-
-  @media (min-width: @screen-sm-min) {
-    border: 1px solid @dropdown-border;
-    bottom: auto;
-    box-shadow: 0 6px 12px rgba(0,0,0,.175);
-    position: absolute;
-    top: auto;
-
-    &:before {
-      content: "";
-      display: block;
-      border-color: transparent transparent @color-pf-black-150;
-      border-style: solid;
-      border-width: 0 7px 7px;
-      height: 0;
-      left: (@grid-gutter-width / 4);
-      position: absolute;
-      top: -7px;
-      width: 0;
-    }
-
-    &.catalog-modal-create-project {
-      left: (@grid-gutter-width / 2);
-      margin-top: 7px;
-      right: (@grid-gutter-width / 2);
-
-      &:before {
-        left: auto;
-        right: (@grid-gutter-width / 4);
-      }
-    }
-
-    &.catalog-modal-edit-project {
-      top: 40px;
-    }
-  }
-
-  @media (min-width: @screen-lg-min) {
-    &.catalog-modal-create-project {
-      left: @grid-gutter-width;
-      right: @grid-gutter-width;
-    }
-  }
-
-  .catalog-modal-close {
-    color: @color-pf-black-600;
-    font-size: 14px;
-    line-height: 1;
-    position: absolute;
-    right: (@grid-gutter-width / 2);
-    top: (@grid-gutter-width / 4) + 1;
-
-    &:hover {
-      color: @color-pf-black-800;
-    }
-  }
-
-  .catalog-modal-title {
-    background: @color-pf-black-150;
-    margin-left: -(@grid-gutter-width / 2);
-    margin-right: -(@grid-gutter-width / 2);
-    margin-top: 0;
-    padding: 10px @grid-gutter-width 10px (@grid-gutter-width / 2);
-  }
-
-  label.required:before {
-    content: '*';
-    position: absolute;
-    left: 12px;
-  }
 }
 
 .catalog-project-summary-list {

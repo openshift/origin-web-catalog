@@ -230,13 +230,13 @@ describe('Projects Summary Panel', () => {
     var createButton = jQuery(element).find('.create-button');
     expect(createButton.length).toBe(1);
 
-    var createPanel = jQuery(element).find('.catalog-modal-create-project');
+    var createPanel = jQuery(element).find('.catalog-create-project .origin-modal-popup');
     expect(createPanel.length).toBe(0);
 
     componentTest.eventFire(createButton[0], 'click');
     componentTest.scope.$digest();
 
-    createPanel = jQuery(element).find('.catalog-modal-create-project');
+    createPanel = jQuery(element).find('.catalog-create-project .origin-modal-popup');
     expect(createPanel.length).toBe(1);
   });
 
@@ -269,7 +269,7 @@ describe('Projects Summary Panel', () => {
 
     $timeout.flush();
 
-    var editPanel = jQuery(element).find('.catalog-modal-edit-project');
+    var editPanel = jQuery(element).find('.catalog-edit-project .origin-modal-popup');
     expect(editPanel.length).toBe(0);
 
     var kebabButton = jQuery(element).find('.btn-link.uib-dropdown-toggle');
@@ -281,7 +281,7 @@ describe('Projects Summary Panel', () => {
     componentTest.eventFire(menuItems[1], 'click');
     componentTest.scope.$digest();
 
-    editPanel = jQuery(element).find('.catalog-modal-edit-project');
+    editPanel = jQuery(element).find('.catalog-edit-project .origin-modal-popup');
     expect(editPanel.length).toBe(1);
   });
 

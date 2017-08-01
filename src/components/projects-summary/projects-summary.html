@@ -2,10 +2,13 @@
   <div class="spinner spinner-inverse spinner-xl"></div>
 </div>
 <div class="catalog-projects-summary-panel" ng-show="!$ctrl.loading">
-  <button ng-if="$ctrl.canCreate" class="create-button btn btn-primary" ng-click="$ctrl.openNewProjectPanel()">
+  <button ng-if="$ctrl.canCreate" class="create-button btn btn-primary" ng-click="$ctrl.openNewProjectPanel($event)">
     <span class="fa fa-plus"></span>
     <span class="create-button-text">Create Project</span>
   </button>
+  <origin-modal-popup class="catalog-create-project" modal-title="Create Project" shown="$ctrl.newProjectPanelShown" on-close="$ctrl.closeNewProjectPanel" reference-element="$ctrl.modalPopupElement">
+    <create-project alerts="$ctrl.alerts" is-dialog="true" redirect-action="$ctrl.onNewProject" on-cancel="$ctrl.closeNewProjectPanel"></create-project>
+  </origin-modal-popup>
   <h2 class="summary-title secondary" ng-if="!$ctrl.projects || !$ctrl.projects.length">Getting Started</h2>
   <h2 class="summary-title secondary" ng-if="$ctrl.projects && $ctrl.projects.length">
     <a href="{{$ctrl.projectsUrl}}">My Projects</a>
@@ -18,15 +21,6 @@
       </div>
     </span>
     <span ng-if="$ctrl.newProjectMessage" ng-bind-html="$ctrl.newProjectMessage | linky : '_blank'"></span>
-  </div>
-  <div class="catalog-modal catalog-modal-create-project" ng-if="$ctrl.showNewProjectPanel">
-    <h4 class="catalog-modal-title">
-      Create Project
-    </h4>
-    <create-project alerts="$ctrl.alerts" is-dialog="true" redirect-action="$ctrl.onNewProject" on-cancel="$ctrl.closeNewProjectPanel"></create-project>
-    <a href="" class="catalog-modal-close" ng-click="$ctrl.closeNewProjectPanel()">
-      <span class="pficon pficon-close"></span>
-    </a>
   </div>
   <div ng-if="$ctrl.projects && $ctrl.projects.length" class="catalog-project-summary-list">
     <div class="projects-count">
@@ -74,15 +68,9 @@
         <div class="project-description" ng-if="project | description">
           <truncate-long-text content="project | description" use-word-boundary="true" limit="120"></truncate-long-text>
         </div>
-        <div class="catalog-modal catalog-modal-edit-project tile-click-prevent" ng-if="$ctrl.showEditProjectPanel && $ctrl.edittingProject === project">
-          <h4 class="catalog-modal-title">
-            Edit Project
-          </h4>
+        <origin-modal-popup class="catalog-edit-project" modal-title="Edit Project" shown="$ctrl.editProjectPanelShown && $ctrl.edittingProject === project" on-close="$ctrl.closeEditProjectPanel">
           <edit-project project="$ctrl.edittingProject" is-dialog="true" alerts="$ctrl.alerts" redirect-action="$ctrl.onEditProject" on-cancel="$ctrl.closeEditProjectPanel"></edit-project>
-          <a href="" class="catalog-modal-close" ng-click="$ctrl.closeEditProjectPanel()">
-            <span class="pficon pficon-close"></span>
-          </a>
-        </div>
+        </origin-modal-popup>
       </div>
     </div>
   </div>
