@@ -1036,16 +1036,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             });
         }, e.prototype.createProjectIfNecessary = function() {
             if (!this.isNewProject()) return this.$q.when(this.ctrl.selectedProject);
-            var e = this.ctrl.selectedProject.metadata.name, t = this.ctrl.selectedProject.metadata.annotations["new-display-name"], n = this.$filter("description")(this.ctrl.selectedProject), r = {
-                apiVersion: "v1",
-                kind: "ProjectRequest",
-                metadata: {
-                    name: e
-                },
-                displayName: t,
-                description: n
-            };
-            return this.DataService.create("projectrequests", null, r, this.$scope);
+            var e = this.ctrl.selectedProject.metadata.name, t = this.ctrl.selectedProject.metadata.annotations["new-display-name"], n = this.$filter("description")(this.ctrl.selectedProject);
+            return this.ProjectsService.create(e, t, n);
         }, e.prototype.createAPIObjects = function(e) {
             var t = this;
             this.DataService.batch(e, {
@@ -1133,17 +1125,9 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 l.ctrl.wizardDone = !0, l.provisionService();
             }, this.provisionService = function() {
                 if (l.ctrl.inProgress = !0, l.ctrl.orderComplete = !1, l.ctrl.error = !1, l.isNewProject()) {
-                    var e = l.ctrl.selectedProject.metadata.name, t = l.ctrl.selectedProject.metadata.annotations["new-display-name"], n = l.$filter("description")(l.ctrl.selectedProject), r = {
-                        apiVersion: "v1",
-                        kind: "ProjectRequest",
-                        metadata: {
-                            name: e
-                        },
-                        displayName: t,
-                        description: n
-                    };
-                    l.DataService.create("projectrequests", null, r, l.$scope).then(function(e) {
-                        l.ctrl.selectedProject = e, l.ctrl.projectDisplayName = l.$filter("displayName")(l.ctrl.selectedProject), 
+                    var e = l.ctrl.selectedProject.metadata.name, t = l.ctrl.selectedProject.metadata.annotations["new-display-name"], n = l.$filter("description")(l.ctrl.selectedProject);
+                    l.ProjectsService.create(e, t, n).then(function(e) {
+                        l.ctrl.selectedProject = e, l.ctrl.projectDisplayName = l.$filter("displayName")(e), 
                         l.createService();
                     }, function(e) {
                         l.ctrl.error = e.data;
@@ -1337,37 +1321,38 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
     "use strict";
     t.__esModule = !0;
     var r = n(1), i = n(0), s = function() {
-        function e(e, t, n, s, a, o, c, l, d, p, h) {
-            var m = this;
+        function e(e, t, n, s, a, o, c, l, d) {
+            var p = this;
             this.ctrl = this, this.newProjectPanelShown = !1, this.editProjectPanelShown = !1, 
             this.alerts = [], this.projects = [], this.watches = [], this.maxDisplayProjects = 5, 
             this.init = function() {
-                m.watches.push(m.DataService.watch("projects", m.$scope, m.onProjectsUpdate)), m.ctrl.resourceLinks = i.clone(m.Constants.CATALOG_HELP_RESOURCES.links), 
-                i.forEach(m.ctrl.resourceLinks, function(e) {
-                    r.isDefined(e.help) && (e.href = m.Constants.HELP_BASE_URL + (e.help ? m.Constants.HELP[e.help] : ""));
-                }), m.$rootScope.$on("recently-viewed-updated", function() {
-                    m.ctrl.recentlyViewedItems = m.getRecentlyViewedItems();
+                p.watches.push(p.DataService.watch("projects", p.$scope, p.onProjectsUpdate)), p.ctrl.resourceLinks = i.clone(p.Constants.CATALOG_HELP_RESOURCES.links), 
+                i.forEach(p.ctrl.resourceLinks, function(e) {
+                    r.isDefined(e.help) && (e.href = p.Constants.HELP_BASE_URL + (e.help ? p.Constants.HELP[e.help] : ""));
+                }), p.$rootScope.$on("recently-viewed-updated", function() {
+                    p.ctrl.recentlyViewedItems = p.getRecentlyViewedItems();
                 });
             }, this.onProjectsUpdate = function(e) {
-                var t = i.toArray(e.by("metadata.creationTimestamp")), n = m.$filter("orderObjectsByDate");
-                m.ctrl.projects = n(t, !0), m.ctrl.totalProjects = m.ctrl.projects.length, m.ctrl.projects = i.take(m.ctrl.projects, m.maxDisplayProjects), 
-                m.ctrl.loading = !1, m.ctrl.showGetStarted = !m.ctrl.projects || m.ctrl.projects.length < 2;
+                var t = i.toArray(e.by("metadata.creationTimestamp"));
+                p.ctrl.projects = p.RecentlyViewedProjectsService.orderByMostRecentlyViewed(t), 
+                p.ctrl.totalProjects = p.ctrl.projects.length, p.ctrl.projects = i.take(p.ctrl.projects, p.maxDisplayProjects), 
+                p.ctrl.loading = !1, p.ctrl.showGetStarted = !p.ctrl.projects || p.ctrl.projects.length < 2;
             }, this.closeNewProjectPanel = function() {
-                m.ctrl.newProjectPanelShown = !1;
+                p.ctrl.newProjectPanelShown = !1;
             }, this.onNewProject = function(e) {
-                m.ctrl.newProjectPanelShown = !1;
+                p.ctrl.newProjectPanelShown = !1;
             }, this.onViewMemebership = function(e) {
-                var t = m.ctrl.viewEditMembership();
+                var t = p.ctrl.viewEditMembership();
                 t && t(e);
             }, this.editProject = function(e) {
-                m.ctrl.edittingProject = e, m.ctrl.editProjectPanelShown = !0;
+                p.ctrl.edittingProject = e, p.ctrl.editProjectPanelShown = !0;
             }, this.closeEditProjectPanel = function() {
-                m.ctrl.editProjectPanelShown = !1;
+                p.ctrl.editProjectPanelShown = !1;
             }, this.onEditProject = function(e) {
-                m.ctrl.editProjectPanelShown = !1;
-            }, this.$element = e, this.$filter = t, this.$rootScope = n, this.$scope = s, this.AuthService = a, 
-            this.Catalog = o, this.Constants = c, this.DataService = l, this.Logger = d, this.ProjectsService = p, 
-            this.RecentlyViewed = h;
+                p.ctrl.editProjectPanelShown = !1;
+            }, this.$rootScope = e, this.$scope = t, this.AuthService = n, this.Constants = s, 
+            this.DataService = a, this.Logger = o, this.ProjectsService = c, this.RecentlyViewedProjectsService = l, 
+            this.RecentlyViewedItems = d;
         }
         return e.prototype.$onInit = function() {
             var e = this;
@@ -1410,7 +1395,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
         }, e.prototype.getRecentlyViewedItems = function() {
             var e = this;
             if (this.allItems) {
-                var t = this.RecentlyViewed.getItems(), n = i.map(t, function(t) {
+                var t = this.RecentlyViewedItems.getItems(), n = i.map(t, function(t) {
                     return e.allItems[t];
                 });
                 return n = i.reject(n, function(e) {
@@ -1419,7 +1404,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             }
         }, e;
     }();
-    s.$inject = [ "$element", "$filter", "$rootScope", "$scope", "AuthService", "Catalog", "Constants", "DataService", "Logger", "ProjectsService", "RecentlyViewedServiceItems" ], 
+    s.$inject = [ "$rootScope", "$scope", "AuthService", "Constants", "DataService", "Logger", "ProjectsService", "RecentlyViewedProjectsService", "RecentlyViewedServiceItems" ], 
     t.ProjectsSummaryController = s;
 }, function(e, t, n) {
     "use strict";

@@ -349,21 +349,10 @@ export class CreateFromBuilderController implements angular.IController {
     if (!this.isNewProject()) {
       return this.$q.when(this.ctrl.selectedProject);
     }
-
-    // TODO: Common code from this controller and order service.
     let newProjName = this.ctrl.selectedProject.metadata.name;
     let newProjDisplayName = this.ctrl.selectedProject.metadata.annotations['new-display-name'];
     let newProjDesc = this.$filter('description')(this.ctrl.selectedProject);
-    let projReqObj: any = {
-      apiVersion: "v1",
-      kind: "ProjectRequest",
-      metadata: {
-        name: newProjName
-      },
-      displayName: newProjDisplayName,
-      description: newProjDesc
-    };
-    return this.DataService.create('projectrequests', null, projReqObj, this.$scope);
+    return this.ProjectsService.create(newProjName, newProjDisplayName, newProjDesc);
   }
 
   private createAPIObjects(apiObjects: any[]) {
