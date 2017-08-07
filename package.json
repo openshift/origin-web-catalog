@@ -30,7 +30,7 @@
     "angular-animate": "1.5.11",
     "angular-drag-and-drop-lists": "2.0.0",
     "angular-moment": "1.0.0",
-    "angular-patternfly": "~4.2.0",
+    "angular-patternfly": "~4.3.0",
     "angular-sanitize": "1.5.11",
     "angular-schema-form": "^0.8.13",
     "angular-schema-form-bootstrap": "^0.2.0",
@@ -39,9 +39,9 @@
     "bootstrap": "^3.3.6",
     "font-awesome": "~4.7.0",
     "jquery": "3.2.1",
-    "origin-web-common": "~0.0.43",
+    "origin-web-common": "~0.0.44",
     "paper-css": "^0.1.2",
-    "patternfly": "~3.26.0",
+    "patternfly": "~3.26.1",
     "urijs": "1.18.0"
   },
   "devDependencies": {

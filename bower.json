@@ -35,12 +35,12 @@
     "angular-sanitize": "1.5.11",
     "angular-route": "1.5.11",
     "angular-bootstrap": "0.14.3",
-    "angular-patternfly": "~4.2.0",
+    "angular-patternfly": "~4.3.0",
     "angular-schema-form": "^0.8.13",
-    "patternfly": "~3.26.0",
+    "patternfly": "~3.26.1",
     "jquery": "~3.2.1",
     "lodash": "~4.17.4",
-    "origin-web-common": "~0.0.43",
+    "origin-web-common": "~0.0.44",
     "angular-schema-form-bootstrap": "^0.2.0"
   },
   "devDependencies": {
@@ -85,7 +85,7 @@
   "resolutions": {
     "angular-bootstrap": "0.14.3",
     "moment": "~2.18.1",
-    "patternfly": "~3.25.1",
+    "patternfly": "~3.26.1",
     "jquery": "3.2.1",
     "font-awesome": "~4.7.0",
     "lodash": "~4.17.4",
