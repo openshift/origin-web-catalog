@@ -49,4 +49,32 @@ export class ProjectsService implements IProjectsService {
     return deferred.promise;
   }
 
+  public create(name: string, displayName: string, desc: string) {
+    let deferred = this.$q.defer();
+    let context: any = {};
+
+    let project: any = {
+      apiVersion: "v1",
+      kind: "Project",
+      metadata: {
+        name: name,
+        annotations: {}
+      }
+    };
+
+    if (displayName) {
+      project.metadata.annotations["openshift.io/display-name"] = displayName;
+    }
+
+    if (desc) {
+      project.metadata.annotations["openshift.io/description"] = desc;
+    }
+
+    setTimeout(() => {
+      deferred.resolve([project, context]);
+    }, 300);
+
+    return deferred.promise;
+  }
+
 }

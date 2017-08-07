@@ -202,20 +202,11 @@ export class OrderServiceController implements angular.IController {
       let newProjName = this.ctrl.selectedProject.metadata.name;
       let newProjDisplayName = this.ctrl.selectedProject.metadata.annotations['new-display-name'];
       let newProjDesc = this.$filter('description')(this.ctrl.selectedProject);
-      let projReqObj: any = {
-        apiVersion: "v1",
-        kind: "ProjectRequest",
-        metadata: {
-          name: newProjName
-        },
-        displayName: newProjDisplayName,
-        description: newProjDesc
-      };
-      this.DataService
-        .create('projectrequests', null, projReqObj, this.$scope)
-        .then( (data: any) => {
-          this.ctrl.selectedProject = data;
-          this.ctrl.projectDisplayName = this.$filter('displayName')(this.ctrl.selectedProject);
+      this.ProjectsService
+        .create(newProjName, newProjDisplayName, newProjDesc)
+        .then( (project: any) => {
+          this.ctrl.selectedProject = project;
+          this.ctrl.projectDisplayName = this.$filter('displayName')(project);
           this.createService();
         }, (result: any) => {
           this.ctrl.error = result.data;

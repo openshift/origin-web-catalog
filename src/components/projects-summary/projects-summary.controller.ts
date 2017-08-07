@@ -4,16 +4,14 @@ import * as _ from 'lodash';
 export class ProjectsSummaryController implements angular.IController {
   // alphabetically please
   static $inject = [
-    '$element',
-    '$filter',
     '$rootScope',
     '$scope',
     'AuthService',
-    'Catalog',
     'Constants',
     'DataService',
     'Logger',
     'ProjectsService',
+    'RecentlyViewedProjectsService',
     'RecentlyViewedServiceItems'
   ];
 
@@ -22,46 +20,40 @@ export class ProjectsSummaryController implements angular.IController {
   public editProjectPanelShown: boolean = false;
   public alerts: any = [];
   public projects: any = [];
-  private $element: any;
   private $rootScope: any;
   private $scope: any;
-  private $filter: any;
   private ProjectsService: any;
   private Logger: any;
   private AuthService: any;
   private DataService: any;
   private Constants: any;
-  private RecentlyViewed: any;
-  private Catalog: any;
+  private RecentlyViewedItems: any;
+  private RecentlyViewedProjectsService: any;
   private watches: any = [];
   private maxDisplayProjects: number = 5;
   private allItems: any;
 
   // alphabetically please
   constructor (
-      $element: any,
-      $filter: any,
       $rootScope: any,
       $scope: any,
       AuthService: any,
-      Catalog: any,
       Constants: any,
       DataService: any,
       Logger: any,
       ProjectsService: any,
+      RecentlyViewedProjectsService: any,
       RecentlyViewedServiceItems: any
     ) {
-    this.$element = $element;
-    this.$filter = $filter;
     this.$rootScope = $rootScope;
     this.$scope = $scope;
     this.AuthService = AuthService;
-    this.Catalog = Catalog;
     this.Constants = Constants;
     this.DataService = DataService;
     this.Logger = Logger;
     this.ProjectsService = ProjectsService;
-    this.RecentlyViewed = RecentlyViewedServiceItems;
+    this.RecentlyViewedProjectsService = RecentlyViewedProjectsService;
+    this.RecentlyViewedItems = RecentlyViewedServiceItems;
   }
 
   public $onInit () {
@@ -134,8 +126,7 @@ export class ProjectsSummaryController implements angular.IController {
 
   public onProjectsUpdate = (projectData: any) => {
     var projects: any = _.toArray(projectData.by('metadata.creationTimestamp'));
-    var orderByDate: any = this.$filter('orderObjectsByDate');
-    this.ctrl.projects = orderByDate(projects, true);
+    this.ctrl.projects = this.RecentlyViewedProjectsService.orderByMostRecentlyViewed(projects);
 
     this.ctrl.totalProjects = this.ctrl.projects.length;
     this.ctrl.projects = _.take(this.ctrl.projects, this.maxDisplayProjects);
@@ -207,7 +198,7 @@ export class ProjectsSummaryController implements angular.IController {
     }
 
     // recentItems is an array of uids
-    let recentItems: any = this.RecentlyViewed.getItems();
+    let recentItems: any = this.RecentlyViewedItems.getItems();
 
     // replace uids with IServiceItems
     let items: any = _.map(recentItems, (uid: any) => {
