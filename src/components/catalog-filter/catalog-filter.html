@@ -1,0 +1,30 @@
+<pf-filter-panel config="$ctrl.config">
+  <div class="filter-panel-container">
+    <input type="text" ng-model="$ctrl.keywordFilter.value"
+           class="keyword-filter"
+           placeholder="{{$ctrl.keywordFilter.placeholder}}"
+           ng-keypress="$ctrl.onKeywordKeyPress($event)"
+           ng-disabled="$ctrl.config.totalCount <= 1"
+           autocorrect="off"
+           autocapitalize="none"
+           spellcheck="false">
+    <div class="category" ng-repeat="filter in $ctrl.filterPanelModel" ng-if="!$first">
+      {{filter.title}}
+      <span class="pficon pficon-info vendor-info-icon"
+            data-toggle="tooltip" aria-hidden="true" data-original-title="This filter will only apply to items which contain Vendor information.
+            Items which do not have Vendor information will not be shown in the filter results.">
+      </span>
+      <ul>
+        <li ng-repeat="value in filter.values">
+          <label>
+            <input type="checkbox"
+                   ng-disabled="$ctrl.config.totalCount <= 1"
+                   ng-model="value.selected"
+                   ng-change="$ctrl.filterChanged()">
+            <span class="category-option-label">{{value.title}}</span>
+          </label>
+        </li>
+      </ul>
+    </div>
+  </div>
+</pf-filter-panel>

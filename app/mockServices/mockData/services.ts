@@ -4,6 +4,7 @@ export const servicesData = {
     "metadata": {
       "name": "test-serviceclass-java-nodejs",
       "uid": "1",
+      "providerDisplayName": "Vendor A"
     },
     bindable: true,
     description: 'BUILDS SOURCE CODE',
@@ -68,6 +69,7 @@ export const servicesData = {
     "metadata": {
       "name": "test-serviceclass-nodejs",
       "uid": "2",
+      "providerDisplayName": "Vendor A"
     },
     bindable: true,
     description: 'BUILDS SOURCE CODE',
@@ -85,6 +87,7 @@ export const servicesData = {
     "metadata": {
       "name": "test-serviceclass-perl",
       "uid": "3",
+      "providerDisplayName": "Vendor B"
     },
     bindable: true,
     description: 'BUILDS SOURCE CODE',
@@ -102,6 +105,7 @@ export const servicesData = {
     "metadata": {
       "name": "test-serviceclass-ruby-mongo",
       "uid": "4",
+      "providerDisplayName": "Vendor C"
     },
     bindable: true,
     description: 'BUILDS SOURCE CODE',
@@ -119,6 +123,7 @@ export const servicesData = {
     "metadata": {
       "name": "test-serviceclass-php",
       "uid": "5",
+      "providerDisplayName": "Vendor C"
     },
     bindable: true,
     description: 'BUILDS SOURCE CODE',
@@ -136,6 +141,7 @@ export const servicesData = {
     "metadata": {
       "name": "test-serviceclass-mongo",
       "uid": "6",
+      "providerDisplayName": "Vendor B"
     },
     bindable: true,
     description: 'BUILDS SOURCE CODE',
@@ -153,6 +159,7 @@ export const servicesData = {
     "metadata": {
       "name": "test-serviceclass-mysql",
       "uid": "7",
+      "providerDisplayName": "Vendor B"
     },
     bindable: true,
     description: 'BUILDS SOURCE CODE',
@@ -188,6 +195,7 @@ export const servicesData = {
     "metadata": {
       "name": "test-serviceclass-jenkins",
       "uid": "9",
+      "providerDisplayName": "Vendor C"
     },
     bindable: true,
     description: 'BUILDS SOURCE CODE',

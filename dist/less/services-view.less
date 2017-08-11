@@ -2,6 +2,11 @@ services-view,
 .services-view {
   display: flex;
   flex: 1 1 auto;
+  .vendor-info-icon {
+    font-size: 10px;
+    vertical-align: middle;
+    padding-left: 2px;
+  }
 }
 
 .services-view {
@@ -127,56 +132,6 @@ services-view,
   .services-items-filter {
     flex: 1 1 100%;
     margin: (@grid-gutter-width / 2) (@grid-gutter-width / 2) (@grid-gutter-width / 4);
-
-    .filter-pf {
-      pf-filter-fields,
-      pf-filter-results {
-        display: inline-block;
-      }
-
-      .filter-fields button { // TODO: remove when we support multiple filter types (more than just 'keyword filter')
-        display: none;
-      }
-
-      .form-group {
-        margin-bottom: 0;
-        @media(min-width: 345px) {
-          margin-right: (@grid-gutter-width / 2);
-        }
-      }
-    }
-
-    .toolbar-pf-results {
-      border-top: none;
-      margin: 0;
-
-      .col-sm-12 {
-        float: left;
-        padding: 0;
-      }
-
-      h5,
-      p,
-      ul {
-        line-height: @line-height-base;
-        padding-bottom: @padding-base-vertical;
-        padding-top: @padding-base-vertical;
-      }
-
-      .list-inline {
-        margin-bottom: -5px;
-        padding-right: 5px;
-
-        > li {
-          margin-bottom: 5px;
-        }
-      }
-
-      p {
-        margin-right: (@grid-gutter-width / 4);
-        text-transform: capitalize;
-      }
-    }
   }
 
   @media(min-width: @screen-xs-min) {
