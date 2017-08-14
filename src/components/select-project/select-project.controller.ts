@@ -90,13 +90,15 @@ export class SelectProjectController implements angular.IController {
         }
       };
 
-      let filteredProjects = response.by('metadata.name');
-
-      filteredProjects = _.reject(filteredProjects, 'metadata.deletionTimestamp');
+      let unfilteredProjects = response.by('metadata.name');
+      let filteredProjects = _.reject(unfilteredProjects, 'metadata.deletionTimestamp');
       this.ctrl.projects = _.sortBy(filteredProjects, this.$filter('displayName'));
       this.ctrl.searchEnabled = !_.isEmpty(filteredProjects);
 
-      this.ctrl.existingProjectNames = _.map(this.ctrl.projects, 'metadata.name');
+      // Don't let users create a project with an existing name. Make sure we
+      // use the unfiltered list or we don't show the error for projects that
+      // exist, but are being deleted.
+      this.ctrl.existingProjectNames = _.map(unfilteredProjects, 'metadata.name');
 
       // get most recently created
       if (!this.ctrl.selectedProject && _.size(this.ctrl.projects) > 0) {
