@@ -15,7 +15,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
 }, function(e, t) {
     e.exports = '<bind-service-form service-class="$ctrl.serviceClass.resource"\n                   service-class-name="$ctrl.serviceClass.name"\n                   applications="$ctrl.applications"\n                   form-name="$ctrl.forms.bindForm"\n                   allow-no-binding="true"\n                   project-name="$ctrl.projectDisplayName"\n                   bind-type="$ctrl.bindType"\n                   app-to-bind="$ctrl.appToBind">\n</bind-service-form>\n';
 }, function(e, t) {
-    e.exports = '<div class="config-top">\n  <form name="$ctrl.forms.orderConfigureForm" class="config-form">\n    <select-project selected-project="$ctrl.selectedProject" name-taken="$ctrl.nameTaken"></select-project>\n    <catalog-parameters\n      ng-if="$ctrl.parameterSchema.properties"\n      model="$ctrl.parameterData"\n      parameter-schema="$ctrl.parameterSchema">\n    </catalog-parameters>\n  </form>\n  <div ng-if="$ctrl.error" class="has-error">\n    <span class="help-block">{{$ctrl.error}}</span>\n  </div>\n</div>\n';
+    e.exports = '<div class="config-top">\n  <form name="$ctrl.forms.orderConfigureForm" class="config-form">\n    <select-project selected-project="$ctrl.selectedProject" name-taken="$ctrl.nameTaken"></select-project>\n    <catalog-parameters\n      ng-if="$ctrl.parameterSchema.properties"\n      model="$ctrl.parameterData"\n      parameter-schema="$ctrl.parameterSchema"\n      parameter-form-definition="$ctrl.parameterFormDefinition">\n    </catalog-parameters>\n  </form>\n  <div ng-if="$ctrl.error" class="has-error">\n    <span class="help-block">{{$ctrl.error}}</span>\n  </div>\n</div>\n';
 }, function(e, t) {
     e.exports = '<div class="config-top">\n  <div class="select-plans">\n    <h3>Select a Plan</h3>\n    <div ng-repeat="plan in $ctrl.serviceClass.resource.plans" class="radio">\n      <label>\n        <input\n          type="radio"\n          ng-model="$ctrl.planIndex"\n          ng-change="$ctrl.selectPlan(plan)"\n          value="{{$index}}">\n        <span class="plan-name">{{plan.externalMetadata.displayName || plan.name}}</span>\n        \x3c!-- TODO: truncate long text --\x3e\n        <div ng-if="plan.description">{{plan.description}}</div>\n        \x3c!-- TODO: show plan bullets --\x3e\n      </label>\n    </div>\n  </div>\n</div>\n';
 }, function(e, t) {
@@ -50,6 +50,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
     t.catalogParameters = {
         bindings: {
             parameterSchema: "<",
+            parameterFormDefinition: "<",
             model: "="
         },
         controller: r.CatalogParametersController,
@@ -979,12 +980,13 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
 }, function(e, t, n) {
     "use strict";
     t.__esModule = !0;
-    var r = function() {
+    var r = n(0), i = function() {
         function e() {
             this.ctrl = this;
         }
         return e.prototype.$onInit = function() {
-            this.ctrl.parameterForm = [ "*" ], this.ctrl.parameterFormDefaults = {
+            this.ctrl.parameterForm = this.cloneParameterForm(this.ctrl.parameterFormDefinition) || [ "*" ], 
+            this.ctrl.parameterFormDefaults = {
                 formDefaults: {
                     disableSuccessState: !0,
                     feedback: !1
@@ -994,9 +996,25 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                     success: !0
                 }
             };
+        }, e.prototype.cloneParameterForm = function(t) {
+            if (r.isString(t)) return t;
+            if (r.isArray(t)) return r.map(t, r.bind(this.cloneParameterForm, this));
+            if (r.isObject(t)) {
+                var n = {};
+                return t.key && (n.key = t.key), e.ALLOWED_FORM_INPUT_TYPES[t.type] && (n.type = t.type), 
+                "fieldset" === n.type && r.isArray(t.items) && (t.title && (n.title = t.title), 
+                n.items = this.cloneParameterForm(t.items)), n.key || n.type ? n : null;
+            }
         }, e;
     }();
-    t.CatalogParametersController = r;
+    i.ALLOWED_FORM_INPUT_TYPES = {
+        fieldset: !0,
+        text: !0,
+        textarea: !0,
+        password: !0,
+        checkbox: !0,
+        select: !0
+    }, t.CatalogParametersController = i;
 }, function(e, t, n) {
     "use strict";
     t.__esModule = !0;
@@ -1429,7 +1447,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
         }, e.prototype.updateParameterSchema = function(t) {
             var n = i.get(t, "alphaInstanceCreateParameterSchema");
             i.has(n, [ "properties", e.REQUESTER_USERNAME_PARAM_NAME ]) ? (n = r.copy(n), delete n.properties[e.REQUESTER_USERNAME_PARAM_NAME], 
-            this.sendRequesterUsername = !0) : this.sendRequesterUsername = !1, this.ctrl.parameterSchema = n;
+            this.sendRequesterUsername = !0) : this.sendRequesterUsername = !1, this.ctrl.parameterSchema = n, 
+            this.ctrl.parameterFormDefinition = i.get(this, "ctrl.selectedPlan.externalMetadata.schemas.service_instance.create.openshift_form_definition");
         }, e.prototype.sortApplications = function() {
             if (this.deploymentConfigs && this.deployments && this.replicationControllers && this.replicaSets && this.statefulSets) {
                 var e = this.deploymentConfigs.concat(this.deployments).concat(this.replicationControllers).concat(this.replicaSets).concat(this.statefulSets);

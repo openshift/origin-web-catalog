@@ -207,5 +207,120 @@ export const servicesData = {
     plans: [
       {name: 'rh-ded-topic', osbGuid: '1', displayName: 'Red Hat - Dedicated - Topic', description: '$.65 / 1 Million messages', bullets: ['One', 'Two', 'Three']}
     ]
-  }
+  },
+  "test-serviceclass-pg-apb": {
+    kind: 'ServiceClass',
+    "metadata": {
+      "name": "test-serviceclass-pg-apb",
+      "uid": "10",
+    },
+    bindable: true,
+    description: 'TEST APB SERVICE',
+    alphaTags: ['databases', 'postgresql'],
+    externalMetadata: {
+      displayName: 'Test ServiceClass PostgreSQL DB APB',
+      longDescription: 'A sample APB which deploys a PostgreSQL Database',
+    },
+    plans: [
+      {
+        name: "default",
+        externalID: "default",
+        description: "A sample APB which deploys Hello World Database",
+        free: true,
+        externalMetadata: {
+          cost: "$0.00",
+          displayName: "Default",
+          longDescription: "This plan deploys a Postgres Database the Hello World application can connect to",
+          schemas: {
+            service_binding: {
+              create: {
+                openshift_form_definition: [
+                  "postgresql_database",
+                  {
+                    items: [
+                      "postgresql_user",
+                      {
+                        key: "postgresql_password",
+                        type: "password"
+                      }
+                    ],
+                    title: "User Information",
+                    type: "fieldset"
+                  }
+                ]
+              }
+            },
+            service_instance: {
+              create: {
+                openshift_form_definition: [
+                  "postgresql_database",
+                  {
+                    items: [
+                      "postgresql_user",
+                      {
+                        key: "postgresql_password",
+                        type: "password"
+                      }
+                    ],
+                    title: "User Information",
+                    type: "fieldset"
+                  }
+                ]
+              },
+              update: {}
+            }
+          }
+        },
+        alphaInstanceCreateParameterSchema: {
+          "$schema": "http://json-schema.org/draft-04/schema",
+          additionalProperties: false,
+          properties: {
+            postgresql_database: {
+              "default": "admin",
+              title: "PostgreSQL Database Name",
+              type: "string"
+            },
+            postgresql_password: {
+              "default": "admin",
+              title: "PostgreSQL Password",
+              type: "string"
+            },
+            postgresql_user: {
+              "default": "admin",
+              title: "PostgreSQL User",
+              type: "string"
+            }
+          },
+          required: [
+            "postgresql_database",
+            "postgresql_user",
+            "postgresql_password"
+          ],
+          type: "object"
+        },
+        alphaBindingCreateParameterSchema: {
+          "$schema": "http://json-schema.org/draft-04/schema",
+          additionalProperties: false,
+          properties: {
+            postgresql_database: {
+              "default": "admin",
+              title: "PostgreSQL Database Name",
+              type: "string"
+            },
+            postgresql_password: {
+              "default": "admin",
+              title: "PostgreSQL Password",
+              type: "string"
+            },
+            postgresql_user: {
+              "default": "admin",
+              title: "PostgreSQL User",
+              type: "string"
+            }
+          },
+          type: "object"
+        }
+      }
+    ]
+  },
 };

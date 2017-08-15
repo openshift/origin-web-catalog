@@ -466,6 +466,16 @@ landingbody,
     overflow-y: auto;
   }
 }
+.order-service-wizard-step.wizard-pf-main .schema-form-fieldset {
+  margin-bottom: 40px;
+  margin-top: 40px;
+}
+.order-service-wizard-step.wizard-pf-main .schema-form-fieldset legend {
+  border-bottom: none;
+  border-top: solid 1px rgba(0, 0, 0, 0.15);
+  margin-bottom: 10px;
+  padding-top: 20px;
+}
 body.overlay-open,
 body.overlay-open .landing,
 body.overlay-open .landing-side-bar {
