@@ -55,7 +55,7 @@ export class CatalogService {
 
     if (includeTemplates) {
       ++totalNumPromises;
-      this.dataService.list("templates", {namespace: "openshift"}).then((resources: any) => {
+      this.dataService.list("templates", {namespace: "openshift"}, null, {partialObjectMetadataList: true}).then((resources: any) => {
         catalogItems.templates = resources.by("metadata.name");
       }, () => {
         errorMsg.push('templates');
@@ -263,6 +263,9 @@ interface IServiceItem {
   longDescription: string;
   tags: string[];
   resource: any;
+  // Necessary to track kind here since the real kind will not be in the
+  // `resource` if requesting partial object metadata for templates
+  kind: string;
 }
 
 export class ServiceItem implements IServiceItem {
@@ -273,6 +276,7 @@ export class ServiceItem implements IServiceItem {
   public longDescription: string;
   public tags: string[];
   public resource: any;
+  public kind: string;
   private catalogSrv: CatalogService;
 
   constructor (serviceClass: any, catalogSrv: CatalogService) {
@@ -284,6 +288,7 @@ export class ServiceItem implements IServiceItem {
     this.description = this.getDescription();
     this.longDescription = this.getLongDescription();
     this.tags = this.getTags();
+    this.kind = "ServiceClass";
   }
 
   private getImage(): string {
@@ -322,6 +327,7 @@ export class ImageItem implements IServiceItem {
   public tags: string[];
   public resource: any;
   public builderSpecTagName: any;
+  public kind: string;
   private catalogSrv: CatalogService;
 
   constructor (image: any, catalogSrv : CatalogService) {
@@ -334,6 +340,7 @@ export class ImageItem implements IServiceItem {
       this.name = this.getName();
       this.description = this.getDescription();
       this.longDescription = this.getLongDescription();
+      this.kind = "ImageStream";
     }
   }
 
@@ -397,6 +404,7 @@ export class TemplateItem implements IServiceItem {
   public longDescription: string;
   public tags: string[];
   public resource: any;
+  public kind: string;
   private catalogSrv: CatalogService;
 
   constructor (template: any, catalogSrv: CatalogService) {
@@ -408,6 +416,7 @@ export class TemplateItem implements IServiceItem {
     this.description = this.getDescription();
     this.longDescription = this.getLongDescription();
     this.tags = this.getTags();
+    this.kind = "Template";
   }
 
   private getImage() {

@@ -17,7 +17,7 @@ export class LandingPageController implements angular.IController {
     this.ctrl.orderingPanelVisible = false;
 
     this.$scope.$on('open-overlay-panel', (event: any, item: any) => {
-      if (item.resource.kind === 'Template') {
+      if (item.kind === 'Template') {
         let cb = this.ctrl.onTemplateSelected();
         if (cb) {
           cb(item.resource);

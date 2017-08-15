@@ -600,6 +600,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 t.returnCatalogItems(n, r, ++s, i, a);
             }), e && (++i, this.dataService.list("templates", {
                 namespace: "openshift"
+            }, null, {
+                partialObjectMetadataList: !0
             }).then(function(e) {
                 r.templates = e.by("metadata.name");
             }, function() {
@@ -709,7 +711,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
         function e(e, t) {
             this.resource = e, this.catalogSrv = t, this.imageUrl = this.getImage(), this.iconClass = this.getIcon(), 
             this.name = this.getName(), this.description = this.getDescription(), this.longDescription = this.getLongDescription(), 
-            this.tags = this.getTags();
+            this.tags = this.getTags(), this.kind = "ServiceClass";
         }
         return e.prototype.getImage = function() {
             return i.get(this.resource, "externalMetadata.imageUrl") || "";
@@ -731,7 +733,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
         function e(e, t) {
             this.resource = e, this.catalogSrv = t, this.builderSpecTagName = this.getBuilderSpecTagName(), 
             this.builderSpecTagName && (this.tags = this.getTags(), this.iconClass = this.getIcon(), 
-            this.name = this.getName(), this.description = this.getDescription(), this.longDescription = this.getLongDescription());
+            this.name = this.getName(), this.description = this.getDescription(), this.longDescription = this.getLongDescription(), 
+            this.kind = "ImageStream");
         }
         return e.prototype.getBuilderSpecTagName = function() {
             var e, t = this;
@@ -760,7 +763,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
         function e(e, t) {
             this.resource = e, this.catalogSrv = t, this.imageUrl = this.getImage(), this.iconClass = this.getIcon(), 
             this.name = this.getName(), this.description = this.getDescription(), this.longDescription = this.getLongDescription(), 
-            this.tags = this.getTags();
+            this.tags = this.getTags(), this.kind = "Template";
         }
         return e.prototype.getImage = function() {
             return "";
@@ -1088,7 +1091,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
         return e.prototype.$onInit = function() {
             var e = this;
             this.ctrl.searchText = "", this.ctrl.orderingPanelVisible = !1, this.$scope.$on("open-overlay-panel", function(t, n) {
-                if ("Template" === n.resource.kind) {
+                if ("Template" === n.kind) {
                     var r = e.ctrl.onTemplateSelected();
                     return void (r && r(n.resource));
                 }
