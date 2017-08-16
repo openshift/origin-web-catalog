@@ -144,7 +144,7 @@ export class ServicesViewController implements angular.IController {
     return subCats;
   }
 
-  public handleClick = (item: any, e: any) => {
+  public serviceViewItemClicked = (item: any, e: any) => {
     this.$scope.$emit('open-overlay-panel', item);
   };
 
