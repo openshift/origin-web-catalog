@@ -19,8 +19,8 @@ export class BuilderAppService {
 
     // Only create a service and route if there are ports in the builder image.
     if (firstPort) {
-      objects.concat(this.makeService(config, firstPort));
-      objects.concat(this.makeRoute(config, firstPort));
+      objects = objects.concat(this.makeService(config, firstPort),
+                               this.makeRoute(config, firstPort));
     }
 
     return objects;
