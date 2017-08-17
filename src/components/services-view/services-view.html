@@ -5,14 +5,34 @@
   <div ng-if="$ctrl.loaded" class="services-view-container mobile-{{$ctrl.mobileView}}-view">
     <div class="add-methods">
       <h1>Browse Catalog</h1>
-      <ul class="add-other" ng-if="$ctrl.onDeployImageSelected || $ctrl.onFromFileSelected">
-        <li ng-if="$ctrl.onDeployImageSelected">
-          <a href="" ng-click="$ctrl.onDeployImageSelected()">Deploy Image</a>
-        </li>
-        <li ng-if="$ctrl.onFromFileSelected">
-          <a href="" ng-click="$ctrl.onFromFileSelected()">Import <span class="import-file-types">YAML / JSON</span></a>
-        </li>
-      </ul>
+      <div ng-if="$ctrl.onDeployImageSelected || $ctrl.onFromFileSelected">
+        <ul class="add-other hidden-md hidden-lg">
+          <li uib-dropdown="" class="dropdown">
+            <a uib-dropdown-toggle="" class="dropdown-toggle" id="add-methods-dropdown" href="" aria-haspopup="true" aria-expanded="false">
+              Custom Add
+              <span class="caret" aria-hidden="true"></span>
+            </a>
+            <ul class="uib-dropdown-menu dropdown-menu pull-right" aria-labelledby="add-methods-dropdown">
+              <!-- note these are duplicated below -->
+              <li ng-if="$ctrl.onDeployImageSelected">
+                <a href="" ng-click="$ctrl.onDeployImageSelected()">Deploy Image</a>
+              </li>
+              <li ng-if="$ctrl.onFromFileSelected">
+                <a href="" ng-click="$ctrl.onFromFileSelected()">Import YAML / JSON</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <ul class="add-other hidden-xs hidden-sm">
+          <!-- note these are duplicated above -->
+          <li ng-if="$ctrl.onDeployImageSelected">
+            <a href="" ng-click="$ctrl.onDeployImageSelected()">Deploy Image</a>
+          </li>
+          <li ng-if="$ctrl.onFromFileSelected">
+            <a href="" ng-click="$ctrl.onFromFileSelected()">Import YAML / JSON</a>
+          </li>
+        </ul>
+      </div>
     </div>
     <ul class="nav nav-tabs nav-tabs-pf services-categories">
       <li ng-repeat="category in $ctrl.categories"

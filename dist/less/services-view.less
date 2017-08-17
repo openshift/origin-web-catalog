@@ -303,23 +303,36 @@ services-view,
       margin: 0 (@grid-gutter-width / 2) 0 0;
       padding: 0;
 
-      .import-file-types {
-        @media(max-width: 385px) {
-          display: none;
+      .dropdown-menu {
+        &:after {
+          border: 6px solid transparent;
+          border-bottom-color: #fff;
+          border-top-width: 0;
+          content: "";
+          display: block;
+          height: 0;
+          position: absolute;
+          right: 7px;
+          top: -6px;
+          vertical-align: middle;
+          width: 0;
+        }
+        &.pull-right {
+          margin-top: 5px;
+          right: -8px;
         }
       }
 
-      li {
+      > li {
         display: inline-block;
-        font-size: 11px;
         margin-left: 12px;
 
-        a {
+        > a {
           color: @color-pf-white;
+          text-decoration: none;
 
           &:hover {
             color: @color-pf-blue-300;
-            text-decoration: none;
           }
         }
       }
