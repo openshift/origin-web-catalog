@@ -1,10 +1,13 @@
 <ng-form name="$ctrl.forms.selectProjectForm">
-  <div class="form-group" ng-class="{'has-error' : $ctrl.forms.selectProjectForm.selectProject.$error.cannotAddToProject }">
-    <label class="control-label" for="project">Add to Project</label>
+  <div class="form-group" ng-class="{'has-error' : $ctrl.forms.selectProjectForm.selectProject.$error.cannotAddToProject ||
+                                                   ($ctrl.forms.selectProjectForm.selectProject.$touched &&
+                                                    $ctrl.forms.selectProjectForm.selectProject.$invalid)}">
+    <label class="control-label required">Add to Project</label>
     <ui-select
         name="selectProject"
         ng-model="$ctrl.selectedProject"
         ng-change="$ctrl.onSelectProjectChange()"
+        ng-required="true"
         search-enabled="$ctrl.searchEnabled">
       <ui-select-match>
         {{$select.selected | displayName}}
@@ -20,6 +23,12 @@
     <div ng-if="$ctrl.forms.selectProjectForm.selectProject.$error.cannotAddToProject">
         <span class="help-block">
           You are not authorized to add to this project
+        </span>
+    </div>
+    <div class="has-error" ng-if="$ctrl.forms.selectProjectForm.selectProject.$error.required &&
+                                  $ctrl.forms.selectProjectForm.selectProject.$touched">
+        <span class="help-block">
+          Please select or create a project
         </span>
     </div>
   </div>
