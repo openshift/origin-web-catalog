@@ -270,15 +270,16 @@ export class ServicesViewController implements angular.IController {
       this.resizeRetries = 0;
     }
 
-    if (this.htmlService.isWindowAboveBreakpoint(this.htmlService.WINDOW_SIZE_SM)) {
-      if (this.scrollParent && !_.get(this.ctrl.viewStyle, 'min-height')) {
+    this.$scope.$evalAsync(() => {
+      this.scrollParent = this.getScrollParent(this.element);
+      if (this.htmlService.isWindowAboveBreakpoint(this.htmlService.WINDOW_SIZE_SM) && this.scrollParent) {
         this.ctrl.viewStyle = {
           'min-height': 'calc(100vh - ' + this.scrollParent.getBoundingClientRect().top + 'px)'
         };
+      } else {
+        this.ctrl.viewStyle = undefined;
       }
-    } else {
-      this.ctrl.viewStyle = undefined;
-    }
+    });
   }
 
   private updateActiveCardStyles() {

@@ -5,7 +5,8 @@ export const servicesView: angular.IComponentOptions = {
     baseProjectUrl: '@',
     catalogItems: '<',
     onDeployImageSelected: '<',
-    onFromFileSelected: '<'
+    onFromFileSelected: '<',
+    onCreateFromProject: '<',
   },
   controller: ServicesViewController,
   template: require('./services-view.html')
