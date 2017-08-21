@@ -49,10 +49,16 @@ export class SelectProjectController implements angular.IController {
     if (onChangesObj.nameTaken && !onChangesObj.nameTaken.isFirstChange()) {
       this.ctrl.forms.createProjectForm.name.$setValidity('nameTaken', !this.ctrl.nameTaken);
     }
+    if (onChangesObj.availableProjects && !onChangesObj.availableProjects.isFirstChange()) {
+      this.filterProjects(this.ctrl.availableProjects);
+    }
   }
 
   public onSelectProjectChange () {
     this.canIAddToProject();
+    if (angular.isFunction(this.ctrl.onProjectSelected)) {
+      this.ctrl.onProjectSelected(this.ctrl.selectedProject);
+    }
   }
 
   public onNewProjectNameChange() {
@@ -78,41 +84,52 @@ export class SelectProjectController implements angular.IController {
     return this.ctrl.forms.selectProjectForm.selectProject.$setValidity('cannotAddToProject', canIAddToProject);
   }
 
+  private filterProjects(projects: any) {
+    // 'Create Project' placeholder obj in the dropdown
+    let createProject = {
+      "metadata": {
+        "annotations": {
+          "openshift.io/display-name": "Create Project",
+          "new-display-name": ""
+        }
+      }
+    };
+
+    var filteredProjects = _.reject(projects, 'metadata.deletionTimestamp');
+    this.ctrl.projects = _.sortBy(filteredProjects, this.$filter('displayName'));
+    this.ctrl.searchEnabled = !_.isEmpty(filteredProjects);
+
+    // Don't let users create a project with an existing name. Make sure we
+    // use the unfiltered list or we don't show the error for projects that
+    // exist, but are being deleted.
+    this.ctrl.existingProjectNames = _.map(projects, 'metadata.name');
+
+    // if one project, default to it, else no default selected project
+    if (!this.ctrl.selectedProject && _.size(this.ctrl.projects) > 0) {
+      if (_.size(this.ctrl.projects) === 1) {
+        this.ctrl.selectedProject = this.ctrl.projects[0];
+        this.onSelectProjectChange ();
+      }
+    }
+
+    if (this.ctrl.canCreate) {
+      this.ctrl.projects.unshift(createProject);
+      if (_.size(this.ctrl.projects) === 1) {
+        this.ctrl.selectedProject = createProject;
+        this.onSelectProjectChange ();
+      }
+    }
+
+    this.canIAddToProject();
+  }
+
   private listProjects() {
-    this.DataService.list('projects', this.$scope).then((response: any) => {
-      // 'Create Project' placeholder obj in the dropdown
-      let createProject = {
-        "metadata": {
-          "annotations": {
-            "openshift.io/display-name": "Create Project",
-            "new-display-name": ""
-          }
-        }
-      };
-
-      let unfilteredProjects = response.by('metadata.name');
-      let filteredProjects = _.reject(unfilteredProjects, 'metadata.deletionTimestamp');
-      this.ctrl.projects = _.sortBy(filteredProjects, this.$filter('displayName'));
-      this.ctrl.searchEnabled = !_.isEmpty(filteredProjects);
-
-      // Don't let users create a project with an existing name. Make sure we
-      // use the unfiltered list or we don't show the error for projects that
-      // exist, but are being deleted.
-      this.ctrl.existingProjectNames = _.map(unfilteredProjects, 'metadata.name');
-
-      // get most recently created
-      if (!this.ctrl.selectedProject && _.size(this.ctrl.projects) > 0) {
-        this.ctrl.selectedProject = this.$filter('mostRecent')(this.ctrl.projects);
-      }
-
-      if (this.ctrl.canCreate) {
-        this.ctrl.projects.unshift(createProject);
-        if (_.size(this.ctrl.projects) === 1) {
-          this.ctrl.selectedProject = createProject;
-        }
-      }
-
-      this.canIAddToProject();
-    });
+    if (this.ctrl.availableProjects) {
+      this.filterProjects(this.ctrl.availableProjects);
+    } else {
+      this.DataService.list('projects', this.$scope).then((response: any) => {
+        this.filterProjects(response.by('metadata.name'));
+      });
+    }
   }
 }

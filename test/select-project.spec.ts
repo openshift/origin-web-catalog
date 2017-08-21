@@ -108,19 +108,6 @@ describe('Select Project Component', () => {
     expect(_.trim(jQuery(projects[0]).text())).not.toBe('Create Project');
   });
 
-  it("should select, by default, the most recently created project", () => {
-    createSelectProjectDropdown();
-
-    var element = componentTest.rawElement;
-
-    $timeout.flush();
-
-    var selectedProject = jQuery(element).find('.ui-select-match-text');
-    expect(selectedProject.length).toBe(1);
-    // in the mock data 'My Project B' was most recently created based on creationTimestamp
-    expect(_.trim(jQuery(selectedProject[0]).text())).toBe('My Project B');
-  });
-
   it("should show the new project fields when 'Create Project' selected", () => {
     createSelectProjectDropdown();
 
