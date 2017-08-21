@@ -32,6 +32,7 @@ describe('Projects Summary Panel', () => {
   var showTourCount: number = 0;
   var expectedCanCreate: boolean = true;
   var expectedCanCreateData: any;
+  var expectedIncompleteProjectList: boolean = false;
 
   var testShowTour = function() {
     showTourCount++;
@@ -43,22 +44,22 @@ describe('Projects Summary Panel', () => {
   };
 
   var setProjectList = function(numProjects: number) {
+    var mockProjects: any = [];
+
+    for (var i: number = 0; i < numProjects; i++) {
+      var nextProject: any = _.cloneDeep(projectsData[0]);
+      nextProject.metadata.uid += i;
+      mockProjects.push(nextProject);
+    }
+
+    var overData: DataServiceData = new DataServiceData(mockProjects);
+
+    spyOn(ProjectsService, 'list').and.callFake(function() {
+      return $q.when(overData);
+    });
+
     spyOn(DataService, 'list').and.callFake(function(resource: any, context: any, callback: any, opts: any) {
-      let deferred = this.$q.defer();
-      var mockProjects: any = [];
-
-      for (var i: number = 0; i < numProjects; i++) {
-        var nextProject: any = _.cloneDeep(projectsData[0]);
-        nextProject.metadata.uid += i;
-        mockProjects.push(nextProject);
-      }
-
-      var overData: DataServiceData = new DataServiceData(mockProjects);
-
-      callback(overData);
-
-      deferred.resolve(overData);
-      return deferred.promise;
+      return $q.when(overData);
     });
   };
 
@@ -100,6 +101,7 @@ describe('Projects Summary Panel', () => {
 
   beforeEach(() => {
     expectedCanCreate = true;
+    expectedIncompleteProjectList = false;
     services = angular.copy(servicesData);
     images = angular.copy(imagesData);
     catalogItems = Catalog.convertToServiceItems(services, images);
@@ -117,6 +119,10 @@ describe('Projects Summary Panel', () => {
         deferred.resolve();
       }
       return deferred.promise;
+    });
+
+    spyOn(ProjectsService, 'isProjectListIncomplete').and.callFake(function() {
+      return expectedIncompleteProjectList;
     });
 
     // clear any 'recently viewed items' from local storage
@@ -411,5 +417,20 @@ describe('Projects Summary Panel', () => {
     // Ordered by last added is first in list
     expect(jQuery(recentlyViewedItems[0]).text()).toBe('Perl');
     expect(jQuery(recentlyViewedItems[1]).text()).toBe('Node.js');
+  });
+
+  it('should show let users type a project name when the list is incomplete', () => {
+    expectedIncompleteProjectList = true;
+    createProjectSummary();
+
+    var element = componentTest.rawElement;
+
+    $timeout.flush();
+
+    var projectNameInput = jQuery(element).find('#typed-project-name');
+    expect(projectNameInput.length).toBe(1);
+
+    var goToProjectButton = jQuery(element).find('.go-to-project-button');
+    expect(goToProjectButton.length).toBe(1);
   });
 });

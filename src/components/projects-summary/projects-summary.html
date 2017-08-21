@@ -7,7 +7,7 @@
     <span class="create-button-text">Create Project</span>
   </button>
   <origin-modal-popup class="catalog-create-project" modal-title="Create Project" shown="$ctrl.newProjectPanelShown" on-close="$ctrl.closeNewProjectPanel" reference-element="$ctrl.modalPopupElement">
-    <create-project alerts="$ctrl.alerts" is-dialog="true" redirect-action="$ctrl.onNewProject" on-cancel="$ctrl.closeNewProjectPanel"></create-project>
+    <create-project is-dialog="true" redirect-action="$ctrl.onNewProject" on-cancel="$ctrl.closeNewProjectPanel"></create-project>
   </origin-modal-popup>
   <h2 class="summary-title secondary" ng-if="!$ctrl.projects || !$ctrl.projects.length">Getting Started</h2>
   <h2 class="summary-title secondary" ng-if="$ctrl.projects && $ctrl.projects.length">
@@ -21,6 +21,37 @@
       </div>
     </span>
     <span ng-if="$ctrl.newProjectMessage" ng-bind-html="$ctrl.newProjectMessage | linky : '_blank'"></span>
+  </div>
+  <div ng-if="$ctrl.isProjectListIncomplete">
+    <p class="text-muted">
+      The complete list of your projects could not be loaded. Type a project name to go to that project.
+    </p>
+    <form>
+      <div class="form-group">
+        <label for="typed-project-name">Project Name</label>
+        <div class="input-group">
+          <input
+            class="form-control"
+            type="text"
+            id="typed-project-name"
+            required
+            minlength="2"
+            ng-model="$ctrl.typedProjectName"
+            autocorrect="off"
+            autocapitalize="none"
+            spellcheck="false">
+          <span class="input-group-btn">
+            <button class="btn btn-default go-to-project-button"
+                    type="submit"
+                    ng-disabled="!$ctrl.typedProjectName"
+                    ng-click="$ctrl.goToProject($ctrl.typedProjectName)">
+              <i class="fa fa-arrow-right" aria-hidden="true"></i>
+              <span class="sr-only">Go to Project</span>
+            </button>
+          </span>
+        </div>
+      </div>
+    </form>
   </div>
   <div ng-if="$ctrl.projects && $ctrl.projects.length" class="catalog-project-summary-list">
     <div class="projects-count">
@@ -42,11 +73,10 @@
             <li>
               <delete-project
                   label="Delete Project"
-                  project-name="{{project.metadata.name}}"
-                  display-name="{{(project | displayName)}}"
+                  project="project"
                   type-name-to-confirm="true"
                   stay-on-current-page="true"
-                  alerts="$ctrl.alerts">
+                  success="$ctrl.onDeleteProject">
               </delete-project>
             </li>
           </ul>
@@ -69,7 +99,7 @@
           <truncate-long-text content="project | description" use-word-boundary="true" limit="120"></truncate-long-text>
         </div>
         <origin-modal-popup class="catalog-edit-project" modal-title="Edit Project" shown="$ctrl.editProjectPanelShown && $ctrl.edittingProject === project" on-close="$ctrl.closeEditProjectPanel">
-          <edit-project project="$ctrl.edittingProject" is-dialog="true" alerts="$ctrl.alerts" redirect-action="$ctrl.onEditProject" on-cancel="$ctrl.closeEditProjectPanel"></edit-project>
+          <edit-project project="$ctrl.edittingProject" is-dialog="true" redirect-action="$ctrl.onEditProject" on-cancel="$ctrl.closeEditProjectPanel"></edit-project>
         </origin-modal-popup>
       </div>
     </div>
