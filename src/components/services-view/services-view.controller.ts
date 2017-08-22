@@ -201,7 +201,7 @@ export class ServicesViewController implements angular.IController {
     this.ctrl.filterConfig.appliedFilters = filters;
 
     if (filters && filters.length > 0) {
-      _.each(filters, (filter) => {
+      _.each(filters, (filter: any) => {
         this.ctrl.filteredItems = this.filterForKeywords(filter.value, this.ctrl.filteredItems);
       });
     }

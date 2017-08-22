@@ -69,21 +69,21 @@ export class CatalogService {
 
   public convertToServiceItems(serviceClasses: any, imageStreams: any, templates: any) {
     // Convert service classes to ServiceItem
-    let items: any = _.map(serviceClasses, (serviceClass) => {
+    let items: any = _.map(serviceClasses, (serviceClass: any) => {
       return this.getServiceItem(serviceClass);
     });
 
     // Convert builders to ImageItem.
-    items = items.concat(_.map(imageStreams, (imageStream) => {
+    items = items.concat(_.map(imageStreams, (imageStream: any) => {
       return this.getImageItem(imageStream);
     }));
 
-    items = items.concat(_.map(templates, (template) => {
+    items = items.concat(_.map(templates, (template: any) => {
       return this.getTemplateItem(template);
     }));
 
     // Remove null items (non-builder images).
-    items = _.reject(items, (item) => {
+    items = _.reject(items, (item: any) => {
       return !item;
     });
 
@@ -137,15 +137,15 @@ export class CatalogService {
     let otherMainCategory: any = _.last(this.categories);
     let allSubCatOfOther: any = _.get(otherMainCategory, 'subCategories[0]');
 
-    _.each(items, (item) => {
+    _.each(items, (item: any) => {
       itemCategorized = false;
-      _.each(this.categories, (category) => {
+      _.each(this.categories, (category: any) => {
         if (category.tags) {
           if (this.hasMatchingTags(category.tags, item.tags)) {
             itemCategorized = this.categorizeItem(item, category, 'all');
             filteredSubCats = this.filterSubCatsByTags(category.subCategories, item.tags);
             if (!_.isEmpty(filteredSubCats)) {
-              _.each(filteredSubCats, (subCategory) => {
+              _.each(filteredSubCats, (subCategory: any) => {
                 this.categorizeItem(item, category, subCategory);
               });
             } else {
@@ -156,7 +156,7 @@ export class CatalogService {
           filteredSubCats = this.filterSubCatsByTags(category.subCategories, item.tags);
           if (!_.isEmpty(filteredSubCats)) {
             itemCategorized = this.categorizeItem(item, category, 'all');
-            _.each(filteredSubCats, (subCategory) => {
+            _.each(filteredSubCats, (subCategory: any) => {
               this.categorizeItem(item, category, subCategory);
             });
           }
