@@ -418,7 +418,7 @@ export class OrderServiceController implements angular.IController {
       var readyCondition: any = _.find(conditions, {type: "Ready"});
 
       this.ctrl.orderComplete = readyCondition && readyCondition.status === 'True';
-      this.ctrl.error = _.find(conditions, {type: "ProvisionFailed"});
+      this.ctrl.error = _.find(conditions, {type: "Failed"});
     }));
   }
 }
