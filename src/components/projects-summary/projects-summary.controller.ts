@@ -4,8 +4,10 @@ import * as _ from 'lodash';
 export class ProjectsSummaryController implements angular.IController {
   // alphabetically please
   static $inject = [
+    '$filter',
     '$rootScope',
     '$scope',
+    '$window',
     'AuthService',
     'Constants',
     'DataService',
@@ -15,13 +17,16 @@ export class ProjectsSummaryController implements angular.IController {
     'RecentlyViewedServiceItems'
   ];
 
+  static readonly MAX_PROJETS_TO_WATCH: number = 250;
+
   public ctrl: any = this;
   public newProjectPanelShown: boolean = false;
   public editProjectPanelShown: boolean = false;
-  public alerts: any = [];
   public projects: any = [];
+  private $filter: any;
   private $rootScope: any;
   private $scope: any;
+  private $window: any;
   private ProjectsService: any;
   private Logger: any;
   private AuthService: any;
@@ -32,11 +37,14 @@ export class ProjectsSummaryController implements angular.IController {
   private watches: any = [];
   private maxDisplayProjects: number = 5;
   private allItems: any;
+  private watchingProjects: boolean = false;
 
   // alphabetically please
   constructor (
+      $filter: any,
       $rootScope: any,
       $scope: any,
+      $window: any,
       AuthService: any,
       Constants: any,
       DataService: any,
@@ -45,8 +53,10 @@ export class ProjectsSummaryController implements angular.IController {
       RecentlyViewedProjectsService: any,
       RecentlyViewedServiceItems: any
     ) {
+    this.$filter = $filter;
     this.$rootScope = $rootScope;
     this.$scope = $scope;
+    this.$window = $window;
     this.AuthService = AuthService;
     this.Constants = Constants;
     this.DataService = DataService;
@@ -102,8 +112,26 @@ export class ProjectsSummaryController implements angular.IController {
     });
   }
 
+  public $onDestroy() {
+    this.DataService.unwatchAll(this.watches);
+  }
+
   public init = () => {
-    this.watches.push(this.DataService.watch('projects', this.$scope, this.onProjectsUpdate));
+    this.ProjectsService.list().then((projects: any) => {
+      this.onProjectsUpdate(projects);
+      this.ctrl.isProjectListIncomplete = this.ProjectsService.isProjectListIncomplete();
+      // Only watch if the list successfully completed and we are below the
+      // maximum number of projects to watch. Otherwise the list is likely too
+      // large to reliably watch.
+      if (!this.ctrl.isProjectListIncomplete && _.size(this.projects) <= ProjectsSummaryController.MAX_PROJETS_TO_WATCH) {
+        this.watches.push(this.ProjectsService.watch(this.$scope, this.onProjectsUpdate));
+        // If we're not watching projects, we can manually update the list
+        // on changes.
+        this.watchingProjects = true;
+      }
+    }, () => {
+      this.ctrl.isProjectListIncomplete = true;
+    });
     this.ctrl.resourceLinks = _.clone(this.Constants.CATALOG_HELP_RESOURCES.links);
 
     _.forEach(this.ctrl.resourceLinks, (nextResource: any) => {
@@ -139,12 +167,21 @@ export class ProjectsSummaryController implements angular.IController {
     this.ctrl.modalPopupElement = event.currentTarget;
   }
 
+  public goToProject = (projectName: string) => {
+    let url = this.$filter('projectUrl')(projectName, this.ctrl.baseProjectUrl);
+    this.$window.location.href = url;
+  };
+
   public closeNewProjectPanel = () => {
     this.ctrl.newProjectPanelShown = false;
   };
 
   public onNewProject = (projectName: string) => {
     this.ctrl.newProjectPanelShown = false;
+    if (!this.watchingProjects) {
+      // This is not expensive since it returns the cached list. The list will include the new project, however.
+      this.ProjectsService.list().then(this.onProjectsUpdate);
+    }
   };
 
   public onViewMemebership = (project: any) => {
@@ -165,6 +202,17 @@ export class ProjectsSummaryController implements angular.IController {
 
   public onEditProject = (projectName: string) => {
     this.ctrl.editProjectPanelShown = false;
+    if (!this.watchingProjects) {
+      // This is not expensive since it returns the cached list. The list will include the updated project, however.
+      this.ProjectsService.list().then(this.onProjectsUpdate);
+    }
+  };
+
+  public onDeleteProject = () => {
+    if (!this.watchingProjects) {
+      // This is not expensive since it returns the cached list. The list will include the updated project, however.
+      this.ProjectsService.list().then(this.onProjectsUpdate);
+    }
   };
 
   public handleGettingStartedClick() {

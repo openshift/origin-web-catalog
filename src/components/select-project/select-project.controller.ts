@@ -2,22 +2,20 @@ import * as angular from 'angular';
 import * as _ from 'lodash';
 
 export class SelectProjectController implements angular.IController {
-  static $inject = ['$scope', '$filter', 'DataService', 'ProjectsService', 'Logger', 'AuthService', 'AuthorizationService'];
+  static $inject = ['$scope', '$filter', 'ProjectsService', 'Logger', 'AuthService', 'AuthorizationService'];
 
   public ctrl: any = this;
   public $scope: any;
 
   private $filter: any;
-  private DataService: any;
   private ProjectsService: any;
   private Logger: any;
   private AuthService: any;
   private AuthorizationService: any;
 
-  constructor($scope: any, $filter: any, DataService: any, ProjectsService: any, Logger: any, AuthService: any, AuthorizationService: any) {
+  constructor($scope: any, $filter: any, ProjectsService: any, Logger: any, AuthService: any, AuthorizationService: any) {
     this.$scope = $scope;
     this.$filter = $filter;
-    this.DataService = DataService;
     this.AuthService = AuthService;
     this.AuthorizationService = AuthorizationService;
     this.ProjectsService = ProjectsService;
@@ -127,7 +125,7 @@ export class SelectProjectController implements angular.IController {
     if (this.ctrl.availableProjects) {
       this.filterProjects(this.ctrl.availableProjects);
     } else {
-      this.DataService.list('projects', this.$scope).then((response: any) => {
+      this.ProjectsService.list().then((response: any) => {
         this.filterProjects(response.by('metadata.name'));
       });
     }
