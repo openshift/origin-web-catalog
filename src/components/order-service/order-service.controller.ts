@@ -415,10 +415,10 @@ export class OrderServiceController implements angular.IController {
   private watchResults = (resource: any, data: any, context: any) => {
     this.watches.push(this.DataService.watchObject(resource, data.metadata.name, context, (instanceData: any, action: any) => {
       var conditions: any = _.get(instanceData, 'status.conditions');
-      var readyCondition: any = _.find(conditions, {type: "Ready"});
+      var readyCondition: any = _.find(conditions, {type: 'Ready'});
 
       this.ctrl.orderComplete = readyCondition && readyCondition.status === 'True';
-      this.ctrl.error = _.find(conditions, {type: "Failed"});
+      this.ctrl.error = _.find(conditions, {type: 'Failed', status: 'True'});
     }));
   }
 }
