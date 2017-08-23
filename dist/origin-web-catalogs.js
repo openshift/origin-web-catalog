@@ -1174,7 +1174,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                         type: "Ready"
                     });
                     l.ctrl.orderComplete = r && "True" === r.status, l.ctrl.error = i.find(n, {
-                        type: "Failed"
+                        type: "Failed",
+                        status: "True"
                     });
                 }));
             }, this.$scope = e, this.$filter = t, this.AuthService = n, this.ProjectsService = r, 
