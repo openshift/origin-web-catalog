@@ -1,6 +1,8 @@
 import * as angular from 'angular';
 import IRootScopeService = angular.IRootScopeService;
 import ICompileService = angular.ICompileService;
+import * as $ from 'jquery';
+
 export class ComponentTest<TController> {
   public element: ng.IAugmentedJQuery;
   public scope: ng.IScope;
@@ -30,6 +32,13 @@ export class ComponentTest<TController> {
   }
 
   public eventFire (el: any, etype: any) {
+    // Workaround for redirect issue with tests running in safari
+    if (etype === 'click') {
+      if ($(el).attr("href") === '') {
+        $(el).attr("href", "javascript:void(0)");
+      }
+    }
+
     if (el.fireEvent) {
       (el.fireEvent('on' + etype));
     } else {
