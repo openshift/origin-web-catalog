@@ -2,7 +2,7 @@ import * as angular from 'angular';
 import * as _ from 'lodash';
 
 export class SelectProjectController implements angular.IController {
-  static $inject = ['$scope', '$filter', 'ProjectsService', 'Logger', 'AuthService', 'AuthorizationService'];
+  static $inject = ['$scope', '$filter', 'ProjectsService', 'Logger', 'AuthService', 'AuthorizationService', 'RecentlyViewedProjectsService'];
 
   public ctrl: any = this;
   public $scope: any;
@@ -12,12 +12,14 @@ export class SelectProjectController implements angular.IController {
   private Logger: any;
   private AuthService: any;
   private AuthorizationService: any;
+  private RecentlyViewedProjectsService: any;
 
-  constructor($scope: any, $filter: any, ProjectsService: any, Logger: any, AuthService: any, AuthorizationService: any) {
+  constructor($scope: any, $filter: any, ProjectsService: any, Logger: any, AuthService: any, AuthorizationService: any, RecentlyViewedProjectsService: any) {
     this.$scope = $scope;
     this.$filter = $filter;
     this.AuthService = AuthService;
     this.AuthorizationService = AuthorizationService;
+    this.RecentlyViewedProjectsService = RecentlyViewedProjectsService;
     this.ProjectsService = ProjectsService;
     this.Logger = Logger;
   }
@@ -68,6 +70,16 @@ export class SelectProjectController implements angular.IController {
     return this.ctrl.projects && this.ctrl.selectedProject && !_.has(this.ctrl.selectedProject, 'metadata.uid');
   }
 
+  public groupChoicesBy = (item: any) => {
+    if (this.RecentlyViewedProjectsService.isRecentlyViewed(item.metadata.uid)) {
+      return "Recently Viewed";
+    } else if (item.metadata.annotations["openshift.io/display-name"] === "Create Project") {
+      return "";
+    } else {
+      return "Other Projects";
+    }
+  };
+
   private canIAddToProject(): boolean {
     let canIAddToProject: boolean = true;
 
@@ -94,7 +106,7 @@ export class SelectProjectController implements angular.IController {
     };
 
     var filteredProjects = _.reject(projects, 'metadata.deletionTimestamp');
-    this.ctrl.projects = _.sortBy(filteredProjects, this.$filter('displayName'));
+    this.ctrl.projects = this.RecentlyViewedProjectsService.orderByMostRecentlyViewed(_.toArray(projects));
     this.ctrl.searchEnabled = !_.isEmpty(filteredProjects);
 
     // Don't let users create a project with an existing name. Make sure we

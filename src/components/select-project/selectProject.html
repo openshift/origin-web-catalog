@@ -9,10 +9,11 @@
         ng-change="$ctrl.onSelectProjectChange()"
         ng-required="true"
         search-enabled="$ctrl.searchEnabled">
-      <ui-select-match>
+      <ui-select-match placeholder="Select or create a project">
         {{$select.selected | displayName}}
       </ui-select-match>
-      <ui-select-choices repeat="project in $ctrl.projects | searchProjects : $select.search track by (project | uid)">
+      <ui-select-choices repeat="project in $ctrl.projects | searchProjects : $select.search track by (project | uid)"
+                         group-by="$ctrl.groupChoicesBy">
         <span ng-bind-html="project | displayName | highlightKeywords : $select.search"></span>
         <span ng-if="project | displayName : true" class="small text-muted">
           <span ng-if="project.metadata.name">&ndash;</span>
