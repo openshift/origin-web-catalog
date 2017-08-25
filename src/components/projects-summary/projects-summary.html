@@ -90,9 +90,9 @@
             class="pficon pficon-warning-triangle-o"></span>
         </h3>
         <p class="project-date">
-          <span ng-if="project | displayName : true"><span ng-bind-html="project.metadata.name"></span> &ndash;</span>
+          <span ng-if="project | displayName : true"><span class="word-break" ng-bind-html="project.metadata.name"></span> &ndash;</span>
           created
-          <span ng-if="project | annotation : 'openshift.io/requester'">by <span ng-bind-html="project | annotation : 'openshift.io/requester'"></span></span>
+          <span ng-if="project | annotation : 'openshift.io/requester'">by <span class="word-break" ng-bind-html="project | annotation : 'openshift.io/requester'"></span></span>
           <span am-time-ago="project.metadata.creationTimestamp"></span>
         </p>
         <div class="project-description" ng-if="project | description">
