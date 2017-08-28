@@ -1000,6 +1000,12 @@ services-view,
   display: flex;
   flex: 1 1 auto;
 }
+services-view .vendor-info-icon,
+.services-view .vendor-info-icon {
+  font-size: 10px;
+  vertical-align: middle;
+  padding-left: 2px;
+}
 .services-view .services-item {
   animation: catalogItemFade 200ms ease-out;
   color: #363636;
@@ -1121,47 +1127,6 @@ services-view,
 .services-view .services-items-filter {
   flex: 1 1 100%;
   margin: 20px 20px 10px;
-}
-.services-view .services-items-filter .filter-pf pf-filter-fields,
-.services-view .services-items-filter .filter-pf pf-filter-results {
-  display: inline-block;
-}
-.services-view .services-items-filter .filter-pf .filter-fields button {
-  display: none;
-}
-.services-view .services-items-filter .filter-pf .form-group {
-  margin-bottom: 0;
-}
-@media (min-width: 345px) {
-  .services-view .services-items-filter .filter-pf .form-group {
-    margin-right: 20px;
-  }
-}
-.services-view .services-items-filter .toolbar-pf-results {
-  border-top: none;
-  margin: 0;
-}
-.services-view .services-items-filter .toolbar-pf-results .col-sm-12 {
-  float: left;
-  padding: 0;
-}
-.services-view .services-items-filter .toolbar-pf-results h5,
-.services-view .services-items-filter .toolbar-pf-results p,
-.services-view .services-items-filter .toolbar-pf-results ul {
-  line-height: 1.66666667;
-  padding-bottom: 2px;
-  padding-top: 2px;
-}
-.services-view .services-items-filter .toolbar-pf-results .list-inline {
-  margin-bottom: -5px;
-  padding-right: 5px;
-}
-.services-view .services-items-filter .toolbar-pf-results .list-inline > li {
-  margin-bottom: 5px;
-}
-.services-view .services-items-filter .toolbar-pf-results p {
-  margin-right: 10px;
-  text-transform: capitalize;
 }
 @media (min-width: 480px) {
   .services-view .services-no-sub-categories {

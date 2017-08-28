@@ -9,6 +9,8 @@ import {ServicesViewController} from '../src/components/services-view/services-v
 import {servicesData} from '../app/mockServices/mockData/services';
 import {imagesData} from '../app/mockServices/mockData/openshift-images';
 
+require('bootstrap/dist/js/bootstrap');
+
 describe('servicesView', () => {
   var services: any, images: any;
   var catalogItems: any;
@@ -276,28 +278,35 @@ describe('servicesView', () => {
     // 15 initial catalog items
     expect(jQuery(element).find('.services-item-name').length).toBe(15);
 
-    let filterInput: any = jQuery(element).find('.filter-fields input');
-    expect(filterInput.length).toBe(1);
+    //Get Filter Dropdown
+    var filterDropdown = jQuery(element).find('span[uib-dropdown]');
+    expect(filterDropdown.length).toBe(1, 'filterDropdown');
 
-    enterFilterKeyword(filterInput, "test");
+    //Open Filter Panel
+    filterDropdown.find('button').click();
+    var keyWordInput = filterDropdown.find('.keyword-filter');
+    expect(keyWordInput.length).toBe(1, 'keyword filter');
+
+    enterFilterKeyword(keyWordInput, "test");
 
     // 9 catalog items with 'test' keyword
     expect(jQuery(element).find('.services-item-name').length).toBe(9);
 
     // 1 active filter tag
     let keywordFilterTags: any = jQuery(element).find('.active-filter.label.label-info');
-    expect(keywordFilterTags.length).toBe(1);
+    expect(keywordFilterTags.length).toBe(1, 'active keyword tag');
     expect(keywordFilterTags.text().trim()).toBe('Keyword: test');
 
     // apply second keyword filter
-    enterFilterKeyword(filterInput, "node");
+    enterFilterKeyword(keyWordInput, "node");
+    componentTest.scope.$digest();
 
     // 2 catalog items with 'test' and 'node' keywords
-    expect(jQuery(element).find('.services-item-name').length).toBe(2);
+    expect(jQuery(element).find('.services-item-name').length).toBe(2, "catalog items with 'test' and 'node' keywords");
 
     // 2 active filter tags
     keywordFilterTags = jQuery(element).find('.active-filter.label.label-info');
-    expect(keywordFilterTags.length).toBe(2);
+    expect(keywordFilterTags.length).toBe(2, 'There should be 2 active filter tags');
     expect(keywordFilterTags.eq(1).text().trim()).toBe('Keyword: node');
 
     // clear second keyword filter
@@ -321,10 +330,17 @@ describe('servicesView', () => {
 
     var element = componentTest.rawElement;
 
-    let filterInput: any = jQuery(element).find('.filter-fields input');
-    expect(filterInput.length).toBe(1);
+    //Get Filter Dropdown
+    var filterDropdown = jQuery(element).find('span[uib-dropdown]');
+    expect(filterDropdown.length).toBe(1);
 
-    enterFilterKeyword(filterInput, "test");
+    //Open Filter Panel
+    filterDropdown.find('button').click();
+    var keyWordInput = filterDropdown.find('.keyword-filter');
+    expect(keyWordInput.length).toBe(1);
+
+    enterFilterKeyword(keyWordInput, "test");
+    componentTest.scope.$digest();
 
     // 9 catalog items with 'test' keyword
     expect(jQuery(element).find('.services-item-name').length).toBe(9);
@@ -344,12 +360,21 @@ describe('servicesView', () => {
     // should be 11 'languages' catalog items
     expect(jQuery(element).find('.services-item-name').length).toBe(11);
 
-    filterInput = jQuery(element).find('.filter-fields input');
-    enterFilterKeyword(filterInput, "test");
+    //Get Filter Dropdown
+    filterDropdown = jQuery(element).find('span[uib-dropdown]');
+    expect(filterDropdown.length).toBe(1);
+
+    //Open Filter Panel
+    filterDropdown.find('button').click();
+    keyWordInput = filterDropdown.find('.keyword-filter');
+    expect(keyWordInput.length).toBe(1);
+
+    enterFilterKeyword(keyWordInput, "test");
+    componentTest.scope.$digest();
 
     // should be 5 languages catalog items with keyword 'test', and 1 keyword filter tag
-    expect(jQuery(element).find('.services-item-name').length).toBe(5);
-    expect(jQuery(element).find('.active-filter.label.label-info').length).toBe(1);
+    expect(jQuery(element).find('.services-item-name').length).toBe(5, "should be 5 languages catalog items with keyword 'test'");
+    expect(jQuery(element).find('.active-filter.label.label-info').length).toBe(1, "should be 1 keyword filter tag");
 
     // click on 'ruby' sub-category
     componentTest.eventFire(element.querySelector('#services-sub-category-ruby.services-sub-category-tab'), 'click');

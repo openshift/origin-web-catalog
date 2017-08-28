@@ -6,6 +6,7 @@ export class CatalogService {
 
   public $filter: any;
   public categories: any;
+  public vendors: any = [];
   private $q: any;
   private constants: any;
   private apiService: any;
@@ -171,8 +172,12 @@ export class CatalogService {
     let allSubCatOfAll: any = _.get(allMainCategory, 'subCategories[0]');
     let otherMainCategory: any = _.last(this.categories);
     let allSubCatOfOther: any = _.get(otherMainCategory, 'subCategories[0]');
+    let vendors = {};
 
     _.each(items, (item: any) => {
+      if (item.vendor) {
+        vendors[item.vendor] = true;
+      }
       itemCategorized = false;
       _.each(this.categories, (category: any) => {
         if (category.tags) {
@@ -202,6 +207,8 @@ export class CatalogService {
       }
       this.categorizeItem(item, allMainCategory, allSubCatOfAll);
     });  // .ea item
+
+    this.vendors = _.keys(vendors).sort();
   }
 
   private categorizeItem(item: any, category: any, subCategory: any) {
@@ -297,6 +304,7 @@ interface IServiceItem {
   description: string;
   longDescription: string;
   tags: string[];
+  vendor: string;
   resource: any;
   // Necessary to track kind here since the real kind will not be in the
   // `resource` if requesting partial object metadata for templates
@@ -310,6 +318,7 @@ export class ServiceItem implements IServiceItem {
   public description: string;
   public longDescription: string;
   public tags: string[];
+  public vendor: string;
   public resource: any;
   public kind: string;
   private catalogSrv: CatalogService;
@@ -324,6 +333,7 @@ export class ServiceItem implements IServiceItem {
     this.longDescription = this.getLongDescription();
     this.tags = this.getTags();
     this.kind = "ServiceClass";
+    this.vendor = this.getVendor();
   }
 
   private getImage(): string {
@@ -351,6 +361,10 @@ export class ServiceItem implements IServiceItem {
   private getTags(): string[] {
     return _.get(this.resource, 'alphaTags') as string[] || [];
   }
+
+  private getVendor(): string {
+    return _.get(this.resource, 'metadata.providerDisplayName') as string || '';
+  }
 }
 
 export class ImageItem implements IServiceItem {
@@ -363,6 +377,7 @@ export class ImageItem implements IServiceItem {
   public resource: any;
   public builderSpecTagName: any;
   public kind: string;
+  public vendor: string;
   private catalogSrv: CatalogService;
 
   constructor (image: any, catalogSrv : CatalogService) {
@@ -376,6 +391,7 @@ export class ImageItem implements IServiceItem {
       this.description = this.getDescription();
       this.longDescription = this.getLongDescription();
       this.kind = "ImageStream";
+      this.vendor = this.getVendor();
     }
   }
 
@@ -422,6 +438,10 @@ export class ImageItem implements IServiceItem {
     return name;
   }
 
+  private getVendor(): string {
+    return _.get(this.resource, 'metadata.providerDisplayName') as string || '';
+  }
+
   private getDescription() {
     return null;
   }
@@ -440,6 +460,7 @@ export class TemplateItem implements IServiceItem {
   public tags: string[];
   public resource: any;
   public kind: string;
+  public vendor: string;
   private catalogSrv: CatalogService;
 
   constructor (template: any, catalogSrv: CatalogService) {
@@ -452,6 +473,7 @@ export class TemplateItem implements IServiceItem {
     this.longDescription = this.getLongDescription();
     this.tags = this.getTags();
     this.kind = "Template";
+    this.vendor = this.getVendor();
   }
 
   private getImage() {
@@ -478,5 +500,9 @@ export class TemplateItem implements IServiceItem {
 
   private getTags() {
     return _.get(this.resource, 'metadata.annotations.tags', '').split(/\s*,\s*/);
+  }
+
+  private getVendor(): string {
+    return _.get(this.resource, 'metadata.providerDisplayName') as string || '';
   }
 }

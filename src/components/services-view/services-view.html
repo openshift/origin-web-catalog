@@ -68,7 +68,11 @@
           </a>
          <a ng-click="$ctrl.mobileView = 'subcategories'" class="services-back-link" href="">Back</a>
           <div ng-if="$ctrl.currentSubFilter === subCategory.id" class="services-items">
-            <pf-filter config="$ctrl.filterConfig" class="services-items-filter"></pf-filter>
+            <catalog-filter class="services-items-filter"
+                            config="$ctrl.filterConfig"
+                            filter-on-keyword="$ctrl.keywordFilterValue"
+                            apply-filters="$ctrl.applyFilters($event)">
+            </catalog-filter>
             <a href="" class="services-item" ng-repeat="item in $ctrl.filteredItems track by item.resource.metadata.uid" ng-click="$ctrl.serviceViewItemClicked(item)">
               <div ng-if="!item.imageUrl" class="services-item-icon">
                 <span class="{{item.iconClass}}"></span>
@@ -88,7 +92,12 @@
       <div ng-if="$ctrl.currentFilter === 'other' || $ctrl.currentFilter === 'all'" class="services-no-sub-categories">
         <div class="services-items">
           <div ng-if="$ctrl.isEmpty">There are no catalog items.</div>
-          <pf-filter ng-if="!$ctrl.isEmpty" config="$ctrl.filterConfig" class="services-items-filter"></pf-filter>
+          <catalog-filter ng-if="!$ctrl.isEmpty"
+                          class="services-items-filter"
+                          config="$ctrl.filterConfig"
+                          filter-on-keyword="$ctrl.keywordFilterValue"
+                          apply-filters="$ctrl.applyFilters($event)">
+          </catalog-filter>
           <a href="" class="services-item" ng-repeat="item in $ctrl.filteredItems track by item.resource.metadata.uid" ng-click="$ctrl.serviceViewItemClicked(item)">
             <div ng-if="!item.imageUrl" class="services-item-icon">
               <span class="{{item.iconClass}}"></span>

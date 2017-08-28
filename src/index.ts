@@ -22,6 +22,7 @@ import {saasList} from './components/saas-list/saas-list.component';
 import {selectProject} from './components/select-project/select-project.component';
 import {servicesView} from './components/services-view/services-view.component';
 import {RecentlyViewedServiceItems} from './services/recently-viewed-service-items.service.ts';
+import {catalogFilter} from './components/catalog-filter/catalog-filter.component';
 
 export const webCatalog: string = 'webCatalog';
 
@@ -41,6 +42,7 @@ angular
   .component('saasList', saasList)
   .component('selectProject', selectProject)
   .component('servicesView', servicesView)
+  .component('catalogFilter', catalogFilter)
   .run(['$templateCache', function($templateCache: any) {
     $templateCache.put('catalog-search/catalog-search-result.html', require('./components/catalog-search/catalog-search-result.html'));
     $templateCache.put('create-from-builder/create-from-builder-configure.html', require('./components/create-from-builder/create-from-builder-configure.html'));

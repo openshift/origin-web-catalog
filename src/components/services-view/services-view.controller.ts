@@ -20,12 +20,6 @@ export class ServicesViewController implements angular.IController {
   private $timeout: any;
   private scrollParent: any;
   private debounceResize: any;
-  private keywordFilterField: any = {
-    id: 'keyword',
-    title:  'Keyword',
-    placeholder: 'Filter by Keyword in Category',
-    filterType: 'text'
-  };
   private removeFilterListener: any;
 
   // Only resize to the difference bteween the old and new heights.
@@ -51,6 +45,7 @@ export class ServicesViewController implements angular.IController {
     this.ctrl.isEmpty = false;
     this.ctrl.mobileView = 'categories';
     this.ctrl.filterConfig = {};
+    this.ctrl.keywordFilterValue = null;
   }
 
   public $onInit() {
@@ -59,18 +54,14 @@ export class ServicesViewController implements angular.IController {
     $(window).on('resize.services', this.debounceResize);
 
     this.removeFilterListener = this.$rootScope.$on('filter-catalog-items', (event: any, searchCriteria: any) => {
-      let keyWordFilter: any = angular.copy(this.keywordFilterField);
-      keyWordFilter.value = searchCriteria.searchText;
+      this.ctrl.keywordFilterValue = searchCriteria.searchText;
       this.ctrl.currentFilter = this.ctrl.currentSubFilter = 'all';
       this.ctrl.mobileView = 'subcategories';
-      this.filterChange([keyWordFilter]);
     });
 
     this.ctrl.filterConfig = {
-      fields: [this.keywordFilterField],
-      resultsCount: 0,
-      appliedFilters: [],
-      onFilterChange: this.filterChange
+      resultsLabel: "Items",
+      appliedFilters: []
     };
   }
 
@@ -99,6 +90,7 @@ export class ServicesViewController implements angular.IController {
 
   public selectCategory(category: string) {
     this.ctrl.mobileView = 'subcategories';
+    this.clearAppliedFilters();
     this.filterByCategory(category, null, true);
 
     // Scroll to show category browsing at the top of the page
@@ -125,6 +117,7 @@ export class ServicesViewController implements angular.IController {
       this.ctrl.mobileView = 'subcategories';
     }
 
+    this.clearAppliedFilters();
     this.filterByCategory(this.ctrl.currentFilter, subCategory, false);
   }
 
@@ -148,11 +141,14 @@ export class ServicesViewController implements angular.IController {
     this.$scope.$emit('open-overlay-panel', item);
   };
 
+  // called when catalogFacetedFilter changes
+  public applyFilters(event: any) {
+    this.filterChange(event.appliedFilters);
+  };
+
   private filterByCategory(category: string, subCategory: string, updateSubCategories: boolean) {
     let categoryObj: any;
     let subCategoryObj: any;
-
-    this.clearAppliedFilters();
 
     if (category === 'all' || category === 'other') {
       subCategory = 'all';
@@ -169,7 +165,8 @@ export class ServicesViewController implements angular.IController {
         subCategoryObj = _.find(categoryObj.subCategories, {id: subCategory});
         if (subCategoryObj) {
           this.ctrl.filteredItems = subCategoryObj.items;
-          this.ctrl.totalCount = this.ctrl.filteredItems.length;
+          this.ctrl.filterConfig.totalCount = this.ctrl.filteredItems.length;
+          this.ctrl.filterConfig.resultsCount = this.ctrl.filterConfig.totalCount;
         } else {
           this.logger.error("Could not find subcategory '" + subCategory + "' for category '" + category + "'");
         }
@@ -181,7 +178,6 @@ export class ServicesViewController implements angular.IController {
     this.ctrl.currentFilter = category;
     this.ctrl.currentSubFilter = subCategory;
     this.updateActiveCardStyles();
-    this.updateFilterControls();
   }
 
   private filterForKeywords (searchText: string, items: any) {
@@ -189,22 +185,34 @@ export class ServicesViewController implements angular.IController {
     return this.keywordService.filterForKeywords(items, ['name', 'tags'], keywords);
   }
 
+  private filterForVendors (vendors: string[], items: any) {
+    return _.filter(items, (item: any) => {
+      return _.includes(vendors, item.vendor);
+    });
+  }
+
   private filterChange = (filters: any) => {
     this.filterByCategory(this.ctrl.currentFilter, this.ctrl.currentSubFilter, false);
 
-    this.ctrl.filterConfig.appliedFilters = filters;
-
-    if (filters && filters.length > 0) {
+    if (!_.isEmpty(filters)) {
       _.each(filters, (filter: any) => {
-        this.ctrl.filteredItems = this.filterForKeywords(filter.value, this.ctrl.filteredItems);
+        switch (filter.id) {
+          case "keyword":
+            this.ctrl.filteredItems = this.filterForKeywords(filter.values[0], this.ctrl.filteredItems);
+            break;
+          case "vendors":
+            this.ctrl.filteredItems = this.filterForVendors(filter.values, this.ctrl.filteredItems);
+            break;
+        }
       });
     }
 
-    this.updateFilterControls();
+    this.ctrl.filterConfig.resultsCount = this.ctrl.filteredItems.length;
+    this.ctrl.keywordFilterValue = null;  //reset flag
   };
 
   private clearAppliedFilters() {
-    this.ctrl.filterConfig.appliedFilters = [];
+    this.$scope.$broadcast('clear-filters');
   }
 
   private  getScrollParent(node: any) {
@@ -279,20 +287,4 @@ export class ServicesViewController implements angular.IController {
   private updateActiveCardStyles() {
     this.$timeout(() => this.resizeExpansion(true));
   }
-
-  private updateFilterControls() {
-    this.$timeout(() => {
-      if (this.ctrl.filterConfig.appliedFilters.length > 0) {
-        this.ctrl.filterConfig.resultsCount = this.ctrl.filteredItems.length;
-        $('.toolbar-pf-results h5').text(this.ctrl.filterConfig.resultsCount + ' of ' + this.ctrl.totalCount + ' items');
-      } else {
-        $('.toolbar-pf-results h5').text(this.ctrl.totalCount + (this.ctrl.totalCount === 1 ? ' item' : ' items'));
-        if (this.ctrl.totalCount <= 1) {
-          $('.filter-pf.filter-fields input').attr('disabled', '');
-        } else {
-          $('.filter-pf.filter-fields input').removeAttr("disabled");
-        }
-      }
-    }, 0);
-  }
-};
+}
