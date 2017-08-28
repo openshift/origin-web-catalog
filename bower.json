@@ -1,6 +1,6 @@
 {
   "name": "origin-web-catalog",
-  "version": "0.0.39",
+  "version": "0.0.40",
   "license": "Apache-2.0",
   "main": [
     "dist/vendor-bundle.js",
@@ -35,12 +35,12 @@
     "angular-sanitize": "1.5.11",
     "angular-route": "1.5.11",
     "angular-bootstrap": "0.14.3",
-    "angular-patternfly": "~4.3.0",
+    "angular-patternfly": "~4.5.4",
     "angular-schema-form": "^0.8.13",
     "patternfly": "~3.26.1",
     "jquery": "~3.2.1",
     "lodash": "~4.17.4",
-    "origin-web-common": "~0.0.47",
+    "origin-web-common": "~0.0.49",
     "angular-schema-form-bootstrap": "^0.2.0"
   },
   "devDependencies": {
