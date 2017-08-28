@@ -67,6 +67,41 @@ export class CatalogService {
     return deferred.promise;
   }
 
+  public getProjectCatalogItems(projectName: string, includeImages: boolean = true, includeTemplates: boolean = true, partialObjectMetadataList: boolean = false ) {
+    let deferred = this.$q.defer();
+    let catalogItems: any = {
+      imageStreams: [],
+      templates: []
+    };
+    let totalNumPromises: number = 0;
+    let numPromisesExecuted: number = 0;
+    let errorMsg: any = [];
+
+    if (includeImages) {
+      totalNumPromises++;
+      this.dataService.list("imagestreams", {namespace: projectName}).then((resources: any) => {
+        catalogItems.imageStreams = resources.by("metadata.name");
+      }, () => {
+        errorMsg.push('builder images');
+      }).finally(() => {
+        this.returnCatalogItems(deferred, catalogItems, ++numPromisesExecuted, totalNumPromises, errorMsg);
+      });
+    }
+
+    if (includeTemplates) {
+      totalNumPromises++;
+      this.dataService.list("templates", {namespace: projectName}, null, {partialObjectMetadataList: partialObjectMetadataList}).then((resources: any) => {
+        catalogItems.templates = resources.by('metadata.name');
+      }, () => {
+        errorMsg.push('templates');
+      }).finally(() => {
+        this.returnCatalogItems(deferred, catalogItems, ++numPromisesExecuted, totalNumPromises, errorMsg);
+      });
+    }
+
+    return deferred.promise;
+  }
+
   public convertToServiceItems(serviceClasses: any, imageStreams: any, templates: any) {
     // Convert service classes to ServiceItem
     let items: any = _.map(serviceClasses, (serviceClass: any) => {
