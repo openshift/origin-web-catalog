@@ -920,36 +920,36 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
     t.__esModule = !0;
     var r = n(1), i = n(0), s = n(52), a = function() {
         function e(e, t, n, r, s, a, o, c, l, d, p) {
-            var h = this;
+            var m = this;
             this.ctrl = this, this.watches = [], this.clearValidityWatcher = function() {
-                h.validityWatcher && (h.validityWatcher(), h.validityWatcher = void 0);
+                m.validityWatcher && (m.validityWatcher(), m.validityWatcher = void 0);
             }, this.showConfig = function() {
-                h.clearValidityWatcher(), h.ctrl.nextTitle = "Next >", h.reviewStep.allowed = h.bindStep.hidden && h.configStep.valid, 
-                h.validityWatcher = h.$scope.$watch("$ctrl.builderForm.$valid", function(e, t) {
-                    h.configStep.valid = e;
+                m.clearValidityWatcher(), m.ctrl.nextTitle = "Next >", m.reviewStep.allowed = m.bindStep.hidden && m.configStep.valid, 
+                m.validityWatcher = m.$scope.$watch("$ctrl.builderForm.$valid", function(e, t) {
+                    m.configStep.valid = e;
                 });
             }, this.showBind = function() {
-                h.clearValidityWatcher(), h.ctrl.nextTitle = "Create", h.reviewStep.allowed = !0;
+                m.clearValidityWatcher(), m.ctrl.nextTitle = "Create", m.reviewStep.allowed = !0;
             }, this.showResults = function() {
-                h.clearValidityWatcher(), h.ctrl.nextTitle = "Close", h.ctrl.wizardDone = !0, h.createApp();
+                m.clearValidityWatcher(), m.ctrl.nextTitle = "Close", m.ctrl.wizardDone = !0, m.createApp();
             }, this.onProjectUpdate = function() {
-                !h.instancesSupported || h.isNewProject() ? (h.ctrl.serviceInstances = [], h.updateBindability()) : (h.ctrl.updating = !0, 
-                h.DataService.list({
+                !m.instancesSupported || m.isNewProject() ? (m.ctrl.serviceInstances = [], m.updateBindability()) : (m.ctrl.updating = !0, 
+                m.DataService.list({
                     group: "servicecatalog.k8s.io",
                     resource: "instances"
                 }, {
-                    namespace: h.ctrl.selectedProject.metadata.name
+                    namespace: m.ctrl.selectedProject.metadata.name
                 }, null, {
                     errorNotification: !1
                 }).then(function(e) {
-                    h.ctrl.serviceInstances = i.filter(i.toArray(e.by("metadata.name")), h.isServiceBindable), 
-                    h.sortServiceInstances(), h.ctrl.updating = !1, h.updateBindability();
+                    m.ctrl.serviceInstances = i.filter(i.toArray(e.by("metadata.name")), m.isServiceBindable), 
+                    m.sortServiceInstances(), m.ctrl.updating = !1, m.updateBindability();
                 }, function(e) {
-                    h.Logger.warn("Failed to list instances in namespace " + h.ctrl.selectedProject.metadata.name, e), 
-                    h.ctrl.updating = !1, h.ctrl.serviceInstances = [], h.updateBindability();
+                    m.Logger.warn("Failed to list instances in namespace " + m.ctrl.selectedProject.metadata.name, e), 
+                    m.ctrl.updating = !1, m.ctrl.serviceInstances = [], m.updateBindability();
                 }));
             }, this.isServiceBindable = function(e) {
-                return h.BindingService.isServiceBindable(e, h.ctrl.serviceClasses);
+                return m.BindingService.isServiceBindable(e, m.ctrl.serviceClasses);
             }, this.$scope = e, this.$filter = t, this.$location = n, this.$q = r, this.BuilderAppService = s, 
             this.ProjectsService = a, this.DataService = o, this.APIService = c, this.BindingService = l, 
             this.Logger = d, this.ctrl.serviceToBind = null, this.ctrl.showPodPresets = i.get(p, [ "ENABLE_TECH_PREVIEW_FEATURE", "pod_presets" ], !1);
@@ -1139,68 +1139,68 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
     "use strict";
     t.__esModule = !0;
     var r = n(1), i = n(0), s = function() {
-        function e(e, t, n, r, s, a, o, c) {
-            var l = this;
+        function e(e, t, n, r, s, a, o, c, l) {
+            var d = this;
             this.ctrl = this, this.watches = [], this.clearValidityWatcher = function() {
-                l.validityWatcher && (l.validityWatcher(), l.validityWatcher = void 0), l.ctrl.reviewStep.allowed = !1;
+                d.validityWatcher && (d.validityWatcher(), d.validityWatcher = void 0), d.ctrl.reviewStep.allowed = !1;
             }, this.showPlan = function() {
-                l.clearValidityWatcher(), l.ctrl.configPageShown = !1, l.ctrl.nextTitle = "Next >";
+                d.clearValidityWatcher(), d.ctrl.configPageShown = !1, d.ctrl.nextTitle = "Next >";
             }, this.showConfig = function() {
-                l.clearValidityWatcher(), l.ctrl.configPageShown = !0, l.reviewStep.allowed = l.bindStep.hidden && l.configStep.valid, 
-                l.updateBindability(), l.validityWatcher = l.$scope.$watch("$ctrl.forms.orderConfigureForm.$valid", function(e, t) {
-                    l.configStep.valid = e, l.bindStep.allowed = l.configStep.valid, l.reviewStep.allowed = l.bindStep.hidden && l.configStep.valid;
+                d.clearValidityWatcher(), d.ctrl.configPageShown = !0, d.reviewStep.allowed = d.bindStep.hidden && d.configStep.valid, 
+                d.updateBindability(), d.validityWatcher = d.$scope.$watch("$ctrl.forms.orderConfigureForm.$valid", function(e, t) {
+                    d.configStep.valid = e, d.bindStep.allowed = d.configStep.valid, d.reviewStep.allowed = d.bindStep.hidden && d.configStep.valid;
                 });
             }, this.showBind = function() {
-                l.clearValidityWatcher(), l.ctrl.configPageShown = !1, l.ctrl.nextTitle = "Create", 
-                l.reviewStep.allowed = l.bindStep.valid, l.isNewProject() ? l.ctrl.projectDisplayName = l.ctrl.selectedProject.metadata.annotations["new-display-name"] || l.ctrl.selectedProject.metadata.name : l.ctrl.projectDisplayName = l.$filter("displayName")(l.ctrl.selectedProject), 
-                l.validityWatcher = l.$scope.$watch("$ctrl.forms.bindForm.$valid", function(e, t) {
-                    l.bindStep.valid = e, l.reviewStep.allowed = l.bindStep.valid;
+                d.clearValidityWatcher(), d.ctrl.configPageShown = !1, d.ctrl.nextTitle = "Create", 
+                d.reviewStep.allowed = d.bindStep.valid, d.isNewProject() ? d.ctrl.projectDisplayName = d.ctrl.selectedProject.metadata.annotations["new-display-name"] || d.ctrl.selectedProject.metadata.name : d.ctrl.projectDisplayName = d.$filter("displayName")(d.ctrl.selectedProject), 
+                d.validityWatcher = d.$scope.$watch("$ctrl.forms.bindForm.$valid", function(e, t) {
+                    d.bindStep.valid = e, d.reviewStep.allowed = d.bindStep.valid;
                 });
             }, this.showResults = function() {
-                l.clearValidityWatcher(), l.ctrl.configPageShown = !1, l.ctrl.nextTitle = "Close", 
-                l.ctrl.wizardDone = !0, l.provisionService();
+                d.clearValidityWatcher(), d.ctrl.configPageShown = !1, d.ctrl.nextTitle = "Close", 
+                d.ctrl.wizardDone = !0, d.provisionService();
             }, this.provisionService = function() {
-                if (l.ctrl.inProgress = !0, l.ctrl.orderComplete = !1, l.ctrl.error = !1, l.isNewProject()) {
-                    var e = l.ctrl.selectedProject.metadata.name, t = l.ctrl.selectedProject.metadata.annotations["new-display-name"], n = l.$filter("description")(l.ctrl.selectedProject);
-                    l.ProjectsService.create(e, t, n).then(function(e) {
-                        l.ctrl.selectedProject = e, l.ctrl.projectDisplayName = l.$filter("displayName")(e), 
-                        l.createService();
+                if (d.ctrl.inProgress = !0, d.ctrl.orderComplete = !1, d.ctrl.error = !1, d.isNewProject()) {
+                    var e = d.ctrl.selectedProject.metadata.name, t = d.ctrl.selectedProject.metadata.annotations["new-display-name"], n = d.$filter("description")(d.ctrl.selectedProject);
+                    d.ProjectsService.create(e, t, n).then(function(e) {
+                        d.ctrl.selectedProject = e, d.ctrl.projectDisplayName = d.$filter("displayName")(e), 
+                        d.createService();
                     }, function(e) {
-                        l.ctrl.error = e.data;
+                        d.ctrl.error = e.data;
                     });
-                } else l.ctrl.projectDisplayName = l.$filter("displayName")(l.ctrl.selectedProject), 
-                l.createService();
+                } else d.ctrl.projectDisplayName = d.$filter("displayName")(d.ctrl.selectedProject), 
+                d.createService();
             }, this.onProjectUpdate = function() {
-                l.isNewProject() ? (l.ctrl.applications = [], l.ctrl.updating = !1, l.updateBindability()) : (l.ctrl.updating = !0, 
-                l.ProjectsService.get(l.ctrl.selectedProject.metadata.name).then(i.spread(function(e, t) {
-                    l.ctrl.bindType = "none", l.ctrl.serviceToBind = l.ctrl.serviceClass, l.DataService.list("deploymentconfigs", t).then(function(e) {
-                        l.deploymentConfigs = i.toArray(e.by("metadata.name")), l.sortApplications();
-                    }), l.DataService.list("replicationcontrollers", t).then(function(e) {
-                        l.replicationControllers = i.reject(e.by("metadata.name"), l.hasDeploymentConfigFilter), 
-                        l.sortApplications();
-                    }), l.DataService.list({
+                d.isNewProject() ? (d.ctrl.applications = [], d.ctrl.updating = !1, d.updateBindability()) : (d.ctrl.updating = !0, 
+                d.ProjectsService.get(d.ctrl.selectedProject.metadata.name).then(i.spread(function(e, t) {
+                    d.ctrl.bindType = "none", d.ctrl.serviceToBind = d.ctrl.serviceClass, d.DataService.list("deploymentconfigs", t).then(function(e) {
+                        d.deploymentConfigs = i.toArray(e.by("metadata.name")), d.sortApplications();
+                    }), d.DataService.list("replicationcontrollers", t).then(function(e) {
+                        d.replicationControllers = i.reject(e.by("metadata.name"), d.hasDeploymentConfigFilter), 
+                        d.sortApplications();
+                    }), d.DataService.list({
                         group: "apps",
                         resource: "deployments"
                     }, t).then(function(e) {
-                        l.deployments = i.toArray(e.by("metadata.name")), l.sortApplications();
-                    }), l.DataService.list({
+                        d.deployments = i.toArray(e.by("metadata.name")), d.sortApplications();
+                    }), d.DataService.list({
                         group: "extensions",
                         resource: "replicasets"
                     }, t).then(function(e) {
-                        l.replicaSets = i.reject(e.by("metadata.name"), l.hasDeploymentFilter), l.sortApplications();
-                    }), l.DataService.list({
+                        d.replicaSets = i.reject(e.by("metadata.name"), d.hasDeploymentFilter), d.sortApplications();
+                    }), d.DataService.list({
                         group: "apps",
                         resource: "statefulsets"
                     }, t).then(function(e) {
-                        l.statefulSets = i.toArray(e.by("metadata.name")), l.sortApplications();
+                        d.statefulSets = i.toArray(e.by("metadata.name")), d.sortApplications();
                     });
                 })));
             }, this.watchResults = function(e, t, n) {
-                l.watches.push(l.DataService.watchObject(e, t.metadata.name, n, function(e, t) {
+                d.watches.push(d.DataService.watchObject(e, t.metadata.name, n, function(e, t) {
                     var n = i.get(e, "status.conditions"), r = i.find(n, {
                         type: "Ready"
                     });
-                    l.ctrl.orderComplete = r && "True" === r.status, l.ctrl.error = i.find(n, {
+                    d.ctrl.orderComplete = r && "True" === r.status, d.ctrl.error = i.find(n, {
                         type: "Failed",
                         status: "True"
                     });
@@ -1208,7 +1208,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             }, this.$scope = e, this.$filter = t, this.AuthService = n, this.ProjectsService = r, 
             this.DataService = s, this.BindingService = a, this.Logger = o, this.hasDeploymentFilter = t("hasDeployment"), 
             this.hasDeploymentConfigFilter = t("hasDeploymentConfig"), this.sendRequesterUsername = !1, 
-            this.ctrl.showPodPresets = i.get(c, [ "ENABLE_TECH_PREVIEW_FEATURE", "pod_presets" ], !1);
+            this.ctrl.showPodPresets = i.get(c, [ "ENABLE_TECH_PREVIEW_FEATURE", "pod_presets" ], !1), 
+            this.DNS1123_SUBDOMAIN_VALIDATION = l;
         }
         return e.prototype.$onInit = function() {
             var e = this;
@@ -1261,14 +1262,20 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             this.ctrl.selectedPlan = e, this.ctrl.parameterData = {}, this.updateParameterSchema(e), 
             this.updateBindability();
         }, e.prototype.createService = function() {
-            var e = this, t = this.makeServiceInstance(), n = {
+            var e = this, t = this.getParameters(), n = i.isEmpty(t) ? null : this.generateSecretName(), r = this.makeServiceInstance(n), s = {
                 group: "servicecatalog.k8s.io",
                 resource: "instances"
-            }, r = {
+            }, a = {
                 namespace: this.ctrl.selectedProject.metadata.name
             };
-            this.DataService.create(n, null, t, r).then(function(t) {
-                e.ctrl.orderInProgress = !0, e.watchResults(n, t, r), e.ctrl.serviceInstance = t, 
+            this.DataService.create(s, null, r, a).then(function(r) {
+                if (e.ctrl.orderInProgress = !0, e.watchResults(s, r, a), e.ctrl.serviceInstance = r, 
+                n) {
+                    var o = e.makeParametersSecret(n, t, r);
+                    e.DataService.create("secrets", null, o, a).then(i.noop, function(t) {
+                        e.ctrl.error = i.get(t, "data");
+                    });
+                }
                 "none" !== e.ctrl.bindType && e.bindService();
             }, function(t) {
                 e.ctrl.error = i.get(t, "data");
@@ -1307,12 +1314,42 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 this.ctrl.applications = i.sortBy(e, [ "metadata.name", "kind" ]), this.ctrl.updating = !1, 
                 this.updateBindability();
             }
-        }, e.prototype.makeServiceInstance = function() {
-            var t = i.get(this, "ctrl.serviceClass.resource.metadata.name"), n = i.omitBy(this.ctrl.parameterData, function(e) {
+        }, e.prototype.getParameters = function() {
+            var t = i.omitBy(this.ctrl.parameterData, function(e) {
                 return "" === e;
             });
-            return this.sendRequesterUsername && (n[e.REQUESTER_USERNAME_PARAM_NAME] = this.user.metadata.name), 
-            {
+            return this.sendRequesterUsername && (t[e.REQUESTER_USERNAME_PARAM_NAME] = this.user.metadata.name), 
+            t;
+        }, e.prototype.getServiceClassName = function() {
+            return i.get(this, "ctrl.serviceClass.resource.metadata.name");
+        }, e.prototype.generateSecretName = function() {
+            var e = 5, t = i.truncate(this.getServiceClassName() + "-parameters", {
+                length: this.DNS1123_SUBDOMAIN_VALIDATION.maxlength - e - 1,
+                omission: ""
+            });
+            return this.$filter("generateName")(t + "-", e);
+        }, e.prototype.makeParametersSecret = function(e, t, n) {
+            return {
+                apiVersion: "v1",
+                kind: "Secret",
+                metadata: {
+                    name: e,
+                    ownerReferences: [ {
+                        apiVersion: n.apiVersion,
+                        kind: n.kind,
+                        name: n.metadata.name,
+                        uid: n.metadata.uid,
+                        controller: !1,
+                        blockOwnerDeletion: !1
+                    } ]
+                },
+                type: "Opaque",
+                stringData: {
+                    parameters: JSON.stringify(t)
+                }
+            };
+        }, e.prototype.makeServiceInstance = function(e) {
+            var t = this.getServiceClassName(), n = {
                 kind: "Instance",
                 apiVersion: "servicecatalog.k8s.io/v1alpha1",
                 metadata: {
@@ -1321,15 +1358,20 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 },
                 spec: {
                     serviceClassName: t,
-                    planName: this.ctrl.selectedPlan.name,
-                    parameters: n
+                    planName: this.ctrl.selectedPlan.name
                 }
             };
+            return e && (n.spec.parametersFrom = [ {
+                secretKeyRef: {
+                    name: e,
+                    key: "parameters"
+                }
+            } ]), n;
         }, e.prototype.isNewProject = function() {
             return !this.ctrl.selectedProject || !i.has(this.ctrl.selectedProject, "metadata.uid");
         }, e;
     }();
-    s.$inject = [ "$scope", "$filter", "AuthService", "ProjectsService", "DataService", "BindingService", "Logger", "Constants" ], 
+    s.$inject = [ "$scope", "$filter", "AuthService", "ProjectsService", "DataService", "BindingService", "Logger", "Constants", "DNS1123_SUBDOMAIN_VALIDATION" ], 
     s.REQUESTER_USERNAME_PARAM_NAME = "template.openshift.io/requester-username", t.OrderServiceController = s;
 }, function(e, t, n) {
     "use strict";
@@ -1358,7 +1400,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
     "use strict";
     t.__esModule = !0;
     var r = n(1), i = n(0), s = function() {
-        function e(t, n, s, a, o, c, l, d, p, h, m) {
+        function e(t, n, s, a, o, c, l, d, p, m, h) {
             var u = this;
             this.ctrl = this, this.newProjectPanelShown = !1, this.editProjectPanelShown = !1, 
             this.projects = [], this.watches = [], this.maxDisplayProjects = 5, this.watchingProjects = !1, 
@@ -1399,7 +1441,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 u.watchingProjects || u.ProjectsService.list().then(u.onProjectsUpdate);
             }, this.$filter = t, this.$rootScope = n, this.$scope = s, this.$window = a, this.AuthService = o, 
             this.Constants = c, this.DataService = l, this.Logger = d, this.ProjectsService = p, 
-            this.RecentlyViewedProjectsService = h, this.RecentlyViewedItems = m;
+            this.RecentlyViewedProjectsService = m, this.RecentlyViewedItems = h;
         }
         return e.prototype.$onInit = function() {
             var e = this;
@@ -1672,8 +1714,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
     t.__esModule = !0;
     var r = n(1);
     n(3), n(27);
-    var i = n(28), s = n(29), a = n(17), o = n(18), c = n(30), l = n(19), d = n(20), p = n(21), h = n(22), m = n(23), u = n(24), g = n(25), f = n(26), v = n(31);
-    t.webCatalog = "webCatalog", r.module(t.webCatalog, [ "patternfly", "ngAnimate", "ui.bootstrap", "angularMoment", "ui.select", "schemaForm" ]).service("BuilderAppService", s.BuilderAppService).service("Catalog", c.CatalogService).service("RecentlyViewedServiceItems", v.RecentlyViewedServiceItems).filter("projectUrl", i.projectUrlFilter).component("catalogParameters", a.catalogParameters).component("catalogSearch", o.catalogSearch).component("createFromBuilder", l.createFromBuilder).component("landingPage", d.landingPage).component("orderService", p.orderService).component("overlayPanel", h.overlayPanel).component("projectsSummary", m.projectsSummary).component("saasList", u.saasList).component("selectProject", g.selectProject).component("servicesView", f.servicesView).run([ "$templateCache", function(e) {
+    var i = n(28), s = n(29), a = n(17), o = n(18), c = n(30), l = n(19), d = n(20), p = n(21), m = n(22), h = n(23), u = n(24), g = n(25), f = n(26), v = n(31);
+    t.webCatalog = "webCatalog", r.module(t.webCatalog, [ "patternfly", "ngAnimate", "ui.bootstrap", "angularMoment", "ui.select", "schemaForm" ]).service("BuilderAppService", s.BuilderAppService).service("Catalog", c.CatalogService).service("RecentlyViewedServiceItems", v.RecentlyViewedServiceItems).filter("projectUrl", i.projectUrlFilter).component("catalogParameters", a.catalogParameters).component("catalogSearch", o.catalogSearch).component("createFromBuilder", l.createFromBuilder).component("landingPage", d.landingPage).component("orderService", p.orderService).component("overlayPanel", m.overlayPanel).component("projectsSummary", h.projectsSummary).component("saasList", u.saasList).component("selectProject", g.selectProject).component("servicesView", f.servicesView).run([ "$templateCache", function(e) {
         e.put("catalog-search/catalog-search-result.html", n(4)), e.put("create-from-builder/create-from-builder-configure.html", n(6)), 
         e.put("create-from-builder/create-from-builder-bind.html", n(5)), e.put("create-from-builder/create-from-builder-results.html", n(7)), 
         e.put("order-service/order-service-plans.html", n(10)), e.put("order-service/order-service-configure.html", n(9)), 
