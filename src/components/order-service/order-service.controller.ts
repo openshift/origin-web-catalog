@@ -323,6 +323,7 @@ export class OrderServiceController implements angular.IController {
       this.sendRequesterUsername = false;
     }
     this.ctrl.parameterSchema = schema;
+    this.ctrl.parameterFormDefinition = _.get(this, 'ctrl.selectedPlan.externalMetadata.schemas.service_instance.create.openshift_form_definition');
   }
 
   private onProjectUpdate = () => {

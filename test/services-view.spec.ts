@@ -65,7 +65,7 @@ describe('servicesView', () => {
     var ctrl = componentTest.isoScope.$ctrl;
     expect(ctrl.currentFilter).toBe('all');
     expect(ctrl.currentSubFilter).toBe('all');
-    expect(ctrl.filteredItems.length).toBe(15);
+    expect(ctrl.filteredItems.length).toBe(16);
   });
 
   it('should display the initial categories and correct number of catalog cards', () => {
@@ -79,8 +79,8 @@ describe('servicesView', () => {
     // 'All' category should be selected and the current filter
     expect(jQuery(element).find('.nav-tabs-pf .active .services-category-heading').html()).toBe('All');
 
-    // 15 cards/services
-    expect(jQuery(element).find('.services-item-name').length).toBe(15);
+    // 16 cards/services
+    expect(jQuery(element).find('.services-item-name').length).toBe(16);
   });
 
   it('should filter sub-categories and cards when main category is clicked', () => {
@@ -275,8 +275,8 @@ describe('servicesView', () => {
 
     var element = componentTest.rawElement;
 
-    // 15 initial catalog items
-    expect(jQuery(element).find('.services-item-name').length).toBe(15);
+    // 16 initial catalog items
+    expect(jQuery(element).find('.services-item-name').length).toBe(16);
 
     //Get Filter Dropdown
     var filterDropdown = jQuery(element).find('span[uib-dropdown]');
@@ -289,8 +289,8 @@ describe('servicesView', () => {
 
     enterFilterKeyword(keyWordInput, "test");
 
-    // 9 catalog items with 'test' keyword
-    expect(jQuery(element).find('.services-item-name').length).toBe(9);
+    // 10 catalog items with 'test' keyword
+    expect(jQuery(element).find('.services-item-name').length).toBe(10);
 
     // 1 active filter tag
     let keywordFilterTags: any = jQuery(element).find('.active-filter.label.label-info');
@@ -312,14 +312,14 @@ describe('servicesView', () => {
     // clear second keyword filter
     componentTest.eventFire(keywordFilterTags.eq(1).find('.pficon-close')[0], 'click');
 
-    // back to 9 catalog items with 'test' keyword
-    expect(jQuery(element).find('.services-item-name').length).toBe(9);
+    // back to 10 catalog items with 'test' keyword
+    expect(jQuery(element).find('.services-item-name').length).toBe(10);
 
     // remove all filters
     componentTest.eventFire(jQuery(element).find('.clear-filters')[0], 'click');
 
-    // back to the original 15 catalog items
-    expect(jQuery(element).find('.services-item-name').length).toBe(15);
+    // back to the original 16 catalog items
+    expect(jQuery(element).find('.services-item-name').length).toBe(16);
 
     // no keyword filter tags
     expect(jQuery(element).find('.active-filter.label.label-info').length).toBe(0);
@@ -342,8 +342,8 @@ describe('servicesView', () => {
     enterFilterKeyword(keyWordInput, "test");
     componentTest.scope.$digest();
 
-    // 9 catalog items with 'test' keyword
-    expect(jQuery(element).find('.services-item-name').length).toBe(9);
+    // 10 catalog items with 'test' keyword
+    expect(jQuery(element).find('.services-item-name').length).toBe(10);
 
     // 1 active filter tag
     let keywordFilterTags: any = jQuery(element).find('.active-filter.label.label-info');
