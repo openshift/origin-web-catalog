@@ -12,4 +12,4 @@ dist/*.svg
 dist/*.gif
 dist/*.jpg
 dist/*.png
-
+.DS_Store

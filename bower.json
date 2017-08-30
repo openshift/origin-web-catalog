@@ -35,7 +35,7 @@
     "angular-sanitize": "1.5.11",
     "angular-route": "1.5.11",
     "angular-bootstrap": "0.14.3",
-    "angular-patternfly": "~4.7.1",
+    "angular-patternfly": ">=4.7.1 <5.0.0",
     "angular-schema-form": "^0.8.13",
     "patternfly": "~3.26.1",
     "jquery": "~3.2.1",
