@@ -20,8 +20,10 @@ export class OrderServiceController implements angular.IController {
   private planStep: any;
   private configStep: any;
   private bindStep: any;
+  private bindParametersStep: any;
   private reviewStep: any;
   private selectedProjectWatch: any;
+  private bindTypeWatch: any;
   private deploymentConfigs: any;
   private deployments: any;
   private replicationControllers: any;
@@ -64,6 +66,7 @@ export class OrderServiceController implements angular.IController {
     this.ctrl.plans = _.get(this, 'ctrl.serviceClass.resource.plans', []);
     this.ctrl.applications = [];
     this.ctrl.parameterData = {};
+    this.ctrl.bindParameterData = {};
     this.ctrl.forms = {};
 
     this.ctrl.appToBind = null;
@@ -96,6 +99,15 @@ export class OrderServiceController implements angular.IController {
       valid: true,
       onShow: this.showBind
     };
+    this.bindParametersStep = {
+      label: 'Parameters',
+      id: 'bind-parameters',
+      view: 'order-service/order-service-bind-parameters.html',
+      hidden: false,
+      allowed: false,
+      valid: true,
+      onShow: this.showBindParameters
+    };
     this.reviewStep = {
       label: 'Results',
       id: 'results',
@@ -107,7 +119,7 @@ export class OrderServiceController implements angular.IController {
       onShow: this.showResults
     };
 
-    this.ctrl.steps = [this.planStep, this.configStep, this.bindStep, this.reviewStep];
+    this.ctrl.steps = [this.planStep, this.configStep, this.bindStep, this.bindParametersStep, this.reviewStep];
     this.ctrl.nameTaken = false;
     this.ctrl.wizardDone = false;
     this.ctrl.bindType = "none";
@@ -126,6 +138,16 @@ export class OrderServiceController implements angular.IController {
       },
       this.onProjectUpdate
     );
+
+    this.bindTypeWatch = this.$scope.$watch("$ctrl.bindType", (current: any, previous: any) => {
+      if (current === previous) {
+        return;
+      }
+
+      this.updateBindParametersStepVisibility();
+      this.ctrl.nextTitle = this.bindParametersStep.hidden ? 'Create' : 'Next >';
+      this.reviewStep.allowed = this.bindParametersStep.hidden && this.bindStep.valid;
+    });
 
     this.AuthService.withUser().then((user) => {
       this.user = user;
@@ -163,8 +185,8 @@ export class OrderServiceController implements angular.IController {
   public showBind = () => {
     this.clearValidityWatcher();
     this.ctrl.configPageShown = false;
-    this.ctrl.nextTitle = 'Create';
-    this.reviewStep.allowed = this.bindStep.valid;
+    this.ctrl.nextTitle = this.bindParametersStep.hidden ? 'Create' : 'Next >';
+    this.reviewStep.allowed = this.bindParametersStep.hidden && this.bindStep.valid;
 
     if (this.isNewProject()) {
       this.ctrl.projectDisplayName = this.ctrl.selectedProject.metadata.annotations['new-display-name'] || this.ctrl.selectedProject.metadata.name;
@@ -174,7 +196,17 @@ export class OrderServiceController implements angular.IController {
 
     this.validityWatcher = this.$scope.$watch("$ctrl.forms.bindForm.$valid", (isValid: any, lastValue: any) => {
       this.bindStep.valid = isValid;
-      this.reviewStep.allowed = this.bindStep.valid;
+      this.bindParametersStep.allowed = isValid;
+      this.reviewStep.allowed = this.bindParametersStep.hidden && this.bindStep.valid;
+    });
+  };
+
+  public showBindParameters = () => {
+    this.clearValidityWatcher();
+    this.ctrl.nextTitle = 'Create';
+    this.validityWatcher = this.$scope.$watch("$ctrl.forms.bindParametersForm.$valid", (isValid: any, lastValue: any) => {
+      this.bindParametersStep.valid = isValid;
+      this.reviewStep.allowed = this.bindParametersStep.valid;
     });
   };
 
@@ -257,7 +289,10 @@ export class OrderServiceController implements angular.IController {
       namespace: _.get(this.ctrl.selectedProject, 'metadata.name')
     };
     var application = this.ctrl.bindType === 'application' ? this.ctrl.appToBind : undefined;
-    this.BindingService.bindService(this.ctrl.serviceInstance, application, this.ctrl.serviceClass.resource).then((binding: any) => {
+    this.BindingService.bindService(this.ctrl.serviceInstance,
+                                    application,
+                                    this.ctrl.serviceClass.resource,
+                                    this.ctrl.bindParameterData).then((binding: any) => {
       this.ctrl.binding = binding;
 
       this.watches.push(this.DataService.watchObject(this.BindingService.bindingResource, _.get(this.ctrl.binding, 'metadata.name'), context, (binding: any) => {
@@ -271,6 +306,7 @@ export class OrderServiceController implements angular.IController {
   public $onDestroy() {
     this.DataService.unwatchAll(this.watches);
     this.selectedProjectWatch();
+    this.bindTypeWatch();
     this.clearValidityWatcher();
   }
 
@@ -296,6 +332,8 @@ export class OrderServiceController implements angular.IController {
       this.bindStep.hidden = !_.get(this.ctrl.serviceClass, "resource.bindable");
     }
 
+    this.updateBindParametersStepVisibility();
+
     if (this.ctrl.configPageShown) {
       this.reviewStep.allowed = this.bindStep.hidden;
 
@@ -306,6 +344,14 @@ export class OrderServiceController implements angular.IController {
       }
     }
   }
+
+  private updateBindParametersStepVisibility() {
+    // Show the bind parameters step if the bind step if not hidden and the plan has a bind parameter schema.
+    this.bindParametersStep.hidden = this.bindStep.hidden ||
+                                     this.ctrl.bindType === 'none' ||
+                                     !_.has(this.ctrl, 'bindParameterSchema.properties');
+    this.bindParametersStep.allowed = this.bindStep.valid;
+  };
 
   private updateParameterSchema(plan: any) {
     let schema: any = _.get(plan, 'alphaInstanceCreateParameterSchema');
@@ -318,6 +364,8 @@ export class OrderServiceController implements angular.IController {
     }
     this.ctrl.parameterSchema = schema;
     this.ctrl.parameterFormDefinition = _.get(this, 'ctrl.selectedPlan.externalMetadata.schemas.service_instance.create.openshift_form_definition');
+
+    this.ctrl.bindParameterSchema = _.get(plan, 'alphaBindingCreateParameterSchema');
   }
 
   private onProjectUpdate = () => {
