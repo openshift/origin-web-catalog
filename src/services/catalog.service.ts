@@ -363,7 +363,7 @@ export class ServiceItem implements IServiceItem {
   }
 
   private getVendor(): string {
-    return _.get(this.resource, 'metadata.providerDisplayName') as string || '';
+    return _.get(this.resource, 'externalMetadata.providerDisplayName') as string || '';
   }
 }
 
@@ -439,7 +439,7 @@ export class ImageItem implements IServiceItem {
   }
 
   private getVendor(): string {
-    return _.get(this.resource, 'metadata.providerDisplayName') as string || '';
+    return '';
   }
 
   private getDescription() {
@@ -503,6 +503,6 @@ export class TemplateItem implements IServiceItem {
   }
 
   private getVendor(): string {
-    return _.get(this.resource, 'metadata.providerDisplayName') as string || '';
+    return _.get(this.resource, ['metadata', 'annotations', 'template.openshift.io/provider-display-name']) as string || '';
   }
 }

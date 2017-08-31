@@ -774,7 +774,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
         }, e.prototype.getTags = function() {
             return i.get(this.resource, "alphaTags") || [];
         }, e.prototype.getVendor = function() {
-            return i.get(this.resource, "metadata.providerDisplayName") || "";
+            return i.get(this.resource, "externalMetadata.providerDisplayName") || "";
         }, e;
     }();
     t.ServiceItem = a;
@@ -802,7 +802,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             var e = this.catalogSrv.$filter("displayName")(this.resource);
             return e || (e = this.resource.metadata.name), e;
         }, e.prototype.getVendor = function() {
-            return i.get(this.resource, "metadata.providerDisplayName") || "";
+            return "";
         }, e.prototype.getDescription = function() {
             return null;
         }, e.prototype.getLongDescription = function() {
@@ -830,7 +830,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
         }, e.prototype.getTags = function() {
             return i.get(this.resource, "metadata.annotations.tags", "").split(/\s*,\s*/);
         }, e.prototype.getVendor = function() {
-            return i.get(this.resource, "metadata.providerDisplayName") || "";
+            return i.get(this.resource, [ "metadata", "annotations", "template.openshift.io/provider-display-name" ]) || "";
         }, e;
     }();
     t.TemplateItem = c;
