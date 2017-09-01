@@ -1,18 +1,10 @@
 <div ng-if="!$ctrl.success && !$ctrl.error">
-  <div ng-if="!$ctrl.serviceToBind">
-    <h3 class="text-center">
-      <div class="spinner spinner-lg" aria-hidden="true"></div>
-    </h3>
-    <h3 class="text-center">
-      <span>The application is being created</span>
-    </h3>
-  </div>
-  <div ng-if="$ctrl.serviceToBind" class="review-status">
-    <div class="spinner spinner-sm spinner-inline" aria-hidden="true"></div>
-    <h3 class="review-message">
-      The application is being created
-    </h3>
-  </div>
+  <h3 class="text-center">
+    <div class="spinner spinner-lg" aria-hidden="true"></div>
+  </h3>
+  <h3 class="text-center">
+    <span>The application is being created</span>
+  </h3>
 </div>
 <div ng-if="$ctrl.success">
   <div class="review-status">
@@ -25,7 +17,7 @@
     </h3>
   </div>
 </div>
-<div ng-if="!$ctrl.error && ($ctrl.bindInProgress || $ctrl.bindComplete)">
+<div ng-if="$ctrl.success && $ctrl.binding">
   <bind-results error="$ctrl.bindError"
                 progress-inline="true"
                 binding="$ctrl.binding"

@@ -252,7 +252,6 @@ export class OrderServiceController implements angular.IController {
   }
 
   public bindService() {
-    this.ctrl.bindInProgress = true;
     this.ctrl.bindError = false;
     var context = {
       namespace: _.get(this.ctrl.selectedProject, 'metadata.name')
@@ -260,16 +259,11 @@ export class OrderServiceController implements angular.IController {
     var application = this.ctrl.bindType === 'application' ? this.ctrl.appToBind : undefined;
     this.BindingService.bindService(this.ctrl.serviceInstance, application, this.ctrl.serviceClass.resource).then((binding: any) => {
       this.ctrl.binding = binding;
-      this.ctrl.bindInProgress = false;
-      this.ctrl.bindComplete = true;
-      this.ctrl.bindError = null;
 
       this.watches.push(this.DataService.watchObject(this.BindingService.bindingResource, _.get(this.ctrl.binding, 'metadata.name'), context, (binding: any) => {
         this.ctrl.binding = binding;
       }));
     }, (e: any) => {
-      this.ctrl.bindInProgress = false;
-      this.ctrl.bindComplete = true;
       this.ctrl.bindError = e;
     });
   }
@@ -331,7 +325,7 @@ export class OrderServiceController implements angular.IController {
       this.ctrl.applications = [];
       this.ctrl.updating = false;
       this.updateBindability();
-    } else {
+    } else if (this.ctrl.showPodPresets) {
       this.ctrl.updating = true;
       this.ProjectsService.get(this.ctrl.selectedProject.metadata.name).then(_.spread((project: any, context: any) => {
 
@@ -485,5 +479,5 @@ export class OrderServiceController implements angular.IController {
       this.ctrl.orderComplete = readyCondition && readyCondition.status === 'True';
       this.ctrl.error = _.find(conditions, {type: 'Failed', status: 'True'});
     }));
-  }
+  };
 }
