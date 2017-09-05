@@ -1131,7 +1131,6 @@ services-view .vendor-info-icon,
   flex: 1 1 auto;
   flex-wrap: wrap;
   padding-bottom: 30px;
-  width: 100%;
   z-index: 9;
 }
 .services-view .services-items-filter {
@@ -1159,10 +1158,10 @@ services-view .vendor-info-icon,
     position: relative;
   }
   .services-view .services-sub-categories .services-items {
-    left: 0;
-    margin: 10px 20px;
+    left: 20px;
+    margin: 10px 0;
     position: absolute;
-    right: 0;
+    right: 20px;
   }
   .services-view .services-sub-category {
     background-color: #fff;
