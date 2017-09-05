@@ -50,6 +50,10 @@ var categories: any = [
 _.set(window, 'OPENSHIFT_CONSTANTS.SERVICE_CATALOG_CATEGORIES', categories);
 _.set(window, 'OPENSHIFT_CONSTANTS.SAAS_OFFERINGS', saasOfferings);
 
+var enableTechPreview =  {
+  pod_presets: false
+};
+_.set(window, 'OPENSHIFT_CONSTANTS.ENABLE_TECH_PREVIEW_FEATURE', enableTechPreview);
 
 var resources: any = {
   links: [

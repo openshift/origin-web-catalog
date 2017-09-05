@@ -77,7 +77,7 @@ export class CreateFromBuilderController implements angular.IController {
       view: 'create-from-builder/create-from-builder-bind.html',
       valid: true,
       allowed: false,
-      hidden: false,
+      hidden: !this.ctrl.showPodPresets,
       onShow: this.showBind
     };
     this.reviewStep = {
@@ -291,7 +291,7 @@ export class CreateFromBuilderController implements angular.IController {
     if (!this.instancesSupported || this.isNewProject()) {
       this.ctrl.serviceInstances = [];
       this.updateBindability();
-    } else {
+    } else if (this.ctrl.showPodPresets) {
       this.ctrl.updating = true;
       this.DataService.list({
         group: 'servicecatalog.k8s.io',
@@ -370,7 +370,6 @@ export class CreateFromBuilderController implements angular.IController {
   }
 
   private bindService(application: any) {
-    this.ctrl.bindInProgress = true;
     this.ctrl.bindError = false;
     let context = {
       namespace: _.get(this.ctrl.selectedProject, 'metadata.name')
@@ -378,14 +377,10 @@ export class CreateFromBuilderController implements angular.IController {
     let serviceClass = this.BindingService.getServiceClassForInstance(this.ctrl.serviceToBind, this.ctrl.serviceClasses);
     this.BindingService.bindService(this.ctrl.serviceToBind, application, serviceClass).then((binding: any) => {
       this.ctrl.binding = binding;
-      this.ctrl.bindInProgress = false;
-      this.ctrl.bindComplete = true;
-      this.ctrl.bindError = null;
       this.watches.push(this.DataService.watchObject(this.BindingService.bindingResource, _.get(this.ctrl.binding, 'metadata.name'), context, (binding: any) => {
         this.ctrl.binding = binding;
       }));
     }, (e: any) => {
-      this.ctrl.bindInProgress = false;
       this.ctrl.bindComplete = true;
       this.ctrl.bindError = e;
     });

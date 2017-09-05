@@ -1,19 +1,11 @@
 <div ng-if="!$ctrl.error">
   <div ng-if="!$ctrl.orderComplete">
-    <div ng-if="$ctrl.bindType === 'none'">
-      <h3 class="text-center">
-        <div class="spinner spinner-lg" aria-hidden="true"></div>
-      </h3>
-      <h3 class="text-center">
-        <span>The service is being provisioned</span>
-      </h3>
-    </div>
-    <div ng-if="$ctrl.bindType !== 'none'" class="review-status">
-      <div class="spinner spinner-sm spinner-inline" aria-hidden="true"></div>
-      <h3 class="review-message">
-        The service is being provisioned
-      </h3>
-    </div>
+    <h3 class="text-center">
+      <div class="spinner spinner-lg" aria-hidden="true"></div>
+    </h3>
+    <h3 class="text-center">
+      <span>The service is being provisioned</span>
+    </h3>
   </div>
 </div>
 <div class="review-failure" ng-if="$ctrl.error">
@@ -44,10 +36,11 @@
     </h3>
   </div>
 </div>
-<div ng-if="$ctrl.bindType !== 'none'">
+<div ng-if="$ctrl.orderComplete && $ctrl.binding">
   <bind-results error="$ctrl.bindError"
                 progress-inline="true"
                 binding="$ctrl.binding"
+                secret-href="$ctrl.baseProjectUrl + '/browse/secrets/' + $ctrl.binding.spec.secretName"
                 service-to-bind="$ctrl.serviceInstance.metadata.name"
                 bind-type="{{$ctrl.bindType}}"
                 application-to-bind="$ctrl.appToBind.metadata.name"
