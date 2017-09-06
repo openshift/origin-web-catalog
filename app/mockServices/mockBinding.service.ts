@@ -3,7 +3,7 @@ import * as _ from 'lodash';
 
 interface IBindingService {
   bindingResource: any;
-  bindService(serviceInstance: any, application: any, serviceClass: any) : angular.IPromise < any >;
+  bindService(serviceInstance: any, application: any, serviceClass: any, parameters: any) : angular.IPromise < any >;
   getServiceClassForInstance(serviceInstance: any, serviceClasses: any) : any;
   isServiceBindable(serviceInstance: any, serviceClasses: any) : boolean;
 }
@@ -29,7 +29,7 @@ export class BindingService implements IBindingService {
     return _.get(serviceClasses, [serviceClassName]);
   }
 
-  public bindService (serviceInstance: any, application: any, serviceClasses: any): angular.IPromise < any > {
+  public bindService (serviceInstance: any, application: any, serviceClass: any, parameters: any): angular.IPromise < any > {
     let deferred = this.$q.defer();
 
     var data: any = {};

@@ -13,6 +13,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
 }, function(e, t) {
     e.exports = '<div ng-if="!$ctrl.success && !$ctrl.error">\n  <h3 class="text-center">\n    <div class="spinner spinner-lg" aria-hidden="true"></div>\n  </h3>\n  <h3 class="text-center">\n    <span>The application is being created</span>\n  </h3>\n</div>\n<div ng-if="$ctrl.success">\n  <div class="review-status">\n    <span class="pficon pficon-ok" aria-hidden="true"></span>\n    <span class="sr-only">Success</span>\n    <h3 class="review-message">\n    <span>\n      <strong>{{$ctrl.name}}</strong> has been created in <strong>{{$ctrl.selectedProject.metadata.name}}</strong> successfully\n    </span>\n    </h3>\n  </div>\n</div>\n<div ng-if="$ctrl.success && $ctrl.binding">\n  <bind-results error="$ctrl.bindError"\n                progress-inline="true"\n                binding="$ctrl.binding"\n                service-to-bind="$ctrl.serviceToBind.metadata.name"\n                bind-type="application"\n                application-to-bind="$ctrl.name"\n                show-pod-presets="$ctrl.showPodPresets">\n  </bind-results>\n</div>\n<div ng-if="$ctrl.success">\n  <p ng-if="!$ctrl.serviceToBind || $ctrl.bindComplete">\n    Continue to your project to check the status of your application as it builds and deploys.\n  </p>\n</div>\n<div class="review-failure" ng-if="$ctrl.error">\n  <div class="review-status">\n    <span class="pficon pficon-error-circle-o text-danger" aria-hidden="true"></span>\n    <h3 class="review-message">\n      Error creating <strong>{{$ctrl.name}}</strong> in\n      <strong>{{$ctrl.selectedProject | displayName}}</strong>\n    </h3>\n  </div>\n  <div class="sub-title">\n    <span ng-if="$ctrl.error.data.message">\n      {{$ctrl.error.data.message | upperFirst}}\n    </span>\n    <span ng-if="!$ctrl.error.data.message">\n      An error occurred creating the application.\n    </span>\n  </div>\n  \x3c!-- TODO: Improve error message presentation --\x3e\n  <ul ng-if="$ctrl.error.failure.length" class="failure-messages">\n    <li ng-repeat="failure in $ctrl.error.failure">\n      {{failure.data.message}}\n    </li>\n  </ul>\n</div>\n<div class="footer-panel">\n  <a class="btn btn-primary" href="{{$ctrl.selectedProject | projectUrl : $ctrl.baseProjectUrl}}">View Project</a>\n</div>\n';
 }, function(e, t) {
+    e.exports = '<div class="config-top">\n  <form name="$ctrl.forms.bindParametersForm" class="config-form">\n    <catalog-parameters\n      ng-if="$ctrl.bindParameterSchema.properties"\n      model="$ctrl.bindParameterData"\n      parameter-schema="$ctrl.bindParameterSchema">\n    </catalog-parameters>\n  </form>\n</div>\n';
+}, function(e, t) {
     e.exports = '<bind-service-form service-class="$ctrl.serviceClass.resource"\n                   service-class-name="$ctrl.serviceClass.name"\n                   show-pod-presets="$ctrl.showPodPresets"\n                   applications="$ctrl.applications"\n                   form-name="$ctrl.forms.bindForm"\n                   allow-no-binding="true"\n                   project-name="$ctrl.projectDisplayName"\n                   bind-type="$ctrl.bindType"\n                   app-to-bind="$ctrl.appToBind">\n</bind-service-form>\n';
 }, function(e, t) {
     e.exports = '<div class="config-top">\n  <form name="$ctrl.forms.orderConfigureForm" class="config-form">\n    <select-project selected-project="$ctrl.selectedProject" name-taken="$ctrl.nameTaken"></select-project>\n    <catalog-parameters\n      ng-if="$ctrl.parameterSchema.properties"\n      model="$ctrl.parameterData"\n      parameter-schema="$ctrl.parameterSchema"\n      parameter-form-definition="$ctrl.parameterFormDefinition">\n    </catalog-parameters>\n  </form>\n  <div ng-if="$ctrl.error" class="has-error">\n    <span class="help-block">{{$ctrl.error}}</span>\n  </div>\n</div>\n';
@@ -33,7 +35,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
 }, function(e, t, r) {
     "use strict";
     t.__esModule = !0;
-    var n = r(44);
+    var n = r(45);
     t.catalogFilter = {
         bindings: {
             config: "<",
@@ -41,12 +43,12 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             applyFilters: "&"
         },
         controller: n.CatalogFilterController,
-        template: r(33)
+        template: r(34)
     };
 }, function(e, t, r) {
     "use strict";
     t.__esModule = !0;
-    var n = r(45);
+    var n = r(46);
     t.catalogParameters = {
         bindings: {
             parameterSchema: "<",
@@ -54,24 +56,24 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             model: "="
         },
         controller: n.CatalogParametersController,
-        template: r(34)
-    };
-}, function(e, t, r) {
-    "use strict";
-    t.__esModule = !0;
-    var n = r(46);
-    t.catalogSearch = {
-        bindings: {
-            baseProjectUrl: "@",
-            catalogItems: "<"
-        },
-        controller: n.CatalogSearchController,
         template: r(35)
     };
 }, function(e, t, r) {
     "use strict";
     t.__esModule = !0;
     var n = r(47);
+    t.catalogSearch = {
+        bindings: {
+            baseProjectUrl: "@",
+            catalogItems: "<"
+        },
+        controller: n.CatalogSearchController,
+        template: r(36)
+    };
+}, function(e, t, r) {
+    "use strict";
+    t.__esModule = !0;
+    var n = r(48);
     t.createFromBuilder = {
         bindings: {
             baseProjectUrl: "@",
@@ -79,19 +81,19 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             handleClose: "<"
         },
         controller: n.CreateFromBuilderController,
-        template: r(36)
+        template: r(37)
     };
 }, function(e, t, r) {
     "use strict";
     t.__esModule = !0;
-    var n = r(48);
+    var n = r(49);
     t.landingPage = {
         bindings: {
             baseProjectUrl: "@",
             onTemplateSelected: "&"
         },
         controller: n.LandingPageController,
-        template: r(37),
+        template: r(38),
         transclude: {
             landingsearch: "landingsearch",
             landingheader: "landingheader",
@@ -102,7 +104,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
 }, function(e, t, r) {
     "use strict";
     t.__esModule = !0;
-    var n = r(49);
+    var n = r(50);
     t.orderService = {
         bindings: {
             baseProjectUrl: "@",
@@ -110,12 +112,12 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             handleClose: "<"
         },
         controller: n.OrderServiceController,
-        template: r(38)
+        template: r(39)
     };
 }, function(e, t, r) {
     "use strict";
     t.__esModule = !0;
-    var n = r(50);
+    var n = r(51);
     t.overlayPanel = {
         bindings: {
             showClose: "<",
@@ -124,13 +126,13 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             singleColumn: "<"
         },
         controller: n.OverlayPanelController,
-        template: r(39),
+        template: r(40),
         transclude: !0
     };
 }, function(e, t, r) {
     "use strict";
     t.__esModule = !0;
-    var n = r(51);
+    var n = r(52);
     t.projectsSummary = {
         bindings: {
             baseProjectUrl: "@",
@@ -140,24 +142,24 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             startTour: "&"
         },
         controller: n.ProjectsSummaryController,
-        template: r(40)
-    };
-}, function(e, t, r) {
-    "use strict";
-    t.__esModule = !0;
-    var n = r(52);
-    t.saasList = {
-        bindings: {
-            saasTitle: "<?",
-            saasOfferings: "<"
-        },
-        controller: n.SaasListController,
         template: r(41)
     };
 }, function(e, t, r) {
     "use strict";
     t.__esModule = !0;
     var n = r(53);
+    t.saasList = {
+        bindings: {
+            saasTitle: "<?",
+            saasOfferings: "<"
+        },
+        controller: n.SaasListController,
+        template: r(42)
+    };
+}, function(e, t, r) {
+    "use strict";
+    t.__esModule = !0;
+    var n = r(54);
     t.selectProject = {
         bindings: {
             selectedProject: "=",
@@ -166,12 +168,12 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             availableProjects: "<"
         },
         controller: n.SelectProjectController,
-        template: r(42)
+        template: r(43)
     };
 }, function(e, t, r) {
     "use strict";
     t.__esModule = !0;
-    var n = r(54);
+    var n = r(55);
     t.servicesView = {
         bindings: {
             baseProjectUrl: "@",
@@ -181,7 +183,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             onCreateFromProject: "<"
         },
         controller: n.ServicesViewController,
-        template: r(43)
+        template: r(44)
     };
 }, function(e, t, r) {
     "use strict";
@@ -894,7 +896,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
 }, function(e, t) {
     e.exports = '<div class="landing-search-area" ng-transclude="landingsearch"></div>\n<div class="landing">\n  <overlay-panel show-panel="$ctrl.orderingPanelVisible" show-close="true" handle-close="$ctrl.closeOrderingPanel">\n    <order-service\n        ng-if="$ctrl.selectedItem.resource.kind === \'ServiceClass\'"\n        base-project-url="{{$ctrl.baseProjectUrl}}"\n        service-class="$ctrl.selectedItem"\n        handle-close="$ctrl.closeOrderingPanel">\n    </order-service>\n    <create-from-builder\n        ng-if="$ctrl.selectedItem.resource.kind === \'ImageStream\'"\n        base-project-url="{{$ctrl.baseProjectUrl}}"\n        image-stream="$ctrl.selectedItem"\n        handle-close="$ctrl.closeOrderingPanel">\n    </create-from-builder>\n  </overlay-panel>\n  <div class="landing-main-area">\n    <div class="landing-header-area" ng-transclude="landingheader"></div>\n    <div class="landing-body-area">\n      <div class="landing-body" ng-transclude="landingbody"></div>\n    </div>\n  </div>\n  <div class="landing-side-bar" ng-transclude="landingside"></div>\n</div>\n';
 }, function(e, t) {
-    e.exports = '<div class="order-service">\n  <pf-wizard\n       hide-header="true"\n       hide-sidebar="true"\n       step-class="order-service-wizard-step"\n       wizard-ready="$ctrl.wizardReady"\n       next-title="$ctrl.nextTitle"\n       on-finish="$ctrl.closePanel()"\n       on-cancel="$ctrl.closePanel()"\n       wizard-done="$ctrl.wizardDone">\n    <pf-wizard-step ng-repeat="step in $ctrl.steps track by $index"\n         step-title="{{step.label}}"\n         wz-disabled="{{step.hidden}}"\n         allow-click-nav="step.allowed"\n         next-enabled="step.valid && !$ctrl.updating"\n         prev-enabled="step.prevEnabled"\n         on-show="step.onShow"\n         step-id="{{step.id}}"\n         step-priority="{{$index}}">\n      <div class="wizard-pf-main-inner-shadow-covers">\n        <div class="order-service-details">\n          <div class="order-service-details-top">\n            <div class="service-icon">\n              <span ng-if="!$ctrl.imageUrl" class="icon {{$ctrl.iconClass}}"></span>\n              <span ng-if="$ctrl.imageUrl" class="image"><img ng-src="{{$ctrl.imageUrl}}" alt=""></span>\n            </div>\n            <div class="service-title-area">\n              <div class="service-title">\n                {{$ctrl.serviceName}}\n              </div>\n              <div ng-if="$ctrl.serviceClass.tags" class="order-service-tags">\n                <span ng-repeat="tag in $ctrl.serviceClass.tags" class="tag">\n                  {{tag}}\n                </span>\n              </div>\n              <div ng-if="$ctrl.serviceClass.resource.externalMetadata.documentationUrl" class="order-service-documentation-url">\n                <a ng-href="{{$ctrl.serviceClass.resource.externalMetadata.documentationUrl}}" target="_blank" class="learn-more-link">Learn More <i class="fa fa-external-link" aria-hidden="true"></i></a>\n              </div>\n            </div>\n          </div>\n          <div class="order-service-description-block">\n            <p ng-if="$ctrl.currentStep.id !== \'plans\' && ($ctrl.selectedPlan.externalMetadata.displayName || $ctrl.selectedPlan.description)">\n              <span ng-if="$ctrl.selectedPlan.externalMetadata.displayName">\n                Plan {{$ctrl.selectedPlan.externalMetadata.displayName}}\n                <span ng-if="$ctrl.selectedPlan.description">&ndash;</span>\n              </span>\n              <span ng-if="$ctrl.selectedPlan.description">{{$ctrl.selectedPlan.description}}</span>\n            </p>\n            <p ng-if="$ctrl.description" ng-bind-html="$ctrl.description | linky : \'_blank\'" class="description"></p>\n            <p ng-if="$ctrl.longDescription" ng-bind-html="$ctrl.longDescription | linky : \'_blank\'" class="description"></p>\n          </div>\n        </div>\n        <div class="order-service-config">\n          <div ng-include="step.view" class="wizard-pf-main-form-contents"></div>\n        </div>\n      </div>\n    </>\n  </>\n</div>\n';
+    e.exports = '<div class="order-service">\n  <pf-wizard\n       hide-header="true"\n       hide-sidebar="true"\n       step-class="order-service-wizard-step"\n       wizard-ready="$ctrl.wizardReady"\n       next-title="$ctrl.nextTitle"\n       on-finish="$ctrl.closePanel()"\n       on-cancel="$ctrl.closePanel()"\n       wizard-done="$ctrl.wizardDone">\n    <pf-wizard-step ng-repeat="step in $ctrl.steps track by step.id"\n         step-title="{{step.label}}"\n         wz-disabled="{{step.hidden}}"\n         allow-click-nav="step.allowed"\n         next-enabled="step.valid && !$ctrl.updating"\n         prev-enabled="step.prevEnabled"\n         on-show="step.onShow"\n         step-id="{{step.id}}"\n         step-priority="{{$index}}">\n      <div class="wizard-pf-main-inner-shadow-covers">\n        <div class="order-service-details">\n          <div class="order-service-details-top">\n            <div class="service-icon">\n              <span ng-if="!$ctrl.imageUrl" class="icon {{$ctrl.iconClass}}"></span>\n              <span ng-if="$ctrl.imageUrl" class="image"><img ng-src="{{$ctrl.imageUrl}}" alt=""></span>\n            </div>\n            <div class="service-title-area">\n              <div class="service-title">\n                {{$ctrl.serviceName}}\n              </div>\n              <div ng-if="$ctrl.serviceClass.tags" class="order-service-tags">\n                <span ng-repeat="tag in $ctrl.serviceClass.tags" class="tag">\n                  {{tag}}\n                </span>\n              </div>\n              <div ng-if="$ctrl.serviceClass.resource.externalMetadata.documentationUrl" class="order-service-documentation-url">\n                <a ng-href="{{$ctrl.serviceClass.resource.externalMetadata.documentationUrl}}" target="_blank" class="learn-more-link">Learn More <i class="fa fa-external-link" aria-hidden="true"></i></a>\n              </div>\n            </div>\n          </div>\n          <div class="order-service-description-block">\n            <p ng-if="$ctrl.currentStep.id !== \'plans\' && ($ctrl.selectedPlan.externalMetadata.displayName || $ctrl.selectedPlan.description)">\n              <span ng-if="$ctrl.selectedPlan.externalMetadata.displayName">\n                Plan {{$ctrl.selectedPlan.externalMetadata.displayName}}\n                <span ng-if="$ctrl.selectedPlan.description">&ndash;</span>\n              </span>\n              <span ng-if="$ctrl.selectedPlan.description">{{$ctrl.selectedPlan.description}}</span>\n            </p>\n            <p ng-if="$ctrl.description" ng-bind-html="$ctrl.description | linky : \'_blank\'" class="description"></p>\n            <p ng-if="$ctrl.longDescription" ng-bind-html="$ctrl.longDescription | linky : \'_blank\'" class="description"></p>\n          </div>\n        </div>\n        <div class="order-service-config">\n          <div ng-include="step.view" class="wizard-pf-main-form-contents"></div>\n        </div>\n      </div>\n    </>\n  </>\n</div>\n';
 }, function(e, t) {
     e.exports = '<div class="catalogs-overlay-modal" role="dialog">\n  <div ng-if="$ctrl.shown" class="modal-backdrop fade in"></div>\n  <div ng-if="$ctrl.shown" class="catalogs-overlay-panel-wrapper">\n    <div class="catalogs-overlay-panel-grow-height">\n      <div class="catalogs-overlay-panel" ng-class="{\'catalogs-overlay-panel-single-column\' : $ctrl.singleColumn}">\n        <a ng-if="$ctrl.showClose" ng-click="$ctrl.closePanel()">\n          <span class="catalogs-overlay-panel-close pficon pficon-close"></span>\n        </a>\n        <div class="catalogs-overlay-panel-body" ng-transclude>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n';
 }, function(e, t) {
@@ -1087,7 +1089,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
 }, function(e, t, r) {
     "use strict";
     t.__esModule = !0;
-    var n = r(1), i = r(0), s = r(55), a = function() {
+    var n = r(1), i = r(0), s = r(56), a = function() {
         function e(e, t, r, n, s, a, o, c, l, d, p) {
             var h = this;
             this.ctrl = this, this.watches = [], this.clearValidityWatcher = function() {
@@ -1319,10 +1321,14 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                     d.configStep.valid = e, d.bindStep.allowed = d.configStep.valid, d.reviewStep.allowed = d.bindStep.hidden && d.configStep.valid;
                 });
             }, this.showBind = function() {
-                d.clearValidityWatcher(), d.ctrl.configPageShown = !1, d.ctrl.nextTitle = "Create", 
-                d.reviewStep.allowed = d.bindStep.valid, d.isNewProject() ? d.ctrl.projectDisplayName = d.ctrl.selectedProject.metadata.annotations["new-display-name"] || d.ctrl.selectedProject.metadata.name : d.ctrl.projectDisplayName = d.$filter("displayName")(d.ctrl.selectedProject), 
+                d.clearValidityWatcher(), d.ctrl.configPageShown = !1, d.ctrl.nextTitle = d.bindParametersStep.hidden ? "Create" : "Next >", 
+                d.reviewStep.allowed = d.bindParametersStep.hidden && d.bindStep.valid, d.isNewProject() ? d.ctrl.projectDisplayName = d.ctrl.selectedProject.metadata.annotations["new-display-name"] || d.ctrl.selectedProject.metadata.name : d.ctrl.projectDisplayName = d.$filter("displayName")(d.ctrl.selectedProject), 
                 d.validityWatcher = d.$scope.$watch("$ctrl.forms.bindForm.$valid", function(e, t) {
-                    d.bindStep.valid = e, d.reviewStep.allowed = d.bindStep.valid;
+                    d.bindStep.valid = e, d.bindParametersStep.allowed = e, d.reviewStep.allowed = d.bindParametersStep.hidden && d.bindStep.valid;
+                });
+            }, this.showBindParameters = function() {
+                d.clearValidityWatcher(), d.ctrl.nextTitle = "Create", d.validityWatcher = d.$scope.$watch("$ctrl.forms.bindParametersForm.$valid", function(e, t) {
+                    d.bindParametersStep.valid = e, d.reviewStep.allowed = d.bindParametersStep.valid;
                 });
             }, this.showResults = function() {
                 d.clearValidityWatcher(), d.ctrl.configPageShown = !1, d.ctrl.nextTitle = "Close", 
@@ -1384,8 +1390,9 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             this.ctrl.iconClass = this.ctrl.serviceClass.iconClass || "fa fa-clone", this.ctrl.imageUrl = this.ctrl.serviceClass.imageUrl, 
             this.ctrl.serviceName = this.ctrl.serviceClass.name, this.ctrl.description = this.ctrl.serviceClass.description, 
             this.ctrl.longDescription = this.ctrl.serviceClass.longDescription, this.ctrl.plans = i.get(this, "ctrl.serviceClass.resource.plans", []), 
-            this.ctrl.applications = [], this.ctrl.parameterData = {}, this.ctrl.forms = {}, 
-            this.ctrl.appToBind = null, this.ctrl.configStepValid = !0, this.planStep = {
+            this.ctrl.applications = [], this.ctrl.parameterData = {}, this.ctrl.bindParameterData = {}, 
+            this.ctrl.forms = {}, this.ctrl.appToBind = null, this.ctrl.configStepValid = !0, 
+            this.planStep = {
                 id: "plans",
                 label: "Plan",
                 view: "order-service/order-service-plans.html",
@@ -1409,6 +1416,14 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 allowed: !1,
                 valid: !0,
                 onShow: this.showBind
+            }, this.bindParametersStep = {
+                label: "Parameters",
+                id: "bind-parameters",
+                view: "order-service/order-service-bind-parameters.html",
+                hidden: !1,
+                allowed: !1,
+                valid: !0,
+                onShow: this.showBindParameters
             }, this.reviewStep = {
                 label: "Results",
                 id: "results",
@@ -1418,12 +1433,15 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 valid: !0,
                 prevEnabled: !1,
                 onShow: this.showResults
-            }, this.ctrl.steps = [ this.planStep, this.configStep, this.bindStep, this.reviewStep ], 
+            }, this.ctrl.steps = [ this.planStep, this.configStep, this.bindStep, this.bindParametersStep, this.reviewStep ], 
             this.ctrl.nameTaken = !1, this.ctrl.wizardDone = !1, this.ctrl.bindType = "none", 
             this.selectPlan(i.head(this.ctrl.plans)), this.ctrl.planIndex = 0, this.ctrl.updating = !0, 
             this.selectedProjectWatch = this.$scope.$watch(function() {
                 return e.ctrl.selectedProject;
-            }, this.onProjectUpdate), this.AuthService.withUser().then(function(t) {
+            }, this.onProjectUpdate), this.bindTypeWatch = this.$scope.$watch("$ctrl.bindType", function(t, r) {
+                t !== r && (e.updateBindParametersStepVisibility(), e.ctrl.nextTitle = e.bindParametersStep.hidden ? "Create" : "Next >", 
+                e.reviewStep.allowed = e.bindParametersStep.hidden && e.bindStep.valid);
+            }), this.AuthService.withUser().then(function(t) {
                 e.user = t, e.ctrl.wizardReady = !0;
             });
         }, e.prototype.selectPlan = function(e) {
@@ -1454,7 +1472,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             var t = {
                 namespace: i.get(this.ctrl.selectedProject, "metadata.name")
             }, r = "application" === this.ctrl.bindType ? this.ctrl.appToBind : void 0;
-            this.BindingService.bindService(this.ctrl.serviceInstance, r, this.ctrl.serviceClass.resource).then(function(r) {
+            this.BindingService.bindService(this.ctrl.serviceInstance, r, this.ctrl.serviceClass.resource, this.ctrl.bindParameterData).then(function(r) {
                 e.ctrl.binding = r, e.watches.push(e.DataService.watchObject(e.BindingService.bindingResource, i.get(e.ctrl.binding, "metadata.name"), t, function(t) {
                     e.ctrl.binding = t;
                 }));
@@ -1462,20 +1480,26 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 e.ctrl.bindError = t;
             });
         }, e.prototype.$onDestroy = function() {
-            this.DataService.unwatchAll(this.watches), this.selectedProjectWatch(), this.clearValidityWatcher();
+            this.DataService.unwatchAll(this.watches), this.selectedProjectWatch(), this.bindTypeWatch(), 
+            this.clearValidityWatcher();
         }, e.prototype.closePanel = function() {
             n.isFunction(this.ctrl.handleClose) && this.ctrl.handleClose();
         }, e.prototype.updateBindability = function() {
             if (!this.ctrl.wizardDone) {
                 var e = i.get(this.ctrl.selectedPlan, "bindable");
                 this.bindStep.hidden = !0 !== e && (!1 === e || !i.get(this.ctrl.serviceClass, "resource.bindable")), 
-                this.ctrl.configPageShown && (this.reviewStep.allowed = this.bindStep.hidden, this.bindStep.hidden ? this.ctrl.nextTitle = "Create" : this.ctrl.nextTitle = "Next >");
+                this.updateBindParametersStepVisibility(), this.ctrl.configPageShown && (this.reviewStep.allowed = this.bindStep.hidden, 
+                this.bindStep.hidden ? this.ctrl.nextTitle = "Create" : this.ctrl.nextTitle = "Next >");
             }
+        }, e.prototype.updateBindParametersStepVisibility = function() {
+            this.bindParametersStep.hidden = this.bindStep.hidden || "none" === this.ctrl.bindType || !i.has(this.ctrl, "bindParameterSchema.properties"), 
+            this.bindParametersStep.allowed = this.bindStep.valid;
         }, e.prototype.updateParameterSchema = function(t) {
             var r = i.get(t, "alphaInstanceCreateParameterSchema");
             i.has(r, [ "properties", e.REQUESTER_USERNAME_PARAM_NAME ]) ? (r = n.copy(r), delete r.properties[e.REQUESTER_USERNAME_PARAM_NAME], 
             this.sendRequesterUsername = !0) : this.sendRequesterUsername = !1, this.ctrl.parameterSchema = r, 
-            this.ctrl.parameterFormDefinition = i.get(this, "ctrl.selectedPlan.externalMetadata.schemas.service_instance.create.openshift_form_definition");
+            this.ctrl.parameterFormDefinition = i.get(this, "ctrl.selectedPlan.externalMetadata.schemas.service_instance.create.openshift_form_definition"), 
+            this.ctrl.bindParameterSchema = i.get(t, "alphaBindingCreateParameterSchema");
         }, e.prototype.sortApplications = function() {
             if (this.deploymentConfigs && this.deployments && this.replicationControllers && this.replicaSets && this.statefulSets) {
                 var e = this.deploymentConfigs.concat(this.deployments).concat(this.replicationControllers).concat(this.replicaSets).concat(this.statefulSets);
@@ -1882,15 +1906,15 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
     "use strict";
     t.__esModule = !0;
     var n = r(1);
-    r(3), r(28);
-    var i = r(29), s = r(30), a = r(18), o = r(19), c = r(31), l = r(20), d = r(21), p = r(22), h = r(23), m = r(24), u = r(25), g = r(26), f = r(27), v = r(32), y = r(17);
+    r(3), r(29);
+    var i = r(30), s = r(31), a = r(19), o = r(20), c = r(32), l = r(21), d = r(22), p = r(23), h = r(24), m = r(25), u = r(26), g = r(27), f = r(28), v = r(33), y = r(18);
     t.webCatalog = "webCatalog", n.module(t.webCatalog, [ "patternfly", "ngAnimate", "ui.bootstrap", "angularMoment", "ui.select", "schemaForm" ]).service("BuilderAppService", s.BuilderAppService).service("Catalog", c.CatalogService).service("RecentlyViewedServiceItems", v.RecentlyViewedServiceItems).filter("projectUrl", i.projectUrlFilter).component("catalogParameters", a.catalogParameters).component("catalogSearch", o.catalogSearch).component("createFromBuilder", l.createFromBuilder).component("landingPage", d.landingPage).component("orderService", p.orderService).component("overlayPanel", h.overlayPanel).component("projectsSummary", m.projectsSummary).component("saasList", u.saasList).component("selectProject", g.selectProject).component("servicesView", f.servicesView).component("catalogFilter", y.catalogFilter).run([ "$templateCache", function(e) {
         e.put("catalog-search/catalog-search-result.html", r(4)), e.put("create-from-builder/create-from-builder-configure.html", r(6)), 
         e.put("create-from-builder/create-from-builder-bind.html", r(5)), e.put("create-from-builder/create-from-builder-results.html", r(7)), 
-        e.put("order-service/order-service-plans.html", r(10)), e.put("order-service/order-service-configure.html", r(9)), 
-        e.put("order-service/order-service-bind.html", r(8)), e.put("order-service/order-service-review.html", r(11)), 
-        e.put("decorators/bootstrap/array.html", r(12)), e.put("decorators/bootstrap/checkbox.html", r(13)), 
-        e.put("decorators/bootstrap/checkboxes.html", r(14)), e.put("decorators/bootstrap/default.html", r(15)), 
-        e.put("decorators/bootstrap/select.html", r(16));
+        e.put("order-service/order-service-plans.html", r(11)), e.put("order-service/order-service-configure.html", r(10)), 
+        e.put("order-service/order-service-bind.html", r(9)), e.put("order-service/order-service-bind-parameters.html", r(8)), 
+        e.put("order-service/order-service-review.html", r(12)), e.put("decorators/bootstrap/array.html", r(13)), 
+        e.put("decorators/bootstrap/checkbox.html", r(14)), e.put("decorators/bootstrap/checkboxes.html", r(15)), 
+        e.put("decorators/bootstrap/default.html", r(16)), e.put("decorators/bootstrap/select.html", r(17));
     } ]);
-} ], [ 56 ]);
+} ], [ 57 ]);

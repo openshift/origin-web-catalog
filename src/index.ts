@@ -51,6 +51,7 @@ angular
     $templateCache.put('order-service/order-service-plans.html', require('./components/order-service/order-service-plans.html'));
     $templateCache.put('order-service/order-service-configure.html', require('./components/order-service/order-service-configure.html'));
     $templateCache.put('order-service/order-service-bind.html', require('./components/order-service/order-service-bind.html'));
+    $templateCache.put('order-service/order-service-bind-parameters.html', require('./components/order-service/order-service-bind-parameters.html'));
     $templateCache.put('order-service/order-service-review.html', require('./components/order-service/order-service-review.html'));
 
     // Override the default angular-schema-form-bootstrap decorators for custom
