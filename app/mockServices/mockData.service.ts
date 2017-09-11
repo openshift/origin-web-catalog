@@ -230,7 +230,7 @@ export class DataService implements IDataService {
     case 'statefulsets':
       returnData = new DataServiceData(statefulSetsData);
       break;
-    case 'instances':
+    case 'serviceinstances':
       returnData = new DataServiceData(instanceData);
       break;
     }

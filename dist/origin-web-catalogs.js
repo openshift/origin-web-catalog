@@ -1107,7 +1107,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 !h.instancesSupported || h.isNewProject() ? (h.ctrl.serviceInstances = [], h.updateBindability()) : h.ctrl.showPodPresets && (h.ctrl.updating = !0, 
                 h.DataService.list({
                     group: "servicecatalog.k8s.io",
-                    resource: "instances"
+                    resource: "serviceinstances"
                 }, {
                     namespace: h.ctrl.selectedProject.metadata.name
                 }, null, {
@@ -1160,7 +1160,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 return e.ctrl.selectedProject;
             }, this.onProjectUpdate), this.getServiceClasses(), this.instancesSupported = !!this.APIService.apiInfo({
                 group: "servicecatalog.k8s.io",
-                resource: "instances"
+                resource: "serviceinstances"
             });
         }, e.prototype.closePanel = function() {
             n.isFunction(this.ctrl.handleClose) && this.ctrl.handleClose();
@@ -1450,7 +1450,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
         }, e.prototype.createService = function() {
             var e = this, t = this.getParameters(), r = i.isEmpty(t) ? null : this.generateSecretName(), n = this.makeServiceInstance(r), s = {
                 group: "servicecatalog.k8s.io",
-                resource: "instances"
+                resource: "serviceinstances"
             }, a = {
                 namespace: this.ctrl.selectedProject.metadata.name
             };
@@ -1499,7 +1499,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             i.has(r, [ "properties", e.REQUESTER_USERNAME_PARAM_NAME ]) ? (r = n.copy(r), delete r.properties[e.REQUESTER_USERNAME_PARAM_NAME], 
             this.sendRequesterUsername = !0) : this.sendRequesterUsername = !1, this.ctrl.parameterSchema = r, 
             this.ctrl.parameterFormDefinition = i.get(this, "ctrl.selectedPlan.externalMetadata.schemas.service_instance.create.openshift_form_definition"), 
-            this.ctrl.bindParameterSchema = i.get(t, "alphaBindingCreateParameterSchema");
+            this.ctrl.bindParameterSchema = i.get(t, "alphaServiceInstanceCredentialCreateParameterSchema");
         }, e.prototype.sortApplications = function() {
             if (this.deploymentConfigs && this.deployments && this.replicationControllers && this.replicaSets && this.statefulSets) {
                 var e = this.deploymentConfigs.concat(this.deployments).concat(this.replicationControllers).concat(this.replicaSets).concat(this.statefulSets);
@@ -1542,7 +1542,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             };
         }, e.prototype.makeServiceInstance = function(e) {
             var t = this.getServiceClassName(), r = {
-                kind: "Instance",
+                kind: "ServiceInstance",
                 apiVersion: "servicecatalog.k8s.io/v1alpha1",
                 metadata: {
                     namespace: this.ctrl.selectedProject.metadata.name,

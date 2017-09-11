@@ -257,7 +257,7 @@ export class OrderServiceController implements angular.IController {
     let serviceInstance = this.makeServiceInstance(secretName);
     let resource = {
       group: 'servicecatalog.k8s.io',
-      resource: 'instances'
+      resource: 'serviceinstances'
     };
     let context = {
       namespace: this.ctrl.selectedProject.metadata.name
@@ -365,7 +365,7 @@ export class OrderServiceController implements angular.IController {
     this.ctrl.parameterSchema = schema;
     this.ctrl.parameterFormDefinition = _.get(this, 'ctrl.selectedPlan.externalMetadata.schemas.service_instance.create.openshift_form_definition');
 
-    this.ctrl.bindParameterSchema = _.get(plan, 'alphaBindingCreateParameterSchema');
+    this.ctrl.bindParameterSchema = _.get(plan, 'alphaServiceInstanceCredentialCreateParameterSchema');
   }
 
   private onProjectUpdate = () => {
@@ -491,7 +491,7 @@ export class OrderServiceController implements angular.IController {
   private makeServiceInstance(secretName: string) {
     let serviceClassName = this.getServiceClassName();
     let serviceInstance: any = {
-      kind: 'Instance',
+      kind: 'ServiceInstance',
       apiVersion: 'servicecatalog.k8s.io/v1alpha1',
       metadata: {
         namespace: this.ctrl.selectedProject.metadata.name,
