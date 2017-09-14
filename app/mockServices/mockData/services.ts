@@ -148,7 +148,7 @@ export const servicesData = {
     externalMetadata: {
       displayName: 'Test ServiceClass MongoDB',
       longDescription: 'run MongoDB applications on CentOS 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/openshift-s2i/s2i-wildfly/blob/mast…',
-      providerDisplayName: "Vendor B"
+      providerDisplayName: "Vendor B, Inc"
     },
     plans: [
       {name: 'rh-ded-topic', osbGuid: '1', displayName: 'Red Hat - Dedicated - Topic', description: '$.65 / 1 Million messages', bullets: ['One', 'Two', 'Three']}
@@ -166,7 +166,7 @@ export const servicesData = {
     externalMetadata: {
       displayName: 'Test ServiceClass mySQL',
       longDescription: 'run MongoDB applications. For more information about using this builder image, including OpenShift considerations, see https://github.com/openshift-s2i/s2i-wildfly/blob/mast…',
-      providerDisplayName: "Vendor B"
+      providerDisplayName: "Vendor B, Co."
     },
     plans: [
       {name: 'rh-ded-topic', osbGuid: '1', displayName: 'Red Hat - Dedicated - Topic', description: '$.65 / 1 Million messages', bullets: ['One', 'Two', 'Three']}
