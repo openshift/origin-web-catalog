@@ -13,7 +13,7 @@ export class BindingService implements IBindingService {
 
   public bindingResource = {
     group: 'servicecatalog.k8s.io',
-    resource: 'bindings'
+    resource: 'serviceinstancecredentials'
   };
 
   private $q: any;

@@ -298,7 +298,7 @@ export const servicesData = {
           ],
           type: "object"
         },
-        alphaBindingCreateParameterSchema: {
+        alphaServiceInstanceCredentialCreateParameterSchema: {
           "$schema": "http://json-schema.org/draft-04/schema",
           additionalProperties: false,
           properties: {

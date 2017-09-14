@@ -110,7 +110,7 @@ export class CreateFromBuilderController implements angular.IController {
     this.getServiceClasses();
     this.instancesSupported = !!this.APIService.apiInfo({
       group: 'servicecatalog.k8s.io',
-      resource: 'instances'
+      resource: 'serviceinstances'
     });
   }
 
@@ -295,7 +295,7 @@ export class CreateFromBuilderController implements angular.IController {
       this.ctrl.updating = true;
       this.DataService.list({
         group: 'servicecatalog.k8s.io',
-        resource: 'instances'
+        resource: 'serviceinstances'
       }, {
         namespace: this.ctrl.selectedProject.metadata.name
       }, null, {
