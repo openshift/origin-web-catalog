@@ -9,3 +9,5 @@ before_script:
 script:
   - hack/test-headless.sh test
   - hack/verify-dist.sh
+addons:
+  firefox: "49.0"
