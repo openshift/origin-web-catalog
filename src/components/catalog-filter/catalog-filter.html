@@ -10,9 +10,11 @@
            spellcheck="false">
     <div class="category" ng-repeat="filter in $ctrl.filterPanelModel" ng-if="!$first">
       {{filter.title}}
-      <span class="pficon pficon-info vendor-info-icon"
-            data-toggle="tooltip" aria-hidden="true" data-original-title="This filter will only apply to items which contain Vendor information.
-            Items which do not have Vendor information will not be shown in the filter results.">
+      <span
+        class="pficon pficon-info vendor-info-icon"
+        data-toggle="tooltip"
+        aria-hidden="true"
+        data-original-title="This filter will only apply to items which contain publisher information. Items that do not have a publisher will not be shown in the filter results.">
       </span>
       <ul>
         <li ng-repeat="value in filter.values">

@@ -28,7 +28,7 @@ export class CatalogFilterController implements angular.IController {
     if (!_.isEmpty(this.Catalog.vendors)) {
       this.ctrl.VendorFilter = {
         id: 'vendors',
-        title: 'Vendor',
+        title: 'Publisher',
         filterType: 'checkbox',
         values: _.map(this.Catalog.vendors, (vendor) => {
           return {
