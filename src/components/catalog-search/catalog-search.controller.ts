@@ -42,6 +42,13 @@ export class CatalogSearchController implements angular.IController {
     }
   }
 
+  public onKeyPress = (keyEvent: any) => {
+    if (keyEvent.which === 13 && this.ctrl.searchText) {
+      this.$rootScope.$emit('filter-catalog-items', {searchText: this.ctrl.searchText});
+      this.ctrl.searchText = '';
+    }
+  };
+
   public itemSelected(item: any) {
     if (item.id === 'viewAll') {
       this.$rootScope.$emit('filter-catalog-items', {searchText: this.ctrl.searchText});
