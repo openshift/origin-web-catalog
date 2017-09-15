@@ -1016,7 +1016,6 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             this.ctrl = this;
         }
         return e.prototype.$onInit = function() {
-            this.ctrl.parameterForm = this.cloneParameterForm(this.ctrl.parameterFormDefinition) || [ "*" ], 
             this.ctrl.parameterFormDefaults = {
                 formDefaults: {
                     disableSuccessState: !0,
@@ -1027,6 +1026,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                     success: !0
                 }
             };
+        }, e.prototype.$onChanges = function(e) {
+            e.parameterFormDefinition && (this.ctrl.parameterForm = this.cloneParameterForm(this.ctrl.parameterFormDefinition) || [ "*" ]);
         }, e.prototype.cloneParameterForm = function(t) {
             if (n.isString(t)) return t;
             if (n.isArray(t)) return n.map(t, n.bind(this.cloneParameterForm, this));
