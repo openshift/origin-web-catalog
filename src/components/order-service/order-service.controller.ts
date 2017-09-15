@@ -3,7 +3,18 @@ import * as _ from 'lodash';
 
 export class OrderServiceController implements angular.IController {
 
-  static $inject = ['$scope', '$filter', 'AuthService', 'ProjectsService', 'DataService', 'BindingService', 'Logger', 'Constants', 'DNS1123_SUBDOMAIN_VALIDATION'];
+  static $inject = [
+    '$scope',
+    '$filter',
+    'ApplicationsService',
+    'AuthService',
+    'ProjectsService',
+    'DataService',
+    'BindingService',
+    'Logger',
+    'Constants',
+    'DNS1123_SUBDOMAIN_VALIDATION'
+  ];
 
   static readonly REQUESTER_USERNAME_PARAM_NAME: string = 'template.openshift.io/requester-username';
 
@@ -12,6 +23,7 @@ export class OrderServiceController implements angular.IController {
 
   private $filter: any;
   private ProjectsService: any;
+  private ApplicationsService: any;
   private AuthService: any;
   private DataService: any;
   private BindingService: any;
@@ -24,13 +36,6 @@ export class OrderServiceController implements angular.IController {
   private reviewStep: any;
   private selectedProjectWatch: any;
   private bindTypeWatch: any;
-  private deploymentConfigs: any;
-  private deployments: any;
-  private replicationControllers: any;
-  private replicaSets: any;
-  private statefulSets: any;
-  private hasDeploymentFilter: any;
-  private hasDeploymentConfigFilter: any;
   private validityWatcher: any;
   private user: any;
   private DNS1123_SUBDOMAIN_VALIDATION: any;
@@ -41,16 +46,24 @@ export class OrderServiceController implements angular.IController {
   // the current OpenShift user as part of the provision request.
   private sendRequesterUsername: boolean;
 
-  constructor($scope: any, $filter: any, AuthService: any, ProjectsService: any, DataService: any, BindingService: any, Logger: any, Constants: any, DNS1123_SUBDOMAIN_VALIDATION: any) {
+  constructor($scope: any,
+              $filter: any,
+              ApplicationsService: any,
+              AuthService: any,
+              ProjectsService: any,
+              DataService: any,
+              BindingService: any,
+              Logger: any,
+              Constants: any,
+              DNS1123_SUBDOMAIN_VALIDATION: any) {
     this.$scope = $scope;
     this.$filter = $filter;
+    this.ApplicationsService = ApplicationsService;
     this.AuthService = AuthService;
     this.ProjectsService = ProjectsService;
     this.DataService = DataService;
     this.BindingService = BindingService;
     this.Logger = Logger;
-    this.hasDeploymentFilter = $filter('hasDeployment');
-    this.hasDeploymentConfigFilter = $filter('hasDeploymentConfig');
     // Set to the true when the parameter schema has REQUESTER_USERNAME_PARAM_NAME.
     this.sendRequesterUsername = false;
     this.ctrl.showPodPresets = _.get(Constants, ['ENABLE_TECH_PREVIEW_FEATURE', 'pod_presets'], false);
@@ -375,57 +388,21 @@ export class OrderServiceController implements angular.IController {
       this.updateBindability();
     } else if (this.ctrl.showPodPresets) {
       this.ctrl.updating = true;
-      this.ProjectsService.get(this.ctrl.selectedProject.metadata.name).then(_.spread((project: any, context: any) => {
 
-        this.ctrl.bindType = "none";
-        this.ctrl.serviceToBind = this.ctrl.serviceClass;
+      this.ctrl.bindType = "none";
+      this.ctrl.serviceToBind = this.ctrl.serviceClass;
 
-        // Load all the "application" types
-        this.DataService.list('deploymentconfigs', context).then((deploymentConfigData: any) => {
-          this.deploymentConfigs = _.toArray(deploymentConfigData.by('metadata.name'));
-          this.sortApplications();
-        });
-        this.DataService.list('replicationcontrollers', context).then((replicationControllerData: any) => {
-          this.replicationControllers = _.reject(replicationControllerData.by('metadata.name'), this.hasDeploymentConfigFilter);
-          this.sortApplications();
-        });
-        this.DataService.list({
-          group: 'apps',
-          resource: 'deployments'
-        }, context).then((deploymentData: any) => {
-          this.deployments = _.toArray(deploymentData.by('metadata.name'));
-          this.sortApplications();
-        });
-        this.DataService.list({
-          group: 'extensions',
-          resource: 'replicasets'
-        }, context).then((replicaSetData: any) => {
-          this.replicaSets = _.reject(replicaSetData.by('metadata.name'), this.hasDeploymentFilter);
-          this.sortApplications();
-        });
-        this.DataService.list({
-          group: 'apps',
-          resource: 'statefulsets'
-        }, context).then((statefulSetData: any) => {
-          this.statefulSets = _.toArray(statefulSetData.by('metadata.name'));
-          this.sortApplications();
-        });
-      }));
+      // Load all the "application" types
+      var context = {
+        namespace: _.get(this.ctrl.selectedProject, 'metadata.name')
+      };
+      this.ApplicationsService.getApplications(context).then((applications: any) => {
+        this.ctrl.applications = applications;
+        this.ctrl.updating = false;
+        this.updateBindability();
+      });
     }
   };
-
-  private sortApplications () {
-    // Don't waste time sorting on each data load, just sort when we have them all
-    if (this.deploymentConfigs && this.deployments && this.replicationControllers && this.replicaSets && this.statefulSets) {
-      var apiObjects = this.deploymentConfigs.concat(this.deployments)
-        .concat(this.replicationControllers)
-        .concat(this.replicaSets)
-        .concat(this.statefulSets);
-      this.ctrl.applications = _.sortBy(apiObjects, ['metadata.name', 'kind']);
-      this.ctrl.updating = false;
-      this.updateBindability();
-    }
-  }
 
   private getParameters(): any {
     // Omit parameters values that are the empty string. These are always
