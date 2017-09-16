@@ -8,6 +8,7 @@
             id="search-input"
             type="search"
             autocomplete="off"
+            ng-keypress="$ctrl.onKeyPress($event)"
             class="form-control catalog-search-input"
             placeholder="Search Catalog"
             ng-model="$ctrl.searchText"
