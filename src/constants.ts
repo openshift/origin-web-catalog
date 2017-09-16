@@ -161,3 +161,11 @@ var guidedTours = {
 };
 
 _.set(window, 'OPENSHIFT_CONSTANTS.GUIDED_TOURS', guidedTours);
+
+// Example publisher synonyms to normilize vendor names shown in publisher filter in Browse Catalog
+_.set(window, 'OPENSHIFT_CONSTANTS.PUBLISHER_SYNONYMS',
+  {
+    // 'Red Hat': 'Red Hat, Inc.'
+    // 'Red Hat, Inc': 'Red Hat, Inc.'
+  }
+);

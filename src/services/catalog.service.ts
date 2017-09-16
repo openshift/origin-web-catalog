@@ -157,6 +157,10 @@ export class CatalogService {
     return new TemplateItem(resource, this);
   }
 
+  public getPublisherSynonym(rawVendor: string): string {
+    return _.get(this.constants, ['PUBLISHER_SYNONYMS', rawVendor]) as string || rawVendor;
+  }
+
   /**
    * Creates an items array under each sub-category and categorizes each
    * item accordingly.  Dynamically creates 'all' and 'other' main and sub-
@@ -363,8 +367,10 @@ export class ServiceItem implements IServiceItem {
   }
 
   private getVendor(): string {
-    return _.get(this.resource, 'externalMetadata.providerDisplayName') as string || '';
+    var rawVendor = _.get(this.resource, 'externalMetadata.providerDisplayName') as string;
+    return this.catalogSrv.getPublisherSynonym(rawVendor);
   }
+
 }
 
 export class ImageItem implements IServiceItem {
@@ -503,6 +509,7 @@ export class TemplateItem implements IServiceItem {
   }
 
   private getVendor(): string {
-    return _.get(this.resource, ['metadata', 'annotations', 'template.openshift.io/provider-display-name']) as string || '';
+    var rawVendor = _.get(this.resource, ['metadata', 'annotations', 'template.openshift.io/provider-display-name']) as string || '';
+    return this.catalogSrv.getPublisherSynonym(rawVendor);
   }
 }

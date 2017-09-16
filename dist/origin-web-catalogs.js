@@ -437,7 +437,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 steps: p
             }
         };
-        n.set(window, "OPENSHIFT_CONSTANTS.GUIDED_TOURS", h);
+        n.set(window, "OPENSHIFT_CONSTANTS.GUIDED_TOURS", h), n.set(window, "OPENSHIFT_CONSTANTS.PUBLISHER_SYNONYMS", {});
     }).call(t, r(2));
 }, function(e, t, r) {
     "use strict";
@@ -714,6 +714,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             return t.builderSpecTagName ? t : null;
         }, e.prototype.getTemplateItem = function(e) {
             return new c(e, this);
+        }, e.prototype.getPublisherSynonym = function(e) {
+            return i.get(this.constants, [ "PUBLISHER_SYNONYMS", e ]) || e;
         }, e.prototype.categorizeItems = function(e) {
             var t, r, s = this;
             this.categories = n.copy(this.constants.SERVICE_CATALOG_CATEGORIES), this.createAllAndOtherMainCategories();
@@ -805,7 +807,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
         }, e.prototype.getTags = function() {
             return i.get(this.resource, "alphaTags") || [];
         }, e.prototype.getVendor = function() {
-            return i.get(this.resource, "externalMetadata.providerDisplayName") || "";
+            var e = i.get(this.resource, "externalMetadata.providerDisplayName");
+            return this.catalogSrv.getPublisherSynonym(e);
         }, e;
     }();
     t.ServiceItem = a;
@@ -861,7 +864,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
         }, e.prototype.getTags = function() {
             return i.get(this.resource, "metadata.annotations.tags", "").split(/\s*,\s*/);
         }, e.prototype.getVendor = function() {
-            return i.get(this.resource, [ "metadata", "annotations", "template.openshift.io/provider-display-name" ]) || "";
+            var e = i.get(this.resource, [ "metadata", "annotations", "template.openshift.io/provider-display-name" ]) || "";
+            return this.catalogSrv.getPublisherSynonym(e);
         }, e;
     }();
     t.TemplateItem = c;

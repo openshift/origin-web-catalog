@@ -382,4 +382,14 @@ describe('servicesView', () => {
     // should be no filter tags
     expect(jQuery(element).find('.active-filter.label.label-info').length).toBe(0);
   });
+
+  it("should display publisher synonyms", () => {
+    createServiceView();
+
+    var element = componentTest.rawElement;
+
+    var vendorFilters = jQuery(element).find('.category-option-label');
+    expect(vendorFilters.length).toBe(3);
+    expect(jQuery(vendorFilters[1]).text()).toBe('Vendor B, Inc.');
+  });
 });
