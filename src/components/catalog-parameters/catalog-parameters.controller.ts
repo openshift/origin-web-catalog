@@ -14,9 +14,6 @@ export class CatalogParametersController implements angular.IController {
   public ctrl: any = this;
 
   public $onInit() {
-    // https://github.com/json-schema-form/angular-schema-form/blob/development/docs/index.md
-    // If no form definition is supplied, show all fields in the schema using '*'.
-    this.ctrl.parameterForm = this.cloneParameterForm(this.ctrl.parameterFormDefinition) || ['*'];
     this.ctrl.parameterFormDefaults = {
       formDefaults: {
         // Add Bootstrap horizontal form styles.
@@ -38,6 +35,14 @@ export class CatalogParametersController implements angular.IController {
         success: true
       }
     };
+  }
+
+  public $onChanges(onChangesObj: angular.IOnChangesObject) {
+    if (onChangesObj.parameterFormDefinition) {
+      // https://github.com/json-schema-form/angular-schema-form/blob/development/docs/index.md
+      // If no form definition is supplied, show all fields in the schema using '*'.
+      this.ctrl.parameterForm = this.cloneParameterForm(this.ctrl.parameterFormDefinition) || ['*'];
+    }
   }
 
   // clones a form definition with only the accepted keys (key, type, items)
