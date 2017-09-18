@@ -41,11 +41,10 @@ body.overlay-open {
   }
 
   .wizard-pf-main {
-    margin-left: 0; // no sidebar
     padding: 0;
 
     @media(max-width: @screen-xs-max) {
-      max-height: calc(100vh ~"-" (@navbar-pf-height + (@wizard-pf-steps-indicator-margin-top-bottom * 2) + @wizard-pf-steps-indicator-height + @wizard-pf-footer-height + (@grid-gutter-width / 2)));
+      max-height: calc(100vh ~"-" 191px);
       .scroll-shadows-vertical();
     }
 
@@ -95,13 +94,16 @@ body.overlay-open {
     }
   }
 
+  .wizard-pf-row {
+    // PatternFly sets this to control the height of the wizard, but our layout
+    // is more complex, so we disable the max-height
+    max-height: none;
+  }
+
   .wizard-pf-steps-indicator {
-    display: flex; // PatternFly doesn't set this for IE
-    height: @wizard-pf-steps-indicator-height;
-    margin: @wizard-pf-steps-indicator-margin-top-bottom 0;
-    padding: 0;
     @media(max-width: @screen-sm-min) {
-      margin-top: calc(@wizard-pf-steps-indicator-margin-top-bottom + 10px);
+      border-top: 0;
+      padding-right: @grid-gutter-width; // make room for .catalogs-overlay-panel-close
     }
   }
 }
@@ -129,7 +131,7 @@ body.overlay-open {
 
 .catalogs-overlay-panel-grow-height {
   // only adding padding to the overlay panel if the viewport is taller than the panel plus the padding
-  @media(min-height: 545px) { // 465px (height of Safari in iPhone SE) + 80px (padding)
+  @media(min-height: 545px) and (min-width: @screen-sm-min) { // 465px (height of Safari in iPhone SE) + 80px (padding)
     padding: @navbar-pf-height 0 (@grid-gutter-width / 2);
   }
 }
