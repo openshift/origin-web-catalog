@@ -516,12 +516,11 @@ body.overlay-open .landing-side-bar {
   }
 }
 .catalogs-overlay-panel .wizard-pf-main {
-  margin-left: 0;
   padding: 0;
 }
 @media (max-width: 767px) {
   .catalogs-overlay-panel .wizard-pf-main {
-    max-height: calc(100vh - 248px);
+    max-height: calc(100vh - 191px);
     background-attachment: scroll;
     background-image: radial-gradient(ellipse at top, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 75%), radial-gradient(ellipse at bottom, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 75%);
     background-position: 0 0, 0 100%;
@@ -582,15 +581,13 @@ body.overlay-open .landing-side-bar {
 .catalogs-overlay-panel .wizard-pf-main-inner-shadow-covers textarea.form-control[readonly] {
   background-color: rgba(234, 234, 234, 0.5);
 }
-.catalogs-overlay-panel .wizard-pf-steps-indicator {
-  display: flex;
-  height: 52px;
-  margin: 30px 0;
-  padding: 0;
+.catalogs-overlay-panel .wizard-pf-row {
+  max-height: none;
 }
 @media (max-width: 768px) {
   .catalogs-overlay-panel .wizard-pf-steps-indicator {
-    margin-top: calc(40px);
+    border-top: 0;
+    padding-right: 40px;
   }
 }
 .catalogs-overlay-panel-close {
@@ -613,7 +610,7 @@ body.overlay-open .landing-side-bar {
 .catalogs-overlay-panel-close.pficon-close:hover {
   color: #393f44;
 }
-@media (min-height: 545px) {
+@media (min-height: 545px) and (min-width: 768px) {
   .catalogs-overlay-panel-grow-height {
     padding: 60px 0 20px;
   }
