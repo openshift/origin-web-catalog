@@ -7,7 +7,7 @@ export const servicesData = {
     },
     bindable: true,
     description: 'BUILDS SOURCE CODE',
-    alphaTags: ['java', 'nodejs'],
+    tags: ['java', 'nodejs'],
     externalMetadata: {
       displayName: 'Test ServiceClass Java-Node.js',
       longDescription: 'Build and run Java applications on CentOS 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/openshift-s2i/s2i-wildfly/blob/mast…',
@@ -72,7 +72,7 @@ export const servicesData = {
     },
     bindable: true,
     description: 'BUILDS SOURCE CODE',
-    alphaTags: ['nodejs'],
+    tags: ['nodejs'],
     externalMetadata: {
       displayName: 'Test ServiceClass Node.js',
       longDescription: 'run nodejs applications on CentOS 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/openshift-s2i/s2i-wildfly/blob/mast…',
@@ -90,7 +90,7 @@ export const servicesData = {
     },
     bindable: true,
     description: 'BUILDS SOURCE CODE',
-    alphaTags: ['perl'],
+    tags: ['perl'],
     externalMetadata: {
       displayName: 'Test ServiceClass Perl',
       longDescription: 'run Perl applications on CentOS 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/openshift-s2i/s2i-wildfly/blob/mast…',
@@ -108,7 +108,7 @@ export const servicesData = {
     },
     bindable: true,
     description: 'BUILDS SOURCE CODE',
-    alphaTags: ['ruby', 'mongodb'],
+    tags: ['ruby', 'mongodb'],
     externalMetadata: {
       displayName: 'Test ServiceClass Ruby-Mongo',
       longDescription: 'run ruby applications on CentOS 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/openshift-s2i/s2i-wildfly/blob/mast…',
@@ -126,7 +126,7 @@ export const servicesData = {
     },
     bindable: true,
     description: 'BUILDS SOURCE CODE',
-    alphaTags: ['php'],
+    tags: ['php'],
     externalMetadata: {
       displayName: 'Test ServiceClass PHP',
       longDescription: 'run PHP applications on CentOS 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/openshift-s2i/s2i-wildfly/blob/mast…',
@@ -144,7 +144,7 @@ export const servicesData = {
     },
     bindable: true,
     description: 'BUILDS SOURCE CODE',
-    alphaTags: ['mongodb'],
+    tags: ['mongodb'],
     externalMetadata: {
       displayName: 'Test ServiceClass MongoDB',
       longDescription: 'run MongoDB applications on CentOS 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/openshift-s2i/s2i-wildfly/blob/mast…',
@@ -162,7 +162,7 @@ export const servicesData = {
     },
     bindable: true,
     description: 'BUILDS SOURCE CODE',
-    alphaTags: ['mysql'],
+    tags: ['mysql'],
     externalMetadata: {
       displayName: 'Test ServiceClass mySQL',
       longDescription: 'run MongoDB applications. For more information about using this builder image, including OpenShift considerations, see https://github.com/openshift-s2i/s2i-wildfly/blob/mast…',
@@ -180,7 +180,7 @@ export const servicesData = {
     },
     bindable: true,
     description: 'BUILDS SOURCE CODE',
-    alphaTags: ['fooBar'],
+    tags: ['fooBar'],
     externalMetadata: {
       displayName: 'Test ServiceClass Other',
       longDescription: 'some other service',
@@ -198,7 +198,7 @@ export const servicesData = {
     },
     bindable: true,
     description: 'BUILDS SOURCE CODE',
-    alphaTags: ['jenkins'],
+    tags: ['jenkins'],
     externalMetadata: {
       displayName: 'Test ServiceClass jenkins',
       longDescription: 'some other service',
@@ -216,7 +216,7 @@ export const servicesData = {
     },
     bindable: true,
     description: 'TEST APB SERVICE',
-    alphaTags: ['databases', 'postgresql'],
+    tags: ['databases', 'postgresql'],
     externalMetadata: {
       displayName: 'Test ServiceClass PostgreSQL DB APB',
       longDescription: 'A sample APB which deploys a PostgreSQL Database',
@@ -271,7 +271,7 @@ export const servicesData = {
             }
           }
         },
-        alphaInstanceCreateParameterSchema: {
+        instanceCreateParameterSchema: {
           "$schema": "http://json-schema.org/draft-04/schema",
           additionalProperties: false,
           properties: {
@@ -298,7 +298,7 @@ export const servicesData = {
           ],
           type: "object"
         },
-        alphaServiceInstanceCredentialCreateParameterSchema: {
+        serviceInstanceCredentialCreateParameterSchema: {
           "$schema": "http://json-schema.org/draft-04/schema",
           additionalProperties: false,
           properties: {

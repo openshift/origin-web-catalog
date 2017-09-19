@@ -363,7 +363,7 @@ export class ServiceItem implements IServiceItem {
   }
 
   private getTags(): string[] {
-    return _.get(this.resource, 'alphaTags') as string[] || [];
+    return _.get(this.resource, 'tags') as string[] || [];
   }
 
   private getVendor(): string {

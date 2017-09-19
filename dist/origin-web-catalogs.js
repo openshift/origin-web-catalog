@@ -5,7 +5,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
 }, function(e, t) {
     e.exports = $;
 }, function(e, t) {}, function(e, t) {
-    e.exports = '<a href="" class="catalog-search-match" ng-class="{\'no-matches\': match.model.id === \'viewNone\'}">\n  <span class="catalog-search-match-icon" ng-if="match.model.id !== \'viewAll\' && match.model.id !== \'viewNone\'">\n    <span ng-if="match.model.imageUrl"><img ng-src="{{match.model.imageUrl}}"></span>\n    <span ng-if="!match.model.imageUrl && match.model.iconClass" ng-class="match.model.iconClass" class="icon"></span>\n  </span>\n  <div class="catalog-search-match-info" ng-if="match.model.id !== \'viewAll\' && match.model.id !== \'viewNone\'">\n    <div class="catalog-search-match-label">\n      {{match.label}}\n    </div>\n    <div class="catalog-search-match-description">\n      <span ng-repeat="tag in (match.model.tags || match.model.resource.alphaTags)" class="tag small text-muted">\n        {{tag}}\n      </span>\n    </div>\n  </div>\n  <span ng-if="match.model.id === \'viewNone\'" class="catalog-search-show-none">\n    {{match.model.text}}\n  </span>\n  <span ng-if="match.model.id === \'viewAll\'" class="catalog-search-show-all">\n    {{match.model.text}}  <span class="fa fa-angle-right"></span>\n  </span>\n</a>\n';
+    e.exports = '<a href="" class="catalog-search-match" ng-class="{\'no-matches\': match.model.id === \'viewNone\'}">\n  <span class="catalog-search-match-icon" ng-if="match.model.id !== \'viewAll\' && match.model.id !== \'viewNone\'">\n    <span ng-if="match.model.imageUrl"><img ng-src="{{match.model.imageUrl}}"></span>\n    <span ng-if="!match.model.imageUrl && match.model.iconClass" ng-class="match.model.iconClass" class="icon"></span>\n  </span>\n  <div class="catalog-search-match-info" ng-if="match.model.id !== \'viewAll\' && match.model.id !== \'viewNone\'">\n    <div class="catalog-search-match-label">\n      {{match.label}}\n    </div>\n    <div class="catalog-search-match-description">\n      <span ng-repeat="tag in (match.model.tags || match.model.resource.tags)" class="tag small text-muted">\n        {{tag}}\n      </span>\n    </div>\n  </div>\n  <span ng-if="match.model.id === \'viewNone\'" class="catalog-search-show-none">\n    {{match.model.text}}\n  </span>\n  <span ng-if="match.model.id === \'viewAll\'" class="catalog-search-show-all">\n    {{match.model.text}}  <span class="fa fa-angle-right"></span>\n  </span>\n</a>\n';
 }, function(e, t) {
     e.exports = '<bind-application-form application-name="$ctrl.name"\n                       form-name="$ctrl.bindForm"\n                       allow-no-binding="true"\n                       service-instances="$ctrl.serviceInstances"\n                       service-classes="$ctrl.serviceClasses"\n                       service-to-bind="$ctrl.serviceToBind">\n</bind-application-form>\n';
 }, function(e, t) {
@@ -805,7 +805,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
         }, e.prototype.getLongDescription = function() {
             return i.get(this.resource, "externalMetadata.longDescription") || "";
         }, e.prototype.getTags = function() {
-            return i.get(this.resource, "alphaTags") || [];
+            return i.get(this.resource, "tags") || [];
         }, e.prototype.getVendor = function() {
             var e = i.get(this.resource, "externalMetadata.providerDisplayName");
             return this.catalogSrv.getPublisherSynonym(e);
@@ -1488,11 +1488,11 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             this.bindParametersStep.hidden = this.bindStep.hidden || "none" === this.ctrl.bindType || !i.has(this.ctrl, "bindParameterSchema.properties"), 
             this.bindParametersStep.allowed = this.bindStep.valid;
         }, e.prototype.updateParameterSchema = function(t) {
-            var r = i.get(t, "alphaInstanceCreateParameterSchema");
+            var r = i.get(t, "instanceCreateParameterSchema");
             i.has(r, [ "properties", e.REQUESTER_USERNAME_PARAM_NAME ]) ? (r = n.copy(r), delete r.properties[e.REQUESTER_USERNAME_PARAM_NAME], 
             this.sendRequesterUsername = !0) : this.sendRequesterUsername = !1, this.ctrl.parameterSchema = r, 
             this.ctrl.parameterFormDefinition = i.get(this, "ctrl.selectedPlan.externalMetadata.schemas.service_instance.create.openshift_form_definition"), 
-            this.ctrl.bindParameterSchema = i.get(t, "alphaServiceInstanceCredentialCreateParameterSchema");
+            this.ctrl.bindParameterSchema = i.get(t, "serviceInstanceCredentialCreateParameterSchema");
         }, e.prototype.getParameters = function() {
             var t = i.omitBy(this.ctrl.parameterData, function(e) {
                 return "" === e;

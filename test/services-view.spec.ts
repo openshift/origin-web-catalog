@@ -153,7 +153,7 @@ describe('servicesView', () => {
           "name": "mycat-database",
           "uid": "10",
         },
-        alphaTags: [
+        tags: [
           "mycat",
           "database"
         ]
@@ -164,7 +164,7 @@ describe('servicesView', () => {
           "name": "mycat-other",
           "uid": "11",
         },
-        alphaTags: [
+        tags: [
           "mycat",
           "foobar"
         ]
@@ -214,7 +214,7 @@ describe('servicesView', () => {
           "name": "mycat-database",
           "uid": "10",
         },
-        alphaTags: [
+        tags: [
           "mycata",
           "mycatb",
           "database"
