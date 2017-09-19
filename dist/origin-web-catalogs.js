@@ -199,7 +199,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             default: "welcome/index.html"
         };
         n.set(window, "OPENSHIFT_CONSTANTS.HELP", i);
-        var a = [ {
+        var s = [ {
             id: 1,
             title: "Microservices Application",
             icon: "fa fa-cubes",
@@ -223,7 +223,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             icon: "fa fa-cubes",
             url: "https://www.redhat.com/en/technologies/management",
             description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.  This is way too long! Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt."
-        } ], s = [ {
+        } ], a = [ {
             id: "languages",
             label: "Languages",
             subCategories: [ {
@@ -355,7 +355,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 icon: "fa fa-clone"
             } ]
         } ];
-        n.set(window, "OPENSHIFT_CONSTANTS.SERVICE_CATALOG_CATEGORIES", s), n.set(window, "OPENSHIFT_CONSTANTS.SAAS_OFFERINGS", a);
+        n.set(window, "OPENSHIFT_CONSTANTS.SERVICE_CATALOG_CATEGORIES", a), n.set(window, "OPENSHIFT_CONSTANTS.SAAS_OFFERINGS", s);
         var o = {
             pod_presets: !1
         };
@@ -626,30 +626,30 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
 }, function(e, t, r) {
     "use strict";
     t.__esModule = !0;
-    var n = r(1), i = r(0), a = function() {
-        function e(e, t, r, n, i, a) {
+    var n = r(1), i = r(0), s = function() {
+        function e(e, t, r, n, i, s) {
             this.vendors = [], this.$filter = e, this.$q = t, this.constants = r, this.apiService = n, 
-            this.dataService = i, this.logger = a;
+            this.dataService = i, this.logger = s;
         }
         return e.prototype.getCatalogItems = function(e) {
-            var t = this, r = this.$q.defer(), n = {}, i = 0, a = 0, s = [], o = {
+            var t = this, r = this.$q.defer(), n = {}, i = 0, s = 0, a = [], o = {
                 group: "servicecatalog.k8s.io",
                 resource: "serviceclasses"
             };
             return this.apiService.apiInfo(o) && (++i, this.dataService.list(o, {}).then(function(e) {
                 n.serviceClasses = e.by("metadata.name");
             }, function() {
-                s.push("service classes");
+                a.push("service classes");
             }).finally(function() {
-                t.returnCatalogItems(r, n, ++a, i, s);
+                t.returnCatalogItems(r, n, ++s, i, a);
             })), ++i, this.dataService.list("imagestreams", {
                 namespace: "openshift"
             }).then(function(e) {
                 n.imageStreams = e.by("metadata.name");
             }, function() {
-                s.push("builder images");
+                a.push("builder images");
             }).finally(function() {
-                t.returnCatalogItems(r, n, ++a, i, s);
+                t.returnCatalogItems(r, n, ++s, i, a);
             }), e && (++i, this.dataService.list("templates", {
                 namespace: "openshift"
             }, null, {
@@ -657,47 +657,47 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             }).then(function(e) {
                 n.templates = e.by("metadata.name");
             }, function() {
-                s.push("templates");
+                a.push("templates");
             }).finally(function() {
-                t.returnCatalogItems(r, n, ++a, i, s);
+                t.returnCatalogItems(r, n, ++s, i, a);
             })), r.promise;
         }, e.prototype.getProjectCatalogItems = function(e, t, r, n) {
             var i = this;
             void 0 === t && (t = !0), void 0 === r && (r = !0), void 0 === n && (n = !1);
-            var a = this.$q.defer(), s = {
+            var s = this.$q.defer(), a = {
                 imageStreams: [],
                 templates: []
             }, o = 0, c = 0, l = [];
             return t && (o++, this.dataService.list("imagestreams", {
                 namespace: e
             }).then(function(e) {
-                s.imageStreams = e.by("metadata.name");
+                a.imageStreams = e.by("metadata.name");
             }, function() {
                 l.push("builder images");
             }).finally(function() {
-                i.returnCatalogItems(a, s, ++c, o, l);
+                i.returnCatalogItems(s, a, ++c, o, l);
             })), r && (o++, this.dataService.list("templates", {
                 namespace: e
             }, null, {
                 partialObjectMetadataList: n
             }).then(function(e) {
-                s.templates = e.by("metadata.name");
+                a.templates = e.by("metadata.name");
             }, function() {
                 l.push("templates");
             }).finally(function() {
-                i.returnCatalogItems(a, s, ++c, o, l);
-            })), a.promise;
+                i.returnCatalogItems(s, a, ++c, o, l);
+            })), s.promise;
         }, e.prototype.convertToServiceItems = function(e, t, r) {
-            var n = this, a = i.map(e, function(e) {
+            var n = this, s = i.map(e, function(e) {
                 return n.getServiceItem(e);
             });
-            return a = a.concat(i.map(t, function(e) {
+            return s = s.concat(i.map(t, function(e) {
                 return n.getImageItem(e);
-            })), a = a.concat(i.map(r, function(e) {
+            })), s = s.concat(i.map(r, function(e) {
                 return n.getTemplateItem(e);
-            })), a = i.reject(a, function(e) {
+            })), s = i.reject(s, function(e) {
                 return !e;
-            }), a = a.sort(function(e, t) {
+            }), s = s.sort(function(e, t) {
                 var r = i.get(e, "name", "").localeCompare(i.get(t, "name", ""), void 0, {
                     sensitivity: "base"
                 });
@@ -706,9 +706,9 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 })), 0 === r && (r = i.get(e, "resource.metadata.name", "").localeCompare(i.get(t, "resource.metadata.name", ""), void 0, {
                     sensitivity: "base"
                 })), r;
-            }), this.categorizeItems(a), a;
+            }), this.categorizeItems(s), s;
         }, e.prototype.getServiceItem = function(e) {
-            return new s(e, this);
+            return new a(e, this);
         }, e.prototype.getImageItem = function(e) {
             var t = new o(e, this);
             return t.builderSpecTagName ? t : null;
@@ -717,19 +717,19 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
         }, e.prototype.getPublisherSynonym = function(e) {
             return i.get(this.constants, [ "PUBLISHER_SYNONYMS", e ]) || e;
         }, e.prototype.categorizeItems = function(e) {
-            var t, r, a = this;
+            var t, r, s = this;
             this.categories = n.copy(this.constants.SERVICE_CATALOG_CATEGORIES), this.createAllAndOtherMainCategories();
-            var s = i.head(this.categories), o = i.get(s, "subCategories[0]"), c = i.last(this.categories), l = i.get(c, "subCategories[0]"), d = {};
+            var a = i.head(this.categories), o = i.get(a, "subCategories[0]"), c = i.last(this.categories), l = i.get(c, "subCategories[0]"), d = {};
             i.each(e, function(e) {
-                e.vendor && (d[e.vendor] = !0), r = !1, i.each(a.categories, function(n) {
-                    n.tags ? a.hasMatchingTags(n.tags, e.tags) && (r = a.categorizeItem(e, n, "all"), 
-                    t = a.filterSubCatsByTags(n.subCategories, e.tags), i.isEmpty(t) ? a.categorizeItem(e, n, "other") : i.each(t, function(t) {
-                        a.categorizeItem(e, n, t);
-                    })) : (t = a.filterSubCatsByTags(n.subCategories, e.tags), i.isEmpty(t) || (r = a.categorizeItem(e, n, "all"), 
+                e.vendor && (d[e.vendor] = !0), r = !1, i.each(s.categories, function(n) {
+                    n.tags ? s.hasMatchingTags(n.tags, e.tags) && (r = s.categorizeItem(e, n, "all"), 
+                    t = s.filterSubCatsByTags(n.subCategories, e.tags), i.isEmpty(t) ? s.categorizeItem(e, n, "other") : i.each(t, function(t) {
+                        s.categorizeItem(e, n, t);
+                    })) : (t = s.filterSubCatsByTags(n.subCategories, e.tags), i.isEmpty(t) || (r = s.categorizeItem(e, n, "all"), 
                     i.each(t, function(t) {
-                        a.categorizeItem(e, n, t);
+                        s.categorizeItem(e, n, t);
                     })));
-                }), r || a.categorizeItem(e, c, l), a.categorizeItem(e, s, o);
+                }), r || s.categorizeItem(e, c, l), s.categorizeItem(e, a, o);
             }), this.vendors = i.keys(d).sort();
         }, e.prototype.categorizeItem = function(e, t, r) {
             return i.isString(r) && (r = this.getAllOrOtherSubCategory(t, r)), r.items = i.isArray(r.items) ? r.items.concat([ e ]) : [ e ], 
@@ -773,11 +773,11 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             return i.filter(e, function(e) {
                 return r.hasMatchingTags(e.tags, t);
             });
-        }, e.prototype.returnCatalogItems = function(e, t, r, n, a) {
+        }, e.prototype.returnCatalogItems = function(e, t, r, n, s) {
             if (!(r < n)) {
-                a = i.size(a) ? "Unable to load all content for the catalog. Error loading " + this.formatArray(a) : null;
-                var s = this.convertToServiceItems(t.serviceClasses, t.imageStreams, t.templates);
-                e.resolve([ s, a ]);
+                s = i.size(s) ? "Unable to load all content for the catalog. Error loading " + this.formatArray(s) : null;
+                var a = this.convertToServiceItems(t.serviceClasses, t.imageStreams, t.templates);
+                e.resolve([ a, s ]);
             }
         }, e.prototype.formatArray = function(e) {
             var t = "";
@@ -785,9 +785,9 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             t + ".";
         }, e;
     }();
-    a.$inject = [ "$filter", "$q", "Constants", "APIService", "DataService", "Logger" ], 
-    t.CatalogService = a;
-    var s = function() {
+    s.$inject = [ "$filter", "$q", "Constants", "APIService", "DataService", "Logger" ], 
+    t.CatalogService = s;
+    var a = function() {
         function e(e, t) {
             this.resource = e, this.catalogSrv = t, this.imageUrl = this.getImage(), this.iconClass = this.getIcon(), 
             this.name = this.getName(), this.description = this.getDescription(), this.longDescription = this.getLongDescription(), 
@@ -811,7 +811,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             return this.catalogSrv.getPublisherSynonym(e);
         }, e;
     }();
-    t.ServiceItem = s;
+    t.ServiceItem = a;
     var o = function() {
         function e(e, t) {
             this.resource = e, this.catalogSrv = t, this.builderSpecTagName = this.getBuilderSpecTagName(), 
@@ -914,7 +914,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
 }, function(e, t, r) {
     "use strict";
     t.__esModule = !0;
-    var n = r(1), i = r(0), a = function() {
+    var n = r(1), i = r(0), s = function() {
         function e(e, t) {
             var r = this;
             this.ctrl = this, this.onKeywordKeyPress = function(e) {
@@ -1011,7 +1011,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             });
         }, e;
     }();
-    a.$inject = [ "$scope", "Catalog" ], t.CatalogFilterController = a;
+    s.$inject = [ "$scope", "Catalog" ], t.CatalogFilterController = s;
 }, function(e, t, r) {
     "use strict";
     t.__esModule = !0;
@@ -1056,11 +1056,11 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
     t.__esModule = !0;
     var n = r(0), i = function() {
         function e(e, t, r, n, i) {
-            var a = this;
+            var s = this;
             this.ctrl = this, this.loaded = !1, this.maxResultsToShow = 5, this.onKeyPress = function(e) {
-                13 === e.which && a.ctrl.searchText && (a.$rootScope.$emit("filter-catalog-items", {
-                    searchText: a.ctrl.searchText
-                }), a.ctrl.searchText = "");
+                13 === e.which && s.ctrl.searchText && (s.$rootScope.$emit("filter-catalog-items", {
+                    searchText: s.ctrl.searchText
+                }), s.ctrl.searchText = "");
             }, this.$rootScope = e, this.$scope = t, this.$q = r, this.Catalog = n, this.KeywordService = i;
         }
         return e.prototype.$onInit = function() {
@@ -1078,28 +1078,28 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             return e ? this.loaded ? this.filterForKeywords(e) : (this.searchDeferred = this.$q.defer(), 
             this.searchDeferred.promise) : [];
         }, e.prototype.filterForKeywords = function(e) {
-            var t = this.KeywordService.generateKeywords(e), r = this.KeywordService.filterForKeywords(this.ctrl.catalogItems, [ "name", "tags" ], t), i = n.size(r), a = n.take(r, this.maxResultsToShow);
-            return 0 === i ? a.push({
+            var t = this.KeywordService.generateKeywords(e), r = this.KeywordService.filterForKeywords(this.ctrl.catalogItems, [ "name", "tags" ], t), i = n.size(r), s = n.take(r, this.maxResultsToShow);
+            return 0 === i ? s.push({
                 id: "viewNone",
                 text: "No results found for Keyword: " + e,
                 name: e
-            }) : 1 === i ? a.push({
+            }) : 1 === i ? s.push({
                 id: "viewAll",
                 text: "View the result for Keyword: " + e,
                 name: e
-            }) : i > 1 && a.push({
+            }) : i > 1 && s.push({
                 id: "viewAll",
                 text: "View all " + i + " results for Keyword: " + e,
                 name: e
-            }), a;
+            }), s;
         }, e;
     }();
     i.$inject = [ "$rootScope", "$scope", "$q", "Catalog", "KeywordService" ], t.CatalogSearchController = i;
 }, function(e, t, r) {
     "use strict";
     t.__esModule = !0;
-    var n = r(1), i = r(0), a = r(56), s = function() {
-        function e(e, t, r, n, a, s, o, c, l, d, p) {
+    var n = r(1), i = r(0), s = r(56), a = function() {
+        function e(e, t, r, n, s, a, o, c, l, d, p) {
             var h = this;
             this.ctrl = this, this.watches = [], this.clearValidityWatcher = function() {
                 h.validityWatcher && (h.validityWatcher(), h.validityWatcher = void 0);
@@ -1130,8 +1130,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 }));
             }, this.isServiceBindable = function(e) {
                 return h.BindingService.isServiceBindable(e, h.ctrl.serviceClasses);
-            }, this.$scope = e, this.$filter = t, this.$location = r, this.$q = n, this.BuilderAppService = a, 
-            this.ProjectsService = s, this.DataService = o, this.APIService = c, this.BindingService = l, 
+            }, this.$scope = e, this.$filter = t, this.$location = r, this.$q = n, this.BuilderAppService = s, 
+            this.ProjectsService = a, this.DataService = o, this.APIService = c, this.BindingService = l, 
             this.Logger = d, this.ctrl.serviceToBind = null, this.ctrl.showPodPresets = i.get(p, [ "ENABLE_TECH_PREVIEW_FEATURE", "pod_presets" ], !1);
         }
         return e.prototype.$onInit = function() {
@@ -1185,7 +1185,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 this.ctrl.namePattern.test(e) && (this.ctrl.name = e);
             }
         }, e.prototype.navigateToAdvancedForm = function() {
-            var e = "project/{project}/create/fromimage?imageStream={imageStream}&imageTag={imageTag}&namespace={namespace}&displayName={displayName}&name={name}&sourceURI={sourceURI}&advanced=true", t = a.expand(e, {
+            var e = "project/{project}/create/fromimage?imageStream={imageStream}&imageTag={imageTag}&namespace={namespace}&displayName={displayName}&name={name}&sourceURI={sourceURI}&advanced=true", t = s.expand(e, {
                 project: this.ctrl.selectedProject.metadata.name,
                 imageStream: this.ctrl.imageStream.resource.metadata.name,
                 imageTag: this.ctrl.istag.name,
@@ -1204,14 +1204,14 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             i.each(n, function(n) {
                 if (e.referencesSameImageStream(n)) return t[n.name] = n.from.name, e.ctrl.referencedBy[n.from.name] = e.ctrl.referencedBy[n.from.name] || [], 
                 void e.ctrl.referencedBy[n.from.name].push(n.name);
-                var a = i.get(n, "annotations.tags", ""), s = a.split(/\s*,\s*/);
-                i.includes(s, "builder") && !i.includes(s, "hidden") && (r[n.name] = n);
+                var s = i.get(n, "annotations.tags", ""), a = s.split(/\s*,\s*/);
+                i.includes(a, "builder") && !i.includes(a, "hidden") && (r[n.name] = n);
             });
-            var a = [], s = i.get(this, "ctrl.imageStream.resource.status.tags", []);
-            return i.each(s, function(e) {
+            var s = [], a = i.get(this, "ctrl.imageStream.resource.status.tags", []);
+            return i.each(a, function(e) {
                 var t = r[e.tag];
-                t && a.push(t);
-            }), a;
+                t && s.push(t);
+            }), s;
         }, e.prototype.getImageStreamTag = function() {
             var e = this.ctrl.imageStream.resource.metadata.name + ":" + this.ctrl.istag.name;
             return this.DataService.get("imagestreamtags", e, {
@@ -1223,8 +1223,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 e.sort(function(e, r) {
                     var n = "True" === i.get(t(e, "Ready"), "status");
                     if (n === ("True" === i.get(t(r, "Ready"), "status"))) {
-                        var a = i.get(e, "metadata.creationTimestamp");
-                        return i.get(r, "metadata.creationTimestamp").localeCompare(a);
+                        var s = i.get(e, "metadata.creationTimestamp");
+                        return i.get(r, "metadata.creationTimestamp").localeCompare(s);
                     }
                     return n ? -1 : 1;
                 }), this.ctrl.serviceInstances = e;
@@ -1291,8 +1291,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             }));
         }, e;
     }();
-    s.$inject = [ "$scope", "$filter", "$location", "$q", "BuilderAppService", "ProjectsService", "DataService", "APIService", "BindingService", "Logger", "Constants" ], 
-    t.CreateFromBuilderController = s;
+    a.$inject = [ "$scope", "$filter", "$location", "$q", "BuilderAppService", "ProjectsService", "DataService", "APIService", "BindingService", "Logger", "Constants" ], 
+    t.CreateFromBuilderController = a;
 }, function(e, t, r) {
     "use strict";
     t.__esModule = !0;
@@ -1320,8 +1320,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
 }, function(e, t, r) {
     "use strict";
     t.__esModule = !0;
-    var n = r(1), i = r(0), a = function() {
-        function e(e, t, r, n, a, s, o, c, l, d) {
+    var n = r(1), i = r(0), s = function() {
+        function e(e, t, r, n, s, a, o, c, l, d) {
             var p = this;
             this.ctrl = this, this.watches = [], this.clearValidityWatcher = function() {
                 p.validityWatcher && (p.validityWatcher(), p.validityWatcher = void 0), p.ctrl.reviewStep.allowed = !1;
@@ -1377,7 +1377,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                     });
                 }));
             }, this.$scope = e, this.$filter = t, this.ApplicationsService = r, this.AuthService = n, 
-            this.ProjectsService = a, this.DataService = s, this.BindingService = o, this.Logger = c, 
+            this.ProjectsService = s, this.DataService = a, this.BindingService = o, this.Logger = c, 
             this.sendRequesterUsername = !1, this.ctrl.showPodPresets = i.get(l, [ "ENABLE_TECH_PREVIEW_FEATURE", "pod_presets" ], !1), 
             this.DNS1123_SUBDOMAIN_VALIDATION = d;
         }
@@ -1449,17 +1449,17 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             this.ctrl.selectedPlan = e, this.ctrl.parameterData = {}, this.updateParameterSchema(e), 
             this.updateBindability();
         }, e.prototype.createService = function() {
-            var e = this, t = this.getParameters(), r = i.isEmpty(t) ? null : this.generateSecretName(), n = this.makeServiceInstance(r), a = {
+            var e = this, t = this.getParameters(), r = i.isEmpty(t) ? null : this.generateSecretName(), n = this.makeServiceInstance(r), s = {
                 group: "servicecatalog.k8s.io",
                 resource: "serviceinstances"
-            }, s = {
+            }, a = {
                 namespace: this.ctrl.selectedProject.metadata.name
             };
-            this.DataService.create(a, null, n, s).then(function(n) {
-                if (e.ctrl.orderInProgress = !0, e.watchResults(a, n, s), e.ctrl.serviceInstance = n, 
+            this.DataService.create(s, null, n, a).then(function(n) {
+                if (e.ctrl.orderInProgress = !0, e.watchResults(s, n, a), e.ctrl.serviceInstance = n, 
                 r) {
                     var o = e.makeParametersSecret(r, t, n);
-                    e.DataService.create("secrets", null, o, s).then(i.noop, function(t) {
+                    e.DataService.create("secrets", null, o, a).then(i.noop, function(t) {
                         e.ctrl.error = i.get(t, "data");
                     });
                 }
@@ -1558,12 +1558,12 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             return !this.ctrl.selectedProject || !i.has(this.ctrl.selectedProject, "metadata.uid");
         }, e;
     }();
-    a.$inject = [ "$scope", "$filter", "ApplicationsService", "AuthService", "ProjectsService", "DataService", "BindingService", "Logger", "Constants", "DNS1123_SUBDOMAIN_VALIDATION" ], 
-    a.REQUESTER_USERNAME_PARAM_NAME = "template.openshift.io/requester-username", t.OrderServiceController = a;
+    s.$inject = [ "$scope", "$filter", "ApplicationsService", "AuthService", "ProjectsService", "DataService", "BindingService", "Logger", "Constants", "DNS1123_SUBDOMAIN_VALIDATION" ], 
+    s.REQUESTER_USERNAME_PARAM_NAME = "template.openshift.io/requester-username", t.OrderServiceController = s;
 }, function(e, t, r) {
     "use strict";
     t.__esModule = !0;
-    var n = r(1), i = r(2), a = function() {
+    var n = r(1), i = r(2), s = function() {
         function e() {
             var e = this;
             this.ctrl = this, this.closePanel = function() {
@@ -1582,12 +1582,12 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             i("body").removeClass("overlay-open");
         }, e;
     }();
-    t.OverlayPanelController = a;
+    t.OverlayPanelController = s;
 }, function(e, t, r) {
     "use strict";
     t.__esModule = !0;
-    var n = r(1), i = r(0), a = function() {
-        function e(t, r, a, s, o, c, l, d, p, h, m) {
+    var n = r(1), i = r(0), s = function() {
+        function e(t, r, s, a, o, c, l, d, p, h, m) {
             var u = this;
             this.ctrl = this, this.newProjectPanelShown = !1, this.editProjectPanelShown = !1, 
             this.projects = [], this.watches = [], this.maxDisplayProjects = 5, this.watchingProjects = !1, 
@@ -1626,7 +1626,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 u.ctrl.editProjectPanelShown = !1, u.watchingProjects || u.ProjectsService.list().then(u.onProjectsUpdate);
             }, this.onDeleteProject = function() {
                 u.watchingProjects || u.ProjectsService.list().then(u.onProjectsUpdate);
-            }, this.$filter = t, this.$rootScope = r, this.$scope = a, this.$window = s, this.AuthService = o, 
+            }, this.$filter = t, this.$rootScope = r, this.$scope = s, this.$window = a, this.AuthService = o, 
             this.Constants = c, this.DataService = l, this.Logger = d, this.ProjectsService = p, 
             this.RecentlyViewedProjectsService = h, this.RecentlyViewedItems = m;
         }
@@ -1644,10 +1644,10 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                     return 0 !== t.status && (n += " (" + t.status + ")"), void e.Logger.warn(n);
                 }
                 if (r.details) {
-                    var a = [];
+                    var s = [];
                     i.forEach(r.details.causes || [], function(e) {
-                        e.message && a.push(e.message);
-                    }), a.length > 0 && (e.ctrl.newProjectMessage = a.join("\n"));
+                        e.message && s.push(e.message);
+                    }), s.length > 0 && (e.ctrl.newProjectMessage = s.join("\n"));
                 }
             }).finally(function() {
                 e.init();
@@ -1682,12 +1682,12 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             }
         }, e;
     }();
-    a.$inject = [ "$filter", "$rootScope", "$scope", "$window", "AuthService", "Constants", "DataService", "Logger", "ProjectsService", "RecentlyViewedProjectsService", "RecentlyViewedServiceItems" ], 
-    a.MAX_PROJETS_TO_WATCH = 250, t.ProjectsSummaryController = a;
+    s.$inject = [ "$filter", "$rootScope", "$scope", "$window", "AuthService", "Constants", "DataService", "Logger", "ProjectsService", "RecentlyViewedProjectsService", "RecentlyViewedServiceItems" ], 
+    s.MAX_PROJETS_TO_WATCH = 250, t.ProjectsSummaryController = s;
 }, function(e, t, r) {
     "use strict";
     t.__esModule = !0;
-    var n = r(1), i = r(0), a = function() {
+    var n = r(1), i = r(0), s = function() {
         function e(e, t, r, n) {
             var i = this;
             this.ctrl = this, this.onWindowResize = function() {
@@ -1715,17 +1715,17 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             this.ctrl.itemsOverflow = t > 4 || t > 2 && e < this.BREAKPOINTS.screenLgMin;
         }, e;
     }();
-    a.$inject = [ "$scope", "$window", "$element", "BREAKPOINTS" ], t.SaasListController = a;
+    s.$inject = [ "$scope", "$window", "$element", "BREAKPOINTS" ], t.SaasListController = s;
 }, function(e, t, r) {
     "use strict";
     t.__esModule = !0;
-    var n = r(1), i = r(0), a = function() {
-        function e(e, t, r, n, i, a, s) {
+    var n = r(1), i = r(0), s = function() {
+        function e(e, t, r, n, i, s, a) {
             var o = this;
             this.ctrl = this, this.groupChoicesBy = function(e) {
                 return o.RecentlyViewedProjectsService.isRecentlyViewed(e.metadata.uid) ? "Recently Viewed" : "Create Project" === e.metadata.annotations["openshift.io/display-name"] ? "" : "Other Projects";
-            }, this.$scope = e, this.$filter = t, this.AuthService = i, this.AuthorizationService = a, 
-            this.RecentlyViewedProjectsService = s, this.ProjectsService = r, this.Logger = n;
+            }, this.$scope = e, this.$filter = t, this.AuthService = i, this.AuthorizationService = s, 
+            this.RecentlyViewedProjectsService = a, this.ProjectsService = r, this.Logger = n;
         }
         return e.prototype.$onInit = function() {
             var e = this;
@@ -1772,13 +1772,13 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             });
         }, e;
     }();
-    a.$inject = [ "$scope", "$filter", "ProjectsService", "Logger", "AuthService", "AuthorizationService", "RecentlyViewedProjectsService" ], 
-    t.SelectProjectController = a;
+    s.$inject = [ "$scope", "$filter", "ProjectsService", "Logger", "AuthService", "AuthorizationService", "RecentlyViewedProjectsService" ], 
+    t.SelectProjectController = s;
 }, function(e, t, r) {
     "use strict";
     t.__esModule = !0;
-    var n = r(1), i = r(0), a = r(2), s = function() {
-        function e(e, t, r, n, a, s, o, c, l, d) {
+    var n = r(1), i = r(0), s = r(2), a = function() {
+        function e(e, t, r, n, s, a, o, c, l, d) {
             var p = this;
             this.ctrl = this, this.previousSubCategoryHeight = 0, this.resizeRetries = 0, this.serviceViewItemClicked = function(e, t) {
                 p.$scope.$emit("open-overlay-panel", e);
@@ -1794,7 +1794,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                     }
                 }), p.ctrl.filterConfig.resultsCount = p.ctrl.filteredItems.length, p.ctrl.keywordFilterValue = null;
             }, this.constants = e, this.catalog = t, this.keywordService = r, this.logger = n, 
-            this.htmlService = a, this.element = s[0], this.$filter = o, this.$rootScope = c, 
+            this.htmlService = s, this.element = a[0], this.$filter = o, this.$rootScope = c, 
             this.$scope = l, this.$timeout = d, this.ctrl.loaded = !1, this.ctrl.isEmpty = !1, 
             this.ctrl.mobileView = "categories", this.ctrl.filterConfig = {}, this.ctrl.keywordFilterValue = null;
         }
@@ -1804,7 +1804,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 return e.resizeExpansion(!1);
             }, 50, {
                 maxWait: 250
-            }), n.element(window).bind("resize", this.debounceResize), a(window).on("resize.services", this.debounceResize), 
+            }), n.element(window).bind("resize", this.debounceResize), s(window).on("resize.services", this.debounceResize), 
             this.removeFilterListener = this.$rootScope.$on("filter-catalog-items", function(t, r) {
                 e.ctrl.keywordFilterValue = r.searchText, e.ctrl.currentFilter = e.ctrl.currentSubFilter = "all", 
                 e.ctrl.mobileView = "subcategories";
@@ -1821,11 +1821,11 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 "min-height": "calc(100vh - " + this.scrollParent.getBoundingClientRect().top + "px)"
             });
         }, e.prototype.$onDestroy = function() {
-            a(window).off("resize.services"), this.removeFilterListener();
+            s(window).off("resize.services"), this.removeFilterListener();
         }, e.prototype.selectCategory = function(e) {
             if (this.ctrl.mobileView = "subcategories", this.clearAppliedFilters(), this.filterByCategory(e, null, !0), 
             this.scrollParent) {
-                var t = a(this.scrollParent);
+                var t = s(this.scrollParent);
                 t.scrollTop() !== this.element.offsetTop && t.animate({
                     scrollTop: this.element.offsetTop
                 }, 200);
@@ -1843,14 +1843,14 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
         }, e.prototype.applyFilters = function(e) {
             this.filterChange(e.appliedFilters);
         }, e.prototype.filterByCategory = function(e, t, r) {
-            var n, a;
+            var n, s;
             "all" === e || "other" === e ? t = "all" : (r && (this.ctrl.subCategories = this.getSubCategories(e)), 
             t = 1 === this.ctrl.subCategories.length ? this.ctrl.subCategories[0].id : t || null), 
             n = i.find(this.ctrl.categories, {
                 id: e
-            }), n ? t && (a = i.find(n.subCategories, {
+            }), n ? t && (s = i.find(n.subCategories, {
                 id: t
-            }), a ? (this.ctrl.filteredItems = a.items, this.ctrl.filterConfig.totalCount = this.ctrl.filteredItems.length, 
+            }), s ? (this.ctrl.filteredItems = s.items, this.ctrl.filterConfig.totalCount = this.ctrl.filteredItems.length, 
             this.ctrl.filterConfig.resultsCount = this.ctrl.filterConfig.totalCount) : this.logger.error("Could not find subcategory '" + t + "' for category '" + e + "'")) : this.logger.error("Could not find category '" + e + "'"), 
             this.ctrl.currentFilter = e, this.ctrl.currentSubFilter = t, this.updateActiveCardStyles();
         }, e.prototype.filterForKeywords = function(e, t) {
@@ -1870,16 +1870,16 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             var r = this;
             if ("all" !== this.ctrl.currentFilter && "other" !== this.ctrl.currentFilter && this.ctrl.currentSubFilter && this.htmlService.isWindowAboveBreakpoint(this.htmlService.WINDOW_SIZE_XS)) {
                 if (this.resizeRetries > e.MAX_RESIZE_RETRIES) return void (this.resizeRetries = 0);
-                var n = a("#" + this.ctrl.currentSubFilter), i = n.find(".services-items"), s = i.outerHeight(!0);
-                s || (this.resizeRetries++, setTimeout(function() {
+                var n = s("#" + this.ctrl.currentSubFilter), i = n.find(".services-items"), a = i.outerHeight(!0);
+                a || (this.resizeRetries++, setTimeout(function() {
                     return r.resizeExpansion(t);
-                }, 50)), t ? (a(".services-sub-category").removeAttr("style").removeClass("items-shown"), 
+                }, 50)), t ? (s(".services-sub-category").removeAttr("style").removeClass("items-shown"), 
                 n.css("margin-bottom", this.previousSubCategoryHeight + "px"), n.animate({
-                    "margin-bottom": s
+                    "margin-bottom": a
                 }, 100, "swing", function() {
                     n.addClass("items-shown");
-                })) : (n.css("margin-bottom", s + "px"), n.addClass("items-shown")), this.previousSubCategoryHeight = s;
-            } else a(".services-sub-category").removeAttr("style").removeClass("items-shown"), 
+                })) : (n.css("margin-bottom", a + "px"), n.addClass("items-shown")), this.previousSubCategoryHeight = a;
+            } else s(".services-sub-category").removeAttr("style").removeClass("items-shown"), 
             this.previousSubCategoryHeight = 0, this.resizeRetries = 0;
             this.$scope.$evalAsync(function() {
                 r.scrollParent = r.getScrollParent(r.element), r.htmlService.isWindowAboveBreakpoint(r.htmlService.WINDOW_SIZE_SM) && r.scrollParent ? r.ctrl.viewStyle = {
@@ -1893,8 +1893,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             });
         }, e;
     }();
-    s.$inject = [ "Constants", "Catalog", "KeywordService", "Logger", "HTMLService", "$element", "$filter", "$rootScope", "$scope", "$timeout" ], 
-    s.MAX_RESIZE_RETRIES = 20, t.ServicesViewController = s;
+    a.$inject = [ "Constants", "Catalog", "KeywordService", "Logger", "HTMLService", "$element", "$filter", "$rootScope", "$scope", "$timeout" ], 
+    a.MAX_RESIZE_RETRIES = 20, t.ServicesViewController = a;
 }, function(e, t) {
     e.exports = URI;
 }, function(e, t, r) {
@@ -1902,8 +1902,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
     t.__esModule = !0;
     var n = r(1);
     r(3), r(29);
-    var i = r(30), a = r(31), s = r(19), o = r(20), c = r(32), l = r(21), d = r(22), p = r(23), h = r(24), m = r(25), u = r(26), g = r(27), f = r(28), v = r(33), y = r(18);
-    t.webCatalog = "webCatalog", n.module(t.webCatalog, [ "patternfly", "ngAnimate", "ui.bootstrap", "angularMoment", "ui.select", "schemaForm" ]).service("BuilderAppService", a.BuilderAppService).service("Catalog", c.CatalogService).service("RecentlyViewedServiceItems", v.RecentlyViewedServiceItems).filter("projectUrl", i.projectUrlFilter).component("catalogParameters", s.catalogParameters).component("catalogSearch", o.catalogSearch).component("createFromBuilder", l.createFromBuilder).component("landingPage", d.landingPage).component("orderService", p.orderService).component("overlayPanel", h.overlayPanel).component("projectsSummary", m.projectsSummary).component("saasList", u.saasList).component("selectProject", g.selectProject).component("servicesView", f.servicesView).component("catalogFilter", y.catalogFilter).run([ "$templateCache", function(e) {
+    var i = r(30), s = r(31), a = r(19), o = r(20), c = r(32), l = r(21), d = r(22), p = r(23), h = r(24), m = r(25), u = r(26), g = r(27), f = r(28), v = r(33), y = r(18);
+    t.webCatalog = "webCatalog", n.module(t.webCatalog, [ "patternfly", "ngAnimate", "ui.bootstrap", "angularMoment", "ui.select", "schemaForm" ]).service("BuilderAppService", s.BuilderAppService).service("Catalog", c.CatalogService).service("RecentlyViewedServiceItems", v.RecentlyViewedServiceItems).filter("projectUrl", i.projectUrlFilter).component("catalogParameters", a.catalogParameters).component("catalogSearch", o.catalogSearch).component("createFromBuilder", l.createFromBuilder).component("landingPage", d.landingPage).component("orderService", p.orderService).component("overlayPanel", h.overlayPanel).component("projectsSummary", m.projectsSummary).component("saasList", u.saasList).component("selectProject", g.selectProject).component("servicesView", f.servicesView).component("catalogFilter", y.catalogFilter).run([ "$templateCache", function(e) {
         e.put("catalog-search/catalog-search-result.html", r(4)), e.put("create-from-builder/create-from-builder-configure.html", r(6)), 
         e.put("create-from-builder/create-from-builder-bind.html", r(5)), e.put("create-from-builder/create-from-builder-results.html", r(7)), 
         e.put("order-service/order-service-plans.html", r(11)), e.put("order-service/order-service-configure.html", r(10)), 
