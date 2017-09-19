@@ -4,7 +4,6 @@
            class="keyword-filter"
            placeholder="{{$ctrl.keywordFilter.placeholder}}"
            ng-keypress="$ctrl.onKeywordKeyPress($event)"
-           ng-disabled="$ctrl.config.totalCount <= 1"
            autocorrect="off"
            autocapitalize="none"
            spellcheck="false">
@@ -20,7 +19,6 @@
         <li ng-repeat="value in filter.values">
           <label>
             <input type="checkbox"
-                   ng-disabled="$ctrl.config.totalCount <= 1"
                    ng-model="value.selected"
                    ng-change="$ctrl.filterChanged()">
             <span class="category-option-label">{{value.title}}</span>
