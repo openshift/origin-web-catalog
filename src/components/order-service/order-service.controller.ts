@@ -92,6 +92,7 @@ export class OrderServiceController implements angular.IController {
       hidden: this.ctrl.plans.length < 2,
       allowed: true,
       valid: true,
+      allowClickNav: true,
       onShow: this.showPlan
     };
     this.configStep = {
@@ -101,6 +102,7 @@ export class OrderServiceController implements angular.IController {
       hidden: false,
       allowed: true,
       valid: false,
+      allowClickNav: true,
       onShow: this.showConfig
     };
     this.bindStep = {
@@ -110,6 +112,7 @@ export class OrderServiceController implements angular.IController {
       hidden: false,
       allowed: false,
       valid: true,
+      allowClickNav: true,
       onShow: this.showBind
     };
     this.bindParametersStep = {
@@ -119,6 +122,7 @@ export class OrderServiceController implements angular.IController {
       hidden: false,
       allowed: false,
       valid: true,
+      allowClickNav: true,
       onShow: this.showBindParameters
     };
     this.reviewStep = {
@@ -129,6 +133,7 @@ export class OrderServiceController implements angular.IController {
       allowed: false,
       valid: true,
       prevEnabled: false,
+      allowClickNav: false,
       onShow: this.showResults
     };
 

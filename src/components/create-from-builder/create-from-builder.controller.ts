@@ -69,6 +69,7 @@ export class CreateFromBuilderController implements angular.IController {
       valid: false,
       allowed: true,
       hidden: false,
+      allowClickNav: true,
       onShow: this.showConfig
     };
     this.bindStep = {
@@ -78,6 +79,7 @@ export class CreateFromBuilderController implements angular.IController {
       valid: true,
       allowed: false,
       hidden: !this.ctrl.showPodPresets,
+      allowClickNav: true,
       onShow: this.showBind
     };
     this.reviewStep = {
@@ -88,6 +90,7 @@ export class CreateFromBuilderController implements angular.IController {
       allowed: false,
       hidden: false,
       prevEnabled: false,
+      allowClickNav: false,
       onShow: this.showResults
     };
     this.ctrl.steps = [this.configStep, this.bindStep, this.reviewStep];
@@ -183,7 +186,7 @@ export class CreateFromBuilderController implements angular.IController {
 
   private showConfig = () => {
     this.clearValidityWatcher();
-    this.ctrl.nextTitle = 'Next >';
+    this.ctrl.nextTitle = this.bindStep.hidden ? 'Create' : 'Next >';
     this.reviewStep.allowed = this.bindStep.hidden && this.configStep.valid;
 
     this.validityWatcher = this.$scope.$watch("$ctrl.builderForm.$valid", (isValid: any, lastValue: any) => {
