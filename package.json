@@ -1,6 +1,6 @@
 {
   "name": "origin-web-catalog",
-  "version": "0.0.46",
+  "version": "0.0.47",
   "description": "The Openshift Web Catalogs Library",
   "scripts": {
     "clean": "rimraf dist && rimraf docs && rimraf coverage",
