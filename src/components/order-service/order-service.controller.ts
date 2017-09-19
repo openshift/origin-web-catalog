@@ -372,7 +372,7 @@ export class OrderServiceController implements angular.IController {
   };
 
   private updateParameterSchema(plan: any) {
-    let schema: any = _.get(plan, 'alphaInstanceCreateParameterSchema');
+    let schema: any = _.get(plan, 'instanceCreateParameterSchema');
     if (_.has(schema, ['properties', OrderServiceController.REQUESTER_USERNAME_PARAM_NAME])) {
       schema = angular.copy(schema);
       delete schema.properties[OrderServiceController.REQUESTER_USERNAME_PARAM_NAME];
@@ -383,7 +383,7 @@ export class OrderServiceController implements angular.IController {
     this.ctrl.parameterSchema = schema;
     this.ctrl.parameterFormDefinition = _.get(this, 'ctrl.selectedPlan.externalMetadata.schemas.service_instance.create.openshift_form_definition');
 
-    this.ctrl.bindParameterSchema = _.get(plan, 'alphaServiceInstanceCredentialCreateParameterSchema');
+    this.ctrl.bindParameterSchema = _.get(plan, 'serviceInstanceCredentialCreateParameterSchema');
   }
 
   private onProjectUpdate = () => {
