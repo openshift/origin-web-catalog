@@ -5,6 +5,7 @@
 // To change configuration for local development, copy this file to
 // assets/app/config.local.js and edit the copy.
 window.DEV_SERVER_PORT = 9001;
+window.DEV_TOOL_SETTING = 'cheap-eval-source-map';
 
 window.OPENSHIFT_CONFIG = {
   apis: {

@@ -14,9 +14,10 @@ try {
 
 var useHTTPS = !window.MOCK_ORIGIN_SERVICES;
 var port = window.DEV_SERVER_PORT || 9001;
+var devtoolMap = window.DEV_TOOL_SETTING || 'cheap-eval-source-map';
 
 module.exports = webpackMerge(commonConfig, {
-  devtool: 'cheap-eval-source-map',
+  devtool: devtoolMap,
 
   output: {
     path: helpers.root('dist'),
