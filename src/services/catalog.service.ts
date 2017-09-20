@@ -1,8 +1,7 @@
 import * as angular from 'angular';
 import * as _ from 'lodash';
 
-export class CatalogService {
-  static $inject = ['$filter', '$q', 'Constants', 'APIService', 'DataService', 'Logger'];
+export class CatalogService { static $inject = ['$filter', '$q', 'Constants', 'APIService', 'DataService', 'Logger'];
 
   public $filter: any;
   public categories: any;
@@ -30,13 +29,10 @@ export class CatalogService {
     let errorMsg: any = [];
 
     // Only request service classes if the kind is available.
-    let serviceClassResourceGroup = {
-      group: 'servicecatalog.k8s.io',
-      resource: 'serviceclasses'
-    };
-    if (this.apiService.apiInfo(serviceClassResourceGroup)) {
+    let serviceClassesVersion = this.apiService.getPreferredVersion('clusterserviceclasses');
+    if (this.apiService.apiInfo(serviceClassesVersion)) {
       ++totalNumPromises;
-      this.dataService.list(serviceClassResourceGroup, {}).then( (resources: any) => {
+      this.dataService.list(serviceClassesVersion, {}).then( (resources: any) => {
         catalogItems.serviceClasses = resources.by("metadata.name");
       }, () => {
         errorMsg.push('service classes');
@@ -46,7 +42,8 @@ export class CatalogService {
     }
 
     ++totalNumPromises;
-    this.dataService.list("imagestreams", {namespace: "openshift"}).then( (resources: any) => {
+    let imageStreamsVersion = this.apiService.getPreferredVersion('imagestreams');
+    this.dataService.list(imageStreamsVersion, {namespace: "openshift"}).then( (resources: any) => {
       catalogItems.imageStreams = resources.by("metadata.name");
     }, () => {
       errorMsg.push('builder images');
@@ -56,7 +53,8 @@ export class CatalogService {
 
     if (includeTemplates) {
       ++totalNumPromises;
-      this.dataService.list("templates", {namespace: "openshift"}, null, {partialObjectMetadataList: true}).then((resources: any) => {
+      let templateVersion = this.apiService.getPreferredVersion('templates');
+      this.dataService.list(templateVersion, {namespace: "openshift"}, null, {partialObjectMetadataList: true}).then((resources: any) => {
         catalogItems.templates = resources.by("metadata.name");
       }, () => {
         errorMsg.push('templates');
@@ -66,6 +64,20 @@ export class CatalogService {
     }
 
     return deferred.promise;
+  }
+
+  public getServicePlans() : angular.IPromise < any > {
+    // Only request service plans if the resource is available.
+    let plansVersion = this.apiService.getPreferredVersion('clusterserviceplans');
+    if (this.apiService.apiInfo(plansVersion)) {
+      return this.dataService.list(plansVersion, {});
+    }
+
+    return this.$q.when(null);
+  }
+
+  public groupPlansByServiceClassName(plans: any) : any {
+    return _.groupBy(plans, 'spec.serviceClassRef.name');
   }
 
   public getProjectCatalogItems(projectName: string, includeImages: boolean = true, includeTemplates: boolean = true, partialObjectMetadataList: boolean = false ) {
@@ -341,17 +353,17 @@ export class ServiceItem implements IServiceItem {
   }
 
   private getImage(): string {
-    return _.get(this.resource, 'externalMetadata.imageUrl') as string || '';
+    return _.get(this.resource, 'spec.externalMetadata.imageUrl') as string || '';
   }
 
   private getIcon(): string {
-    let icon: string = _.get(this.resource, ['externalMetadata', 'console.openshift.io/iconClass']) as string || 'fa fa-clone';
+    let icon: string = _.get(this.resource, ['spec', 'externalMetadata', 'console.openshift.io/iconClass']) as string || 'fa fa-clone';
     icon = (icon.indexOf('icon-') !== -1) ? 'font-icon ' + icon : icon;
     return icon;
   }
 
   private getName(): string {
-    return _.get(this.resource, 'externalMetadata.displayName') || this.resource.metadata.name;
+    return _.get(this.resource, 'spec.externalMetadata.displayName') || this.resource.metadata.name;
   }
 
   private getDescription(): string {
@@ -359,15 +371,15 @@ export class ServiceItem implements IServiceItem {
   }
 
   private getLongDescription(): string {
-    return _.get(this.resource, 'externalMetadata.longDescription') as string || '';
+    return _.get(this.resource, 'spec.externalMetadata.longDescription') as string || '';
   }
 
   private getTags(): string[] {
-    return _.get(this.resource, 'tags') as string[] || [];
+    return _.get(this.resource, 'spec.tags') as string[] || [];
   }
 
   private getVendor(): string {
-    var rawVendor = _.get(this.resource, 'externalMetadata.providerDisplayName') as string;
+    var rawVendor = _.get(this.resource, 'spec.externalMetadata.providerDisplayName') as string;
     return this.catalogSrv.getPublisherSynonym(rawVendor);
   }
 

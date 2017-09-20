@@ -153,10 +153,12 @@ describe('servicesView', () => {
           "name": "mycat-database",
           "uid": "10",
         },
-        tags: [
-          "mycat",
-          "database"
-        ]
+        spec: {
+          tags: [
+            "mycat",
+            "database"
+          ]
+        }
       },
       "mycat-other": {
         kind: 'ServiceClass',
@@ -164,10 +166,12 @@ describe('servicesView', () => {
           "name": "mycat-other",
           "uid": "11",
         },
-        tags: [
-          "mycat",
-          "foobar"
-        ]
+        spec: {
+          tags: [
+            "mycat",
+            "foobar"
+          ]
+        }
       }
     };
 
@@ -214,11 +218,13 @@ describe('servicesView', () => {
           "name": "mycat-database",
           "uid": "10",
         },
-        tags: [
-          "mycata",
-          "mycatb",
-          "database"
-        ]
+        spec: {
+          tags: [
+            "mycata",
+            "mycatb",
+            "database"
+          ]
+        }
       }
     };
 

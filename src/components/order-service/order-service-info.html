@@ -13,23 +13,23 @@
           {{tag}}
         </span>
       </div>
-      <ul ng-if="$ctrl.serviceClass.resource.externalMetadata.documentationUrl || $ctrl.serviceClass.resource.externalMetadata.supportUrl" class="list-inline order-service-documentation-url">
-        <li ng-if="$ctrl.serviceClass.resource.externalMetadata.documentationUrl" >
-          <a ng-href="{{$ctrl.serviceClass.resource.externalMetadata.documentationUrl}}" target="_blank" class="learn-more-link">View Documentation <i class="fa fa-external-link" aria-hidden="true"></i></a>
+      <ul ng-if="$ctrl.serviceClass.resource.spec.externalMetadata.documentationUrl || $ctrl.serviceClass.resource.spec.externalMetadata.supportUrl" class="list-inline order-service-documentation-url">
+        <li ng-if="$ctrl.serviceClass.resource.spec.externalMetadata.documentationUrl" >
+          <a ng-href="{{$ctrl.serviceClass.resource.spec.externalMetadata.documentationUrl}}" target="_blank" class="learn-more-link">View Documentation <i class="fa fa-external-link" aria-hidden="true"></i></a>
         </li>
-        <li ng-if="$ctrl.serviceClass.resource.externalMetadata.supportUrl" >
-          <a ng-href="{{$ctrl.serviceClass.resource.externalMetadata.supportUrl}}" target="_blank" class="learn-more-link">Get Support <i class="fa fa-external-link" aria-hidden="true"></i></a>
+        <li ng-if="$ctrl.serviceClass.resource.spec.externalMetadata.supportUrl" >
+          <a ng-href="{{$ctrl.serviceClass.resource.spec.externalMetadata.supportUrl}}" target="_blank" class="learn-more-link">Get Support <i class="fa fa-external-link" aria-hidden="true"></i></a>
         </li>
       </ul>
     </div>
   </div>
   <div class="order-service-description-block">
-    <p ng-if="$ctrl.currentStep.id !== 'plans' && ($ctrl.selectedPlan.externalMetadata.displayName || $ctrl.selectedPlan.description)">
-      <span ng-if="$ctrl.selectedPlan.externalMetadata.displayName">
-        Plan {{$ctrl.selectedPlan.externalMetadata.displayName}}
-        <span ng-if="$ctrl.selectedPlan.description">&ndash;</span>
+    <p ng-if="$ctrl.currentStep.id !== 'plans' && ($ctrl.selectedPlan.spec.externalMetadata.displayName || $ctrl.selectedPlan.spec.description)">
+      <span ng-if="$ctrl.selectedPlan.spec.externalMetadata.displayName">
+        Plan {{$ctrl.selectedPlan.spec.externalMetadata.displayName}}
+        <span ng-if="$ctrl.selectedPlan.spec.description">&ndash;</span>
       </span>
-      <span ng-if="$ctrl.selectedPlan.description">{{$ctrl.selectedPlan.description}}</span>
+      <span ng-if="$ctrl.selectedPlan.spec.description">{{$ctrl.selectedPlan.spec.description}}</span>
     </p>
     <p ng-if="$ctrl.description" ng-bind-html="$ctrl.description | linky : '_blank'" class="description"></p>
     <p ng-if="$ctrl.longDescription" ng-bind-html="$ctrl.longDescription | linky : '_blank'" class="description"></p>

@@ -121,11 +121,8 @@ export class CreateFromBuilderController implements angular.IController {
       },
       this.onProjectUpdate
     );
-    this.getServiceClasses();
-    this.instancesSupported = !!this.APIService.apiInfo({
-      group: 'servicecatalog.k8s.io',
-      resource: 'serviceinstances'
-    });
+    this.getServiceClassesAndPlans();
+    this.instancesSupported = !!this.APIService.apiInfo(this.APIService.getPreferredVersion('serviceinstances'));
   }
 
   public closePanel() {
@@ -312,10 +309,8 @@ export class CreateFromBuilderController implements angular.IController {
       this.updateBindability();
     } else if (this.ctrl.showPodPresets) {
       this.ctrl.updating = true;
-      this.DataService.list({
-        group: 'servicecatalog.k8s.io',
-        resource: 'serviceinstances'
-      }, {
+      let serviceInstancesVersion = this.APIService.getPreferredVersion('serviceinstances');
+      this.DataService.list(serviceInstancesVersion, {
         namespace: this.ctrl.selectedProject.metadata.name
       }, null, {
         errorNotification: false
@@ -338,7 +333,13 @@ export class CreateFromBuilderController implements angular.IController {
   }
 
   private isServiceBindable = (serviceInstance: any) => {
-    return this.BindingService.isServiceBindable(serviceInstance, this.ctrl.serviceClasses);
+    let servicePlan;
+    let serviceClass = this.BindingService.getServiceClassForInstance(serviceInstance, this.ctrl.serviceClasses);
+    let servicePlanName = _.get(serviceInstance, 'spec.servicePlanRef.name') as string;
+    if (servicePlanName) {
+      servicePlan = this.ctrl.servicePlans[servicePlanName];
+    }
+    return this.BindingService.isServiceBindable(serviceInstance, serviceClass, servicePlan);
   };
 
   private createApp() {
@@ -405,17 +406,24 @@ export class CreateFromBuilderController implements angular.IController {
     });
   }
 
-  private getServiceClasses() {
-    // Only request service classes if the kind is available.
-    let serviceClassResourceGroup = {
-      group: 'servicecatalog.k8s.io',
-      resource: 'serviceclasses'
-    };
-    if (this.APIService.apiInfo(serviceClassResourceGroup)) {
-      this.ctrl.updating = false;
-      this.DataService.list(serviceClassResourceGroup, {}).then( (resources: any) => {
+  private getServiceClassesAndPlans() {
+    let serviceClassesVersion = this.APIService.getPreferredVersion('clusterserviceclasses');
+    let servicePlansVersion = this.APIService.getPreferredVersion('clusterserviceplans');
+
+    // Only request service classes if the resource is available.
+    if (this.APIService.apiInfo(serviceClassesVersion) && this.APIService.apiInfo(servicePlansVersion)) {
+      this.ctrl.updating = true;
+
+      let promises = [];
+      promises.push(this.DataService.list(serviceClassesVersion, {}).then( (resources: any) => {
         this.ctrl.serviceClasses = resources.by("metadata.name");
-      }).finally(() => {
+      }));
+
+      promises.push(this.DataService.list(servicePlansVersion, {}).then( (resources: any) => {
+        this.ctrl.servicePlans = resources.by("metadata.name");
+      }));
+
+      this.$q.all(promises).finally(() => {
         this.ctrl.updating = false;
       });
     }

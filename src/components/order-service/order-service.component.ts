@@ -4,6 +4,7 @@ export const orderService: angular.IComponentOptions = {
   bindings: {
     baseProjectUrl: '@',
     serviceClass: '<',
+    servicePlans: '<',
     handleClose: '<'
   },
   controller: OrderServiceController,
