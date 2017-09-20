@@ -21,7 +21,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
 }, function(e, t) {
     e.exports = '<div class="config-top">\n  <div class="select-plans">\n    <h3>Select a Plan</h3>\n    <div ng-repeat="plan in $ctrl.serviceClass.resource.plans" class="radio">\n      <label>\n        <input\n          type="radio"\n          ng-model="$ctrl.planIndex"\n          ng-change="$ctrl.selectPlan(plan)"\n          value="{{$index}}">\n        <span class="plan-name">{{plan.externalMetadata.displayName || plan.name}}</span>\n        \x3c!-- TODO: truncate long text --\x3e\n        <div ng-if="plan.description">{{plan.description}}</div>\n        \x3c!-- TODO: show plan bullets --\x3e\n      </label>\n    </div>\n  </div>\n</div>\n';
 }, function(e, t) {
-    e.exports = '<div ng-if="!$ctrl.error">\n  <div ng-if="!$ctrl.orderComplete">\n    <h3 class="text-center">\n      <div class="spinner spinner-lg" aria-hidden="true"></div>\n    </h3>\n    <h3 class="text-center">\n      <span>The service is being provisioned</span>\n    </h3>\n  </div>\n</div>\n<div class="review-failure" ng-if="$ctrl.error">\n  <div class="review-status">\n    <span class="pficon pficon-error-circle-o text-danger" aria-hidden="true"></span>\n    <h3 class="review-message">\n      Error provisioning <strong>{{$ctrl.serviceClass.name}}</strong> in\n      <strong>{{$ctrl.projectDisplayName}}</strong>\n    </h3>\n  </div>\n  <div class="sub-title">\n    <span ng-if="$ctrl.error.message">\n      {{$ctrl.error.message}}\n    </span>\n    <span ng-if="!$ctrl.error.message">\n      An error occurred provisioning the service.\n    </span>\n  </div>\n</div>\n<div ng-if="$ctrl.orderComplete">\n  <div class="review-status">\n    <span class="pficon pficon-ok" aria-hidden="true"></span>\n    <span class="sr-only">Success</span>\n    <h3 class="review-message">\n      <span>\n        <strong>{{$ctrl.serviceInstance.metadata.name}}</strong> has been added to <strong>{{$ctrl.projectDisplayName}}</strong> successfully\n      </span>\n    </h3>\n  </div>\n</div>\n<div ng-if="$ctrl.orderComplete && $ctrl.binding">\n  <bind-results error="$ctrl.bindError"\n                progress-inline="true"\n                binding="$ctrl.binding"\n                secret-href="$ctrl.baseProjectUrl + \'/browse/secrets/\' + $ctrl.binding.spec.secretName"\n                service-to-bind="$ctrl.serviceInstance.metadata.name"\n                bind-type="{{$ctrl.bindType}}"\n                application-to-bind="$ctrl.appToBind.metadata.name"\n                show-pod-presets="$ctrl.showPodPresets">\n  </bind-results>\n</div>\n<div class="alert alert-info" ng-if="$ctrl.orderComplete && $ctrl.bindType === \'none\'">\n  <span class="pficon pficon-info" aria-hidden="true"></span>\n  <span class="sr-only">Info</span>\n  Continue to your project to bind this service to your application. Binding this service creates a secret containing the information necessary for your application to use the service.\n</div>\n<div class="footer-panel">\n  <a class="btn btn-primary" href="{{$ctrl.selectedProject | projectUrl : $ctrl.baseProjectUrl}}">View Project</a>\n</div>\n';
+    e.exports = '<div ng-if="!$ctrl.error">\n  <div ng-if="!$ctrl.orderComplete">\n    <h3 class="text-center">\n      <div class="spinner spinner-lg" aria-hidden="true"></div>\n    </h3>\n    <h3 class="text-center">\n      <span>The service is being provisioned</span>\n    </h3>\n  </div>\n</div>\n<div class="review-failure" ng-if="$ctrl.error">\n  <div class="review-status">\n    <span class="pficon pficon-error-circle-o text-danger" aria-hidden="true"></span>\n    <h3 class="review-message">\n      Error provisioning <strong>{{$ctrl.serviceClass.name}}</strong> in\n      <strong>{{$ctrl.projectDisplayName}}</strong>\n    </h3>\n  </div>\n  <div class="sub-title">\n    <span ng-if="$ctrl.error.message">\n      {{$ctrl.error.message}}\n    </span>\n    <span ng-if="!$ctrl.error.message">\n      An error occurred provisioning the service.\n    </span>\n  </div>\n</div>\n<div ng-if="$ctrl.orderComplete">\n  <div class="review-status">\n    <span class="pficon pficon-ok" aria-hidden="true"></span>\n    <span class="sr-only">Success</span>\n    <h3 class="review-message">\n      <span>\n        <strong>{{$ctrl.serviceInstance.metadata.name}}</strong> has been added to <strong>{{$ctrl.projectDisplayName}}</strong> successfully\n      </span>\n    </h3>\n  </div>\n</div>\n<div ng-if="$ctrl.orderComplete && $ctrl.binding">\n  <bind-results error="$ctrl.bindError"\n                progress-inline="true"\n                binding="$ctrl.binding"\n                secret-href="$ctrl.selectedProject | secretUrl : $ctrl.baseProjectUrl : $ctrl.binding.spec.secretName"\n                service-to-bind="$ctrl.serviceInstance.metadata.name"\n                bind-type="{{$ctrl.bindType}}"\n                application-to-bind="$ctrl.appToBind.metadata.name"\n                show-pod-presets="$ctrl.showPodPresets">\n  </bind-results>\n</div>\n<div class="alert alert-info" ng-if="$ctrl.orderComplete && $ctrl.bindType === \'none\'">\n  <span class="pficon pficon-info" aria-hidden="true"></span>\n  <span class="sr-only">Info</span>\n  Continue to your project to bind this service to your application. Binding this service creates a secret containing the information necessary for your application to use the service.\n</div>\n<div class="footer-panel">\n  <a class="btn btn-primary" href="{{$ctrl.selectedProject | projectUrl : $ctrl.baseProjectUrl}}">View Project</a>\n</div>\n';
 }, function(e, t) {
     e.exports = '<div  class="schema-form-array {{form.htmlClass}}"\n      sf-field-model="sf-new-array"\n      sf-new-array>\n  <label class="control-label" ng-show="showTitle()">{{ form.title }}</label>\n  <ol class="list-group" sf-field-model ui-sortable="form.sortOptions">\n    <li class="list-group-item {{form.fieldHtmlClass}}"\n        schema-form-array-items\n        sf-field-model="ng-repeat"\n        ng-repeat="item in $$value$$ track by $index">\n      <button ng-hide="form.readonly || form.remove === null"\n              ng-click="deleteFromArray($index)"\n              ng-disabled="form.schema.minItems >= modelArray.length"\n              style="position: absolute; z-index: 20; right: 0; top: 12px; font-size: 20px;"\n              type="button" class="close">\n              <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>\n      </button>\n    </li>\n  </ol>\n  <div class="clearfix" style="padding: 15px;" ng-model="modelArray" schema-validate="form">\n    <div class="help-block"\n         ng-show="(hasError() && errorMessage(schemaError())) || form.description"\n         ng-bind-html="(hasError() && errorMessage(schemaError())) || form.description"></div>\n\n    <button ng-hide="form.readonly || form.add === null"\n            ng-click="appendToArray()"\n            ng-disabled="form.schema.maxItems <= modelArray.length"\n            type="button"\n            class="btn {{ form.style.add || \'btn-default\' }} pull-right">\n      {{ form.add || \'Add\'}}\n    </button>\n  </div>\n</div>\n';
 }, function(e, t) {
@@ -35,7 +35,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
 }, function(e, t, r) {
     "use strict";
     t.__esModule = !0;
-    var n = r(45);
+    var n = r(46);
     t.catalogFilter = {
         bindings: {
             config: "<",
@@ -43,12 +43,12 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             applyFilters: "&"
         },
         controller: n.CatalogFilterController,
-        template: r(34)
+        template: r(35)
     };
 }, function(e, t, r) {
     "use strict";
     t.__esModule = !0;
-    var n = r(46);
+    var n = r(47);
     t.catalogParameters = {
         bindings: {
             parameterSchema: "<",
@@ -56,24 +56,24 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             model: "="
         },
         controller: n.CatalogParametersController,
-        template: r(35)
-    };
-}, function(e, t, r) {
-    "use strict";
-    t.__esModule = !0;
-    var n = r(47);
-    t.catalogSearch = {
-        bindings: {
-            baseProjectUrl: "@",
-            catalogItems: "<"
-        },
-        controller: n.CatalogSearchController,
         template: r(36)
     };
 }, function(e, t, r) {
     "use strict";
     t.__esModule = !0;
     var n = r(48);
+    t.catalogSearch = {
+        bindings: {
+            baseProjectUrl: "@",
+            catalogItems: "<"
+        },
+        controller: n.CatalogSearchController,
+        template: r(37)
+    };
+}, function(e, t, r) {
+    "use strict";
+    t.__esModule = !0;
+    var n = r(49);
     t.createFromBuilder = {
         bindings: {
             baseProjectUrl: "@",
@@ -81,19 +81,19 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             handleClose: "<"
         },
         controller: n.CreateFromBuilderController,
-        template: r(37)
+        template: r(38)
     };
 }, function(e, t, r) {
     "use strict";
     t.__esModule = !0;
-    var n = r(49);
+    var n = r(50);
     t.landingPage = {
         bindings: {
             baseProjectUrl: "@",
             onTemplateSelected: "&"
         },
         controller: n.LandingPageController,
-        template: r(38),
+        template: r(39),
         transclude: {
             landingsearch: "landingsearch",
             landingheader: "landingheader",
@@ -104,7 +104,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
 }, function(e, t, r) {
     "use strict";
     t.__esModule = !0;
-    var n = r(50);
+    var n = r(51);
     t.orderService = {
         bindings: {
             baseProjectUrl: "@",
@@ -112,12 +112,12 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             handleClose: "<"
         },
         controller: n.OrderServiceController,
-        template: r(39)
+        template: r(40)
     };
 }, function(e, t, r) {
     "use strict";
     t.__esModule = !0;
-    var n = r(51);
+    var n = r(52);
     t.overlayPanel = {
         bindings: {
             showClose: "<",
@@ -126,13 +126,13 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             singleColumn: "<"
         },
         controller: n.OverlayPanelController,
-        template: r(40),
+        template: r(41),
         transclude: !0
     };
 }, function(e, t, r) {
     "use strict";
     t.__esModule = !0;
-    var n = r(52);
+    var n = r(53);
     t.projectsSummary = {
         bindings: {
             baseProjectUrl: "@",
@@ -142,24 +142,24 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             startTour: "&"
         },
         controller: n.ProjectsSummaryController,
-        template: r(41)
-    };
-}, function(e, t, r) {
-    "use strict";
-    t.__esModule = !0;
-    var n = r(53);
-    t.saasList = {
-        bindings: {
-            saasTitle: "<?",
-            saasOfferings: "<"
-        },
-        controller: n.SaasListController,
         template: r(42)
     };
 }, function(e, t, r) {
     "use strict";
     t.__esModule = !0;
     var n = r(54);
+    t.saasList = {
+        bindings: {
+            saasTitle: "<?",
+            saasOfferings: "<"
+        },
+        controller: n.SaasListController,
+        template: r(43)
+    };
+}, function(e, t, r) {
+    "use strict";
+    t.__esModule = !0;
+    var n = r(55);
     t.selectProject = {
         bindings: {
             selectedProject: "=",
@@ -168,12 +168,12 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             availableProjects: "<"
         },
         controller: n.SelectProjectController,
-        template: r(43)
+        template: r(44)
     };
 }, function(e, t, r) {
     "use strict";
     t.__esModule = !0;
-    var n = r(55);
+    var n = r(56);
     t.servicesView = {
         bindings: {
             baseProjectUrl: "@",
@@ -183,7 +183,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             onCreateFromProject: "<"
         },
         controller: n.ServicesViewController,
-        template: r(44)
+        template: r(45)
     };
 }, function(e, t, r) {
     "use strict";
@@ -451,6 +451,18 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
     t.__esModule = !0;
     var i = r(0);
     t.projectUrlFilter = n;
+}, function(e, t, r) {
+    "use strict";
+    function n() {
+        return function(e, t, r) {
+            var n, s = t || "project/";
+            return n = i.isString(e) ? e : i.get(e, "metadata.name", ""), s.endsWith("/") || (s += "/"), 
+            s + n + "/browse/secrets/" + r;
+        };
+    }
+    t.__esModule = !0;
+    var i = r(0);
+    t.secretUrlFilter = n;
 }, function(e, t, r) {
     "use strict";
     t.__esModule = !0;
@@ -1098,7 +1110,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
 }, function(e, t, r) {
     "use strict";
     t.__esModule = !0;
-    var n = r(1), i = r(0), s = r(56), a = function() {
+    var n = r(1), i = r(0), s = r(57), a = function() {
         function e(e, t, r, n, s, a, o, c, l, d, p) {
             var h = this;
             this.ctrl = this, this.watches = [], this.clearValidityWatcher = function() {
@@ -1902,8 +1914,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
     t.__esModule = !0;
     var n = r(1);
     r(3), r(29);
-    var i = r(30), s = r(31), a = r(19), o = r(20), c = r(32), l = r(21), d = r(22), p = r(23), h = r(24), m = r(25), u = r(26), g = r(27), f = r(28), v = r(33), y = r(18);
-    t.webCatalog = "webCatalog", n.module(t.webCatalog, [ "patternfly", "ngAnimate", "ui.bootstrap", "angularMoment", "ui.select", "schemaForm" ]).service("BuilderAppService", s.BuilderAppService).service("Catalog", c.CatalogService).service("RecentlyViewedServiceItems", v.RecentlyViewedServiceItems).filter("projectUrl", i.projectUrlFilter).component("catalogParameters", a.catalogParameters).component("catalogSearch", o.catalogSearch).component("createFromBuilder", l.createFromBuilder).component("landingPage", d.landingPage).component("orderService", p.orderService).component("overlayPanel", h.overlayPanel).component("projectsSummary", m.projectsSummary).component("saasList", u.saasList).component("selectProject", g.selectProject).component("servicesView", f.servicesView).component("catalogFilter", y.catalogFilter).run([ "$templateCache", function(e) {
+    var i = r(30), s = r(31), a = r(32), o = r(19), c = r(20), l = r(33), d = r(21), p = r(22), h = r(23), m = r(24), u = r(25), g = r(26), f = r(27), v = r(28), y = r(34), b = r(18);
+    t.webCatalog = "webCatalog", n.module(t.webCatalog, [ "patternfly", "ngAnimate", "ui.bootstrap", "angularMoment", "ui.select", "schemaForm" ]).service("BuilderAppService", a.BuilderAppService).service("Catalog", l.CatalogService).service("RecentlyViewedServiceItems", y.RecentlyViewedServiceItems).filter("projectUrl", i.projectUrlFilter).filter("secretUrl", s.secretUrlFilter).component("catalogParameters", o.catalogParameters).component("catalogSearch", c.catalogSearch).component("createFromBuilder", d.createFromBuilder).component("landingPage", p.landingPage).component("orderService", h.orderService).component("overlayPanel", m.overlayPanel).component("projectsSummary", u.projectsSummary).component("saasList", g.saasList).component("selectProject", f.selectProject).component("servicesView", v.servicesView).component("catalogFilter", b.catalogFilter).run([ "$templateCache", function(e) {
         e.put("catalog-search/catalog-search-result.html", r(4)), e.put("create-from-builder/create-from-builder-configure.html", r(6)), 
         e.put("create-from-builder/create-from-builder-bind.html", r(5)), e.put("create-from-builder/create-from-builder-results.html", r(7)), 
         e.put("order-service/order-service-plans.html", r(11)), e.put("order-service/order-service-configure.html", r(10)), 
@@ -1912,4 +1924,4 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
         e.put("decorators/bootstrap/checkbox.html", r(14)), e.put("decorators/bootstrap/checkboxes.html", r(15)), 
         e.put("decorators/bootstrap/default.html", r(16)), e.put("decorators/bootstrap/select.html", r(17));
     } ]);
-} ], [ 57 ]);
+} ], [ 58 ]);

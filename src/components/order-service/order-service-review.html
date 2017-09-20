@@ -40,7 +40,7 @@
   <bind-results error="$ctrl.bindError"
                 progress-inline="true"
                 binding="$ctrl.binding"
-                secret-href="$ctrl.baseProjectUrl + '/browse/secrets/' + $ctrl.binding.spec.secretName"
+                secret-href="$ctrl.selectedProject | secretUrl : $ctrl.baseProjectUrl : $ctrl.binding.spec.secretName"
                 service-to-bind="$ctrl.serviceInstance.metadata.name"
                 bind-type="{{$ctrl.bindType}}"
                 application-to-bind="$ctrl.appToBind.metadata.name"
