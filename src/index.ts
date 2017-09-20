@@ -7,6 +7,7 @@ require('./constants');
 
 // Filters
 import {projectUrlFilter} from './filters/projectUrl';
+import {secretUrlFilter} from './filters/secretUrl';
 
 // Components, Alphabetical order please
 import {BuilderAppService} from './services/builder-app.service';
@@ -21,7 +22,7 @@ import {projectsSummary} from './components/projects-summary/projects-summary.co
 import {saasList} from './components/saas-list/saas-list.component';
 import {selectProject} from './components/select-project/select-project.component';
 import {servicesView} from './components/services-view/services-view.component';
-import {RecentlyViewedServiceItems} from './services/recently-viewed-service-items.service.ts';
+import {RecentlyViewedServiceItems} from './services/recently-viewed-service-items.service';
 import {catalogFilter} from './components/catalog-filter/catalog-filter.component';
 
 export const webCatalog: string = 'webCatalog';
@@ -32,6 +33,7 @@ angular
   .service('Catalog', CatalogService)
   .service('RecentlyViewedServiceItems', RecentlyViewedServiceItems)
   .filter('projectUrl', projectUrlFilter)
+  .filter('secretUrl', secretUrlFilter)
   .component('catalogParameters', catalogParameters)
   .component('catalogSearch', catalogSearch)
   .component('createFromBuilder', createFromBuilder)
