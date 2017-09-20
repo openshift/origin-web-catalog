@@ -298,50 +298,21 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             id: "middleware",
             label: "Middleware",
             subCategories: [ {
-                id: "amq",
-                label: "A-MQ",
-                tags: [ "amq" ],
-                icon: "font-icon icon-jboss"
+                id: "integration",
+                label: "Integration",
+                tags: [ "amq", "fuse", "jboss-fuse", "sso" ]
             }, {
-                id: "processserver",
-                label: "BPM Suite",
-                tags: [ "processserver" ],
-                icon: "font-icon icon-jboss"
+                id: "process-automation",
+                label: "Process Automation",
+                tags: [ "decisionserver", "processserver" ]
             }, {
-                id: "decisionserver",
-                label: "BRMS",
-                tags: [ "decisionserver" ],
-                icon: "font-icon icon-jboss"
+                id: "analytics-data",
+                label: "Analytics & Data",
+                tags: [ "datagrid", "datavirt" ]
             }, {
-                id: "datagrid",
-                label: "Data Grid",
-                tags: [ "datagrid" ],
-                icon: "font-icon icon-jboss"
-            }, {
-                id: "datavirt",
-                label: "Data Virt",
-                tags: [ "datavirt" ],
-                icon: "font-icon icon-jboss"
-            }, {
-                id: "eap",
-                label: "EAP",
-                tags: [ "eap" ],
-                icon: "font-icon icon-jboss"
-            }, {
-                id: "fuse",
-                label: "Fuse",
-                tags: [ "fuse", "jboss-fuse" ],
-                icon: "font-icon icon-jboss"
-            }, {
-                id: "tomcat",
-                label: "Tomcat",
-                tags: [ "tomcat" ],
-                icon: "font-icon icon-jboss"
-            }, {
-                id: "sso",
-                label: "SSO",
-                tags: [ "sso" ],
-                icon: "font-icon icon-jboss"
+                id: "runtimes",
+                label: "Runtimes & Frameworks",
+                tags: [ "eap", "httpd", "tomcat" ]
             } ]
         }, {
             id: "cicd",
