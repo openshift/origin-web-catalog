@@ -29,6 +29,7 @@ export class OrderServiceController implements angular.IController {
   private BindingService: any;
   private Logger: any;
   private watches: any[] = [];
+  private infoStep: any;
   private planStep: any;
   private configStep: any;
   private bindStep: any;
@@ -85,6 +86,16 @@ export class OrderServiceController implements angular.IController {
     this.ctrl.appToBind = null;
     this.ctrl.configStepValid = true;
 
+    this.infoStep = {
+      id: 'info',
+      label: 'Information',
+      view: 'order-service/order-service-info.html',
+      valid: true,
+      allowed: true,
+      hidden: false,
+      allowClickNav: true,
+      onShow: this.showInfo
+    };
     this.planStep = {
       id: 'plans',
       label: 'Plan',
@@ -137,7 +148,7 @@ export class OrderServiceController implements angular.IController {
       onShow: this.showResults
     };
 
-    this.ctrl.steps = [this.planStep, this.configStep, this.bindStep, this.bindParametersStep, this.reviewStep];
+    this.ctrl.steps = [this.infoStep, this.planStep, this.configStep, this.bindStep, this.bindParametersStep, this.reviewStep];
     this.ctrl.nameTaken = false;
     this.ctrl.wizardDone = false;
     this.ctrl.bindType = "none";
@@ -179,6 +190,12 @@ export class OrderServiceController implements angular.IController {
       this.validityWatcher = undefined;
     }
     this.ctrl.reviewStep.allowed = false;
+  };
+
+  public showInfo = () => {
+    this.clearValidityWatcher();
+    this.ctrl.configPageShown = false;
+    this.ctrl.nextTitle = "Next >";
   };
 
   public showPlan = () => {

@@ -29,6 +29,7 @@ export class CreateFromBuilderController implements angular.IController {
   private BindingService: any;
   private Logger: any;
   private watches: any[] = [];
+  private infoStep: any;
   private configStep: any;
   private bindStep: any;
   private instancesSupported: boolean;
@@ -62,6 +63,16 @@ export class CreateFromBuilderController implements angular.IController {
   }
 
   public $onInit() {
+    this.infoStep = {
+      label: 'Information',
+      id: 'info',
+      view: 'create-from-builder/create-from-builder-info.html',
+      valid: true,
+      allowed: true,
+      hidden: false,
+      allowClickNav: true,
+      onShow: this.showInfo
+    };
     this.configStep = {
       label: 'Configuration',
       id: 'configure',
@@ -93,7 +104,7 @@ export class CreateFromBuilderController implements angular.IController {
       allowClickNav: false,
       onShow: this.showResults
     };
-    this.ctrl.steps = [this.configStep, this.bindStep, this.reviewStep];
+    this.ctrl.steps = [this.infoStep, this.configStep, this.bindStep, this.reviewStep];
     this.ctrl.versions = this.getVersions();
     this.ctrl.istag = _.head(this.ctrl.versions);
     this.ctrl.nameMaxLength = 24;
@@ -182,6 +193,11 @@ export class CreateFromBuilderController implements angular.IController {
       this.validityWatcher();
       this.validityWatcher = undefined;
     }
+  };
+
+  private showInfo = () => {
+    this.clearValidityWatcher();
+    this.ctrl.nextTitle = 'Next >';
   };
 
   private showConfig = () => {

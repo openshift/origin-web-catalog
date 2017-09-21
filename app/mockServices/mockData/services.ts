@@ -12,13 +12,14 @@ export const servicesData = {
       displayName: 'Test ServiceClass Java-Node.js',
       longDescription: 'Build and run Java applications on CentOS 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/openshift-s2i/s2i-wildfly/blob/mast…',
       documentationUrl: 'https://github.com/openshift/source-to-image',
+      supportUrl: 'https://github.com/openshift/source-to-image',
       providerDisplayName: "Vendor A"
     },
     plans: [
       {
         name: 'rh-ded-topic', osbGuid: '1', displayName: 'Red Hat - Dedicated - Topic', description: '$.65 / 1 Million messages', bullets: ['One', 'Two', 'Three'],
         bindable: true,
-        alphaInstanceCreateParameterSchema: {
+        instanceCreateParameterSchema: {
           "$schema": "http://json-schema.org/draft-04/schema",
           "type": "object",
           "title": "Parameters",

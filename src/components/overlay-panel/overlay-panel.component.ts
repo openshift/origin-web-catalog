@@ -4,8 +4,7 @@ export const overlayPanel: angular.IComponentOptions = {
   bindings: {
     showClose: '<',
     showPanel: '<',
-    handleClose: '<',
-    singleColumn: '<'
+    handleClose: '<'
   },
   controller: OverlayPanelController,
   template: require('./overlay-panel.html'),
