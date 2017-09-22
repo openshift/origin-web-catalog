@@ -37,7 +37,7 @@
     "angular-bootstrap": "0.14.3",
     "angular-patternfly": ">=4.7.1 <5.0.0",
     "angular-schema-form": "^0.8.13",
-    "patternfly": ">=3.27.2 <4.0.0",
+    "patternfly": ">=3.27.5 <4.0.0",
     "jquery": "~3.2.1",
     "lodash": "~4.17.4",
     "origin-web-common": "~0.0.58",

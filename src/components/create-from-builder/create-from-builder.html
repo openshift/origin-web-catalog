@@ -1,6 +1,6 @@
 <div class="order-service">
   <pf-wizard
-       hide-header="true"
+       title="{{$ctrl.imageStream.name}} {{$ctrl.istag.name}}"
        hide-sidebar="true"
        step-class="order-service-wizard-step"
        wizard-ready="$ctrl.wizardReady"
@@ -18,32 +18,6 @@
          step-id="{{step.id}}"
          step-priority="{{$index}}">
       <div class="wizard-pf-main-inner-shadow-covers">
-        <div class="order-service-details">
-          <div class="order-service-details-top">
-            <div class="service-icon">
-              <span class="icon {{$ctrl.imageStream.iconClass}}"></span>
-            </div>
-            <div class="service-title-area">
-              <div class="service-title">
-                {{$ctrl.imageStream.name}}
-                {{$ctrl.istag.name}}
-              </div>
-              <div class="order-service-tags">
-                <span ng-repeat="tag in $ctrl.istag.annotations.tags.split(',')" class="tag">
-                  {{tag}}
-                </span>
-              </div>
-            </div>
-          </div>
-          <div class="order-service-description-block">
-            <p ng-bind-html="$ctrl.istag.annotations.description | linky : '_blank'" class="description"></p>
-            <p ng-if="$ctrl.istag.annotations.sampleRepo">
-              Sample Repository:
-              <!-- TODO: Use Git link filter, needs to be added to origin-web-common -->
-              <span ng-bind-html="$ctrl.istag.annotations.sampleRepo | linky : '_blank'">
-            </p>
-          </div>
-        </div>
         <div class="order-service-config">
           <div ng-include="step.view" class="wizard-pf-main-form-contents"></div>
         </div>

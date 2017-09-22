@@ -47,9 +47,11 @@ angular
   .component('catalogFilter', catalogFilter)
   .run(['$templateCache', function($templateCache: any) {
     $templateCache.put('catalog-search/catalog-search-result.html', require('./components/catalog-search/catalog-search-result.html'));
+    $templateCache.put('create-from-builder/create-from-builder-info.html', require('./components/create-from-builder/create-from-builder-info.html'));
     $templateCache.put('create-from-builder/create-from-builder-configure.html', require('./components/create-from-builder/create-from-builder-configure.html'));
     $templateCache.put('create-from-builder/create-from-builder-bind.html', require('./components/create-from-builder/create-from-builder-bind.html'));
     $templateCache.put('create-from-builder/create-from-builder-results.html', require('./components/create-from-builder/create-from-builder-results.html'));
+    $templateCache.put('order-service/order-service-info.html', require('./components/order-service/order-service-info.html'));
     $templateCache.put('order-service/order-service-plans.html', require('./components/order-service/order-service-plans.html'));
     $templateCache.put('order-service/order-service-configure.html', require('./components/order-service/order-service-configure.html'));
     $templateCache.put('order-service/order-service-bind.html', require('./components/order-service/order-service-bind.html'));

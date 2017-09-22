@@ -240,16 +240,6 @@ landingbody,
     width: 475px;
   }
 }
-.order-service-details {
-  flex: 0 1 auto;
-  padding: 0 20px;
-}
-@media (min-width: 768px) {
-  .order-service-details {
-    border-right: 1px solid #bbb;
-    width: 50%;
-  }
-}
 .order-service-details .order-service-details-top {
   align-items: center;
   display: flex;
@@ -307,13 +297,6 @@ landingbody,
   margin-top: 15px;
 }
 .order-service-details .order-service-description-block .description {
-  display: -webkit-box;
-  line-height: 1.66666667;
-  max-height: 8.33333335em;
-  overflow: hidden;
-  padding: 0 !important;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 5;
   white-space: pre-wrap;
 }
 .order-service-details .order-service-description-block .learn-more-link {
@@ -323,64 +306,15 @@ landingbody,
 .order-service-details .order-service-documentation-url {
   margin-top: 4px;
 }
+.order-service-details .order-service-documentation-url a {
+  margin-right: 10px;
+}
 .order-service-details .order-service-tags {
   margin-top: 5px;
 }
 .order-service-details .order-service-tags .tag {
   margin-right: 5px;
   text-transform: uppercase;
-}
-.order-service-config {
-  padding: 0 20px;
-}
-@media (max-width: 767px) {
-  .order-service-config {
-    position: relative;
-  }
-}
-@media (min-width: 768px) {
-  .order-service-config {
-    margin-bottom: -20px;
-    margin-top: -20px;
-    overflow-y: auto;
-    padding-right: 0;
-    background-attachment: scroll;
-    background-image: radial-gradient(ellipse at top, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0) 65%), radial-gradient(ellipse at bottom, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0) 65%);
-    background-position: 0 0, 0 100%;
-    background-repeat: no-repeat;
-    background-size: 100% 6px;
-    width: 50%;
-  }
-  .order-service-config _::-webkit-full-page-media,
-  .order-service-config _:future,
-  :root .order-service-config {
-    background-attachment: local, local, scroll, scroll;
-    background-image: linear-gradient(#ffffff 30%, rgba(255, 255, 255, 0)), linear-gradient(rgba(255, 255, 255, 0), #ffffff 70%), radial-gradient(ellipse at top, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0) 65%), radial-gradient(ellipse at bottom, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0) 65%);
-    background-position: 0 0, 0 100%;
-    background-repeat: no-repeat;
-    background-size: 100% 12px, 100% 12px, 100% 6px, 100% 6px;
-  }
-}
-.order-service-config h3 {
-  line-height: 1.4;
-  margin-top: 0;
-}
-.order-service-config h3 + .alert {
-  margin-top: 20px;
-}
-.order-service-config .select-plans .plan-name {
-  display: inline-block;
-  font-size: 14px;
-  margin-bottom: 5px;
-  margin-top: -2px;
-}
-.order-service-config .select-plans .radio {
-  margin-top: 15px;
-}
-@media (min-width: 768px) {
-  .order-service-config .config-top {
-    flex: 1 1 auto;
-  }
 }
 .order-service-config .config-top .adv-ops {
   height: 30%;
@@ -417,6 +351,22 @@ landingbody,
 .order-service-config .footer-panel a:hover {
   color: #fff;
   text-decoration: none;
+}
+.order-service-config h3 {
+  line-height: 1.4;
+  margin-top: 0;
+}
+.order-service-config h3 + .alert {
+  margin-top: 20px;
+}
+.order-service-config .select-plans .plan-name {
+  display: inline-block;
+  font-size: 14px;
+  margin-bottom: 5px;
+  margin-top: -2px;
+}
+.order-service-config .select-plans .radio {
+  margin-top: 15px;
 }
 .order-service-config .sub-title {
   margin: -5px 0 10px 25px;
@@ -464,19 +414,11 @@ landingbody,
   margin: 3px 0 0;
   width: 16px;
 }
-@media (min-width: 768px) {
-  .order-service-wizard-step.wizard-pf-main {
-    height: 450px;
-    max-height: calc(100vh - 300px);
-    min-height: 200px;
-    overflow-y: auto;
-  }
-}
-.order-service-wizard-step.wizard-pf-main .schema-form-fieldset {
+.order-service-wizard-step .schema-form-fieldset {
   margin-bottom: 40px;
   margin-top: 40px;
 }
-.order-service-wizard-step.wizard-pf-main .schema-form-fieldset legend {
+.order-service-wizard-step .schema-form-fieldset legend {
   border-bottom: none;
   border-top: solid 1px rgba(0, 0, 0, 0.15);
   margin-bottom: 10px;
@@ -497,78 +439,69 @@ body.overlay-open .landing-side-bar {
   animation: modalBackdropOut 0.45s ease-out forwards;
 }
 .catalogs-overlay-panel {
-  background: #fff;
-  color: #363636;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
   margin: 0 auto;
-  max-width: 1200px;
+  max-width: 900px;
   position: relative;
 }
-.catalogs-overlay-panel.catalogs-overlay-panel-single-column {
-  max-width: 800px;
-}
-@media (min-width: 768px) {
-  .catalogs-overlay-panel .wizard-pf-contents {
-    display: flex;
-    flex: 1 1 auto;
-    width: 100%;
-  }
+.catalogs-overlay-panel .wizard-pf-contents {
+  flex: 1 1 auto;
 }
 .catalogs-overlay-panel .wizard-pf-main {
+  display: flex;
+  overflow-y: auto;
   padding: 0;
+  background-attachment: scroll;
+  background-image: radial-gradient(ellipse at top, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 75%), radial-gradient(ellipse at bottom, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 75%);
+  background-position: 0 0, 0 100%;
+  background-repeat: no-repeat;
+  background-size: 100% 6px;
+}
+.catalogs-overlay-panel .wizard-pf-main _::-webkit-full-page-media,
+.catalogs-overlay-panel .wizard-pf-main _:future,
+:root .catalogs-overlay-panel .wizard-pf-main {
+  background-attachment: local, local, scroll, scroll;
+  background-image: linear-gradient(#ffffff 30%, rgba(255, 255, 255, 0)), linear-gradient(rgba(255, 255, 255, 0), #ffffff 70%), radial-gradient(ellipse at top, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0) 65%), radial-gradient(ellipse at bottom, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0) 65%);
+  background-position: 0 0, 0 100%;
+  background-repeat: no-repeat;
+  background-size: 100% 12px, 100% 12px, 100% 6px, 100% 6px;
 }
 @media (max-width: 767px) {
   .catalogs-overlay-panel .wizard-pf-main {
-    max-height: calc(100vh - 191px);
-    background-attachment: scroll;
-    background-image: radial-gradient(ellipse at top, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 75%), radial-gradient(ellipse at bottom, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 75%);
-    background-position: 0 0, 0 100%;
-    background-repeat: no-repeat;
-    background-size: 100% 6px;
+    max-height: calc(100vh - 234px);
   }
 }
 @media (min-width: 768px) {
   .catalogs-overlay-panel .wizard-pf-main {
-    display: flex;
+    height: 450px;
+    max-height: calc(100vh - 300px);
+    min-height: 200px;
+    overflow-y: auto;
   }
 }
-@media (min-width: 768px) {
-  .catalogs-overlay-panel .wizard-pf-main-form-contents {
-    min-height: 100%;
-    padding: 20px 40px 20px 20px;
-    position: relative;
-    background-attachment: local;
-    background-image: linear-gradient(#ffffff 30%, rgba(255, 255, 255, 0)), linear-gradient(rgba(255, 255, 255, 0), #ffffff 70%);
-    background-position: 0 0, 0 100%;
-    background-repeat: no-repeat;
-    background-size: 100% 12px;
-  }
-  .catalogs-overlay-panel .wizard-pf-main-form-contents _::-webkit-full-page-media,
-  .catalogs-overlay-panel .wizard-pf-main-form-contents _:future,
-  :root .catalogs-overlay-panel .wizard-pf-main-form-contents {
-    background: none;
-  }
+.catalogs-overlay-panel .wizard-pf-main-form-contents {
+  position: relative;
+}
+.catalogs-overlay-panel .wizard-pf-main-form-contents label.required:before {
+  left: -10px;
 }
 .catalogs-overlay-panel .wizard-pf-main-inner-shadow-covers {
+  min-height: 100%;
   padding: 20px;
+  background-attachment: local;
+  background-image: linear-gradient(#ffffff 30%, rgba(255, 255, 255, 0)), linear-gradient(rgba(255, 255, 255, 0), #ffffff 70%);
+  background-position: 0 0, 0 100%;
+  background-repeat: no-repeat;
+  background-size: 100% 12px;
 }
-@media (max-width: 767px) {
-  .catalogs-overlay-panel .wizard-pf-main-inner-shadow-covers {
-    overflow-y: auto;
-    background-attachment: local;
-    background-image: linear-gradient(#ffffff 30%, rgba(255, 255, 255, 0)), linear-gradient(rgba(255, 255, 255, 0), #ffffff 70%);
-    background-position: 0 0, 0 100%;
-    background-repeat: no-repeat;
-    background-size: 100% 12px;
-  }
+.catalogs-overlay-panel .wizard-pf-main-inner-shadow-covers _::-webkit-full-page-media,
+.catalogs-overlay-panel .wizard-pf-main-inner-shadow-covers _:future,
+:root .catalogs-overlay-panel .wizard-pf-main-inner-shadow-covers {
+  background: none;
 }
 @media (min-width: 768px) {
   .catalogs-overlay-panel .wizard-pf-main-inner-shadow-covers {
-    display: flex;
-    flex: 1 1 auto;
-    overflow: hidden;
-    padding-right: 0;
+    padding-left: 40px;
+    padding-right: 40px;
   }
 }
 .catalogs-overlay-panel .wizard-pf-main-inner-shadow-covers input.form-control,
@@ -583,12 +516,6 @@ body.overlay-open .landing-side-bar {
 }
 .catalogs-overlay-panel .wizard-pf-row {
   max-height: none;
-}
-@media (max-width: 768px) {
-  .catalogs-overlay-panel .wizard-pf-steps-indicator {
-    border-top: 0;
-    padding-right: 40px;
-  }
 }
 .catalogs-overlay-panel-close {
   color: #72767b;

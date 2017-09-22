@@ -1,60 +1,62 @@
-<div ng-if="!$ctrl.success && !$ctrl.error">
-  <h3 class="text-center">
-    <div class="spinner spinner-lg" aria-hidden="true"></div>
-  </h3>
-  <h3 class="text-center">
-    <span>The application is being created</span>
-  </h3>
-</div>
-<div ng-if="$ctrl.success">
-  <div class="review-status">
-    <span class="pficon pficon-ok" aria-hidden="true"></span>
-    <span class="sr-only">Success</span>
-    <h3 class="review-message">
-    <span>
-      <strong>{{$ctrl.name}}</strong> has been created in <strong>{{$ctrl.selectedProject.metadata.name}}</strong> successfully
-    </span>
+<div class="order-service-config">
+  <div ng-if="!$ctrl.success && !$ctrl.error">
+    <h3 class="text-center">
+      <div class="spinner spinner-lg" aria-hidden="true"></div>
+    </h3>
+    <h3 class="text-center">
+      <span>The application is being created</span>
     </h3>
   </div>
-</div>
-<div ng-if="$ctrl.success && $ctrl.binding">
-  <bind-results error="$ctrl.bindError"
-                progress-inline="true"
-                binding="$ctrl.binding"
-                service-to-bind="$ctrl.serviceToBind.metadata.name"
-                bind-type="application"
-                application-to-bind="$ctrl.name"
-                show-pod-presets="$ctrl.showPodPresets">
-  </bind-results>
-</div>
-<div ng-if="$ctrl.success">
-  <p ng-if="!$ctrl.serviceToBind || $ctrl.bindComplete">
-    Continue to your project to check the status of your application as it builds and deploys.
-  </p>
-</div>
-<div class="review-failure" ng-if="$ctrl.error">
-  <div class="review-status">
-    <span class="pficon pficon-error-circle-o text-danger" aria-hidden="true"></span>
-    <h3 class="review-message">
-      Error creating <strong>{{$ctrl.name}}</strong> in
-      <strong>{{$ctrl.selectedProject | displayName}}</strong>
-    </h3>
+  <div ng-if="$ctrl.success">
+    <div class="review-status">
+      <span class="pficon pficon-ok" aria-hidden="true"></span>
+      <span class="sr-only">Success</span>
+      <h3 class="review-message">
+      <span>
+        <strong>{{$ctrl.name}}</strong> has been created in <strong>{{$ctrl.selectedProject.metadata.name}}</strong> successfully
+      </span>
+      </h3>
+    </div>
   </div>
-  <div class="sub-title">
-    <span ng-if="$ctrl.error.data.message">
-      {{$ctrl.error.data.message | upperFirst}}
-    </span>
-    <span ng-if="!$ctrl.error.data.message">
-      An error occurred creating the application.
-    </span>
+  <div ng-if="$ctrl.success && $ctrl.binding">
+    <bind-results error="$ctrl.bindError"
+                  progress-inline="true"
+                  binding="$ctrl.binding"
+                  service-to-bind="$ctrl.serviceToBind.metadata.name"
+                  bind-type="application"
+                  application-to-bind="$ctrl.name"
+                  show-pod-presets="$ctrl.showPodPresets">
+    </bind-results>
   </div>
-  <!-- TODO: Improve error message presentation -->
-  <ul ng-if="$ctrl.error.failure.length" class="failure-messages">
-    <li ng-repeat="failure in $ctrl.error.failure">
-      {{failure.data.message}}
-    </li>
-  </ul>
-</div>
-<div class="footer-panel">
-  <a class="btn btn-primary" href="{{$ctrl.selectedProject | projectUrl : $ctrl.baseProjectUrl}}">View Project</a>
+  <div ng-if="$ctrl.success">
+    <p ng-if="!$ctrl.serviceToBind || $ctrl.bindComplete">
+      Continue to your project to check the status of your application as it builds and deploys.
+    </p>
+  </div>
+  <div class="review-failure" ng-if="$ctrl.error">
+    <div class="review-status">
+      <span class="pficon pficon-error-circle-o text-danger" aria-hidden="true"></span>
+      <h3 class="review-message">
+        Error creating <strong>{{$ctrl.name}}</strong> in
+        <strong>{{$ctrl.selectedProject | displayName}}</strong>
+      </h3>
+    </div>
+    <div class="sub-title">
+      <span ng-if="$ctrl.error.data.message">
+        {{$ctrl.error.data.message | upperFirst}}
+      </span>
+      <span ng-if="!$ctrl.error.data.message">
+        An error occurred creating the application.
+      </span>
+    </div>
+    <!-- TODO: Improve error message presentation -->
+    <ul ng-if="$ctrl.error.failure.length" class="failure-messages">
+      <li ng-repeat="failure in $ctrl.error.failure">
+        {{failure.data.message}}
+      </li>
+    </ul>
+  </div>
+  <div class="footer-panel">
+    <a class="btn btn-primary" href="{{$ctrl.selectedProject | projectUrl : $ctrl.baseProjectUrl}}">View Project</a>
+  </div>
 </div>

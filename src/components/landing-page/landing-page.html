@@ -1,6 +1,6 @@
 <div class="landing-search-area" ng-transclude="landingsearch"></div>
 <div class="landing">
-  <overlay-panel show-panel="$ctrl.orderingPanelVisible" show-close="true" handle-close="$ctrl.closeOrderingPanel">
+  <overlay-panel show-panel="$ctrl.orderingPanelVisible" handle-close="$ctrl.closeOrderingPanel">
     <order-service
         ng-if="$ctrl.selectedItem.resource.kind === 'ServiceClass'"
         base-project-url="{{$ctrl.baseProjectUrl}}"

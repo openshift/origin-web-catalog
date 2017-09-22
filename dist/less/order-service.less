@@ -1,15 +1,4 @@
-// Breakpoint for showing a smaller icon and service title.
-@order-service-title-sm-min: 450px;
-@order-service-page-height: 410px;
-@order-service-wizard-min-external-height: 300px;
-
 .order-service-details {
-  flex: 0 1 auto;
-  padding: 0 (@grid-gutter-width / 2);
-  @media (min-width: @screen-sm-min) {
-    border-right: 1px solid @color-pf-black-400;
-    width: 50%;
-  }
   .order-service-details-top {
     align-items: center;
     display: flex;
@@ -53,7 +42,6 @@
   .order-service-description-block {
     margin-top: 15px;
     .description {
-      .line-clamp(5); // limit to 5 lines
       white-space: pre-wrap;
     }
     .learn-more-link {
@@ -63,6 +51,9 @@
   }
   .order-service-documentation-url {
     margin-top: 4px;
+    a {
+      margin-right: 10px;
+    }
   }
   .order-service-tags {
     margin-top: 5px;
@@ -74,43 +65,7 @@
 }
 
 .order-service-config {
-  padding: 0 (@grid-gutter-width / 2);
-  @media (max-width: @screen-xs-max) {
-    position: relative; // so label.required:before are positioned correctly
-  }
-  @media (min-width: @screen-sm-min) {
-    margin-bottom: -(@grid-gutter-width / 2);
-    margin-top: -(@grid-gutter-width / 2);
-    overflow-y: auto;
-    padding-right: 0;
-    .scroll-shadows-vertical(65%, 0.25);
-    width: 50%;
-    _::-webkit-full-page-media, _:future, :root & { // only target Safari
-      .scroll-shadows-vertical-with-covers(65%, 0.25);
-    }
-  }
-  h3 {
-    line-height: 1.4;
-    margin-top: 0;
-    + .alert {
-      margin-top: 20px;
-    }
-  }
-  .select-plans {
-    .plan-name {
-      display: inline-block;
-      font-size: 14px;
-      margin-bottom: 5px;
-      margin-top: -2px;
-    }
-    .radio {
-      margin-top: 15px;
-    }
-  }
   .config-top {
-    @media (min-width: @screen-sm-min) {
-      flex: 1 1 auto; // IE
-    }
     .adv-ops {
       height: 30%;
     }
@@ -149,6 +104,24 @@
         color: @color-pf-white;
         text-decoration: none;
       }
+    }
+  }
+  h3 {
+    line-height: 1.4;
+    margin-top: 0;
+    + .alert {
+      margin-top: 20px;
+    }
+  }
+  .select-plans {
+    .plan-name {
+      display: inline-block;
+      font-size: 14px;
+      margin-bottom: 5px;
+      margin-top: -2px;
+    }
+    .radio {
+      margin-top: 15px;
     }
   }
   .sub-title {
@@ -199,18 +172,10 @@
   }
 }
 
-.order-service-wizard-step.wizard-pf-main {
-  @media (min-width: @screen-sm-min) {
-    height: @order-service-page-height + @grid-gutter-width;
-    max-height: calc(100vh ~"-" @order-service-wizard-min-external-height);
-    min-height: 200px;
-    overflow-y: auto;
-  }
-
+.order-service-wizard-step {
   .schema-form-fieldset {
     margin-bottom: 40px;
     margin-top: 40px;
-
     legend {
       border-bottom: none;
       border-top: solid 1px rgba(0, 0, 0, 0.15);
