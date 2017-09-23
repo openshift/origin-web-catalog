@@ -7,7 +7,6 @@ export class OrderServiceController implements angular.IController {
     '$scope',
     '$filter',
     'ApplicationsService',
-    'AuthService',
     'ProjectsService',
     'DataService',
     'BindingService',
@@ -16,15 +15,12 @@ export class OrderServiceController implements angular.IController {
     'DNS1123_SUBDOMAIN_VALIDATION'
   ];
 
-  static readonly REQUESTER_USERNAME_PARAM_NAME: string = 'template.openshift.io/requester-username';
-
   public ctrl: any = this;
   public $scope: any;
 
   private $filter: any;
   private ProjectsService: any;
   private ApplicationsService: any;
-  private AuthService: any;
   private DataService: any;
   private BindingService: any;
   private Logger: any;
@@ -38,19 +34,11 @@ export class OrderServiceController implements angular.IController {
   private selectedProjectWatch: any;
   private bindTypeWatch: any;
   private validityWatcher: any;
-  private user: any;
   private DNS1123_SUBDOMAIN_VALIDATION: any;
-
-  // Special case for the template broker. We need to send the send the current
-  // user as the requester-username parameter value, but hide it in the UI.
-  // This parameter will eventually be removed when the service catalog sends
-  // the current OpenShift user as part of the provision request.
-  private sendRequesterUsername: boolean;
 
   constructor($scope: any,
               $filter: any,
               ApplicationsService: any,
-              AuthService: any,
               ProjectsService: any,
               DataService: any,
               BindingService: any,
@@ -60,13 +48,10 @@ export class OrderServiceController implements angular.IController {
     this.$scope = $scope;
     this.$filter = $filter;
     this.ApplicationsService = ApplicationsService;
-    this.AuthService = AuthService;
     this.ProjectsService = ProjectsService;
     this.DataService = DataService;
     this.BindingService = BindingService;
     this.Logger = Logger;
-    // Set to the true when the parameter schema has REQUESTER_USERNAME_PARAM_NAME.
-    this.sendRequesterUsername = false;
     this.ctrl.showPodPresets = _.get(Constants, ['ENABLE_TECH_PREVIEW_FEATURE', 'pod_presets'], false);
     this.DNS1123_SUBDOMAIN_VALIDATION = DNS1123_SUBDOMAIN_VALIDATION;
   }
@@ -176,11 +161,6 @@ export class OrderServiceController implements angular.IController {
       this.updateBindParametersStepVisibility();
       this.ctrl.nextTitle = this.bindParametersStep.hidden ? 'Create' : 'Next >';
       this.reviewStep.allowed = this.bindParametersStep.hidden && this.bindStep.valid;
-    });
-
-    this.AuthService.withUser().then((user) => {
-      this.user = user;
-      this.ctrl.wizardReady = true;
     });
   }
 
@@ -389,17 +369,8 @@ export class OrderServiceController implements angular.IController {
   };
 
   private updateParameterSchema(plan: any) {
-    let schema: any = _.get(plan, 'instanceCreateParameterSchema');
-    if (_.has(schema, ['properties', OrderServiceController.REQUESTER_USERNAME_PARAM_NAME])) {
-      schema = angular.copy(schema);
-      delete schema.properties[OrderServiceController.REQUESTER_USERNAME_PARAM_NAME];
-      this.sendRequesterUsername = true;
-    } else {
-      this.sendRequesterUsername = false;
-    }
-    this.ctrl.parameterSchema = schema;
+    this.ctrl.parameterSchema = _.get(plan, 'instanceCreateParameterSchema');
     this.ctrl.parameterFormDefinition = _.get(this, 'ctrl.selectedPlan.externalMetadata.schemas.service_instance.create.openshift_form_definition');
-
     this.ctrl.bindParameterSchema = _.get(plan, 'serviceInstanceCredentialCreateParameterSchema');
   }
 
@@ -435,16 +406,9 @@ export class OrderServiceController implements angular.IController {
     //
     // Check specifically for the empty string rather than truthiness so that
     // we don't omit other values like `false` for boolean parameters.
-    let parameters: any = _.omitBy(this.ctrl.parameterData, (parameterValue) => {
+    return _.omitBy(this.ctrl.parameterData, (parameterValue) => {
       return parameterValue === '';
     });
-
-    // Send the requester-username if this is the template broker.
-    if (this.sendRequesterUsername) {
-      parameters[OrderServiceController.REQUESTER_USERNAME_PARAM_NAME] = this.user.metadata.name;
-    }
-
-    return parameters;
   }
 
   private getServiceClassName(): string {

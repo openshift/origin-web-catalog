@@ -1348,67 +1348,66 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
     "use strict";
     t.__esModule = !0;
     var n = r(1), i = r(0), a = function() {
-        function e(e, t, r, n, a, s, o, c, l, d) {
-            var p = this;
+        function e(e, t, r, n, a, s, o, c, l) {
+            var d = this;
             this.ctrl = this, this.watches = [], this.clearValidityWatcher = function() {
-                p.validityWatcher && (p.validityWatcher(), p.validityWatcher = void 0), p.ctrl.reviewStep.allowed = !1;
+                d.validityWatcher && (d.validityWatcher(), d.validityWatcher = void 0), d.ctrl.reviewStep.allowed = !1;
             }, this.showInfo = function() {
-                p.clearValidityWatcher(), p.ctrl.configPageShown = !1, p.ctrl.nextTitle = "Next >";
+                d.clearValidityWatcher(), d.ctrl.configPageShown = !1, d.ctrl.nextTitle = "Next >";
             }, this.showPlan = function() {
-                p.clearValidityWatcher(), p.ctrl.configPageShown = !1, p.ctrl.nextTitle = "Next >";
+                d.clearValidityWatcher(), d.ctrl.configPageShown = !1, d.ctrl.nextTitle = "Next >";
             }, this.showConfig = function() {
-                p.clearValidityWatcher(), p.ctrl.configPageShown = !0, p.reviewStep.allowed = p.bindStep.hidden && p.configStep.valid, 
-                p.updateBindability(), p.validityWatcher = p.$scope.$watch("$ctrl.forms.orderConfigureForm.$valid", function(e, t) {
-                    p.configStep.valid = e, p.bindStep.allowed = p.configStep.valid, p.reviewStep.allowed = p.bindStep.hidden && p.configStep.valid;
+                d.clearValidityWatcher(), d.ctrl.configPageShown = !0, d.reviewStep.allowed = d.bindStep.hidden && d.configStep.valid, 
+                d.updateBindability(), d.validityWatcher = d.$scope.$watch("$ctrl.forms.orderConfigureForm.$valid", function(e, t) {
+                    d.configStep.valid = e, d.bindStep.allowed = d.configStep.valid, d.reviewStep.allowed = d.bindStep.hidden && d.configStep.valid;
                 });
             }, this.showBind = function() {
-                p.clearValidityWatcher(), p.ctrl.configPageShown = !1, p.ctrl.nextTitle = p.bindParametersStep.hidden ? "Create" : "Next >", 
-                p.reviewStep.allowed = p.bindParametersStep.hidden && p.bindStep.valid, p.isNewProject() ? p.ctrl.projectDisplayName = p.ctrl.selectedProject.metadata.annotations["new-display-name"] || p.ctrl.selectedProject.metadata.name : p.ctrl.projectDisplayName = p.$filter("displayName")(p.ctrl.selectedProject), 
-                p.validityWatcher = p.$scope.$watch("$ctrl.forms.bindForm.$valid", function(e, t) {
-                    p.bindStep.valid = e, p.bindParametersStep.allowed = e, p.reviewStep.allowed = p.bindParametersStep.hidden && p.bindStep.valid;
+                d.clearValidityWatcher(), d.ctrl.configPageShown = !1, d.ctrl.nextTitle = d.bindParametersStep.hidden ? "Create" : "Next >", 
+                d.reviewStep.allowed = d.bindParametersStep.hidden && d.bindStep.valid, d.isNewProject() ? d.ctrl.projectDisplayName = d.ctrl.selectedProject.metadata.annotations["new-display-name"] || d.ctrl.selectedProject.metadata.name : d.ctrl.projectDisplayName = d.$filter("displayName")(d.ctrl.selectedProject), 
+                d.validityWatcher = d.$scope.$watch("$ctrl.forms.bindForm.$valid", function(e, t) {
+                    d.bindStep.valid = e, d.bindParametersStep.allowed = e, d.reviewStep.allowed = d.bindParametersStep.hidden && d.bindStep.valid;
                 });
             }, this.showBindParameters = function() {
-                p.clearValidityWatcher(), p.ctrl.nextTitle = "Create", p.validityWatcher = p.$scope.$watch("$ctrl.forms.bindParametersForm.$valid", function(e, t) {
-                    p.bindParametersStep.valid = e, p.reviewStep.allowed = p.bindParametersStep.valid;
+                d.clearValidityWatcher(), d.ctrl.nextTitle = "Create", d.validityWatcher = d.$scope.$watch("$ctrl.forms.bindParametersForm.$valid", function(e, t) {
+                    d.bindParametersStep.valid = e, d.reviewStep.allowed = d.bindParametersStep.valid;
                 });
             }, this.showResults = function() {
-                p.clearValidityWatcher(), p.ctrl.configPageShown = !1, p.ctrl.nextTitle = "Close", 
-                p.ctrl.wizardDone = !0, p.provisionService();
+                d.clearValidityWatcher(), d.ctrl.configPageShown = !1, d.ctrl.nextTitle = "Close", 
+                d.ctrl.wizardDone = !0, d.provisionService();
             }, this.provisionService = function() {
-                if (p.ctrl.inProgress = !0, p.ctrl.orderComplete = !1, p.ctrl.error = !1, p.isNewProject()) {
-                    var e = p.ctrl.selectedProject.metadata.name, t = p.ctrl.selectedProject.metadata.annotations["new-display-name"], r = p.$filter("description")(p.ctrl.selectedProject);
-                    p.ProjectsService.create(e, t, r).then(function(e) {
-                        p.ctrl.selectedProject = e, p.ctrl.projectDisplayName = p.$filter("displayName")(e), 
-                        p.createService();
+                if (d.ctrl.inProgress = !0, d.ctrl.orderComplete = !1, d.ctrl.error = !1, d.isNewProject()) {
+                    var e = d.ctrl.selectedProject.metadata.name, t = d.ctrl.selectedProject.metadata.annotations["new-display-name"], r = d.$filter("description")(d.ctrl.selectedProject);
+                    d.ProjectsService.create(e, t, r).then(function(e) {
+                        d.ctrl.selectedProject = e, d.ctrl.projectDisplayName = d.$filter("displayName")(e), 
+                        d.createService();
                     }, function(e) {
-                        p.ctrl.error = e.data;
+                        d.ctrl.error = e.data;
                     });
-                } else p.ctrl.projectDisplayName = p.$filter("displayName")(p.ctrl.selectedProject), 
-                p.createService();
+                } else d.ctrl.projectDisplayName = d.$filter("displayName")(d.ctrl.selectedProject), 
+                d.createService();
             }, this.onProjectUpdate = function() {
-                if (p.isNewProject()) p.ctrl.applications = [], p.ctrl.updating = !1, p.updateBindability(); else if (p.ctrl.showPodPresets) {
-                    p.ctrl.updating = !0, p.ctrl.bindType = "none", p.ctrl.serviceToBind = p.ctrl.serviceClass;
+                if (d.isNewProject()) d.ctrl.applications = [], d.ctrl.updating = !1, d.updateBindability(); else if (d.ctrl.showPodPresets) {
+                    d.ctrl.updating = !0, d.ctrl.bindType = "none", d.ctrl.serviceToBind = d.ctrl.serviceClass;
                     var e = {
-                        namespace: i.get(p.ctrl.selectedProject, "metadata.name")
+                        namespace: i.get(d.ctrl.selectedProject, "metadata.name")
                     };
-                    p.ApplicationsService.getApplications(e).then(function(e) {
-                        p.ctrl.applications = e, p.ctrl.updating = !1, p.updateBindability();
+                    d.ApplicationsService.getApplications(e).then(function(e) {
+                        d.ctrl.applications = e, d.ctrl.updating = !1, d.updateBindability();
                     });
                 }
             }, this.watchResults = function(e, t, r) {
-                p.watches.push(p.DataService.watchObject(e, t.metadata.name, r, function(e, t) {
+                d.watches.push(d.DataService.watchObject(e, t.metadata.name, r, function(e, t) {
                     var r = i.get(e, "status.conditions"), n = i.find(r, {
                         type: "Ready"
                     });
-                    p.ctrl.orderComplete = n && "True" === n.status, p.ctrl.error = i.find(r, {
+                    d.ctrl.orderComplete = n && "True" === n.status, d.ctrl.error = i.find(r, {
                         type: "Failed",
                         status: "True"
                     });
                 }));
-            }, this.$scope = e, this.$filter = t, this.ApplicationsService = r, this.AuthService = n, 
-            this.ProjectsService = a, this.DataService = s, this.BindingService = o, this.Logger = c, 
-            this.sendRequesterUsername = !1, this.ctrl.showPodPresets = i.get(l, [ "ENABLE_TECH_PREVIEW_FEATURE", "pod_presets" ], !1), 
-            this.DNS1123_SUBDOMAIN_VALIDATION = d;
+            }, this.$scope = e, this.$filter = t, this.ApplicationsService = r, this.ProjectsService = n, 
+            this.DataService = a, this.BindingService = s, this.Logger = o, this.ctrl.showPodPresets = i.get(c, [ "ENABLE_TECH_PREVIEW_FEATURE", "pod_presets" ], !1), 
+            this.DNS1123_SUBDOMAIN_VALIDATION = l;
         }
         return e.prototype.$onInit = function() {
             var e = this;
@@ -1480,8 +1479,6 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             }, this.onProjectUpdate), this.bindTypeWatch = this.$scope.$watch("$ctrl.bindType", function(t, r) {
                 t !== r && (e.updateBindParametersStepVisibility(), e.ctrl.nextTitle = e.bindParametersStep.hidden ? "Create" : "Next >", 
                 e.reviewStep.allowed = e.bindParametersStep.hidden && e.bindStep.valid);
-            }), this.AuthService.withUser().then(function(t) {
-                e.user = t, e.ctrl.wizardReady = !0;
             });
         }, e.prototype.selectPlan = function(e) {
             this.ctrl.selectedPlan = e, this.ctrl.parameterData = {}, this.updateParameterSchema(e), 
@@ -1533,18 +1530,13 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
         }, e.prototype.updateBindParametersStepVisibility = function() {
             this.bindParametersStep.hidden = this.bindStep.hidden || "none" === this.ctrl.bindType || !i.has(this.ctrl, "bindParameterSchema.properties"), 
             this.bindParametersStep.allowed = this.bindStep.valid;
-        }, e.prototype.updateParameterSchema = function(t) {
-            var r = i.get(t, "instanceCreateParameterSchema");
-            i.has(r, [ "properties", e.REQUESTER_USERNAME_PARAM_NAME ]) ? (r = n.copy(r), delete r.properties[e.REQUESTER_USERNAME_PARAM_NAME], 
-            this.sendRequesterUsername = !0) : this.sendRequesterUsername = !1, this.ctrl.parameterSchema = r, 
-            this.ctrl.parameterFormDefinition = i.get(this, "ctrl.selectedPlan.externalMetadata.schemas.service_instance.create.openshift_form_definition"), 
-            this.ctrl.bindParameterSchema = i.get(t, "serviceInstanceCredentialCreateParameterSchema");
+        }, e.prototype.updateParameterSchema = function(e) {
+            this.ctrl.parameterSchema = i.get(e, "instanceCreateParameterSchema"), this.ctrl.parameterFormDefinition = i.get(this, "ctrl.selectedPlan.externalMetadata.schemas.service_instance.create.openshift_form_definition"), 
+            this.ctrl.bindParameterSchema = i.get(e, "serviceInstanceCredentialCreateParameterSchema");
         }, e.prototype.getParameters = function() {
-            var t = i.omitBy(this.ctrl.parameterData, function(e) {
+            return i.omitBy(this.ctrl.parameterData, function(e) {
                 return "" === e;
             });
-            return this.sendRequesterUsername && (t[e.REQUESTER_USERNAME_PARAM_NAME] = this.user.metadata.name), 
-            t;
         }, e.prototype.getServiceClassName = function() {
             return i.get(this, "ctrl.serviceClass.resource.metadata.name");
         }, e.prototype.generateSecretName = function() {
@@ -1596,8 +1588,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             return !this.ctrl.selectedProject || !i.has(this.ctrl.selectedProject, "metadata.uid");
         }, e;
     }();
-    a.$inject = [ "$scope", "$filter", "ApplicationsService", "AuthService", "ProjectsService", "DataService", "BindingService", "Logger", "Constants", "DNS1123_SUBDOMAIN_VALIDATION" ], 
-    a.REQUESTER_USERNAME_PARAM_NAME = "template.openshift.io/requester-username", t.OrderServiceController = a;
+    a.$inject = [ "$scope", "$filter", "ApplicationsService", "ProjectsService", "DataService", "BindingService", "Logger", "Constants", "DNS1123_SUBDOMAIN_VALIDATION" ], 
+    t.OrderServiceController = a;
 }, function(e, t, r) {
     "use strict";
     t.__esModule = !0;
