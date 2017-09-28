@@ -359,6 +359,9 @@ landingbody,
 .order-service-config h3 + .alert {
   margin-top: 20px;
 }
+.order-service-config .or {
+  margin-left: 15px;
+}
 .order-service-config .select-plans .plan-name {
   display: inline-block;
   font-size: 14px;
@@ -392,27 +395,6 @@ landingbody,
   float: right;
   margin-right: 6px;
   padding: 11px;
-}
-.order-service-config .review-message {
-  padding-left: 10px;
-}
-.order-service-config .review-message strong {
-  word-wrap: break-word;
-  word-break: break-word;
-  overflow-wrap: break-word;
-  min-width: 0;
-}
-.order-service-config .review-status {
-  display: flex;
-  font-size: 16px;
-}
-.order-service-config .review-status .pficon {
-  margin-top: 3px;
-}
-.order-service-config .review-status .spinner.spinner-sm {
-  height: 16px;
-  margin: 3px 0 0;
-  width: 16px;
 }
 .order-service-wizard-step .schema-form-fieldset {
   margin-bottom: 40px;
