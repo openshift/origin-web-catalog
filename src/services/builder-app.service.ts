@@ -33,6 +33,14 @@ export class BuilderAppService {
     return this.parsePortsFromSpec(portSpec);
   }
 
+  private generateSecret(): string {
+    //http://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript
+    function s4(): string {
+      return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
+    }
+    return s4() + s4() + s4() + s4();
+  }
+
   // Map image ports to k8s structure.
   private parsePortsFromSpec(portSpec: any) {
     let ports = [];
@@ -205,12 +213,21 @@ export class BuilderAppService {
             env: []
           }
         },
-        // TODO: Add webhooks, need to generate secret.
         triggers: [{
           type: "ImageChange",
           imageChange: {}
         }, {
           type: "ConfigChange"
+        }, {
+          generic: {
+            secret: this.generateSecret()
+          },
+          type: "Generic"
+        }, {
+          github: {
+            secret: this.generateSecret()
+          },
+          type: "GitHub"
         }]
       }
     };

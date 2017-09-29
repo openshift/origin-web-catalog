@@ -477,6 +477,11 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
         }, e.prototype.getPorts = function(e) {
             var t = e.image, r = n.get(t, "dockerImageMetadata.Config.ExposedPorts") || n.get(t, "dockerImageMetadata.ContainerConfig.ExposedPorts", []);
             return this.parsePortsFromSpec(r);
+        }, e.prototype.generateSecret = function() {
+            function e() {
+                return Math.floor(65536 * (1 + Math.random())).toString(16).substring(1);
+            }
+            return e() + e() + e() + e();
         }, e.prototype.parsePortsFromSpec = function(e) {
             var t = [];
             return n.each(e, function(e, r) {
@@ -622,6 +627,16 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                         imageChange: {}
                     }, {
                         type: "ConfigChange"
+                    }, {
+                        generic: {
+                            secret: this.generateSecret()
+                        },
+                        type: "Generic"
+                    }, {
+                        github: {
+                            secret: this.generateSecret()
+                        },
+                        type: "GitHub"
                     } ]
                 }
             };
