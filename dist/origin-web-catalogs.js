@@ -1787,7 +1787,10 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             var r = [ "metadata.name", 'metadata.annotations["openshift.io/display-name"]' ], n = this.KeywordService.generateKeywords(e);
             return this.KeywordService.filterForKeywords(t, r, n);
         }, e.prototype.canIAddToProject = function() {
-            return this.ctrl.forms.selectProjectForm.selectProject.$setValidity("cannotAddToProject", !0);
+            var e = this, t = !0, r = i.get(this.ctrl.selectedProject, "metadata.name");
+            this.isNewProject() || this.AuthorizationService.getProjectRules(r).then(function() {
+                t = e.AuthorizationService.canIAddToProject(r), e.ctrl.forms.selectProjectForm.selectProject.$setValidity("cannotAddToProject", t);
+            }), this.ctrl.forms.selectProjectForm.selectProject.$setValidity("cannotAddToProject", t);
         }, e.prototype.updateProjects = function(t) {
             if (this.largeProjectList = i.size(t) >= e.LARGE_PROJECT_LIST_SIZE, this.largeProjectList) return this.ctrl.placeholder = "Filter projects by name", 
             this.ctrl.searchEnabled = !0, this.ctrl.refreshDelay = 500, void (this.projects = t);
@@ -1804,8 +1807,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             this.ctrl.searchEnabled = !i.isEmpty(n), this.ctrl.refreshDelay = 0, this.ctrl.existingProjectNames = i.map(t, "metadata.name"), 
             this.ctrl.selectedProject || 1 !== i.size(this.projects) || (this.ctrl.selectedProject = this.projects[0], 
             this.onSelectProjectChange()), this.ctrl.canCreate && (this.projects.unshift(r), 
-            1 === i.size(this.projects) && (this.ctrl.selectedProject = r, this.onSelectProjectChange())), 
-            this.canIAddToProject();
+            1 === i.size(this.projects) && (this.ctrl.selectedProject = r, this.onSelectProjectChange()));
         }, e.prototype.listProjects = function() {
             var e = this;
             this.ctrl.availableProjects ? this.updateProjects(this.ctrl.availableProjects) : this.ProjectsService.list().then(function(t) {
