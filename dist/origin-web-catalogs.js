@@ -368,9 +368,6 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 title: "Documentation",
                 help: ""
             }, {
-                title: "Developer Portal",
-                href: "https://developers.openshift.com"
-            }, {
                 title: "Interactive Learning Portal",
                 href: "https://learn.openshift.com"
             }, {
