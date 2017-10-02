@@ -8,7 +8,7 @@ export const projectsData = [
       "creationTimestamp": "2017-02-21T20:52:10Z",
       "annotations": {
         "openshift.io/description": "",
-        "openshift.io/display-name": "Service Catalogs API Server",
+        "openshift.io/display-name": "Service Catalog API Server",
         "openshift.io/requester": "dev",
         "openshift.io/sa.scc.mcs": "s0:c7,c4",
         "openshift.io/sa.scc.supplemental-groups": "1000050000/10000",
