@@ -41,6 +41,7 @@ export class DataService implements IDataService {
   private $timeout: any;
   private APIService: any;
   private watchCallbacksMap: any = {};
+  private largeProjectList: any;
 
 
   constructor ($q: angular.IQService, $timeout: any, APIService: any) {
@@ -208,7 +209,12 @@ export class DataService implements IDataService {
       returnData = new DataServiceData(servicesData);
       break;
     case 'projects':
-      returnData = new DataServiceData(projectsData);
+      if (_.get(window, 'MOCK_LARGE_PROJECT_LIST')) {
+        let largeProjectList = this.getLargeProjectList();
+        returnData = new DataServiceData(largeProjectList);
+      } else {
+        returnData = new DataServiceData(projectsData);
+      }
       break;
     case 'imagestreams':
       if (context.namespace === 'openshift') {
@@ -236,6 +242,41 @@ export class DataService implements IDataService {
     }
 
     return returnData;
+  }
+
+  private mockProject(index: number): any {
+    return {
+      apiVersion: 'v1',
+      kind: 'Project',
+      metadata: {
+        name: 'project-' + index,
+        creationTimestamp: new Date().toISOString(),
+        annotations: {
+          'openshift.io/description': '',
+          'openshift.io/display-name': 'Project ' + index,
+          'openshift.io/requester': 'dev'
+        },
+        uid: index
+      },
+      spec: {
+        finalizers: ["openshift.io/origin", "kubernetes"]
+      },
+      status: {
+        phase: "Active"
+      }
+    };
+  }
+
+  private getLargeProjectList() {
+    if (this.largeProjectList) {
+      return this.largeProjectList;
+    }
+
+    this.largeProjectList = {};
+    for (let i = 1; i <= 5000; i++) {
+      let project = this.mockProject(i);
+      this.largeProjectList[project.metadata.name] = project;
+    }
   }
 
   private watchCallbacks(key: string) {

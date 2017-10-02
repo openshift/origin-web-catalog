@@ -28,17 +28,6 @@ window.OPENSHIFT_CONFIG = {
     oauth_client_id: "openshift-web-console",
     logout_uri: ""
   },
-/*
- * Add Any additional servers to an 'additionalServers' block, example shown below:
- *
-   additionalServers: [{
-    protocol: "https",
-    hostPort: "apiserver-svc-cat.127.0.0.1.xip.io",
-    prefix: "/apis",
-    required: true  // false to continue if connection fails
-  }],
- *
- */
   loggingURL: "",
   metricsURL: ""
 };
@@ -49,3 +38,10 @@ window.OPENSHIFT_VERSION = {
 };
 
 window.OPENSHIFT_CONSOLE_BASE_URL = "https://localhost:9000/dev-console";
+
+// Uncomment to use mock data.
+// window.MOCK_ORIGIN_SERVICES = true;
+// window.MOCK_SERVICES_DATA = true;
+
+// Uncomment to generate a very large project list for testing when using mock data.
+// window.MOCK_LARGE_PROJECT_LIST = true;

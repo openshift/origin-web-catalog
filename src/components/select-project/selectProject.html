@@ -9,11 +9,15 @@
         ng-change="$ctrl.onSelectProjectChange()"
         ng-required="true"
         search-enabled="$ctrl.searchEnabled">
-      <ui-select-match placeholder="Select or create a project">
+      <ui-select-match placeholder="{{$ctrl.placeholder}}">
         {{$select.selected | displayName}}
       </ui-select-match>
-      <ui-select-choices repeat="project in $ctrl.projects | searchProjects : $select.search track by (project | uid)"
-                         group-by="$ctrl.groupChoicesBy">
+      <!-- refresh-delay must be set using ng-attr-refresh-delay to work as a dynamic value -->
+      <ui-select-choices
+          repeat="project in $ctrl.getProjectChoices() track by (project | uid)"
+          refresh="$ctrl.refreshChoices($select.search)"
+          ng-attr-refresh-delay="{{$ctrl.refreshDelay}}"
+          group-by="$ctrl.groupChoicesBy">
         <span ng-bind-html="project | displayName | highlightKeywords : $select.search"></span>
         <span ng-if="project | displayName : true" class="small text-muted">
           <span ng-if="project.metadata.name">&ndash;</span>
@@ -23,13 +27,13 @@
     </ui-select>
     <div ng-if="$ctrl.forms.selectProjectForm.selectProject.$error.cannotAddToProject">
         <span class="help-block">
-          You are not authorized to add to this project
+          You are not authorized to add to this project.
         </span>
     </div>
     <div class="has-error" ng-if="$ctrl.forms.selectProjectForm.selectProject.$error.required &&
                                   $ctrl.forms.selectProjectForm.selectProject.$touched">
         <span class="help-block">
-          Please select or create a project
+          Please select <span ng-if="$ctrl.canCreate">or create</span> a project.
         </span>
     </div>
   </div>
