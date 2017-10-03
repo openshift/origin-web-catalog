@@ -306,9 +306,6 @@ landingbody,
 .order-service-details .order-service-documentation-url {
   margin-top: 4px;
 }
-.order-service-details .order-service-documentation-url a {
-  margin-right: 10px;
-}
 .order-service-details .order-service-tags {
   margin-top: 5px;
 }
@@ -372,7 +369,7 @@ landingbody,
   margin-top: 15px;
 }
 .order-service-config .sub-title {
-  margin: -5px 0 10px 25px;
+  margin: 0 0 10px 0;
 }
 .order-service-config .success-check {
   color: #3f9c35;

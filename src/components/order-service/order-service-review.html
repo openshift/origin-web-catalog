@@ -2,14 +2,18 @@
   <div ng-if="!$ctrl.error">
     <div ng-if="!$ctrl.orderComplete">
       <div class="results-status">
-        <span class="spinner spinner-sm" aria-hidden="true"></span>
+        <span class="fa fa-clock-o text-muted" aria-hidden="true"></span>
         <span class="sr-only">Pending</span>
-        <h3 class="results-message">
-          <strong>{{$ctrl.serviceClass.name}}</strong> is being provisioned in <strong>{{$ctrl.projectDisplayName}}</strong>.
-        </h3>
+        <div class="results-message">
+          <h3>
+            <strong>{{$ctrl.serviceClass.name}}</strong> is being provisioned in <strong>{{$ctrl.projectDisplayName}}</strong>.
+          </h3>
+          <p class="results-message-details">
+            <span ng-if="$ctrl.binding">The binding will be created after the service has been provisioned.</span>
+            This may take several minutes.
+          </p>
+        </div>
       </div>
-      <p ng-if="$ctrl.binding">The binding will be created after the service has been provisioned.</p>
-      <p>This may take several minutes.</p>
       <p><a ng-href="{{$ctrl.selectedProject | projectUrl : $ctrl.baseProjectUrl}}">Continue to the project overview</a> to check the status of your service.</p>
     </div>
   </div>
@@ -17,9 +21,11 @@
     <div class="results-status">
       <span class="pficon pficon-error-circle-o text-danger" aria-hidden="true"></span>
       <span class="sr-only">Error</span>
-      <h3 class="results-message">
-        <strong>{{$ctrl.serviceClass.name}}</strong> failed to provision in <strong>{{$ctrl.projectDisplayName}}</strong>.
-      </h3>
+      <div class="results-message">
+        <h3>
+          <strong>{{$ctrl.serviceClass.name}}</strong> failed to provision in <strong>{{$ctrl.projectDisplayName}}</strong>.
+        </h3>
+      </div>
     </div>
     <div class="sub-title">
       <span ng-if="$ctrl.error.message">
@@ -34,9 +40,11 @@
     <div class="results-status">
       <span class="pficon pficon-ok" aria-hidden="true"></span>
       <span class="sr-only">Success</span>
-      <h3 class="results-message">
-        <strong>{{$ctrl.serviceInstance.metadata.name}}</strong> has been added to <strong>{{$ctrl.projectDisplayName}}</strong> successfully.
-      </h3>
+      <div class="results-message">
+        <h3>
+          <strong>{{$ctrl.serviceClass.name}}</strong> has been added to <strong>{{$ctrl.projectDisplayName}}</strong> successfully.
+        </h3>
+      </div>
     </div>
   </div>
   <div ng-if="$ctrl.orderComplete && $ctrl.binding">
@@ -53,18 +61,18 @@
   <div ng-if="$ctrl.orderComplete && $ctrl.bindType === 'none'">
     <p><a ng-href="{{$ctrl.selectedProject | projectUrl : $ctrl.baseProjectUrl}}">Continue to the project overview</a> to bind this service to your application. Binding this service creates a secret containing the information necessary for your application to use the service.</p>
   </div>
-  <div ng-if="!$ctrl.error">
-    <p class="or">or</p>
+  <div ng-if="$ctrl.serviceClass.resource.externalMetadata.documentationUrl || $ctrl.serviceClass.resource.externalMetadata.supportUrl || (!$ctrl.error && $ctrl.serviceInstance.status.dashboardURL)">
+    <p class="or" ng-if="!$ctrl.error">- or -</p>
     <p>Browse resources for {{$ctrl.serviceClass.name}}:</p>
-    <ul ng-if="$ctrl.serviceClass.resource.externalMetadata.documentationUrl || $ctrl.serviceClass.resource.externalMetadata.supportUrl || $ctrl.serviceInstance.status.dashboardURL">
+    <ul class="list-inline">
       <li ng-if="$ctrl.serviceClass.resource.externalMetadata.documentationUrl">
-        <a ng-href="{{$ctrl.serviceClass.resource.externalMetadata.documentationUrl}}" target="_blank">Documentation</a>
+        <a ng-href="{{$ctrl.serviceClass.resource.externalMetadata.documentationUrl}}" target="_blank">Documentation <i class="fa fa-external-link" aria-hidden="true"></i></a>
       </li>
       <li ng-if="$ctrl.serviceClass.resource.externalMetadata.supportUrl">
-        <a ng-href="{{$ctrl.serviceClass.resource.externalMetadata.supportUrl}}" target="_blank">Support</a>
+        <a ng-href="{{$ctrl.serviceClass.resource.externalMetadata.supportUrl}}" target="_blank">Support <i class="fa fa-external-link" aria-hidden="true"></i></a>
       </li>
-      <li ng-if="$ctrl.serviceInstance.status.dashboardURL">
-        <a ng-href="{{$ctrl.serviceInstance.status.dashboardURL}}" target="_blank">Service Dashboard</a>
+      <li ng-if="!$ctrl.error && $ctrl.serviceInstance.status.dashboardURL">
+        <a ng-href="{{$ctrl.serviceInstance.status.dashboardURL}}" target="_blank">Service Dashboard <i class="fa fa-external-link" aria-hidden="true"></i></a>
       </li>
     </ul>
   </div>

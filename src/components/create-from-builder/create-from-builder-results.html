@@ -1,20 +1,24 @@
 <div class="order-service-config">
   <div ng-if="!$ctrl.success && !$ctrl.error">
     <div class="results-status">
-      <span class="spinner spinner-sm" aria-hidden="true"></span>
+      <span class="fa fa-clock-o text-muted" aria-hidden="true"></span>
       <span class="sr-only">Pending</span>
-      <h3 class="results-message">
-        <strong>{{$ctrl.name}}</strong> is being created in <strong>{{$ctrl.selectedProject | displayName}}</strong>.
-      </h3>
+      <div class="results-message">
+        <h3>
+          <strong>{{$ctrl.name}}</strong> is being created in <strong>{{$ctrl.selectedProject | displayName}}</strong>.
+        </h3>
+      </div>
     </div>
   </div>
   <div ng-if="$ctrl.success">
     <div class="results-status">
       <span class="pficon pficon-ok" aria-hidden="true"></span>
       <span class="sr-only">Success</span>
-      <h3 class="results-message">
-        <strong>{{$ctrl.name}}</strong> has been created in <strong>{{$ctrl.selectedProject | displayName}}</strong> successfully.
-      </h3>
+      <div class="results-message">
+        <h3>
+          <strong>{{$ctrl.name}}</strong> has been created in <strong>{{$ctrl.selectedProject | displayName}}</strong> successfully.
+        </h3>
+      </div>
     </div>
   </div>
   <div ng-if="$ctrl.success && $ctrl.binding">
@@ -34,9 +38,11 @@
   <div class="results-failure" ng-if="$ctrl.error">
     <div class="results-status">
       <span class="pficon pficon-error-circle-o text-danger" aria-hidden="true"></span>
-      <h3 class="results-message">
-        <strong>{{$ctrl.name}}</strong> failed to create in <strong>{{$ctrl.selectedProject | displayName}}</strong>.
-      </h3>
+      <div class="results-message">
+        <h3>
+          <strong>{{$ctrl.name}}</strong> failed to create in <strong>{{$ctrl.selectedProject | displayName}}</strong>.
+        </h3>
+      </div>
     </div>
     <div class="sub-title">
       <span ng-if="$ctrl.error.data.message">
