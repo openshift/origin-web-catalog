@@ -13,10 +13,14 @@
           {{tag}}
         </span>
       </div>
-      <div ng-if="$ctrl.serviceClass.resource.externalMetadata.documentationUrl || $ctrl.serviceClass.resource.externalMetadata.supportUrl" class="order-service-documentation-url">
-        <a ng-if="$ctrl.serviceClass.resource.externalMetadata.documentationUrl" ng-href="{{$ctrl.serviceClass.resource.externalMetadata.documentationUrl}}" target="_blank" class="learn-more-link">View Documentation <i class="fa fa-external-link" aria-hidden="true"></i></a>
-        <a ng-if="$ctrl.serviceClass.resource.externalMetadata.supportUrl" ng-href="{{$ctrl.serviceClass.resource.externalMetadata.supportUrl}}" target="_blank" class="learn-more-link">Get Support <i class="fa fa-external-link" aria-hidden="true"></i></a>
-      </div>
+      <ul ng-if="$ctrl.serviceClass.resource.externalMetadata.documentationUrl || $ctrl.serviceClass.resource.externalMetadata.supportUrl" class="list-inline order-service-documentation-url">
+        <li ng-if="$ctrl.serviceClass.resource.externalMetadata.documentationUrl" >
+          <a ng-href="{{$ctrl.serviceClass.resource.externalMetadata.documentationUrl}}" target="_blank" class="learn-more-link">View Documentation <i class="fa fa-external-link" aria-hidden="true"></i></a>
+        </li>
+        <li ng-if="$ctrl.serviceClass.resource.externalMetadata.supportUrl" >
+          <a ng-href="{{$ctrl.serviceClass.resource.externalMetadata.supportUrl}}" target="_blank" class="learn-more-link">Get Support <i class="fa fa-external-link" aria-hidden="true"></i></a>
+        </li>
+      </ul>
     </div>
   </div>
   <div class="order-service-description-block">
