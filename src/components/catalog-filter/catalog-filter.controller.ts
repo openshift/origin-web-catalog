@@ -56,7 +56,7 @@ export class CatalogFilterController implements angular.IController {
   }
 
   public $onChanges(onChangesObj: angular.IOnChangesObject) {
-    if (onChangesObj.filterOnKeyword  && onChangesObj.filterOnKeyword.currentValue) {
+    if (onChangesObj.filterOnKeyword  && onChangesObj.filterOnKeyword.currentValue && this.ctrl.keywordFilter) {
       this.resetFilterPanelModel();
       this.ctrl.keywordFilter.values = [this.ctrl.filterOnKeyword];
       this.constructFiltersFromModel();

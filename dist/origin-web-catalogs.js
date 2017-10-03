@@ -965,7 +965,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 e.resetFilterPanelModel(), e.constructFiltersFromModel();
             });
         }, e.prototype.$onChanges = function(e) {
-            e.filterOnKeyword && e.filterOnKeyword.currentValue && (this.resetFilterPanelModel(), 
+            e.filterOnKeyword && e.filterOnKeyword.currentValue && this.ctrl.keywordFilter && (this.resetFilterPanelModel(), 
             this.ctrl.keywordFilter.values = [ this.ctrl.filterOnKeyword ], this.constructFiltersFromModel());
         }, e.prototype.$onDestroy = function() {
             this.removeClearFilterListener();
