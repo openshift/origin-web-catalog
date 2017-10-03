@@ -8,7 +8,7 @@ export class OverlayPanelController implements angular.IController {
   private $document: any;
   private $scope: any;
 
-  constructor ($document, $scope) {
+  constructor ($document: any, $scope: any) {
     this.$document = $document;
     this.$scope = $scope;
     this.ctrl.shown = false;
@@ -53,7 +53,7 @@ export class OverlayPanelController implements angular.IController {
   };
 
   private closeOnEsc = (event: any) => {
-    if(event.which === 27) {
+    if (event.which === 27) {
       event.preventDefault();
       this.$scope.$evalAsync(() => {
         this.closePanel();

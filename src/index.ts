@@ -20,8 +20,10 @@ import {orderService} from './components/order-service/order-service.component';
 import {overlayPanel} from './components/overlay-panel/overlay-panel.component';
 import {projectsSummary} from './components/projects-summary/projects-summary.component';
 import {saasList} from './components/saas-list/saas-list.component';
+import {selectPlan} from './components/select-plan/select-plan.component';
 import {selectProject} from './components/select-project/select-project.component';
 import {servicesView} from './components/services-view/services-view.component';
+import {updateService} from './components/update-service/update-service.component';
 import {RecentlyViewedServiceItems} from './services/recently-viewed-service-items.service';
 import {catalogFilter} from './components/catalog-filter/catalog-filter.component';
 
@@ -42,8 +44,10 @@ angular
   .component('overlayPanel', overlayPanel)
   .component('projectsSummary', projectsSummary)
   .component('saasList', saasList)
+  .component('selectPlan', selectPlan)
   .component('selectProject', selectProject)
   .component('servicesView', servicesView)
+  .component('updateService', updateService)
   .component('catalogFilter', catalogFilter)
   .run(['$templateCache', function($templateCache: any) {
     $templateCache.put('catalog-search/catalog-search-result.html', require('./components/catalog-search/catalog-search-result.html'));
@@ -56,7 +60,10 @@ angular
     $templateCache.put('order-service/order-service-configure.html', require('./components/order-service/order-service-configure.html'));
     $templateCache.put('order-service/order-service-bind.html', require('./components/order-service/order-service-bind.html'));
     $templateCache.put('order-service/order-service-bind-parameters.html', require('./components/order-service/order-service-bind-parameters.html'));
-    $templateCache.put('order-service/order-service-review.html', require('./components/order-service/order-service-review.html'));
+    $templateCache.put('order-service/order-service-results.html', require('./components/order-service/order-service-results.html'));
+    $templateCache.put('update-service/update-service-plans.html', require('./components/update-service/update-service-plans.html'));
+    $templateCache.put('update-service/update-service-configure.html', require('./components/update-service/update-service-configure.html'));
+    $templateCache.put('update-service/update-service-results.html', require('./components/update-service/update-service-results.html'));
 
     // Override the default angular-schema-form-bootstrap decorators for custom
     // styles to support horizontal forms (and eventually valueFrom parameters).

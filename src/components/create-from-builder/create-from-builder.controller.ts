@@ -340,7 +340,7 @@ export class CreateFromBuilderController implements angular.IController {
   private isServiceBindable = (serviceInstance: any) => {
     let servicePlan;
     let serviceClass = this.BindingService.getServiceClassForInstance(serviceInstance, this.ctrl.serviceClasses);
-    let servicePlanName = _.get(serviceInstance, 'spec.servicePlanRef.name') as string;
+    let servicePlanName = _.get(serviceInstance, 'spec.clusterServicePlanRef.name') as string;
     if (servicePlanName) {
       servicePlan = this.ctrl.servicePlans[servicePlanName];
     }

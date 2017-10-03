@@ -126,7 +126,7 @@ export class OrderServiceController implements angular.IController {
     this.reviewStep = {
       label: 'Results',
       id: 'results',
-      view: 'order-service/order-service-review.html',
+      view: 'order-service/order-service-results.html',
       hidden: false,
       allowed: false,
       valid: true,
@@ -140,11 +140,10 @@ export class OrderServiceController implements angular.IController {
     this.ctrl.wizardDone = false;
     this.ctrl.bindType = "none";
 
-      this.ctrl.orderedPlans = _.orderBy(this.ctrl.servicePlans, ['spec.externalMetadata.displayName', 'metadata.name']);
+    this.ctrl.orderedPlans = _.orderBy(this.ctrl.servicePlans, ['spec.externalMetadata.displayName', 'metadata.name']);
 
       // Preselect the first plan. If there's only one plan, skip the wizard step.
-      this.selectPlan(_.head(this.ctrl.orderedPlans));
-      this.ctrl.planIndex = 0;
+    this.selectPlan(_.head(this.ctrl.orderedPlans));
 
     // Set updating true initially so that the next button doesn't enable,
     // disable, then enable again immediately.  The onProjectUpdate callback
@@ -237,13 +236,14 @@ export class OrderServiceController implements angular.IController {
     this.provisionService();
   };
 
-  public selectPlan(plan: any) {
+  public selectPlan = (plan: any) => {
     this.ctrl.selectedPlan = plan;
+
     // Clear any previous parameter data since each plan has its own parameter schema.
     this.ctrl.parameterData = {};
     this.updateParameterSchema(plan);
     this.updateBindability();
-  }
+  };
 
   public provisionService = () => {
     this.ctrl.inProgress = true;
@@ -272,7 +272,7 @@ export class OrderServiceController implements angular.IController {
 
   public createService() {
     let parameters = this.getParameters();
-    let secretName: string = _.isEmpty(parameters) ? null : this.generateSecretName();
+    let secretName: string = _.isEmpty(parameters) ? null : this.BindingService.generateSecretName(this.getExternalClusterServiceClassName() + '-parameters');
     let serviceInstance = this.makeServiceInstance(secretName);
     let resource = {
       group: 'servicecatalog.k8s.io',
@@ -288,7 +288,7 @@ export class OrderServiceController implements angular.IController {
 
       // Create the parameters secret if necessary.
       if (secretName) {
-        let secret = this.makeParametersSecret(secretName, parameters, serviceInstance);
+        let secret = this.BindingService.makeParametersSecret(secretName, parameters, serviceInstance);
         this.DataService.create('secrets', null, secret, context).then(_.noop, (e: any) => {
           this.ctrl.error = _.get(e, 'data');
         });
@@ -375,7 +375,7 @@ export class OrderServiceController implements angular.IController {
   private updateParameterSchema(plan: any) {
     this.ctrl.parameterSchema = _.get(plan, 'spec.instanceCreateParameterSchema');
     this.ctrl.parameterFormDefinition = _.get(this, 'ctrl.selectedPlan.spec.externalMetadata.schemas.service_instance.create.openshift_form_definition');
-    this.ctrl.bindParameterSchema = _.get(plan, 'spec.serviceInstanceCredentialCreateParameterSchema');
+    this.ctrl.bindParameterSchema = _.get(plan, 'spec.serviceBindingCreateParameterSchema');
     this.ctrl.bindParameterFormDefinition = _.get(this, 'ctrl.selectedPlan.spec.externalMetadata.schemas.service_binding.create.openshift_form_definition');
   }
 
@@ -419,42 +419,6 @@ export class OrderServiceController implements angular.IController {
   private getExternalClusterServiceClassName(): string {
     return _.get(this, 'ctrl.serviceClass.resource.spec.externalName') as string;
   };
-
-  private generateSecretName(): string {
-    let generateNameLength = 5;
-    // Truncate the class name if it's too long to append the generated name suffix.
-    let secretNamePrefix = _.truncate(this.getExternalClusterServiceClassName() + '-parameters', {
-      // `generateNameLength - 1` because we append a '-' and then a 5 char generated suffix
-      length: this.DNS1123_SUBDOMAIN_VALIDATION.maxlength - generateNameLength - 1,
-      omission: ''
-    });
-    return this.$filter('generateName')(secretNamePrefix + '-', generateNameLength) as string;
-  };
-
-  private makeParametersSecret(name: string, parameters: any, serviceInstance: any): any {
-    return {
-      apiVersion: 'v1',
-      kind: 'Secret',
-      metadata: {
-        name: name,
-        ownerReferences: [{
-          apiVersion: serviceInstance.apiVersion,
-          kind: serviceInstance.kind,
-          name: serviceInstance.metadata.name,
-          uid: serviceInstance.metadata.uid,
-          controller: false,
-          // TODO: Change to true when garbage collection works with service
-          // catalog resources. Setting to true now results in a 403 Forbidden
-          // error creating the secret.
-          blockOwnerDeletion: false
-        }]
-      },
-      type: 'Opaque',
-      stringData: {
-        parameters: JSON.stringify(parameters)
-      }
-    };
-  }
 
   private makeServiceInstance(secretName: string) {
     let externalClusterServiceClassName = this.getExternalClusterServiceClassName();

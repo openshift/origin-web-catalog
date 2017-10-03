@@ -4,6 +4,9 @@ export const catalogParameters: angular.IComponentOptions = {
   bindings: {
     parameterSchema: '<',
     parameterFormDefinition: '<',
+    isHorizontal: '<?',
+    readOnly: '<?',
+    hideValues: '<?',
     model: '='
   },
   controller: CatalogParametersController,

@@ -1,0 +1,43 @@
+<div class="order-service-config">
+  <div ng-if="!$ctrl.error && !$ctrl.orderComplete">
+    <div class="results-status">
+      <span class="fa fa-clock-o text-muted" aria-hidden="true"></span>
+      <span class="sr-only">Updating</span>
+      <div class="results-message">
+        <h3>
+          <strong>{{$ctrl.displayName}}</strong> is being updated in <strong>{{$ctrl.project | displayName}}</strong>.
+        </h3>
+      </div>
+    </div>
+  </div>
+  <div class="results-failure" ng-if="$ctrl.error">
+    <div class="results-status">
+      <span class="pficon pficon-error-circle-o text-danger" aria-hidden="true"></span>
+      <span class="sr-only">Error</span>
+      <div class="results-message">
+        <h3>
+          Failed to update <strong>{{$ctrl.displayName}}</strong> in <strong>{{$ctrl.project | displayName}}</strong>.
+        </h3>
+      </div>
+    </div>
+    <div class="sub-title">
+      <span ng-if="$ctrl.error.message">
+        {{$ctrl.error.message}}
+      </span>
+      <span ng-if="!$ctrl.error.message">
+        An error occurred updating the service.
+      </span>
+    </div>
+  </div>
+  <div ng-if="$ctrl.orderComplete">
+    <div class="results-status">
+      <span class="pficon pficon-ok" aria-hidden="true"></span>
+      <span class="sr-only">Success</span>
+      <div class="results-message">
+        <h3>
+          <strong>{{$ctrl.displayName}}</strong> has been updated in <strong>{{$ctrl.project | displayName}}</strong> successfully.
+        </h3>
+      </div>
+    </div>
+  </div>
+</div>

@@ -240,6 +240,36 @@ landingbody,
     width: 475px;
   }
 }
+.catalog-parameters input.form-control[disabled] {
+  background-color: transparent;
+  border: 0;
+  color: #363636;
+  cursor: default;
+  margin-top: -3px;
+}
+.catalog-parameters.readonly fieldset {
+  padding-left: 20px;
+}
+.catalog-parameters.readonly fieldset > div {
+  padding-left: 20px;
+}
+.catalog-parameters.readonly legend {
+  border: 0;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+.catalog-parameters.readonly .schema-form-array {
+  margin-left: 0;
+}
+.catalog-parameters.readonly .schema-form-array > div.clearfix {
+  margin-top: -30px;
+}
+.catalog-parameters.readonly .schema-form-array .list-group,
+.catalog-parameters.readonly .schema-form-array .list-group-item {
+  border: 0;
+  margin-bottom: 0;
+}
 .order-service-details .order-service-details-top {
   align-items: center;
   display: flex;
@@ -379,6 +409,9 @@ landingbody,
   font-size: 14px;
   margin-bottom: 5px;
   margin-top: -2px;
+}
+.order-service-config .select-plans .plan-description {
+  margin-left: 10px;
 }
 .order-service-config .select-plans .radio {
   margin-top: 15px;
