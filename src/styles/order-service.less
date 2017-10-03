@@ -18,6 +18,12 @@
             max-height: 60px;
             max-width: 60px;
           }
+          &[src$=".svg"] {
+            height: 52px;
+            @media (min-width: @order-service-title-sm-min) {
+              height: 60px;
+            }
+          }
         }
       }
     }

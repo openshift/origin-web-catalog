@@ -173,6 +173,10 @@ export class CatalogService { static $inject = ['$filter', '$q', 'Constants', 'A
     return _.get(this.constants, ['PUBLISHER_SYNONYMS', rawVendor]) as string || rawVendor;
   }
 
+  public getImageForIconClass(iconClass: string): string {
+    return this.$filter('imageForIconClass')(iconClass) as string;
+  }
+
   /**
    * Creates an items array under each sub-category and categorizes each
    * item accordingly.  Dynamically creates 'all' and 'other' main and sub-
@@ -353,7 +357,14 @@ export class ServiceItem implements IServiceItem {
   }
 
   private getImage(): string {
-    return _.get(this.resource, 'spec.externalMetadata.imageUrl') as string || '';
+    let image: string = _.get(this.resource, 'spec.externalMetadata.imageUrl') as string;
+    if (image) {
+      return image;
+    }
+
+
+    let iconClass: string = _.get(this.resource, ['spec', 'externalMetadata', 'console.openshift.io/iconClass']) as string;
+    return this.catalogSrv.getImageForIconClass(iconClass);
   }
 
   private getIcon(): string {
@@ -404,6 +415,7 @@ export class ImageItem implements IServiceItem {
     this.builderSpecTagName = this.getBuilderSpecTagName();
     if (this.builderSpecTagName) {
       this.tags = this.getTags();
+      this.imageUrl = this.getImage();
       this.iconClass = this.getIcon();
       this.name = this.getName();
       this.description = this.getDescription();
@@ -440,6 +452,11 @@ export class ImageItem implements IServiceItem {
 
   private getTags() {
     return this.catalogSrv.$filter('imageStreamTagTags')(this.resource, this.builderSpecTagName);
+  }
+
+  private getImage() {
+    let iconClass = this.catalogSrv.$filter('imageStreamTagIconClass')(this.resource, this.builderSpecTagName);
+    return this.catalogSrv.getImageForIconClass(iconClass);
   }
 
   private getIcon() {
@@ -495,7 +512,9 @@ export class TemplateItem implements IServiceItem {
   }
 
   private getImage() {
-    return '';
+    // Show images instead for some icon classes that we recognize.
+    let iconClass = _.get(this.resource, 'metadata.annotations.iconClass') as string;
+    return this.catalogSrv.getImageForIconClass(iconClass);
   }
 
   private getIcon() {
