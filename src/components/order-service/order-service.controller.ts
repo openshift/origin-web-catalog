@@ -372,6 +372,7 @@ export class OrderServiceController implements angular.IController {
     this.ctrl.parameterSchema = _.get(plan, 'instanceCreateParameterSchema');
     this.ctrl.parameterFormDefinition = _.get(this, 'ctrl.selectedPlan.externalMetadata.schemas.service_instance.create.openshift_form_definition');
     this.ctrl.bindParameterSchema = _.get(plan, 'serviceInstanceCredentialCreateParameterSchema');
+    this.ctrl.bindParameterFormDefinition = _.get(this, 'ctrl.selectedPlan.externalMetadata.schemas.service_binding.create.openshift_form_definition');
   }
 
   private onProjectUpdate = () => {
