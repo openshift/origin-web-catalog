@@ -1064,14 +1064,15 @@ services-view .vendor-info-icon,
     display: flex;
     flex: 1 1 auto;
     flex-wrap: wrap;
-    padding: 15px 20px 12px;
+    margin: 15px 20px 12px;
+    padding: 0;
     position: relative;
   }
   .services-view .services-sub-categories .services-items {
-    left: 20px;
+    left: 0;
     margin: 10px 0;
     position: absolute;
-    right: 20px;
+    right: 0;
   }
   .services-view .services-sub-category {
     background-color: #fff;
