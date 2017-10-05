@@ -27,7 +27,7 @@ var categories: any = [
     {id: 'ruby', label: 'Ruby', tags: ['ruby'], icon: 'font-icon icon-ruby'},
     {id: 'php', label: 'PHP', tags: ['php'], icon: 'font-icon icon-php'},
     {id: 'python', label: 'Python', tags: ['python'], icon: 'font-icon icon-python'},
-    {id: 'golang', label: 'Go', tags: ['golang', 'go'], icon: 'font-icon icon-go-gopher'},
+    {id: 'golang', label: 'Go', tags: ['golang', 'go'], icon: 'font-icon icon-go-gopher'}
   ]},
   {id: 'databases', label: 'Databases', subCategories: [
     {id: 'mongodb', label: 'Mongo', tags: ['mongodb'], icon: 'font-icon icon-mongodb'},
@@ -36,15 +36,10 @@ var categories: any = [
     {id: 'mariadb', label: 'MariaDB', tags: ['mariadb'], icon: 'font-icon icon-mariadb'}
   ]},
   {id: 'middleware', label: 'Middleware', subCategories: [
-    {id: 'amq', label: 'A-MQ', tags: ['amq'], icon: 'font-icon icon-jboss'},
-    {id: 'processserver', label: 'BPM Suite', tags: ['processserver'], icon: 'font-icon icon-jboss'},
-    {id: 'decisionserver', label: 'BRMS', tags: ['decisionserver'], icon: 'font-icon icon-jboss'},
-    {id: 'datagrid', label: 'Data Grid', tags: ['datagrid'], icon: 'font-icon icon-jboss'},
-    {id: 'datavirt', label: 'Data Virt', tags: ['datavirt'], icon: 'font-icon icon-jboss'},
-    {id: 'eap', label: 'EAP', tags: ['eap'], icon: 'font-icon icon-jboss'},
-    {id: 'fuse', label: 'Fuse', tags: ['fuse', 'jboss-fuse'], icon: 'font-icon icon-jboss'},
-    {id: 'tomcat', label: 'Tomcat', tags: ['tomcat'], icon: 'font-icon icon-jboss'},
-    {id: 'sso', label: 'SSO', tags: ['sso'], icon: 'font-icon icon-jboss'}
+    {id: 'integration', label: 'Integration', tags: ['amq', 'fuse', 'jboss-fuse', 'sso']},
+    {id: 'process-automation', label: 'Process Automation', tags: ['decisionserver', 'processserver']},
+    {id: 'analytics-data', label: 'Analytics & Data', tags: ['datagrid', 'datavirt']},
+    {id: 'runtimes', label: 'Runtimes & Frameworks', tags: ['eap', 'httpd', 'tomcat']}
   ]},
   {id: 'cicd', label: 'CI/CD', subCategories: [
     {id: 'jenkins', label: 'Jenkins', tags: ['jenkins'], icon: 'font-icon icon-jenkins'},

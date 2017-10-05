@@ -202,7 +202,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             default: "welcome/index.html"
         };
         n.set(window, "OPENSHIFT_CONSTANTS.HELP", i);
-        var s = [ {
+        var a = [ {
             id: 1,
             title: "Microservices Application",
             icon: "fa fa-cubes",
@@ -226,7 +226,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             icon: "fa fa-cubes",
             url: "https://www.redhat.com/en/technologies/management",
             description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.  This is way too long! Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt."
-        } ], a = [ {
+        } ], s = [ {
             id: "languages",
             label: "Languages",
             subCategories: [ {
@@ -298,50 +298,21 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             id: "middleware",
             label: "Middleware",
             subCategories: [ {
-                id: "amq",
-                label: "A-MQ",
-                tags: [ "amq" ],
-                icon: "font-icon icon-jboss"
+                id: "integration",
+                label: "Integration",
+                tags: [ "amq", "fuse", "jboss-fuse", "sso" ]
             }, {
-                id: "processserver",
-                label: "BPM Suite",
-                tags: [ "processserver" ],
-                icon: "font-icon icon-jboss"
+                id: "process-automation",
+                label: "Process Automation",
+                tags: [ "decisionserver", "processserver" ]
             }, {
-                id: "decisionserver",
-                label: "BRMS",
-                tags: [ "decisionserver" ],
-                icon: "font-icon icon-jboss"
+                id: "analytics-data",
+                label: "Analytics & Data",
+                tags: [ "datagrid", "datavirt" ]
             }, {
-                id: "datagrid",
-                label: "Data Grid",
-                tags: [ "datagrid" ],
-                icon: "font-icon icon-jboss"
-            }, {
-                id: "datavirt",
-                label: "Data Virt",
-                tags: [ "datavirt" ],
-                icon: "font-icon icon-jboss"
-            }, {
-                id: "eap",
-                label: "EAP",
-                tags: [ "eap" ],
-                icon: "font-icon icon-jboss"
-            }, {
-                id: "fuse",
-                label: "Fuse",
-                tags: [ "fuse", "jboss-fuse" ],
-                icon: "font-icon icon-jboss"
-            }, {
-                id: "tomcat",
-                label: "Tomcat",
-                tags: [ "tomcat" ],
-                icon: "font-icon icon-jboss"
-            }, {
-                id: "sso",
-                label: "SSO",
-                tags: [ "sso" ],
-                icon: "font-icon icon-jboss"
+                id: "runtimes",
+                label: "Runtimes & Frameworks",
+                tags: [ "eap", "httpd", "tomcat" ]
             } ]
         }, {
             id: "cicd",
@@ -358,7 +329,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 icon: "fa fa-clone"
             } ]
         } ];
-        n.set(window, "OPENSHIFT_CONSTANTS.SERVICE_CATALOG_CATEGORIES", a), n.set(window, "OPENSHIFT_CONSTANTS.SAAS_OFFERINGS", s);
+        n.set(window, "OPENSHIFT_CONSTANTS.SERVICE_CATALOG_CATEGORIES", s), n.set(window, "OPENSHIFT_CONSTANTS.SAAS_OFFERINGS", a);
         var o = {
             pod_presets: !1
         };
@@ -455,9 +426,9 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
     "use strict";
     function n() {
         return function(e, t, r) {
-            var n, s = t || "project/";
-            return n = i.isString(e) ? e : i.get(e, "metadata.name", ""), s.endsWith("/") || (s += "/"), 
-            s + n + "/browse/secrets/" + r;
+            var n, a = t || "project/";
+            return n = i.isString(e) ? e : i.get(e, "metadata.name", ""), a.endsWith("/") || (a += "/"), 
+            a + n + "/browse/secrets/" + r;
         };
     }
     t.__esModule = !0;
@@ -653,30 +624,30 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
 }, function(e, t, r) {
     "use strict";
     t.__esModule = !0;
-    var n = r(1), i = r(0), s = function() {
-        function e(e, t, r, n, i, s) {
+    var n = r(1), i = r(0), a = function() {
+        function e(e, t, r, n, i, a) {
             this.vendors = [], this.$filter = e, this.$q = t, this.constants = r, this.apiService = n, 
-            this.dataService = i, this.logger = s;
+            this.dataService = i, this.logger = a;
         }
         return e.prototype.getCatalogItems = function(e) {
-            var t = this, r = this.$q.defer(), n = {}, i = 0, s = 0, a = [], o = {
+            var t = this, r = this.$q.defer(), n = {}, i = 0, a = 0, s = [], o = {
                 group: "servicecatalog.k8s.io",
                 resource: "serviceclasses"
             };
             return this.apiService.apiInfo(o) && (++i, this.dataService.list(o, {}).then(function(e) {
                 n.serviceClasses = e.by("metadata.name");
             }, function() {
-                a.push("service classes");
+                s.push("service classes");
             }).finally(function() {
-                t.returnCatalogItems(r, n, ++s, i, a);
+                t.returnCatalogItems(r, n, ++a, i, s);
             })), ++i, this.dataService.list("imagestreams", {
                 namespace: "openshift"
             }).then(function(e) {
                 n.imageStreams = e.by("metadata.name");
             }, function() {
-                a.push("builder images");
+                s.push("builder images");
             }).finally(function() {
-                t.returnCatalogItems(r, n, ++s, i, a);
+                t.returnCatalogItems(r, n, ++a, i, s);
             }), e && (++i, this.dataService.list("templates", {
                 namespace: "openshift"
             }, null, {
@@ -684,47 +655,47 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             }).then(function(e) {
                 n.templates = e.by("metadata.name");
             }, function() {
-                a.push("templates");
+                s.push("templates");
             }).finally(function() {
-                t.returnCatalogItems(r, n, ++s, i, a);
+                t.returnCatalogItems(r, n, ++a, i, s);
             })), r.promise;
         }, e.prototype.getProjectCatalogItems = function(e, t, r, n) {
             var i = this;
             void 0 === t && (t = !0), void 0 === r && (r = !0), void 0 === n && (n = !1);
-            var s = this.$q.defer(), a = {
+            var a = this.$q.defer(), s = {
                 imageStreams: [],
                 templates: []
             }, o = 0, c = 0, l = [];
             return t && (o++, this.dataService.list("imagestreams", {
                 namespace: e
             }).then(function(e) {
-                a.imageStreams = e.by("metadata.name");
+                s.imageStreams = e.by("metadata.name");
             }, function() {
                 l.push("builder images");
             }).finally(function() {
-                i.returnCatalogItems(s, a, ++c, o, l);
+                i.returnCatalogItems(a, s, ++c, o, l);
             })), r && (o++, this.dataService.list("templates", {
                 namespace: e
             }, null, {
                 partialObjectMetadataList: n
             }).then(function(e) {
-                a.templates = e.by("metadata.name");
+                s.templates = e.by("metadata.name");
             }, function() {
                 l.push("templates");
             }).finally(function() {
-                i.returnCatalogItems(s, a, ++c, o, l);
-            })), s.promise;
+                i.returnCatalogItems(a, s, ++c, o, l);
+            })), a.promise;
         }, e.prototype.convertToServiceItems = function(e, t, r) {
-            var n = this, s = i.map(e, function(e) {
+            var n = this, a = i.map(e, function(e) {
                 return n.getServiceItem(e);
             });
-            return s = s.concat(i.map(t, function(e) {
+            return a = a.concat(i.map(t, function(e) {
                 return n.getImageItem(e);
-            })), s = s.concat(i.map(r, function(e) {
+            })), a = a.concat(i.map(r, function(e) {
                 return n.getTemplateItem(e);
-            })), s = i.reject(s, function(e) {
+            })), a = i.reject(a, function(e) {
                 return !e;
-            }), s = s.sort(function(e, t) {
+            }), a = a.sort(function(e, t) {
                 var r = i.get(e, "name", "").localeCompare(i.get(t, "name", ""), void 0, {
                     sensitivity: "base"
                 });
@@ -733,9 +704,9 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 })), 0 === r && (r = i.get(e, "resource.metadata.name", "").localeCompare(i.get(t, "resource.metadata.name", ""), void 0, {
                     sensitivity: "base"
                 })), r;
-            }), this.categorizeItems(s), s;
+            }), this.categorizeItems(a), a;
         }, e.prototype.getServiceItem = function(e) {
-            return new a(e, this);
+            return new s(e, this);
         }, e.prototype.getImageItem = function(e) {
             var t = new o(e, this);
             return t.builderSpecTagName ? t : null;
@@ -744,19 +715,19 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
         }, e.prototype.getPublisherSynonym = function(e) {
             return i.get(this.constants, [ "PUBLISHER_SYNONYMS", e ]) || e;
         }, e.prototype.categorizeItems = function(e) {
-            var t, r, s = this;
+            var t, r, a = this;
             this.categories = n.copy(this.constants.SERVICE_CATALOG_CATEGORIES), this.createAllAndOtherMainCategories();
-            var a = i.head(this.categories), o = i.get(a, "subCategories[0]"), c = i.last(this.categories), l = i.get(c, "subCategories[0]"), d = {};
+            var s = i.head(this.categories), o = i.get(s, "subCategories[0]"), c = i.last(this.categories), l = i.get(c, "subCategories[0]"), d = {};
             i.each(e, function(e) {
-                e.vendor && (d[e.vendor] = !0), r = !1, i.each(s.categories, function(n) {
-                    n.tags ? s.hasMatchingTags(n.tags, e.tags) && (r = s.categorizeItem(e, n, "all"), 
-                    t = s.filterSubCatsByTags(n.subCategories, e.tags), i.isEmpty(t) ? s.categorizeItem(e, n, "other") : i.each(t, function(t) {
-                        s.categorizeItem(e, n, t);
-                    })) : (t = s.filterSubCatsByTags(n.subCategories, e.tags), i.isEmpty(t) || (r = s.categorizeItem(e, n, "all"), 
+                e.vendor && (d[e.vendor] = !0), r = !1, i.each(a.categories, function(n) {
+                    n.tags ? a.hasMatchingTags(n.tags, e.tags) && (r = a.categorizeItem(e, n, "all"), 
+                    t = a.filterSubCatsByTags(n.subCategories, e.tags), i.isEmpty(t) ? a.categorizeItem(e, n, "other") : i.each(t, function(t) {
+                        a.categorizeItem(e, n, t);
+                    })) : (t = a.filterSubCatsByTags(n.subCategories, e.tags), i.isEmpty(t) || (r = a.categorizeItem(e, n, "all"), 
                     i.each(t, function(t) {
-                        s.categorizeItem(e, n, t);
+                        a.categorizeItem(e, n, t);
                     })));
-                }), r || s.categorizeItem(e, c, l), s.categorizeItem(e, a, o);
+                }), r || a.categorizeItem(e, c, l), a.categorizeItem(e, s, o);
             }), this.vendors = i.keys(d).sort();
         }, e.prototype.categorizeItem = function(e, t, r) {
             return i.isString(r) && (r = this.getAllOrOtherSubCategory(t, r)), r.items = i.isArray(r.items) ? r.items.concat([ e ]) : [ e ], 
@@ -800,11 +771,11 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             return i.filter(e, function(e) {
                 return r.hasMatchingTags(e.tags, t);
             });
-        }, e.prototype.returnCatalogItems = function(e, t, r, n, s) {
+        }, e.prototype.returnCatalogItems = function(e, t, r, n, a) {
             if (!(r < n)) {
-                s = i.size(s) ? "Unable to load all content for the catalog. Error loading " + this.formatArray(s) : null;
-                var a = this.convertToServiceItems(t.serviceClasses, t.imageStreams, t.templates);
-                e.resolve([ a, s ]);
+                a = i.size(a) ? "Unable to load all content for the catalog. Error loading " + this.formatArray(a) : null;
+                var s = this.convertToServiceItems(t.serviceClasses, t.imageStreams, t.templates);
+                e.resolve([ s, a ]);
             }
         }, e.prototype.formatArray = function(e) {
             var t = "";
@@ -812,9 +783,9 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             t + ".";
         }, e;
     }();
-    s.$inject = [ "$filter", "$q", "Constants", "APIService", "DataService", "Logger" ], 
-    t.CatalogService = s;
-    var a = function() {
+    a.$inject = [ "$filter", "$q", "Constants", "APIService", "DataService", "Logger" ], 
+    t.CatalogService = a;
+    var s = function() {
         function e(e, t) {
             this.resource = e, this.catalogSrv = t, this.imageUrl = this.getImage(), this.iconClass = this.getIcon(), 
             this.name = this.getName(), this.description = this.getDescription(), this.longDescription = this.getLongDescription(), 
@@ -838,7 +809,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             return this.catalogSrv.getPublisherSynonym(e);
         }, e;
     }();
-    t.ServiceItem = a;
+    t.ServiceItem = s;
     var o = function() {
         function e(e, t) {
             this.resource = e, this.catalogSrv = t, this.builderSpecTagName = this.getBuilderSpecTagName(), 
@@ -941,7 +912,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
 }, function(e, t, r) {
     "use strict";
     t.__esModule = !0;
-    var n = r(1), i = r(0), s = function() {
+    var n = r(1), i = r(0), a = function() {
         function e(e, t) {
             var r = this;
             this.ctrl = this, this.onKeywordKeyPress = function(e) {
@@ -1038,7 +1009,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             });
         }, e;
     }();
-    s.$inject = [ "$scope", "Catalog" ], t.CatalogFilterController = s;
+    a.$inject = [ "$scope", "Catalog" ], t.CatalogFilterController = a;
 }, function(e, t, r) {
     "use strict";
     t.__esModule = !0;
@@ -1083,11 +1054,11 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
     t.__esModule = !0;
     var n = r(0), i = function() {
         function e(e, t, r, n, i) {
-            var s = this;
+            var a = this;
             this.ctrl = this, this.loaded = !1, this.maxResultsToShow = 5, this.onKeyPress = function(e) {
-                13 === e.which && s.ctrl.searchText && (s.$rootScope.$emit("filter-catalog-items", {
-                    searchText: s.ctrl.searchText
-                }), s.ctrl.searchText = "");
+                13 === e.which && a.ctrl.searchText && (a.$rootScope.$emit("filter-catalog-items", {
+                    searchText: a.ctrl.searchText
+                }), a.ctrl.searchText = "");
             }, this.$rootScope = e, this.$scope = t, this.$q = r, this.Catalog = n, this.KeywordService = i;
         }
         return e.prototype.$onInit = function() {
@@ -1105,28 +1076,28 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             return e ? this.loaded ? this.filterForKeywords(e) : (this.searchDeferred = this.$q.defer(), 
             this.searchDeferred.promise) : [];
         }, e.prototype.filterForKeywords = function(e) {
-            var t = this.KeywordService.generateKeywords(e), r = this.KeywordService.filterForKeywords(this.ctrl.catalogItems, [ "name", "tags" ], t), i = n.size(r), s = n.take(r, this.maxResultsToShow);
-            return 0 === i ? s.push({
+            var t = this.KeywordService.generateKeywords(e), r = this.KeywordService.filterForKeywords(this.ctrl.catalogItems, [ "name", "tags" ], t), i = n.size(r), a = n.take(r, this.maxResultsToShow);
+            return 0 === i ? a.push({
                 id: "viewNone",
                 text: "No results found for Keyword: " + e,
                 name: e
-            }) : 1 === i ? s.push({
+            }) : 1 === i ? a.push({
                 id: "viewAll",
                 text: "View the result for Keyword: " + e,
                 name: e
-            }) : i > 1 && s.push({
+            }) : i > 1 && a.push({
                 id: "viewAll",
                 text: "View all " + i + " results for Keyword: " + e,
                 name: e
-            }), s;
+            }), a;
         }, e;
     }();
     i.$inject = [ "$rootScope", "$scope", "$q", "Catalog", "KeywordService" ], t.CatalogSearchController = i;
 }, function(e, t, r) {
     "use strict";
     t.__esModule = !0;
-    var n = r(1), i = r(0), s = r(59), a = function() {
-        function e(e, t, r, n, s, a, o, c, l, d, p) {
+    var n = r(1), i = r(0), a = r(59), s = function() {
+        function e(e, t, r, n, a, s, o, c, l, d, p) {
             var h = this;
             this.ctrl = this, this.watches = [], this.clearValidityWatcher = function() {
                 h.validityWatcher && (h.validityWatcher(), h.validityWatcher = void 0);
@@ -1159,8 +1130,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 }));
             }, this.isServiceBindable = function(e) {
                 return h.BindingService.isServiceBindable(e, h.ctrl.serviceClasses);
-            }, this.$scope = e, this.$filter = t, this.$location = r, this.$q = n, this.BuilderAppService = s, 
-            this.ProjectsService = a, this.DataService = o, this.APIService = c, this.BindingService = l, 
+            }, this.$scope = e, this.$filter = t, this.$location = r, this.$q = n, this.BuilderAppService = a, 
+            this.ProjectsService = s, this.DataService = o, this.APIService = c, this.BindingService = l, 
             this.Logger = d, this.ctrl.serviceToBind = null, this.ctrl.showPodPresets = i.get(p, [ "ENABLE_TECH_PREVIEW_FEATURE", "pod_presets" ], !1);
         }
         return e.prototype.$onInit = function() {
@@ -1224,7 +1195,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 this.ctrl.namePattern.test(e) && (this.ctrl.name = e);
             }
         }, e.prototype.navigateToAdvancedForm = function() {
-            var e = "project/{project}/create/fromimage?imageStream={imageStream}&imageTag={imageTag}&namespace={namespace}&displayName={displayName}&name={name}&sourceURI={sourceURI}&advanced=true", t = s.expand(e, {
+            var e = "project/{project}/create/fromimage?imageStream={imageStream}&imageTag={imageTag}&namespace={namespace}&displayName={displayName}&name={name}&sourceURI={sourceURI}&advanced=true", t = a.expand(e, {
                 project: this.ctrl.selectedProject.metadata.name,
                 imageStream: this.ctrl.imageStream.resource.metadata.name,
                 imageTag: this.ctrl.istag.name,
@@ -1243,14 +1214,14 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             i.each(n, function(n) {
                 if (e.referencesSameImageStream(n)) return t[n.name] = n.from.name, e.ctrl.referencedBy[n.from.name] = e.ctrl.referencedBy[n.from.name] || [], 
                 void e.ctrl.referencedBy[n.from.name].push(n.name);
-                var s = i.get(n, "annotations.tags", ""), a = s.split(/\s*,\s*/);
-                i.includes(a, "builder") && !i.includes(a, "hidden") && (r[n.name] = n);
+                var a = i.get(n, "annotations.tags", ""), s = a.split(/\s*,\s*/);
+                i.includes(s, "builder") && !i.includes(s, "hidden") && (r[n.name] = n);
             });
-            var s = [], a = i.get(this, "ctrl.imageStream.resource.status.tags", []);
-            return i.each(a, function(e) {
+            var a = [], s = i.get(this, "ctrl.imageStream.resource.status.tags", []);
+            return i.each(s, function(e) {
                 var t = r[e.tag];
-                t && s.push(t);
-            }), s;
+                t && a.push(t);
+            }), a;
         }, e.prototype.getImageStreamTag = function() {
             var e = this.ctrl.imageStream.resource.metadata.name + ":" + this.ctrl.istag.name;
             return this.DataService.get("imagestreamtags", e, {
@@ -1262,8 +1233,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 e.sort(function(e, r) {
                     var n = "True" === i.get(t(e, "Ready"), "status");
                     if (n === ("True" === i.get(t(r, "Ready"), "status"))) {
-                        var s = i.get(e, "metadata.creationTimestamp");
-                        return i.get(r, "metadata.creationTimestamp").localeCompare(s);
+                        var a = i.get(e, "metadata.creationTimestamp");
+                        return i.get(r, "metadata.creationTimestamp").localeCompare(a);
                     }
                     return n ? -1 : 1;
                 }), this.ctrl.serviceInstances = e;
@@ -1330,8 +1301,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             }));
         }, e;
     }();
-    a.$inject = [ "$scope", "$filter", "$location", "$q", "BuilderAppService", "ProjectsService", "DataService", "APIService", "BindingService", "Logger", "Constants" ], 
-    t.CreateFromBuilderController = a;
+    s.$inject = [ "$scope", "$filter", "$location", "$q", "BuilderAppService", "ProjectsService", "DataService", "APIService", "BindingService", "Logger", "Constants" ], 
+    t.CreateFromBuilderController = s;
 }, function(e, t, r) {
     "use strict";
     t.__esModule = !0;
@@ -1359,8 +1330,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
 }, function(e, t, r) {
     "use strict";
     t.__esModule = !0;
-    var n = r(1), i = r(0), s = function() {
-        function e(e, t, r, n, s, a, o, c, l) {
+    var n = r(1), i = r(0), a = function() {
+        function e(e, t, r, n, a, s, o, c, l) {
             var d = this;
             this.ctrl = this, this.watches = [], this.clearValidityWatcher = function() {
                 d.validityWatcher && (d.validityWatcher(), d.validityWatcher = void 0), d.ctrl.reviewStep.allowed = !1;
@@ -1418,7 +1389,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                     });
                 }));
             }, this.$scope = e, this.$filter = t, this.ApplicationsService = r, this.ProjectsService = n, 
-            this.DataService = s, this.BindingService = a, this.Logger = o, this.ctrl.showPodPresets = i.get(c, [ "ENABLE_TECH_PREVIEW_FEATURE", "pod_presets" ], !1), 
+            this.DataService = a, this.BindingService = s, this.Logger = o, this.ctrl.showPodPresets = i.get(c, [ "ENABLE_TECH_PREVIEW_FEATURE", "pod_presets" ], !1), 
             this.DNS1123_SUBDOMAIN_VALIDATION = l;
         }
         return e.prototype.$onInit = function() {
@@ -1496,17 +1467,17 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             this.ctrl.selectedPlan = e, this.ctrl.parameterData = {}, this.updateParameterSchema(e), 
             this.updateBindability();
         }, e.prototype.createService = function() {
-            var e = this, t = this.getParameters(), r = i.isEmpty(t) ? null : this.generateSecretName(), n = this.makeServiceInstance(r), s = {
+            var e = this, t = this.getParameters(), r = i.isEmpty(t) ? null : this.generateSecretName(), n = this.makeServiceInstance(r), a = {
                 group: "servicecatalog.k8s.io",
                 resource: "serviceinstances"
-            }, a = {
+            }, s = {
                 namespace: this.ctrl.selectedProject.metadata.name
             };
-            this.DataService.create(s, null, n, a).then(function(n) {
-                if (e.ctrl.orderInProgress = !0, e.watchResults(s, n, a), e.ctrl.serviceInstance = n, 
+            this.DataService.create(a, null, n, s).then(function(n) {
+                if (e.ctrl.orderInProgress = !0, e.watchResults(a, n, s), e.ctrl.serviceInstance = n, 
                 r) {
                     var o = e.makeParametersSecret(r, t, n);
-                    e.DataService.create("secrets", null, o, a).then(i.noop, function(t) {
+                    e.DataService.create("secrets", null, o, s).then(i.noop, function(t) {
                         e.ctrl.error = i.get(t, "data");
                     });
                 }
@@ -1601,12 +1572,12 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             return !this.ctrl.selectedProject || !i.has(this.ctrl.selectedProject, "metadata.uid");
         }, e;
     }();
-    s.$inject = [ "$scope", "$filter", "ApplicationsService", "ProjectsService", "DataService", "BindingService", "Logger", "Constants", "DNS1123_SUBDOMAIN_VALIDATION" ], 
-    t.OrderServiceController = s;
+    a.$inject = [ "$scope", "$filter", "ApplicationsService", "ProjectsService", "DataService", "BindingService", "Logger", "Constants", "DNS1123_SUBDOMAIN_VALIDATION" ], 
+    t.OrderServiceController = a;
 }, function(e, t, r) {
     "use strict";
     t.__esModule = !0;
-    var n = r(1), i = r(2), s = function() {
+    var n = r(1), i = r(2), a = function() {
         function e() {
             var e = this;
             this.ctrl = this, this.closePanel = function() {
@@ -1625,12 +1596,12 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             i("body").removeClass("overlay-open");
         }, e;
     }();
-    t.OverlayPanelController = s;
+    t.OverlayPanelController = a;
 }, function(e, t, r) {
     "use strict";
     t.__esModule = !0;
-    var n = r(1), i = r(0), s = function() {
-        function e(t, r, s, a, o, c, l, d, p, h, m) {
+    var n = r(1), i = r(0), a = function() {
+        function e(t, r, a, s, o, c, l, d, p, h, m) {
             var u = this;
             this.ctrl = this, this.newProjectPanelShown = !1, this.editProjectPanelShown = !1, 
             this.projects = [], this.watches = [], this.maxDisplayProjects = 5, this.watchingProjects = !1, 
@@ -1669,7 +1640,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 u.ctrl.editProjectPanelShown = !1, u.watchingProjects || u.ProjectsService.list().then(u.onProjectsUpdate);
             }, this.onDeleteProject = function() {
                 u.watchingProjects || u.ProjectsService.list().then(u.onProjectsUpdate);
-            }, this.$filter = t, this.$rootScope = r, this.$scope = s, this.$window = a, this.AuthService = o, 
+            }, this.$filter = t, this.$rootScope = r, this.$scope = a, this.$window = s, this.AuthService = o, 
             this.Constants = c, this.DataService = l, this.Logger = d, this.ProjectsService = p, 
             this.RecentlyViewedProjectsService = h, this.RecentlyViewedItems = m;
         }
@@ -1687,10 +1658,10 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                     return 0 !== t.status && (n += " (" + t.status + ")"), void e.Logger.warn(n);
                 }
                 if (r.details) {
-                    var s = [];
+                    var a = [];
                     i.forEach(r.details.causes || [], function(e) {
-                        e.message && s.push(e.message);
-                    }), s.length > 0 && (e.ctrl.newProjectMessage = s.join("\n"));
+                        e.message && a.push(e.message);
+                    }), a.length > 0 && (e.ctrl.newProjectMessage = a.join("\n"));
                 }
             }).finally(function() {
                 e.init();
@@ -1725,12 +1696,12 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             }
         }, e;
     }();
-    s.$inject = [ "$filter", "$rootScope", "$scope", "$window", "AuthService", "Constants", "DataService", "Logger", "ProjectsService", "RecentlyViewedProjectsService", "RecentlyViewedServiceItems" ], 
-    s.MAX_PROJETS_TO_WATCH = 250, t.ProjectsSummaryController = s;
+    a.$inject = [ "$filter", "$rootScope", "$scope", "$window", "AuthService", "Constants", "DataService", "Logger", "ProjectsService", "RecentlyViewedProjectsService", "RecentlyViewedServiceItems" ], 
+    a.MAX_PROJETS_TO_WATCH = 250, t.ProjectsSummaryController = a;
 }, function(e, t, r) {
     "use strict";
     t.__esModule = !0;
-    var n = r(1), i = r(0), s = function() {
+    var n = r(1), i = r(0), a = function() {
         function e(e, t, r, n) {
             var i = this;
             this.ctrl = this, this.onWindowResize = function() {
@@ -1758,12 +1729,12 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             this.ctrl.itemsOverflow = t > 4 || t > 2 && e < this.BREAKPOINTS.screenLgMin;
         }, e;
     }();
-    s.$inject = [ "$scope", "$window", "$element", "BREAKPOINTS" ], t.SaasListController = s;
+    a.$inject = [ "$scope", "$window", "$element", "BREAKPOINTS" ], t.SaasListController = a;
 }, function(e, t, r) {
     "use strict";
     t.__esModule = !0;
-    var n = r(1), i = r(0), s = function() {
-        function e(t, r, n, s, a, o, c) {
+    var n = r(1), i = r(0), a = function() {
+        function e(t, r, n, a, s, o, c) {
             var l = this;
             this.ctrl = this, this.getProjectChoices = function() {
                 return l.ctrl.matchingProjects ? l.ctrl.matchingProjects : l.largeProjectList ? [] : l.projects;
@@ -1773,8 +1744,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 var r;
                 r = l.lastSearch && t.startsWith(l.lastSearch) ? l.lastResults : l.projects, l.lastSearch = t, 
                 l.lastResults = l.filterProjects(t, r), l.ctrl.matchingProjects = i.take(l.lastResults, e.LARGE_PROJECT_LIST_SIZE);
-            }, this.$filter = t, this.AuthService = r, this.AuthorizationService = n, this.KeywordService = s, 
-            this.Logger = a, this.ProjectsService = o, this.RecentlyViewedProjectsService = c, 
+            }, this.$filter = t, this.AuthService = r, this.AuthorizationService = n, this.KeywordService = a, 
+            this.Logger = s, this.ProjectsService = o, this.RecentlyViewedProjectsService = c, 
             this.largeProjectList = !1, this.lastSearch = "", this.lastResults = [];
         }
         return e.prototype.$onInit = function() {
@@ -1831,13 +1802,13 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             });
         }, e;
     }();
-    s.$inject = [ "$filter", "AuthService", "AuthorizationService", "KeywordService", "Logger", "ProjectsService", "RecentlyViewedProjectsService" ], 
-    s.LARGE_PROJECT_LIST_SIZE = 500, t.SelectProjectController = s;
+    a.$inject = [ "$filter", "AuthService", "AuthorizationService", "KeywordService", "Logger", "ProjectsService", "RecentlyViewedProjectsService" ], 
+    a.LARGE_PROJECT_LIST_SIZE = 500, t.SelectProjectController = a;
 }, function(e, t, r) {
     "use strict";
     t.__esModule = !0;
-    var n = r(1), i = r(0), s = r(2), a = function() {
-        function e(e, t, r, n, s, a, o, c, l, d) {
+    var n = r(1), i = r(0), a = r(2), s = function() {
+        function e(e, t, r, n, a, s, o, c, l, d) {
             var p = this;
             this.ctrl = this, this.previousSubCategoryHeight = 0, this.resizeRetries = 0, this.serviceViewItemClicked = function(e, t) {
                 p.$scope.$emit("open-overlay-panel", e);
@@ -1853,7 +1824,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                     }
                 }), p.ctrl.filterConfig.resultsCount = p.ctrl.filteredItems.length, p.ctrl.keywordFilterValue = null;
             }, this.constants = e, this.catalog = t, this.keywordService = r, this.logger = n, 
-            this.htmlService = s, this.element = a[0], this.$filter = o, this.$rootScope = c, 
+            this.htmlService = a, this.element = s[0], this.$filter = o, this.$rootScope = c, 
             this.$scope = l, this.$timeout = d, this.ctrl.loaded = !1, this.ctrl.isEmpty = !1, 
             this.ctrl.mobileView = "categories", this.ctrl.filterConfig = {}, this.ctrl.keywordFilterValue = null;
         }
@@ -1863,7 +1834,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 return e.resizeExpansion(!1);
             }, 50, {
                 maxWait: 250
-            }), n.element(window).bind("resize", this.debounceResize), s(window).on("resize.services", this.debounceResize), 
+            }), n.element(window).bind("resize", this.debounceResize), a(window).on("resize.services", this.debounceResize), 
             this.removeFilterListener = this.$rootScope.$on("filter-catalog-items", function(t, r) {
                 e.ctrl.keywordFilterValue = r.searchText, e.ctrl.currentFilter = e.ctrl.currentSubFilter = "all", 
                 e.ctrl.mobileView = "subcategories";
@@ -1880,11 +1851,11 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 "min-height": "calc(100vh - " + this.scrollParent.getBoundingClientRect().top + "px)"
             });
         }, e.prototype.$onDestroy = function() {
-            s(window).off("resize.services"), this.removeFilterListener();
+            a(window).off("resize.services"), this.removeFilterListener();
         }, e.prototype.selectCategory = function(e) {
             if (this.ctrl.mobileView = "subcategories", this.clearAppliedFilters(), this.filterByCategory(e, null, !0), 
             this.scrollParent) {
-                var t = s(this.scrollParent);
+                var t = a(this.scrollParent);
                 t.scrollTop() !== this.element.offsetTop && t.animate({
                     scrollTop: this.element.offsetTop
                 }, 200);
@@ -1902,14 +1873,14 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
         }, e.prototype.applyFilters = function(e) {
             this.filterChange(e.appliedFilters);
         }, e.prototype.filterByCategory = function(e, t, r) {
-            var n, s;
+            var n, a;
             "all" === e || "other" === e ? t = "all" : (r && (this.ctrl.subCategories = this.getSubCategories(e)), 
             t = 1 === this.ctrl.subCategories.length ? this.ctrl.subCategories[0].id : t || null), 
             n = i.find(this.ctrl.categories, {
                 id: e
-            }), n ? t && (s = i.find(n.subCategories, {
+            }), n ? t && (a = i.find(n.subCategories, {
                 id: t
-            }), s ? (this.ctrl.filteredItems = s.items, this.ctrl.filterConfig.totalCount = this.ctrl.filteredItems.length, 
+            }), a ? (this.ctrl.filteredItems = a.items, this.ctrl.filterConfig.totalCount = this.ctrl.filteredItems.length, 
             this.ctrl.filterConfig.resultsCount = this.ctrl.filterConfig.totalCount) : this.logger.error("Could not find subcategory '" + t + "' for category '" + e + "'")) : this.logger.error("Could not find category '" + e + "'"), 
             this.ctrl.currentFilter = e, this.ctrl.currentSubFilter = t, this.updateActiveCardStyles();
         }, e.prototype.filterForKeywords = function(e, t) {
@@ -1929,16 +1900,16 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             var r = this;
             if ("all" !== this.ctrl.currentFilter && "other" !== this.ctrl.currentFilter && this.ctrl.currentSubFilter && this.htmlService.isWindowAboveBreakpoint(this.htmlService.WINDOW_SIZE_XS)) {
                 if (this.resizeRetries > e.MAX_RESIZE_RETRIES) return void (this.resizeRetries = 0);
-                var n = s("#" + this.ctrl.currentSubFilter), i = n.find(".services-items"), a = i.outerHeight(!0);
-                a || (this.resizeRetries++, setTimeout(function() {
+                var n = a("#" + this.ctrl.currentSubFilter), i = n.find(".services-items"), s = i.outerHeight(!0);
+                s || (this.resizeRetries++, setTimeout(function() {
                     return r.resizeExpansion(t);
-                }, 50)), t ? (s(".services-sub-category").removeAttr("style").removeClass("items-shown"), 
+                }, 50)), t ? (a(".services-sub-category").removeAttr("style").removeClass("items-shown"), 
                 n.css("margin-bottom", this.previousSubCategoryHeight + "px"), n.animate({
-                    "margin-bottom": a
+                    "margin-bottom": s
                 }, 100, "swing", function() {
                     n.addClass("items-shown");
-                })) : (n.css("margin-bottom", a + "px"), n.addClass("items-shown")), this.previousSubCategoryHeight = a;
-            } else s(".services-sub-category").removeAttr("style").removeClass("items-shown"), 
+                })) : (n.css("margin-bottom", s + "px"), n.addClass("items-shown")), this.previousSubCategoryHeight = s;
+            } else a(".services-sub-category").removeAttr("style").removeClass("items-shown"), 
             this.previousSubCategoryHeight = 0, this.resizeRetries = 0;
             this.$scope.$evalAsync(function() {
                 r.scrollParent = r.getScrollParent(r.element), r.htmlService.isWindowAboveBreakpoint(r.htmlService.WINDOW_SIZE_SM) && r.scrollParent ? r.ctrl.viewStyle = {
@@ -1952,8 +1923,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             });
         }, e;
     }();
-    a.$inject = [ "Constants", "Catalog", "KeywordService", "Logger", "HTMLService", "$element", "$filter", "$rootScope", "$scope", "$timeout" ], 
-    a.MAX_RESIZE_RETRIES = 20, t.ServicesViewController = a;
+    s.$inject = [ "Constants", "Catalog", "KeywordService", "Logger", "HTMLService", "$element", "$filter", "$rootScope", "$scope", "$timeout" ], 
+    s.MAX_RESIZE_RETRIES = 20, t.ServicesViewController = s;
 }, function(e, t) {
     e.exports = URI;
 }, function(e, t, r) {
@@ -1961,8 +1932,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
     t.__esModule = !0;
     var n = r(1);
     r(3), r(31);
-    var i = r(32), s = r(33), a = r(34), o = r(21), c = r(22), l = r(35), d = r(23), p = r(24), h = r(25), m = r(26), u = r(27), g = r(28), f = r(29), v = r(30), y = r(36), b = r(20);
-    t.webCatalog = "webCatalog", n.module(t.webCatalog, [ "patternfly", "ngAnimate", "ui.bootstrap", "angularMoment", "ui.select", "schemaForm" ]).service("BuilderAppService", a.BuilderAppService).service("Catalog", l.CatalogService).service("RecentlyViewedServiceItems", y.RecentlyViewedServiceItems).filter("projectUrl", i.projectUrlFilter).filter("secretUrl", s.secretUrlFilter).component("catalogParameters", o.catalogParameters).component("catalogSearch", c.catalogSearch).component("createFromBuilder", d.createFromBuilder).component("landingPage", p.landingPage).component("orderService", h.orderService).component("overlayPanel", m.overlayPanel).component("projectsSummary", u.projectsSummary).component("saasList", g.saasList).component("selectProject", f.selectProject).component("servicesView", v.servicesView).component("catalogFilter", b.catalogFilter).run([ "$templateCache", function(e) {
+    var i = r(32), a = r(33), s = r(34), o = r(21), c = r(22), l = r(35), d = r(23), p = r(24), h = r(25), m = r(26), u = r(27), g = r(28), f = r(29), v = r(30), y = r(36), b = r(20);
+    t.webCatalog = "webCatalog", n.module(t.webCatalog, [ "patternfly", "ngAnimate", "ui.bootstrap", "angularMoment", "ui.select", "schemaForm" ]).service("BuilderAppService", s.BuilderAppService).service("Catalog", l.CatalogService).service("RecentlyViewedServiceItems", y.RecentlyViewedServiceItems).filter("projectUrl", i.projectUrlFilter).filter("secretUrl", a.secretUrlFilter).component("catalogParameters", o.catalogParameters).component("catalogSearch", c.catalogSearch).component("createFromBuilder", d.createFromBuilder).component("landingPage", p.landingPage).component("orderService", h.orderService).component("overlayPanel", m.overlayPanel).component("projectsSummary", u.projectsSummary).component("saasList", g.saasList).component("selectProject", f.selectProject).component("servicesView", v.servicesView).component("catalogFilter", b.catalogFilter).run([ "$templateCache", function(e) {
         e.put("catalog-search/catalog-search-result.html", r(4)), e.put("create-from-builder/create-from-builder-info.html", r(7)), 
         e.put("create-from-builder/create-from-builder-configure.html", r(6)), e.put("create-from-builder/create-from-builder-bind.html", r(5)), 
         e.put("create-from-builder/create-from-builder-results.html", r(8)), e.put("order-service/order-service-info.html", r(12)), 
