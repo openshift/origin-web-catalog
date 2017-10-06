@@ -60,10 +60,12 @@
              ng-class="{ active: $ctrl.currentSubFilter === subCategory.id }">
           <a href="" id="{{'services-sub-category-'+subCategory.id}}"
              class="services-sub-category-tab" ng-click="$ctrl.selectSubCategory(subCategory.id)">
-            <div class="services-sub-category-tab-image" ng-if="subCategory.imageUrl">
-              <img ng-src="{{subCategory.imageUrl}}" alt="">
+            <div class="services-sub-category-tab-image" ng-if="imageUrl = (subCategory.imageUrl || (subCategory.icon | imageForIconClass))">
+              <img ng-src="{{imageUrl}}" alt="">
             </div>
-            <div class="services-sub-category-tab-icon {{subCategory.icon}}" ng-if="subCategory.icon && !subCategory.imageUrl"></div>
+            <div class="services-sub-category-tab-icon {{subCategory.icon}}"
+                ng-class="{ 'font-icon': !subCategory.icon.contains('fa ') }"
+                ng-if="subCategory.icon && !subCategory.imageUrl && !(subCategory.icon | imageForIconClass)"></div>
             <div class="services-sub-category-tab-name">{{subCategory.label}}</div>
           </a>
          <a ng-click="$ctrl.mobileView = 'subcategories'" class="services-back-link" href="">Back</a>

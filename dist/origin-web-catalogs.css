@@ -265,6 +265,14 @@ landingbody,
     max-width: 60px;
   }
 }
+.order-service-details .order-service-details-top .service-icon .image img[src$=".svg"] {
+  height: 52px;
+}
+@media (min-width: 450px) {
+  .order-service-details .order-service-details-top .service-icon .image img[src$=".svg"] {
+    height: 60px;
+  }
+}
 .order-service-details .order-service-details-top .service-title {
   font-size: 18px;
   font-weight: 600;
