@@ -2,16 +2,16 @@
   <div class="config-top">
     <div class="select-plans">
       <h3>Select a Plan</h3>
-      <div ng-repeat="plan in $ctrl.serviceClass.resource.plans" class="radio">
+      <div ng-repeat="plan in $ctrl.orderedPlans track by plan.metadata.uid" class="radio">
         <label>
           <input
             type="radio"
             ng-model="$ctrl.planIndex"
             ng-change="$ctrl.selectPlan(plan)"
             value="{{$index}}">
-          <span class="plan-name">{{plan.externalMetadata.displayName || plan.name}}</span>
+          <span class="plan-name">{{plan.spec.externalMetadata.displayName || plan.spec.externalName}}</span>
           <!-- TODO: truncate long text -->
-          <div ng-if="plan.description">{{plan.description}}</div>
+          <div ng-if="plan.spec.description">{{plan.spec.description}}</div>
           <!-- TODO: show plan bullets -->
         </label>
       </div>

@@ -4,6 +4,7 @@ export const servicesView: angular.IComponentOptions = {
   bindings: {
     baseProjectUrl: '@',
     catalogItems: '<',
+    servicePlans: '<',
     onDeployImageSelected: '<',
     onFromFileSelected: '<',
     onCreateFromProject: '<',

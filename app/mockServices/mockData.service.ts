@@ -1,5 +1,6 @@
 import * as angular from 'angular';
 import {servicesData} from './mockData/services';
+import {plansData} from './mockData/plans';
 import {imagesData} from './mockData/openshift-images';
 import {projectsData} from './mockData/projects';
 import {deploymentConfigData} from './mockData/deploymentConfig';
@@ -207,6 +208,9 @@ export class DataService implements IDataService {
     switch (resource) {
     case 'serviceclasses':
       returnData = new DataServiceData(servicesData);
+      break;
+    case 'serviceplans':
+      returnData = new DataServiceData(plansData);
       break;
     case 'projects':
       if (_.get(window, 'MOCK_LARGE_PROJECT_LIST')) {

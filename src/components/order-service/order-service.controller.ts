@@ -62,7 +62,6 @@ export class OrderServiceController implements angular.IController {
     this.ctrl.serviceName = this.ctrl.serviceClass.name;
     this.ctrl.description = this.ctrl.serviceClass.description;
     this.ctrl.longDescription = this.ctrl.serviceClass.longDescription;
-    this.ctrl.plans = _.get(this, 'ctrl.serviceClass.resource.plans', []);
     this.ctrl.applications = [];
     this.ctrl.parameterData = {};
     this.ctrl.bindParameterData = {};
@@ -85,7 +84,7 @@ export class OrderServiceController implements angular.IController {
       id: 'plans',
       label: 'Plan',
       view: 'order-service/order-service-plans.html',
-      hidden: this.ctrl.plans.length < 2,
+      hidden: _.size(this.ctrl.servicePlans) < 2,
       allowed: true,
       valid: true,
       allowClickNav: true,
@@ -138,9 +137,11 @@ export class OrderServiceController implements angular.IController {
     this.ctrl.wizardDone = false;
     this.ctrl.bindType = "none";
 
-    // Preselect the first plan. If there's only one plan, skip the wizard step.
-    this.selectPlan(_.head(this.ctrl.plans));
-    this.ctrl.planIndex = 0;
+      this.ctrl.orderedPlans = _.orderBy(this.ctrl.servicePlans, ['spec.externalMetadata.displayName', 'metadata.name']);
+
+      // Preselect the first plan. If there's only one plan, skip the wizard step.
+      this.selectPlan(_.head(this.ctrl.orderedPlans));
+      this.ctrl.planIndex = 0;
 
     // Set updating true initially so that the next button doesn't enable,
     // disable, then enable again immediately.  The onProjectUpdate callback
@@ -337,14 +338,14 @@ export class OrderServiceController implements angular.IController {
     }
 
     // Check the plan's bindable value specifically, if not set, then use the value from the serviceClass
-    var planBindable = _.get(this.ctrl.selectedPlan, "bindable");
+    var planBindable = _.get(this.ctrl.selectedPlan, "spec.bindable");
 
     if (planBindable === true) {
       this.bindStep.hidden = false;
     } else if (planBindable === false) {
       this.bindStep.hidden = true;
     } else {
-      this.bindStep.hidden = !_.get(this.ctrl.serviceClass, "resource.bindable");
+      this.bindStep.hidden = !_.get(this.ctrl.serviceClass, "resource.spec.bindable");
     }
 
     this.updateBindParametersStepVisibility();
@@ -369,10 +370,10 @@ export class OrderServiceController implements angular.IController {
   };
 
   private updateParameterSchema(plan: any) {
-    this.ctrl.parameterSchema = _.get(plan, 'instanceCreateParameterSchema');
-    this.ctrl.parameterFormDefinition = _.get(this, 'ctrl.selectedPlan.externalMetadata.schemas.service_instance.create.openshift_form_definition');
-    this.ctrl.bindParameterSchema = _.get(plan, 'serviceInstanceCredentialCreateParameterSchema');
-    this.ctrl.bindParameterFormDefinition = _.get(this, 'ctrl.selectedPlan.externalMetadata.schemas.service_binding.create.openshift_form_definition');
+    this.ctrl.parameterSchema = _.get(plan, 'spec.instanceCreateParameterSchema');
+    this.ctrl.parameterFormDefinition = _.get(this, 'ctrl.selectedPlan.spec.externalMetadata.schemas.service_instance.create.openshift_form_definition');
+    this.ctrl.bindParameterSchema = _.get(plan, 'spec.serviceInstanceCredentialCreateParameterSchema');
+    this.ctrl.bindParameterFormDefinition = _.get(this, 'ctrl.selectedPlan.spec.externalMetadata.schemas.service_binding.create.openshift_form_definition');
   }
 
   private onProjectUpdate = () => {
@@ -412,14 +413,14 @@ export class OrderServiceController implements angular.IController {
     });
   }
 
-  private getServiceClassName(): string {
-    return _.get(this, 'ctrl.serviceClass.resource.metadata.name') as string;
+  private getExternalServiceClassName(): string {
+    return _.get(this, 'ctrl.serviceClass.resource.spec.externalName') as string;
   };
 
   private generateSecretName(): string {
     let generateNameLength = 5;
     // Truncate the class name if it's too long to append the generated name suffix.
-    let secretNamePrefix = _.truncate(this.getServiceClassName() + '-parameters', {
+    let secretNamePrefix = _.truncate(this.getExternalServiceClassName() + '-parameters', {
       // `generateNameLength - 1` because we append a '-' and then a 5 char generated suffix
       length: this.DNS1123_SUBDOMAIN_VALIDATION.maxlength - generateNameLength - 1,
       omission: ''
@@ -453,17 +454,17 @@ export class OrderServiceController implements angular.IController {
   }
 
   private makeServiceInstance(secretName: string) {
-    let serviceClassName = this.getServiceClassName();
+    let externalServiceClassName = this.getExternalServiceClassName();
     let serviceInstance: any = {
       kind: 'ServiceInstance',
       apiVersion: 'servicecatalog.k8s.io/v1alpha1',
       metadata: {
         namespace: this.ctrl.selectedProject.metadata.name,
-        generateName: serviceClassName + '-'
+        generateName: externalServiceClassName + '-'
        },
        spec: {
-         serviceClassName: serviceClassName,
-         planName: this.ctrl.selectedPlan.name
+         externalServiceClassName: externalServiceClassName,
+         externalServicePlanName: this.ctrl.selectedPlan.spec.externalName
        }
     };
 

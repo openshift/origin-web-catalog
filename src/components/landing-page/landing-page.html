@@ -5,6 +5,7 @@
         ng-if="$ctrl.selectedItem.resource.kind === 'ServiceClass'"
         base-project-url="{{$ctrl.baseProjectUrl}}"
         service-class="$ctrl.selectedItem"
+        service-plans="$ctrl.servicePlansForItem"
         handle-close="$ctrl.closeOrderingPanel">
     </order-service>
     <create-from-builder

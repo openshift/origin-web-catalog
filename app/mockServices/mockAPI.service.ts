@@ -1,6 +1,7 @@
 interface IAPIService {
   apiInfo(rgv: any): any;
   kindToResource(kind: string, humanize: boolean): string;
+  getPreferredVersion(resource: string): any;
 }
 
 /** Backend service communications. */
@@ -41,6 +42,20 @@ export class APIService implements IAPIService {
 
     return resource;
   }
+
+  public getPreferredVersion(resource: string): any {
+    let preferredVersions = {
+        // Using the anticipated name for the resources, even though they aren't yet prefixed with `cluster`.
+        // https://github.com/kubernetes-incubator/service-catalog/issues/1288
+        clusterserviceclasses:            {group: 'servicecatalog.k8s.io',      resource: 'serviceclasses' },
+        clusterserviceplans:              {group: 'servicecatalog.k8s.io',      resource: 'serviceplans' },
+        imagestreams:                     {group: 'image.openshift.io',         version: 'v1',      resource: 'imagestreams' },
+        // Using the anticipated name for this resource, even though it's not currently called servicebindings.
+        servicebindings:                  {group: 'servicecatalog.k8s.io',      resource: 'serviceinstancecredentials' },
+        serviceinstances:                 {group: 'servicecatalog.k8s.io',      resource: 'serviceinstances' },
+        templates:                        {group: 'template.openshift.io',      verison: 'v1',      resource: 'templates' }
+    };
+
+    return preferredVersions[resource] || resource;
+  }
 }
-
-
