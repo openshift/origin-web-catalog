@@ -33,7 +33,11 @@ export class CatalogService { static $inject = ['$filter', '$q', 'Constants', 'A
     if (this.apiService.apiInfo(serviceClassesVersion)) {
       ++totalNumPromises;
       this.dataService.list(serviceClassesVersion, {}).then( (resources: any) => {
-        catalogItems.serviceClasses = resources.by("metadata.name");
+        catalogItems.serviceClasses = _.reject(resources.by("metadata.name"), {
+          status: {
+            removedFromBrokerCatalog: true
+          }
+        });
       }, () => {
         errorMsg.push('service classes');
       }).finally(() => {
@@ -77,7 +81,7 @@ export class CatalogService { static $inject = ['$filter', '$q', 'Constants', 'A
   }
 
   public groupPlansByServiceClassName(plans: any) : any {
-    return _.groupBy(plans, 'spec.serviceClassRef.name');
+    return _.groupBy(plans, 'spec.clusterServiceClassRef.name');
   }
 
   public getProjectCatalogItems(projectName: string, includeImages: boolean = true, includeTemplates: boolean = true, partialObjectMetadataList: boolean = false ) {
@@ -351,7 +355,7 @@ export class ServiceItem implements IServiceItem {
     this.description = this.getDescription();
     this.longDescription = this.getLongDescription();
     this.tags = this.getTags();
-    this.kind = "ServiceClass";
+    this.kind = "ClusterServiceClass";
     this.vendor = this.getVendor();
     this.hidden = _.includes(this.tags, 'hidden');
   }

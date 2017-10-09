@@ -1,6 +1,6 @@
 export const servicesData = {
   "test-serviceclass-java": {
-    kind: 'ServiceClass',
+    kind: 'ClusterServiceClass',
     metadata: {
       name: "test-serviceclass-java-nodejs",
       uid: "1"
@@ -19,7 +19,7 @@ export const servicesData = {
     }
   },
   "test-serviceclass-nodejs": {
-    kind: 'ServiceClass',
+    kind: 'ClusterServiceClass',
     metadata: {
       name: "test-serviceclass-nodejs",
       uid: "2"
@@ -36,7 +36,7 @@ export const servicesData = {
     }
   },
   "test-serviceclass-perl": {
-    kind: 'ServiceClass',
+    kind: 'ClusterServiceClass',
     metadata: {
       name: "test-serviceclass-perl",
       uid: "3"
@@ -53,7 +53,7 @@ export const servicesData = {
     }
   },
   "test-serviceclass-ruby": {
-    kind: 'ServiceClass',
+    kind: 'ClusterServiceClass',
     metadata: {
       name: "test-serviceclass-ruby-mongo",
       uid: "4"
@@ -70,7 +70,7 @@ export const servicesData = {
     }
   },
   "test-serviceclass-php": {
-    kind: 'ServiceClass',
+    kind: 'ClusterServiceClass',
     metadata: {
       name: "test-serviceclass-php",
       uid: "5"
@@ -87,7 +87,7 @@ export const servicesData = {
     }
   },
   "test-serviceclass-mongo": {
-    kind: 'ServiceClass',
+    kind: 'ClusterServiceClass',
     metadata: {
       name: "test-serviceclass-mongo",
       uid: "6"
@@ -104,7 +104,7 @@ export const servicesData = {
     }
   },
   "test-serviceclass-mysql": {
-    kind: 'ServiceClass',
+    kind: 'ClusterServiceClass',
     metadata: {
       name: "test-serviceclass-mysql",
       uid: "7"
@@ -121,7 +121,7 @@ export const servicesData = {
     }
   },
   "test-serviceclass-other": {
-    kind: 'ServiceClass',
+    kind: 'ClusterServiceClass',
     metadata: {
       name: "test-serviceclass-other",
       uid: "8",
@@ -138,7 +138,7 @@ export const servicesData = {
     }
   },
   "test-serviceclass-jenkins": {
-    kind: 'ServiceClass',
+    kind: 'ClusterServiceClass',
     metadata: {
       name: "test-serviceclass-jenkins",
       uid: "9"
@@ -155,7 +155,7 @@ export const servicesData = {
     }
   },
   "test-serviceclass-pg-apb": {
-    kind: 'ServiceClass',
+    kind: 'ClusterServiceClass',
     metadata: {
       name: "test-serviceclass-pg-apb",
       uid: "10",
@@ -184,6 +184,26 @@ export const servicesData = {
         displayName: 'THIS SERVICE SHOULD NOT SHOW UP IN THE UI',
         longDescription: 'It has the `hidden` tag, which means it should not be displayed.',
       }
+    }
+  },
+  "test-serviceclass-removed": {
+    kind: 'ServiceClass',
+    metadata: {
+      name: "test-serviceclass-removed",
+      uid: "12",
+    },
+    spec: {
+      bindable: true,
+      description: 'THIS SERVICE SHOULD NOT SHOW UP IN THE UI.',
+      tags: ['databases', 'postgresql'],
+      externalMetadata: {
+        displayName: 'THIS SERVICE SHOULD NOT SHOW UP IN THE UI',
+        longDescription: 'It has the `status.removedFromBrokerCatalog` and should not be displayed.',
+      }
+    },
+    status: {
+      // This should not appear in the UI
+      removedFromBrokerCatalog: true
     }
   }
 };

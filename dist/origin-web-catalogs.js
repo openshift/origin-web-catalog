@@ -632,36 +632,40 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             this.dataService = i, this.logger = s;
         }
         return e.prototype.getCatalogItems = function(e) {
-            var t = this, r = this.$q.defer(), n = {}, i = 0, s = 0, a = [], o = this.apiService.getPreferredVersion("clusterserviceclasses");
-            this.apiService.apiInfo(o) && (++i, this.dataService.list(o, {}).then(function(e) {
-                n.serviceClasses = e.by("metadata.name");
+            var t = this, r = this.$q.defer(), n = {}, s = 0, a = 0, o = [], c = this.apiService.getPreferredVersion("clusterserviceclasses");
+            this.apiService.apiInfo(c) && (++s, this.dataService.list(c, {}).then(function(e) {
+                n.serviceClasses = i.reject(e.by("metadata.name"), {
+                    status: {
+                        removedFromBrokerCatalog: !0
+                    }
+                });
             }, function() {
-                a.push("service classes");
+                o.push("service classes");
             }).finally(function() {
-                t.returnCatalogItems(r, n, ++s, i, a);
-            })), ++i;
-            var c = this.apiService.getPreferredVersion("imagestreams");
-            if (this.dataService.list(c, {
+                t.returnCatalogItems(r, n, ++a, s, o);
+            })), ++s;
+            var l = this.apiService.getPreferredVersion("imagestreams");
+            if (this.dataService.list(l, {
                 namespace: "openshift"
             }).then(function(e) {
                 n.imageStreams = e.by("metadata.name");
             }, function() {
-                a.push("builder images");
+                o.push("builder images");
             }).finally(function() {
-                t.returnCatalogItems(r, n, ++s, i, a);
+                t.returnCatalogItems(r, n, ++a, s, o);
             }), e) {
-                ++i;
-                var l = this.apiService.getPreferredVersion("templates");
-                this.dataService.list(l, {
+                ++s;
+                var d = this.apiService.getPreferredVersion("templates");
+                this.dataService.list(d, {
                     namespace: "openshift"
                 }, null, {
                     partialObjectMetadataList: !0
                 }).then(function(e) {
                     n.templates = e.by("metadata.name");
                 }, function() {
-                    a.push("templates");
+                    o.push("templates");
                 }).finally(function() {
-                    t.returnCatalogItems(r, n, ++s, i, a);
+                    t.returnCatalogItems(r, n, ++a, s, o);
                 });
             }
             return r.promise;
@@ -669,7 +673,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             var e = this.apiService.getPreferredVersion("clusterserviceplans");
             return this.apiService.apiInfo(e) ? this.dataService.list(e, {}) : this.$q.when(null);
         }, e.prototype.groupPlansByServiceClassName = function(e) {
-            return i.groupBy(e, "spec.serviceClassRef.name");
+            return i.groupBy(e, "spec.clusterServiceClassRef.name");
         }, e.prototype.getProjectCatalogItems = function(e, t, r, n) {
             var i = this;
             void 0 === t && (t = !0), void 0 === r && (r = !0), void 0 === n && (n = !1);
@@ -799,7 +803,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
         function e(e, t) {
             this.resource = e, this.catalogSrv = t, this.imageUrl = this.getImage(), this.iconClass = this.getIcon(), 
             this.name = this.getName(), this.description = this.getDescription(), this.longDescription = this.getLongDescription(), 
-            this.tags = this.getTags(), this.kind = "ServiceClass", this.vendor = this.getVendor(), 
+            this.tags = this.getTags(), this.kind = "ClusterServiceClass", this.vendor = this.getVendor(), 
             this.hidden = i.includes(this.tags, "hidden");
         }
         return e.prototype.getImage = function() {
@@ -916,7 +920,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
 }, function(e, t) {
     e.exports = '<div class="order-service">\n  <pf-wizard\n       title="{{$ctrl.imageStream.name}} {{$ctrl.istag.name}}"\n       hide-sidebar="true"\n       step-class="order-service-wizard-step"\n       wizard-ready="$ctrl.wizardReady"\n       next-title="$ctrl.nextTitle"\n       on-finish="$ctrl.closePanel()"\n       on-cancel="$ctrl.closePanel()"\n       wizard-done="$ctrl.wizardDone">\n    <pf-wizard-step ng-repeat="step in $ctrl.steps track by $index"\n         step-title="{{step.label}}"\n         wz-disabled="{{step.hidden}}"\n         allow-click-nav="step.allowClickNav"\n         next-enabled="step.valid && !$ctrl.updating"\n         prev-enabled="step.prevEnabled"\n         on-show="step.onShow"\n         step-id="{{step.id}}"\n         step-priority="{{$index}}">\n      <div class="wizard-pf-main-inner-shadow-covers">\n        <div class="order-service-config">\n          <div ng-include="step.view" class="wizard-pf-main-form-contents"></div>\n        </div>\n      </div>\n    </>\n  </>\n</div>\n';
 }, function(e, t) {
-    e.exports = '<div class="landing-search-area" ng-transclude="landingsearch"></div>\n<div class="landing">\n  <overlay-panel show-panel="$ctrl.orderingPanelVisible" handle-close="$ctrl.closeOrderingPanel">\n    <order-service\n        ng-if="$ctrl.selectedItem.resource.kind === \'ServiceClass\'"\n        base-project-url="{{$ctrl.baseProjectUrl}}"\n        service-class="$ctrl.selectedItem"\n        service-plans="$ctrl.servicePlansForItem"\n        handle-close="$ctrl.closeOrderingPanel">\n    </order-service>\n    <create-from-builder\n        ng-if="$ctrl.selectedItem.resource.kind === \'ImageStream\'"\n        base-project-url="{{$ctrl.baseProjectUrl}}"\n        image-stream="$ctrl.selectedItem"\n        handle-close="$ctrl.closeOrderingPanel">\n    </create-from-builder>\n  </overlay-panel>\n  <div class="landing-main-area">\n    <div class="landing-header-area" ng-transclude="landingheader"></div>\n    <div class="landing-body-area">\n      <div class="landing-body" ng-transclude="landingbody"></div>\n    </div>\n  </div>\n  <div class="landing-side-bar" ng-transclude="landingside"></div>\n</div>\n';
+    e.exports = '<div class="landing-search-area" ng-transclude="landingsearch"></div>\n<div class="landing">\n  <overlay-panel show-panel="$ctrl.orderingPanelVisible" handle-close="$ctrl.closeOrderingPanel">\n    <order-service\n        ng-if="$ctrl.selectedItem.resource.kind === \'ClusterServiceClass\'"\n        base-project-url="{{$ctrl.baseProjectUrl}}"\n        service-class="$ctrl.selectedItem"\n        service-plans="$ctrl.servicePlansForItem"\n        handle-close="$ctrl.closeOrderingPanel">\n    </order-service>\n    <create-from-builder\n        ng-if="$ctrl.selectedItem.resource.kind === \'ImageStream\'"\n        base-project-url="{{$ctrl.baseProjectUrl}}"\n        image-stream="$ctrl.selectedItem"\n        handle-close="$ctrl.closeOrderingPanel">\n    </create-from-builder>\n  </overlay-panel>\n  <div class="landing-main-area">\n    <div class="landing-header-area" ng-transclude="landingheader"></div>\n    <div class="landing-body-area">\n      <div class="landing-body" ng-transclude="landingbody"></div>\n    </div>\n  </div>\n  <div class="landing-side-bar" ng-transclude="landingside"></div>\n</div>\n';
 }, function(e, t) {
     e.exports = '<div class="order-service">\n  <pf-wizard\n       title="{{$ctrl.serviceName}}"\n       hide-sidebar="true"\n       step-class="order-service-wizard-step"\n       wizard-ready="$ctrl.wizardReady"\n       next-title="$ctrl.nextTitle"\n       on-finish="$ctrl.closePanel()"\n       on-cancel="$ctrl.closePanel()"\n       wizard-done="$ctrl.wizardDone">\n    <pf-wizard-step ng-repeat="step in $ctrl.steps track by step.id"\n         step-title="{{step.label}}"\n         wz-disabled="{{step.hidden}}"\n         allow-click-nav="step.allowClickNav"\n         next-enabled="step.valid && !$ctrl.updating"\n         prev-enabled="step.prevEnabled"\n         on-show="step.onShow"\n         step-id="{{step.id}}"\n         step-priority="{{$index}}">\n      <div class="wizard-pf-main-inner-shadow-covers">\n        <div ng-include="step.view" class="wizard-pf-main-form-contents"></div>\n      </div>\n    </pf-wizard-step>\n  </pf-wizard>\n</div>\n';
 }, function(e, t) {
@@ -1327,7 +1331,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
 }, function(e, t, r) {
     "use strict";
     t.__esModule = !0;
-    var n = function() {
+    var n = r(0), i = function() {
         function e(e, t, r) {
             var n = this;
             this.ctrl = this, this.closeOrderingPanel = function() {
@@ -1337,20 +1341,24 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
         return e.prototype.$onInit = function() {
             var e = this;
             this.ctrl.searchText = "", this.ctrl.orderingPanelVisible = !1, this.Catalog.getServicePlans().then(function(t) {
-                t && (t = t.by("metadata.name"), e.plansByServiceClassName = e.Catalog.groupPlansByServiceClassName(t));
+                t && (t = n.reject(t.by("metadata.name"), {
+                    status: {
+                        removedFromBrokerCatalog: !0
+                    }
+                }), e.plansByServiceClassName = e.Catalog.groupPlansByServiceClassName(t));
             }), this.$scope.$on("open-overlay-panel", function(t, r) {
                 if (e.ctrl.servicePlansForItem = null, "Template" === r.kind) {
                     var n = e.ctrl.onTemplateSelected();
                     return void (n && n(r.resource));
                 }
-                "ServiceClass" === r.kind && (e.ctrl.servicePlansForItem = e.plansByServiceClassName[r.resource.metadata.name]), 
+                "ClusterServiceClass" === r.kind && (e.ctrl.servicePlansForItem = e.plansByServiceClassName[r.resource.metadata.name]), 
                 e.ctrl.selectedItem = r, e.ctrl.orderingPanelVisible = !0;
             });
         }, e.prototype.$onDestroy = function() {
             this.ctrl.orderingPanelVisible && this.closeOrderingPanel();
         }, e;
     }();
-    n.$inject = [ "$scope", "Catalog", "RecentlyViewedServiceItems" ], t.LandingPageController = n;
+    i.$inject = [ "$scope", "Catalog", "RecentlyViewedServiceItems" ], t.LandingPageController = i;
 }, function(e, t, r) {
     "use strict";
     t.__esModule = !0;
@@ -1545,10 +1553,10 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             return i.omitBy(this.ctrl.parameterData, function(e) {
                 return "" === e;
             });
-        }, e.prototype.getExternalServiceClassName = function() {
+        }, e.prototype.getExternalClusterServiceClassName = function() {
             return i.get(this, "ctrl.serviceClass.resource.spec.externalName");
         }, e.prototype.generateSecretName = function() {
-            var e = 5, t = i.truncate(this.getExternalServiceClassName() + "-parameters", {
+            var e = 5, t = i.truncate(this.getExternalClusterServiceClassName() + "-parameters", {
                 length: this.DNS1123_SUBDOMAIN_VALIDATION.maxlength - e - 1,
                 omission: ""
             });
@@ -1574,16 +1582,16 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 }
             };
         }, e.prototype.makeServiceInstance = function(e) {
-            var t = this.getExternalServiceClassName(), r = {
+            var t = this.getExternalClusterServiceClassName(), r = {
                 kind: "ServiceInstance",
-                apiVersion: "servicecatalog.k8s.io/v1alpha1",
+                apiVersion: "servicecatalog.k8s.io/v1beta1",
                 metadata: {
                     namespace: this.ctrl.selectedProject.metadata.name,
                     generateName: t + "-"
                 },
                 spec: {
-                    externalServiceClassName: t,
-                    externalServicePlanName: this.ctrl.selectedPlan.spec.externalName
+                    externalClusterServiceClassName: t,
+                    externalClusterServicePlanName: this.ctrl.selectedPlan.spec.externalName
                 }
             };
             return e && (r.spec.parametersFrom = [ {

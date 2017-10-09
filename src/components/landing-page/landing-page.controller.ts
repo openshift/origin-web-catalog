@@ -1,4 +1,5 @@
 import * as angular from 'angular';
+import * as _ from 'lodash';
 
 export class LandingPageController implements angular.IController {
   static $inject = ['$scope', 'Catalog', 'RecentlyViewedServiceItems'];
@@ -25,7 +26,11 @@ export class LandingPageController implements angular.IController {
         return;
       }
 
-      plans = plans.by('metadata.name');
+      plans = _.reject(plans.by("metadata.name"), {
+        status: {
+          removedFromBrokerCatalog: true
+        }
+      });
       this.plansByServiceClassName = this.Catalog.groupPlansByServiceClassName(plans);
     });
 
@@ -39,7 +44,7 @@ export class LandingPageController implements angular.IController {
         return;
       }
 
-      if (item.kind === 'ServiceClass') {
+      if (item.kind === 'ClusterServiceClass') {
         this.ctrl.servicePlansForItem = this.plansByServiceClassName[item.resource.metadata.name];
       }
 

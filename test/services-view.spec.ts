@@ -33,7 +33,7 @@ describe('servicesView', () => {
   });
 
   beforeEach(() => {
-    services = angular.copy(servicesData);
+    services = angular.copy(_.reject(servicesData, { status: { removedFromBrokerCatalog: true } }));
     images = angular.copy(imagesData);
     catalogItems = Catalog.convertToServiceItems(services, images);
   });
@@ -148,7 +148,7 @@ describe('servicesView', () => {
 
     services = {
       "mycat-database": {
-        kind: 'ServiceClass',
+        kind: 'ClusterServiceClass',
         "metadata": {
           "name": "mycat-database",
           "uid": "10",
@@ -161,7 +161,7 @@ describe('servicesView', () => {
         }
       },
       "mycat-other": {
-        kind: 'ServiceClass',
+        kind: 'ClusterServiceClass',
         "metadata": {
           "name": "mycat-other",
           "uid": "11",
@@ -213,7 +213,7 @@ describe('servicesView', () => {
 
     services = {
       "mycat-database": {
-        kind: 'ServiceClass',
+        kind: 'ClusterServiceClass',
         "metadata": {
           "name": "mycat-database",
           "uid": "10",

@@ -2,7 +2,7 @@
 <div class="landing">
   <overlay-panel show-panel="$ctrl.orderingPanelVisible" handle-close="$ctrl.closeOrderingPanel">
     <order-service
-        ng-if="$ctrl.selectedItem.resource.kind === 'ServiceClass'"
+        ng-if="$ctrl.selectedItem.resource.kind === 'ClusterServiceClass'"
         base-project-url="{{$ctrl.baseProjectUrl}}"
         service-class="$ctrl.selectedItem"
         service-plans="$ctrl.servicePlansForItem"

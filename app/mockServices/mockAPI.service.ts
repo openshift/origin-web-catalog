@@ -47,11 +47,11 @@ export class APIService implements IAPIService {
     let preferredVersions = {
         // Using the anticipated name for the resources, even though they aren't yet prefixed with `cluster`.
         // https://github.com/kubernetes-incubator/service-catalog/issues/1288
-        clusterserviceclasses:            {group: 'servicecatalog.k8s.io',      resource: 'serviceclasses' },
-        clusterserviceplans:              {group: 'servicecatalog.k8s.io',      resource: 'serviceplans' },
+        clusterserviceclasses:            {group: 'servicecatalog.k8s.io',      resource: 'clusterserviceclasses' },
+        clusterserviceplans:              {group: 'servicecatalog.k8s.io',      resource: 'clusterserviceplans' },
         imagestreams:                     {group: 'image.openshift.io',         version: 'v1',      resource: 'imagestreams' },
         // Using the anticipated name for this resource, even though it's not currently called servicebindings.
-        servicebindings:                  {group: 'servicecatalog.k8s.io',      resource: 'serviceinstancecredentials' },
+        servicebindings:                  {group: 'servicecatalog.k8s.io',      resource: 'servicebindings' },
         serviceinstances:                 {group: 'servicecatalog.k8s.io',      resource: 'serviceinstances' },
         templates:                        {group: 'template.openshift.io',      verison: 'v1',      resource: 'templates' }
     };
