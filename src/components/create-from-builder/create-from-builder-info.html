@@ -1,5 +1,5 @@
 <div class="order-service-details">
-  <div class="order-service-details-top">
+  <div class="order-service-details-top" ng-class="{'order-service-details-top-icon-top': $ctrl.imageStream.vendor || $ctrl.documentationUrl || $ctrl.supportUrl}">
     <div class="service-icon">
       <span ng-if="!$ctrl.imageStream.imageUrl" class="icon {{$ctrl.imageStream.iconClass}}" aria-hidden="true"></span>
       <span ng-if="$ctrl.imageStream.imageUrl" class="image"><img ng-src="{{$ctrl.imageStream.imageUrl}}" alt=""></span>
@@ -9,11 +9,22 @@
         {{$ctrl.imageStream.name}}
         {{$ctrl.istag.name}}
       </div>
+      <div ng-if="$ctrl.imageStream.vendor" class="service-vendor">
+        {{$ctrl.imageStream.vendor}}
+      </div>
       <div class="order-service-tags">
         <span ng-repeat="tag in $ctrl.istag.annotations.tags.split(',')" class="tag">
           {{tag}}
         </span>
       </div>
+      <ul ng-if="$ctrl.documentationUrl || $ctrl.supportUrl" class="list-inline order-service-documentation-url">
+        <li ng-if="$ctrl.documentationUrl">
+          <a ng-href="{{$ctrl.documentationUrl}}" target="_blank" class="learn-more-link">View Documentation <i class="fa fa-external-link" aria-hidden="true"></i></a>
+        </li>
+        <li ng-if="$ctrl.supportUrl">
+          <a ng-href="{{$ctrl.supportUrl}}" target="_blank" class="learn-more-link">Get Support <i class="fa fa-external-link" aria-hidden="true"></i></a>
+        </li>
+      </ul>
     </div>
   </div>
   <div class="order-service-description-block">
@@ -21,7 +32,7 @@
     <p ng-if="$ctrl.istag.annotations.sampleRepo">
       Sample Repository:
       <!-- TODO: Use Git link filter, needs to be added to origin-web-common -->
-      <span ng-bind-html="$ctrl.istag.annotations.sampleRepo | linky : '_blank'">
+      <span ng-bind-html="$ctrl.istag.annotations.sampleRepo | linky : '_blank'"></span>
     </p>
   </div>
 </div>

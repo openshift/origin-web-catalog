@@ -395,7 +395,7 @@ describe('servicesView', () => {
     var element = componentTest.rawElement;
 
     var vendorFilters = jQuery(element).find('.category-option-label');
-    expect(vendorFilters.length).toBe(3);
-    expect(jQuery(vendorFilters[1]).text()).toBe('Vendor B, Inc.');
+    expect(vendorFilters.length).toBe(4);
+    expect(jQuery(vendorFilters[2]).text()).toBe('Vendor B, Inc.');
   });
 });
