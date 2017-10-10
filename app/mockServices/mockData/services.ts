@@ -169,5 +169,21 @@ export const servicesData = {
         longDescription: 'A sample APB which deploys a PostgreSQL Database',
       }
     }
+  },
+  "test-serviceclass-hidden": {
+    kind: 'ServiceClass',
+    metadata: {
+      name: "test-serviceclass-hidden",
+      uid: "11",
+    },
+    spec: {
+      bindable: true,
+      description: 'THIS SERVICE SHOULD NOT SHOW UP IN THE UI.',
+      tags: ['databases', 'postgresql', 'hidden'],
+      externalMetadata: {
+        displayName: 'THIS SERVICE SHOULD NOT SHOW UP IN THE UI',
+        longDescription: 'It has the `hidden` tag, which means it should not be displayed.',
+      }
+    }
   }
 };

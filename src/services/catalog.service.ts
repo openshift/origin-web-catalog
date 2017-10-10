@@ -130,10 +130,8 @@ export class CatalogService { static $inject = ['$filter', '$q', 'Constants', 'A
       return this.getTemplateItem(template);
     }));
 
-    // Remove null items (non-builder images).
-    items = _.reject(items, (item: any) => {
-      return !item;
-    });
+    // Remove hidden items such as non-builder images or items with a `hidden` tag.
+    items = _.reject(items, 'hidden');
 
     // Perform a case-insensitive sort on display name, falling back to kind
     // and metadata.name for a stable sort when items have the same display name.
@@ -161,8 +159,7 @@ export class CatalogService { static $inject = ['$filter', '$q', 'Constants', 'A
   }
 
   public getImageItem(resource: any) {
-    let imgStream = new ImageItem(resource, this);
-    return imgStream.builderSpecTagName ? imgStream : null;
+    return new ImageItem(resource, this);
   }
 
   public getTemplateItem(resource: any) {
@@ -329,6 +326,7 @@ interface IServiceItem {
   // Necessary to track kind here since the real kind will not be in the
   // `resource` if requesting partial object metadata for templates
   kind: string;
+  hidden: boolean;
 }
 
 export class ServiceItem implements IServiceItem {
@@ -341,6 +339,7 @@ export class ServiceItem implements IServiceItem {
   public vendor: string;
   public resource: any;
   public kind: string;
+  public hidden: boolean;
   private catalogSrv: CatalogService;
 
   constructor (serviceClass: any, catalogSrv: CatalogService) {
@@ -354,6 +353,7 @@ export class ServiceItem implements IServiceItem {
     this.tags = this.getTags();
     this.kind = "ServiceClass";
     this.vendor = this.getVendor();
+    this.hidden = _.includes(this.tags, 'hidden');
   }
 
   private getImage(): string {
@@ -407,6 +407,7 @@ export class ImageItem implements IServiceItem {
   public builderSpecTagName: any;
   public kind: string;
   public vendor: string;
+  public hidden: boolean;
   private catalogSrv: CatalogService;
 
   constructor (image: any, catalogSrv : CatalogService) {
@@ -422,6 +423,9 @@ export class ImageItem implements IServiceItem {
       this.longDescription = this.getLongDescription();
       this.kind = "ImageStream";
       this.vendor = this.getVendor();
+      this.hidden = false;
+    } else {
+      this.hidden = true;
     }
   }
 
@@ -496,6 +500,7 @@ export class TemplateItem implements IServiceItem {
   public resource: any;
   public kind: string;
   public vendor: string;
+  public hidden: boolean;
   private catalogSrv: CatalogService;
 
   constructor (template: any, catalogSrv: CatalogService) {
@@ -509,6 +514,7 @@ export class TemplateItem implements IServiceItem {
     this.tags = this.getTags();
     this.kind = "Template";
     this.vendor = this.getVendor();
+    this.hidden = _.includes(this.tags, 'hidden');
   }
 
   private getImage() {
