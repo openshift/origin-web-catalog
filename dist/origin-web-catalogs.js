@@ -815,7 +815,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
         }, e.prototype.getName = function() {
             return i.get(this.resource, "spec.externalMetadata.displayName") || this.resource.metadata.name;
         }, e.prototype.getDescription = function() {
-            return i.get(this.resource, "description") || "";
+            return i.get(this.resource, "spec.description") || "";
         }, e.prototype.getLongDescription = function() {
             return i.get(this.resource, "spec.externalMetadata.longDescription") || "";
         }, e.prototype.getTags = function() {
