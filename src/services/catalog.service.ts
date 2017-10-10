@@ -378,7 +378,7 @@ export class ServiceItem implements IServiceItem {
   }
 
   private getDescription(): string {
-    return _.get(this.resource, 'description') as string || '';
+    return _.get(this.resource, 'spec.description') as string || '';
   }
 
   private getLongDescription(): string {
