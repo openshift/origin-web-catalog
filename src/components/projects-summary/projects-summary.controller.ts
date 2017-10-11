@@ -153,7 +153,7 @@ export class ProjectsSummaryController implements angular.IController {
   }
 
   public onProjectsUpdate = (projectData: any) => {
-    var projects: any = _.toArray(projectData.by('metadata.creationTimestamp'));
+    var projects: any = _.toArray(projectData.by('metadata.name'));
     this.ctrl.projects = this.RecentlyViewedProjectsService.orderByMostRecentlyViewed(projects);
 
     this.ctrl.totalProjects = this.ctrl.projects.length;
