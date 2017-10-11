@@ -206,10 +206,10 @@ export class DataService implements IDataService {
     resource = this.normalizeResource(resource);
 
     switch (resource) {
-    case 'serviceclasses':
+    case 'clusterserviceclasses':
       returnData = new DataServiceData(servicesData);
       break;
-    case 'serviceplans':
+    case 'clusterserviceplans':
       returnData = new DataServiceData(plansData);
       break;
     case 'projects':

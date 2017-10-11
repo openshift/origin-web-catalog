@@ -1,6 +1,7 @@
 export const plansData = {
   // test-serviceclass-java-nodejs
   'rh-ded-topic': {
+    kind: 'ClusterServicePlan',
     metadata: {
       name: 'rh-ded-topic',
       uid: '1'
@@ -58,6 +59,7 @@ export const plansData = {
     }
   },
   'rh-ded-queue': {
+    kind: 'ClusterServicePlan',
     metadata: {
       name: 'rh-ded-queue',
       uid: '2'
@@ -76,6 +78,7 @@ export const plansData = {
     }
   },
   'rh-shared-topic': {
+    kind: 'ClusterServicePlan',
     metadata: {
       name: 'rh-shared-topic',
       uid: '3'
@@ -94,6 +97,7 @@ export const plansData = {
     }
   },
   'rh-shared-queue': {
+    kind: 'ClusterServicePlan',
     metadata: {
       name: 'rh-shared-queue',
       uid: '4'
@@ -111,6 +115,7 @@ export const plansData = {
     }
   },
   'self-ded-topic': {
+    kind: 'ClusterServicePlan',
     metadata: {
       name: 'self-ded-topic',
       uid: '5',
@@ -129,6 +134,7 @@ export const plansData = {
     }
   },
   'self-ded-queue': {
+    kind: 'ClusterServicePlan',
     metadata: {
       name: 'self-ded-queue',
       uid: '6'
@@ -148,6 +154,7 @@ export const plansData = {
   },
   // test-serviceclass-nodejs
   'test-serviceclass-nodejs-plan': {
+    kind: 'ClusterServicePlan',
     metadata: {
       name: 'test-serviceclass-nodejs-plan',
       uid: '7'
@@ -167,6 +174,7 @@ export const plansData = {
   },
   // test-serviceclass-perl
   'test-serviceclass-perl-plan': {
+    kind: 'ClusterServicePlan',
     metadata: {
       name: 'test-serviceclass-perl-plan',
       uid: '8'
@@ -186,6 +194,7 @@ export const plansData = {
   },
   // test-serviceclass-ruby
   'test-serviceclass-ruby-plan': {
+    kind: 'ClusterServicePlan',
     metadata: {
       name: 'test-serviceclass-ruby-plan',
       uid: '9'
@@ -205,6 +214,7 @@ export const plansData = {
   },
   // test-serviceclass-php
   'test-serviceclass-php-plan': {
+    kind: 'ClusterServicePlan',
     metadata: {
       name: 'test-serviceclass-php-plan',
       uid: '10'
@@ -224,6 +234,7 @@ export const plansData = {
   },
   // test-serviceclass-mongo
   'test-serviceclass-mongo-plan': {
+    kind: 'ClusterServicePlan',
     metadata: {
       name: 'test-serviceclass-mongo-plan',
       uid: '10'
@@ -243,6 +254,7 @@ export const plansData = {
   },
   // test-serviceclass-mysql
   'test-serviceclass-mysql-plan': {
+    kind: 'ClusterServicePlan',
     metadata: {
       name: 'test-serviceclass-mysql-plan',
       uid: '11'
@@ -262,6 +274,7 @@ export const plansData = {
   },
   // test-serviceclass-other
   'test-serviceclass-other-plan': {
+    kind: 'ClusterServicePlan',
     metadata: {
       name: 'test-serviceclass-other-plan',
       uid: '12'
@@ -281,6 +294,7 @@ export const plansData = {
   },
   // test-serviceclass-jenkins
   'test-serviceclass-jenkins-plan': {
+    kind: 'ClusterServicePlan',
     metadata: {
       name: 'test-serviceclass-jenkins-plan',
       uid: '13'
@@ -300,6 +314,7 @@ export const plansData = {
   },
   // test-serviceclass-pg-apb
   'pg-apb-default': {
+    kind: 'ClusterServicePlan',
     metadata: {
       name: "pg-apb-default",
       uid: '14'

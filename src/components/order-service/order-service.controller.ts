@@ -413,14 +413,14 @@ export class OrderServiceController implements angular.IController {
     });
   }
 
-  private getExternalServiceClassName(): string {
+  private getExternalClusterServiceClassName(): string {
     return _.get(this, 'ctrl.serviceClass.resource.spec.externalName') as string;
   };
 
   private generateSecretName(): string {
     let generateNameLength = 5;
     // Truncate the class name if it's too long to append the generated name suffix.
-    let secretNamePrefix = _.truncate(this.getExternalServiceClassName() + '-parameters', {
+    let secretNamePrefix = _.truncate(this.getExternalClusterServiceClassName() + '-parameters', {
       // `generateNameLength - 1` because we append a '-' and then a 5 char generated suffix
       length: this.DNS1123_SUBDOMAIN_VALIDATION.maxlength - generateNameLength - 1,
       omission: ''
@@ -454,17 +454,17 @@ export class OrderServiceController implements angular.IController {
   }
 
   private makeServiceInstance(secretName: string) {
-    let externalServiceClassName = this.getExternalServiceClassName();
+    let externalClusterServiceClassName = this.getExternalClusterServiceClassName();
     let serviceInstance: any = {
       kind: 'ServiceInstance',
-      apiVersion: 'servicecatalog.k8s.io/v1alpha1',
+      apiVersion: 'servicecatalog.k8s.io/v1beta1',
       metadata: {
         namespace: this.ctrl.selectedProject.metadata.name,
-        generateName: externalServiceClassName + '-'
+        generateName: externalClusterServiceClassName + '-'
        },
        spec: {
-         externalServiceClassName: externalServiceClassName,
-         externalServicePlanName: this.ctrl.selectedPlan.spec.externalName
+         externalClusterServiceClassName: externalClusterServiceClassName,
+         externalClusterServicePlanName: this.ctrl.selectedPlan.spec.externalName
        }
     };
 
