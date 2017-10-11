@@ -1642,7 +1642,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                     u.ctrl.recentlyViewedItems = u.getRecentlyViewedItems();
                 });
             }, this.onProjectsUpdate = function(e) {
-                var t = i.toArray(e.by("metadata.creationTimestamp"));
+                var t = i.toArray(e.by("metadata.name"));
                 u.ctrl.projects = u.RecentlyViewedProjectsService.orderByMostRecentlyViewed(t), 
                 u.ctrl.totalProjects = u.ctrl.projects.length, u.ctrl.projects = i.take(u.ctrl.projects, u.maxDisplayProjects), 
                 u.ctrl.loading = !1, u.ctrl.showGetStarted = !u.ctrl.projects || u.ctrl.projects.length < 2;
