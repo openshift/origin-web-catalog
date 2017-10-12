@@ -5,7 +5,8 @@ export const selectProject: angular.IComponentOptions = {
     selectedProject: '=',
     nameTaken: '<',
     onProjectSelected: '<',
-    availableProjects: '<'
+    availableProjects: '<',
+    showDivider: '<?'
   },
   controller: SelectProjectController,
   template: require('./selectProject.html')

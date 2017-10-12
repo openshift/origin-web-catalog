@@ -1,9 +1,23 @@
-<ng-form name="$ctrl.forms.selectProjectForm">
+<span ng-if="$ctrl.noProjectsCantCreate" class="no-projects-cant-create">
+  <pf-empty-state config="$ctrl.noProjectsConfig"></pf-empty-state>
+  <p ng-if="!$ctrl.noProjectsCantCreateMessage">
+    A cluster admin can create a project for you by running the command:
+    <div class="code-block">
+      <code>oc adm <span class="command-arg">new-project</span> &lt;projectname&gt; <span class="command-arg">--admin={{$ctrl.user.metadata.name || '&lt;YourUsername&gt;'}}</span></code>
+    </div>
+  </p>
+  <div ng-if="$ctrl.noProjectsCantCreateMessage" ng-bind-html="$ctrl.noProjectsCantCreateMessage | linky : '_blank'"></div>
+</span>
+
+<ng-form name="$ctrl.forms.selectProjectForm" ng-if="$ctrl.numProjectChoices >= 1">
   <div class="form-group" ng-class="{'has-error' : $ctrl.forms.selectProjectForm.selectProject.$error.cannotAddToProject ||
                                                    ($ctrl.forms.selectProjectForm.selectProject.$touched &&
                                                     $ctrl.forms.selectProjectForm.selectProject.$invalid)}">
-    <label class="control-label required">Add to Project</label>
+    <h3 ng-if="$ctrl.canOnlyCreateProject()">Create Project</h3>
+    <label ng-if="!$ctrl.canOnlyCreateProject()" class="control-label required">Add to Project</label>
     <ui-select
+        ng-if="!$ctrl.canOnlyCreateProject()"
+        ng-disabled="$ctrl.numProjectChoices === 1"
         name="selectProject"
         ng-model="$ctrl.selectedProject"
         ng-change="$ctrl.onSelectProjectChange()"
@@ -101,3 +115,5 @@
       ng-model="$ctrl.selectedProject.metadata.annotations['openshift.io/description']"></textarea>
   </div>
 </ng-form>
+<div ng-if="!$ctrl.noProjectsCantCreate && $ctrl.showDivider" class="select-project-divider"></div>
+

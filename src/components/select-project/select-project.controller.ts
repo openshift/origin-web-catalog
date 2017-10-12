@@ -4,6 +4,7 @@ import * as _ from 'lodash';
 export class SelectProjectController implements angular.IController {
   static $inject = [
     '$filter',
+    '$scope',
     'AuthService',
     'AuthorizationService',
     'KeywordService',
@@ -17,6 +18,7 @@ export class SelectProjectController implements angular.IController {
   public ctrl: any = this;
 
   private $filter: any;
+  private $scope: any;
   private ProjectsService: any;
   private Logger: any;
   private AuthService: any;
@@ -30,6 +32,7 @@ export class SelectProjectController implements angular.IController {
   private lastResults: any;
 
   constructor($filter: any,
+              $scope: any,
               AuthService: any,
               AuthorizationService: any,
               KeywordService: any,
@@ -37,6 +40,7 @@ export class SelectProjectController implements angular.IController {
               ProjectsService: any,
               RecentlyViewedProjectsService: any) {
     this.$filter = $filter;
+    this.$scope = $scope;
     this.AuthService = AuthService;
     this.AuthorizationService = AuthorizationService;
     this.KeywordService = KeywordService;
@@ -51,6 +55,16 @@ export class SelectProjectController implements angular.IController {
 
   public $onInit() {
     this.ctrl.nameTaken = false;
+    this.ctrl.noProjectsCantCreate = false;
+
+    this.ctrl.noProjectsConfig = {
+      title: 'No Projects Found',
+      info: "Services cannot be provisioned without a project."
+    };
+
+    if (this.ctrl.showDivider === undefined) {
+      this.ctrl.showDivider = true;
+    }
 
     this.ProjectsService.canCreate().then(() => {
       this.ctrl.canCreate = true;
@@ -64,6 +78,20 @@ export class SelectProjectController implements angular.IController {
           msg += " (" + result.status + ")";
         }
         this.Logger.warn(msg);
+      }
+
+      var data = result.data || {};
+
+      if (data.details) {
+        var messages = [];
+        _.forEach(data.details.causes || [], function (cause: any) {
+          if (cause.message) {
+            messages.push(cause.message);
+          }
+        });
+        if (messages.length > 0) {
+          this.ctrl.noProjectsCantCreateMessage = messages.join("\n");
+        }
       }
     }).finally(() => {
       this.listProjects();
@@ -93,6 +121,10 @@ export class SelectProjectController implements angular.IController {
 
   public isNewProject(): boolean {
     return this.projects && this.ctrl.selectedProject && !_.has(this.ctrl.selectedProject, 'metadata.uid');
+  }
+
+  public canOnlyCreateProject(): boolean {
+    return this.ctrl.numProjectChoices === 1 && this.ctrl.canCreate;
   }
 
   public getProjectChoices = () => {
@@ -158,7 +190,7 @@ export class SelectProjectController implements angular.IController {
     return this.KeywordService.filterForKeywords(candidates, searchFields, keywords);
   };
 
-  private canIAddToProject() {
+  private canIAddToProject = () => {
     let canIAddToProject: boolean = true;
 
     var projectName = _.get(this.ctrl.selectedProject, 'metadata.name');
@@ -166,12 +198,16 @@ export class SelectProjectController implements angular.IController {
     if (!this.isNewProject()) {
       this.AuthorizationService.getProjectRules(projectName).then( () => {
         canIAddToProject = this.AuthorizationService.canIAddToProject(projectName);
-        this.ctrl.forms.selectProjectForm.selectProject.$setValidity('cannotAddToProject', canIAddToProject);
+        if (this.ctrl.forms) {
+          this.ctrl.forms.selectProjectForm.selectProject.$setValidity('cannotAddToProject', canIAddToProject);
+        }
       });
     }
 
-    this.ctrl.forms.selectProjectForm.selectProject.$setValidity('cannotAddToProject', canIAddToProject);
-  }
+    if (this.ctrl.forms) {
+      this.ctrl.forms.selectProjectForm.selectProject.$setValidity('cannotAddToProject', canIAddToProject);
+    }
+  };
 
   private updateProjects(projects: any) {
     this.largeProjectList = _.size(projects) >= SelectProjectController.LARGE_PROJECT_LIST_SIZE;
@@ -180,12 +216,13 @@ export class SelectProjectController implements angular.IController {
       this.ctrl.searchEnabled = true;
       this.ctrl.refreshDelay = 500;
       this.projects = projects;
+      this.ctrl.numProjectChoices = _.size(this.projects);
 
       // Don't do any additional filtering or processing on very large project lists.
       return;
     }
 
-    this.ctrl.placeholder = 'Select or create project';
+    this.ctrl.placeholder = 'Select project';
 
     // 'Create Project' placeholder obj in the dropdown
     let createProject = {
@@ -214,12 +251,23 @@ export class SelectProjectController implements angular.IController {
     }
 
     if (this.ctrl.canCreate) {
+      this.ctrl.placeholder = 'Select or create project';
       this.projects.unshift(createProject);
       if (_.size(this.projects) === 1) {
         this.ctrl.selectedProject = createProject;
         this.onSelectProjectChange();
       }
+    } else if (_.size(this.projects) === 0) {
+      this.ctrl.noProjectsCantCreate = true;
+      this.AuthService
+        .withUser()
+        .then((resp: any) => {
+          this.ctrl.user = resp;
+        });
+      this.$scope.$emit('no-projects-cannot-create');
     }
+
+    this.ctrl.numProjectChoices = _.size(this.projects);
   }
 
   private listProjects() {

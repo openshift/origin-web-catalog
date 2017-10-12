@@ -35,6 +35,7 @@ export class CreateFromBuilderController implements angular.IController {
   private instancesSupported: boolean;
   private reviewStep: any;
   private selectedProjectWatch: any;
+  private noProjectsCantCreateWatch: any;
   private validityWatcher: any;
 
   constructor($scope: ng.IScope,
@@ -113,6 +114,7 @@ export class CreateFromBuilderController implements angular.IController {
     this.ctrl.wizardDone = false;
     this.ctrl.serviceToBind = null;
     this.ctrl.updating = false;
+    this.ctrl.noProjectsCantCreate = false;
 
     this.ctrl.serviceInstances = [];
     this.selectedProjectWatch = this.$scope.$watch(
@@ -121,6 +123,7 @@ export class CreateFromBuilderController implements angular.IController {
       },
       this.onProjectUpdate
     );
+
     if (this.ctrl.showPodPresets) {
       // FIXME: We should not need to request these again.
       this.getServiceClassesAndPlans();
@@ -128,6 +131,13 @@ export class CreateFromBuilderController implements angular.IController {
     } else {
       this.instancesSupported = false;
     }
+
+    this.noProjectsCantCreateWatch = this.$scope.$on('no-projects-cannot-create', () => {
+      this.ctrl.noProjectsCantCreate = true;
+    });
+
+    this.getServiceClassesAndPlans();
+    this.instancesSupported = !!this.APIService.apiInfo(this.APIService.getPreferredVersion('serviceinstances'));
   }
 
   public closePanel() {
@@ -139,6 +149,7 @@ export class CreateFromBuilderController implements angular.IController {
   public $onDestroy() {
     this.DataService.unwatchAll(this.watches);
     this.selectedProjectWatch();
+    this.noProjectsCantCreateWatch();
     this.clearValidityWatcher();
   }
 
@@ -209,6 +220,9 @@ export class CreateFromBuilderController implements angular.IController {
 
     this.validityWatcher = this.$scope.$watch("$ctrl.builderForm.$valid", (isValid: any, lastValue: any) => {
       this.configStep.valid = isValid;
+      if (this.ctrl.noProjectsCantCreate === true) {
+        this.configStep.valid = false;
+      }
     });
   };
 
