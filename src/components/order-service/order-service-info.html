@@ -1,5 +1,5 @@
 <div class="order-service-details">
-  <div class="order-service-details-top">
+  <div class="order-service-details-top" ng-class="{'order-service-details-top-icon-top': ($ctrl.serviceClass.vendor || ($ctrl.docUrl || $ctrl.supportUrl))}">
     <div class="service-icon">
       <span ng-if="!$ctrl.imageUrl" class="icon {{$ctrl.iconClass}}" aria-hidden="true"></span>
       <span ng-if="$ctrl.imageUrl" class="image"><img ng-src="{{$ctrl.imageUrl}}" alt=""></span>
@@ -8,17 +8,20 @@
       <div class="service-title">
         {{$ctrl.serviceName}}
       </div>
+      <div ng-if="$ctrl.serviceClass.vendor" class="service-vendor">
+        {{$ctrl.serviceClass.vendor}}
+      </div>
       <div ng-if="$ctrl.serviceClass.tags" class="order-service-tags">
         <span ng-repeat="tag in $ctrl.serviceClass.tags" class="tag">
           {{tag}}
         </span>
       </div>
-      <ul ng-if="$ctrl.serviceClass.resource.spec.externalMetadata.documentationUrl || $ctrl.serviceClass.resource.spec.externalMetadata.supportUrl" class="list-inline order-service-documentation-url">
-        <li ng-if="$ctrl.serviceClass.resource.spec.externalMetadata.documentationUrl" >
-          <a ng-href="{{$ctrl.serviceClass.resource.spec.externalMetadata.documentationUrl}}" target="_blank" class="learn-more-link">View Documentation <i class="fa fa-external-link" aria-hidden="true"></i></a>
+      <ul ng-if="$ctrl.docUrl || $ctrl.supportUrl" class="list-inline order-service-documentation-url">
+        <li ng-if="$ctrl.docUrl" >
+          <a ng-href="{{$ctrl.docUrl}}" target="_blank" class="learn-more-link">View Documentation <i class="fa fa-external-link" aria-hidden="true"></i></a>
         </li>
-        <li ng-if="$ctrl.serviceClass.resource.spec.externalMetadata.supportUrl" >
-          <a ng-href="{{$ctrl.serviceClass.resource.spec.externalMetadata.supportUrl}}" target="_blank" class="learn-more-link">Get Support <i class="fa fa-external-link" aria-hidden="true"></i></a>
+        <li ng-if="$ctrl.supportUrl" >
+          <a ng-href="{{$ctrl.serviceClass.supportUrl}}" target="_blank" class="learn-more-link">Get Support <i class="fa fa-external-link" aria-hidden="true"></i></a>
         </li>
       </ul>
     </div>

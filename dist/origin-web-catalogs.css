@@ -244,6 +244,9 @@ landingbody,
   align-items: center;
   display: flex;
 }
+.order-service-details .order-service-details-top.order-service-details-top-icon-top {
+  align-items: flex-start;
+}
 .order-service-details .order-service-details-top .service-icon {
   margin-right: 15px;
 }
@@ -296,6 +299,9 @@ landingbody,
   overflow-wrap: break-word;
   min-width: 0;
 }
+.order-service-details .order-service-details-top .service-vendor {
+  margin-top: 5px;
+}
 .order-service-details .order-service-details-top .sub-title {
   font-size: 20px;
   font-weight: 600;
@@ -315,6 +321,7 @@ landingbody,
   margin-top: 4px;
 }
 .order-service-details .order-service-tags {
+  color: #9c9c9c;
   margin-top: 5px;
 }
 .order-service-details .order-service-tags .tag {
