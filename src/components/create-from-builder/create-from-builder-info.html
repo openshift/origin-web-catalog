@@ -17,7 +17,7 @@
     </div>
   </div>
   <div class="order-service-description-block">
-    <p ng-bind-html="$ctrl.istag.annotations.description | linky : '_blank'" class="description"></p>
+    <p ng-bind-html="($ctrl.istag.annotations.description | linky : '_blank') || 'No description provided.'" class="description"></p>
     <p ng-if="$ctrl.istag.annotations.sampleRepo">
       Sample Repository:
       <!-- TODO: Use Git link filter, needs to be added to origin-web-common -->

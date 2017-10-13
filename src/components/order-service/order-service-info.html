@@ -31,7 +31,8 @@
       </span>
       <span ng-if="$ctrl.selectedPlan.spec.description">{{$ctrl.selectedPlan.spec.description}}</span>
     </p>
-    <p ng-if="$ctrl.description" ng-bind-html="$ctrl.description | linky : '_blank'" class="description"></p>
+    <p ng-if="!$ctrl.description && !$ctrl.longDescription" class="description">No description provided.</p>
+    <p ng-if="$ctrl.description" ng-bind-html="($ctrl.description | linky : '_blank')" class="description"></p>
     <p ng-if="$ctrl.longDescription" ng-bind-html="$ctrl.longDescription | linky : '_blank'" class="description"></p>
   </div>
 </div>
