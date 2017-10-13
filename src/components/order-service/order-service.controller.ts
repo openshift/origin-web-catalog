@@ -62,6 +62,8 @@ export class OrderServiceController implements angular.IController {
     this.ctrl.serviceName = this.ctrl.serviceClass.name;
     this.ctrl.description = this.ctrl.serviceClass.description;
     this.ctrl.longDescription = this.ctrl.serviceClass.longDescription;
+    this.ctrl.docUrl = _.get(this.ctrl.serviceClass, 'resource.spec.externalMetadata.documentationUrl');
+    this.ctrl.supportUrl = _.get(this.ctrl.serviceClass, 'resource.spec.externalMetadata.supportUrl');
     this.ctrl.applications = [];
     this.ctrl.parameterData = {};
     this.ctrl.bindParameterData = {};
