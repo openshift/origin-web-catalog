@@ -1612,15 +1612,19 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
     "use strict";
     t.__esModule = !0;
     var n = r(1), i = r(2), s = function() {
-        function e() {
-            var e = this;
+        function e(e, t) {
+            var r = this;
             this.ctrl = this, this.closePanel = function() {
-                n.isFunction(e.ctrl.handleClose) && e.ctrl.handleClose();
+                n.isFunction(r.ctrl.handleClose) && r.ctrl.handleClose();
             }, this.showDialog = function() {
-                e.ctrl.shown = !0, i("body").addClass("overlay-open");
+                r.ctrl.shown = !0, i("body").addClass("overlay-open"), r.$document.bind("keydown keypress", r.closeOnEsc);
             }, this.hideDialog = function() {
-                e.ctrl.shown = !1, i("body").removeClass("overlay-open");
-            }, this.ctrl.shown = !1;
+                r.ctrl.shown = !1, i("body").removeClass("overlay-open"), r.$document.unbind("keydown keypress", r.closeOnEsc);
+            }, this.closeOnEsc = function(e) {
+                27 === e.which && (e.preventDefault(), r.$scope.$evalAsync(function() {
+                    r.closePanel();
+                }));
+            }, this.$document = e, this.$scope = t, this.ctrl.shown = !1;
         }
         return e.prototype.$postLink = function() {
             this.ctrl.showPanel && this.showDialog();
@@ -1630,7 +1634,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             i("body").removeClass("overlay-open");
         }, e;
     }();
-    t.OverlayPanelController = s;
+    s.$inject = [ "$document", "$scope" ], t.OverlayPanelController = s;
 }, function(e, t, r) {
     "use strict";
     t.__esModule = !0;
