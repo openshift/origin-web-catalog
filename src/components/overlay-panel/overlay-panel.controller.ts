@@ -2,9 +2,15 @@ import * as angular from 'angular';
 import * as $ from 'jquery';
 
 export class OverlayPanelController implements angular.IController {
-  public ctrl: any = this;
+  static $inject = ['$document', '$scope'];
 
-  constructor () {
+  public ctrl: any = this;
+  private $document: any;
+  private $scope: any;
+
+  constructor ($document, $scope) {
+    this.$document = $document;
+    this.$scope = $scope;
     this.ctrl.shown = false;
   }
 
@@ -37,10 +43,21 @@ export class OverlayPanelController implements angular.IController {
   private showDialog = () => {
     this.ctrl.shown = true;
     $('body').addClass('overlay-open');
+    this.$document.bind('keydown keypress', this.closeOnEsc);
   };
 
   private hideDialog = () => {
     this.ctrl.shown = false;
     $('body').removeClass('overlay-open');
-  }
+    this.$document.unbind('keydown keypress', this.closeOnEsc);
+  };
+
+  private closeOnEsc = (event: any) => {
+    if(event.which === 27) {
+      event.preventDefault();
+      this.$scope.$evalAsync(() => {
+        this.closePanel();
+      });
+    }
+  };
 }
