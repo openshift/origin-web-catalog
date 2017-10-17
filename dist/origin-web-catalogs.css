@@ -1203,7 +1203,7 @@ services-view .vendor-info-icon,
 }
 .services-view .services-view-container .add-other > li {
   display: inline-block;
-  margin-left: 12px;
+  margin-left: 20px;
 }
 .services-view .services-view-container .add-other > li > a {
   color: #fff;
