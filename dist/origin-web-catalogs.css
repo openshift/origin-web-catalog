@@ -1018,7 +1018,7 @@ services-view .vendor-info-icon,
   z-index: 1;
 }
 .services-view .services-item .services-item-icon img[src$=".svg"] {
-  height: 50px;
+  width: 50px;
 }
 .services-view .services-item .icon-ruby,
 .services-view .services-item .fa-question {
