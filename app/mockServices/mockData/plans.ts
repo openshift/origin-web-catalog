@@ -53,7 +53,7 @@ export const plansData = {
           "protocol"
         ]
       },
-      serviceClassRef: {
+      clusterServiceClassRef: {
         name: "test-serviceclass-java-nodejs"
       }
     }
@@ -72,7 +72,7 @@ export const plansData = {
         bullets: ['Four', 'Five', 'Six']
       },
       description: '$.65 / 1 Million messages',
-      serviceClassRef: {
+      clusterServiceClassRef: {
         name: "test-serviceclass-java-nodejs"
       }
     }
@@ -91,7 +91,7 @@ export const plansData = {
         bullets: ['One', 'Two', 'Three']
       },
       description: '$.60 / 1 Million messages',
-      serviceClassRef: {
+      clusterServiceClassRef: {
         name: "test-serviceclass-java-nodejs"
       }
     }
@@ -109,7 +109,7 @@ export const plansData = {
         bullets: ['Four', 'Five', 'Six']
       },
       description: '$.60 / 1 Million messages',
-      serviceClassRef: {
+      clusterServiceClassRef: {
         name: "test-serviceclass-java-nodejs"
       }
     }
@@ -128,7 +128,7 @@ export const plansData = {
         bullets: ['One', 'Two', 'Three']
       },
       description: '$12 / instance',
-      serviceClassRef: {
+      clusterServiceClassRef: {
         name: "test-serviceclass-java-nodejs"
       }
     }
@@ -147,7 +147,7 @@ export const plansData = {
         bullets: ['Four', 'Five', 'Six']
       },
       description: '$12 / instance',
-      serviceClassRef: {
+      clusterServiceClassRef: {
         name: "test-serviceclass-java-nodejs"
       }
     }
@@ -167,7 +167,7 @@ export const plansData = {
         bullets: ['One', 'Two', 'Three']
       },
       description: '$.65 / 1 Million messages',
-      serviceClassRef: {
+      clusterServiceClassRef: {
         name: "test-serviceclass-nodejs"
       }
     }
@@ -187,7 +187,7 @@ export const plansData = {
         bullets: ['One', 'Two', 'Three']
       },
       description: '$.65 / 1 Million messages',
-      serviceClassRef: {
+      clusterServiceClassRef: {
         name: "test-serviceclass-perl"
       }
     }
@@ -207,7 +207,7 @@ export const plansData = {
         bullets: ['One', 'Two', 'Three']
       },
       description: '$.65 / 1 Million messages',
-      serviceClassRef: {
+      clusterServiceClassRef: {
         name: "test-serviceclass-ruby"
       }
     }
@@ -227,7 +227,7 @@ export const plansData = {
         bullets: ['One', 'Two', 'Three']
       },
       description: '$.65 / 1 Million messages',
-      serviceClassRef: {
+      clusterServiceClassRef: {
         name: "test-serviceclass-php"
       }
     }
@@ -247,7 +247,7 @@ export const plansData = {
         bullets: ['One', 'Two', 'Three']
       },
       description: '$.65 / 1 Million messages',
-      serviceClassRef: {
+      clusterServiceClassRef: {
         name: "test-serviceclass-mongo"
       }
     }
@@ -267,7 +267,7 @@ export const plansData = {
         bullets: ['One', 'Two', 'Three']
       },
       description: '$.65 / 1 Million messages',
-      serviceClassRef: {
+      clusterServiceClassRef: {
         name: "test-serviceclass-mysql"
       }
     }
@@ -287,7 +287,7 @@ export const plansData = {
         bullets: ['One', 'Two', 'Three']
       },
       description: '$.65 / 1 Million messages',
-      serviceClassRef: {
+      clusterServiceClassRef: {
         name: "test-serviceclass-other"
       }
     }
@@ -307,7 +307,7 @@ export const plansData = {
         bullets: ['One', 'Two', 'Three']
       },
       description: '$.65 / 1 Million messages',
-      serviceClassRef: {
+      clusterServiceClassRef: {
         name: "test-serviceclass-jenkins"
       }
     }
@@ -417,7 +417,7 @@ export const plansData = {
         },
         type: "object"
       },
-      serviceClassRef: {
+      clusterServiceClassRef: {
         name: "test-serviceclass-pg-apb"
       }
     }
