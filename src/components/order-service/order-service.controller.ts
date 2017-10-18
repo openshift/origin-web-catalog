@@ -71,6 +71,7 @@ export class OrderServiceController implements angular.IController {
 
     this.ctrl.appToBind = null;
     this.ctrl.configStepValid = true;
+    this.ctrl.multipleServicePlans = _.size(this.ctrl.servicePlans) > 1;
 
     this.infoStep = {
       id: 'info',
@@ -86,7 +87,7 @@ export class OrderServiceController implements angular.IController {
       id: 'plans',
       label: 'Plan',
       view: 'order-service/order-service-plans.html',
-      hidden: _.size(this.ctrl.servicePlans) < 2,
+      hidden: !this.ctrl.multipleServicePlans,
       allowed: true,
       valid: true,
       allowClickNav: true,

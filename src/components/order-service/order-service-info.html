@@ -27,7 +27,7 @@
     </div>
   </div>
   <div class="order-service-description-block">
-    <p ng-if="$ctrl.currentStep.id !== 'plans' && ($ctrl.selectedPlan.spec.externalMetadata.displayName || $ctrl.selectedPlan.spec.description)">
+    <p ng-if="!$ctrl.multipleServicePlans && ($ctrl.selectedPlan.spec.externalMetadata.displayName || $ctrl.selectedPlan.spec.description)">
       <span ng-if="$ctrl.selectedPlan.spec.externalMetadata.displayName">
         Plan {{$ctrl.selectedPlan.spec.externalMetadata.displayName}}
         <span ng-if="$ctrl.selectedPlan.spec.description">&ndash;</span>
