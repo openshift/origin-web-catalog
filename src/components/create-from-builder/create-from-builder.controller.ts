@@ -121,8 +121,13 @@ export class CreateFromBuilderController implements angular.IController {
       },
       this.onProjectUpdate
     );
-    this.getServiceClassesAndPlans();
-    this.instancesSupported = !!this.APIService.apiInfo(this.APIService.getPreferredVersion('serviceinstances'));
+    if (this.ctrl.showPodPresets) {
+      // FIXME: We should not need to request these again.
+      this.getServiceClassesAndPlans();
+      this.instancesSupported = !!this.APIService.apiInfo(this.APIService.getPreferredVersion('serviceinstances'));
+    } else {
+      this.instancesSupported = false;
+    }
   }
 
   public closePanel() {
@@ -291,7 +296,7 @@ export class CreateFromBuilderController implements angular.IController {
   };
 
   private updateBindability() {
-    if (this.ctrl.wizardDone) {
+    if (this.ctrl.wizardDone || !this.ctrl.showPodPresets) {
       return;
     }
     this.bindStep.hidden = _.size(this.ctrl.serviceInstances) < 1;

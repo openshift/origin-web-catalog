@@ -1205,7 +1205,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             this.ctrl.serviceToBind = null, this.ctrl.updating = !1, this.ctrl.serviceInstances = [], 
             this.selectedProjectWatch = this.$scope.$watch(function() {
                 return e.ctrl.selectedProject;
-            }, this.onProjectUpdate), this.getServiceClassesAndPlans(), this.instancesSupported = !!this.APIService.apiInfo(this.APIService.getPreferredVersion("serviceinstances"));
+            }, this.onProjectUpdate), this.ctrl.showPodPresets ? (this.getServiceClassesAndPlans(), 
+            this.instancesSupported = !!this.APIService.apiInfo(this.APIService.getPreferredVersion("serviceinstances"))) : this.instancesSupported = !1;
         }, e.prototype.closePanel = function() {
             n.isFunction(this.ctrl.handleClose) && this.ctrl.handleClose();
         }, e.prototype.$onDestroy = function() {
@@ -1262,7 +1263,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 }), this.ctrl.serviceInstances = e;
             }
         }, e.prototype.updateBindability = function() {
-            this.ctrl.wizardDone || (this.bindStep.hidden = i.size(this.ctrl.serviceInstances) < 1, 
+            !this.ctrl.wizardDone && this.ctrl.showPodPresets && (this.bindStep.hidden = i.size(this.ctrl.serviceInstances) < 1, 
             this.ctrl.serviceToBind = null, this.bindStep.hidden ? this.ctrl.nextTitle = "Create" : this.ctrl.nextTitle = "Next >");
         }, e.prototype.isNewProject = function() {
             return !i.has(this.ctrl.selectedProject, "metadata.uid");
