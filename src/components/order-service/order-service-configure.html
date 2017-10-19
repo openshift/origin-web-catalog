@@ -1,9 +1,9 @@
 <div class="order-service-config">
   <div class="config-top">
     <form name="$ctrl.forms.orderConfigureForm" class="config-form">
-      <select-project selected-project="$ctrl.selectedProject" name-taken="$ctrl.nameTaken"></select-project>
+      <select-project selected-project="$ctrl.selectedProject" name-taken="$ctrl.nameTaken" show-divider="$ctrl.parameterSchema.properties.length > 0"></select-project>
       <catalog-parameters
-        ng-if="$ctrl.parameterSchema.properties"
+        ng-if="$ctrl.parameterSchema.properties && !$ctrl.noProjectsCantCreate"
         model="$ctrl.parameterData"
         parameter-schema="$ctrl.parameterSchema"
         parameter-form-definition="$ctrl.parameterFormDefinition">

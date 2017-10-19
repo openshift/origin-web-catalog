@@ -34,6 +34,7 @@ export class OrderServiceController implements angular.IController {
   private selectedProjectWatch: any;
   private bindTypeWatch: any;
   private validityWatcher: any;
+  private noProjectsCantCreateWatch: any;
   private DNS1123_SUBDOMAIN_VALIDATION: any;
 
   constructor($scope: any,
@@ -64,6 +65,7 @@ export class OrderServiceController implements angular.IController {
     this.ctrl.longDescription = this.ctrl.serviceClass.longDescription;
     this.ctrl.docUrl = _.get(this.ctrl.serviceClass, 'resource.spec.externalMetadata.documentationUrl');
     this.ctrl.supportUrl = _.get(this.ctrl.serviceClass, 'resource.spec.externalMetadata.supportUrl');
+    this.ctrl.noProjectsCantCreate = false;
     this.ctrl.applications = [];
     this.ctrl.parameterData = {};
     this.ctrl.bindParameterData = {};
@@ -165,6 +167,10 @@ export class OrderServiceController implements angular.IController {
       this.ctrl.nextTitle = this.bindParametersStep.hidden ? 'Create' : 'Next >';
       this.reviewStep.allowed = this.bindParametersStep.hidden && this.bindStep.valid;
     });
+
+    this.noProjectsCantCreateWatch = this.$scope.$on('no-projects-cannot-create', () => {
+      this.ctrl.noProjectsCantCreate = true;
+    });
   }
 
   public clearValidityWatcher = () => {
@@ -194,7 +200,7 @@ export class OrderServiceController implements angular.IController {
     this.updateBindability();
 
     this.validityWatcher = this.$scope.$watch("$ctrl.forms.orderConfigureForm.$valid", (isValid: any, lastValue: any) => {
-      this.configStep.valid = isValid;
+      this.configStep.valid = isValid && !this.ctrl.noProjectsCantCreate;
       this.bindStep.allowed = this.configStep.valid;
       this.reviewStep.allowed = this.bindStep.hidden && this.configStep.valid;
     });
@@ -325,6 +331,7 @@ export class OrderServiceController implements angular.IController {
   public $onDestroy() {
     this.DataService.unwatchAll(this.watches);
     this.selectedProjectWatch();
+    this.noProjectsCantCreateWatch();
     this.bindTypeWatch();
     this.clearValidityWatcher();
   }

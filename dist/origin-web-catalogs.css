@@ -394,12 +394,19 @@ landingbody,
   color: #fff;
   text-decoration: none;
 }
+.order-service-config .form-group h3 {
+  margin-left: -10px;
+}
 .order-service-config h3 {
   line-height: 1.4;
   margin-top: 0;
 }
 .order-service-config h3 + .alert {
   margin-top: 20px;
+}
+.order-service-config .no-projects-cant-create div,
+.order-service-config .no-projects-cant-create p {
+  text-align: center;
 }
 .order-service-config .or {
   margin-left: 15px;
@@ -415,6 +422,11 @@ landingbody,
 }
 .order-service-config .select-plans .radio {
   margin-top: 15px;
+}
+.order-service-config .select-project-divider {
+  border-bottom: 1px solid #bbb;
+  margin-bottom: 18px;
+  margin-top: 22px;
 }
 .order-service-config .sub-title {
   margin: 0 0 10px 0;

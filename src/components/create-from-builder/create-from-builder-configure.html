@@ -1,103 +1,106 @@
 <div class="order-service-config">
   <div class="config-top">
     <form name="$ctrl.builderForm" class="config-form">
-      <div class="form-group">
-        <label class="control-label" for="version">Version</label>
-        <ui-select ng-model="$ctrl.istag" required search-enabled="false">
-          <ui-select-match>
-            {{$select.selected.name}}
-          </ui-select-match>
-          <ui-select-choices repeat="tag in $ctrl.versions track by tag.name">
-            {{tag.name}}
-            <small ng-repeat="otherTag in $ctrl.referencedBy[tag.name]">
-              <span ng-if="$first"> &mdash; </span>{{otherTag}}<span ng-if="!$last">,</span>
-            </small>
-          </ui-select-choices>
-        </ui-select>
-      </div>
-      <select-project selected-project="$ctrl.selectedProject" name-taken="$ctrl.projectNameTaken"></select-project>
-      <div class="form-group">
-        <label class="control-label required" for="app-name">Application Name</label>
-        <div ng-class="{ 'has-error': $ctrl.builderForm.name.$touched && $ctrl.builderForm.name.$invalid }">
-          <input
-            class="form-control"
-            type="text"
-            id="app-name"
-            required
-            minlength="2"
-            ng-maxlength="$ctrl.nameMaxLength"
-            ng-pattern="$ctrl.namePattern"
-            ng-model="$ctrl.name"
-            name="name"
-            autocorrect="off"
-            autocapitalize="none"
-            spellcheck="false">
-          <!-- Wait until users leave the field to avoid flashing errors as they type. -->
-          <div ng-if="$ctrl.builderForm.name.$touched">
-            <div class="has-error" ng-show="$ctrl.builderForm.name.$error.required">
+      <select-project selected-project="$ctrl.selectedProject"
+                      name-taken="$ctrl.projectNameTaken"></select-project>
+      <span ng-if="!$ctrl.noProjectsCantCreate">
+        <div class="form-group">
+          <label class="control-label" for="version">Version</label>
+          <ui-select ng-model="$ctrl.istag" required search-enabled="false">
+            <ui-select-match>
+              {{$select.selected.name}}
+            </ui-select-match>
+            <ui-select-choices repeat="tag in $ctrl.versions track by tag.name">
+              {{tag.name}}
+              <small ng-repeat="otherTag in $ctrl.referencedBy[tag.name]">
+                <span ng-if="$first"> &mdash; </span>{{otherTag}}<span ng-if="!$last">,</span>
+              </small>
+            </ui-select-choices>
+          </ui-select>
+        </div>
+        <div class="form-group">
+          <label class="control-label required" for="app-name">Application Name</label>
+          <div ng-class="{ 'has-error': $ctrl.builderForm.name.$touched && $ctrl.builderForm.name.$invalid }">
+            <input
+              class="form-control"
+              type="text"
+              id="app-name"
+              required
+              minlength="2"
+              ng-maxlength="$ctrl.nameMaxLength"
+              ng-pattern="$ctrl.namePattern"
+              ng-model="$ctrl.name"
+              name="name"
+              autocorrect="off"
+              autocapitalize="none"
+              spellcheck="false">
+            <!-- Wait until users leave the field to avoid flashing errors as they type. -->
+            <div ng-if="$ctrl.builderForm.name.$touched">
+              <div class="has-error" ng-show="$ctrl.builderForm.name.$error.required">
+                <span class="help-block">
+                  Application name is required.
+                </span>
+              </div>
+              <div class="has-error" ng-show="$ctrl.builderForm.name.$error.pattern">
+                <span class="help-block">
+                  Application name consists of lower-case letters, numbers, and dashes. It must start with a letter and can't end with a <code>-</code>.
+                </span>
+              </div>
+              <div class="has-error" ng-show="$ctrl.builderForm.name.$error.minlength">
+                <span class="help-block">
+                  Application name must be at least 2 characters.
+                </span>
+              </div>
+              <div class="has-error" ng-show="$ctrl.builderForm.name.$error.maxlength">
+                <span class="help-block">
+                  Application name can't be more than 24 characters.
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="control-label required" for="repository">Git Repository</label>
+          <div ng-class="{ 'has-error': $ctrl.builderForm.repository.$touched && $ctrl.builderForm.repository.$error.$required }">
+            <input class="form-control"
+              type="text"
+              id="repository"
+              name="repository"
+              required
+              ng-model="$ctrl.repository"
+              autocorrect="off"
+              autocapitalize="off"
+              spellcheck="false">
+            <div ng-if="$ctrl.istag.annotations.sampleRepo" class="help-block">
+              <a href="" ng-click="$ctrl.fillSampleRepo()">Try Sample Repository
+                <i class="fa fa-level-up" aria-hidden="true"></i></a>
+            </div>
+            <div class="has-error" ng-if="$ctrl.builderForm.repository.$touched && $ctrl.builderForm.repository.$error.$required">
               <span class="help-block">
-                Application name is required.
+                Git repository is required.
               </span>
             </div>
-            <div class="has-error" ng-show="$ctrl.builderForm.name.$error.pattern">
+            <div class="has-warning" ng-if="$ctrl.builderForm.repository.$touched && $ctrl.repository && !$ctrl.repositoryPattern.test($ctrl.repository)">
               <span class="help-block">
-                Application name consists of lower-case letters, numbers, and dashes. It must start with a letter and can't end with a <code>-</code>.
-              </span>
-            </div>
-            <div class="has-error" ng-show="$ctrl.builderForm.name.$error.minlength">
-              <span class="help-block">
-                Application name must be at least 2 characters.
-              </span>
-            </div>
-            <div class="has-error" ng-show="$ctrl.builderForm.name.$error.maxlength">
-              <span class="help-block">
-                Application name can't be more than 24 characters.
+                This might not be a valid Git URL. Check that it is the correct URL to a remote Git repository.
               </span>
             </div>
           </div>
         </div>
-      </div>
 
-      <div class="form-group">
-        <label class="control-label required" for="repository">Git Repository</label>
-        <div ng-class="{ 'has-error': $ctrl.builderForm.repository.$touched && $ctrl.builderForm.repository.$error.$required }">
-          <input class="form-control"
-            type="text"
-            id="repository"
-            name="repository"
-            required
-            ng-model="$ctrl.repository"
-            autocorrect="off"
-            autocapitalize="off"
-            spellcheck="false">
-          <div ng-if="$ctrl.istag.annotations.sampleRepo" class="help-block">
-            <a href="" ng-click="$ctrl.fillSampleRepo()">Try Sample Repository
-              <i class="fa fa-level-up" aria-hidden="true"></i></a>
-          </div>
-          <div class="has-error" ng-if="$ctrl.builderForm.repository.$touched && $ctrl.builderForm.repository.$error.$required">
-            <span class="help-block">
-              Git repository is required.
-            </span>
-          </div>
-          <div class="has-warning" ng-if="$ctrl.builderForm.repository.$touched && $ctrl.repository && !$ctrl.repositoryPattern.test($ctrl.repository)">
-            <span class="help-block">
-              This might not be a valid Git URL. Check that it is the correct URL to a remote Git repository.
-            </span>
-          </div>
+        <!--
+          Only show the link for existing projects. It will be broken for new
+          projects.  Use class `invisible` when the project list is still loading
+          so the dialog doesn't resize.
+        -->
+        <div ng-hide="$ctrl.selectedProject && !$ctrl.selectedProject.metadata.uid"
+             ng-class="{ invisible: !$ctrl.selectedProject || !$ctrl.istag }"
+             class="form-group">
+          If you have a private Git repository or need to change application defaults, view
+          <a href="" ng-click="$ctrl.navigateToAdvancedForm()">advanced options</a>.
         </div>
-      </div>
-
-      <!--
-        Only show the link for existing projects. It will be broken for new
-        projects.  Use class `invisible` when the project list is still loading
-        so the dialog doesn't resize.
-      -->
-      <div ng-hide="$ctrl.selectedProject && !$ctrl.selectedProject.metadata.uid"
-           ng-class="{ invisible: !$ctrl.selectedProject || !$ctrl.istag }"
-           class="form-group">
-        If you have a private Git repository or need to change application defaults, view
-        <a href="" ng-click="$ctrl.navigateToAdvancedForm()">advanced options</a>.
-      </div>
+      </span>
     </form>
   </div>
 </div>
