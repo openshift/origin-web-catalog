@@ -1,0 +1,35 @@
+.catalog-parameters {
+  input.form-control[disabled] {
+    background-color: transparent;
+    border: 0;
+    color: @text-color;
+    cursor: default;
+    margin-top: -3px;
+  }
+  &.readonly {
+    fieldset {
+      padding-left: 20px;
+      > div {
+        padding-left: 20px;
+      }
+    }
+    legend {
+      border: 0;
+      font-size: @font-size-base;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+
+    .schema-form-array {
+      margin-left: 0;
+
+      > div.clearfix {
+        margin-top: -30px;
+      }
+      .list-group, .list-group-item {
+        border: 0;
+        margin-bottom: 0;
+      }
+    }
+  }
+}

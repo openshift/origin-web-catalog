@@ -1,0 +1,25 @@
+<div class="select-plans">
+  <h3 ng-if="$ctrl.availablePlans.length > 1">Select a Plan</h3>
+  <div ng-if="$ctrl.availablePlans.length" ng-repeat="plan in $ctrl.availablePlans track by plan.metadata.uid" ng-class="{'radio': $ctrl.availablePlans.length > 1}">
+    <label>
+      <input ng-if="$ctrl.availablePlans.length > 1"
+             type="radio"
+             ng-model="$ctrl.planIndex"
+             ng-change="$ctrl.onPlanSelect(plan)"
+             value="{{$index}}">
+      <span class="plan-name">{{plan.spec.externalMetadata.displayName || plan.spec.externalName}}</span>
+      <div class="plan-description" ng-if="plan.spec.description" ng-bind-html="plan.spec.description | linkify : '_blank'"></div>
+    </label>
+  </div>
+  <div ng-if="!$ctrl.availablePlans.length" class="blank-slate-pf">
+    <div class="blank-slate-pf-icon">
+      <span class="pficon pficon-info"></span>
+    </div>
+    <h1>
+      No Plans Available
+    </h1>
+    <p>
+      There are no plans currently available for this service.
+    </p>
+  </div>
+</div>

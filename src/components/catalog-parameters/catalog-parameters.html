@@ -1,7 +1,7 @@
 <!-- Use angular-schema-form to show a form based on the parameter JSON schema. -->
-<ng-form
-  sf-model="$ctrl.model"
+<ng-form class="catalog-parameters" ng-class="{'readonly': $ctrl.readOnly}"
+  sf-model="$ctrl.hideValues ? $ctrl.hiddenModel : $ctrl.model"
   sf-form="$ctrl.parameterForm"
-  sf-schema="$ctrl.parameterSchema"
+  sf-schema="$ctrl.readOnly ? $ctrl.readonlyParameterSchema : $ctrl.parameterSchema"
   sf-options="$ctrl.parameterFormDefaults">
 </ng-form>

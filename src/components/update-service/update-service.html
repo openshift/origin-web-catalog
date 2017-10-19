@@ -1,0 +1,25 @@
+<div class="order-service">
+  <pf-wizard wizard-title="{{$ctrl.displayName}}"
+             hide-sidebar="true"
+             step-class="order-service-wizard-step"
+             wizard-ready="$ctrl.wizardReady"
+             next-title="$ctrl.nextTitle"
+             on-finish="$ctrl.closePanel()"
+             on-cancel="$ctrl.closePanel()"
+             wizard-done="$ctrl.wizardDone"
+             hide-back-button="{{$ctrl.hideBackButton}}">
+    <pf-wizard-step ng-repeat="step in $ctrl.steps track by step.id"
+                    step-title="{{step.label}}"
+                    wz-disabled="{{step.hidden}}"
+                    allow-click-nav="step.allowClickNav"
+                    next-enabled="step.valid && !$ctrl.updating"
+                    prev-enabled="step.prevEnabled"
+                    on-show="step.onShow"
+                    step-id="{{step.id}}"
+                    step-priority="{{$index}}">
+      <div class="wizard-pf-main-inner-shadow-covers">
+        <div ng-include="step.view" class="wizard-pf-main-form-contents"></div>
+      </div>
+    </pf-wizard-step>
+  </pf-wizard>
+</div>

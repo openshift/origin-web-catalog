@@ -1,0 +1,15 @@
+<div class="order-service-config">
+  <div class="config-top">
+    <form name="$ctrl.forms.orderConfigureForm" class="config-form">
+      <catalog-parameters
+        ng-if="$ctrl.parameterSchema.properties"
+        model="$ctrl.parameterData"
+        parameter-schema="$ctrl.parameterSchema"
+        parameter-form-definition="$ctrl.parameterFormDefinition">
+      </catalog-parameters>
+    </form>
+    <div ng-if="$ctrl.error" class="has-error">
+      <span class="help-block">{{$ctrl.error}}</span>
+    </div>
+  </div>
+</div>

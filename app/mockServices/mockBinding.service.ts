@@ -29,6 +29,33 @@ export class BindingService implements IBindingService {
     return _.get(serviceClasses, [serviceClassName]);
   }
 
+  public makeParametersSecret(secretName: any, parameters: any, owner: any) {
+    var secret = {
+      apiVersion: 'v1',
+      kind: 'Secret',
+      metadata: {
+        name: secretName,
+        ownerReferences: [{
+          apiVersion: owner.apiVersion,
+          kind: owner.kind,
+          name: owner.metadata.name,
+          uid: owner.metadata.uid,
+          controller: false,
+          blockOwnerDeletion: false
+        }]
+      },
+      type: 'Opaque',
+      stringData: {}
+    };
+
+    secret.stringData['parameters'] = JSON.stringify(parameters);
+    return secret;
+  }
+
+  public generateSecretName (prefix: string) {
+    return prefix + '_shhhh_ima_secret';
+  }
+
   public bindService (serviceInstance: any, application: any, serviceClass: any, parameters: any): angular.IPromise < any > {
     let deferred = this.$q.defer();
 
@@ -47,7 +74,7 @@ export class BindingService implements IBindingService {
       return !!serviceInstance;
     }
 
-    let planName = _.get(serviceInstance, 'spec.planName');
+    let planName = _.get(serviceInstance, 'clusterServicePlanRef.name');
     let plan = _.find(serviceClass.plans, { name: planName });
     let planBindable = _.get(plan, 'bindable');
     if (planBindable === true) {
