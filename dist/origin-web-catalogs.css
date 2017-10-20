@@ -248,6 +248,16 @@ landingbody,
   margin-top: -3px;
   padding-left: 0;
 }
+.catalog-parameters.readonly .control-label {
+  padding-right: 0;
+  word-wrap: break-word;
+}
+.catalog-parameters.readonly form {
+  margin-top: 10px;
+}
+.catalog-parameters.readonly .form-group {
+  margin-bottom: 0;
+}
 .catalog-parameters.readonly fieldset {
   padding-left: 20px;
 }
