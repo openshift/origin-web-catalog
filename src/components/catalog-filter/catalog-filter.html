@@ -17,12 +17,14 @@
       </span>
       <ul>
         <li ng-repeat="value in filter.values">
-          <label>
-            <input type="checkbox"
-                   ng-model="value.selected"
-                   ng-change="$ctrl.filterChanged()">
-            <span class="category-option-label">{{value.title}}</span>
-          </label>
+          <div class="checkbox">
+            <label class="category-option-label">
+              <input type="checkbox"
+                     ng-model="value.selected"
+                     ng-change="$ctrl.filterChanged()">
+              {{value.title}}
+            </label>
+          </div>
         </li>
       </ul>
     </div>

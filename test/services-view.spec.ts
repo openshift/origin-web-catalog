@@ -438,6 +438,6 @@ describe('servicesView', () => {
 
     var vendorFilters = jQuery(element).find('.category-option-label');
     expect(vendorFilters.length).toBe(4);
-    expect(jQuery(vendorFilters[2]).text()).toBe('Vendor B, Inc.');
+    expect(jQuery(vendorFilters[2]).text().trim()).toBe('Vendor B, Inc.');
   });
 });
