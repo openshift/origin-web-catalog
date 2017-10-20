@@ -2,15 +2,15 @@ export const imagesData = {
     'jenkins': {
     'metadata': {
         'name': 'jenkins',
-            'namespace': 'openshift',
-            'selfLink': '/oapi/v1/namespaces/openshift/imagestreams/jenkins',
-            'uid': 'jenkins',
-            'resourceVersion': '658',
-            'generation': 2,
-            'creationTimestamp': '2017-03-15T15:46:25Z',
-            'annotations': {
-            'openshift.io/display-name': 'Jenkins',
-                'openshift.io/image.dockerRepositoryCheck': '2017-03-15T15:46:49Z'
+        'namespace': 'openshift',
+        'selfLink': '/oapi/v1/namespaces/openshift/imagestreams/jenkins',
+        'uid': 'jenkins',
+        'resourceVersion': '658',
+        'generation': 2,
+        'creationTimestamp': '2017-03-15T15:46:25Z',
+        'annotations': {
+          'openshift.io/display-name': 'Jenkins',
+          'openshift.io/image.dockerRepositoryCheck': '2017-03-15T15:46:49Z'
         }
     },
     'spec': {
@@ -424,17 +424,20 @@ export const imagesData = {
         'apiVersion': 'v1'
 },
     'nodejs': {
-    'metadata': {
+      'metadata': {
         'name': 'nodejs',
-            'namespace': 'openshift',
-            'selfLink': '/oapi/v1/namespaces/openshift/imagestreams/nodejs',
-            'uid': 'nodejs',
-            'resourceVersion': '594',
-            'generation': 2,
-            'creationTimestamp': '2017-03-15T15:46:24Z',
-            'annotations': {
-            'openshift.io/display-name': 'Node.js',
-                'openshift.io/image.dockerRepositoryCheck': '2017-03-15T15:46:36Z'
+        'namespace': 'openshift',
+        'selfLink': '/oapi/v1/namespaces/openshift/imagestreams/nodejs',
+        'uid': 'nodejs',
+        'resourceVersion': '594',
+        'generation': 2,
+        'creationTimestamp': '2017-03-15T15:46:24Z',
+        'annotations': {
+          'openshift.io/display-name': 'Node.js',
+          'openshift.io/provider-display-name': 'Red Hat, Inc.',
+          'openshift.io/documentation-url': 'https://nodejs.org/en/docs/',
+          'openshift.io/support-url': 'https://access.redhat.com',
+          'openshift.io/image.dockerRepositoryCheck': '2017-03-15T15:46:36Z'
         }
     },
     'spec': {

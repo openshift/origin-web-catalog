@@ -482,7 +482,8 @@ export class ImageItem implements IServiceItem {
   }
 
   private getVendor(): string {
-    return '';
+    let provider = _.get(this.resource, ['metadata', 'annotations', 'openshift.io/provider-display-name'], '');
+    return this.catalogSrv.getPublisherSynonym(provider);
   }
 
   private getDescription() {
@@ -542,7 +543,7 @@ export class TemplateItem implements IServiceItem {
   }
 
   private getLongDescription() {
-    return _.get(this.resource, ['metadata', 'annotations', 'template.openshift.io/long-description'], '');
+    return _.get(this.resource, ['metadata', 'annotations', 'openshift.io/long-description'], '');
   }
 
   private getTags() {
@@ -550,7 +551,7 @@ export class TemplateItem implements IServiceItem {
   }
 
   private getVendor(): string {
-    var rawVendor = _.get(this.resource, ['metadata', 'annotations', 'template.openshift.io/provider-display-name']) as string || '';
+    var rawVendor = _.get(this.resource, ['metadata', 'annotations', 'openshift.io/provider-display-name']) as string || '';
     return this.catalogSrv.getPublisherSynonym(rawVendor);
   }
 }

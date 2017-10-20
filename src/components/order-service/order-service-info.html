@@ -1,5 +1,5 @@
 <div class="order-service-details">
-  <div class="order-service-details-top" ng-class="{'order-service-details-top-icon-top': ($ctrl.serviceClass.vendor || ($ctrl.docUrl || $ctrl.supportUrl))}">
+  <div class="order-service-details-top" ng-class="{'order-service-details-top-icon-top': $ctrl.serviceClass.vendor || $ctrl.docUrl || $ctrl.supportUrl}">
     <div class="service-icon">
       <span ng-if="!$ctrl.imageUrl" class="icon {{$ctrl.iconClass}}" aria-hidden="true"></span>
       <span ng-if="$ctrl.imageUrl" class="image"><img ng-src="{{$ctrl.imageUrl}}" alt=""></span>

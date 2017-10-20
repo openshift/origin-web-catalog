@@ -116,6 +116,10 @@ export class CreateFromBuilderController implements angular.IController {
     this.ctrl.updating = false;
     this.ctrl.noProjectsCantCreate = false;
 
+    let annotation = this.$filter('annotation');
+    this.ctrl.documentationUrl = annotation(this.ctrl.imageStream.resource, 'openshift.io/documentation-url');
+    this.ctrl.supportUrl = annotation(this.ctrl.imageStream.resource, 'openshift.io/support-url');
+
     this.ctrl.serviceInstances = [];
     this.selectedProjectWatch = this.$scope.$watch(
       () => {
