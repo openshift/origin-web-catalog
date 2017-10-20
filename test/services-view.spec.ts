@@ -389,6 +389,48 @@ describe('servicesView', () => {
     expect(jQuery(element).find('.active-filter.label.label-info').length).toBe(0);
   });
 
+  it("should show pfEmptyState component when no filter matches", () => {
+    createServiceView();
+
+    var element = componentTest.rawElement;
+
+    //Get Filter Dropdown
+    var filterDropdown = jQuery(element).find('span[uib-dropdown]');
+
+    //Open Filter Panel
+    filterDropdown.find('button').click();
+    var keyWordInput = filterDropdown.find('.keyword-filter');
+    expect(jQuery(element).find('pf-empty-state').length).toEqual(0);
+
+    //pfEmptyState component with 'nomatches' keyword
+    enterFilterKeyword(keyWordInput, "nomatches");
+    expect(jQuery(element).find('pf-empty-state').length).toBe(1);
+  });
+
+  it("should clear filters when pfEmptyState link is clicked", () => {
+    createServiceView();
+
+    var element = componentTest.rawElement;
+
+    //Get Filter Dropdown
+    var filterDropdown = jQuery(element).find('span[uib-dropdown]');
+
+    //Open Filter Panel
+    filterDropdown.find('button').click();
+    var keyWordInput = filterDropdown.find('.keyword-filter');
+    expect(jQuery(element).find('pf-empty-state').length).toEqual(0);
+
+    //pfEmptyState component with 'nomatches' keyword
+    enterFilterKeyword(keyWordInput, "nomatches");
+    expect(jQuery(element).find('pf-empty-state').length).toBe(1);
+
+    //Click clear filter link
+    var filterLink = jQuery(element).find('pf-empty-state');
+    filterLink.find('.blank-state-pf-helpLink').click();
+    componentTest.scope.$digest();
+    expect(jQuery(element).find('.active-filter.label.label-info').length).toBe(0);
+  });
+
   it("should display publisher synonyms", () => {
     createServiceView();
 

@@ -988,6 +988,14 @@ services-view .vendor-info-icon,
   padding-left: 2px;
   vertical-align: middle;
 }
+.services-view .blank-slate-pf {
+  background-color: transparent;
+  border: none;
+}
+.services-view .pf-empty-state {
+  margin: 0 20px;
+  width: 100%;
+}
 .services-view .services-item {
   animation: catalogItemFade 200ms ease-out;
   color: #363636;

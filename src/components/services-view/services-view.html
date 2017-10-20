@@ -75,6 +75,9 @@
                             filter-on-keyword="$ctrl.keywordFilterValue"
                             apply-filters="$ctrl.applyFilters($event)">
             </catalog-filter>
+            <div class="pf-empty-state" ng-if="$ctrl.filterConfig.appliedFilters.length > 0 && $ctrl.filterConfig.resultsCount === 0">
+              <pf-empty-state config="$ctrl.emptyFilterConfig"></pf-empty-state>
+            </div>
             <a href="" class="services-item" ng-repeat="item in $ctrl.filteredItems track by item.resource.metadata.uid" ng-click="$ctrl.serviceViewItemClicked(item)">
               <div ng-if="!item.imageUrl" class="services-item-icon">
                 <span class="{{item.iconClass}}"></span>
@@ -100,6 +103,9 @@
                           filter-on-keyword="$ctrl.keywordFilterValue"
                           apply-filters="$ctrl.applyFilters($event)">
           </catalog-filter>
+          <div class="pf-empty-state" ng-if="$ctrl.filterConfig.appliedFilters.length > 0 && $ctrl.filterConfig.resultsCount === 0">
+            <pf-empty-state config="$ctrl.emptyFilterConfig"></pf-empty-state>
+          </div>
           <a href="" class="services-item" ng-repeat="item in $ctrl.filteredItems track by item.resource.metadata.uid" ng-click="$ctrl.serviceViewItemClicked(item)">
             <div ng-if="!item.imageUrl" class="services-item-icon">
               <span class="{{item.iconClass}}"></span>
