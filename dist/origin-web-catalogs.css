@@ -1131,6 +1131,10 @@ services-view .vendor-info-icon,
   flex: 1 1 100%;
   margin: 20px 20px 10px;
 }
+.services-view .services-items-filter div.checkbox {
+  margin-bottom: 0;
+  margin-top: 0;
+}
 @media (min-width: 480px) {
   .services-view .services-no-sub-categories {
     display: flex;
