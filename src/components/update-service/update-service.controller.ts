@@ -151,6 +151,13 @@ export class UpdateServiceController implements angular.IController {
   public showPlan = () => {
     this.clearValidityWatcher();
     this.ctrl.configPageShown = false;
+
+    if (this.configStep.hidden) {
+      this.ctrl.nextTitle = 'Update';
+    } else {
+      this.ctrl.nextTitle = "Next >";
+    }
+    this.planStep.valid =  (this.ctrl.selectedPlan !== this.originalPlan) || !this.configStep.hidden;
   };
 
   public showConfig = () => {
