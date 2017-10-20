@@ -246,6 +246,7 @@ landingbody,
   color: #363636;
   cursor: default;
   margin-top: -3px;
+  padding-left: 0;
 }
 .catalog-parameters.readonly fieldset {
   padding-left: 20px;
