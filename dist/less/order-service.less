@@ -60,6 +60,21 @@
       font-size: @font-size-small;
       white-space: nowrap;
     }
+    .order-service-dependent-image {
+      margin-bottom: 5px;
+      .word-break();
+      .pficon {
+        margin-right: 5px;
+        vertical-align: -1px;
+      }
+    }
+    .order-service-subheading {
+      // Prevent top margin from collapsing.
+      display: inline-block;
+      font-size: @font-size-base + 1;
+      margin-bottom: 7px;
+      margin-top: 10px;
+    }
   }
   .order-service-documentation-url {
     margin-top: 4px;

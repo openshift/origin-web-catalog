@@ -358,6 +358,23 @@ landingbody,
   font-size: 11px;
   white-space: nowrap;
 }
+.order-service-details .order-service-description-block .order-service-dependent-image {
+  margin-bottom: 5px;
+  word-wrap: break-word;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  min-width: 0;
+}
+.order-service-details .order-service-description-block .order-service-dependent-image .pficon {
+  margin-right: 5px;
+  vertical-align: -1px;
+}
+.order-service-details .order-service-description-block .order-service-subheading {
+  display: inline-block;
+  font-size: 13px;
+  margin-bottom: 7px;
+  margin-top: 10px;
+}
 .order-service-details .order-service-documentation-url {
   margin-top: 4px;
 }
