@@ -4,6 +4,7 @@ import * as _ from 'lodash';
 export class SelectProjectController implements angular.IController {
   static $inject = [
     '$filter',
+    '$location',
     '$scope',
     'AuthService',
     'AuthorizationService',
@@ -18,6 +19,7 @@ export class SelectProjectController implements angular.IController {
   public ctrl: any = this;
 
   private $filter: any;
+  private $location: any;
   private $scope: any;
   private ProjectsService: any;
   private Logger: any;
@@ -32,6 +34,7 @@ export class SelectProjectController implements angular.IController {
   private lastResults: any;
 
   constructor($filter: any,
+              $location: any,
               $scope: any,
               AuthService: any,
               AuthorizationService: any,
@@ -40,6 +43,7 @@ export class SelectProjectController implements angular.IController {
               ProjectsService: any,
               RecentlyViewedProjectsService: any) {
     this.$filter = $filter;
+    this.$location = $location;
     this.$scope = $scope;
     this.AuthService = AuthService;
     this.AuthorizationService = AuthorizationService;
@@ -210,6 +214,15 @@ export class SelectProjectController implements angular.IController {
   };
 
   private updateProjects(projects: any) {
+    // Check the URL to see if this page was visited with an `addToProject`
+    // query param and preselect that project.
+    let addToProjectName = this.$location.search().addToProject;
+    if (addToProjectName && !this.ctrl.selectedProject) {
+      this.ctrl.selectedProject = projects[addToProjectName];
+      this.onSelectProjectChange();
+    }
+
+    // Check for very large project lists.
     this.largeProjectList = _.size(projects) >= SelectProjectController.LARGE_PROJECT_LIST_SIZE;
     if (this.largeProjectList) {
       this.ctrl.placeholder = 'Filter projects by name';
