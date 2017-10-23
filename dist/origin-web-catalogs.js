@@ -65,6 +65,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             parameterFormDefinition: "<",
             isHorizontal: "<?",
             readOnly: "<?",
+            opaqueKeys: "<?",
             hideValues: "<?",
             model: "="
         },
@@ -1125,13 +1126,15 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             e.enum = void 0, "array" !== e.type && "number" !== e.type && "integer" !== e.type && "boolean" !== e.type || (e.type = "string"));
         }, e.prototype.updateValueToHidden = function(e) {
             var t = this;
-            return n.isObject(e) || n.isArray(e) ? n.mapValues(e, function(e) {
+            return n.isObject(e) || n.isArray(e) ? n.mapValues(e, function(e, r) {
+                return n.includes(t.ctrl.opaqueKeys, r) ? e : t.updateValueToHidden(e);
+            }) : n.isArray(e) ? n.map(e, function(e) {
                 return t.updateValueToHidden(e);
             }) : "*****";
         }, e.prototype.updateHiddenModel = function() {
             var e = this;
-            this.ctrl.hideValues && (this.ctrl.hiddenModel = n.mapValues(this.ctrl.model, function(t) {
-                return e.updateValueToHidden(t);
+            this.ctrl.hideValues && (this.ctrl.hiddenModel = n.mapValues(this.ctrl.model, function(t, r) {
+                return n.includes(e.ctrl.opaqueKeys, r) ? t : e.updateValueToHidden(t);
             }));
         }, e.prototype.cloneParameterForm = function(t) {
             if (n.isString(t)) return !0 === this.ctrl.readOnly ? {
