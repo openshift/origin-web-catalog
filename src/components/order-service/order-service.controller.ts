@@ -65,6 +65,14 @@ export class OrderServiceController implements angular.IController {
     this.ctrl.longDescription = this.ctrl.serviceClass.longDescription;
     this.ctrl.docUrl = _.get(this.ctrl.serviceClass, 'resource.spec.externalMetadata.documentationUrl');
     this.ctrl.supportUrl = _.get(this.ctrl.serviceClass, 'resource.spec.externalMetadata.supportUrl');
+
+    // Ansible Service Broker adds a `dependencies` field to external metadata
+    // that is an array of images names.
+    let dependencies = _.get(this.ctrl.serviceClass, 'resource.spec.externalMetadata.dependencies');
+    if (_.isArray(dependencies)) {
+      this.ctrl.imageDependencies = _.filter(dependencies, _.isString);
+    }
+
     this.ctrl.noProjectsCantCreate = false;
     this.ctrl.applications = [];
     this.ctrl.parameterData = {};
