@@ -6,6 +6,7 @@ export const catalogParameters: angular.IComponentOptions = {
     parameterFormDefinition: '<',
     isHorizontal: '<?',
     readOnly: '<?',
+    opaqueKeys: '<?',
     hideValues: '<?',
     model: '='
   },

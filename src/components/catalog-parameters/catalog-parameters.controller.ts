@@ -110,8 +110,15 @@ export class CatalogParametersController implements angular.IController {
 
   private updateValueToHidden(value: any): any {
     if (_.isObject(value) || _.isArray(value)) {
-      return _.mapValues(value, (subValue: any) => {
+      return _.mapValues(value, (subValue: any, key: any) => {
+        if (_.includes(this.ctrl.opaqueKeys, key)) {
+          return subValue;
+        }
         return this.updateValueToHidden(subValue);
+      });
+    } else if (_.isArray(value)) {
+      return _.map(value, (indexValue: any) => {
+        return this.updateValueToHidden(indexValue);
       });
     } else {
       return '*****';
@@ -123,11 +130,13 @@ export class CatalogParametersController implements angular.IController {
       return;
     }
 
-    // form passwords show length of the string (badness), use our own string to hide that fact
-    this.ctrl.hiddenModel = _.mapValues(this.ctrl.model, (value: any) => {
+    this.ctrl.hiddenModel = _.mapValues(this.ctrl.model, (value: any, key: any) => {
+      if (_.includes(this.ctrl.opaqueKeys, key)) {
+        return value;
+      }
       return this.updateValueToHidden(value);
     });
- }
+  }
 
   // clones a form definition with only the accepted keys (key, type, items)
   // and type values (fieldset, text, textarea, password, checkbox, select)
