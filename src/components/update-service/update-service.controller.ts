@@ -224,9 +224,9 @@ export class UpdateServiceController implements angular.IController {
     var newParameters: any = _.omit(parameterData, originalKeys);
     var updateInstance: any = angular.copy(this.ctrl.serviceInstance);
 
-    if (_.get(updateInstance, 'spec.externalClusterServicePlanName') !== _.get(this.ctrl.selectedPlan, 'spec.externalName')) {
-      _.set(updateInstance, 'spec.clusterServicePlanRef', undefined);
-      _.set(updateInstance, 'spec.externalClusterServicePlanName', _.get(this.ctrl.selectedPlan, 'spec.externalName'));
+    if (_.get(updateInstance, 'spec.clusterServicePlanExternalName') !== _.get(this.ctrl.selectedPlan, 'spec.externalName')) {
+      _.unset(updateInstance, 'spec.clusterServicePlanRef');
+      _.set(updateInstance, 'spec.clusterServicePlanExternalName', _.get(this.ctrl.selectedPlan, 'spec.externalName'));
     }
 
     if (!angular.equals(updateParameters, originalParameters)) {
