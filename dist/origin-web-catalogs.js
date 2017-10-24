@@ -1863,24 +1863,25 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
     "use strict";
     t.__esModule = !0;
     var n = r(1), i = r(0), a = function() {
-        function e(t, r, n, a, s, c, o, l) {
-            var d = this;
+        function e(t, r, n, a, s, c, o, l, d) {
+            var p = this;
             this.ctrl = this, this.getProjectChoices = function() {
-                return d.ctrl.matchingProjects ? d.ctrl.matchingProjects : d.largeProjectList ? [] : d.projects;
+                return p.ctrl.matchingProjects ? p.ctrl.matchingProjects : p.largeProjectList ? [] : p.projects;
             }, this.groupChoicesBy = function(e) {
-                return d.largeProjectList ? "" : e.metadata.uid ? d.RecentlyViewedProjectsService.isRecentlyViewed(e.metadata.uid) ? "Recently Viewed" : "Other Projects" : "";
+                return p.largeProjectList ? "" : e.metadata.uid ? p.RecentlyViewedProjectsService.isRecentlyViewed(e.metadata.uid) ? "Recently Viewed" : "Other Projects" : "";
             }, this.refreshChoices = function(t) {
                 var r;
-                r = d.lastSearch && t.startsWith(d.lastSearch) ? d.lastResults : d.projects, d.lastSearch = t, 
-                d.lastResults = d.filterProjects(t, r), d.ctrl.matchingProjects = i.take(d.lastResults, e.LARGE_PROJECT_LIST_SIZE);
+                r = p.lastSearch && t.startsWith(p.lastSearch) ? p.lastResults : p.projects, p.lastSearch = t, 
+                p.lastResults = p.filterProjects(t, r), p.ctrl.matchingProjects = i.take(p.lastResults, e.LARGE_PROJECT_LIST_SIZE);
             }, this.canIAddToProject = function() {
-                var e = !0, t = i.get(d.ctrl.selectedProject, "metadata.name");
-                d.isNewProject() || d.AuthorizationService.getProjectRules(t).then(function() {
-                    e = d.AuthorizationService.canIAddToProject(t), d.ctrl.forms && d.ctrl.forms.selectProjectForm.selectProject.$setValidity("cannotAddToProject", e);
-                }), d.ctrl.forms && d.ctrl.forms.selectProjectForm.selectProject.$setValidity("cannotAddToProject", e);
-            }, this.$filter = t, this.$scope = r, this.AuthService = n, this.AuthorizationService = a, 
-            this.KeywordService = s, this.Logger = c, this.ProjectsService = o, this.RecentlyViewedProjectsService = l, 
-            this.largeProjectList = !1, this.lastSearch = "", this.lastResults = [];
+                var e = !0, t = i.get(p.ctrl.selectedProject, "metadata.name");
+                p.isNewProject() || p.AuthorizationService.getProjectRules(t).then(function() {
+                    e = p.AuthorizationService.canIAddToProject(t), p.ctrl.forms && p.ctrl.forms.selectProjectForm.selectProject.$setValidity("cannotAddToProject", e);
+                }), p.ctrl.forms && p.ctrl.forms.selectProjectForm.selectProject.$setValidity("cannotAddToProject", e);
+            }, this.$filter = t, this.$location = r, this.$scope = n, this.AuthService = a, 
+            this.AuthorizationService = s, this.KeywordService = c, this.Logger = o, this.ProjectsService = l, 
+            this.RecentlyViewedProjectsService = d, this.largeProjectList = !1, this.lastSearch = "", 
+            this.lastResults = [];
         }
         return e.prototype.$onInit = function() {
             var e = this;
@@ -1920,23 +1921,24 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             var r = [ "metadata.name", 'metadata.annotations["openshift.io/display-name"]' ], n = this.KeywordService.generateKeywords(e);
             return this.KeywordService.filterForKeywords(t, r, n);
         }, e.prototype.updateProjects = function(t) {
-            var r = this;
-            if (this.largeProjectList = i.size(t) >= e.LARGE_PROJECT_LIST_SIZE, this.largeProjectList) return this.ctrl.placeholder = "Filter projects by name", 
+            var r = this, n = this.$location.search().addToProject;
+            if (n && !this.ctrl.selectedProject && (this.ctrl.selectedProject = t[n], this.onSelectProjectChange()), 
+            this.largeProjectList = i.size(t) >= e.LARGE_PROJECT_LIST_SIZE, this.largeProjectList) return this.ctrl.placeholder = "Filter projects by name", 
             this.ctrl.searchEnabled = !0, this.ctrl.refreshDelay = 500, this.projects = t, void (this.ctrl.numProjectChoices = i.size(this.projects));
             this.ctrl.placeholder = "Select project";
-            var n = {
+            var a = {
                 metadata: {
                     annotations: {
                         "openshift.io/display-name": "Create Project",
                         "new-display-name": ""
                     }
                 }
-            }, a = i.reject(t, "metadata.deletionTimestamp");
-            this.projects = this.RecentlyViewedProjectsService.orderByMostRecentlyViewed(a), 
-            this.ctrl.searchEnabled = !i.isEmpty(a), this.ctrl.refreshDelay = 0, this.ctrl.existingProjectNames = i.map(t, "metadata.name"), 
+            }, s = i.reject(t, "metadata.deletionTimestamp");
+            this.projects = this.RecentlyViewedProjectsService.orderByMostRecentlyViewed(s), 
+            this.ctrl.searchEnabled = !i.isEmpty(s), this.ctrl.refreshDelay = 0, this.ctrl.existingProjectNames = i.map(t, "metadata.name"), 
             this.ctrl.selectedProject || 1 !== i.size(this.projects) || (this.ctrl.selectedProject = this.projects[0], 
             this.onSelectProjectChange()), this.ctrl.canCreate ? (this.ctrl.placeholder = "Select or create project", 
-            this.projects.unshift(n), 1 === i.size(this.projects) && (this.ctrl.selectedProject = n, 
+            this.projects.unshift(a), 1 === i.size(this.projects) && (this.ctrl.selectedProject = a, 
             this.onSelectProjectChange())) : 0 === i.size(this.projects) && (this.ctrl.noProjectsCantCreate = !0, 
             this.AuthService.withUser().then(function(e) {
                 r.ctrl.user = e;
@@ -1948,7 +1950,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             });
         }, e;
     }();
-    a.$inject = [ "$filter", "$scope", "AuthService", "AuthorizationService", "KeywordService", "Logger", "ProjectsService", "RecentlyViewedProjectsService" ], 
+    a.$inject = [ "$filter", "$location", "$scope", "AuthService", "AuthorizationService", "KeywordService", "Logger", "ProjectsService", "RecentlyViewedProjectsService" ], 
     a.LARGE_PROJECT_LIST_SIZE = 500, t.SelectProjectController = a;
 }, function(e, t, r) {
     "use strict";
