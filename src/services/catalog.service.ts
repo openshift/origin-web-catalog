@@ -70,6 +70,26 @@ export class CatalogService { static $inject = ['$filter', '$q', 'Constants', 'A
     return deferred.promise;
   }
 
+  // Get service plans for a service class, takes either the serviceClass object or it's name
+  public getServicePlansForServiceClass(serviceClass: any) : angular.IPromise < any > {
+    let plansVersion = this.apiService.getPreferredVersion('clusterserviceplans');
+    let serviceClassName = _.isString(serviceClass) ? serviceClass : _.get(serviceClass, 'metadata.name');
+
+    // Only request service plans if the resource is available.
+    if (serviceClassName && this.apiService.apiInfo(plansVersion)) {
+      let opts = {
+        http: {
+          params: {
+            fieldSelector: 'spec.clusterServiceClassRef.name=' + serviceClassName
+          }
+        }
+      };
+      return this.dataService.list(plansVersion, {}, _.noop, opts);
+    }
+
+    return this.$q.when(null);
+  }
+
   public getServicePlans() : angular.IPromise < any > {
     // Only request service plans if the resource is available.
     let plansVersion = this.apiService.getPreferredVersion('clusterserviceplans');
