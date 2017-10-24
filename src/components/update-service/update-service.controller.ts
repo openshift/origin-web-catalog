@@ -67,7 +67,7 @@ export class UpdateServiceController implements angular.IController {
       id: 'plans',
       label: 'Plan',
       view: 'update-service/update-service-plans.html',
-      hidden: _.get(this.ctrl.serviceClass, 'spec.planUpdatable', false) || _.size(this.ctrl.servicePlans) < 2,
+      hidden: !_.get(this.ctrl.serviceClass, 'spec.planUpdatable', false) || _.size(this.ctrl.servicePlans) < 2,
       allowed: true,
       valid: true,
       allowClickNav: true,

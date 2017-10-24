@@ -2158,7 +2158,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 id: "plans",
                 label: "Plan",
                 view: "update-service/update-service-plans.html",
-                hidden: i.get(this.ctrl.serviceClass, "spec.planUpdatable", !1) || i.size(this.ctrl.servicePlans) < 2,
+                hidden: !i.get(this.ctrl.serviceClass, "spec.planUpdatable", !1) || i.size(this.ctrl.servicePlans) < 2,
                 allowed: !0,
                 valid: !0,
                 allowClickNav: !0,
