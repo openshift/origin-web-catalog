@@ -718,6 +718,19 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 });
             }
             return r.promise;
+        }, e.prototype.getServicePlansForServiceClass = function(e) {
+            var t = this.apiService.getPreferredVersion("clusterserviceplans"), r = i.isString(e) ? e : i.get(e, "metadata.name");
+            if (r && this.apiService.apiInfo(t)) {
+                var n = {
+                    http: {
+                        params: {
+                            fieldSelector: "spec.clusterServiceClassRef.name=" + r
+                        }
+                    }
+                };
+                return this.dataService.list(t, {}, i.noop, n);
+            }
+            return this.$q.when(null);
         }, e.prototype.getServicePlans = function() {
             var e = this.apiService.getPreferredVersion("clusterserviceplans");
             return this.apiService.apiInfo(e) ? this.dataService.list(e, {}) : this.$q.when(null);
