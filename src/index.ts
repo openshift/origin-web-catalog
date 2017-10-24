@@ -6,6 +6,7 @@ require('./constants');
 
 
 // Filters
+import {escapeRegExpFilter} from './filters/escapeRegExp';
 import {projectUrlFilter} from './filters/projectUrl';
 import {secretUrlFilter} from './filters/secretUrl';
 
@@ -34,6 +35,7 @@ angular
   .service('BuilderAppService', BuilderAppService)
   .service('Catalog', CatalogService)
   .service('RecentlyViewedServiceItems', RecentlyViewedServiceItems)
+  .filter('escapeRegExp', escapeRegExpFilter)
   .filter('projectUrl', projectUrlFilter)
   .filter('secretUrl', secretUrlFilter)
   .component('catalogParameters', catalogParameters)
