@@ -10,7 +10,8 @@ export class SelectPlanController implements angular.IController {
   }
 
   public $onChanges(onChangesObj: angular.IOnChangesObject) {
-    if (onChangesObj.availablePlans && !onChangesObj.availablePlans.isFirstChange()) {
+    if ((onChangesObj.availablePlans && !onChangesObj.availablePlans.isFirstChange()) ||
+        (onChangesObj.selectedPlan && !onChangesObj.selectedPlan.isFirstChange())) {
       this.updatePlans();
     }
   }

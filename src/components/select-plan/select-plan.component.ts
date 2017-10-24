@@ -3,7 +3,7 @@ import {SelectPlanController} from './select-plan.controller.ts';
 export const selectPlan: angular.IComponentOptions = {
   bindings: {
     availablePlans: '<',  // array of the available plans
-    selectedPlan: '=',
+    selectedPlan: '<',
     onPlanSelect: '<'
   },
   controller: SelectPlanController,

@@ -177,7 +177,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
     t.selectPlan = {
         bindings: {
             availablePlans: "<",
-            selectedPlan: "=",
+            selectedPlan: "<",
             onPlanSelect: "<"
         },
         controller: n.SelectPlanController,
@@ -1860,7 +1860,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
         return e.prototype.$onInit = function() {
             this.updatePlans();
         }, e.prototype.$onChanges = function(e) {
-            e.availablePlans && !e.availablePlans.isFirstChange() && this.updatePlans();
+            (e.availablePlans && !e.availablePlans.isFirstChange() || e.selectedPlan && !e.selectedPlan.isFirstChange()) && this.updatePlans();
         }, e.prototype.updatePlans = function() {
             this.ctrl.plansAvailable = n.size(this.ctrl.availablePlans) > 0, this.ctrl.plansAvailable && (this.ctrl.selectedPlan || (this.ctrl.selectedPlan = this.ctrl.availablePlans[0]), 
             this.ctrl.planIndex = this.ctrl.availablePlans.indexOf(this.ctrl.selectedPlan));
