@@ -1019,6 +1019,9 @@ services-view .vendor-info-icon,
   background-color: transparent;
   border: none;
 }
+.services-view .filter-panel-container ul {
+  margin-bottom: 10px;
+}
 .services-view .pf-empty-state {
   margin: 0 20px;
   width: 100%;
