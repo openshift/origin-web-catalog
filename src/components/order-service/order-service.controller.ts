@@ -70,7 +70,8 @@ export class OrderServiceController implements angular.IController {
     // that is an array of images names.
     let dependencies = _.get(this.ctrl.serviceClass, 'resource.spec.externalMetadata.dependencies');
     if (_.isArray(dependencies)) {
-      this.ctrl.imageDependencies = _.filter(dependencies, _.isString);
+      // Take out any duplicates to avoid duplicates in a repeater error.
+      this.ctrl.imageDependencies = _.uniq(_.filter(dependencies, _.isString));
     }
 
     this.ctrl.noProjectsCantCreate = false;

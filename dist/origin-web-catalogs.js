@@ -1539,10 +1539,11 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             this.ctrl.longDescription = this.ctrl.serviceClass.longDescription, this.ctrl.docUrl = i.get(this.ctrl.serviceClass, "resource.spec.externalMetadata.documentationUrl"), 
             this.ctrl.supportUrl = i.get(this.ctrl.serviceClass, "resource.spec.externalMetadata.supportUrl");
             var t = i.get(this.ctrl.serviceClass, "resource.spec.externalMetadata.dependencies");
-            i.isArray(t) && (this.ctrl.imageDependencies = i.filter(t, i.isString)), this.ctrl.noProjectsCantCreate = !1, 
-            this.ctrl.applications = [], this.ctrl.parameterData = {}, this.ctrl.bindParameterData = {}, 
-            this.ctrl.forms = {}, this.ctrl.appToBind = null, this.ctrl.configStepValid = !0, 
-            this.ctrl.multipleServicePlans = i.size(this.ctrl.servicePlans) > 1, this.infoStep = {
+            i.isArray(t) && (this.ctrl.imageDependencies = i.uniq(i.filter(t, i.isString))), 
+            this.ctrl.noProjectsCantCreate = !1, this.ctrl.applications = [], this.ctrl.parameterData = {}, 
+            this.ctrl.bindParameterData = {}, this.ctrl.forms = {}, this.ctrl.appToBind = null, 
+            this.ctrl.configStepValid = !0, this.ctrl.multipleServicePlans = i.size(this.ctrl.servicePlans) > 1, 
+            this.infoStep = {
                 id: "info",
                 label: "Information",
                 view: "order-service/order-service-info.html",
