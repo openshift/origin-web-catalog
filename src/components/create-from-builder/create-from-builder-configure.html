@@ -20,7 +20,7 @@
         </div>
         <div class="form-group">
           <label class="control-label required" for="app-name">Application Name</label>
-          <div ng-class="{ 'has-error': $ctrl.builderForm.name.$touched && $ctrl.builderForm.name.$invalid }">
+          <div ng-class="{ 'has-error': $ctrl.builderForm.name.$dirty && $ctrl.builderForm.name.$touched && $ctrl.builderForm.name.$invalid }">
             <input
               class="form-control"
               type="text"
@@ -34,8 +34,13 @@
               autocorrect="off"
               autocapitalize="none"
               spellcheck="false">
-            <!-- Wait until users leave the field to avoid flashing errors as they type. -->
-            <div ng-if="$ctrl.builderForm.name.$touched">
+            <!--
+              Wait until users leave the field to avoid flashing errors as they
+              type. Check $dirty touched to avoid a usability problem where the
+              "Try Sample Repository" link moves from under the mouse cursor
+              when clicked since the error message appears.
+            -->
+            <div ng-if="$ctrl.builderForm.name.$dirty && $ctrl.builderForm.name.$touched">
               <div class="has-error" ng-show="$ctrl.builderForm.name.$error.required">
                 <span class="help-block">
                   Application name is required.
