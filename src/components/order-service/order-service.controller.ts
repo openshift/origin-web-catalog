@@ -287,7 +287,7 @@ export class OrderServiceController implements angular.IController {
 
   public createService() {
     let parameters = this.getParameters();
-    let secretName: string = _.isEmpty(parameters) ? null : this.BindingService.generateSecretName(this.getExternalClusterServiceClassName() + '-parameters');
+    let secretName: string = _.isEmpty(parameters) ? null : this.BindingService.generateSecretName(this.getClusterServiceClassExternalName() + '-parameters');
     let serviceInstance = this.makeServiceInstance(secretName);
     let resource = {
       group: 'servicecatalog.k8s.io',
@@ -432,22 +432,22 @@ export class OrderServiceController implements angular.IController {
     });
   }
 
-  private getExternalClusterServiceClassName(): string {
+  private getClusterServiceClassExternalName(): string {
     return _.get(this, 'ctrl.serviceClass.resource.spec.externalName') as string;
   };
 
   private makeServiceInstance(secretName: string) {
-    let externalClusterServiceClassName = this.getExternalClusterServiceClassName();
+    let clusterServiceClassExternalName = this.getClusterServiceClassExternalName();
     let serviceInstance: any = {
       kind: 'ServiceInstance',
       apiVersion: 'servicecatalog.k8s.io/v1beta1',
       metadata: {
         namespace: this.ctrl.selectedProject.metadata.name,
-        generateName: externalClusterServiceClassName + '-'
+        generateName: clusterServiceClassExternalName + '-'
        },
        spec: {
-         externalClusterServiceClassName: externalClusterServiceClassName,
-         externalClusterServicePlanName: this.ctrl.selectedPlan.spec.externalName
+         clusterServiceClassExternalName: clusterServiceClassExternalName,
+         clusterServicePlanExternalName: this.ctrl.selectedPlan.spec.externalName
        }
     };
 

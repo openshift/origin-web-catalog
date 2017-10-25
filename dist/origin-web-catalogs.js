@@ -1623,7 +1623,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 e.ctrl.noProjectsCantCreate = !0;
             });
         }, e.prototype.createService = function() {
-            var e = this, t = this.getParameters(), r = i.isEmpty(t) ? null : this.BindingService.generateSecretName(this.getExternalClusterServiceClassName() + "-parameters"), n = this.makeServiceInstance(r), a = {
+            var e = this, t = this.getParameters(), r = i.isEmpty(t) ? null : this.BindingService.generateSecretName(this.getClusterServiceClassExternalName() + "-parameters"), n = this.makeServiceInstance(r), a = {
                 group: "servicecatalog.k8s.io",
                 resource: "serviceinstances"
             }, s = {
@@ -1677,10 +1677,10 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             return i.omitBy(this.ctrl.parameterData, function(e) {
                 return "" === e;
             });
-        }, e.prototype.getExternalClusterServiceClassName = function() {
+        }, e.prototype.getClusterServiceClassExternalName = function() {
             return i.get(this, "ctrl.serviceClass.resource.spec.externalName");
         }, e.prototype.makeServiceInstance = function(e) {
-            var t = this.getExternalClusterServiceClassName(), r = {
+            var t = this.getClusterServiceClassExternalName(), r = {
                 kind: "ServiceInstance",
                 apiVersion: "servicecatalog.k8s.io/v1beta1",
                 metadata: {
@@ -1688,8 +1688,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                     generateName: t + "-"
                 },
                 spec: {
-                    externalClusterServiceClassName: t,
-                    externalClusterServicePlanName: this.ctrl.selectedPlan.spec.externalName
+                    clusterServiceClassExternalName: t,
+                    clusterServicePlanExternalName: this.ctrl.selectedPlan.spec.externalName
                 }
             };
             return e && (r.spec.parametersFrom = [ {
@@ -2133,8 +2133,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 var e = d.getParameters(d.ctrl.parameterData), t = i.get(d.ctrl.serviceInstance, "spec.parameters"), r = i.map(t, function(e, t) {
                     return [ t ];
                 }), a = i.pick(e, r), s = i.omit(e, r), o = n.copy(d.ctrl.serviceInstance);
-                i.get(o, "spec.externalClusterServicePlanName") !== i.get(d.ctrl.selectedPlan, "spec.externalName") && (i.set(o, "spec.clusterServicePlanRef", void 0), 
-                i.set(o, "spec.externalClusterServicePlanName", i.get(d.ctrl.selectedPlan, "spec.externalName"))), 
+                i.get(o, "spec.clusterServicePlanExternalName") !== i.get(d.ctrl.selectedPlan, "spec.externalName") && (i.unset(o, "spec.clusterServicePlanRef"), 
+                i.set(o, "spec.clusterServicePlanExternalName", i.get(d.ctrl.selectedPlan, "spec.externalName"))), 
                 n.equals(a, t) || i.set(o, "spec.parameters", a);
                 var c = {};
                 if (i.each(d.secrets, function(t) {
