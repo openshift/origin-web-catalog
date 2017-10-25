@@ -50,7 +50,6 @@ export class ServicesViewController implements angular.IController {
 
   public $onInit() {
     this.debounceResize = _.debounce(() => this.resizeExpansion(false), 50, { maxWait: 250 });
-    angular.element(window).bind('resize', this.debounceResize);
     $(window).on('resize.services', this.debounceResize);
 
     this.removeFilterListener = this.$rootScope.$on('filter-catalog-items', (event: any, searchCriteria: any) => {

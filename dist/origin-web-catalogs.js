@@ -1975,13 +1975,13 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
 }, function(e, t, r) {
     "use strict";
     t.__esModule = !0;
-    var n = r(1), i = r(0), a = r(2), s = function() {
-        function e(e, t, r, n, a, s, o, c, l, d) {
+    var n = r(0), i = r(2), a = function() {
+        function e(e, t, r, i, a, s, o, c, l, d) {
             var p = this;
             this.ctrl = this, this.previousSubCategoryHeight = 0, this.resizeRetries = 0, this.serviceViewItemClicked = function(e, t) {
                 p.$scope.$emit("open-overlay-panel", e);
             }, this.filterChange = function(e) {
-                p.filterByCategory(p.ctrl.currentFilter, p.ctrl.currentSubFilter, !1), i.isEmpty(e) || i.each(e, function(e) {
+                p.filterByCategory(p.ctrl.currentFilter, p.ctrl.currentSubFilter, !1), n.isEmpty(e) || n.each(e, function(e) {
                     switch (e.id) {
                       case "keyword":
                         p.ctrl.filteredItems = p.filterForKeywords(e.values[0], p.ctrl.filteredItems);
@@ -1993,19 +1993,18 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 }), p.ctrl.filterConfig.resultsCount = p.ctrl.filteredItems.length, p.ctrl.keywordFilterValue = null;
             }, this.clearAppliedFilters = function() {
                 p.$scope.$broadcast("clear-filters");
-            }, this.constants = e, this.catalog = t, this.keywordService = r, this.logger = n, 
+            }, this.constants = e, this.catalog = t, this.keywordService = r, this.logger = i, 
             this.htmlService = a, this.element = s[0], this.$filter = o, this.$rootScope = c, 
             this.$scope = l, this.$timeout = d, this.ctrl.loaded = !1, this.ctrl.isEmpty = !1, 
             this.ctrl.mobileView = "categories", this.ctrl.filterConfig = {}, this.ctrl.keywordFilterValue = null;
         }
         return e.prototype.$onInit = function() {
             var e = this;
-            this.debounceResize = i.debounce(function() {
+            this.debounceResize = n.debounce(function() {
                 return e.resizeExpansion(!1);
             }, 50, {
                 maxWait: 250
-            }), n.element(window).bind("resize", this.debounceResize), a(window).on("resize.services", this.debounceResize), 
-            this.removeFilterListener = this.$rootScope.$on("filter-catalog-items", function(t, r) {
+            }), i(window).on("resize.services", this.debounceResize), this.removeFilterListener = this.$rootScope.$on("filter-catalog-items", function(t, r) {
                 e.ctrl.keywordFilterValue = r.searchText, e.ctrl.currentFilter = e.ctrl.currentSubFilter = "all", 
                 e.ctrl.mobileView = "subcategories";
             }), this.ctrl.filterConfig = {
@@ -2021,18 +2020,18 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             };
         }, e.prototype.$onChanges = function(e) {
             e.catalogItems && this.ctrl.catalogItems && (this.ctrl.categories = this.catalog.categories, 
-            this.filterByCategory("all", "all", !0), this.ctrl.isEmpty = i.isEmpty(this.ctrl.catalogItems), 
+            this.filterByCategory("all", "all", !0), this.ctrl.isEmpty = n.isEmpty(this.ctrl.catalogItems), 
             this.ctrl.loaded = !0);
         }, e.prototype.$postLink = function() {
             this.scrollParent = this.getScrollParent(this.element), this.scrollParent && this.htmlService.isWindowAboveBreakpoint(this.htmlService.WINDOW_SIZE_SM) && (this.ctrl.viewStyle = {
                 "min-height": "calc(100vh - " + this.scrollParent.getBoundingClientRect().top + "px)"
             });
         }, e.prototype.$onDestroy = function() {
-            a(window).off("resize.services"), this.removeFilterListener();
+            i(window).off("resize.services"), this.removeFilterListener();
         }, e.prototype.selectCategory = function(e) {
             if (this.ctrl.mobileView = "subcategories", this.clearAppliedFilters(), this.filterByCategory(e, null, !0), 
             this.scrollParent) {
-                var t = a(this.scrollParent);
+                var t = i(this.scrollParent);
                 t.scrollTop() !== this.element.offsetTop && t.animate({
                     scrollTop: this.element.offsetTop
                 }, 200);
@@ -2044,18 +2043,18 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             var t = [];
             return this.ctrl.categories.map(function(r) {
                 e === r.id && (t = t.concat(r.subCategories));
-            }), t = i.filter(t, {
+            }), t = n.filter(t, {
                 hasItems: !0
-            }), "all" === t[0].id && 2 === t.length && (t = i.drop(t, 1)), t;
+            }), "all" === t[0].id && 2 === t.length && (t = n.drop(t, 1)), t;
         }, e.prototype.applyFilters = function(e) {
             this.filterChange(e.appliedFilters);
         }, e.prototype.filterByCategory = function(e, t, r) {
-            var n, a;
+            var i, a;
             "all" === e || "other" === e ? t = "all" : (r && (this.ctrl.subCategories = this.getSubCategories(e)), 
             t = 1 === this.ctrl.subCategories.length ? this.ctrl.subCategories[0].id : t || null), 
-            n = i.find(this.ctrl.categories, {
+            i = n.find(this.ctrl.categories, {
                 id: e
-            }), n ? t && (a = i.find(n.subCategories, {
+            }), i ? t && (a = n.find(i.subCategories, {
                 id: t
             }), a ? (this.ctrl.filteredItems = a.items, this.ctrl.filterConfig.totalCount = this.ctrl.filteredItems.length, 
             this.ctrl.filterConfig.resultsCount = this.ctrl.filterConfig.totalCount) : this.logger.error("Could not find subcategory '" + t + "' for category '" + e + "'")) : this.logger.error("Could not find category '" + e + "'"), 
@@ -2064,8 +2063,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             var r = this.keywordService.generateKeywords(e);
             return this.keywordService.filterForKeywords(t, [ "name", "tags" ], r);
         }, e.prototype.filterForVendors = function(e, t) {
-            return i.filter(t, function(t) {
-                return i.includes(e, t.vendor);
+            return n.filter(t, function(t) {
+                return n.includes(e, t.vendor);
             });
         }, e.prototype.getScrollParent = function(e) {
             if (null === e || !(e instanceof Element)) return null;
@@ -2075,16 +2074,16 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             var r = this;
             if ("all" !== this.ctrl.currentFilter && "other" !== this.ctrl.currentFilter && this.ctrl.currentSubFilter && this.htmlService.isWindowAboveBreakpoint(this.htmlService.WINDOW_SIZE_XS)) {
                 if (this.resizeRetries > e.MAX_RESIZE_RETRIES) return void (this.resizeRetries = 0);
-                var n = a("#" + this.ctrl.currentSubFilter), i = n.find(".services-items"), s = i.outerHeight(!0);
+                var n = i("#" + this.ctrl.currentSubFilter), a = n.find(".services-items"), s = a.outerHeight(!0);
                 s || (this.resizeRetries++, setTimeout(function() {
                     return r.resizeExpansion(t);
-                }, 50)), t ? (a(".services-sub-category").removeAttr("style").removeClass("items-shown"), 
+                }, 50)), t ? (i(".services-sub-category").removeAttr("style").removeClass("items-shown"), 
                 n.css("margin-bottom", this.previousSubCategoryHeight + "px"), n.animate({
                     "margin-bottom": s
                 }, 100, "swing", function() {
                     n.addClass("items-shown");
                 })) : (n.css("margin-bottom", s + "px"), n.addClass("items-shown")), this.previousSubCategoryHeight = s;
-            } else a(".services-sub-category").removeAttr("style").removeClass("items-shown"), 
+            } else i(".services-sub-category").removeAttr("style").removeClass("items-shown"), 
             this.previousSubCategoryHeight = 0, this.resizeRetries = 0;
             this.$scope.$evalAsync(function() {
                 r.scrollParent = r.getScrollParent(r.element), r.htmlService.isWindowAboveBreakpoint(r.htmlService.WINDOW_SIZE_SM) && r.scrollParent ? r.ctrl.viewStyle = {
@@ -2098,8 +2097,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             });
         }, e;
     }();
-    s.$inject = [ "Constants", "Catalog", "KeywordService", "Logger", "HTMLService", "$element", "$filter", "$rootScope", "$scope", "$timeout" ], 
-    s.MAX_RESIZE_RETRIES = 20, t.ServicesViewController = s;
+    a.$inject = [ "Constants", "Catalog", "KeywordService", "Logger", "HTMLService", "$element", "$filter", "$rootScope", "$scope", "$timeout" ], 
+    a.MAX_RESIZE_RETRIES = 20, t.ServicesViewController = a;
 }, function(e, t, r) {
     "use strict";
     t.__esModule = !0;
