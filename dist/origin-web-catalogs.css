@@ -344,9 +344,9 @@ landingbody,
   margin-top: 5px;
 }
 .order-service-details .order-service-details-top .sub-title {
+  color: #72767b;
   font-size: 20px;
   font-weight: 600;
-  color: #72767b;
 }
 .order-service-details .order-service-description-block {
   margin-top: 15px;
@@ -458,6 +458,9 @@ landingbody,
 }
 .order-service-config .sub-title {
   margin: 0 0 10px 0;
+}
+.order-service-config .sub-title .error-message {
+  white-space: pre-line;
 }
 .order-service-config .success-check {
   color: #3f9c35;

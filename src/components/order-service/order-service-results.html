@@ -28,12 +28,8 @@
       </div>
     </div>
     <div class="sub-title">
-      <span ng-if="$ctrl.error.message">
-        {{$ctrl.error.message}}
-      </span>
-      <span ng-if="!$ctrl.error.message">
-        An error occurred provisioning the service.
-      </span>
+      <span ng-if="$ctrl.error.message" class="error-message">{{$ctrl.error.message}}</span>
+      <span ng-if="!$ctrl.error.message" class="error-message">An error occurred provisioning the service.</span>
     </div>
   </div>
   <div ng-if="$ctrl.orderComplete">
