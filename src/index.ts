@@ -6,6 +6,7 @@ require('./constants');
 
 
 // Filters
+import {formatErrorFilter} from './filters/formatError';
 import {escapeRegExpFilter} from './filters/escapeRegExp';
 import {projectUrlFilter} from './filters/projectUrl';
 import {secretUrlFilter} from './filters/secretUrl';
@@ -26,6 +27,7 @@ import {selectProject} from './components/select-project/select-project.componen
 import {servicesView} from './components/services-view/services-view.component';
 import {updateService} from './components/update-service/update-service.component';
 import {RecentlyViewedServiceItems} from './services/recently-viewed-service-items.service';
+import {resultError} from './components/result-error/result-error.component';
 import {catalogFilter} from './components/catalog-filter/catalog-filter.component';
 
 export const webCatalog: string = 'webCatalog';
@@ -38,6 +40,7 @@ angular
   .filter('escapeRegExp', escapeRegExpFilter)
   .filter('projectUrl', projectUrlFilter)
   .filter('secretUrl', secretUrlFilter)
+  .filter('formatError', formatErrorFilter)
   .component('catalogParameters', catalogParameters)
   .component('catalogSearch', catalogSearch)
   .component('createFromBuilder', createFromBuilder)
@@ -49,6 +52,7 @@ angular
   .component('selectPlan', selectPlan)
   .component('selectProject', selectProject)
   .component('servicesView', servicesView)
+  .component('resultError', resultError)
   .component('updateService', updateService)
   .component('catalogFilter', catalogFilter)
   .run(['$templateCache', function($templateCache: any) {

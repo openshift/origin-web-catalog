@@ -1,0 +1,22 @@
+<div class="results-status">
+  <span class="pficon pficon-error-circle-o text-danger" aria-hidden="true"></span>
+  <span class="sr-only">Error</span>
+  <div class="results-message">
+    <h3>
+      <strong>{{$ctrl.serviceName}}</strong> failed to {{$ctrl.actionType}} in <strong>{{$ctrl.projectName}}</strong>.
+    </h3>
+  </div>
+</div>
+<div class="sub-title">
+  <span ng-if="$ctrl.error.data.message">
+    {{$ctrl.error.data.message | upperFirst}}
+  </span>
+  <span ng-if="!$ctrl.error.data.message">
+    An error occurred creating the application.
+  </span>
+</div>
+<ul ng-if="$ctrl.error.failure.length" class="failure-messages">
+  <li ng-repeat="failure in $ctrl.error.failure">
+    {{failure.data.message}}
+  </li>
+</ul>

@@ -17,20 +17,13 @@
       <p><a ng-href="{{$ctrl.selectedProject | projectUrl : $ctrl.baseProjectUrl}}">Continue to the project overview</a> to check the status of your service.</p>
     </div>
   </div>
+
   <div class="results-failure" ng-if="$ctrl.error">
-    <div class="results-status">
-      <span class="pficon pficon-error-circle-o text-danger" aria-hidden="true"></span>
-      <span class="sr-only">Error</span>
-      <div class="results-message">
-        <h3>
-          <strong>{{$ctrl.serviceClass.name}}</strong> failed to provision in <strong>{{$ctrl.projectDisplayName}}</strong>.
-        </h3>
-      </div>
-    </div>
-    <div class="sub-title">
-      <span ng-if="$ctrl.error.message" class="error-message">{{$ctrl.error.message}}</span>
-      <span ng-if="!$ctrl.error.message" class="error-message">An error occurred provisioning the service.</span>
-    </div>
+    <result-error error="$ctrl.error" 
+                  action-type="provision"
+                  service-name="$ctrl.serviceClass.name"
+                  project-name="$ctrl.projectDisplayName">
+    </result-error>
   </div>
   <div ng-if="$ctrl.orderComplete">
     <div class="results-status">

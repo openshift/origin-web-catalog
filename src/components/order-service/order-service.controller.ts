@@ -277,7 +277,7 @@ export class OrderServiceController implements angular.IController {
           this.ctrl.projectDisplayName = this.$filter('displayName')(project);
           this.createService();
         }, (result: any) => {
-          this.ctrl.error = result.data;
+          this.ctrl.error = this.$filter('formatError')(result.data);
         });
     } else {
       this.ctrl.projectDisplayName = this.$filter('displayName')(this.ctrl.selectedProject);
@@ -305,7 +305,7 @@ export class OrderServiceController implements angular.IController {
       if (secretName) {
         let secret = this.BindingService.makeParametersSecret(secretName, parameters, serviceInstance);
         this.DataService.create('secrets', null, secret, context).then(_.noop, (e: any) => {
-          this.ctrl.error = _.get(e, 'data');
+          this.ctrl.error = this.$filter('formatError')(_.get(e, 'data'));
         });
       }
 
@@ -313,7 +313,7 @@ export class OrderServiceController implements angular.IController {
         this.bindService();
       }
     }, (e: any) => {
-      this.ctrl.error = _.get(e, 'data');
+      this.ctrl.error = this.$filter('formatError')(_.get(e, 'data'));
     });
   }
 
@@ -473,7 +473,7 @@ export class OrderServiceController implements angular.IController {
       var readyCondition: any = _.find(conditions, {type: 'Ready'});
 
       this.ctrl.orderComplete = readyCondition && readyCondition.status === 'True';
-      this.ctrl.error = _.find(conditions, {type: 'Failed', status: 'True'});
+      this.ctrl.error = this.$filter('formatError')(_.find(conditions, {type: 'Failed', status: 'True'}));
     }));
   };
 }
