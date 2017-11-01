@@ -36,27 +36,10 @@
     </p>
   </div>
   <div class="results-failure" ng-if="$ctrl.error">
-    <div class="results-status">
-      <span class="pficon pficon-error-circle-o text-danger" aria-hidden="true"></span>
-      <div class="results-message">
-        <h3>
-          <strong>{{$ctrl.name}}</strong> failed to create in <strong>{{$ctrl.selectedProject | displayName}}</strong>.
-        </h3>
-      </div>
-    </div>
-    <div class="sub-title">
-      <span ng-if="$ctrl.error.data.message">
-        {{$ctrl.error.data.message | upperFirst}}
-      </span>
-      <span ng-if="!$ctrl.error.data.message">
-        An error occurred creating the application.
-      </span>
-    </div>
-    <!-- TODO: Improve error message presentation -->
-    <ul ng-if="$ctrl.error.failure.length" class="failure-messages">
-      <li ng-repeat="failure in $ctrl.error.failure">
-        {{failure.data.message}}
-      </li>
-    </ul>
+    <result-error error="$ctrl.error" 
+                  action-type="create"
+                  service-name="$ctrl.name"
+                  project-name="$ctrl.selectedProject | displayName">
+    </result-error>
   </div>
 </div>
