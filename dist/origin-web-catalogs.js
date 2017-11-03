@@ -877,7 +877,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             var e = i.get(this.resource, [ "spec", "externalMetadata", "console.openshift.io/iconClass" ]) || "fa fa-clone";
             return e = -1 !== e.indexOf("icon-") ? "font-icon " + e : e;
         }, e.prototype.getName = function() {
-            return i.get(this.resource, "spec.externalMetadata.displayName") || this.resource.metadata.name;
+            return i.get(this.resource, "spec.externalMetadata.displayName") || i.get(this.resource, "spec.externalName") || this.resource.metadata.name;
         }, e.prototype.getDescription = function() {
             return i.get(this.resource, "spec.description") || "";
         }, e.prototype.getLongDescription = function() {
