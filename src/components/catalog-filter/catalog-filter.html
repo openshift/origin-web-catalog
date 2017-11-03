@@ -1,7 +1,7 @@
 <pf-filter-panel config="$ctrl.config">
   <div class="filter-panel-container">
     <input type="text" ng-model="$ctrl.keywordFilter.value"
-           class="keyword-filter"
+           class="keyword-filter form-control"
            placeholder="{{$ctrl.keywordFilter.placeholder}}"
            ng-keypress="$ctrl.onKeywordKeyPress($event)"
            autocorrect="off"
