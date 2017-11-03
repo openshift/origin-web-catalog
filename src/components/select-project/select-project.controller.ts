@@ -54,7 +54,6 @@ export class SelectProjectController implements angular.IController {
   }
 
   public $onInit() {
-    this.ctrl.nameTaken = false;
     this.ctrl.noProjectsCantCreate = false;
 
     this.ctrl.noProjectsConfig = {
@@ -115,8 +114,7 @@ export class SelectProjectController implements angular.IController {
   }
 
   public onNewProjectNameChange() {
-    this.ctrl.nameTaken = false;
-    this.ctrl.forms.createProjectForm.name.$setValidity('nameTaken', !this.ctrl.nameTaken);
+    this.ctrl.forms.createProjectForm.name.$setValidity('nameTaken', true);
   }
 
   public isNewProject(): boolean {
