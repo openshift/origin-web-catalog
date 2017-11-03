@@ -1,10 +1,16 @@
 .catalog-search {
   background: @landing-bg;
+  background-position: @landing-bg-position;
   background-size: @landing-bg-size;
   border-bottom: solid 1px @search-area-border;
   padding: (@grid-gutter-width / 4) (@grid-gutter-width / 2);
   width: 100%;
   z-index: @zindex-navbar-fixed - 1;
+  @media (max-width: @screen-xs-max) {
+    .ios & {
+      background-size: @landing-bg-size-ios-phone;
+    }
+  }
   @media (min-width: @screen-sm-min) {
     position: fixed;
     top: @navbar-height;
@@ -85,7 +91,13 @@
 
 .landing {
   background: @landing-bg;
+  background-position: @landing-bg-position;
   background-size: @landing-bg-size;
+  @media (max-width: @screen-xs-max) {
+    .ios & {
+      background-size: @landing-bg-size-ios-phone;
+    }
+  }
   @media(min-width: @screen-sm-min) {
     bottom: 0;
     overflow-x: hidden;
