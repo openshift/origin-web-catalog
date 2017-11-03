@@ -23,7 +23,8 @@
         ng-model="$ctrl.selectedProject"
         ng-change="$ctrl.onSelectProjectChange()"
         ng-required="true"
-        search-enabled="$ctrl.searchEnabled">
+        search-enabled="$ctrl.searchEnabled"
+        append-to-body="true">
       <ui-select-match placeholder="{{$ctrl.placeholder}}">
         {{$select.selected | displayName}}
       </ui-select-match>
@@ -117,4 +118,3 @@
   </div>
 </ng-form>
 <div ng-if="!$ctrl.noProjectsCantCreate && $ctrl.showDivider" class="select-project-divider"></div>
-

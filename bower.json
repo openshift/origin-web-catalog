@@ -40,7 +40,7 @@
     "patternfly": ">=3.29.3 <4.0.0",
     "jquery": "~3.2.1",
     "lodash": "~4.17.4",
-    "origin-web-common": "~0.0.70",
+    "origin-web-common": "~0.0.73",
     "angular-schema-form-bootstrap": "^0.2.0"
   },
   "devDependencies": {

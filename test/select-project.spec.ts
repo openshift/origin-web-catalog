@@ -79,7 +79,7 @@ describe('Select Project Component', () => {
 
     componentTest.eventFire(projectSelect[0], 'click');
 
-    var projects = jQuery(element).find('.ui-select-choices-row');
+    var projects = jQuery('body').find('.ui-select-choices-row');
     // 'Create Project' + 3 projects
     expect(projects.length).toBe(4);
 
@@ -100,7 +100,7 @@ describe('Select Project Component', () => {
 
     componentTest.eventFire(projectSelect[0], 'click');
 
-    var projects = jQuery(element).find('.ui-select-choices-row');
+    var projects = jQuery('body').find('.ui-select-choices-row');
     // 3 projects, no 'Create Project'
     expect(projects.length).toBe(3);
 
@@ -125,7 +125,7 @@ describe('Select Project Component', () => {
 
     componentTest.eventFire(projectSelect[0], 'click');
 
-    var projects = jQuery(element).find('.ui-select-choices-row');
+    var projects = jQuery('body').find('.ui-select-choices-row');
     // 'Create Project' + 3 projects
     expect(projects.length).toBe(4);
 
