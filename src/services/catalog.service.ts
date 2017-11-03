@@ -398,7 +398,7 @@ export class ServiceItem implements IServiceItem {
   }
 
   private getName(): string {
-    return _.get(this.resource, 'spec.externalMetadata.displayName') || this.resource.metadata.name;
+    return _.get(this.resource, 'spec.externalMetadata.displayName') || _.get(this.resource, 'spec.externalName') || this.resource.metadata.name;
   }
 
   private getDescription(): string {

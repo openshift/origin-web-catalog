@@ -123,15 +123,16 @@ export const servicesData = {
   "test-serviceclass-other": {
     kind: 'ClusterServiceClass',
     metadata: {
-      name: "test-serviceclass-other",
+      name: "40c9e163-bffe-11e7-a324-f2cad19b6969",
       uid: "8",
     },
     spec: {
       bindable: true,
       description: 'BUILDS SOURCE CODE',
       tags: ['fooBar'],
+      // Test that we correctly fall back to external name when no display name.
+      externalName: 'test-service-class-other',
       externalMetadata: {
-        displayName: 'Test ServiceClass Other',
         longDescription: 'some other service',
         'console.openshift.io/iconClass': 'fa fa-question'
       }

@@ -440,4 +440,31 @@ describe('servicesView', () => {
     expect(vendorFilters.length).toBe(4);
     expect(jQuery(vendorFilters[2]).text().trim()).toBe('Vendor B, Inc.');
   });
+
+  it("should fall back to external name when no display name", () => {
+    services = {
+      "40c9e163-bffe-11e7-a324-f2cad19b6969": {
+        kind: "ClusterServiceClass",
+        metadata: {
+          name: "40c9e163-bffe-11e7-a324-f2cad19b6969",
+          uid: "724e409d-bfee-11e7-a324-f2cad19b6969"
+        },
+        spec: {
+          externalName: 'my-service-class'
+        }
+      }
+    };
+
+    images = {};
+
+    catalogItems = Catalog.convertToServiceItems(services, images);
+
+    createServiceView();
+
+    var element = componentTest.rawElement;
+
+    var items = jQuery(element).find('.services-item-name');
+    expect(items.length).toBe(1);
+    expect(jQuery(items[0]).text().trim()).toBe('my-service-class');
+  });
 });
