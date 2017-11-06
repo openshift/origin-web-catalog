@@ -1208,11 +1208,8 @@ services-view .vendor-info-icon,
     opacity: 1;
     position: absolute;
   }
-  .services-view .services-sub-category.active .services-sub-category-tab .services-sub-category-tab-image img {
-    opacity: 1;
-  }
   .services-view .services-sub-category .services-sub-category-tab {
-    color: #8b8d8f;
+    color: #363636;
     display: flex;
     font-size: 14px;
     font-weight: 600;
@@ -1229,10 +1226,6 @@ services-view .vendor-info-icon,
   .services-view .services-sub-category .services-sub-category-tab:hover {
     color: #0088ce;
     text-decoration: none;
-  }
-  .services-view .services-sub-category .services-sub-category-tab:focus .services-sub-category-tab-image img,
-  .services-view .services-sub-category .services-sub-category-tab:hover .services-sub-category-tab-image img {
-    opacity: 1;
   }
   .services-view .services-sub-category .services-sub-category-tab-icon,
   .services-view .services-sub-category .services-sub-category-tab-image {
@@ -1251,7 +1244,6 @@ services-view .vendor-info-icon,
     margin: auto;
     max-height: 36px;
     max-width: 36px;
-    opacity: .5;
     position: absolute;
     right: 0;
     top: 0;
