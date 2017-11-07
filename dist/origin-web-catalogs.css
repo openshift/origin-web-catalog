@@ -1151,8 +1151,10 @@ services-view .vendor-info-icon,
   z-index: 9;
 }
 .services-view .services-items-filter {
+  border-bottom: 1px solid #ededed;
   flex: 1 1 100%;
-  margin: 20px 20px 10px;
+  margin: 10px 20px;
+  padding: 0 0 10px;
 }
 .services-view .services-items-filter div.checkbox {
   margin-bottom: 0;
@@ -1181,38 +1183,35 @@ services-view .vendor-info-icon,
   }
   .services-view .services-sub-categories .services-items {
     left: 0;
-    margin: 10px 0;
+    margin: 5px 0;
     position: absolute;
     right: 0;
   }
   .services-view .services-sub-category {
-    background-color: #fff;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 2px 2px 0 0;
     display: inline-block;
-    margin: 0 3px 3px 0;
+    margin: 0 5px 5px 0;
   }
   .services-view .services-sub-category.active .services-sub-category-tab {
-    color: #363636 !important;
+    background-color: #fff;
+    border-radius: 0;
+    color: #0088ce !important;
   }
   .services-view .services-sub-category.active .services-sub-category-tab:after {
-    animation: catalogItemFade 200ms ease-out;
-    border-bottom-color: #fff;
-    border-bottom-style: solid;
-    border-bottom-width: 10px;
-    border-left: 10px solid transparent;
-    border-right: 10px solid transparent;
-    bottom: -13px;
+    background-color: #fff;
+    bottom: -5px;
     content: "";
-    display: block;
-    left: 50%;
-    margin-left: -10px;
-    opacity: 1;
+    height: 5px;
+    left: 0;
     position: absolute;
+    right: 0;
   }
-  .services-view .services-sub-category.active .services-sub-category-tab .services-sub-category-tab-image img {
-    opacity: 1;
+  .services-view .services-sub-category:hover {
+    background-color: #fff;
   }
   .services-view .services-sub-category .services-sub-category-tab {
-    color: #8b8d8f;
+    color: #363636;
     display: flex;
     font-size: 14px;
     font-weight: 600;
@@ -1227,12 +1226,10 @@ services-view .vendor-info-icon,
   }
   .services-view .services-sub-category .services-sub-category-tab:focus,
   .services-view .services-sub-category .services-sub-category-tab:hover {
-    color: #0088ce;
     text-decoration: none;
   }
-  .services-view .services-sub-category .services-sub-category-tab:focus .services-sub-category-tab-image img,
-  .services-view .services-sub-category .services-sub-category-tab:hover .services-sub-category-tab-image img {
-    opacity: 1;
+  .services-view .services-sub-category .services-sub-category-tab:hover {
+    color: #0088ce;
   }
   .services-view .services-sub-category .services-sub-category-tab-icon,
   .services-view .services-sub-category .services-sub-category-tab-image {
@@ -1251,7 +1248,6 @@ services-view .vendor-info-icon,
     margin: auto;
     max-height: 36px;
     max-width: 36px;
-    opacity: .5;
     position: absolute;
     right: 0;
     top: 0;
@@ -1398,7 +1394,6 @@ services-view .vendor-info-icon,
 }
 .services-view .services-view-container .services-sub-categories {
   list-style: none;
-  margin-bottom: 0;
 }
 .services-view .services-view-container .services-sub-categories > li > a.services-back-link {
   display: none;
@@ -1534,6 +1529,9 @@ services-view .vendor-info-icon,
   .services-view .services-view-container .services-categories > li > a .services-sub-category-tab-image,
   .services-view .services-view-container .services-sub-categories > li > a .services-sub-category-tab-image {
     display: none !important;
+  }
+  .services-view .services-view-container .services-sub-categories {
+    margin-bottom: 0;
   }
 }
 .services-view .spinner-container {
