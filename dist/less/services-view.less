@@ -145,8 +145,10 @@ services-view,
   }
 
   .services-items-filter {
+    border-bottom: 1px solid @color-pf-black-200;
     flex: 1 1 100%;
-    margin: (@grid-gutter-width / 2) (@grid-gutter-width / 2) (@grid-gutter-width / 4);
+    margin: (@grid-gutter-width / 4) (@grid-gutter-width / 2);
+    padding: 0 0 10px;
     div.checkbox {
       margin-bottom: 0;
       margin-top: 0;
@@ -176,41 +178,39 @@ services-view,
       position: relative;
       .services-items {
         left: 0;
-        margin: 10px 0;
+        margin: 5px 0;
         position: absolute;
         right: 0;
       }
     }
 
     .services-sub-category {
-      background-color: @color-pf-white;
+      background-color: rgba(255,255,255,.9);
+      border-radius: 2px 2px 0 0;
       display: inline-block;
-      margin: 0 3px 3px 0;
+      margin: 0 5px 5px 0;
 
       &.active .services-sub-category-tab {
-        color: @text-color !important;
+        background-color: @color-pf-white;
+        border-radius: 0;
+        color: @link-color !important;
         &:after {
-          animation: catalogItemFade 200ms ease-out;
-          border-bottom-color: @color-pf-white;
-          border-bottom-style: solid;
-          border-bottom-width: 10px;
-          border-left: 10px solid transparent;
-          border-right: 10px solid transparent;
-          bottom: -13px;
+          background-color: @color-pf-white;
+          bottom: -5px;
           content: "";
-          display: block;
-          left: 50%;
-          margin-left: -10px;
-          opacity: 1;
+          height: 5px;
+          left: 0;
           position: absolute;
-        }
-        .services-sub-category-tab-image img {
-          opacity: 1;
+          right: 0;
         }
       }
 
+      &:hover {
+        background-color: @color-pf-white;
+      }
+
       .services-sub-category-tab {
-        color: @color-pf-black-500;
+        color: @text-color;
         display: flex;
         font-size: 14px;
         font-weight: 600;
@@ -225,11 +225,11 @@ services-view,
 
         &:focus,
         &:hover {
-          color: @link-color;
           text-decoration: none;
-          .services-sub-category-tab-image img {
-            opacity: 1;
-          }
+        }
+
+        &:hover {
+          color: @link-color;
         }
       }
 
@@ -251,7 +251,6 @@ services-view,
           margin: auto;
           max-height: 36px;
           max-width: 36px;
-          opacity: .5;
           position: absolute;
           right: 0;
           top: 0;
@@ -421,7 +420,6 @@ services-view,
 
     .services-sub-categories {
       list-style: none;
-      margin-bottom: 0;
       > li > a.services-back-link {
         display: none;
       }
@@ -573,6 +571,9 @@ services-view,
             }
           }
         }
+      }
+      .services-sub-categories {
+        margin-bottom: 0;
       }
     }
   }
