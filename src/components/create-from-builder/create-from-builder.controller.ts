@@ -106,6 +106,7 @@ export class CreateFromBuilderController implements angular.IController {
       onShow: this.showResults
     };
     this.ctrl.steps = [this.infoStep, this.configStep, this.bindStep, this.reviewStep];
+    this.ctrl.currentStep = "Information";
     this.ctrl.versions = this.getVersions();
     this.ctrl.istag = _.head(this.ctrl.versions);
     this.ctrl.nameMaxLength = 24;
@@ -127,6 +128,10 @@ export class CreateFromBuilderController implements angular.IController {
       },
       this.onProjectUpdate
     );
+
+    this.$scope.$watch('$ctrl.selectedProject.metadata.name', () => {
+      this.ctrl.projectNameTaken = false;
+    });
 
     if (this.ctrl.showPodPresets) {
       // FIXME: We should not need to request these again.
@@ -218,6 +223,7 @@ export class CreateFromBuilderController implements angular.IController {
   };
 
   private showConfig = () => {
+    this.ctrl.currentStep = "Configuration";
     this.clearValidityWatcher();
     this.ctrl.nextTitle = this.bindStep.hidden ? 'Create' : 'Next >';
     this.reviewStep.allowed = this.bindStep.hidden && this.configStep.valid;
@@ -240,6 +246,7 @@ export class CreateFromBuilderController implements angular.IController {
     this.clearValidityWatcher();
     this.ctrl.nextTitle = 'Close';
     this.ctrl.wizardDone = true;
+    this.ctrl.currentStep = "Results";
 
     this.createApp();
   };
@@ -383,8 +390,14 @@ export class CreateFromBuilderController implements angular.IController {
       }, (e: any) => {
         this.ctrl.error = e;
       });
-    }, (result) => {
-      this.ctrl.error = result;
+    }, (e) => {
+      if (e.data.reason === 'AlreadyExists') {
+        this.ctrl.projectNameTaken = true;
+        this.ctrl.wizardDone = false;
+        this.ctrl.currentStep = "Configuration";
+      } else {
+        this.ctrl.error = e;
+      }
     });
   };
 

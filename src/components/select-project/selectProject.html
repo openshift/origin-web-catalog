@@ -58,7 +58,8 @@
     ng-if="$ctrl.isNewProject()">
   <div class="form-group">
     <label for="name" class="control-label required">Project Name</label>
-    <div ng-class="{'has-error': ($ctrl.forms.createProjectForm.name.$error.pattern && $ctrl.forms.createProjectForm.name.$touched) || $ctrl.nameTaken}">
+    <div ng-class="{'has-error': ($ctrl.forms.createProjectForm.name.$error.pattern && $ctrl.forms.createProjectForm.name.$touched) ||
+                                 $ctrl.nameTaken || $ctrl.forms.createProjectForm.name.$error.oscUnique}">
       <input class="form-control"
           name="name"
           id="name"
@@ -77,23 +78,23 @@
           autocorrect="off"
           autocapitalize="off"
           spellcheck="false">
-      <div class="help-block">A unique name for the project.</div>
-      <div class="has-error" ng-if="$ctrl.forms.createProjectForm.name.$error.minlength && $ctrl.forms.createProjectForm.name.$touched">
-        <span id="nameHelp" class="help-block">
-          Name must have at least two characters.
-        </span>
-      </div>
-      <div class="has-error" ng-if="$ctrl.forms.createProjectForm.name.$error.pattern && $ctrl.forms.createProjectForm.name.$touched">
-        <span id="nameHelp" class="help-block">
-          Project names may only contain lower-case letters, numbers, and dashes.
-          They may not start or end with a dash.
-        </span>
-      </div>
-      <div class="has-error" ng-if="$ctrl.nameTaken || $ctrl.forms.createProjectForm.name.$error.oscUnique">
-        <span class="help-block">
-          This name is already in use. Please choose a different name.
-        </span>
-      </div>
+    </div>
+    <div class="help-block">A unique name for the project.</div>
+    <div class="has-error" ng-if="$ctrl.forms.createProjectForm.name.$error.minlength && $ctrl.forms.createProjectForm.name.$touched">
+      <span id="nameHelp" class="help-block">
+        Name must have at least two characters.
+      </span>
+    </div>
+    <div class="has-error" ng-if="$ctrl.forms.createProjectForm.name.$error.pattern && $ctrl.forms.createProjectForm.name.$touched">
+      <span id="nameHelp" class="help-block">
+        Project names may only contain lower-case letters, numbers, and dashes.
+        They may not start or end with a dash.
+      </span>
+    </div>
+    <div class="has-error" ng-if="$ctrl.nameTaken || $ctrl.forms.createProjectForm.name.$error.oscUnique">
+      <span class="help-block">
+        This name is already in use. Please choose a different name.
+      </span>
     </div>
   </div>
 

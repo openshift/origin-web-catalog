@@ -147,7 +147,8 @@ export class OrderServiceController implements angular.IController {
     };
 
     this.ctrl.steps = [this.infoStep, this.planStep, this.configStep, this.bindStep, this.bindParametersStep, this.reviewStep];
-    this.ctrl.nameTaken = false;
+    this.ctrl.currentStep = "Information";
+    this.ctrl.projectNameTaken = false;
     this.ctrl.wizardDone = false;
     this.ctrl.bindType = "none";
 
@@ -166,6 +167,10 @@ export class OrderServiceController implements angular.IController {
       },
       this.onProjectUpdate
     );
+
+    this.$scope.$watch('$ctrl.selectedProject.metadata.name', () => {
+      this.ctrl.projectNameTaken = false;
+    });
 
     this.bindTypeWatch = this.$scope.$watch("$ctrl.bindType", (current: any, previous: any) => {
       if (current === previous) {
@@ -203,6 +208,7 @@ export class OrderServiceController implements angular.IController {
   };
 
   public showConfig = () => {
+    this.ctrl.currentStep = "Configuration";
     this.clearValidityWatcher();
     this.ctrl.configPageShown = true;
     this.reviewStep.allowed = this.bindStep.hidden && this.configStep.valid;
@@ -244,6 +250,7 @@ export class OrderServiceController implements angular.IController {
   };
 
   public showResults = () => {
+    this.ctrl.currentStep = "Results";
     this.clearValidityWatcher();
     this.ctrl.configPageShown = false;
     this.ctrl.nextTitle = "Close";
@@ -276,8 +283,14 @@ export class OrderServiceController implements angular.IController {
           this.ctrl.selectedProject = project;
           this.ctrl.projectDisplayName = this.$filter('displayName')(project);
           this.createService();
-        }, (result: any) => {
-          this.ctrl.error = result.data;
+        }, (e: any) => {
+          if (e.data.reason === 'AlreadyExists') {
+            this.ctrl.projectNameTaken = true;
+            this.ctrl.wizardDone = false;
+            this.ctrl.currentStep = "Configuration";
+          } else {
+            this.ctrl.error = e;
+          }
         });
     } else {
       this.ctrl.projectDisplayName = this.$filter('displayName')(this.ctrl.selectedProject);
