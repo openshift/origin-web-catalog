@@ -32,6 +32,10 @@
   }
   .catalog-search-input {
     text-indent: 30px;
+    &:focus {
+      border-color: @color-pf-blue-300;
+      box-shadow: 0 0 8px @color-pf-light-blue-200;
+    }
   }
   .catalog-search-match-info {
     flex: 1 1 0%; // for .word-break()
