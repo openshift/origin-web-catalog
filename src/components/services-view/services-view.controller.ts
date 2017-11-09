@@ -52,6 +52,8 @@ export class ServicesViewController implements angular.IController {
     this.debounceResize = _.debounce(() => this.resizeExpansion(false), 50, { maxWait: 250 });
     $(window).on('resize.services', this.debounceResize);
 
+    this.ctrl.currentFilter = this.ctrl.currentSubFilter = 'all';
+
     this.removeFilterListener = this.$rootScope.$on('filter-catalog-items', (event: any, searchCriteria: any) => {
       this.ctrl.keywordFilterValue = searchCriteria.searchText;
       this.ctrl.currentFilter = this.ctrl.currentSubFilter = 'all';
@@ -74,10 +76,12 @@ export class ServicesViewController implements angular.IController {
   }
 
   public $onChanges(onChangesObj: angular.IOnChangesObject) {
-    if (onChangesObj.catalogItems && this.ctrl.catalogItems) {
-      this.ctrl.categories = this.catalog.categories;
-      this.filterByCategory('all', 'all', true);
+    if (onChangesObj.catalogItems && onChangesObj.catalogItems.currentValue) {
       this.ctrl.isEmpty = _.isEmpty(this.ctrl.catalogItems);
+      if (!this.ctrl.isEmpty) {
+        this.ctrl.categories = this.catalog.categories;
+        this.filterByCategory('all', 'all', true);
+      }
       this.ctrl.loaded = true;
     }
   }
