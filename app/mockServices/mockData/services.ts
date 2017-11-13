@@ -114,7 +114,7 @@ export const servicesData = {
       description: 'BUILDS SOURCE CODE',
       tags: ['mysql'],
       externalMetadata: {
-        displayName: 'Test ServiceClass mySQL',
+        displayName: 'Test ServiceClass MySQL',
         longDescription: 'run MongoDB applications. For more information about using this builder image, including OpenShift considerations, see https://github.com/openshift-s2i/s2i-wildfly/blob/mast…',
         providerDisplayName: "Vendor B, Co."
       }
