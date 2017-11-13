@@ -323,7 +323,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 icon: "icon-mongodb"
             }, {
                 id: "mysql",
-                label: "mySQL",
+                label: "MySQL",
                 tags: [ "mysql" ],
                 icon: "icon-mysql-database"
             }, {
