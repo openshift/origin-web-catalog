@@ -19,12 +19,44 @@ body.overlay-open {
 }
 
 .catalogs-overlay-panel {
-  margin: 0 auto;
-  max-width: 900px;
-  position: relative;
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  @media(min-width: @screen-sm-min) {
+    margin: 0 auto;
+    max-width: 900px;
+    position: relative;
+  }
+  @media(min-width: @screen-sm-min) and (min-height: (@catalog-overlay-panel-height + @navbar-pf-height)) {
+    margin-top: @navbar-pf-height;
+  }
+
+  .modal-header .close {
+    font-size: 18px; // so that close button is the same size in console
+  }
+
+  .modal-title {
+    line-height: 21px; // so that modal-header has a consistent height of 41px
+  }
 
   .wizard-pf-contents {
     flex: 1 1 auto;
+  }
+
+  .wizard-pf-footer {
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    @media(min-width: @screen-sm-min) {
+      position: relative;
+    }
+
+    .btn {
+      font-size: 12px; // so that wizard-pf-footer in the console is 58px tall
+    }
   }
 
   .wizard-pf-main {
@@ -36,13 +68,18 @@ body.overlay-open {
       .scroll-shadows-vertical-with-covers(65%, 0.25);
     }
     @media(max-width: @screen-xs-max) {
-      max-height: calc(100vh ~"-" 234px);
+      bottom: 58px; // height of .wizard-pf-footer
+      height: auto;
+      left: 1px;
+      position: fixed;
+      right: 1px;
+      top: 99px; // 99px = 98px (.order-service) + 1px (modal top "margin")
+      width: auto;
     }
     @media(min-width: @screen-sm-min) {
       height: @order-service-page-height + @grid-gutter-width;
-      max-height: calc(100vh ~"-" @order-service-wizard-min-external-height);
+      max-height: calc(100vh ~"-" 222px); // 222px =  1px (modal top "margin") + 41px (.modal-header) + 121px (.wizard-stesp) + 58 (.wizard-pf-footer) + 1px (modal bottom "margin")
       min-height: 200px;
-      overflow-y: auto;
     }
   }
 
@@ -102,13 +139,6 @@ body.overlay-open {
   }
   &.pficon-close:hover {
     color: @color-pf-black-800;
-  }
-}
-
-.catalogs-overlay-panel-grow-height {
-  // only adding padding to the overlay panel if the viewport is taller than the panel plus the padding
-  @media(min-height: 545px) and (min-width: @screen-sm-min) { // 465px (height of Safari in iPhone SE) + 80px (padding)
-    padding: @navbar-pf-height 0 (@grid-gutter-width / 2);
   }
 }
 
