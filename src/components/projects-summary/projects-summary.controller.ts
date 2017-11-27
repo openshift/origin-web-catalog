@@ -22,7 +22,6 @@ export class ProjectsSummaryController implements angular.IController {
   public ctrl: any = this;
   public newProjectPanelShown: boolean = false;
   public editProjectPanelShown: boolean = false;
-  public projects: any = [];
   private $filter: any;
   private $rootScope: any;
   private $scope: any;
@@ -123,7 +122,7 @@ export class ProjectsSummaryController implements angular.IController {
       // Only watch if the list successfully completed and we are below the
       // maximum number of projects to watch. Otherwise the list is likely too
       // large to reliably watch.
-      if (!this.ctrl.isProjectListIncomplete && _.size(this.projects) <= ProjectsSummaryController.MAX_PROJETS_TO_WATCH) {
+      if (!this.ctrl.isProjectListIncomplete && this.ctrl.totalProjects <= ProjectsSummaryController.MAX_PROJETS_TO_WATCH) {
         this.watches.push(this.ProjectsService.watch(this.$scope, this.onProjectsUpdate));
         // If we're not watching projects, we can manually update the list
         // on changes.

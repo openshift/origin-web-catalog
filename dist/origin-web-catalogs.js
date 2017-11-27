@@ -1745,11 +1745,10 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
         function e(t, r, a, s, c, o, l, d, p, h, m) {
             var u = this;
             this.ctrl = this, this.newProjectPanelShown = !1, this.editProjectPanelShown = !1, 
-            this.projects = [], this.watches = [], this.maxDisplayProjects = 5, this.watchingProjects = !1, 
-            this.init = function() {
+            this.watches = [], this.maxDisplayProjects = 5, this.watchingProjects = !1, this.init = function() {
                 u.ProjectsService.list().then(function(t) {
                     u.onProjectsUpdate(t), u.ctrl.isProjectListIncomplete = u.ProjectsService.isProjectListIncomplete(), 
-                    !u.ctrl.isProjectListIncomplete && i.size(u.projects) <= e.MAX_PROJETS_TO_WATCH && (u.watches.push(u.ProjectsService.watch(u.$scope, u.onProjectsUpdate)), 
+                    !u.ctrl.isProjectListIncomplete && u.ctrl.totalProjects <= e.MAX_PROJETS_TO_WATCH && (u.watches.push(u.ProjectsService.watch(u.$scope, u.onProjectsUpdate)), 
                     u.watchingProjects = !0);
                 }, function() {
                     u.ctrl.isProjectListIncomplete = !0;
