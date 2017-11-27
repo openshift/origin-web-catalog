@@ -1323,7 +1323,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             }), this.ctrl.showPodPresets ? (this.getServiceClassesAndPlans(), this.instancesSupported = !!this.APIService.apiInfo(this.APIService.getPreferredVersion("serviceinstances"))) : this.instancesSupported = !1, 
             this.noProjectsCantCreateWatch = this.$scope.$on("no-projects-cannot-create", function() {
                 e.ctrl.noProjectsCantCreate = !0;
-            }), this.getServiceClassesAndPlans(), this.instancesSupported = !!this.APIService.apiInfo(this.APIService.getPreferredVersion("serviceinstances"));
+            });
         }, e.prototype.closePanel = function() {
             n.isFunction(this.ctrl.handleClose) && this.ctrl.handleClose();
         }, e.prototype.$onDestroy = function() {

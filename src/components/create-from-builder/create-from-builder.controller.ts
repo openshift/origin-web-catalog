@@ -144,9 +144,6 @@ export class CreateFromBuilderController implements angular.IController {
     this.noProjectsCantCreateWatch = this.$scope.$on('no-projects-cannot-create', () => {
       this.ctrl.noProjectsCantCreate = true;
     });
-
-    this.getServiceClassesAndPlans();
-    this.instancesSupported = !!this.APIService.apiInfo(this.APIService.getPreferredVersion('serviceinstances'));
   }
 
   public closePanel() {
