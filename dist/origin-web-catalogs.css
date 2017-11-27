@@ -880,7 +880,11 @@ body.overlay-open .landing-side-bar {
 .catalog-project-summary-list .project-date + .project-description {
   margin-top: 7px;
 }
+.catalog-project-summary-list .project-date + .project-description .truncation-block {
+  margin-right: 0;
+}
 .catalog-project-summary-list .project-date + .project-description .truncated-content {
+  display: block;
   white-space: pre-line;
   word-wrap: break-word;
   word-break: break-word;

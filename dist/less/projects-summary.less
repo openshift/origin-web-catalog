@@ -224,7 +224,11 @@
 
     + .project-description {
       margin-top: 7px;
+      .truncation-block {
+        margin-right: 0; // remove the margin as it creates a gap since .truncated-content is display block for IE11
+      }
       .truncated-content {
+        display: block; // so word-break() works in IE11
         white-space: pre-line; // preserve newlines in descriptions
         .word-break(); // break long, unbroken strings
       }
