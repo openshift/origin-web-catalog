@@ -2011,7 +2011,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 return e.resizeExpansion(!1);
             }, 50, {
                 maxWait: 250
-            }), i(window).on("resize.services", this.debounceResize), this.removeFilterListener = this.$rootScope.$on("filter-catalog-items", function(t, r) {
+            }), i(window).on("resize.services", this.debounceResize), this.ctrl.currentFilter = this.ctrl.currentSubFilter = "all", 
+            this.removeFilterListener = this.$rootScope.$on("filter-catalog-items", function(t, r) {
                 e.ctrl.keywordFilterValue = r.searchText, e.ctrl.currentFilter = e.ctrl.currentSubFilter = "all", 
                 e.ctrl.mobileView = "subcategories";
             }), this.ctrl.filterConfig = {
@@ -2026,8 +2027,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 }
             };
         }, e.prototype.$onChanges = function(e) {
-            e.catalogItems && this.ctrl.catalogItems && (this.ctrl.categories = this.catalog.categories, 
-            this.filterByCategory("all", "all", !0), this.ctrl.isEmpty = n.isEmpty(this.ctrl.catalogItems), 
+            e.catalogItems && e.catalogItems.currentValue && (this.ctrl.isEmpty = n.isEmpty(this.ctrl.catalogItems), 
+            this.ctrl.isEmpty || (this.ctrl.categories = this.catalog.categories, this.filterByCategory("all", "all", !0)), 
             this.ctrl.loaded = !0);
         }, e.prototype.$postLink = function() {
             this.scrollParent = this.getScrollParent(this.element), this.scrollParent && this.htmlService.isWindowAboveBreakpoint(this.htmlService.WINDOW_SIZE_SM) && (this.ctrl.viewStyle = {
