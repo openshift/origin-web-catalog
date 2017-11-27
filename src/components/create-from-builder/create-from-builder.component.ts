@@ -4,7 +4,8 @@ export const createFromBuilder: angular.IComponentOptions = {
   bindings: {
     baseProjectUrl: '@',
     imageStream: '<',
-    handleClose: '<'
+    handleClose: '<',
+    addToProject: '<?'
   },
   controller: CreateFromBuilderController,
   template: require('./create-from-builder.html')

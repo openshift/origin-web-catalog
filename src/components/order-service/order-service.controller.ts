@@ -58,6 +58,8 @@ export class OrderServiceController implements angular.IController {
   }
 
   public $onInit() {
+    this.ctrl.selectedProject = this.ctrl.addToProject;
+
     this.ctrl.iconClass = this.ctrl.serviceClass.iconClass || 'fa fa-clone';
     this.ctrl.imageUrl = this.ctrl.serviceClass.imageUrl;
     this.ctrl.serviceName = this.ctrl.serviceClass.name;
@@ -160,13 +162,15 @@ export class OrderServiceController implements angular.IController {
     // Set updating true initially so that the next button doesn't enable,
     // disable, then enable again immediately.  The onProjectUpdate callback
     // will set this back to false.
-    this.ctrl.updating = true;
-    this.selectedProjectWatch = this.$scope.$watch(
-      () => {
-        return this.ctrl.selectedProject;
-      },
-      this.onProjectUpdate
-    );
+    if (!this.ctrl.addToProject) {
+      this.ctrl.updating = true;
+      this.selectedProjectWatch = this.$scope.$watch(
+        () => {
+          return this.ctrl.selectedProject;
+        },
+        this.onProjectUpdate
+      );
+    }
 
     this.$scope.$watch('$ctrl.selectedProject.metadata.name', () => {
       this.ctrl.projectNameTaken = false;
@@ -352,7 +356,9 @@ export class OrderServiceController implements angular.IController {
 
   public $onDestroy() {
     this.DataService.unwatchAll(this.watches);
-    this.selectedProjectWatch();
+    if (this.selectedProjectWatch) {
+      this.selectedProjectWatch();
+    }
     this.noProjectsCantCreateWatch();
     this.bindTypeWatch();
     this.clearValidityWatcher();

@@ -64,6 +64,8 @@ export class CreateFromBuilderController implements angular.IController {
   }
 
   public $onInit() {
+    this.ctrl.selectedProject = this.ctrl.addToProject;
+
     this.infoStep = {
       label: 'Information',
       id: 'info',
