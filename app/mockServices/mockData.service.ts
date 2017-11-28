@@ -272,15 +272,15 @@ export class DataService implements IDataService {
   }
 
   private getLargeProjectList() {
-    if (this.largeProjectList) {
-      return this.largeProjectList;
+    if (!this.largeProjectList) {
+      this.largeProjectList = {};
+      for (let i = 1; i <= 5000; i++) {
+        let project = this.mockProject(i);
+        this.largeProjectList[project.metadata.name] = project;
+      }
     }
 
-    this.largeProjectList = {};
-    for (let i = 1; i <= 5000; i++) {
-      let project = this.mockProject(i);
-      this.largeProjectList[project.metadata.name] = project;
-    }
+    return this.largeProjectList;
   }
 
   private watchCallbacks(key: string) {
