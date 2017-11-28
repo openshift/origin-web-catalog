@@ -5,7 +5,9 @@ export const orderService: angular.IComponentOptions = {
     baseProjectUrl: '@',
     serviceClass: '<',
     servicePlans: '<',
-    handleClose: '<'
+    handleClose: '<',
+    addToProject: '<?'
+
   },
   controller: OrderServiceController,
   template: require('./order-service.html')

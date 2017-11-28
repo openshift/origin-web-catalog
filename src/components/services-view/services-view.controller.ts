@@ -53,11 +53,10 @@ export class ServicesViewController implements angular.IController {
     $(window).on('resize.services', this.debounceResize);
 
     this.ctrl.currentFilter = this.ctrl.currentSubFilter = 'all';
+    this.ctrl.sectionTitle = this.ctrl.sectionTitle || 'Browse Catalog';
 
     this.removeFilterListener = this.$rootScope.$on('filter-catalog-items', (event: any, searchCriteria: any) => {
-      this.ctrl.keywordFilterValue = searchCriteria.searchText;
-      this.ctrl.currentFilter = this.ctrl.currentSubFilter = 'all';
-      this.ctrl.mobileView = 'subcategories';
+      this.setKeywordFilter(searchCriteria.searchText);
     });
 
     this.ctrl.filterConfig = {
@@ -73,6 +72,10 @@ export class ServicesViewController implements angular.IController {
         urlAction: this.clearAppliedFilters
       }
     };
+
+    if (this.ctrl.keywordFilter) {
+      this.setKeywordFilter(this.ctrl.keywordFilter);
+    }
   }
 
   public $onChanges(onChangesObj: angular.IOnChangesObject) {
@@ -83,6 +86,9 @@ export class ServicesViewController implements angular.IController {
         this.filterByCategory('all', 'all', true);
       }
       this.ctrl.loaded = true;
+    }
+    if (onChangesObj.keywordFilter && !onChangesObj.keywordFilter.isFirstChange()) {
+      this.setKeywordFilter(this.ctrl.keywordFilter);
     }
   }
 
@@ -190,6 +196,12 @@ export class ServicesViewController implements angular.IController {
     this.ctrl.currentFilter = category;
     this.ctrl.currentSubFilter = subCategory;
     this.updateActiveCardStyles();
+  }
+
+  private setKeywordFilter (keyword: String) {
+    this.ctrl.keywordFilterValue = keyword;
+    this.ctrl.currentFilter = this.ctrl.currentSubFilter = 'all';
+    this.ctrl.mobileView = 'subcategories';
   }
 
   private filterForKeywords (searchText: string, items: any) {

@@ -4,7 +4,7 @@
   </div>
   <div ng-if="$ctrl.loaded" class="services-view-container mobile-{{$ctrl.mobileView}}-view">
     <div class="add-methods">
-      <h1>Browse Catalog</h1>
+      <h1>{{$ctrl.sectionTitle}}</h1>
       <div ng-if="$ctrl.onDeployImageSelected || $ctrl.onFromFileSelected || $ctrl.onCreateFromProject">
         <ul class="add-other hidden-md hidden-lg">
           <li uib-dropdown="" class="dropdown">
