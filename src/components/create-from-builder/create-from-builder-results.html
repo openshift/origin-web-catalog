@@ -32,7 +32,7 @@
   </div>
   <div ng-if="$ctrl.success">
     <p ng-if="!$ctrl.serviceToBind || $ctrl.bindComplete">
-      <a ng-href="{{$ctrl.selectedProject | projectUrl : $ctrl.baseProjectUrl}}">Continue to the project overview</a> to check the status of your application as it builds and deploys.
+      <a ng-href="{{$ctrl.selectedProject | projectUrl : $ctrl.baseProjectUrl}}" ng-click="$ctrl.closePanel()">Continue to the project overview</a> to check the status of your application as it builds and deploys.
     </p>
   </div>
   <div class="results-failure" ng-if="$ctrl.error">

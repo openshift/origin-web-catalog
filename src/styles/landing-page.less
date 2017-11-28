@@ -4,6 +4,7 @@
   background-size: @landing-bg-size;
   border-bottom: solid 1px @search-area-border;
   padding: (@grid-gutter-width / 4) (@grid-gutter-width / 2);
+  position: relative;
   width: 100%;
   z-index: @zindex-navbar-fixed - 1;
   @media (max-width: @screen-xs-max) {
@@ -35,6 +36,57 @@
   .catalog-search-match-info {
     flex: 1 1 0%; // for .word-break()
     .word-break();
+  }
+  .dropdown-menu {
+    margin-top: 0;
+    padding: 0;
+    width: 100%;
+    > li > a {
+      &.catalog-search-match {
+        border-color: @color-pf-black-300;
+        border-width: 0 0 1px 0;
+        display: flex;
+        line-height: 1.5;
+        padding: 3px 10px 3px 5px;
+        white-space: normal;
+      }
+      &.catalog-search-show-all {
+        background-color: @color-pf-black-200;
+        color: @link-color;
+        padding: 5px 0;
+        text-align: center;
+      }
+    }
+    // important needed to override styles declared important in PatternFly
+    .active > a {
+      border-color: @color-pf-blue-100 !important;
+      &.catalog-search-match {
+        background-color: @color-pf-blue-50 !important;
+        color: inherit !important;
+      }
+      &.catalog-search-show-all {
+        background-color: @color-pf-black-200 !important;
+        color: @link-hover-color !important;
+      }
+    }
+
+    .catalog-search-show-none {
+      background-color: @color-pf-black-200;
+      border-color: @color-pf-black-300;
+      border-width: 0 0 1px 0;
+      padding: 5px 0;
+      text-align: center;
+    }
+  }
+  .search-pf-input-group {
+    .form-control {
+      font-size: (@font-size-base + 2);
+      height: 2.2em;
+    }
+    .pficon-close {
+      font-size: (@font-size-base + 4);
+      margin-top: -0.3em;
+    }
   }
 }
 
@@ -75,18 +127,8 @@
   }
 }
 
-.catalog-search-show-all {
-  color: @search-view-all-link-color;
-  flex-grow: 1;
-  font-weight: 600;
-  text-align: center;
-}
-
-.catalog-search-show-none {
-  cursor: default;
-  flex-grow: 1;
-  font-weight: 600;
-  text-align: center;
+.catalog-search-toggle {
+  padding: 0 5px;
 }
 
 .landing {
@@ -133,36 +175,6 @@ landingbody,
   @media (min-width: @screen-sm-min) {
     max-width: 600px;
     width: 80%;
-  }
-  .search-pf-input-group{
-    .form-control{
-      font-size: (@font-size-base + 2);
-      height: 2.2em;
-    }
-    .pficon-close {
-      font-size: (@font-size-base + 4);
-      padding-top: .3em;
-    }
-  }
-  .dropdown-menu {
-    margin-top: 0;
-    width: 100%;
-    > li > a.catalog-search-match {
-      display: flex;
-      line-height: 1.5;
-      padding: 3px 10px 3px 5px;
-      white-space: normal;
-    }
-    // important needed to override styles declared important in PatternFly
-    .active > a.catalog-search-match, :focus{
-      background-color: @color-pf-blue-50 !important;
-      border-color: @color-pf-blue-100 !important;
-      color: inherit !important;
-    }
-    .active > a.catalog-search-match.no-matches {
-      background-color: transparent !important;
-      border-color: transparent !important;
-    }
   }
 }
 

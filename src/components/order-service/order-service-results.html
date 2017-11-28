@@ -14,7 +14,9 @@
           </p>
         </div>
       </div>
-      <p><a ng-href="{{$ctrl.selectedProject | projectUrl : $ctrl.baseProjectUrl}}">Continue to the project overview</a> to check the status of your service.</p>
+      <p>
+        <a ng-href="{{$ctrl.selectedProject | projectUrl : $ctrl.baseProjectUrl}}" ng-click="$ctrl.closePanel()">Continue to the project overview</a> to check the status of your service.
+      </p>
     </div>
   </div>
   <div class="results-failure" ng-if="$ctrl.error">
