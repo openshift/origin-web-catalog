@@ -270,11 +270,32 @@ export class CreateFromBuilderController implements angular.IController {
     this.createApp();
   };
 
-  private referencesSameImageStream(specTag: any) {
-    return specTag.from &&
-      specTag.from.kind === 'ImageStreamTag' &&
-      specTag.from.name.indexOf(':') === -1 &&
-      !specTag.from.namespace;
+  // If this spec tag references another tag in the same image stream, get the reference.
+  private getTagReference(specTag: any) {
+    // Is this an image stream tag reference?
+    if (!specTag.from || specTag.from.kind !== 'ImageStreamTag') {
+      return null;
+    }
+
+    // Is it referencing an image stream in the same namespace?
+    let ns = _.get(this, 'ctrl.imageStream.resource.metadata.namespace');
+    if (specTag.from.namespace && specTag.from.namespace !== ns) {
+      return null;
+    }
+
+    // If the name doesn't have a `:`, it references the same image stream.
+    if (specTag.from.name.indexOf(':') === -1) {
+      return specTag.from.name;
+    }
+
+    // Or it can be in the form of "name:tag" where the name is the same image stream.
+    let name = _.get(this, 'ctrl.imageStream.resource.metadata.name');
+    let parts = specTag.from.name.split(':');
+    if (parts[0] !== name) {
+      return null;
+    }
+
+    return parts[1];
   }
 
   private getVersions() {
@@ -284,10 +305,11 @@ export class CreateFromBuilderController implements angular.IController {
     let builderTagsByName = {};
     let specTags = _.get(this, 'ctrl.imageStream.resource.spec.tags', []);
     _.each(specTags, (specTag: any) => {
-      if (this.referencesSameImageStream(specTag)) {
-        references[specTag.name] = specTag.from.name;
-        this.ctrl.referencedBy[specTag.from.name] = this.ctrl.referencedBy[specTag.from.name] || [];
-        this.ctrl.referencedBy[specTag.from.name].push(specTag.name);
+      let fromTag = this.getTagReference(specTag);
+      if (fromTag) {
+        references[specTag.name] = fromTag;
+        this.ctrl.referencedBy[fromTag] = this.ctrl.referencedBy[fromTag] || [];
+        this.ctrl.referencedBy[fromTag].push(specTag.name);
         return;
       }
 
