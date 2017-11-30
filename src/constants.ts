@@ -31,7 +31,7 @@ var categories: any = [
   ]},
   {id: 'databases', label: 'Databases', subCategories: [
     {id: 'mongodb', label: 'Mongo', tags: ['mongodb'], icon: 'icon-mongodb'},
-    {id: 'mysql', label: 'mySQL', tags: ['mysql'], icon: 'icon-mysql-database'},
+    {id: 'mysql', label: 'MySQL', tags: ['mysql'], icon: 'icon-mysql-database'},
     {id: 'postgresql', label: 'Postgres', tags: ['postgresql'], icon: 'icon-postgresql'},
     {id: 'mariadb', label: 'MariaDB', tags: ['mariadb'], icon: 'icon-mariadb'}
   ]},
