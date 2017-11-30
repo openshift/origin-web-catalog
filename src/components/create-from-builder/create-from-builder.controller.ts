@@ -37,6 +37,8 @@ export class CreateFromBuilderController implements angular.IController {
   private selectedProjectWatch: any;
   private noProjectsCantCreateWatch: any;
   private validityWatcher: any;
+  private gitRef: string;
+  private contextDir: string;
 
   constructor($scope: ng.IScope,
               $filter: any,
@@ -61,6 +63,8 @@ export class CreateFromBuilderController implements angular.IController {
     this.Logger = Logger;
     this.ctrl.serviceToBind = null;
     this.ctrl.showPodPresets = _.get(Constants, ['ENABLE_TECH_PREVIEW_FEATURE', 'pod_presets'], false);
+    this.gitRef = '';
+    this.contextDir = '';
   }
 
   public $onInit() {
@@ -162,6 +166,13 @@ export class CreateFromBuilderController implements angular.IController {
   // TODO: Handle sample context dir and git ref
   public fillSampleRepo() {
     this.ctrl.repository = _.get(this, 'ctrl.istag.annotations.sampleRepo');
+
+    // Even though we only let you specify these fields when using advanced
+    // options, sample repositories can have a git reference and context dir.
+    // Preserve these values when the user clicks the link.
+    this.gitRef = _.get(this, 'ctrl.istag.annotations.sampleRef', '') as string;
+    this.contextDir = _.get(this, 'ctrl.istag.annotations.sampleContextDir', '') as string;
+
     // If there's no name already set, try to fill in a name from the last
     // segment of the repository.
     // TODO: Generalize name prefill to work for any git repo?
@@ -178,6 +189,13 @@ export class CreateFromBuilderController implements angular.IController {
     }
   }
 
+  public onRepositoryChanged() {
+    // Clear any git ref or context dir filled for the sample repo when the
+    // repository input is changed.
+    this.gitRef = '';
+    this.contextDir = '';
+  }
+
   public navigateToAdvancedForm() {
     let template = 'project/{project}/create/fromimage?' +
       'imageStream={imageStream}&' +
@@ -186,6 +204,8 @@ export class CreateFromBuilderController implements angular.IController {
       'displayName={displayName}&' +
       'name={name}&' +
       'sourceURI={sourceURI}&' +
+      'sourceRef={sourceRef}&' +
+      'contextDir={contextDir}&' +
       'advanced=true';
     let target = URI.expand(template, {
       project: this.ctrl.selectedProject.metadata.name,
@@ -194,7 +214,9 @@ export class CreateFromBuilderController implements angular.IController {
       namespace: this.ctrl.imageStream.resource.metadata.namespace,
       displayName: this.ctrl.imageStream.name,
       name: this.ctrl.name || '',
-      sourceURI: this.ctrl.repository || ''
+      sourceURI: this.ctrl.repository || '',
+      sourceRef: this.gitRef || '',
+      contextDir: this.contextDir || ''
     }).toString();
 
     // TODO: Handle configurable base URLs.
@@ -377,6 +399,8 @@ export class CreateFromBuilderController implements angular.IController {
         let apiObjects = this.BuilderAppService.makeAPIObjects({
           name: this.ctrl.name,
           repository: this.ctrl.repository,
+          gitRef: this.gitRef,
+          contextDir: this.contextDir,
           namespace: this.ctrl.selectedProject.metadata.name,
           imageStreamTag: imageStreamTag
         });
