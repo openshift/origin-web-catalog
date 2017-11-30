@@ -3,6 +3,8 @@ import * as _ from 'lodash';
 interface IBuilderAppConfig {
   name: string;
   repository: string;
+  gitRef: string;
+  contextDir: string;
   imageStreamTag: any;
 }
 
@@ -179,8 +181,8 @@ export class BuilderAppService {
     };
   }
 
-  private makeBuildConfig(config: IBuilderAppConfig) {
-    return {
+  private makeBuildConfig(config: IBuilderAppConfig): any {
+    let bc: any = {
       apiVersion: "v1",
       kind: "BuildConfig",
       metadata: {
@@ -197,7 +199,7 @@ export class BuilderAppService {
         },
         source: {
           git: {
-            ref: "master",
+            ref: config.gitRef || "master",
             uri: config.repository
           },
           type: "Git"
@@ -231,6 +233,12 @@ export class BuilderAppService {
         }]
       }
     };
+
+    if (config.contextDir) {
+      bc.spec.source.contextDir = config.contextDir;
+    }
+
+    return bc;
   }
 
   private makeImageStream(config: IBuilderAppConfig) {
