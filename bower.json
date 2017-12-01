@@ -1,6 +1,6 @@
 {
   "name": "origin-web-catalog",
-  "version": "0.0.65",
+  "version": "3.7.1",
   "license": "Apache-2.0",
   "main": [
     "dist/vendor-bundle.js",
