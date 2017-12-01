@@ -2,11 +2,15 @@ import {SelectProjectController} from './select-project.controller.ts';
 
 export const selectProject: angular.IComponentOptions = {
   bindings: {
-    selectedProject: '=',
+    selectedProject: '=?',
+    preselectProjectName: '@?',
     nameTaken: '<',
-    onProjectSelected: '<',
-    availableProjects: '<',
-    showDivider: '<?'
+    onProjectSelected: '<?',
+    onOpen: '<?',
+    availableProjects: '<?',
+    showDivider: '<?',
+    hideCreateProject: '<?',
+    hideLabel: '<?'
   },
   controller: SelectProjectController,
   template: require('./selectProject.html')

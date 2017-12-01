@@ -113,6 +113,12 @@ export class SelectProjectController implements angular.IController {
     }
   }
 
+  public onOpenClose (isOpen: boolean) {
+    if (isOpen && _.isFunction(this.ctrl.onOpen)) {
+      this.ctrl.onOpen();
+    }
+  }
+
   public onNewProjectNameChange() {
     this.ctrl.forms.createProjectForm.name.$setValidity('nameTaken', true);
   }
@@ -122,7 +128,7 @@ export class SelectProjectController implements angular.IController {
   }
 
   public canOnlyCreateProject(): boolean {
-    return this.ctrl.numProjectChoices === 1 && this.ctrl.canCreate;
+    return this.ctrl.numProjectChoices === 1 && !this.ctrl.hideCreateProject && this.ctrl.canCreate;
   }
 
   public getProjectChoices = () => {
@@ -242,13 +248,9 @@ export class SelectProjectController implements angular.IController {
     // exist, but are being deleted.
     this.ctrl.existingProjectNames = _.map(projects, 'metadata.name');
 
-    // if one project, default to it, else no default selected project
-    if (!this.ctrl.selectedProject && _.size(this.projects) === 1) {
-      this.ctrl.selectedProject = this.projects[0];
-      this.onSelectProjectChange();
-    }
+    this.preselectProject();
 
-    if (this.ctrl.canCreate) {
+    if (this.ctrl.canCreate && !this.ctrl.hideCreateProject) {
       this.ctrl.placeholder = 'Select or create project';
       this.projects.unshift(createProject);
       if (_.size(this.projects) === 1) {
@@ -266,6 +268,28 @@ export class SelectProjectController implements angular.IController {
     }
 
     this.ctrl.numProjectChoices = _.size(this.projects);
+  }
+
+  private preselectProject() {
+
+    if (this.ctrl.selectedProject) {
+      return;
+    }
+
+    // if one project, default to it, else default to selected project by name (if available)
+    if (_.size(this.projects) === 1) {
+      this.ctrl.selectedProject = this.projects[0];
+    } else if (this.ctrl.preselectProjectName) {
+      this.ctrl.selectedProject = _.find(this.projects, {
+        metadata: {
+          name: this.ctrl.preselectProjectName
+        }
+      });
+    }
+
+    if (this.ctrl.selectedProject) {
+      this.onSelectProjectChange();
+    }
   }
 
   private listProjects() {
