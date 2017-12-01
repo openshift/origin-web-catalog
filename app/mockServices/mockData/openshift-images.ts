@@ -490,7 +490,8 @@ export const imagesData = {
                 },
                 'from': {
                     'kind': 'ImageStreamTag',
-                    'name': '4'
+                    // Use the name in the reference in one tag to test that we handle this.
+                    'name': 'nodejs:4'
                 },
                 'generation': 1,
                 'importPolicy': {}
