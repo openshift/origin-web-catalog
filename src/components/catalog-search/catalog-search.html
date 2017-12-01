@@ -1,5 +1,13 @@
-<div class="catalog-search">
-  <form role="form" class="landing-search-form search-pf has-button">
+<div class="catalog-search" ng-class="{'mobile-shown': $ctrl.mobileSearchInputShown}">
+  <button
+     ng-if="$ctrl.toggleAtMobile"
+     title="Catalog Search"
+     class="catalog-search-toggle visible-xs-inline-block btn btn-link"
+     ng-click="$ctrl.toggleMobileShowSearchInput()">
+    <i class="fa fa-search" aria-hidden="true"></i>
+    <span class="sr-only">Catalog Search</span>
+  </button>
+  <form role="form" class="landing-search-form search-pf has-button" ng-class="{'hidden-xs': $ctrl.toggleAtMobile}">
     <div class="form-group has-clear">
       <div class="search-pf-input-group">
         <label for="search-input" class="sr-only">Search Catalog</label>

@@ -1,7 +1,9 @@
+import * as angular from 'angular';
 import * as _ from 'lodash';
+import * as $ from 'jquery';
 
 export class CatalogSearchController implements angular.IController {
-  static $inject = ['$rootScope', '$scope', '$q', 'Catalog', 'KeywordService'];
+  static $inject = ['$rootScope', '$scope', '$timeout', '$q', 'Catalog', 'KeywordService'];
 
   public ctrl: any = this;
 
@@ -9,6 +11,7 @@ export class CatalogSearchController implements angular.IController {
   private KeywordService: any;
   private $rootScope: any;
   private $scope: any;
+  private $timeout: any;
   private $q: any;
   private loaded: boolean = false;
   private maxResultsToShow: number = 5;
@@ -16,9 +19,10 @@ export class CatalogSearchController implements angular.IController {
   // Used when the user starts typing before the items have loaded.
   private searchDeferred: ng.IDeferred<any[]>;
 
-  constructor($rootScope: any, $scope: any, $q: any, Catalog: any, KeywordService: any) {
+  constructor($rootScope: any, $scope: any, $timeout: any, $q: any, Catalog: any, KeywordService: any) {
     this.$rootScope = $rootScope;
     this.$scope = $scope;
+    this.$timeout = $timeout;
     this.$q = $q;
     this.Catalog = Catalog;
     this.KeywordService = KeywordService;
@@ -56,6 +60,10 @@ export class CatalogSearchController implements angular.IController {
       this.$scope.$emit('open-overlay-panel', item);
     }
     this.ctrl.searchText = '';
+    this.ctrl.mobileSearchInputShown = false;
+    if (_.isFunction(this.ctrl.searchToggleCallback)) {
+      this.ctrl.searchToggleCallback(this.ctrl.mobileSearchInputShown);
+    }
   }
 
   public search(searchText: string) {
@@ -70,6 +78,29 @@ export class CatalogSearchController implements angular.IController {
     }
 
     return this.filterForKeywords(searchText);
+  }
+
+  public toggleMobileShowSearchInput() {
+    this.ctrl.mobileSearchInputShown = !this.ctrl.mobileSearchInputShown;
+    this.ctrl.searchText = '';
+    if (_.isFunction(this.ctrl.searchToggleCallback)) {
+      this.ctrl.searchToggleCallback(this.ctrl.mobileSearchInputShown);
+    }
+    if (this.ctrl.mobileSearchInputShown) {
+      this.setSearchInputFocus(0);
+    }
+  }
+
+  private setSearchInputFocus(timeSoFar: number) {
+    var searchInput: any = $('.catalog-search-input');
+
+    if (searchInput.is(':visible')) {
+      searchInput.focus();
+    } else if (timeSoFar < 5) {
+      this.$timeout(() => {
+        this.setSearchInputFocus(timeSoFar + 1);
+      }, 100);
+    }
   }
 
   private filterForKeywords(searchText: string) {

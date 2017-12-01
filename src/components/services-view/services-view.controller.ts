@@ -44,7 +44,10 @@ export class ServicesViewController implements angular.IController {
     this.ctrl.loaded = false;
     this.ctrl.isEmpty = false;
     this.ctrl.mobileView = 'categories';
-    this.ctrl.filterConfig = {};
+    this.ctrl.filterConfig = {
+      resultsLabel: "Items",
+      appliedFilters: []
+    };
     this.ctrl.keywordFilterValue = null;
   }
 
@@ -58,11 +61,6 @@ export class ServicesViewController implements angular.IController {
     this.removeFilterListener = this.$rootScope.$on('filter-catalog-items', (event: any, searchCriteria: any) => {
       this.setKeywordFilter(searchCriteria.searchText);
     });
-
-    this.ctrl.filterConfig = {
-      resultsLabel: "Items",
-      appliedFilters: []
-    };
 
     this.ctrl.emptyFilterConfig = {
       title: 'No results match.',
