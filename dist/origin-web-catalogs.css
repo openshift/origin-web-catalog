@@ -95,6 +95,10 @@
 .catalog-search .catalog-search-input {
   text-indent: 30px;
 }
+.catalog-search .catalog-search-input:focus {
+  border-color: #39a5dc;
+  box-shadow: 0 0 8px #7cdbf3;
+}
 .catalog-search .catalog-search-match-info {
   flex: 1 1 0%;
   word-wrap: break-word;
