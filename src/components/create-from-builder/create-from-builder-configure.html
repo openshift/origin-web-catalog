@@ -6,7 +6,7 @@
       <span ng-if="!$ctrl.noProjectsCantCreate">
         <div class="form-group">
           <label class="control-label" for="version">Version</label>
-          <ui-select ng-model="$ctrl.istag" required search-enabled="false">
+          <ui-select ng-model="$ctrl.istag" required search-enabled="false" append-to-body="true">
             <ui-select-match>
               <span>
                 {{$select.selected.name}}

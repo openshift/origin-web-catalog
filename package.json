@@ -39,7 +39,7 @@
     "bootstrap": "^3.3.6",
     "font-awesome": "~4.7.0",
     "jquery": "3.2.1",
-    "origin-web-common": "~0.0.70",
+    "origin-web-common": "~3.9.0-alpha.0",
     "paper-css": "^0.1.2",
     "patternfly": "^3.29.3",
     "urijs": "1.18.0"
