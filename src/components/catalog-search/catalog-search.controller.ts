@@ -91,7 +91,7 @@ export class CatalogSearchController implements angular.IController {
     }
   }
 
-  private setSearchInputFocus(timeSoFar: number) {
+  public setSearchInputFocus(timeSoFar: number) {
     var searchInput: any = $('.catalog-search-input');
 
     if (searchInput.is(':visible')) {
