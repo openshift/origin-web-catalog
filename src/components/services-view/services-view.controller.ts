@@ -80,7 +80,8 @@ export class ServicesViewController implements angular.IController {
     if (onChangesObj.catalogItems && onChangesObj.catalogItems.currentValue) {
       this.ctrl.isEmpty = _.isEmpty(this.ctrl.catalogItems);
       if (!this.ctrl.isEmpty) {
-        this.ctrl.categories = this.catalog.categories;
+        this.ctrl.categories = this.catalog.categorizeItems(this.ctrl.catalogItems);
+        this.ctrl.vendors = this.catalog.getVendors(this.ctrl.catalogItems);
         this.filterByCategory('all', 'all', true);
       }
       this.ctrl.loaded = true;

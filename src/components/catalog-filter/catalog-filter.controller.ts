@@ -12,41 +12,24 @@ export class CatalogFilterController implements angular.IController {
   constructor($scope: any, Catalog: any) {
     this.$scope = $scope;
     this.Catalog = Catalog;
+
+    this.ctrl.filterPanelModel = [];
+    this.ctrl.keywordFilter = {
+      id: 'keyword',
+      title:  'Keyword',
+      placeholder: 'Filter by Keyword',
+      filterType: 'text',
+      values: []
+    };
+    this.ctrl.filterPanelModel.push(this.ctrl.keywordFilter);
   }
 
   public $onInit() {
-    this.ctrl.filterPanelModel = [];
-    this.ctrl.keywordFilter = {
-        id: 'keyword',
-        title:  'Keyword',
-        placeholder: 'Filter by Keyword',
-        filterType: 'text',
-        values: []
-      };
-    this.ctrl.filterPanelModel.push(this.ctrl.keywordFilter);
-
-    if (!_.isEmpty(this.Catalog.vendors)) {
-      this.ctrl.VendorFilter = {
-        id: 'vendors',
-        title: 'Publisher',
-        filterType: 'checkbox',
-        values: _.map(this.Catalog.vendors, (vendor) => {
-          return {
-            id: vendor,
-            title: vendor,
-            value: vendor,
-            selected: false
-          };
-        })
-      };
-      this.ctrl.filterPanelModel.push(this.ctrl.VendorFilter);
-    }
 
     if (this.ctrl.filterOnKeyword) {
       this.ctrl.keywordFilter.values = [this.ctrl.filterOnKeyword];
       this.constructFiltersFromModel();
     }
-
     this.ctrl.config.onFilterChange = this.onFilterChange;
 
     this.removeClearFilterListener = this.$scope.$on('clear-filters', () => {
@@ -60,6 +43,21 @@ export class CatalogFilterController implements angular.IController {
       this.resetFilterPanelModel();
       this.ctrl.keywordFilter.values = [this.ctrl.filterOnKeyword];
       this.constructFiltersFromModel();
+    }
+    if (onChangesObj.vendors  && onChangesObj.vendors.currentValue) {
+      if (!_.isEmpty(this.ctrl.vendors)) {
+        if (!this.ctrl.VendorFilter) {
+          this.ctrl.VendorFilter = {
+            id: 'vendors',
+            title: 'Publisher',
+            filterType: 'checkbox',
+            values: this.getVendorValues(this.ctrl.vendors)
+          };
+          this.ctrl.filterPanelModel.push(this.ctrl.VendorFilter);
+        } else {
+          this.ctrl.VendorFilter.values = this.getVendorValues(this.ctrl.vendors);
+        }
+      }
     }
   }
 
@@ -80,6 +78,17 @@ export class CatalogFilterController implements angular.IController {
   // called when filter is changed in the filter panel
   public filterChanged = () => {
     this.constructFiltersFromModel();
+  };
+
+  private getVendorValues (vendors: any) {
+    return _.map(vendors, (vendor) => {
+      return {
+        id: vendor,
+        title: vendor,
+        value: vendor,
+        selected: false
+      };
+    });
   };
 
   // called when filter cleared by hitting 'x' in filter results tag, or 'Clear All Filters' link

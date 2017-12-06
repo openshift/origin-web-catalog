@@ -1,11 +1,10 @@
 import * as angular from 'angular';
 import * as _ from 'lodash';
 
-export class CatalogService { static $inject = ['$filter', '$q', 'Constants', 'APIService', 'DataService', 'Logger'];
+export class CatalogService {
+  static $inject = ['$filter', '$q', 'Constants', 'APIService', 'DataService', 'Logger'];
 
   public $filter: any;
-  public categories: any;
-  public vendors: any = [];
   private $q: any;
   private constants: any;
   private apiService: any;
@@ -139,6 +138,25 @@ export class CatalogService { static $inject = ['$filter', '$q', 'Constants', 'A
     return deferred.promise;
   }
 
+  public sortCatalogItems(catalogItems: any) {
+    // Perform a case-insensitive sort on display name, falling back to kind
+    // and metadata.name for a stable sort when items have the same display name.
+    return catalogItems.sort((item1: any, item2: any) => {
+      let comparison = _.get(item1, 'name', '').localeCompare(_.get(item2, 'name', ''), undefined, {sensitivity: 'base'});
+
+      if (comparison === 0) {
+        comparison = _.get(item1, 'resource.kind', '').localeCompare(_.get(item2, 'resource.kind', ''), undefined, {sensitivity: 'base'});
+      }
+
+      if (comparison === 0) {
+        comparison = _.get(item1, 'resource.metadata.name', '').localeCompare(_.get(item2, 'resource.metadata.name', ''), undefined, {sensitivity: 'base'});
+      }
+
+      return comparison;
+    });
+
+  }
+
   public convertToServiceItems(serviceClasses: any, imageStreams: any, templates: any) {
     // Convert service classes to ServiceItem
     let items: any = _.map(serviceClasses, (serviceClass: any) => {
@@ -157,23 +175,8 @@ export class CatalogService { static $inject = ['$filter', '$q', 'Constants', 'A
     // Remove hidden items such as non-builder images or items with a `hidden` tag.
     items = _.reject(items, 'hidden');
 
-    // Perform a case-insensitive sort on display name, falling back to kind
-    // and metadata.name for a stable sort when items have the same display name.
-    items = items.sort((item1: any, item2: any) => {
-      let comparison = _.get(item1, 'name', '').localeCompare(_.get(item2, 'name', ''), undefined, {sensitivity: 'base'});
-
-      if (comparison === 0) {
-        comparison = _.get(item1, 'resource.kind', '').localeCompare(_.get(item2, 'resource.kind', ''), undefined, {sensitivity: 'base'});
-      }
-
-      if (comparison === 0) {
-        comparison = _.get(item1, 'resource.metadata.name', '').localeCompare(_.get(item2, 'resource.metadata.name', ''), undefined, {sensitivity: 'base'});
-      }
-
-      return comparison;
-    });
-
-    this.categorizeItems(items);
+    // Sort the items
+    items = this.sortCatalogItems(items);
 
     return items;
   }
@@ -203,24 +206,20 @@ export class CatalogService { static $inject = ['$filter', '$q', 'Constants', 'A
    * item accordingly.  Dynamically creates 'all' and 'other' main and sub-
    * categories as needed.
    */
-  private categorizeItems(items: any) {
+  public categorizeItems(items: any) {
     let filteredSubCats: any;
     let itemCategorized: boolean;
-    this.categories = angular.copy(this.constants.SERVICE_CATALOG_CATEGORIES);
-    this.createAllAndOtherMainCategories();
+    var categories = angular.copy(this.constants.SERVICE_CATALOG_CATEGORIES);
+    this.createAllAndOtherMainCategories(categories);
 
-    let allMainCategory: any = _.head(this.categories);
+    let allMainCategory: any = _.head(categories);
     let allSubCatOfAll: any = _.get(allMainCategory, 'subCategories[0]');
-    let otherMainCategory: any = _.last(this.categories);
+    let otherMainCategory: any = _.last(categories);
     let allSubCatOfOther: any = _.get(otherMainCategory, 'subCategories[0]');
-    let vendors = {};
 
     _.each(items, (item: any) => {
-      if (item.vendor) {
-        vendors[item.vendor] = true;
-      }
       itemCategorized = false;
-      _.each(this.categories, (category: any) => {
+      _.each(categories, (category: any) => {
         if (category.tags) {
           if (this.hasMatchingTags(category.tags, item.tags)) {
             itemCategorized = this.categorizeItem(item, category, 'all');
@@ -249,7 +248,19 @@ export class CatalogService { static $inject = ['$filter', '$q', 'Constants', 'A
       this.categorizeItem(item, allMainCategory, allSubCatOfAll);
     });  // .ea item
 
-    this.vendors = _.keys(vendors).sort();
+    return categories;
+  }
+
+  public getVendors(items: any) {
+    let vendors = {};
+
+    _.each(items, (item: any) => {
+      if (item.vendor) {
+        vendors[item.vendor] = true;
+      }
+    });
+
+    return _.keys(vendors).sort();
   }
 
   private categorizeItem(item: any, category: any, subCategory: any) {
@@ -262,13 +273,13 @@ export class CatalogService { static $inject = ['$filter', '$q', 'Constants', 'A
     return category.hasItems = subCategory.hasItems = true;
   }
 
-  private createAllAndOtherMainCategories() {
-    this.categories.unshift({
+  private createAllAndOtherMainCategories(categories: any) {
+    categories.unshift({
       id: 'all', label: 'All', subCategories: [
         {id: 'all', label: 'All'}
       ]
     });
-    this.categories.push({
+    categories.push({
       id: 'other', label: 'Other', subCategories: [
         {id: 'all', label: 'all'}
       ]

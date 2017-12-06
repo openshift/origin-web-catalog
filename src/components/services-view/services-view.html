@@ -72,6 +72,7 @@
           <div ng-if="$ctrl.currentSubFilter === subCategory.id" class="services-items">
             <catalog-filter class="services-items-filter"
                             config="$ctrl.filterConfig"
+                            vendors="$ctrl.vendors"
                             filter-on-keyword="$ctrl.keywordFilterValue"
                             apply-filters="$ctrl.applyFilters($event)">
             </catalog-filter>
@@ -100,6 +101,7 @@
           <catalog-filter ng-if="!$ctrl.isEmpty"
                           class="services-items-filter"
                           config="$ctrl.filterConfig"
+                          vendors="$ctrl.vendors"
                           filter-on-keyword="$ctrl.keywordFilterValue"
                           apply-filters="$ctrl.applyFilters($event)">
           </catalog-filter>
