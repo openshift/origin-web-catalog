@@ -67,7 +67,7 @@ angular
   .component('logoutpage', logoutPage)
   .component('navigation', navigation)
   .constant('amTimeAgoConfig', {titleFormat: 'LLL'})
-  .run(function(IS_IOS) {
+  .run(function(IS_IOS: boolean) {
     if (IS_IOS) {
       // Add a class for iOS devices. This lets us disable some hover effects
       // since iOS will treat the first tap as a hover if it changes the DOM

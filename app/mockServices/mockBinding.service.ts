@@ -30,7 +30,7 @@ export class BindingService implements IBindingService {
   }
 
   public makeParametersSecret(secretName: any, parameters: any, owner: any) {
-    var secret = {
+    var secret: any = {
       apiVersion: 'v1',
       kind: 'Secret',
       metadata: {
@@ -45,10 +45,11 @@ export class BindingService implements IBindingService {
         }]
       },
       type: 'Opaque',
-      stringData: {}
+      stringData: {
+        parameters: JSON.stringify(parameters)
+      }
     };
 
-    secret.stringData['parameters'] = JSON.stringify(parameters);
     return secret;
   }
 

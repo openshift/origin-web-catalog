@@ -238,7 +238,7 @@ export class UpdateServiceController implements angular.IController {
 
     _.each(this.secrets, (secret: any) => {
       var originalSecretParameters: any = JSON.parse(this.SecretsService.decodeSecretData(secret.data).parameters);
-      var originalSecretKeys = _.map(originalSecretParameters, (value: any, key: string) => {
+      var originalSecretKeys: any = _.map(originalSecretParameters, (value: any, key: string) => {
         // Make sure properties with a '.' in the name aren't treated as paths.
         return [key];
       });
