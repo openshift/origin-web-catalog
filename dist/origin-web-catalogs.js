@@ -2220,8 +2220,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                             key: "parameters"
                         }
                     });
-                    var p = d.BindingService.makeParametersSecret(l, o, c);
-                    d.DataService.create("secrets", null, p, d.context).then(function() {
+                    var p = d.BindingService.makeParametersSecret(l, o, c), h = d.APIService.getPreferredVersion("secrets");
+                    d.DataService.create(h, null, p, d.context).then(function() {
                         d.updateServiceInstance(c);
                     }, function(e) {
                         d.ctrl.error = i.get(e, "data");
@@ -2270,10 +2270,10 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             }, this.origParameterData = n.copy(i.get(this.ctrl.serviceInstance, "spec.parameters", {}));
             var t = [];
             i.each(i.get(this.ctrl.serviceInstance, "spec.parametersFrom"), function(r) {
-                var n = i.get(r, "secretKeyRef.name"), a = i.find(e.secrets, function(e) {
-                    return i.get(e, "metadata.name") === n;
+                var n = e.APIService.getPreferredVersion("secrets"), a = i.get(r, "secretKeyRef.name"), s = i.find(e.secrets, function(e) {
+                    return i.get(e, "metadata.name") === a;
                 });
-                a ? e.addParametersFromSecret(a, r) : t.push(e.DataService.get("secrets", n, e.context).then(function(t) {
+                s ? e.addParametersFromSecret(s, r) : t.push(e.DataService.get(n, a, e.context).then(function(t) {
                     e.addParametersFromSecret(t, r), e.secrets.push(t);
                 }));
             }), this.$q.all(t).then(function() {

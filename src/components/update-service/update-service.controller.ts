@@ -116,6 +116,7 @@ export class UpdateServiceController implements angular.IController {
     var promises: any = [];
 
     _.each(_.get(this.ctrl.serviceInstance, 'spec.parametersFrom'), (parametersSource) => {
+      let secretsVersion = this.APIService.getPreferredVersion('secrets');
       var secretName = _.get(parametersSource, 'secretKeyRef.name');
       var secret = _.find(this.secrets, function(nextSecret: any) {
         return _.get(nextSecret, 'metadata.name') === secretName;
@@ -124,7 +125,7 @@ export class UpdateServiceController implements angular.IController {
       if (secret) {
         this.addParametersFromSecret(secret, parametersSource);
       } else {
-        promises.push(this.DataService.get("secrets", secretName, this.context).then((secret: any) => {
+        promises.push(this.DataService.get(secretsVersion, secretName, this.context).then((secret: any) => {
           this.addParametersFromSecret(secret, parametersSource);
           this.secrets.push(secret);
         }));
@@ -271,7 +272,8 @@ export class UpdateServiceController implements angular.IController {
 
       // Create the secret
       let secret = this.BindingService.makeParametersSecret(secretName, updatedSecretParameters, updateInstance);
-      this.DataService.create('secrets', null, secret, this.context).then(() => {
+      let secretsVersion = this.APIService.getPreferredVersion('secrets');
+      this.DataService.create(secretsVersion, null, secret, this.context).then(() => {
         this.updateServiceInstance(updateInstance);
       }, (e: any) => {
         this.ctrl.error = _.get(e, 'data');
