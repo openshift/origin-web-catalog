@@ -6,6 +6,7 @@ export class OrderServiceController implements angular.IController {
   static $inject = [
     '$scope',
     '$filter',
+    'APIService',
     'ApplicationsService',
     'ProjectsService',
     'DataService',
@@ -20,6 +21,7 @@ export class OrderServiceController implements angular.IController {
 
   private $filter: any;
   private ProjectsService: any;
+  private APIService: any;
   private ApplicationsService: any;
   private DataService: any;
   private BindingService: any;
@@ -39,6 +41,7 @@ export class OrderServiceController implements angular.IController {
 
   constructor($scope: any,
               $filter: any,
+              APIService: any,
               ApplicationsService: any,
               ProjectsService: any,
               DataService: any,
@@ -48,6 +51,7 @@ export class OrderServiceController implements angular.IController {
               DNS1123_SUBDOMAIN_VALIDATION: any) {
     this.$scope = $scope;
     this.$filter = $filter;
+    this.APIService = APIService;
     this.ApplicationsService = ApplicationsService;
     this.ProjectsService = ProjectsService;
     this.DataService = DataService;
@@ -306,10 +310,7 @@ export class OrderServiceController implements angular.IController {
     let parameters = this.getParameters();
     let secretName: string = _.isEmpty(parameters) ? null : this.BindingService.generateSecretName(this.getClusterServiceClassExternalName() + '-parameters');
     let serviceInstance = this.makeServiceInstance(secretName);
-    let resource = {
-      group: 'servicecatalog.k8s.io',
-      resource: 'serviceinstances'
-    };
+    let resource = this.APIService.getPreferredVersion('serviceinstances');
     let context = {
       namespace: this.ctrl.selectedProject.metadata.name
     };
@@ -321,7 +322,8 @@ export class OrderServiceController implements angular.IController {
       // Create the parameters secret if necessary.
       if (secretName) {
         let secret = this.BindingService.makeParametersSecret(secretName, parameters, serviceInstance);
-        this.DataService.create('secrets', null, secret, context).then(_.noop, (e: any) => {
+        let secretsVersion = this.APIService.getPreferredVersion('secrets');
+        this.DataService.create(secretsVersion, null, secret, context).then(_.noop, (e: any) => {
           this.ctrl.error = _.get(e, 'data');
         });
       }
