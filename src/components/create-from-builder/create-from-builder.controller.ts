@@ -339,7 +339,8 @@ export class CreateFromBuilderController implements angular.IController {
 
   private getImageStreamTag() {
     let name = this.ctrl.imageStream.resource.metadata.name + ":" + this.ctrl.istag.name;
-    return this.DataService.get("imagestreamtags", name, { namespace: 'openshift' });
+    let imageStreamTagsVersion = this.APIService.getPreferredVersion('imagestreamtags');
+    return this.DataService.get(imageStreamTagsVersion, name, { namespace: 'openshift' });
   }
 
   private sortServiceInstances() {

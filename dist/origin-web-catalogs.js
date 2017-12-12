@@ -1410,8 +1410,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 t && a.push(t);
             }), a;
         }, e.prototype.getImageStreamTag = function() {
-            var e = this.ctrl.imageStream.resource.metadata.name + ":" + this.ctrl.istag.name;
-            return this.DataService.get("imagestreamtags", e, {
+            var e = this.ctrl.imageStream.resource.metadata.name + ":" + this.ctrl.istag.name, t = this.APIService.getPreferredVersion("imagestreamtags");
+            return this.DataService.get(t, e, {
                 namespace: "openshift"
             });
         }, e.prototype.sortServiceInstances = function() {
