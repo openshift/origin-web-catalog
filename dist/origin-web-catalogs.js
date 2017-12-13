@@ -754,8 +754,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             var a = this.$q.defer(), s = {
                 imageStreams: [],
                 templates: []
-            }, c = 0, o = 0, l = [];
-            return t && (c++, this.dataService.list("imagestreams", {
+            }, c = 0, o = 0, l = [], d = this.apiService.getPreferredVersion("imagestreams"), p = this.apiService.getPreferredVersion("templates");
+            return t && (c++, this.dataService.list(d, {
                 namespace: e
             }).then(function(e) {
                 s.imageStreams = e.by("metadata.name");
@@ -763,7 +763,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 l.push("builder images");
             }).finally(function() {
                 i.returnCatalogItems(a, s, ++o, c, l);
-            })), r && (c++, this.dataService.list("templates", {
+            })), r && (c++, this.dataService.list(p, {
                 namespace: e
             }, null, {
                 partialObjectMetadataList: n

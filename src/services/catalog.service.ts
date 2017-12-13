@@ -112,10 +112,12 @@ export class CatalogService {
     let totalNumPromises: number = 0;
     let numPromisesExecuted: number = 0;
     let errorMsg: any = [];
+    let imageStreamsVersion = this.apiService.getPreferredVersion('imagestreams');
+    let templatesVersion = this.apiService.getPreferredVersion('templates');
 
     if (includeImages) {
       totalNumPromises++;
-      this.dataService.list("imagestreams", {namespace: projectName}).then((resources: any) => {
+      this.dataService.list(imageStreamsVersion, {namespace: projectName}).then((resources: any) => {
         catalogItems.imageStreams = resources.by("metadata.name");
       }, () => {
         errorMsg.push('builder images');
@@ -126,7 +128,7 @@ export class CatalogService {
 
     if (includeTemplates) {
       totalNumPromises++;
-      this.dataService.list("templates", {namespace: projectName}, null, {partialObjectMetadataList: partialObjectMetadataList}).then((resources: any) => {
+      this.dataService.list(templatesVersion, {namespace: projectName}, null, {partialObjectMetadataList: partialObjectMetadataList}).then((resources: any) => {
         catalogItems.templates = resources.by('metadata.name');
       }, () => {
         errorMsg.push('templates');
