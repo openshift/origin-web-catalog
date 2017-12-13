@@ -254,18 +254,25 @@ services-view,
           position: absolute;
           right: 0;
           top: 0;
+          // so that SVGs are sized correctly in IE
+          &[src$=".svg"] {
+            width: 36px;
+          }
         }
       }
     }
   }
 
   .services-view-container {
-    background-color: fade(@color-pf-blue-700, 60%);
     display: flex;
     flex: 1 1 auto;
     flex-direction: column;
-    width: 100%; // IE11
     position: relative;
+    width: 100%; // IE11
+
+    .landing & {
+      background-color: fade(@color-pf-blue-700, 60%);
+    }
 
     .add-methods {
       align-items: center;
@@ -314,19 +321,29 @@ services-view,
     }
 
     h1 {
-      color: @color-pf-white;
-      margin: 0;
-      padding: (@grid-gutter-width / 4) 0 (@grid-gutter-width / 4) (@grid-gutter-width / 2);
-      text-shadow: 1px 1px 2px rgba(0,0,0,.5);
+      margin-left: (@grid-gutter-width / 2);
+      margin-right: (@grid-gutter-width / 2);
 
       @media(max-width: @screen-xxs-max) {
         font-size: 18px;
+        margin-bottom: 15px;
+      }
+
+      .landing & {
+        color: @color-pf-white;
+        margin: 0;
+        padding: (@grid-gutter-width / 4) 0 (@grid-gutter-width / 4) (@grid-gutter-width / 2);
+        text-shadow: 1px 1px 2px rgba(0,0,0,.5);
       }
     }
 
     @media(min-width: 480px) {
       .services-inner-container {
-        background: fade(@color-pf-blue-700, 90%);
+        position: relative;
+        .landing & {
+          background: fade(@color-pf-blue-700, 90%);
+          position: static;
+        }
       }
     }
 
@@ -338,22 +355,45 @@ services-view,
     }
 
     .services-categories {
-      border: none;
-      color: @color-pf-white;
-      padding-left: (@grid-gutter-width / 2);
+      margin-bottom: 0;
 
       @media(min-width: @screen-xs-min) {
-        background-color: fade(@color-pf-blue-700, 90%);
+        margin-bottom: (@grid-gutter-width / 4);
+        margin-left: (@grid-gutter-width / 2);
+        margin-right: (@grid-gutter-width / 2);
+      }
+
+      .landing & {
+        border: none;
+        color: @color-pf-white;
+        margin-bottom: 0;
+        margin-left: 0;
+        margin-right: 0;
+        padding-left: (@grid-gutter-width / 2);
+
+        @media(min-width: @screen-xs-min) {
+          background-color: fade(@color-pf-blue-700, 90%);
+        }
       }
 
       li > a {
-        color: @color-pf-white;
+        @media(max-width: @screen-xxs-max) {
+          color: @link-color;
 
-        &:hover {
-          color: @color-pf-blue-300;
+          &:hover {
+            color: @link-hover-color;
+          }
+        }
 
-          &:before {
-            display: none;
+        .landing & {
+          color: @color-pf-white;
+
+          &:hover {
+            color: @color-pf-blue-300;
+
+            &:before {
+              display: none;
+            }
           }
         }
         &.services-back-link {
@@ -362,7 +402,7 @@ services-view,
         }
       }
 
-      li.active > a {
+      .landing & li.active > a {
         color: @color-pf-blue-300;
 
         &:before {
@@ -381,7 +421,10 @@ services-view,
         left: 0;
         position: absolute;
         right: 0;
-        top: 80px;
+        top: 0;
+        .landing & {
+          top: 80px;
+        }
       }
     }
 
@@ -420,6 +463,7 @@ services-view,
 
     .services-sub-categories {
       list-style: none;
+
       > li > a.services-back-link {
         display: none;
       }
@@ -461,6 +505,7 @@ services-view,
       &.mobile-subcategories-view .services-categories {
         > li.active {
           background-color: transparent;
+          margin-bottom: 0;
 
           &:after {
             display: none;
@@ -469,23 +514,40 @@ services-view,
           > a {
             &.services-category-heading,
             &.services-sub-category-tab {
+              background: transparent;
+              color: @text-color;
+              margin-left: 0;
+              margin-right: 0;
               position: absolute;
               text-align: center;
+              width: 100%;
+
+              .landing & {
+                color: @color-pf-white;
+              }
 
               &:focus,
               &:hover {
-                color: @color-pf-white;
                 cursor: default;
+
+                .landing & {
+                  color: @color-pf-white;
+                }
               }
             }
           }
 
           > a.services-back-link {
+            background: transparent;
             display: inline-block;
             font-size: 10px;
-            margin-left: 15px;
+            margin-left: 10px;
             padding-left: 15px;
             width: auto;
+
+            .landing & {
+              margin-left: 15px;
+            }
 
             &:after {
               content: '\f104';
@@ -507,27 +569,34 @@ services-view,
         .services-sub-category.active > .services-back-link {
           display: none;
         }
+
+        .services-categories > li {
+          margin-bottom: 0;
+        }
       }
 
       .services-categories,
       .services-sub-categories {
+        border-bottom: 0;
         font-size: @font-size-base;
-        padding: 0;
+        padding: 0 !important;
 
         > li {
-          background-color: fade(@color-pf-blue-700, 90%);
           float: none;
-          margin-bottom: 1px;
+          margin-bottom: 5px;
           padding-right: 0; // fixes bug in console where arrows are misaligned
           position: relative;
 
           &.active {
             > a {
-              color: @color-pf-white;
               cursor: pointer;
 
               &:before {
-                display: none;
+                display: none !important;
+              }
+
+              .landing & {
+                color: @color-pf-white;
               }
             }
 
@@ -540,29 +609,56 @@ services-view,
             margin-bottom: 0;
           }
 
+          .landing & {
+            background-color: fade(@color-pf-blue-700, 90%);
+            margin-bottom: 1px;
+          }
+
           > a {
-            color: @color-pf-white;
-            display: inline-block;
+            background-color: @color-pf-white;
+            display: block;
             line-height: 1;
-            padding: (@grid-gutter-width / 4) (@grid-gutter-width / 2);
+            margin-left: (@grid-gutter-width / 4);
+            margin-right: (@grid-gutter-width / 4);
+            padding: (@grid-gutter-width / 4);
             position: relative;
-            width: 100%;
+
+            .landing & {
+              background-color: transparent;
+              color: @color-pf-white;
+              margin-left: 0;
+              margin-right: 0;
+              padding-left: (@grid-gutter-width / 2);
+              padding-right: (@grid-gutter-width / 2);
+            }
 
             &::after {
               content: '\f061';
-              color: @color-pf-white;
+              color: @link-color;
               display: block;
               font-family: 'FontAwesome';
               position: absolute;
-              right: 20px;
+              right: 10px;
               top: 50%;
               transform: translateY(-50%);
+
+              .landing & {
+                color: @color-pf-white;
+                right: 20px;
+              }
+            }
+
+            &:before {
+              display: none;
             }
 
             &:focus,
             &:hover {
-              color: @link-color;
               text-decoration: none;
+
+              .landing & {
+                color: @link-color;
+              }
             }
 
             .services-sub-category-tab-icon,
@@ -572,6 +668,28 @@ services-view,
           }
         }
       }
+
+      .services-categories > li > a {
+        border-radius: 0;
+
+        &:hover {
+          background-color: @color-pf-white;
+
+          .landing & {
+            background-color: transparent;
+          }
+        }
+      }
+
+      .services-items {
+        margin: 0 10px 10px;
+        width: auto;
+
+        .landing & {
+          margin: 0;
+        }
+      }
+
       .services-sub-categories {
         margin-bottom: 0;
       }
@@ -579,10 +697,13 @@ services-view,
   }
 
   .spinner-container {
-    background: @color-pf-white;
     display: flex;
     flex: 1 1 auto;
     padding-top: 100px;
     padding-bottom: 100px;
+
+    .landing & {
+      background: @color-pf-white;
+    }
   }
 }
