@@ -1771,13 +1771,13 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             this.ctrl = this, this.closePanel = function() {
                 n.isFunction(r.ctrl.handleClose) && r.ctrl.handleClose();
             }, this.showDialog = function() {
-                r.ctrl.shown = !0, i("body").addClass("overlay-open"), r.$document.bind("keydown keypress", r.closeOnEsc);
+                r.ctrl.shown = !0, i("body").addClass("overlay-open"), r.$document.on("keydown", r.closeOnEsc);
             }, this.hideDialog = function() {
-                r.ctrl.shown = !1, i("body").removeClass("overlay-open"), r.$document.unbind("keydown keypress", r.closeOnEsc);
+                r.ctrl.shown = !1, i("body").removeClass("overlay-open"), r.$document.off("keydown", r.closeOnEsc);
             }, this.closeOnEsc = function(e) {
-                27 === e.which && (e.preventDefault(), r.$scope.$evalAsync(function() {
+                27 === e.which && (e.isDefaultPrevented() || (e.preventDefault(), r.$scope.$evalAsync(function() {
                     r.closePanel();
-                }));
+                })));
             }, this.$document = e, this.$scope = t, this.ctrl.shown = !1;
         }
         return e.prototype.$postLink = function() {

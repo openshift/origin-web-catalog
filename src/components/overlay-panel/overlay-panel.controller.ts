@@ -43,21 +43,26 @@ export class OverlayPanelController implements angular.IController {
   private showDialog = () => {
     this.ctrl.shown = true;
     $('body').addClass('overlay-open');
-    this.$document.bind('keydown keypress', this.closeOnEsc);
+    this.$document.on('keydown', this.closeOnEsc);
   };
 
   private hideDialog = () => {
     this.ctrl.shown = false;
     $('body').removeClass('overlay-open');
-    this.$document.unbind('keydown keypress', this.closeOnEsc);
+    this.$document.off('keydown', this.closeOnEsc);
   };
 
   private closeOnEsc = (event: any) => {
     if (event.which === 27) {
-      event.preventDefault();
-      this.$scope.$evalAsync(() => {
-        this.closePanel();
-      });
+      // Only close this overlay if another handler has not called 
+      // preventDefault() on this event. This means only one overlay/modal will
+      // be closed per escape keydown event.
+      if (!event.isDefaultPrevented()) {
+        event.preventDefault();
+        this.$scope.$evalAsync(() => {
+          this.closePanel();
+        });
+      }
     }
   };
 }
