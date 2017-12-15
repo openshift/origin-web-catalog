@@ -1165,6 +1165,7 @@ services-view .vendor-info-icon,
 }
 .services-view .services-item .services-item-icon .font-icon,
 .services-view .services-item .services-item-icon .fa,
+.services-view .services-item .services-item-icon .pficon,
 .services-view .services-item .services-item-icon img {
   position: relative;
   z-index: 1;
