@@ -63,8 +63,7 @@
             <div class="services-sub-category-tab-image" ng-if="imageUrl = (subCategory.imageUrl || (subCategory.icon | imageForIconClass))">
               <img ng-src="{{imageUrl}}" alt="">
             </div>
-            <div class="services-sub-category-tab-icon {{subCategory.icon}}"
-                ng-class="{ 'font-icon': !subCategory.icon.contains('fa ') }"
+            <div class="services-sub-category-tab-icon {{subCategory.icon | normalizeIconClass}}"
                 ng-if="subCategory.icon && !subCategory.imageUrl && !(subCategory.icon | imageForIconClass)"></div>
             <div class="services-sub-category-tab-name">{{subCategory.label}}</div>
           </a>

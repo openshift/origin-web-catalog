@@ -199,6 +199,10 @@ export class CatalogService {
     return _.get(this.constants, ['PUBLISHER_SYNONYMS', rawVendor]) as string || rawVendor;
   }
 
+  public normalizeIconClass(iconClass: string): string {
+    return this.$filter('normalizeIconClass')(iconClass) as string;
+  }
+
   public getImageForIconClass(iconClass: string): string {
     return this.$filter('imageForIconClass')(iconClass) as string;
   }
@@ -406,8 +410,7 @@ export class ServiceItem implements IServiceItem {
 
   private getIcon(): string {
     let icon: string = _.get(this.resource, ['spec', 'externalMetadata', 'console.openshift.io/iconClass']) as string || 'fa fa-clone';
-    icon = (icon.indexOf('icon-') !== -1) ? 'font-icon ' + icon : icon;
-    return icon;
+    return this.catalogSrv.normalizeIconClass(icon);
   }
 
   private getName(): string {
@@ -502,8 +505,7 @@ export class ImageItem implements IServiceItem {
 
   private getIcon() {
     let icon = this.catalogSrv.$filter('imageStreamTagIconClass')(this.resource, this.builderSpecTagName);
-    icon = (icon.indexOf('icon-') !== -1) ? 'font-icon ' + icon : icon;
-    return icon;
+    return this.catalogSrv.normalizeIconClass(icon);
   }
 
   private getName() {
@@ -563,8 +565,7 @@ export class TemplateItem implements IServiceItem {
 
   private getIcon() {
     let icon = _.get(this.resource, 'metadata.annotations.iconClass', 'fa fa-clone');
-    icon = (icon.indexOf('icon-') !== -1) ? 'font-icon ' + icon : icon;
-    return icon;
+    return this.catalogSrv.normalizeIconClass(icon);
   }
 
   private getName() {
