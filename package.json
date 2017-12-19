@@ -13,7 +13,8 @@
     "test:coverage": "npm run test && npm run coverage",
     "test:watch": "karma start --auto-watch --no-single-run",
     "docs": "jsdoc src/app -r -d docs",
-    "docs:launch": "npm run docs && live-server --port=3002 --open=docs/"
+    "docs:launch": "npm run docs && live-server --port=3002 --open=docs/",
+    "watch": "webpack --config config/webpack.prod.js --progress --watch"
   },
   "repository": {
     "type": "git",
