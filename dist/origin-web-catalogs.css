@@ -1143,13 +1143,6 @@ services-view .vendor-info-icon,
 .services-view .services-item:hover .services-item-name {
   color: #0088ce;
 }
-.services-view .services-item.ng-leave {
-  opacity: 1;
-  transition: 200ms ease-in opacity;
-}
-.services-view .services-item.ng-leave.ng-leave-active {
-  opacity: 0;
-}
 .services-view .services-item .services-item-icon:after {
   border: 2px solid transparent;
   border-radius: 84px;
@@ -1226,11 +1219,17 @@ services-view .vendor-info-icon,
   margin-bottom: 0;
   margin-top: 0;
 }
+.services-view .services-no-sub-categories {
+  background: #fff;
+}
 @media (min-width: 480px) {
   .services-view .services-no-sub-categories {
     display: flex;
     flex: 1 1 auto;
-    padding: 15px 20px 12px;
+    margin: 0 20px 12px;
+  }
+  .landing .services-view .services-no-sub-categories {
+    margin-top: 15px;
   }
   .services-view .services-no-sub-categories .services-items {
     left: 0;
@@ -1243,9 +1242,12 @@ services-view .vendor-info-icon,
     display: flex;
     flex: 1 1 auto;
     flex-wrap: wrap;
-    margin: 15px 20px 12px;
+    margin: 0 20px 12px;
     padding: 0;
     position: relative;
+  }
+  .landing .services-view .services-sub-categories {
+    margin-top: 15px;
   }
   .services-view .services-sub-categories .services-items {
     left: 0;
@@ -1386,10 +1388,10 @@ services-view .vendor-info-icon,
   padding: 10px 0 10px 20px;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
+.services-view .services-view-container .services-inner-container {
+  position: relative;
+}
 @media (min-width: 480px) {
-  .services-view .services-view-container .services-inner-container {
-    position: relative;
-  }
   .landing .services-view .services-view-container .services-inner-container {
     background: rgba(0, 34, 53, 0.9);
     position: static;
@@ -1406,7 +1408,7 @@ services-view .vendor-info-icon,
 }
 @media (min-width: 480px) {
   .services-view .services-view-container .services-categories {
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     margin-left: 20px;
     margin-right: 20px;
   }
@@ -1457,6 +1459,7 @@ services-view .vendor-info-icon,
 .services-view .services-view-container .services-no-sub-categories.ng-enter-prepare,
 .services-view .services-view-container .services-sub-categories.ng-enter-prepare {
   bottom: 0;
+  display: block !important;
   left: 0;
   position: absolute;
   right: 0;
@@ -1471,32 +1474,6 @@ services-view .vendor-info-icon,
 .services-view .services-view-container .services-no-sub-categories.ng-leave.ng-leave-active .services-item,
 .services-view .services-view-container .services-no-sub-categories.ng-leave.ng-leave-active .services-items-filter {
   animation: catalogItemFade 150ms ease-in reverse;
-  opacity: 0;
-}
-.services-view .services-view-container .services-no-sub-categories.ng-enter,
-.services-view .services-view-container .services-sub-categories.ng-enter,
-.services-view .services-view-container .services-no-sub-categories.ng-enter-prepare,
-.services-view .services-view-container .services-sub-categories.ng-enter-prepare {
-  transition: 200ms ease-out opacity;
-  opacity: 0;
-}
-.services-view .services-view-container .services-no-sub-categories.ng-enter.ng-enter-active,
-.services-view .services-view-container .services-sub-categories.ng-enter.ng-enter-active,
-.services-view .services-view-container .services-no-sub-categories.ng-enter-prepare.ng-enter-active,
-.services-view .services-view-container .services-sub-categories.ng-enter-prepare.ng-enter-active {
-  opacity: 1;
-}
-.services-view .services-view-container .services-no-sub-categories.ng-enter-prepare,
-.services-view .services-view-container .services-sub-categories.ng-enter-prepare {
-  display: none;
-}
-.services-view .services-view-container .services-no-sub-categories.ng-leave,
-.services-view .services-view-container .services-sub-categories.ng-leave {
-  opacity: 1;
-  transition: 200ms ease-in opacity;
-}
-.services-view .services-view-container .services-no-sub-categories.ng-leave.ng-leave-active,
-.services-view .services-view-container .services-sub-categories.ng-leave.ng-leave-active {
   opacity: 0;
 }
 .services-view .services-view-container .services-sub-categories {
