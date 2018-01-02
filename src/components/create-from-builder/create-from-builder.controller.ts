@@ -229,6 +229,7 @@ export class CreateFromBuilderController implements angular.IController {
     // }
 
     this.$location.url(target);
+    this.closePanel();
   }
 
   private clearValidityWatcher = () => {
