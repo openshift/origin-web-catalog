@@ -67,7 +67,8 @@ export class ServicesViewController implements angular.IController {
       info: 'The active filters are hiding all catalog items.',
       helpLink: {
         urlLabel: 'Clear Filters',
-        urlAction: this.clearAppliedFilters
+        urlAction: this.clearAppliedFilters,
+        url: 'javascript:void(0)'
       }
     };
 
