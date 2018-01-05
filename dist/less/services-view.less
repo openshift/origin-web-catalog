@@ -22,7 +22,6 @@ services-view,
     width: 100%;
   }
   .services-item {
-    animation: catalogItemFade 200ms ease-out; // enter animation
     color: @text-color;
     min-height: 140px;
     overflow: hidden;
@@ -429,15 +428,6 @@ services-view,
         .landing & {
           top: 80px;
         }
-      }
-    }
-
-    .services-no-sub-categories.ng-leave.ng-leave-active {
-      // fade out inner items
-      .services-item,
-      .services-items-filter {
-        animation: catalogItemFade 150ms ease-in reverse;
-        opacity: 0;
       }
     }
 
