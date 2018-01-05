@@ -9,14 +9,6 @@
   word-break: break-word;
   overflow-wrap: break-word;
 }
-@keyframes catalogItemFade {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
 @keyframes modalBackdropIn {
   0% {
     opacity: 0;
@@ -1095,7 +1087,6 @@ services-view .vendor-info-icon,
   width: 100%;
 }
 .services-view .services-item {
-  animation: catalogItemFade 200ms ease-out;
   color: #363636;
   min-height: 140px;
   overflow: hidden;
@@ -1470,11 +1461,6 @@ services-view .vendor-info-icon,
 .landing .services-view .services-view-container .services-no-sub-categories.ng-enter-prepare,
 .landing .services-view .services-view-container .services-sub-categories.ng-enter-prepare {
   top: 80px;
-}
-.services-view .services-view-container .services-no-sub-categories.ng-leave.ng-leave-active .services-item,
-.services-view .services-view-container .services-no-sub-categories.ng-leave.ng-leave-active .services-items-filter {
-  animation: catalogItemFade 150ms ease-in reverse;
-  opacity: 0;
 }
 .services-view .services-view-container .services-sub-categories {
   list-style: none;
