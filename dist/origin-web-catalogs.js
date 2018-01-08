@@ -2078,7 +2078,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 info: "The active filters are hiding all catalog items.",
                 helpLink: {
                     urlLabel: "Clear Filters",
-                    urlAction: this.clearAppliedFilters
+                    urlAction: this.clearAppliedFilters,
+                    url: "javascript:void(0)"
                 }
             }, this.ctrl.keywordFilter && this.setKeywordFilter(this.ctrl.keywordFilter);
         }, e.prototype.$onChanges = function(e) {
