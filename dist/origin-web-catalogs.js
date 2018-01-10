@@ -1025,17 +1025,18 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
     "use strict";
     t.__esModule = !0;
     var n = r(1), i = r(0), a = function() {
-        function e(e, t) {
-            var r = this;
+        function e(e, t, r) {
+            var i = this;
             this.ctrl = this, this.onKeywordKeyPress = function(e) {
-                13 === e.which && r.ctrl.keywordFilter.value.length > 0 && (r.ctrl.keywordFilter.values.push(r.ctrl.keywordFilter.value), 
-                delete r.ctrl.keywordFilter.value, r.constructFiltersFromModel());
+                13 === e.which && i.ctrl.keywordFilter.value.length > 0 && (i.ctrl.keywordFilter.values.push(i.ctrl.keywordFilter.value), 
+                delete i.ctrl.keywordFilter.value, i.constructFiltersFromModel());
             }, this.filterChanged = function() {
-                r.constructFiltersFromModel();
-            }, this.onFilterChange = function(e, t, i) {
-                n.isDefined(t) && n.isDefined(i) ? r.updateFilterPanelModel(t, i) : r.resetFilterPanelModel(), 
-                r.constructFiltersFromModel();
-            }, this.$scope = e, this.Catalog = t, this.ctrl.filterPanelModel = [], this.ctrl.keywordFilter = {
+                i.constructFiltersFromModel();
+            }, this.onFilterChange = function(e, t, r) {
+                n.isDefined(t) && n.isDefined(r) ? i.updateFilterPanelModel(t, r) : (i.resetFilterPanelModel(), 
+                i.$location.search("filter", null)), i.constructFiltersFromModel();
+            }, this.$scope = e, this.$location = t, this.Catalog = r, this.ctrl.filterPanelModel = [], 
+            this.ctrl.keywordFilter = {
                 id: "keyword",
                 title: "Keyword",
                 placeholder: "Filter by Keyword",
@@ -1048,7 +1049,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             this.ctrl.filterOnKeyword && (this.ctrl.keywordFilter.values = [ this.ctrl.filterOnKeyword ], 
             this.constructFiltersFromModel()), this.ctrl.config.onFilterChange = this.onFilterChange, 
             this.removeClearFilterListener = this.$scope.$on("clear-filters", function() {
-                e.resetFilterPanelModel(), e.constructFiltersFromModel();
+                e.$location.search("filter", null), e.resetFilterPanelModel(), e.constructFiltersFromModel();
             });
         }, e.prototype.$onChanges = function(e) {
             e.filterOnKeyword && e.filterOnKeyword.currentValue && this.ctrl.keywordFilter && (this.resetFilterPanelModel(), 
@@ -1124,7 +1125,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             });
         }, e;
     }();
-    a.$inject = [ "$scope", "Catalog" ], t.CatalogFilterController = a;
+    a.$inject = [ "$scope", "$location", "Catalog" ], t.CatalogFilterController = a;
 }, function(e, t, r) {
     "use strict";
     t.__esModule = !0;
@@ -2044,7 +2045,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             this.ctrl = this, this.previousSubCategoryHeight = 0, this.resizeRetries = 0, this.serviceViewItemClicked = function(e, t) {
                 p.$scope.$emit("open-overlay-panel", e);
             }, this.filterChange = function(e) {
-                p.filterByCategory(p.ctrl.currentFilter, p.ctrl.currentSubFilter, !1), n.isEmpty(e) || n.each(e, function(e) {
+                console.log("filterChange", e), p.filterByCategory(p.ctrl.currentFilter, p.ctrl.currentSubFilter, !1), 
+                n.isEmpty(e) || n.each(e, function(e) {
                     switch (e.id) {
                       case "keyword":
                         p.ctrl.filteredItems = p.filterForKeywords(e.values[0], p.ctrl.filteredItems);
@@ -2111,8 +2113,9 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 hasItems: !0
             }), "all" === t[0].id && 2 === t.length && (t = n.drop(t, 1)), t;
         }, e.prototype.applyFilters = function(e) {
-            this.filterChange(e.appliedFilters);
+            console.log("applyFilters", e), this.filterChange(e.appliedFilters);
         }, e.prototype.filterByCategory = function(e, t, r) {
+            console.log("filterByCategory", e);
             var i, a;
             "all" === e || "other" === e ? t = "all" : (r && (this.ctrl.subCategories = this.getSubCategories(e)), 
             t = 1 === this.ctrl.subCategories.length ? this.ctrl.subCategories[0].id : t || null), 
