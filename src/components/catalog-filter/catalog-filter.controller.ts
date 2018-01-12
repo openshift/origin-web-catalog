@@ -66,9 +66,12 @@ export class CatalogFilterController implements angular.IController {
   }
 
   public onKeywordKeyPress = (keyEvent: any) => {
-    if (keyEvent.which === 13 && this.ctrl.keywordFilter.value.length > 0) {
+    if (keyEvent.which === 13 && this.ctrl.keywordFilter.value && this.ctrl.keywordFilter.value.length > 0) {
+      let keyword = this.ctrl.keywordFilter.value.toLowerCase();
       // store new keywoard filter value in values array
-      this.ctrl.keywordFilter.values.push(this.ctrl.keywordFilter.value);
+      if(!_.includes(this.ctrl.keywordFilter.values, keyword)){
+        this.ctrl.keywordFilter.values.push(keyword);
+      }
       // remove the keyword value to show placeholder text
       delete this.ctrl.keywordFilter.value;
       this.constructFiltersFromModel();
