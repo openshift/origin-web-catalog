@@ -65,6 +65,10 @@ export class SelectProjectController implements angular.IController {
       this.ctrl.showDivider = true;
     }
 
+    if (this.ctrl.isRequired === undefined) {
+        this.ctrl.isRequired = true;
+    }
+
     this.ProjectsService.canCreate().then(() => {
       this.ctrl.canCreate = true;
     }, (result) => {
