@@ -10,7 +10,8 @@ export const selectProject: angular.IComponentOptions = {
     availableProjects: '<?',
     showDivider: '<?',
     hideCreateProject: '<?',
-    hideLabel: '<?'
+    hideLabel: '<?',
+    isRequired: '<?'
   },
   controller: SelectProjectController,
   template: require('./selectProject.html')

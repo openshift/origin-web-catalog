@@ -22,7 +22,7 @@
         name="selectProject"
         ng-model="$ctrl.selectedProject"
         ng-change="$ctrl.onSelectProjectChange()"
-        ng-required="true"
+        ng-required="$ctrl.isRequired"
         search-enabled="$ctrl.searchEnabled"
         uis-open-close="$ctrl.onOpenClose(isOpen)">
       <ui-select-match placeholder="{{$ctrl.placeholder}}">
