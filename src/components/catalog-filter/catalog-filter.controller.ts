@@ -2,15 +2,17 @@ import * as angular from 'angular';
 import * as _ from 'lodash';
 
 export class CatalogFilterController implements angular.IController {
-  static $inject = ['$scope', 'Catalog'];
+  static $inject = ['$scope', '$location', 'Catalog'];
 
   public ctrl: any = this;
   private $scope: any;
+  private $location: any;
   private Catalog: any;
   private removeClearFilterListener: any;
 
-  constructor($scope: any, Catalog: any) {
+  constructor($scope: any, $location: any, Catalog: any) {
     this.$scope = $scope;
+    this.$location = $location;
     this.Catalog = Catalog;
 
     this.ctrl.filterPanelModel = [];
@@ -33,6 +35,8 @@ export class CatalogFilterController implements angular.IController {
     this.ctrl.config.onFilterChange = this.onFilterChange;
 
     this.removeClearFilterListener = this.$scope.$on('clear-filters', () => {
+      // remove search 'filter' query string param
+      this.$location.search('filter', null);
       this.resetFilterPanelModel();
       this.constructFiltersFromModel();
     });
@@ -97,6 +101,8 @@ export class CatalogFilterController implements angular.IController {
       this.updateFilterPanelModel(changedFilterId, changedFilterValue);
     } else {
       this.resetFilterPanelModel();
+      // remove search 'filter' query string param
+      this.$location.search('filter', null);
     }
     this.constructFiltersFromModel();
   };

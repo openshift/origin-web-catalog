@@ -160,10 +160,12 @@ export class ServicesViewController implements angular.IController {
 
   // called when catalogFacetedFilter changes
   public applyFilters(event: any) {
+  console.log('applyFilters', event);
     this.filterChange(event.appliedFilters);
   };
 
   private filterByCategory(category: string, subCategory: string, updateSubCategories: boolean) {
+    console.log('filterByCategory', category);
     let categoryObj: any;
     let subCategoryObj: any;
 
@@ -215,6 +217,7 @@ export class ServicesViewController implements angular.IController {
   }
 
   private filterChange = (filters: any) => {
+    console.log('filterChange', filters);
     this.filterByCategory(this.ctrl.currentFilter, this.ctrl.currentSubFilter, false);
 
     if (!_.isEmpty(filters)) {
