@@ -4,9 +4,7 @@
   background-size: @landing-bg-size;
   border-bottom: solid 1px @search-area-border;
   padding: (@grid-gutter-width / 4) (@grid-gutter-width / 2);
-  position: relative;
   width: 100%;
-  z-index: @zindex-navbar-fixed - 1;
   @media (max-width: @screen-xs-max) {
     .ios & {
       background-size: @landing-bg-size-ios-phone;
@@ -82,16 +80,19 @@
       text-align: center;
     }
   }
-  .search-pf .has-clear .clear {
-    height: 29px;
-  }
-  .search-pf-input-group {
-    .form-control {
-      font-size: (@font-size-base + 2);
-      height: 2.2em;
+  .landing-search-area & {
+    z-index: @zindex-navbar-fixed - 1;
+    .search-pf .has-clear .clear {
+      height: 28px;
     }
-    .pficon-close {
-      font-size: (@font-size-base + 4);
+    .search-pf-input-group {
+      .form-control {
+        font-size: (@font-size-base + 2);
+        height: 30px;
+      }
+      .pficon-close {
+        font-size: (@font-size-base + 4);
+      }
     }
   }
 }
