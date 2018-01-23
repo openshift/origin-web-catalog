@@ -51,9 +51,7 @@
   background-size: cover;
   border-bottom: solid 1px rgba(0, 34, 53, 0.6);
   padding: 10px 20px;
-  position: relative;
   width: 100%;
-  z-index: 1029;
 }
 @media (max-width: 767px) {
   .ios .catalog-search {
@@ -63,7 +61,7 @@
 @media (min-width: 768px) {
   .catalog-search {
     position: fixed;
-    top: 72px;
+    top: 61px;
     width: calc(100% - 325px);
   }
 }
@@ -135,14 +133,17 @@
   padding: 5px 0;
   text-align: center;
 }
-.catalog-search .search-pf .has-clear .clear {
-  height: 29px;
+.landing-search-area .catalog-search {
+  z-index: 1029;
 }
-.catalog-search .search-pf-input-group .form-control {
+.landing-search-area .catalog-search .search-pf .has-clear .clear {
+  height: 28px;
+}
+.landing-search-area .catalog-search .search-pf-input-group .form-control {
   font-size: 14px;
-  height: 2.2em;
+  height: 30px;
 }
-.catalog-search .search-pf-input-group .pficon-close {
+.landing-search-area .catalog-search .search-pf-input-group .pficon-close {
   font-size: 16px;
 }
 @media only screen and (max-device-width: 736px) and (-webkit-min-device-pixel-ratio: 0) {
@@ -199,7 +200,7 @@
     overflow-x: hidden;
     overflow-y: auto;
     position: absolute;
-    top: 124px;
+    top: 112px;
     width: calc(100% - 325px);
   }
 }
@@ -245,7 +246,7 @@ landingbody,
     overflow-y: auto;
     position: fixed;
     right: 0;
-    top: 72px;
+    top: 61px;
     width: 325px;
   }
 }
