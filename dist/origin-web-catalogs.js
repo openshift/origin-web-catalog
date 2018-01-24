@@ -1029,8 +1029,11 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
         function e(e, t) {
             var r = this;
             this.ctrl = this, this.onKeywordKeyPress = function(e) {
-                13 === e.which && r.ctrl.keywordFilter.value.length > 0 && (r.ctrl.keywordFilter.values.push(r.ctrl.keywordFilter.value), 
-                delete r.ctrl.keywordFilter.value, r.constructFiltersFromModel());
+                if (13 === e.which && r.ctrl.keywordFilter.value && r.ctrl.keywordFilter.value.length > 0) {
+                    var t = r.ctrl.keywordFilter.value.toLowerCase();
+                    i.includes(r.ctrl.keywordFilter.values, t) || r.ctrl.keywordFilter.values.push(t), 
+                    delete r.ctrl.keywordFilter.value, r.constructFiltersFromModel();
+                }
             }, this.filterChanged = function() {
                 r.constructFiltersFromModel();
             }, this.onFilterChange = function(e, t, i) {
@@ -2074,7 +2077,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 maxWait: 250
             }), i(window).on("resize.services", this.debounceResize), this.ctrl.currentFilter = this.ctrl.currentSubFilter = "all", 
             this.ctrl.sectionTitle = this.ctrl.sectionTitle || "Browse Catalog", this.removeFilterListener = this.$rootScope.$on("filter-catalog-items", function(t, r) {
-                e.setKeywordFilter(r.searchText);
+                e.setKeywordFilter(r.searchText.toLowerCase());
             }), this.ctrl.emptyFilterConfig = {
                 title: "No results match.",
                 info: "The active filters are hiding all catalog items.",
@@ -2082,12 +2085,12 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                     urlLabel: "Clear Filters",
                     urlAction: this.clearAppliedFilters
                 }
-            }, this.ctrl.keywordFilter && this.setKeywordFilter(this.ctrl.keywordFilter);
+            }, this.ctrl.keywordFilter && this.setKeywordFilter(this.ctrl.keywordFilter.toLowerCase());
         }, e.prototype.$onChanges = function(e) {
             e.catalogItems && e.catalogItems.currentValue && (this.ctrl.isEmpty = n.isEmpty(this.ctrl.catalogItems), 
             this.ctrl.isEmpty || (this.ctrl.categories = this.catalog.categorizeItems(this.ctrl.catalogItems), 
             this.ctrl.vendors = this.catalog.getVendors(this.ctrl.catalogItems), this.filterByCategory("all", "all", !0)), 
-            this.ctrl.loaded = !0), e.keywordFilter && !e.keywordFilter.isFirstChange() && this.setKeywordFilter(this.ctrl.keywordFilter);
+            this.ctrl.loaded = !0), e.keywordFilter && !e.keywordFilter.isFirstChange() && this.setKeywordFilter(this.ctrl.keywordFilter.toLowerCase());
         }, e.prototype.$postLink = function() {
             this.scrollParent = this.getScrollParent(this.element), this.scrollParent && this.htmlService.isWindowAboveBreakpoint(this.htmlService.WINDOW_SIZE_SM) && (this.ctrl.viewStyle = {
                 "min-height": "calc(100vh - " + this.scrollParent.getBoundingClientRect().top + "px)"

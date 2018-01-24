@@ -59,7 +59,7 @@ export class ServicesViewController implements angular.IController {
     this.ctrl.sectionTitle = this.ctrl.sectionTitle || 'Browse Catalog';
 
     this.removeFilterListener = this.$rootScope.$on('filter-catalog-items', (event: any, searchCriteria: any) => {
-      this.setKeywordFilter(searchCriteria.searchText);
+      this.setKeywordFilter(searchCriteria.searchText.toLowerCase());
     });
 
     this.ctrl.emptyFilterConfig = {
@@ -72,7 +72,7 @@ export class ServicesViewController implements angular.IController {
     };
 
     if (this.ctrl.keywordFilter) {
-      this.setKeywordFilter(this.ctrl.keywordFilter);
+      this.setKeywordFilter(this.ctrl.keywordFilter.toLowerCase());
     }
   }
 
@@ -87,7 +87,7 @@ export class ServicesViewController implements angular.IController {
       this.ctrl.loaded = true;
     }
     if (onChangesObj.keywordFilter && !onChangesObj.keywordFilter.isFirstChange()) {
-      this.setKeywordFilter(this.ctrl.keywordFilter);
+      this.setKeywordFilter(this.ctrl.keywordFilter.toLowerCase());
     }
   }
 
