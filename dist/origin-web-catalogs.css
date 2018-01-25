@@ -1201,6 +1201,12 @@ services-view .vendor-info-icon,
   width: 100%;
   z-index: 9;
 }
+.services-view .services-items.no-items-available {
+  display: block;
+}
+.services-view .services-items.no-items-available .pf-empty-state {
+  margin: 0;
+}
 .services-view .services-items-filter {
   border-bottom: 1px solid #ededed;
   flex: 1 1 100%;

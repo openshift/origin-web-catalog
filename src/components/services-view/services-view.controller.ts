@@ -71,6 +71,15 @@ export class ServicesViewController implements angular.IController {
       }
     };
 
+    this.ctrl.noItemsConfig = {
+        title: 'No items.',
+        info: 'No catalog items have been loaded.',
+        helpLink: {
+            urlLabel: 'See Loading the Default Image Streams and Templates',
+            url: 'https://docs.openshift.org/latest/install_config/imagestreams_templates.html'
+        }
+    };
+
     if (this.ctrl.keywordFilter) {
       this.setKeywordFilter(this.ctrl.keywordFilter);
     }
