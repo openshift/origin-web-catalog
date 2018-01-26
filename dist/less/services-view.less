@@ -134,6 +134,12 @@ services-view,
     padding-bottom: 30px; // give equal space below last row of service-items
     width: 100%; // IE11 needs width associated with flex
     z-index: 9; // elevate so that toggling tiles that cause repositioning do not overlay main content block
+    &.no-items-available {
+      display: block;
+      .pf-empty-state {
+        margin: 0;
+      }
+    }
   }
 
   .services-items-filter {

@@ -95,8 +95,12 @@
 
       <!-- Show catalog item for 'All' and 'Other' main categories -->
       <div ng-if="$ctrl.currentFilter === 'other' || $ctrl.currentFilter === 'all'" class="services-no-sub-categories">
-        <div class="services-items">
-          <div ng-if="$ctrl.isEmpty">There are no catalog items.</div>
+        <div class="services-items" ng-class="{'no-items-available': $ctrl.isEmpty}">
+          <div ng-if="$ctrl.isEmpty">
+            <div class="pf-empty-state">
+              <pf-empty-state config="$ctrl.noItemsConfig"></pf-empty-state>
+            </div>
+          </div>
           <catalog-filter ng-if="!$ctrl.isEmpty"
                           class="services-items-filter"
                           config="$ctrl.filterConfig"
