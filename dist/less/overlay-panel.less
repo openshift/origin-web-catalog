@@ -32,13 +32,15 @@ body.overlay-open {
   @media(min-width: @screen-sm-min) and (min-height: (@catalog-overlay-panel-height + @navbar-pf-height)) {
     margin-top: @navbar-pf-height;
   }
-
-  .modal-header .close {
-    font-size: 18px; // so that close button is the same size in console
-  }
-
-  .modal-title {
-    line-height: 21px; // so that modal-header has a consistent height of 41px
+  // make overlay-panel like a bootstrap modal
+  .overlay-panel-as-modal & {
+    position: relative;
+    @media(max-width: @screen-xs-max) {
+      margin: 10px;
+    }
+    @media(min-width: @screen-sm-min) {
+      max-width: 640px;
+    }
   }
 
   .wizard-pf-contents {
