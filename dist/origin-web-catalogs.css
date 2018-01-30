@@ -547,11 +547,18 @@ body.overlay-open .landing-side-bar {
     margin-top: 60px;
   }
 }
-.catalogs-overlay-panel .modal-header .close {
-  font-size: 18px;
+.overlay-panel-as-modal .catalogs-overlay-panel {
+  position: relative;
 }
-.catalogs-overlay-panel .modal-title {
-  line-height: 21px;
+@media (max-width: 767px) {
+  .overlay-panel-as-modal .catalogs-overlay-panel {
+    margin: 10px;
+  }
+}
+@media (min-width: 768px) {
+  .overlay-panel-as-modal .catalogs-overlay-panel {
+    max-width: 640px;
+  }
 }
 .catalogs-overlay-panel .wizard-pf-contents {
   flex: 1 1 auto;
