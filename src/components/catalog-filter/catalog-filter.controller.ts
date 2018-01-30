@@ -2,15 +2,17 @@ import * as angular from 'angular';
 import * as _ from 'lodash';
 
 export class CatalogFilterController implements angular.IController {
-  static $inject = ['$scope', 'Catalog'];
+  static $inject = ['$scope', '$timeout', 'Catalog'];
 
   public ctrl: any = this;
   private $scope: any;
+  private $timeout: any;
   private Catalog: any;
   private removeClearFilterListener: any;
 
-  constructor($scope: any, Catalog: any) {
+  constructor($scope: any, $timeout: any, Catalog: any) {
     this.$scope = $scope;
+    this.$timeout = $timeout;
     this.Catalog = Catalog;
 
     this.ctrl.filterPanelModel = [];
@@ -67,11 +69,16 @@ export class CatalogFilterController implements angular.IController {
 
   public onKeywordKeyPress = (keyEvent: any) => {
     if (keyEvent.which === 13 && this.ctrl.keywordFilter.value.length > 0) {
-      // store new keywoard filter value in values array
-      this.ctrl.keywordFilter.values.push(this.ctrl.keywordFilter.value);
+      let currentKeyword: string = this.ctrl.keywordFilter.value;
+      if (!this.keywordFilterExists(currentKeyword)) {
+          // store new keyword filter value in values array
+          this.ctrl.keywordFilter.values.push(currentKeyword);
+          this.constructFiltersFromModel();
+      } else {
+        this.highlightKeywordFilter(currentKeyword);
+      }
       // remove the keyword value to show placeholder text
       delete this.ctrl.keywordFilter.value;
-      this.constructFiltersFromModel();
     }
   };
 
@@ -89,6 +96,29 @@ export class CatalogFilterController implements angular.IController {
         selected: false
       };
     });
+  };
+
+  private keywordFilterExists = (keyword: string) => {
+      return _.some(this.ctrl.keywordFilter.values, (existingKeyword: string) => {
+          return keyword.toLowerCase() === existingKeyword.toLowerCase();
+      });
+  };
+
+  private highlightKeywordFilter = (keyword: string) => {
+      let filterTags: any = document.querySelectorAll('.active-filter.label.label-info.single-label');
+
+      let existingKeyword: any = _.find(filterTags, (tag: any) => {
+        return tag.innerText.trim() === ("Keyword: " + keyword.toLowerCase());
+      });
+
+      if (existingKeyword) {
+          this.$timeout(() => {
+              existingKeyword.classList.add("flash-filter-tag");
+          }, 100);
+          this.$timeout(() => {
+              existingKeyword.classList.remove("flash-filter-tag");
+          }, 300);
+      }
   };
 
   // called when filter cleared by hitting 'x' in filter results tag, or 'Clear All Filters' link

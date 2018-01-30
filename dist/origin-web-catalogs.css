@@ -9,6 +9,14 @@
   word-break: break-word;
   overflow-wrap: break-word;
 }
+@keyframes flash {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
 @keyframes modalBackdropIn {
   0% {
     opacity: 0;
@@ -1089,6 +1097,9 @@ services-view .vendor-info-icon,
 }
 .services-view .filter-panel-container ul {
   margin-bottom: 10px;
+}
+.services-view .flash-filter-tag {
+  animation: flash linear 1s 1;
 }
 .services-view .pf-empty-state {
   margin: 0 20px;
