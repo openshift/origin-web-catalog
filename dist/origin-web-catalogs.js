@@ -1041,8 +1041,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                     return e.toLowerCase() === t.toLowerCase();
                 });
             }, this.highlightKeywordFilter = function(e) {
-                var t = document.querySelectorAll(".active-filter.label.label-info.single-label"), r = i.find(t, function(t) {
-                    return t.innerText.trim() === "Keyword: " + e.toLowerCase();
+                var t = document.querySelectorAll("pf-filter-panel-results .label-info"), r = i.find(t, function(t) {
+                    return t.innerText.trim() === "Keyword:" + e.toLowerCase();
                 });
                 r && (a.$timeout(function() {
                     r.classList.add("flash-filter-tag");

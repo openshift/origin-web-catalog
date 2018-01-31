@@ -105,10 +105,10 @@ export class CatalogFilterController implements angular.IController {
   };
 
   private highlightKeywordFilter = (keyword: string) => {
-      let filterTags: any = document.querySelectorAll('.active-filter.label.label-info.single-label');
+      let filterTags: any = document.querySelectorAll('pf-filter-panel-results .label-info');
 
       let existingKeyword: any = _.find(filterTags, (tag: any) => {
-        return tag.innerText.trim() === ("Keyword: " + keyword.toLowerCase());
+        return tag.innerText.trim() === ("Keyword:" + keyword.toLowerCase());
       });
 
       if (existingKeyword) {
