@@ -65,6 +65,10 @@ export class SelectProjectController implements angular.IController {
       this.ctrl.showDivider = true;
     }
 
+    if (this.ctrl.skipCanAddValidation === undefined) {
+      this.ctrl.skipCanAddValidation = false;
+    }
+
     if (this.ctrl.isRequired === undefined) {
         this.ctrl.isRequired = true;
     }
@@ -111,7 +115,9 @@ export class SelectProjectController implements angular.IController {
   }
 
   public onSelectProjectChange () {
-    this.canIAddToProject();
+    if (!this.ctrl.skipCanAddValidation) {
+        this.canIAddToProject();
+    }
     if (angular.isFunction(this.ctrl.onProjectSelected)) {
       this.ctrl.onProjectSelected(this.ctrl.selectedProject);
     }
