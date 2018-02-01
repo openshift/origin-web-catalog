@@ -9,6 +9,7 @@ export const selectProject: angular.IComponentOptions = {
     onOpen: '<?',
     availableProjects: '<?',
     showDivider: '<?',
+    skipCanAddValidation: '<?',
     hideCreateProject: '<?',
     hideLabel: '<?',
     isRequired: '<?'

@@ -201,6 +201,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             onOpen: "<?",
             availableProjects: "<?",
             showDivider: "<?",
+            skipCanAddValidation: "<?",
             hideCreateProject: "<?",
             hideLabel: "<?",
             isRequired: "<?"
@@ -1983,8 +1984,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             this.ctrl.noProjectsCantCreate = !1, this.ctrl.noProjectsConfig = {
                 title: "No Projects Found",
                 info: "Services cannot be provisioned without a project."
-            }, void 0 === this.ctrl.showDivider && (this.ctrl.showDivider = !0), void 0 === this.ctrl.isRequired && (this.ctrl.isRequired = !0), 
-            this.ProjectsService.canCreate().then(function() {
+            }, void 0 === this.ctrl.showDivider && (this.ctrl.showDivider = !0), void 0 === this.ctrl.skipCanAddValidation && (this.ctrl.skipCanAddValidation = !1), 
+            void 0 === this.ctrl.isRequired && (this.ctrl.isRequired = !0), this.ProjectsService.canCreate().then(function() {
                 e.ctrl.canCreate = !0;
             }, function(t) {
                 if (e.ctrl.canCreate = !1, 403 !== t.status) {
@@ -2005,7 +2006,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             e.nameTaken && !e.nameTaken.isFirstChange() && this.ctrl.forms.createProjectForm.name.$setValidity("nameTaken", !this.ctrl.nameTaken), 
             e.availableProjects && !e.availableProjects.isFirstChange() && this.updateProjects(this.ctrl.availableProjects);
         }, e.prototype.onSelectProjectChange = function() {
-            this.canIAddToProject(), n.isFunction(this.ctrl.onProjectSelected) && this.ctrl.onProjectSelected(this.ctrl.selectedProject);
+            this.ctrl.skipCanAddValidation || this.canIAddToProject(), n.isFunction(this.ctrl.onProjectSelected) && this.ctrl.onProjectSelected(this.ctrl.selectedProject);
         }, e.prototype.onOpenClose = function(e) {
             e && i.isFunction(this.ctrl.onOpen) && this.ctrl.onOpen();
         }, e.prototype.onNewProjectNameChange = function() {
