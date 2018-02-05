@@ -596,15 +596,6 @@ body.overlay-open .landing-side-bar {
   background-size: 100% 6px;
   -webkit-overflow-scrolling: touch;
 }
-.catalogs-overlay-panel .wizard-pf-main _::-webkit-full-page-media,
-.catalogs-overlay-panel .wizard-pf-main _:future,
-:root .catalogs-overlay-panel .wizard-pf-main {
-  background-attachment: local, local, scroll, scroll;
-  background-image: linear-gradient(#ffffff 30%, rgba(255, 255, 255, 0)), linear-gradient(rgba(255, 255, 255, 0), #ffffff 70%), radial-gradient(ellipse at top, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0) 65%), radial-gradient(ellipse at bottom, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0) 65%);
-  background-position: 0 0, 0 100%;
-  background-repeat: no-repeat;
-  background-size: 100% 12px, 100% 12px, 100% 6px, 100% 6px;
-}
 @media (max-width: 767px) {
   .catalogs-overlay-panel .wizard-pf-main {
     bottom: 58px;
@@ -637,11 +628,6 @@ body.overlay-open .landing-side-bar {
   background-position: 0 0, 0 100%;
   background-repeat: no-repeat;
   background-size: 100% 12px;
-}
-.catalogs-overlay-panel .wizard-pf-main-inner-shadow-covers _::-webkit-full-page-media,
-.catalogs-overlay-panel .wizard-pf-main-inner-shadow-covers _:future,
-:root .catalogs-overlay-panel .wizard-pf-main-inner-shadow-covers {
-  background: none;
 }
 @media (min-width: 768px) {
   .catalogs-overlay-panel .wizard-pf-main-inner-shadow-covers {
