@@ -66,6 +66,7 @@ body.overlay-open {
     overflow-y: auto;
     padding: 0;
     .scroll-shadows-vertical();
+    -webkit-overflow-scrolling: touch; // enable momentum scrolling in mobile Safari
     _::-webkit-full-page-media, _:future, :root & { // only target Safari
       .scroll-shadows-vertical-with-covers(65%, 0.25);
     }

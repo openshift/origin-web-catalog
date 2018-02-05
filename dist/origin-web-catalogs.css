@@ -594,6 +594,7 @@ body.overlay-open .landing-side-bar {
   background-position: 0 0, 0 100%;
   background-repeat: no-repeat;
   background-size: 100% 6px;
+  -webkit-overflow-scrolling: touch;
 }
 .catalogs-overlay-panel .wizard-pf-main _::-webkit-full-page-media,
 .catalogs-overlay-panel .wizard-pf-main _:future,
