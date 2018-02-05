@@ -67,9 +67,6 @@ body.overlay-open {
     padding: 0;
     .scroll-shadows-vertical();
     -webkit-overflow-scrolling: touch; // enable momentum scrolling in mobile Safari
-    _::-webkit-full-page-media, _:future, :root & { // only target Safari
-      .scroll-shadows-vertical-with-covers(65%, 0.25);
-    }
     @media(max-width: @screen-xs-max) {
       bottom: 58px; // height of .wizard-pf-footer
       height: auto;
@@ -97,9 +94,6 @@ body.overlay-open {
     min-height: 100%;
     padding: (@grid-gutter-width / 2);
     .scroll-shadows-vertical-covers();
-    _::-webkit-full-page-media, _:future, :root & { // only target Safari
-      background: none;
-    }
     @media(min-width: @screen-sm-min) {
       padding-left: @grid-gutter-width;
       padding-right: @grid-gutter-width;
