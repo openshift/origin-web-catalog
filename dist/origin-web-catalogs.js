@@ -1284,7 +1284,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
 }, function(e, t, r) {
     "use strict";
     t.__esModule = !0;
-    var n = r(1), i = r(0), a = r(71), s = r(69), o = function() {
+    var n = r(1), i = r(0), a = r(69), s = function() {
         function e(e, t, r, n, a, s, o, c, l, d, p) {
             var h = this;
             this.ctrl = this, this.watches = [], this.clearValidityWatcher = function() {
@@ -1425,13 +1425,10 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 var s = i.get(n, "annotations.tags", ""), o = s.split(/\s*,\s*/);
                 i.includes(o, "builder") && !i.includes(o, "hidden") && (r[n.name] = n);
             });
-            var a = [], o = i.get(this, "ctrl.imageStream.resource.status.tags", []);
-            return i.each(o, function(e) {
+            var a = [], s = i.get(this, "ctrl.imageStream.resource.status.tags", []);
+            return i.each(s, function(e) {
                 var t = r[e.tag];
                 t && a.push(t);
-            }), a.sort(function(e, t) {
-                var r = e.name, n = s.valid(s.coerce(r)), i = t.name, a = s.valid(s.coerce(i));
-                return n && a ? s.rcompare(n, a) : n ? -1 : a ? 1 : r.localeCompare(i);
             }), a;
         }, e.prototype.getImageStreamTag = function() {
             var e = this.APIService.getPreferredVersion("imagestreamtags"), t = this.ctrl.imageStream.resource.metadata.name + ":" + this.ctrl.istag.name, r = this.ctrl.imageStream.resource.metadata.namespace;
@@ -1518,8 +1515,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             }
         }, e;
     }();
-    o.$inject = [ "$scope", "$filter", "$location", "$q", "BuilderAppService", "ProjectsService", "DataService", "APIService", "BindingService", "Logger", "Constants" ], 
-    t.CreateFromBuilderController = o;
+    s.$inject = [ "$scope", "$filter", "$location", "$q", "BuilderAppService", "ProjectsService", "DataService", "APIService", "BindingService", "Logger", "Constants" ], 
+    t.CreateFromBuilderController = s;
 }, function(e, t, r) {
     "use strict";
     t.__esModule = !0;
@@ -1814,47 +1811,47 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
     "use strict";
     t.__esModule = !0;
     var n = r(1), i = r(0), a = function() {
-        function e(t, r, a, s, o, c, l, d, p, h, u) {
-            var m = this;
+        function e(t, r, a, s, o, c, l, d, p, h, m) {
+            var u = this;
             this.ctrl = this, this.newProjectPanelShown = !1, this.editProjectPanelShown = !1, 
             this.watches = [], this.maxDisplayProjects = 5, this.watchingProjects = !1, this.init = function() {
-                m.ProjectsService.list().then(function(t) {
-                    m.onProjectsUpdate(t), m.ctrl.isProjectListIncomplete = m.ProjectsService.isProjectListIncomplete(), 
-                    !m.ctrl.isProjectListIncomplete && m.ctrl.totalProjects <= e.MAX_PROJETS_TO_WATCH && (m.watches.push(m.ProjectsService.watch(m.$scope, m.onProjectsUpdate)), 
-                    m.watchingProjects = !0);
+                u.ProjectsService.list().then(function(t) {
+                    u.onProjectsUpdate(t), u.ctrl.isProjectListIncomplete = u.ProjectsService.isProjectListIncomplete(), 
+                    !u.ctrl.isProjectListIncomplete && u.ctrl.totalProjects <= e.MAX_PROJETS_TO_WATCH && (u.watches.push(u.ProjectsService.watch(u.$scope, u.onProjectsUpdate)), 
+                    u.watchingProjects = !0);
                 }, function() {
-                    m.ctrl.isProjectListIncomplete = !0;
-                }), m.ctrl.resourceLinks = i.clone(m.Constants.CATALOG_HELP_RESOURCES.links), i.forEach(m.ctrl.resourceLinks, function(e) {
-                    n.isDefined(e.help) && (e.href = m.Constants.HELP_BASE_URL + (e.help ? m.Constants.HELP[e.help] : ""));
-                }), m.$rootScope.$on("recently-viewed-updated", function() {
-                    m.ctrl.recentlyViewedItems = m.getRecentlyViewedItems();
+                    u.ctrl.isProjectListIncomplete = !0;
+                }), u.ctrl.resourceLinks = i.clone(u.Constants.CATALOG_HELP_RESOURCES.links), i.forEach(u.ctrl.resourceLinks, function(e) {
+                    n.isDefined(e.help) && (e.href = u.Constants.HELP_BASE_URL + (e.help ? u.Constants.HELP[e.help] : ""));
+                }), u.$rootScope.$on("recently-viewed-updated", function() {
+                    u.ctrl.recentlyViewedItems = u.getRecentlyViewedItems();
                 });
             }, this.onProjectsUpdate = function(e) {
                 var t = i.toArray(e.by("metadata.name"));
-                m.ctrl.projects = m.RecentlyViewedProjectsService.orderByMostRecentlyViewed(t), 
-                m.ctrl.totalProjects = m.ctrl.projects.length, m.ctrl.projects = i.take(m.ctrl.projects, m.maxDisplayProjects), 
-                m.ctrl.loading = !1, m.ctrl.showGetStarted = !m.ctrl.projects || m.ctrl.projects.length < 2;
+                u.ctrl.projects = u.RecentlyViewedProjectsService.orderByMostRecentlyViewed(t), 
+                u.ctrl.totalProjects = u.ctrl.projects.length, u.ctrl.projects = i.take(u.ctrl.projects, u.maxDisplayProjects), 
+                u.ctrl.loading = !1, u.ctrl.showGetStarted = !u.ctrl.projects || u.ctrl.projects.length < 2;
             }, this.goToProject = function(e) {
-                var t = m.$filter("projectUrl")(e, m.ctrl.baseProjectUrl);
-                m.$window.location.href = t;
+                var t = u.$filter("projectUrl")(e, u.ctrl.baseProjectUrl);
+                u.$window.location.href = t;
             }, this.closeNewProjectPanel = function() {
-                m.ctrl.newProjectPanelShown = !1;
+                u.ctrl.newProjectPanelShown = !1;
             }, this.onNewProject = function(e) {
-                m.ctrl.newProjectPanelShown = !1, m.watchingProjects || m.ProjectsService.list().then(m.onProjectsUpdate);
+                u.ctrl.newProjectPanelShown = !1, u.watchingProjects || u.ProjectsService.list().then(u.onProjectsUpdate);
             }, this.onViewMemebership = function(e) {
-                var t = m.ctrl.viewEditMembership();
+                var t = u.ctrl.viewEditMembership();
                 t && t(e);
             }, this.editProject = function(e) {
-                m.ctrl.edittingProject = e, m.ctrl.editProjectPanelShown = !0;
+                u.ctrl.edittingProject = e, u.ctrl.editProjectPanelShown = !0;
             }, this.closeEditProjectPanel = function() {
-                m.ctrl.editProjectPanelShown = !1;
+                u.ctrl.editProjectPanelShown = !1;
             }, this.onEditProject = function(e) {
-                m.ctrl.editProjectPanelShown = !1, m.watchingProjects || m.ProjectsService.list().then(m.onProjectsUpdate);
+                u.ctrl.editProjectPanelShown = !1, u.watchingProjects || u.ProjectsService.list().then(u.onProjectsUpdate);
             }, this.onDeleteProject = function() {
-                m.watchingProjects || m.ProjectsService.list().then(m.onProjectsUpdate);
+                u.watchingProjects || u.ProjectsService.list().then(u.onProjectsUpdate);
             }, this.$filter = t, this.$rootScope = r, this.$scope = a, this.$window = s, this.AuthService = o, 
             this.Constants = c, this.DataService = l, this.Logger = d, this.ProjectsService = p, 
-            this.RecentlyViewedProjectsService = h, this.RecentlyViewedItems = u;
+            this.RecentlyViewedProjectsService = h, this.RecentlyViewedItems = m;
         }
         return e.prototype.$onInit = function() {
             var e = this;
@@ -2344,640 +2341,6 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
     }();
     a.$inject = [ "$scope", "$filter", "$q", "APIService", "BindingService", "DataService", "Logger", "SecretsService" ], 
     t.UpdateServiceController = a;
-}, function(e, t, r) {
-    (function(r) {
-        function n(e, t) {
-            if (e instanceof s) return e;
-            if ("string" != typeof e) return null;
-            if (e.length > Z) return null;
-            if (!(t ? ee[ve] : ee[me]).test(e)) return null;
-            try {
-                return new s(e, t);
-            } catch (e) {
-                return null;
-            }
-        }
-        function i(e, t) {
-            var r = n(e, t);
-            return r ? r.version : null;
-        }
-        function a(e, t) {
-            var r = n(e.trim().replace(/^[=v]+/, ""), t);
-            return r ? r.version : null;
-        }
-        function s(e, t) {
-            if (e instanceof s) {
-                if (e.loose === t) return e;
-                e = e.version;
-            } else if ("string" != typeof e) throw new TypeError("Invalid Version: " + e);
-            if (e.length > Z) throw new TypeError("version is longer than " + Z + " characters");
-            if (!(this instanceof s)) return new s(e, t);
-            Y("SemVer", e, t), this.loose = t;
-            var r = e.trim().match(t ? ee[ve] : ee[me]);
-            if (!r) throw new TypeError("Invalid Version: " + e);
-            if (this.raw = e, this.major = +r[1], this.minor = +r[2], this.patch = +r[3], this.major > X || this.major < 0) throw new TypeError("Invalid major version");
-            if (this.minor > X || this.minor < 0) throw new TypeError("Invalid minor version");
-            if (this.patch > X || this.patch < 0) throw new TypeError("Invalid patch version");
-            r[4] ? this.prerelease = r[4].split(".").map(function(e) {
-                if (/^[0-9]+$/.test(e)) {
-                    var t = +e;
-                    if (t >= 0 && t < X) return t;
-                }
-                return e;
-            }) : this.prerelease = [], this.build = r[5] ? r[5].split(".") : [], this.format();
-        }
-        function o(e, t, r, n) {
-            "string" == typeof r && (n = r, r = void 0);
-            try {
-                return new s(e, r).inc(t, n).version;
-            } catch (e) {
-                return null;
-            }
-        }
-        function c(e, t) {
-            if (S(e, t)) return null;
-            var r = n(e), i = n(t);
-            if (r.prerelease.length || i.prerelease.length) {
-                for (var a in r) if (("major" === a || "minor" === a || "patch" === a) && r[a] !== i[a]) return "pre" + a;
-                return "prerelease";
-            }
-            for (var a in r) if (("major" === a || "minor" === a || "patch" === a) && r[a] !== i[a]) return a;
-        }
-        function l(e, t) {
-            var r = We.test(e), n = We.test(t);
-            return r && n && (e = +e, t = +t), r && !n ? -1 : n && !r ? 1 : e < t ? -1 : e > t ? 1 : 0;
-        }
-        function d(e, t) {
-            return l(t, e);
-        }
-        function p(e, t) {
-            return new s(e, t).major;
-        }
-        function h(e, t) {
-            return new s(e, t).minor;
-        }
-        function u(e, t) {
-            return new s(e, t).patch;
-        }
-        function m(e, t, r) {
-            return new s(e, r).compare(new s(t, r));
-        }
-        function g(e, t) {
-            return m(e, t, !0);
-        }
-        function f(e, t, r) {
-            return m(t, e, r);
-        }
-        function v(e, r) {
-            return e.sort(function(e, n) {
-                return t.compare(e, n, r);
-            });
-        }
-        function y(e, r) {
-            return e.sort(function(e, n) {
-                return t.rcompare(e, n, r);
-            });
-        }
-        function b(e, t, r) {
-            return m(e, t, r) > 0;
-        }
-        function w(e, t, r) {
-            return m(e, t, r) < 0;
-        }
-        function S(e, t, r) {
-            return 0 === m(e, t, r);
-        }
-        function $(e, t, r) {
-            return 0 !== m(e, t, r);
-        }
-        function P(e, t, r) {
-            return m(e, t, r) >= 0;
-        }
-        function C(e, t, r) {
-            return m(e, t, r) <= 0;
-        }
-        function j(e, t, r, n) {
-            var i;
-            switch (t) {
-              case "===":
-                "object" == typeof e && (e = e.version), "object" == typeof r && (r = r.version), 
-                i = e === r;
-                break;
-
-              case "!==":
-                "object" == typeof e && (e = e.version), "object" == typeof r && (r = r.version), 
-                i = e !== r;
-                break;
-
-              case "":
-              case "=":
-              case "==":
-                i = S(e, r, n);
-                break;
-
-              case "!=":
-                i = $(e, r, n);
-                break;
-
-              case ">":
-                i = b(e, r, n);
-                break;
-
-              case ">=":
-                i = P(e, r, n);
-                break;
-
-              case "<":
-                i = w(e, r, n);
-                break;
-
-              case "<=":
-                i = C(e, r, n);
-                break;
-
-              default:
-                throw new TypeError("Invalid operator: " + t);
-            }
-            return i;
-        }
-        function k(e, t) {
-            if (e instanceof k) {
-                if (e.loose === t) return e;
-                e = e.value;
-            }
-            if (!(this instanceof k)) return new k(e, t);
-            Y("comparator", e, t), this.loose = t, this.parse(e), this.semver === qe ? this.value = "" : this.value = this.operator + this.semver.version, 
-            Y("comp", this);
-        }
-        function I(e, t) {
-            if (e instanceof I) return e.loose === t ? e : new I(e.raw, t);
-            if (e instanceof k) return new I(e.value, t);
-            if (!(this instanceof I)) return new I(e, t);
-            if (this.loose = t, this.raw = e, this.set = e.split(/\s*\|\|\s*/).map(function(e) {
-                return this.parseRange(e.trim());
-            }, this).filter(function(e) {
-                return e.length;
-            }), !this.set.length) throw new TypeError("Invalid SemVer Range: " + e);
-            this.format();
-        }
-        function x(e, t) {
-            return new I(e, t).set.map(function(e) {
-                return e.map(function(e) {
-                    return e.value;
-                }).join(" ").trim().split(" ");
-            });
-        }
-        function T(e, t) {
-            return Y("comp", e), e = E(e, t), Y("caret", e), e = N(e, t), Y("tildes", e), e = R(e, t), 
-            Y("xrange", e), e = _(e, t), Y("stars", e), e;
-        }
-        function F(e) {
-            return !e || "x" === e.toLowerCase() || "*" === e;
-        }
-        function N(e, t) {
-            return e.trim().split(/\s+/).map(function(e) {
-                return A(e, t);
-            }).join(" ");
-        }
-        function A(e, t) {
-            var r = t ? ee[Fe] : ee[Te];
-            return e.replace(r, function(t, r, n, i, a) {
-                Y("tilde", e, t, r, n, i, a);
-                var s;
-                return F(r) ? s = "" : F(n) ? s = ">=" + r + ".0.0 <" + (+r + 1) + ".0.0" : F(i) ? s = ">=" + r + "." + n + ".0 <" + r + "." + (+n + 1) + ".0" : a ? (Y("replaceTilde pr", a), 
-                "-" !== a.charAt(0) && (a = "-" + a), s = ">=" + r + "." + n + "." + i + a + " <" + r + "." + (+n + 1) + ".0") : s = ">=" + r + "." + n + "." + i + " <" + r + "." + (+n + 1) + ".0", 
-                Y("tilde return", s), s;
-            });
-        }
-        function E(e, t) {
-            return e.trim().split(/\s+/).map(function(e) {
-                return D(e, t);
-            }).join(" ");
-        }
-        function D(e, t) {
-            Y("caret", e, t);
-            var r = t ? ee[Re] : ee[De];
-            return e.replace(r, function(t, r, n, i, a) {
-                Y("caret", e, t, r, n, i, a);
-                var s;
-                return F(r) ? s = "" : F(n) ? s = ">=" + r + ".0.0 <" + (+r + 1) + ".0.0" : F(i) ? s = "0" === r ? ">=" + r + "." + n + ".0 <" + r + "." + (+n + 1) + ".0" : ">=" + r + "." + n + ".0 <" + (+r + 1) + ".0.0" : a ? (Y("replaceCaret pr", a), 
-                "-" !== a.charAt(0) && (a = "-" + a), s = "0" === r ? "0" === n ? ">=" + r + "." + n + "." + i + a + " <" + r + "." + n + "." + (+i + 1) : ">=" + r + "." + n + "." + i + a + " <" + r + "." + (+n + 1) + ".0" : ">=" + r + "." + n + "." + i + a + " <" + (+r + 1) + ".0.0") : (Y("no pr"), 
-                s = "0" === r ? "0" === n ? ">=" + r + "." + n + "." + i + " <" + r + "." + n + "." + (+i + 1) : ">=" + r + "." + n + "." + i + " <" + r + "." + (+n + 1) + ".0" : ">=" + r + "." + n + "." + i + " <" + (+r + 1) + ".0.0"), 
-                Y("caret return", s), s;
-            });
-        }
-        function R(e, t) {
-            return Y("replaceXRanges", e, t), e.split(/\s+/).map(function(e) {
-                return V(e, t);
-            }).join(" ");
-        }
-        function V(e, t) {
-            e = e.trim();
-            var r = t ? ee[Ce] : ee[Pe];
-            return e.replace(r, function(t, r, n, i, a, s) {
-                Y("xRange", e, t, r, n, i, a, s);
-                var o = F(n), c = o || F(i), l = c || F(a), d = l;
-                return "=" === r && d && (r = ""), o ? t = ">" === r || "<" === r ? "<0.0.0" : "*" : r && d ? (c && (i = 0), 
-                l && (a = 0), ">" === r ? (r = ">=", c ? (n = +n + 1, i = 0, a = 0) : l && (i = +i + 1, 
-                a = 0)) : "<=" === r && (r = "<", c ? n = +n + 1 : i = +i + 1), t = r + n + "." + i + "." + a) : c ? t = ">=" + n + ".0.0 <" + (+n + 1) + ".0.0" : l && (t = ">=" + n + "." + i + ".0 <" + n + "." + (+i + 1) + ".0"), 
-                Y("xRange return", t), t;
-            });
-        }
-        function _(e, t) {
-            return Y("replaceStars", e, t), e.trim().replace(ee[Be], "");
-        }
-        function M(e, t, r, n, i, a, s, o, c, l, d, p, h) {
-            return t = F(r) ? "" : F(n) ? ">=" + r + ".0.0" : F(i) ? ">=" + r + "." + n + ".0" : ">=" + t, 
-            o = F(c) ? "" : F(l) ? "<" + (+c + 1) + ".0.0" : F(d) ? "<" + c + "." + (+l + 1) + ".0" : p ? "<=" + c + "." + l + "." + d + "-" + p : "<=" + o, 
-            (t + " " + o).trim();
-        }
-        function L(e, t) {
-            for (var r = 0; r < e.length; r++) if (!e[r].test(t)) return !1;
-            if (t.prerelease.length) {
-                for (var r = 0; r < e.length; r++) if (Y(e[r].semver), e[r].semver !== qe && e[r].semver.prerelease.length > 0) {
-                    var n = e[r].semver;
-                    if (n.major === t.major && n.minor === t.minor && n.patch === t.patch) return !0;
-                }
-                return !1;
-            }
-            return !0;
-        }
-        function O(e, t, r) {
-            try {
-                t = new I(t, r);
-            } catch (e) {
-                return !1;
-            }
-            return t.test(e);
-        }
-        function U(e, t, r) {
-            var n = null, i = null;
-            try {
-                var a = new I(t, r);
-            } catch (e) {
-                return null;
-            }
-            return e.forEach(function(e) {
-                a.test(e) && (n && -1 !== i.compare(e) || (n = e, i = new s(n, r)));
-            }), n;
-        }
-        function B(e, t, r) {
-            var n = null, i = null;
-            try {
-                var a = new I(t, r);
-            } catch (e) {
-                return null;
-            }
-            return e.forEach(function(e) {
-                a.test(e) && (n && 1 !== i.compare(e) || (n = e, i = new s(n, r)));
-            }), n;
-        }
-        function z(e, t) {
-            try {
-                return new I(e, t).range || "*";
-            } catch (e) {
-                return null;
-            }
-        }
-        function W(e, t, r) {
-            return H(e, t, "<", r);
-        }
-        function q(e, t, r) {
-            return H(e, t, ">", r);
-        }
-        function H(e, t, r, n) {
-            e = new s(e, n), t = new I(t, n);
-            var i, a, o, c, l;
-            switch (r) {
-              case ">":
-                i = b, a = C, o = w, c = ">", l = ">=";
-                break;
-
-              case "<":
-                i = w, a = P, o = b, c = "<", l = "<=";
-                break;
-
-              default:
-                throw new TypeError('Must provide a hilo val of "<" or ">"');
-            }
-            if (O(e, t, n)) return !1;
-            for (var d = 0; d < t.set.length; ++d) {
-                var p = t.set[d], h = null, u = null;
-                if (p.forEach(function(e) {
-                    e.semver === qe && (e = new k(">=0.0.0")), h = h || e, u = u || e, i(e.semver, h.semver, n) ? h = e : o(e.semver, u.semver, n) && (u = e);
-                }), h.operator === c || h.operator === l) return !1;
-                if ((!u.operator || u.operator === c) && a(e, u.semver)) return !1;
-                if (u.operator === l && o(e, u.semver)) return !1;
-            }
-            return !0;
-        }
-        function K(e, t) {
-            var r = n(e, t);
-            return r && r.prerelease.length ? r.prerelease : null;
-        }
-        function G(e, t, r) {
-            return e = new I(e, r), t = new I(t, r), e.intersects(t);
-        }
-        function J(e) {
-            if (e instanceof s) return e;
-            if ("string" != typeof e) return null;
-            var t = e.match(ee[je]);
-            return null == t ? null : n((t[1] || "0") + "." + (t[2] || "0") + "." + (t[3] || "0"));
-        }
-        t = e.exports = s;
-        var Y;
-        Y = "object" == typeof r && {
-            ENV: "production"
-        }.NODE_DEBUG && /\bsemver\b/i.test({
-            ENV: "production"
-        }.NODE_DEBUG) ? function() {
-            var e = Array.prototype.slice.call(arguments, 0);
-            e.unshift("SEMVER"), console.log.apply(console, e);
-        } : function() {}, t.SEMVER_SPEC_VERSION = "2.0.0";
-        var Z = 256, X = Number.MAX_SAFE_INTEGER || 9007199254740991, Q = 16, ee = t.re = [], te = t.src = [], re = 0, ne = re++;
-        te[ne] = "0|[1-9]\\d*";
-        var ie = re++;
-        te[ie] = "[0-9]+";
-        var ae = re++;
-        te[ae] = "\\d*[a-zA-Z-][a-zA-Z0-9-]*";
-        var se = re++;
-        te[se] = "(" + te[ne] + ")\\.(" + te[ne] + ")\\.(" + te[ne] + ")";
-        var oe = re++;
-        te[oe] = "(" + te[ie] + ")\\.(" + te[ie] + ")\\.(" + te[ie] + ")";
-        var ce = re++;
-        te[ce] = "(?:" + te[ne] + "|" + te[ae] + ")";
-        var le = re++;
-        te[le] = "(?:" + te[ie] + "|" + te[ae] + ")";
-        var de = re++;
-        te[de] = "(?:-(" + te[ce] + "(?:\\." + te[ce] + ")*))";
-        var pe = re++;
-        te[pe] = "(?:-?(" + te[le] + "(?:\\." + te[le] + ")*))";
-        var he = re++;
-        te[he] = "[0-9A-Za-z-]+";
-        var ue = re++;
-        te[ue] = "(?:\\+(" + te[he] + "(?:\\." + te[he] + ")*))";
-        var me = re++, ge = "v?" + te[se] + te[de] + "?" + te[ue] + "?";
-        te[me] = "^" + ge + "$";
-        var fe = "[v=\\s]*" + te[oe] + te[pe] + "?" + te[ue] + "?", ve = re++;
-        te[ve] = "^" + fe + "$";
-        var ye = re++;
-        te[ye] = "((?:<|>)?=?)";
-        var be = re++;
-        te[be] = te[ie] + "|x|X|\\*";
-        var we = re++;
-        te[we] = te[ne] + "|x|X|\\*";
-        var Se = re++;
-        te[Se] = "[v=\\s]*(" + te[we] + ")(?:\\.(" + te[we] + ")(?:\\.(" + te[we] + ")(?:" + te[de] + ")?" + te[ue] + "?)?)?";
-        var $e = re++;
-        te[$e] = "[v=\\s]*(" + te[be] + ")(?:\\.(" + te[be] + ")(?:\\.(" + te[be] + ")(?:" + te[pe] + ")?" + te[ue] + "?)?)?";
-        var Pe = re++;
-        te[Pe] = "^" + te[ye] + "\\s*" + te[Se] + "$";
-        var Ce = re++;
-        te[Ce] = "^" + te[ye] + "\\s*" + te[$e] + "$";
-        var je = re++;
-        te[je] = "(?:^|[^\\d])(\\d{1," + Q + "})(?:\\.(\\d{1," + Q + "}))?(?:\\.(\\d{1," + Q + "}))?(?:$|[^\\d])";
-        var ke = re++;
-        te[ke] = "(?:~>?)";
-        var Ie = re++;
-        te[Ie] = "(\\s*)" + te[ke] + "\\s+", ee[Ie] = new RegExp(te[Ie], "g");
-        var xe = "$1~", Te = re++;
-        te[Te] = "^" + te[ke] + te[Se] + "$";
-        var Fe = re++;
-        te[Fe] = "^" + te[ke] + te[$e] + "$";
-        var Ne = re++;
-        te[Ne] = "(?:\\^)";
-        var Ae = re++;
-        te[Ae] = "(\\s*)" + te[Ne] + "\\s+", ee[Ae] = new RegExp(te[Ae], "g");
-        var Ee = "$1^", De = re++;
-        te[De] = "^" + te[Ne] + te[Se] + "$";
-        var Re = re++;
-        te[Re] = "^" + te[Ne] + te[$e] + "$";
-        var Ve = re++;
-        te[Ve] = "^" + te[ye] + "\\s*(" + fe + ")$|^$";
-        var _e = re++;
-        te[_e] = "^" + te[ye] + "\\s*(" + ge + ")$|^$";
-        var Me = re++;
-        te[Me] = "(\\s*)" + te[ye] + "\\s*(" + fe + "|" + te[Se] + ")", ee[Me] = new RegExp(te[Me], "g");
-        var Le = "$1$2$3", Oe = re++;
-        te[Oe] = "^\\s*(" + te[Se] + ")\\s+-\\s+(" + te[Se] + ")\\s*$";
-        var Ue = re++;
-        te[Ue] = "^\\s*(" + te[$e] + ")\\s+-\\s+(" + te[$e] + ")\\s*$";
-        var Be = re++;
-        te[Be] = "(<|>)?=?\\s*\\*";
-        for (var ze = 0; ze < re; ze++) Y(ze, te[ze]), ee[ze] || (ee[ze] = new RegExp(te[ze]));
-        t.parse = n, t.valid = i, t.clean = a, t.SemVer = s, s.prototype.format = function() {
-            return this.version = this.major + "." + this.minor + "." + this.patch, this.prerelease.length && (this.version += "-" + this.prerelease.join(".")), 
-            this.version;
-        }, s.prototype.toString = function() {
-            return this.version;
-        }, s.prototype.compare = function(e) {
-            return Y("SemVer.compare", this.version, this.loose, e), e instanceof s || (e = new s(e, this.loose)), 
-            this.compareMain(e) || this.comparePre(e);
-        }, s.prototype.compareMain = function(e) {
-            return e instanceof s || (e = new s(e, this.loose)), l(this.major, e.major) || l(this.minor, e.minor) || l(this.patch, e.patch);
-        }, s.prototype.comparePre = function(e) {
-            if (e instanceof s || (e = new s(e, this.loose)), this.prerelease.length && !e.prerelease.length) return -1;
-            if (!this.prerelease.length && e.prerelease.length) return 1;
-            if (!this.prerelease.length && !e.prerelease.length) return 0;
-            var t = 0;
-            do {
-                var r = this.prerelease[t], n = e.prerelease[t];
-                if (Y("prerelease compare", t, r, n), void 0 === r && void 0 === n) return 0;
-                if (void 0 === n) return 1;
-                if (void 0 === r) return -1;
-                if (r !== n) return l(r, n);
-            } while (++t);
-        }, s.prototype.inc = function(e, t) {
-            switch (e) {
-              case "premajor":
-                this.prerelease.length = 0, this.patch = 0, this.minor = 0, this.major++, this.inc("pre", t);
-                break;
-
-              case "preminor":
-                this.prerelease.length = 0, this.patch = 0, this.minor++, this.inc("pre", t);
-                break;
-
-              case "prepatch":
-                this.prerelease.length = 0, this.inc("patch", t), this.inc("pre", t);
-                break;
-
-              case "prerelease":
-                0 === this.prerelease.length && this.inc("patch", t), this.inc("pre", t);
-                break;
-
-              case "major":
-                0 === this.minor && 0 === this.patch && 0 !== this.prerelease.length || this.major++, 
-                this.minor = 0, this.patch = 0, this.prerelease = [];
-                break;
-
-              case "minor":
-                0 === this.patch && 0 !== this.prerelease.length || this.minor++, this.patch = 0, 
-                this.prerelease = [];
-                break;
-
-              case "patch":
-                0 === this.prerelease.length && this.patch++, this.prerelease = [];
-                break;
-
-              case "pre":
-                if (0 === this.prerelease.length) this.prerelease = [ 0 ]; else {
-                    for (var r = this.prerelease.length; --r >= 0; ) "number" == typeof this.prerelease[r] && (this.prerelease[r]++, 
-                    r = -2);
-                    -1 === r && this.prerelease.push(0);
-                }
-                t && (this.prerelease[0] === t ? isNaN(this.prerelease[1]) && (this.prerelease = [ t, 0 ]) : this.prerelease = [ t, 0 ]);
-                break;
-
-              default:
-                throw new Error("invalid increment argument: " + e);
-            }
-            return this.format(), this.raw = this.version, this;
-        }, t.inc = o, t.diff = c, t.compareIdentifiers = l;
-        var We = /^[0-9]+$/;
-        t.rcompareIdentifiers = d, t.major = p, t.minor = h, t.patch = u, t.compare = m, 
-        t.compareLoose = g, t.rcompare = f, t.sort = v, t.rsort = y, t.gt = b, t.lt = w, 
-        t.eq = S, t.neq = $, t.gte = P, t.lte = C, t.cmp = j, t.Comparator = k;
-        var qe = {};
-        k.prototype.parse = function(e) {
-            var t = this.loose ? ee[Ve] : ee[_e], r = e.match(t);
-            if (!r) throw new TypeError("Invalid comparator: " + e);
-            this.operator = r[1], "=" === this.operator && (this.operator = ""), r[2] ? this.semver = new s(r[2], this.loose) : this.semver = qe;
-        }, k.prototype.toString = function() {
-            return this.value;
-        }, k.prototype.test = function(e) {
-            return Y("Comparator.test", e, this.loose), this.semver === qe || ("string" == typeof e && (e = new s(e, this.loose)), 
-            j(e, this.operator, this.semver, this.loose));
-        }, k.prototype.intersects = function(e, t) {
-            if (!(e instanceof k)) throw new TypeError("a Comparator is required");
-            var r;
-            if ("" === this.operator) return r = new I(e.value, t), O(this.value, r, t);
-            if ("" === e.operator) return r = new I(this.value, t), O(e.semver, r, t);
-            var n = !(">=" !== this.operator && ">" !== this.operator || ">=" !== e.operator && ">" !== e.operator), i = !("<=" !== this.operator && "<" !== this.operator || "<=" !== e.operator && "<" !== e.operator), a = this.semver.version === e.semver.version, s = !(">=" !== this.operator && "<=" !== this.operator || ">=" !== e.operator && "<=" !== e.operator), o = j(this.semver, "<", e.semver, t) && (">=" === this.operator || ">" === this.operator) && ("<=" === e.operator || "<" === e.operator), c = j(this.semver, ">", e.semver, t) && ("<=" === this.operator || "<" === this.operator) && (">=" === e.operator || ">" === e.operator);
-            return n || i || a && s || o || c;
-        }, t.Range = I, I.prototype.format = function() {
-            return this.range = this.set.map(function(e) {
-                return e.join(" ").trim();
-            }).join("||").trim(), this.range;
-        }, I.prototype.toString = function() {
-            return this.range;
-        }, I.prototype.parseRange = function(e) {
-            var t = this.loose;
-            e = e.trim(), Y("range", e, t);
-            var r = t ? ee[Ue] : ee[Oe];
-            e = e.replace(r, M), Y("hyphen replace", e), e = e.replace(ee[Me], Le), Y("comparator trim", e, ee[Me]), 
-            e = e.replace(ee[Ie], xe), e = e.replace(ee[Ae], Ee), e = e.split(/\s+/).join(" ");
-            var n = t ? ee[Ve] : ee[_e], i = e.split(" ").map(function(e) {
-                return T(e, t);
-            }).join(" ").split(/\s+/);
-            return this.loose && (i = i.filter(function(e) {
-                return !!e.match(n);
-            })), i = i.map(function(e) {
-                return new k(e, t);
-            });
-        }, I.prototype.intersects = function(e, t) {
-            if (!(e instanceof I)) throw new TypeError("a Range is required");
-            return this.set.some(function(r) {
-                return r.every(function(r) {
-                    return e.set.some(function(e) {
-                        return e.every(function(e) {
-                            return r.intersects(e, t);
-                        });
-                    });
-                });
-            });
-        }, t.toComparators = x, I.prototype.test = function(e) {
-            if (!e) return !1;
-            "string" == typeof e && (e = new s(e, this.loose));
-            for (var t = 0; t < this.set.length; t++) if (L(this.set[t], e)) return !0;
-            return !1;
-        }, t.satisfies = O, t.maxSatisfying = U, t.minSatisfying = B, t.validRange = z, 
-        t.ltr = W, t.gtr = q, t.outside = H, t.prerelease = K, t.intersects = G, t.coerce = J;
-    }).call(t, r(70));
-}, function(e, t) {
-    function r() {
-        throw new Error("setTimeout has not been defined");
-    }
-    function n() {
-        throw new Error("clearTimeout has not been defined");
-    }
-    function i(e) {
-        if (d === setTimeout) return setTimeout(e, 0);
-        if ((d === r || !d) && setTimeout) return d = setTimeout, setTimeout(e, 0);
-        try {
-            return d(e, 0);
-        } catch (t) {
-            try {
-                return d.call(null, e, 0);
-            } catch (t) {
-                return d.call(this, e, 0);
-            }
-        }
-    }
-    function a(e) {
-        if (p === clearTimeout) return clearTimeout(e);
-        if ((p === n || !p) && clearTimeout) return p = clearTimeout, clearTimeout(e);
-        try {
-            return p(e);
-        } catch (t) {
-            try {
-                return p.call(null, e);
-            } catch (t) {
-                return p.call(this, e);
-            }
-        }
-    }
-    function s() {
-        g && u && (g = !1, u.length ? m = u.concat(m) : f = -1, m.length && o());
-    }
-    function o() {
-        if (!g) {
-            var e = i(s);
-            g = !0;
-            for (var t = m.length; t; ) {
-                for (u = m, m = []; ++f < t; ) u && u[f].run();
-                f = -1, t = m.length;
-            }
-            u = null, g = !1, a(e);
-        }
-    }
-    function c(e, t) {
-        this.fun = e, this.array = t;
-    }
-    function l() {}
-    var d, p, h = e.exports = {};
-    !function() {
-        try {
-            d = "function" == typeof setTimeout ? setTimeout : r;
-        } catch (e) {
-            d = r;
-        }
-        try {
-            p = "function" == typeof clearTimeout ? clearTimeout : n;
-        } catch (e) {
-            p = n;
-        }
-    }();
-    var u, m = [], g = !1, f = -1;
-    h.nextTick = function(e) {
-        var t = new Array(arguments.length - 1);
-        if (arguments.length > 1) for (var r = 1; r < arguments.length; r++) t[r - 1] = arguments[r];
-        m.push(new c(e, t)), 1 !== m.length || g || i(o);
-    }, c.prototype.run = function() {
-        this.fun.apply(null, this.array);
-    }, h.title = "browser", h.browser = !0, h.env = {}, h.argv = [], h.version = "", 
-    h.versions = {}, h.on = l, h.addListener = l, h.once = l, h.off = l, h.removeListener = l, 
-    h.removeAllListeners = l, h.emit = l, h.prependListener = l, h.prependOnceListener = l, 
-    h.listeners = function(e) {
-        return [];
-    }, h.binding = function(e) {
-        throw new Error("process.binding is not supported");
-    }, h.cwd = function() {
-        return "/";
-    }, h.chdir = function(e) {
-        throw new Error("process.chdir is not supported");
-    }, h.umask = function() {
-        return 0;
-    };
 }, function(e, t) {
     e.exports = URI;
 }, function(e, t, r) {
@@ -2985,8 +2348,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
     t.__esModule = !0;
     var n = r(1);
     r(3), r(36);
-    var i = r(37), a = r(38), s = r(39), o = r(40), c = r(24), l = r(25), d = r(41), p = r(26), h = r(27), u = r(28), m = r(29), g = r(30), f = r(31), v = r(32), y = r(33), b = r(34), w = r(35), S = r(42), $ = r(23);
-    t.webCatalog = "webCatalog", n.module(t.webCatalog, [ "patternfly", "ngAnimate", "ui.bootstrap", "angularMoment", "ui.select", "schemaForm" ]).service("BuilderAppService", o.BuilderAppService).service("Catalog", d.CatalogService).service("RecentlyViewedServiceItems", S.RecentlyViewedServiceItems).filter("escapeRegExp", i.escapeRegExpFilter).filter("projectUrl", a.projectUrlFilter).filter("secretUrl", s.secretUrlFilter).component("catalogParameters", c.catalogParameters).component("catalogSearch", l.catalogSearch).component("createFromBuilder", p.createFromBuilder).component("landingPage", h.landingPage).component("orderService", u.orderService).component("overlayPanel", m.overlayPanel).component("projectsSummary", g.projectsSummary).component("saasList", f.saasList).component("selectPlan", v.selectPlan).component("selectProject", y.selectProject).component("servicesView", b.servicesView).component("updateService", w.updateService).component("catalogFilter", $.catalogFilter).run([ "$templateCache", function(e) {
+    var i = r(37), a = r(38), s = r(39), o = r(40), c = r(24), l = r(25), d = r(41), p = r(26), h = r(27), m = r(28), u = r(29), g = r(30), f = r(31), v = r(32), y = r(33), b = r(34), S = r(35), $ = r(42), P = r(23);
+    t.webCatalog = "webCatalog", n.module(t.webCatalog, [ "patternfly", "ngAnimate", "ui.bootstrap", "angularMoment", "ui.select", "schemaForm" ]).service("BuilderAppService", o.BuilderAppService).service("Catalog", d.CatalogService).service("RecentlyViewedServiceItems", $.RecentlyViewedServiceItems).filter("escapeRegExp", i.escapeRegExpFilter).filter("projectUrl", a.projectUrlFilter).filter("secretUrl", s.secretUrlFilter).component("catalogParameters", c.catalogParameters).component("catalogSearch", l.catalogSearch).component("createFromBuilder", p.createFromBuilder).component("landingPage", h.landingPage).component("orderService", m.orderService).component("overlayPanel", u.overlayPanel).component("projectsSummary", g.projectsSummary).component("saasList", f.saasList).component("selectPlan", v.selectPlan).component("selectProject", y.selectProject).component("servicesView", b.servicesView).component("updateService", S.updateService).component("catalogFilter", P.catalogFilter).run([ "$templateCache", function(e) {
         e.put("catalog-search/catalog-search-result.html", r(4)), e.put("create-from-builder/create-from-builder-info.html", r(7)), 
         e.put("create-from-builder/create-from-builder-configure.html", r(6)), e.put("create-from-builder/create-from-builder-bind.html", r(5)), 
         e.put("create-from-builder/create-from-builder-results.html", r(8)), e.put("order-service/order-service-info.html", r(12)), 
@@ -2998,4 +2361,4 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
         e.put("decorators/bootstrap/checkboxes.html", r(20)), e.put("decorators/bootstrap/default.html", r(21)), 
         e.put("decorators/bootstrap/select.html", r(22));
     } ]);
-} ], [ 72 ]);
+} ], [ 70 ]);

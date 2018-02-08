@@ -1,7 +1,6 @@
 import * as angular from 'angular';
 import * as _ from 'lodash';
 import * as URI from 'urijs';
-import * as semver from 'semver';
 
 export class CreateFromBuilderController implements angular.IController {
   static $inject = [
@@ -325,7 +324,8 @@ export class CreateFromBuilderController implements angular.IController {
       }
     });
 
-    // Make sure status tags exist for the versions we show.
+    // Make sure status tags exist for the versions we show. Keep the status
+    // tag ordering from the server, which uses semver.
     let versions = [];
     let statusTags = _.get(this, 'ctrl.imageStream.resource.status.tags', []);
     _.each(statusTags, (statusTag: any) => {
@@ -333,32 +333,6 @@ export class CreateFromBuilderController implements angular.IController {
       if (builder) {
         versions.push(builder);
       }
-    });
-
-    // Sort the tags by semver (if possible) with the newest first.
-    versions.sort(function(leftTag: any, rightTag: any) {
-      let leftName: string = leftTag.name as string;
-      let leftVersion: string = semver.valid(semver.coerce(leftName));
-      let rightName: string = rightTag.name as string;
-      let rightVersion: string = semver.valid(semver.coerce(rightName));
-
-      // If both values are valid versions, use semver.rcompare so that more
-      // recent versions are at the top.
-      if (leftVersion && rightVersion) {
-        return semver.rcompare(leftVersion, rightVersion);
-      }
-
-      // If only one is a valid version, sort that one higher.
-      if (leftVersion) {
-        return -1;
-      }
-
-      if (rightVersion) {
-        return 1;
-      }
-
-      // Fall back to normal string comparison for the remaining items.
-      return leftName.localeCompare(rightName);
     });
 
     return versions;
