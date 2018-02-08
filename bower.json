@@ -41,8 +41,7 @@
     "jquery": "~3.2.1",
     "lodash": "~4.17.4",
     "origin-web-common": ">=v3.9.0-alpha.3 <3.10.0",
-    "angular-schema-form-bootstrap": "^0.2.0",
-    "semver": "npm/node-semver#^5.5.0"
+    "angular-schema-form-bootstrap": "^0.2.0"
   },
   "devDependencies": {
     "ace-builds": "1.2.2",

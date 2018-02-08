@@ -26,7 +26,6 @@
   },
   "homepage": "https://github.com/origin/origin-web-catalog",
   "dependencies": {
-    "@types/semver": "^5.5.0",
     "angular": "1.5.11",
     "angular-animate": "1.5.11",
     "angular-drag-and-drop-lists": "2.0.0",
@@ -43,7 +42,6 @@
     "origin-web-common": ">=v3.9.0-alpha.3 <3.10.0",
     "paper-css": "^0.1.2",
     "patternfly": "^3.29.3",
-    "semver": "^5.5.0",
     "urijs": "1.18.0"
   },
   "devDependencies": {
