@@ -12,6 +12,7 @@ import {ProjectsService} from './mockProjects.service';
 import {AlertMessageService} from './mockAlertMessage.service';
 import {KeywordService} from './mockKeywords.service';
 import {RecentlyViewedProjectsService} from './mockRecentlyViewedProjects.service';
+import {VersionsService} from './mockVersions.service';
 
 export class MockServicesModule {
 
@@ -37,7 +38,8 @@ export class MockServicesModule {
       .service('Logger', LoggerService)
       .service('DataService', DataService)
       .service('KeywordService', KeywordService)
-      .service('RecentlyViewedProjectsService', RecentlyViewedProjectsService);
+      .service('RecentlyViewedProjectsService', RecentlyViewedProjectsService)
+      .service('VersionsService', VersionsService);
   }
 
   public useMockServices() {
