@@ -695,8 +695,24 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             this.logger = a;
         }
         return e.prototype.getCatalogItems = function(e) {
-            var t = this, r = this.$q.defer(), n = {}, a = 0, s = 0, o = [], c = this.apiService.getPreferredVersion("clusterserviceclasses");
-            this.apiService.apiInfo(c) && (++a, this.dataService.list(c, {}).then(function(e) {
+            var t = this, r = this.$q.defer(), n = {}, a = 0, s = 0, o = [], c = function() {
+                if (e) {
+                    ++a;
+                    var i = t.apiService.getPreferredVersion("templates");
+                    t.dataService.list(i, {
+                        namespace: "openshift"
+                    }, null, {
+                        partialObjectMetadataList: !0
+                    }).then(function(e) {
+                        n.templates = e.by("metadata.name");
+                    }, function() {
+                        o.push("templates");
+                    }).finally(function() {
+                        t.returnCatalogItems(r, n, ++s, a, o);
+                    });
+                }
+            }, l = this.apiService.getPreferredVersion("clusterserviceclasses");
+            this.apiService.apiInfo(l) ? (++a, this.dataService.list(l, {}).then(function(e) {
                 n.serviceClasses = i.reject(e.by("metadata.name"), {
                     status: {
                         removedFromBrokerCatalog: !0
@@ -705,10 +721,14 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             }, function() {
                 o.push("service classes");
             }).finally(function() {
-                t.returnCatalogItems(r, n, ++s, a, o);
-            })), ++a;
-            var l = this.apiService.getPreferredVersion("imagestreams");
-            if (this.dataService.list(l, {
+                i.some(n.serviceClasses, {
+                    spec: {
+                        clusterServiceBrokerName: "template-service-broker"
+                    }
+                }) || c(), t.returnCatalogItems(r, n, ++s, a, o);
+            })) : c(), ++a;
+            var d = this.apiService.getPreferredVersion("imagestreams");
+            return this.dataService.list(d, {
                 namespace: "openshift"
             }).then(function(e) {
                 n.imageStreams = e.by("metadata.name");
@@ -716,22 +736,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 o.push("builder images");
             }).finally(function() {
                 t.returnCatalogItems(r, n, ++s, a, o);
-            }), e) {
-                ++a;
-                var d = this.apiService.getPreferredVersion("templates");
-                this.dataService.list(d, {
-                    namespace: "openshift"
-                }, null, {
-                    partialObjectMetadataList: !0
-                }).then(function(e) {
-                    n.templates = e.by("metadata.name");
-                }, function() {
-                    o.push("templates");
-                }).finally(function() {
-                    t.returnCatalogItems(r, n, ++s, a, o);
-                });
-            }
-            return r.promise;
+            }), r.promise;
         }, e.prototype.getServicePlansForServiceClass = function(e) {
             var t = this.apiService.getPreferredVersion("clusterserviceplans"), r = i.isString(e) ? e : i.get(e, "metadata.name");
             if (r && this.apiService.apiInfo(t)) {
