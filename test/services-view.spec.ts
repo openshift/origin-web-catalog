@@ -299,9 +299,9 @@ describe('servicesView', () => {
     expect(jQuery(element).find('.services-item-name').length).toBe(10);
 
     // 1 active filter tag
-    let keywordFilterTags: any = jQuery(element).find('.active-filter.label.label-info');
+    let keywordFilterTags: any = jQuery(element).find('.pf-filter-category-label.label.label-info');
     expect(keywordFilterTags.length).toBe(1, 'active keyword tag');
-    expect(keywordFilterTags.text().trim()).toBe('Keyword: test');
+    expect(keywordFilterTags.text().trim()).toBe('Keyword:test');
 
     // apply second keyword filter
     enterFilterKeyword(keyWordInput, "node");
@@ -311,9 +311,9 @@ describe('servicesView', () => {
     expect(jQuery(element).find('.services-item-name').length).toBe(2, "catalog items with 'test' and 'node' keywords");
 
     // 2 active filter tags
-    keywordFilterTags = jQuery(element).find('.active-filter.label.label-info');
+    keywordFilterTags = jQuery(element).find('.pf-filter-category-label.label.label-info');
     expect(keywordFilterTags.length).toBe(2, 'There should be 2 active filter tags');
-    expect(keywordFilterTags.eq(1).text().trim()).toBe('Keyword: node');
+    expect(keywordFilterTags.eq(1).text().trim()).toBe('Keyword:node');
 
     // clear second keyword filter
     componentTest.eventFire(keywordFilterTags.eq(1).find('.pficon-close')[0], 'click');
@@ -322,13 +322,13 @@ describe('servicesView', () => {
     expect(jQuery(element).find('.services-item-name').length).toBe(10);
 
     // remove all filters
-    componentTest.eventFire(jQuery(element).find('.clear-filters')[0], 'click');
+    componentTest.eventFire(jQuery(element).find('a:contains("Clear All Filters")')[0], 'click');
 
     // back to the original 16 catalog items
     expect(jQuery(element).find('.services-item-name').length).toBe(16);
 
     // no keyword filter tags
-    expect(jQuery(element).find('.active-filter.label.label-info').length).toBe(0);
+    expect(jQuery(element).find('.pf-filter-category-label.label.label-info').length).toBe(0);
   });
 
   it("should remove filters when switching categories", () => {
@@ -352,16 +352,16 @@ describe('servicesView', () => {
     expect(jQuery(element).find('.services-item-name').length).toBe(10);
 
     // 1 active filter tag
-    let keywordFilterTags: any = jQuery(element).find('.active-filter.label.label-info');
+    let keywordFilterTags: any = jQuery(element).find('.pf-filter-category-label.label.label-info');
     expect(keywordFilterTags.length).toBe(1);
-    expect(keywordFilterTags.text().trim()).toBe('Keyword: test');
+    expect(keywordFilterTags.text().trim()).toBe('Keyword:test');
 
     // swtich category
     componentTest.eventFire(element.querySelector('#category-languages'), 'click');
     componentTest.eventFire(element.querySelector('#services-sub-category-all'), 'click');
 
     // should be no filter tags
-    expect(jQuery(element).find('.active-filter.label.label-info').length).toBe(0);
+    expect(jQuery(element).find('.pf-filter-category-label.label.label-info').length).toBe(0);
 
     // should be 11 'languages' catalog items
     expect(jQuery(element).find('.services-item-name').length).toBe(11);
@@ -380,13 +380,13 @@ describe('servicesView', () => {
 
     // should be 5 languages catalog items with keyword 'test', and 1 keyword filter tag
     expect(jQuery(element).find('.services-item-name').length).toBe(5, "should be 5 languages catalog items with keyword 'test'");
-    expect(jQuery(element).find('.active-filter.label.label-info').length).toBe(1, "should be 1 keyword filter tag");
+    expect(jQuery(element).find('.pf-filter-category-label.label.label-info').length).toBe(1, "should be 1 keyword filter tag");
 
     // click on 'ruby' sub-category
     componentTest.eventFire(element.querySelector('#services-sub-category-ruby.services-sub-category-tab'), 'click');
 
     // should be no filter tags
-    expect(jQuery(element).find('.active-filter.label.label-info').length).toBe(0);
+    expect(jQuery(element).find('.pf-filter-category-label.label.label-info').length).toBe(0);
   });
 
   it("should show pfEmptyState component when no filter matches", () => {
@@ -426,9 +426,9 @@ describe('servicesView', () => {
 
     //Click clear filter link
     var filterLink = jQuery(element).find('pf-empty-state');
-    filterLink.find('.blank-state-pf-helpLink').click();
+    filterLink.find('.blank-state-pf-helpbutton').click();
     componentTest.scope.$digest();
-    expect(jQuery(element).find('.active-filter.label.label-info').length).toBe(0);
+    expect(jQuery(element).find('.pf-filter-category-label.label.label-info').length).toBe(0);
   });
 
   it("should display publisher synonyms", () => {

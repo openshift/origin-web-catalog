@@ -4,30 +4,31 @@ import * as URI from 'urijs';
 
 export class CreateFromBuilderController implements angular.IController {
   static $inject = [
-    '$scope',
     '$filter',
     '$location',
     '$q',
-    'BuilderAppService',
-    'ProjectsService',
-    'DataService',
+    '$scope',
     'APIService',
     'BindingService',
+    'BuilderAppService',
+    'Constants',
+    'DataService',
     'Logger',
-    'Constants'];
-
+    'ProjectsService',
+    'VersionsService'];
   public ctrl: any = this;
 
-  private $scope: ng.IScope;
   private $filter: any;
   private $location: ng.ILocationService;
   private $q: ng.IQService;
-  private BuilderAppService: any;
-  private ProjectsService: any;
-  private DataService: any;
+  private $scope: ng.IScope;
   private APIService: any;
   private BindingService: any;
+  private BuilderAppService: any;
+  private DataService: any;
   private Logger: any;
+  private ProjectsService: any;
+  private VersionsService: any;
   private watches: any[] = [];
   private infoStep: any;
   private configStep: any;
@@ -40,17 +41,18 @@ export class CreateFromBuilderController implements angular.IController {
   private gitRef: string;
   private contextDir: string;
 
-  constructor($scope: ng.IScope,
-              $filter: any,
+  constructor($filter: any,
               $location: ng.ILocationService,
               $q: ng.IQService,
-              BuilderAppService: any,
-              ProjectsService: any,
-              DataService: any,
+              $scope: ng.IScope,
               APIService: any,
               BindingService: any,
+              BuilderAppService: any,
+              Constants: any,
+              DataService: any,
               Logger: any,
-              Constants: any) {
+              ProjectsService: any,
+              VersionsService: any) {
     this.$scope = $scope;
     this.$filter = $filter;
     this.$location = $location;
@@ -61,6 +63,7 @@ export class CreateFromBuilderController implements angular.IController {
     this.APIService = APIService;
     this.BindingService = BindingService;
     this.Logger = Logger;
+    this.VersionsService = VersionsService;
     this.ctrl.serviceToBind = null;
     this.ctrl.showPodPresets = _.get(Constants, ['ENABLE_TECH_PREVIEW_FEATURE', 'pod_presets'], false);
     this.gitRef = '';
@@ -324,8 +327,7 @@ export class CreateFromBuilderController implements angular.IController {
       }
     });
 
-    // Make sure status tags exist for the versions we show. Keep the status
-    // tag ordering from the server, which uses semver.
+    // Make sure status tags exist for the versions we show.
     let versions = [];
     let statusTags = _.get(this, 'ctrl.imageStream.resource.status.tags', []);
     _.each(statusTags, (statusTag: any) => {
@@ -333,6 +335,11 @@ export class CreateFromBuilderController implements angular.IController {
       if (builder) {
         versions.push(builder);
       }
+    });
+
+    // Sort the tags by semver with the newest first.
+    versions.sort((tag1: any, tag2: any): number => {
+      return this.VersionsService.rcompare(tag1.name, tag2.name);
     });
 
     return versions;

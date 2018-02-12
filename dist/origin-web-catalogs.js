@@ -1285,44 +1285,44 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
     "use strict";
     t.__esModule = !0;
     var n = r(1), i = r(0), a = r(69), s = function() {
-        function e(e, t, r, n, a, s, o, c, l, d, p) {
-            var h = this;
+        function e(e, t, r, n, a, s, o, c, l, d, p, h) {
+            var m = this;
             this.ctrl = this, this.watches = [], this.clearValidityWatcher = function() {
-                h.validityWatcher && (h.validityWatcher(), h.validityWatcher = void 0);
+                m.validityWatcher && (m.validityWatcher(), m.validityWatcher = void 0);
             }, this.showInfo = function() {
-                h.clearValidityWatcher(), h.ctrl.nextTitle = "Next >";
+                m.clearValidityWatcher(), m.ctrl.nextTitle = "Next >";
             }, this.showConfig = function() {
-                h.ctrl.currentStep = "Configuration", h.clearValidityWatcher(), h.ctrl.nextTitle = h.bindStep.hidden ? "Create" : "Next >", 
-                h.reviewStep.allowed = h.bindStep.hidden && h.configStep.valid, h.validityWatcher = h.$scope.$watch("$ctrl.builderForm.$valid", function(e, t) {
-                    h.configStep.valid = e, !0 === h.ctrl.noProjectsCantCreate && (h.configStep.valid = !1);
+                m.ctrl.currentStep = "Configuration", m.clearValidityWatcher(), m.ctrl.nextTitle = m.bindStep.hidden ? "Create" : "Next >", 
+                m.reviewStep.allowed = m.bindStep.hidden && m.configStep.valid, m.validityWatcher = m.$scope.$watch("$ctrl.builderForm.$valid", function(e, t) {
+                    m.configStep.valid = e, !0 === m.ctrl.noProjectsCantCreate && (m.configStep.valid = !1);
                 });
             }, this.showBind = function() {
-                h.clearValidityWatcher(), h.ctrl.nextTitle = "Create", h.reviewStep.allowed = !0;
+                m.clearValidityWatcher(), m.ctrl.nextTitle = "Create", m.reviewStep.allowed = !0;
             }, this.showResults = function() {
-                h.clearValidityWatcher(), h.ctrl.nextTitle = "Close", h.ctrl.wizardDone = !0, h.ctrl.currentStep = "Results", 
-                h.createApp();
+                m.clearValidityWatcher(), m.ctrl.nextTitle = "Close", m.ctrl.wizardDone = !0, m.ctrl.currentStep = "Results", 
+                m.createApp();
             }, this.onProjectUpdate = function() {
-                if (!h.instancesSupported || h.isNewProject()) h.ctrl.serviceInstances = [], h.updateBindability(); else if (h.ctrl.showPodPresets) {
-                    h.ctrl.updating = !0;
-                    var e = h.APIService.getPreferredVersion("serviceinstances");
-                    h.DataService.list(e, {
-                        namespace: h.ctrl.selectedProject.metadata.name
+                if (!m.instancesSupported || m.isNewProject()) m.ctrl.serviceInstances = [], m.updateBindability(); else if (m.ctrl.showPodPresets) {
+                    m.ctrl.updating = !0;
+                    var e = m.APIService.getPreferredVersion("serviceinstances");
+                    m.DataService.list(e, {
+                        namespace: m.ctrl.selectedProject.metadata.name
                     }, null, {
                         errorNotification: !1
                     }).then(function(e) {
-                        h.ctrl.serviceInstances = i.filter(i.toArray(e.by("metadata.name")), h.isServiceBindable), 
-                        h.sortServiceInstances(), h.ctrl.updating = !1, h.updateBindability();
+                        m.ctrl.serviceInstances = i.filter(i.toArray(e.by("metadata.name")), m.isServiceBindable), 
+                        m.sortServiceInstances(), m.ctrl.updating = !1, m.updateBindability();
                     }, function(e) {
-                        h.Logger.warn("Failed to list instances in namespace " + h.ctrl.selectedProject.metadata.name, e), 
-                        h.ctrl.updating = !1, h.ctrl.serviceInstances = [], h.updateBindability();
+                        m.Logger.warn("Failed to list instances in namespace " + m.ctrl.selectedProject.metadata.name, e), 
+                        m.ctrl.updating = !1, m.ctrl.serviceInstances = [], m.updateBindability();
                     });
                 }
             }, this.isServiceBindable = function(e) {
-                var t, r = h.BindingService.getServiceClassForInstance(e, h.ctrl.serviceClasses), n = i.get(e, "spec.clusterServicePlanRef.name");
-                return n && (t = h.ctrl.servicePlans[n]), h.BindingService.isServiceBindable(e, r, t);
-            }, this.$scope = e, this.$filter = t, this.$location = r, this.$q = n, this.BuilderAppService = a, 
-            this.ProjectsService = s, this.DataService = o, this.APIService = c, this.BindingService = l, 
-            this.Logger = d, this.ctrl.serviceToBind = null, this.ctrl.showPodPresets = i.get(p, [ "ENABLE_TECH_PREVIEW_FEATURE", "pod_presets" ], !1), 
+                var t, r = m.BindingService.getServiceClassForInstance(e, m.ctrl.serviceClasses), n = i.get(e, "spec.clusterServicePlanRef.name");
+                return n && (t = m.ctrl.servicePlans[n]), m.BindingService.isServiceBindable(e, r, t);
+            }, this.$scope = n, this.$filter = e, this.$location = t, this.$q = r, this.BuilderAppService = o, 
+            this.ProjectsService = p, this.DataService = l, this.APIService = a, this.BindingService = s, 
+            this.Logger = d, this.VersionsService = h, this.ctrl.serviceToBind = null, this.ctrl.showPodPresets = i.get(c, [ "ENABLE_TECH_PREVIEW_FEATURE", "pod_presets" ], !1), 
             this.gitRef = "", this.contextDir = "";
         }
         return e.prototype.$onInit = function() {
@@ -1429,6 +1429,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             return i.each(s, function(e) {
                 var t = r[e.tag];
                 t && a.push(t);
+            }), a.sort(function(t, r) {
+                return e.VersionsService.rcompare(t.name, r.name);
             }), a;
         }, e.prototype.getImageStreamTag = function() {
             var e = this.APIService.getPreferredVersion("imagestreamtags"), t = this.ctrl.imageStream.resource.metadata.name + ":" + this.ctrl.istag.name, r = this.ctrl.imageStream.resource.metadata.namespace;
@@ -1515,7 +1517,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             }
         }, e;
     }();
-    s.$inject = [ "$scope", "$filter", "$location", "$q", "BuilderAppService", "ProjectsService", "DataService", "APIService", "BindingService", "Logger", "Constants" ], 
+    s.$inject = [ "$filter", "$location", "$q", "$scope", "APIService", "BindingService", "BuilderAppService", "Constants", "DataService", "Logger", "ProjectsService", "VersionsService" ], 
     t.CreateFromBuilderController = s;
 }, function(e, t, r) {
     "use strict";
