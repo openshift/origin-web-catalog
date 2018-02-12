@@ -27,6 +27,22 @@ export class CatalogService {
     let numPromisesExecuted: number = 0;
     let errorMsg: any = [];
 
+    let requestTemplates = () => {
+      if (!includeTemplates) {
+        return;
+      }
+
+      ++totalNumPromises;
+      let templateVersion = this.apiService.getPreferredVersion('templates');
+      this.dataService.list(templateVersion, {namespace: "openshift"}, null, {partialObjectMetadataList: true}).then((resources: any) => {
+        catalogItems.templates = resources.by("metadata.name");
+      }, () => {
+        errorMsg.push('templates');
+      }).finally(() => {
+        this.returnCatalogItems(deferred, catalogItems, ++numPromisesExecuted, totalNumPromises, errorMsg);
+      });
+    };
+
     // Only request service classes if the kind is available.
     let serviceClassesVersion = this.apiService.getPreferredVersion('clusterserviceclasses');
     if (this.apiService.apiInfo(serviceClassesVersion)) {
@@ -40,8 +56,17 @@ export class CatalogService {
       }, () => {
         errorMsg.push('service classes');
       }).finally(() => {
+        // Request templates only if the template service broker is not enabled to avoid showing duplicates in the catalog.
+        // Still support the `includeTemplates` parameter, however, for anyone including the catalog outside of the console.
+        var tsbEnabled = _.some(catalogItems.serviceClasses, { spec: { clusterServiceBrokerName: 'template-service-broker' } });
+        if (!tsbEnabled) {
+          requestTemplates();
+        }
         this.returnCatalogItems(deferred, catalogItems, ++numPromisesExecuted, totalNumPromises, errorMsg);
       });
+    } else {
+      // Request templates if service catalog is not enabled.
+      requestTemplates();
     }
 
     ++totalNumPromises;
@@ -53,18 +78,6 @@ export class CatalogService {
     }).finally(() => {
       this.returnCatalogItems(deferred, catalogItems, ++numPromisesExecuted, totalNumPromises, errorMsg);
     });
-
-    if (includeTemplates) {
-      ++totalNumPromises;
-      let templateVersion = this.apiService.getPreferredVersion('templates');
-      this.dataService.list(templateVersion, {namespace: "openshift"}, null, {partialObjectMetadataList: true}).then((resources: any) => {
-        catalogItems.templates = resources.by("metadata.name");
-      }, () => {
-        errorMsg.push('templates');
-      }).finally(() => {
-        this.returnCatalogItems(deferred, catalogItems, ++numPromisesExecuted, totalNumPromises, errorMsg);
-      });
-    }
 
     return deferred.promise;
   }
