@@ -256,6 +256,7 @@ landingbody,
     right: 0;
     top: 61px;
     width: 325px;
+    -webkit-transform: translate3d(0, 0, 0);
   }
 }
 @media (min-width: 1200px) {
