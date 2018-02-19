@@ -1,6 +1,6 @@
 {
   "name": "origin-web-catalog",
-  "version": "3.9.0-alpha.14",
+  "version": "3.9.0-alpha.15",
   "description": "The OpenShift Web Catalog",
   "scripts": {
     "clean": "rimraf dist && rimraf docs && rimraf coverage",
