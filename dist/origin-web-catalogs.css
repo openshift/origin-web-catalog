@@ -256,7 +256,6 @@ landingbody,
     right: 0;
     top: 61px;
     width: 325px;
-    -webkit-transform: translate3d(0, 0, 0);
   }
 }
 @media (min-width: 1200px) {
@@ -714,6 +713,7 @@ body.overlay-open .landing-side-bar {
 .catalog-projects-summary-panel .create-button {
   font-size: 13px;
   float: right;
+  -webkit-transform: translate3d(0, 0, 0);
 }
 .catalog-projects-summary-panel .create-button-text {
   padding-left: 4px;

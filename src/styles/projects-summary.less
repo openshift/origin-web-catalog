@@ -29,6 +29,9 @@
   .create-button {
     font-size: @font-size-base + 1;
     float: right;
+    // force better hardware acceleration to resolve repaint bug
+    // see http://blog.getpostman.com/2015/01/23/ui-repaint-issue-on-chrome/
+    -webkit-transform: translate3d(0,0,0);
   }
 
   .create-button-text {
