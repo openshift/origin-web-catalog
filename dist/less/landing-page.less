@@ -197,9 +197,6 @@ landingbody,
     right: 0;
     top: @landing-side-bar-top-offset;
     width: @landing-side-bar-width-sm;
-    // force better hardware acceleration to resolve repaint bug
-    // see http://blog.getpostman.com/2015/01/23/ui-repaint-issue-on-chrome/
-    -webkit-transform: translate3d(0,0,0);
   }
   @media(min-width: @screen-lg-min) {
     width: @landing-side-bar-width-lg;
