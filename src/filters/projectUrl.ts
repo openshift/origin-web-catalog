@@ -15,6 +15,9 @@ export function projectUrlFilter () {
       baseUrl += '/';
     }
 
-    return baseUrl + projectName;
+    // Make sure to use `/overview` so that the wizard doesn't trigger a route
+    // change after "Continue to overview" is clicked when already on the
+    // overview. This causes flicker and a page reload.
+    return baseUrl + projectName + '/overview';
   };
 }
