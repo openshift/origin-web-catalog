@@ -480,7 +480,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
         return function(e, t) {
             var r, n = t || "project/";
             return r = i.isString(e) ? e : i.get(e, "metadata.name", ""), n.endsWith("/") || (n += "/"), 
-            n + r;
+            n + r + "/overview";
         };
     }
     t.__esModule = !0;
