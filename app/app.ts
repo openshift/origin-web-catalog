@@ -39,7 +39,7 @@ import {logoutPage} from './pages/logout/logoutPage';
 import {navigation} from './components/navigation/navigation.component';
 import {MockServicesModule} from './mockServices/mockServices.module';
 
-import 'angular-ui-router';
+import '@uirouter/angularjs';
 import routesConfig from './routes';
 
 import './app.less';
