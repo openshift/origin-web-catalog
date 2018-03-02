@@ -35,7 +35,6 @@
     "angular-schema-form": "^0.8.13",
     "angular-schema-form-bootstrap": "^0.2.0",
     "angular-ui-bootstrap": "0.14.x",
-    "angular-ui-router": "1.0.0-beta.1",
     "bootstrap": "^3.3.6",
     "font-awesome": "~4.7.0",
     "jquery": "3.2.1",
@@ -45,6 +44,7 @@
     "urijs": "1.18.0"
   },
   "devDependencies": {
+    "@uirouter/angularjs": "^1.0.0",
     "@types/angular": "~1.5.16",
     "@types/angular-mocks": "~1.5.5",
     "@types/angular-ui-router": "^1.1.40",
