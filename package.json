@@ -38,7 +38,7 @@
     "bootstrap": "^3.3.6",
     "font-awesome": "~4.7.0",
     "jquery": "3.2.1",
-    "origin-web-common": ">=v3.9.0-alpha.12 <3.10.0",
+    "origin-web-common": ">=v3.10.0-alpha.0 <3.11.0",
     "paper-css": "^0.1.2",
     "patternfly": "^3.29.3",
     "urijs": "1.18.0"
