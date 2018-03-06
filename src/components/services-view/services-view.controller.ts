@@ -66,7 +66,7 @@ export class ServicesViewController implements angular.IController {
       title: 'No results match.',
       info: 'The active filters are hiding all catalog items.',
       helpLink: {
-        urlLabel: 'Clear Filters',
+        urlLabel: 'Clear All Filters',
         urlAction: this.clearAppliedFilters
       }
     };

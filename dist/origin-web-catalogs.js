@@ -2104,7 +2104,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 title: "No results match.",
                 info: "The active filters are hiding all catalog items.",
                 helpLink: {
-                    urlLabel: "Clear Filters",
+                    urlLabel: "Clear All Filters",
                     urlAction: this.clearAppliedFilters
                 }
             }, this.ctrl.noItemsConfig = {
