@@ -36,7 +36,7 @@ var categories: any = [
     {id: 'mariadb', label: 'MariaDB', tags: ['mariadb'], icon: 'icon-mariadb'}
   ]},
   {id: 'middleware', label: 'Middleware', subCategories: [
-    {id: 'integration', label: 'Integration', tags: ['amq', 'fuse', 'jboss-fuse', 'sso']},
+    {id: 'integration', label: 'Integration', tags: ['amq', 'fuse', 'jboss-fuse', 'sso', '3scale']},
     {id: 'process-automation', label: 'Process Automation', tags: ['decisionserver', 'processserver']},
     {id: 'analytics-data', label: 'Analytics & Data', tags: ['datagrid', 'datavirt']},
     {id: 'runtimes', label: 'Runtimes & Frameworks', tags: ['eap', 'httpd', 'tomcat']}
