@@ -356,7 +356,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             subCategories: [ {
                 id: "integration",
                 label: "Integration",
-                tags: [ "amq", "fuse", "jboss-fuse", "sso" ]
+                tags: [ "amq", "fuse", "jboss-fuse", "sso", "3scale" ]
             }, {
                 id: "process-automation",
                 label: "Process Automation",
