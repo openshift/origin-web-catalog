@@ -4,6 +4,7 @@ import * as _ from 'lodash';
 interface IKeywordsService {
   generateKeywords(filterText: string): any;
   filterForKeywords(objects: any, filterFields: string[], keywords: any[]);
+  weightedSearch(objects: any, filterFields: string[], keywords: any[]);
 }
 
 export class KeywordService implements IKeywordsService {
@@ -48,5 +49,11 @@ export class KeywordService implements IKeywordsService {
       filteredObjects = _.filter(filteredObjects, matchesKeyword);
     });
     return filteredObjects;
+  }
+
+  public weightedSearch(objects: any, filterFields: string[], keywords: any[]) {
+    // Don't rewrite the weighted search function for mock data. Just do basic filtering.
+    const fields = _.map(filterFields, 'path') as string[];
+    return this.filterForKeywords(objects, fields, keywords);
   }
 }
