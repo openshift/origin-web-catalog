@@ -100,13 +100,11 @@ module.exports = {
         loader: 'html-loader'
       },
       {
-        test: /hawtio-core/,
-        loaders: ['imports-loader?Logger=js-logger/src/logger,angular,this=>window',
-          'exports-loader?hawtioPluginLoader']
-      },
-      {
         test: /origin-web-common/,
-        loader: 'imports-loader?Logger=js-logger/src/logger,hawtioPluginLoader=hawtio-core/dist/hawtio-core,angular,URI=urijs/src/URI,hopscotch=hopscotch/dist/js/hopscotch,this=>window'
+        loader: [
+          'imports-loader?Logger=js-logger/src/logger,angular,URI=urijs/src/URI,hopscotch=hopscotch/dist/js/hopscotch,this=>window',
+          'exports-loader?pluginLoader '
+        ]
       }
     ]
   }
