@@ -44,6 +44,9 @@ var categories: any = [
   {id: 'cicd', label: 'CI/CD', subCategories: [
     {id: 'jenkins', label: 'Jenkins', tags: ['jenkins'], icon: 'icon-jenkins'},
     {id: 'pipelines', label: 'Pipelines', tags: ['pipelines'], icon: 'fa fa-clone'}
+  ]},
+  {id: 'virtualization', label: 'Virtualization', subCategories: [
+    {id: 'vms', label: 'Virtual Machines', tags: ['virtualmachine']}
   ]}
 ];
 

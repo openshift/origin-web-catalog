@@ -384,6 +384,14 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 tags: [ "pipelines" ],
                 icon: "fa fa-clone"
             } ]
+        }, {
+            id: "virtualization",
+            label: "Virtualization",
+            subCategories: [ {
+                id: "vms",
+                label: "Virtual Machines",
+                tags: [ "virtualmachine" ]
+            } ]
         } ];
         n.set(window, "OPENSHIFT_CONSTANTS.SERVICE_CATALOG_CATEGORIES", s), n.set(window, "OPENSHIFT_CONSTANTS.SAAS_OFFERINGS", a);
         var o = {
