@@ -676,7 +676,7 @@ body.overlay-open .landing-side-bar {
   position: fixed;
   right: 0;
   top: 0;
-  z-index: 1050;
+  z-index: 1040;
 }
 .catalogs-overlay-panel-wrapper.ng-enter {
   animation: modalSlideDown 0.3s ease-out forwards;

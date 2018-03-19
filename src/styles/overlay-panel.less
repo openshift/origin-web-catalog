@@ -147,7 +147,8 @@ body.overlay-open {
   position: fixed;
   right: 0;
   top: 0;
-  z-index: @zindex-modal;
+  // Set z-index to 1040 (same as .modal-backdrop), but will still appear above .modal-backdrop because of markup structure. This enables the uib-modal background to overlay the catalog wizard modal, when both are displayed.
+  z-index: @zindex-modal-background;
   &.ng-enter {
     animation: modalSlideDown 0.3s ease-out forwards;
   }
