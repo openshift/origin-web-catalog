@@ -163,3 +163,14 @@ _.set(window, 'OPENSHIFT_CONSTANTS.PUBLISHER_SYNONYMS',
     // 'Red Hat, Inc': 'Red Hat, Inc.'
   }
 );
+
+_.set(window, 'OPENSHIFT_CONSTANTS.CATALOG_SEARCH_FIELDS', [{
+  path: 'name',
+  weight: 10
+}, {
+  path: 'tags',
+  weight: 5
+}, {
+  path: 'description',
+  weight: 3
+}]);

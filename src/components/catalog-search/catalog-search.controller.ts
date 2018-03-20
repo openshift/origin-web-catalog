@@ -3,11 +3,12 @@ import * as _ from 'lodash';
 import * as $ from 'jquery';
 
 export class CatalogSearchController implements angular.IController {
-  static $inject = ['$rootScope', '$scope', '$timeout', '$q', 'Catalog', 'KeywordService'];
+  static $inject = ['$rootScope', '$scope', '$timeout', '$q', 'Catalog', 'Constants', 'KeywordService'];
 
   public ctrl: any = this;
 
   private Catalog: any;
+  private Constants: any;
   private KeywordService: any;
   private $rootScope: any;
   private $scope: any;
@@ -19,12 +20,13 @@ export class CatalogSearchController implements angular.IController {
   // Used when the user starts typing before the items have loaded.
   private searchDeferred: ng.IDeferred<any[]>;
 
-  constructor($rootScope: any, $scope: any, $timeout: any, $q: any, Catalog: any, KeywordService: any) {
+  constructor($rootScope: any, $scope: any, $timeout: any, $q: any, Catalog: any, Constants: any, KeywordService: any) {
     this.$rootScope = $rootScope;
     this.$scope = $scope;
     this.$timeout = $timeout;
     this.$q = $q;
     this.Catalog = Catalog;
+    this.Constants = Constants;
     this.KeywordService = KeywordService;
   }
 
@@ -39,7 +41,7 @@ export class CatalogSearchController implements angular.IController {
 
       // Show search results now if the user began typing before the items loaded.
       if (this.searchDeferred) {
-        let searchResult = this.filterForKeywords(this.ctrl.searchText);
+        let searchResult = this.weightedSearch(this.ctrl.searchText);
         this.searchDeferred.resolve(searchResult);
         this.searchDeferred = null;
       }
@@ -77,7 +79,7 @@ export class CatalogSearchController implements angular.IController {
       return this.searchDeferred.promise;
     }
 
-    return this.filterForKeywords(searchText);
+    return this.weightedSearch(searchText);
   }
 
   public toggleMobileShowSearchInput() {
@@ -103,9 +105,9 @@ export class CatalogSearchController implements angular.IController {
     }
   }
 
-  private filterForKeywords(searchText: string) {
+  private weightedSearch(searchText: string) {
     let keywords = this.KeywordService.generateKeywords(searchText);
-    let items = this.KeywordService.filterForKeywords(this.ctrl.catalogItems, ['name', 'tags'], keywords);
+    let items = this.KeywordService.weightedSearch(this.ctrl.catalogItems, this.Constants.CATALOG_SEARCH_FIELDS, keywords);
     let totalNumItems: number = _.size(items);
     let results: any = _.take(items, this.maxResultsToShow);
 

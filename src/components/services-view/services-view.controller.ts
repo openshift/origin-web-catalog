@@ -214,7 +214,7 @@ export class ServicesViewController implements angular.IController {
 
   private filterForKeywords (searchText: string, items: any) {
     let keywords = this.keywordService.generateKeywords(searchText);
-    return this.keywordService.filterForKeywords(items, ['name', 'tags'], keywords);
+    return this.keywordService.weightedSearch(items, this.constants.CATALOG_SEARCH_FIELDS, keywords);
   }
 
   private filterForVendors (vendors: string[], items: any) {
