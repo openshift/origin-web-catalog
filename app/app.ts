@@ -18,7 +18,6 @@ require('jquery/dist/jquery.min.js');
 require('lodash/index.js');
 
 require('imports-loader?define=>false!js-logger/src/logger');
-let hawtioPluginLoader = require('hawtio-core/dist/hawtio-core');
 require('urijs');
 require('urijs/src/URITemplate.js');
 require('angular-utf8-base64');
@@ -47,14 +46,14 @@ import '../src/index';
 
 export const catalogApp: string = 'catalogApp';
 
-let commonServices = '';
+let pluginLoader, commonServices = '';
 let mockServicesModule = new MockServicesModule(window);
 
 if (mockServicesModule.useMockServices() !== true) {
-  require('origin-web-common/dist/origin-web-common.js');
+  pluginLoader = require('origin-web-common/dist/origin-web-common.js');
   commonServices = 'openshiftCommonServices';
 } else {
-  require('origin-web-common/dist/origin-web-common-ui.js');
+  pluginLoader = require('origin-web-common/dist/origin-web-common-ui.js');
   commonServices = mockServicesModule.moduleName;
 }
 
@@ -76,4 +75,4 @@ angular
     }
   });
 
-hawtioPluginLoader.addModule(catalogApp);
+pluginLoader.addModule(catalogApp);
