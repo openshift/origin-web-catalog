@@ -25,15 +25,13 @@ function cmd() {
 
 repo_root="$( dirname "${BASH_SOURCE}" )/.."
 
-# Install bower if needed
-if ! which bower > /dev/null 2>&1 ; then
-  cmd "npm install bower"
+# Install yarn if needed
+if ! which yarn > /dev/null 2>&1 ; then
+  cmd "npm install yarn"
 fi
 
-cmd "npm install --unsafe-perm"
-
 # In case upstream components change things without incrementing versions
-cmd "bower cache clean --allow-root"
-cmd "bower update --allow-root" 3
+cmd "yarn cache clean"
+cmd "yarn"
 
 ret=$?; ENDTIME=$(date +%s); echo "$0 took $(($ENDTIME - $STARTTIME)) seconds"; exit "$ret"

@@ -1,6 +1,5 @@
 node_modules
 .idea
-bower_components
 /app/config.local.js
 coverage
 npm-debug.log
@@ -13,3 +12,4 @@ dist/*.gif
 dist/*.jpg
 dist/*.png
 .DS_Store
+yarn-error.log
