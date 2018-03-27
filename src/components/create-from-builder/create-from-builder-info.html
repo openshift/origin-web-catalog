@@ -16,6 +16,7 @@
           {{tag}}
         </span>
       </div>
+      <span>Version {{$ctrl.istag.annotations.version}}</span>
       <ul ng-if="$ctrl.documentationUrl || $ctrl.supportUrl" class="list-inline order-service-documentation-url">
         <li ng-if="$ctrl.documentationUrl">
           <a ng-href="{{$ctrl.documentationUrl}}" target="_blank" class="learn-more-link">View Documentation <i class="fa fa-external-link" aria-hidden="true"></i></a>
