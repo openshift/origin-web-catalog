@@ -117,6 +117,15 @@ export class CatalogService {
   }
 
   public getProjectCatalogItems(projectName: string, includeImages: boolean = true, includeTemplates: boolean = true, partialObjectMetadataList: boolean = false ) {
+    // Never fetch items from the `openshift` namespace as project items since
+    // they are already included in the `getCatalogItems()` response. Otherwise
+    // they'll show up twice in the catalog.
+    if (projectName === 'openshift') {
+      let items: any[] = [];
+      let errors = '';
+      return this.$q.when([ items, errors ]);
+    }
+
     let deferred = this.$q.defer();
     let catalogItems: any = {
       imageStreams: [],
