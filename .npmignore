@@ -8,7 +8,6 @@
 .travis.yml
 
 node_modules
-bower_components
 
 karma.conf.js
 Makefile

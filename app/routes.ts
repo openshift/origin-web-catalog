@@ -1,7 +1,8 @@
+import {StateProvider, UrlRouterProvider} from '@uirouter/angularjs';
 export default routesConfig;
 
 /** @ngInject */
-function routesConfig($stateProvider: angular.ui.IStateProvider, $urlRouterProvider: angular.ui.IUrlRouterProvider, $locationProvider: angular.ILocationProvider) {
+function routesConfig($stateProvider: StateProvider, $urlRouterProvider: UrlRouterProvider, $locationProvider: angular.ILocationProvider) {
   $locationProvider.html5Mode(true).hashPrefix('!');
   $urlRouterProvider.otherwise('/home');
 

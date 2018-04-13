@@ -103,8 +103,12 @@ module.exports = {
         test: /origin-web-common/,
         loader: [
           'imports-loader?Logger=js-logger/src/logger,angular,URI=urijs/src/URI,hopscotch=hopscotch/dist/js/hopscotch,this=>window',
-          'exports-loader?pluginLoader '
+          'exports-loader?pluginLoader'
         ]
+      },
+      {
+        test: /js-logger/,
+        loader: 'imports-loader?define=>false'
       }
     ]
   }
@@ -123,7 +127,6 @@ module.exports.externals = isProd ? prodExternals : {};
 module.exports.plugins = [
   new webpack.LoaderOptionsPlugin({
     options: {
-      postcss: () => [autoprefixer],
       resolve: {},
       ts: {
         configFileName: 'tsconfig.json'
@@ -143,6 +146,7 @@ module.exports.plugins = [
     $: 'jquery',
     jquery: 'jquery',
     '_': 'lodash',
+    'Logger': 'js-logger',
     'URI': 'URI',
     'OPENSHIFT_CONFIG': 'OPENSHIFT_CONFIG'
   })
@@ -186,8 +190,8 @@ module.exports.resolve = {
     '.js',
     '.ts'
   ],
-  modules: ["node_modules", "bower_components"],
-  descriptionFiles: ["package.json", "bower.json"]
+  modules: ["node_modules"],
+  descriptionFiles: ["package.json"]
 };
 
 
