@@ -2084,30 +2084,31 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
     "use strict";
     t.__esModule = !0;
     var n = r(0), i = r(2), a = function() {
-        function e(e, t, r, i, a, s, c, o, l, d) {
-            var p = this;
+        function e(e, t, r, i, a, s, c, o, l, d, p) {
+            var h = this;
             this.ctrl = this, this.previousSubCategoryHeight = 0, this.resizeRetries = 0, this.serviceViewItemClicked = function(e, t) {
-                p.$scope.$emit("open-overlay-panel", e);
+                h.$scope.$emit("open-overlay-panel", e);
             }, this.filterChange = function(e) {
-                p.filterByCategory(p.ctrl.currentFilter, p.ctrl.currentSubFilter, !1), n.isEmpty(e) || n.each(e, function(e) {
+                h.filterByCategory(h.ctrl.currentFilter, h.ctrl.currentSubFilter, !1), n.isEmpty(e) || n.each(e, function(e) {
                     switch (e.id) {
                       case "keyword":
-                        p.ctrl.filteredItems = p.filterForKeywords(e.values[0], p.ctrl.filteredItems);
+                        h.ctrl.filteredItems = h.filterForKeywords(e.values[0], h.ctrl.filteredItems);
                         break;
 
                       case "vendors":
-                        p.ctrl.filteredItems = p.filterForVendors(e.values, p.ctrl.filteredItems);
+                        h.ctrl.filteredItems = h.filterForVendors(e.values, h.ctrl.filteredItems);
                     }
-                }), p.ctrl.filterConfig.resultsCount = p.ctrl.filteredItems.length, p.ctrl.keywordFilterValue = null;
+                }), h.ctrl.filterConfig.resultsCount = h.ctrl.filteredItems.length, h.ctrl.keywordFilterValue = null;
             }, this.clearAppliedFilters = function() {
-                p.$scope.$broadcast("clear-filters");
+                h.$scope.$broadcast("clear-filters");
             }, this.constants = e, this.catalog = t, this.keywordService = r, this.logger = i, 
-            this.htmlService = a, this.element = s[0], this.$filter = c, this.$rootScope = o, 
-            this.$scope = l, this.$timeout = d, this.ctrl.loaded = !1, this.ctrl.isEmpty = !1, 
+            this.htmlService = a, this.element = s[0], this.$filter = c, this.$rootScope = l, 
+            this.$location = o, this.$scope = d, this.$timeout = p, this.ctrl.loaded = !1, this.ctrl.isEmpty = !1, 
             this.ctrl.mobileView = "categories", this.ctrl.filterConfig = {
                 resultsLabel: "Items",
                 appliedFilters: []
-            }, this.ctrl.keywordFilterValue = null;
+            }, this.ctrl.keywordFilterValue = null, this.ctrl.currentFilter = this.$location.search().category || "all", 
+            this.ctrl.currentSubFilter = this.$location.search().category && this.$location.search().subcategory;
         }
         return e.prototype.$onInit = function() {
             var e = this;
@@ -2115,8 +2116,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 return e.resizeExpansion(!1);
             }, 50, {
                 maxWait: 250
-            }), i(window).on("resize.services", this.debounceResize), this.ctrl.currentFilter = this.ctrl.currentSubFilter = "all", 
-            this.ctrl.sectionTitle = this.ctrl.sectionTitle || "Browse Catalog", this.removeFilterListener = this.$rootScope.$on("filter-catalog-items", function(t, r) {
+            }), i(window).on("resize.services", this.debounceResize), this.ctrl.sectionTitle = this.ctrl.sectionTitle || "Browse Catalog", 
+            this.removeFilterListener = this.$rootScope.$on("filter-catalog-items", function(t, r) {
                 e.setKeywordFilter(r.searchText);
             }), this.ctrl.emptyFilterConfig = {
                 title: "No results match.",
@@ -2136,7 +2137,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
         }, e.prototype.$onChanges = function(e) {
             e.catalogItems && e.catalogItems.currentValue && (this.ctrl.isEmpty = n.isEmpty(this.ctrl.catalogItems), 
             this.ctrl.isEmpty || (this.ctrl.categories = this.catalog.categorizeItems(this.ctrl.catalogItems), 
-            this.ctrl.vendors = this.catalog.getVendors(this.ctrl.catalogItems), this.filterByCategory("all", "all", !0)), 
+            this.ctrl.vendors = this.catalog.getVendors(this.ctrl.catalogItems), this.filterByCategory(this.ctrl.currentFilter, this.ctrl.currentSubFilter, !0)), 
             this.ctrl.loaded = !0), e.keywordFilter && !e.keywordFilter.isFirstChange() && this.setKeywordFilter(this.ctrl.keywordFilter);
         }, e.prototype.$postLink = function() {
             this.scrollParent = this.getScrollParent(this.element), this.scrollParent && this.htmlService.isWindowAboveBreakpoint(this.htmlService.WINDOW_SIZE_SM) && (this.ctrl.viewStyle = {
@@ -2161,20 +2162,29 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 e === r.id && (t = t.concat(r.subCategories));
             }), t = n.filter(t, {
                 hasItems: !0
-            }), "all" === t[0].id && 2 === t.length && (t = n.drop(t, 1)), t;
+            }), t[0] && "all" === t[0].id && 2 === t.length && (t = n.drop(t, 1)), t;
         }, e.prototype.applyFilters = function(e) {
             this.filterChange(e.appliedFilters);
         }, e.prototype.filterByCategory = function(e, t, r) {
             var i, a;
-            "all" === e || "other" === e ? t = "all" : (r && (this.ctrl.subCategories = this.getSubCategories(e)), 
-            t = 1 === this.ctrl.subCategories.length ? this.ctrl.subCategories[0].id : t || null), 
+            if ("all" === e || "other" === e) t = "all"; else if (r && (this.ctrl.subCategories = this.getSubCategories(e)), 
+            t) {
+                var s = n.some(this.ctrl.subCategories, function(e) {
+                    return e.id === t;
+                });
+                t = s ? t : null;
+            } else t = 1 === this.ctrl.subCategories.length ? this.ctrl.subCategories[0].id : null;
             i = n.find(this.ctrl.categories, {
                 id: e
             }), i ? t && (a = n.find(i.subCategories, {
                 id: t
             }), a ? (this.ctrl.filteredItems = a.items, this.ctrl.filterConfig.totalCount = this.ctrl.filteredItems.length, 
             this.ctrl.filterConfig.resultsCount = this.ctrl.filterConfig.totalCount) : this.logger.error("Could not find subcategory '" + t + "' for category '" + e + "'")) : this.logger.error("Could not find category '" + e + "'"), 
-            this.ctrl.currentFilter = e, this.ctrl.currentSubFilter = t, this.updateActiveCardStyles();
+            this.ctrl.currentFilter = e, this.ctrl.currentSubFilter = t, t = "all" === e ? null : t, 
+            this.$location.path(this.$location.path()).search({
+                category: this.ctrl.currentFilter,
+                subcategory: t
+            }), this.updateActiveCardStyles();
         }, e.prototype.setKeywordFilter = function(e) {
             this.ctrl.keywordFilterValue = e, this.ctrl.currentFilter = this.ctrl.currentSubFilter = "all", 
             this.ctrl.mobileView = "subcategories";
@@ -2216,7 +2226,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             });
         }, e;
     }();
-    a.$inject = [ "Constants", "Catalog", "KeywordService", "Logger", "HTMLService", "$element", "$filter", "$rootScope", "$scope", "$timeout" ], 
+    a.$inject = [ "Constants", "Catalog", "KeywordService", "Logger", "HTMLService", "$element", "$filter", "$location", "$rootScope", "$scope", "$timeout" ], 
     a.MAX_RESIZE_RETRIES = 20, t.ServicesViewController = a;
 }, function(e, t, r) {
     "use strict";

@@ -18,6 +18,7 @@ describe('servicesView', () => {
   var testHelpers: TestHelpers = new TestHelpers();
   var Catalog: any;
   var Constants: any;
+  var $location: any;
 
   beforeEach( () => {
     testHelpers.initTests();
@@ -26,9 +27,10 @@ describe('servicesView', () => {
   });
 
   beforeEach(() => {
-    inject(function (_Catalog_: any, _Constants_: any) {
+    inject(function (_Catalog_: any, _Constants_: any, _$location_: any) {
       Catalog = _Catalog_;
       Constants = _Constants_;
+      $location = _$location_;
     });
   });
 
@@ -466,5 +468,31 @@ describe('servicesView', () => {
     var items = jQuery(element).find('.services-item-name');
     expect(items.length).toBe(1);
     expect(jQuery(items[0]).text().trim()).toBe('my-service-class');
+  });
+
+  it("should filter by category if search params present", () => {
+    $location.search = () => ({category: 'cicd'});
+    createServiceView();
+
+    var ctrl = componentTest.isoScope.$ctrl;
+    expect(ctrl.currentFilter).toBe('cicd');
+
+    var element = componentTest.rawElement;
+
+    expect(jQuery(element).find('.nav-tabs-pf .active .services-category-heading').html()).toBe('CI/CD');
+  });
+
+  it("should filter by category and subcategory if search params present", () => {
+    $location.search = () => ({category: 'languages', subcategory: 'java'});
+    createServiceView();
+
+    var ctrl = componentTest.isoScope.$ctrl;
+    expect(ctrl.currentFilter).toBe('languages');
+    expect(ctrl.currentSubFilter).toBe('java');
+
+    var element = componentTest.rawElement;
+
+    expect(jQuery(element).find('.nav-tabs-pf .active .services-category-heading').html()).toBe('Languages');
+    expect(jQuery(element).find('.services-sub-category.active .services-sub-category-tab-name').html()).toBe('Java');
   });
 });

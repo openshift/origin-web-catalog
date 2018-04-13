@@ -3,7 +3,7 @@ import * as _ from 'lodash';
 import * as $ from 'jquery';
 
 export class ServicesViewController implements angular.IController {
-  static $inject = ['Constants', 'Catalog', 'KeywordService', 'Logger', 'HTMLService', '$element', '$filter', '$rootScope', '$scope', '$timeout'];
+  static $inject = ['Constants', 'Catalog', 'KeywordService', 'Logger', 'HTMLService', '$element', '$filter', '$location', '$rootScope', '$scope', '$timeout'];
 
   static readonly MAX_RESIZE_RETRIES: number = 20;
 
@@ -16,6 +16,7 @@ export class ServicesViewController implements angular.IController {
   private element: any;
   private $filter: any;
   private $rootScope: any;
+  private $location: any;
   private $scope: any;
   private $timeout: any;
   private scrollParent: any;
@@ -30,7 +31,7 @@ export class ServicesViewController implements angular.IController {
   // items render. Count how many times we try to read the height before giving up.
   private resizeRetries: number = 0;
 
-  constructor(constants: any, catalog: any, keywordService: any, logger: any, htmlService: any, $element: any, $filter: any, $rootScope: any, $scope: any, $timeout: any) {
+  constructor(constants: any, catalog: any, keywordService: any, logger: any, htmlService: any, $element: any, $filter: any,  $location: any, $rootScope: any, $scope: any, $timeout: any) {
     this.constants = constants;
     this.catalog = catalog;
     this.keywordService = keywordService;
@@ -39,6 +40,7 @@ export class ServicesViewController implements angular.IController {
     this.element = $element[0];
     this.$filter = $filter;
     this.$rootScope = $rootScope;
+    this.$location = $location;
     this.$scope = $scope;
     this.$timeout = $timeout;
     this.ctrl.loaded = false;
@@ -49,13 +51,14 @@ export class ServicesViewController implements angular.IController {
       appliedFilters: []
     };
     this.ctrl.keywordFilterValue = null;
+    this.ctrl.currentFilter = this.$location.search().category || 'all';
+    this.ctrl.currentSubFilter = this.$location.search().category && this.$location.search().subcategory;
   }
 
   public $onInit() {
     this.debounceResize = _.debounce(() => this.resizeExpansion(false), 50, { maxWait: 250 });
     $(window).on('resize.services', this.debounceResize);
 
-    this.ctrl.currentFilter = this.ctrl.currentSubFilter = 'all';
     this.ctrl.sectionTitle = this.ctrl.sectionTitle || 'Browse Catalog';
 
     this.removeFilterListener = this.$rootScope.$on('filter-catalog-items', (event: any, searchCriteria: any) => {
@@ -91,7 +94,7 @@ export class ServicesViewController implements angular.IController {
       if (!this.ctrl.isEmpty) {
         this.ctrl.categories = this.catalog.categorizeItems(this.ctrl.catalogItems);
         this.ctrl.vendors = this.catalog.getVendors(this.ctrl.catalogItems);
-        this.filterByCategory('all', 'all', true);
+        this.filterByCategory(this.ctrl.currentFilter, this.ctrl.currentSubFilter, true);
       }
       this.ctrl.loaded = true;
     }
@@ -157,7 +160,7 @@ export class ServicesViewController implements angular.IController {
     subCats = _.filter(subCats, {hasItems: true});
     // if 'all' and one other sub-cat, remove the 'all' and just
     // show the single subCat
-    if (subCats[0].id === 'all' && subCats.length === 2) {
+    if (subCats[0] && subCats[0].id === 'all' && subCats.length === 2) {
       subCats = _.drop(subCats, 1);
     }
     return subCats;
@@ -182,7 +185,13 @@ export class ServicesViewController implements angular.IController {
       if (updateSubCategories) {
         this.ctrl.subCategories = this.getSubCategories(category);
       }
-      subCategory = (this.ctrl.subCategories.length === 1) ? this.ctrl.subCategories[0].id : (subCategory || null);
+
+      if (!subCategory) {
+        subCategory = (this.ctrl.subCategories.length === 1) ? this.ctrl.subCategories[0].id : null;
+      } else {
+        let subCategoryExists = _.some(this.ctrl.subCategories, subCat => subCat.id === subCategory);
+        subCategory = subCategoryExists ? subCategory : null;
+      }
     }
 
     categoryObj =  _.find(this.ctrl.categories, {id: category});
@@ -203,6 +212,8 @@ export class ServicesViewController implements angular.IController {
 
     this.ctrl.currentFilter = category;
     this.ctrl.currentSubFilter = subCategory;
+    subCategory = category === 'all' ? null : subCategory;
+    this.$location.path(this.$location.path()).search({category: this.ctrl.currentFilter, subcategory: subCategory});
     this.updateActiveCardStyles();
   }
 
