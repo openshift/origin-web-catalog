@@ -164,6 +164,10 @@ export class CatalogParametersController implements angular.IController {
         newObject.key = original.key;
       }
 
+      if (original.condition) {
+        newObject.condition = original.condition;
+      }
+
       if (CatalogParametersController.ALLOWED_FORM_INPUT_TYPES[original.type]) {
         newObject.type = original.type;
       }
