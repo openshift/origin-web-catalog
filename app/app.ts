@@ -24,6 +24,7 @@ require('angular-utf8-base64');
 require('hopscotch/dist/js/hopscotch.js');
 require('angular-schema-form');
 require('angular-schema-form-bootstrap');
+require('angular-schema-form-base64-file-upload');
 
 try {
   require('./config.local.js');
@@ -58,7 +59,7 @@ if (mockServicesModule.useMockServices() !== true) {
 }
 
 angular
-  .module(catalogApp, ['webCatalog', 'openshiftCommonUI', commonServices, 'ui.router', 'patternfly', 'angularMoment', 'schemaForm'])
+  .module(catalogApp, ['webCatalog', 'openshiftCommonUI', commonServices, 'ui.router', 'patternfly', 'angularMoment', 'schemaForm', 'angularSchemaFormBase64FileUpload'])
   .config(routesConfig)
   .component('oauth', oauth)
   .component('homepage', homePage)

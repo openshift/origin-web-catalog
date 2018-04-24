@@ -9,12 +9,14 @@ export class CatalogParametersController implements angular.IController {
     'textarea': true,
     'password': true,
     'checkbox': true,
-    'select': true
+    'select': true,
+    'file': true
   };
 
   public ctrl: any = this;
 
   public $onInit() {
+    this.setupFileSchema();
     this.setupFormDefaults();
     this.ctrl.parameterForm = this.cloneParameterForm(this.ctrl.parameterFormDefinition) || ['*'];
     this.updateHiddenModel();
@@ -45,6 +47,30 @@ export class CatalogParametersController implements angular.IController {
       (onChangesObj.readOnly && !onChangesObj.readOnly.isFirstChange())) {
       this.setupReadonlySchema();
     }
+  }
+
+  private setupFileSchema() {
+    // Find any parameters in the form definition that have a type of 'file'
+    _.each(this.ctrl.parameterFormDefinition, (parameter: any) => {
+      _.each(_.get(parameter, 'items'), (item: any, index: any) => {
+        if (item.type === 'file') {
+          // Need to set this to 'string' so the input type is also string (not file)
+          // angular-schema-form-base64-file-upload add-on expects this.
+          item.type = 'string';
+
+          // angular-schema-form-base64-file-upload add-on expects:
+          // * the type to be 'string'
+          // * and a format field set to 'base64'
+          // * a maxSize
+          // https://github.com/Textalk/angular-schema-form-base64-file-upload#usage
+          _.assign(_.get(this.ctrl.parameterSchema, ['properties', item.key]), {
+            "type": "string",
+            "format": "base64",
+            "maxSize": '5242880' // 5MB
+          });
+        }
+      });
+    });
   }
 
   private setupFormDefaults() {
@@ -141,7 +167,6 @@ export class CatalogParametersController implements angular.IController {
   // clones a form definition with only the accepted keys (key, type, items)
   // and type values (fieldset, text, textarea, password, checkbox, select)
   private cloneParameterForm(original: any) {
-
     if (_.isString(original)) {
       if (this.ctrl.readOnly === true) {
         return {

@@ -18,6 +18,7 @@ require('angular-utf8-base64');
 require('origin-web-common/dist/origin-web-common-ui.js');
 require('angular-schema-form');
 require('angular-schema-form-bootstrap');
+require('angular-schema-form-base64-file-upload');
 
 import '../../src/index';
 

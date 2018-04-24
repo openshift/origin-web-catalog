@@ -33,6 +33,7 @@
     "angular-patternfly": ">=4.11.8 <5.0.0",
     "angular-sanitize": "1.5.11",
     "angular-schema-form": "^0.8.13",
+    "angular-schema-form-base64-file-upload": "^1.1.0",
     "angular-schema-form-bootstrap": "^0.2.0",
     "angular-ui-bootstrap": "0.14.x",
     "bootstrap": "^3.3.6",

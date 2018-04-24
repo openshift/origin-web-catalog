@@ -31,7 +31,7 @@ import {catalogFilter} from './components/catalog-filter/catalog-filter.componen
 export const webCatalog: string = 'webCatalog';
 
 angular
-  .module(webCatalog, ['patternfly', 'ngAnimate', 'ui.bootstrap', 'angularMoment', 'ui.select', 'schemaForm'])
+  .module(webCatalog, ['patternfly', 'ngAnimate', 'ui.bootstrap', 'angularMoment', 'ui.select', 'schemaForm', 'angularSchemaFormBase64FileUpload'])
   .service('BuilderAppService', BuilderAppService)
   .service('Catalog', CatalogService)
   .service('RecentlyViewedServiceItems', RecentlyViewedServiceItems)
