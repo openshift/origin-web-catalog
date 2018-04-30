@@ -12,11 +12,18 @@ export class CatalogParametersController implements angular.IController {
     'select': true
   };
 
+  private static CONDITIONS = {
+    oneOf: " || ",
+    fieldEqual: _.template('model["${key}"] === ${test}'),
+    fieldTruthy: _.template('model["${key}"]')
+  };
+
   public ctrl: any = this;
 
   public $onInit() {
     this.setupFormDefaults();
     this.ctrl.parameterForm = this.cloneParameterForm(this.ctrl.parameterFormDefinition) || ['*'];
+    this.setupFormDependencies();
     this.updateHiddenModel();
     this.setupReadonlySchema();
   }
@@ -72,6 +79,77 @@ export class CatalogParametersController implements angular.IController {
         checkboxHelpHtmlClass: 'col-sm-8 col-sm-offset-4'
       });
     }
+  }
+
+  private setupFormDependencies() {
+    _.each(_.get(this.ctrl.parameterSchema, 'dependencies'), (dependency: any, key: string) => {
+      if (_.isArray(dependency.oneOf)) {
+        // Only support 'oneOf' at this time, not 'allOf' or 'anyOf'
+        // See https://github.com/mozilla-services/react-jsonschema-form#dynamic for example 'dependencies' object
+        _.each(dependency.oneOf, (schema) => {
+          this.mapDependencyCondition(schema, key);
+        });
+      } else {
+        // simple nested dependency
+        this.mapDependencyCondition(dependency, key);
+      }
+    });
+  }
+
+  private mapDependencyCondition(schema, key) {
+    // Get the fields to show if the dependency is valid
+    const requiredFields = _.get(schema, 'required');
+    if (!_.isArray(requiredFields)) {
+      return;
+    }
+    _.each(requiredFields, (requiredField: any) => {
+      let fieldIndex = _.findIndex(this.ctrl.parameterForm, (field: any) => {
+        if (_.isObject(field)) {
+          return requiredField === field.key;
+        } else {
+          return requiredField === field;
+        }
+      });
+
+      // Only continue if the field is in the form defintion
+      if (fieldIndex > -1) {
+        // Normalise the field object
+        let field = this.ctrl.parameterForm[fieldIndex];
+        if (_.isString(field)) {
+          field = {
+            key: field
+          };
+        }
+
+        // Check if the required field is already in the schema properties.
+        // Add it if not.
+        if (!_.has(this.ctrl.parameterSchema, ['properties', field.key])) {
+          this.ctrl.parameterSchema.properties[field.key] = schema.properties[field.key];
+        }
+
+        // Set the angular 'condition'
+        const enumMatches = _.get(schema, ['properties', key, 'enum']);
+        if (!enumMatches) {
+          // Nothing specific to match against, just add a truthy condition
+          field.condition = CatalogParametersController.CONDITIONS.fieldTruthy({
+            key: key
+          });
+        } else if (enumMatches.length > 0) {
+          field.condition = CatalogParametersController.CONDITIONS.fieldEqual({
+            key: key,
+            test: JSON.stringify(enumMatches[0])
+          });
+          // Allow matching with any other strings in the array (if there are multiple)
+          for (let oi=1, ol=enumMatches.length; oi<ol; oi++) {
+            field.condition += CatalogParametersController.CONDITIONS.oneOf + CatalogParametersController.CONDITIONS.fieldEqual({
+              key: key,
+              test: JSON.stringify(enumMatches[oi])
+            });
+          }
+        }
+        this.ctrl.parameterForm.splice(fieldIndex, 1, field);
+      }
+    });
   }
 
   private setupReadonlySchema() {
