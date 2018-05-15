@@ -213,74 +213,28 @@ export class UpdateServiceController implements angular.IController {
     this.ctrl.orderComplete = false;
     this.ctrl.error = null;
 
-    var parameterData: any = this.getParameters(this.ctrl.parameterData);
+    let parameterData: any = this.getParameters(this.ctrl.parameterData);
 
     // Update the instance parameters
-    var originalParameters: any = _.get(this.ctrl.serviceInstance, 'spec.parameters');
-    var originalKeys: any = _.map(originalParameters, (value: any, key: string) => {
-      // Make sure properties with a '.' in the name aren't treated as paths.
+    let originalParameters: object = _.get(this.ctrl.serviceInstance, 'spec.parameters');
+    // NOTE: should be string[][], but compiler doesn't handle this
+    let originalKeys: any[] = _.map(originalParameters, (value: any, key: string) => {
       return [key];
     });
-    var updateParameters: any = _.pick(parameterData, originalKeys);
-    var newParameters: any = _.omit(parameterData, originalKeys);
-    var updateInstance: any = angular.copy(this.ctrl.serviceInstance);
+    let updateParameters: object = _.pick(parameterData, originalKeys);
+    let newParameters: object = _.omit(parameterData, originalKeys);
+    let updateInstance: object = angular.copy(this.ctrl.serviceInstance);
 
-    if (_.get(updateInstance, 'spec.clusterServicePlanExternalName') !== _.get(this.ctrl.selectedPlan, 'spec.externalName')) {
-      _.unset(updateInstance, 'spec.clusterServicePlanRef');
-      _.set(updateInstance, 'spec.clusterServicePlanExternalName', _.get(this.ctrl.selectedPlan, 'spec.externalName'));
-    }
+    this.updateServicePlanName(updateInstance);
+    this.updateSpecParameters(updateInstance, updateParameters, originalParameters);
 
-    if (!angular.equals(updateParameters, originalParameters)) {
-      _.set(updateInstance, 'spec.parameters', updateParameters);
-    }
+    let updatedSecretParameters: object = this.updateSecretParameters(updateInstance, newParameters);
 
-    // Update the secret parameters
-    var updatedSecretParameters: any = {};
-
-    _.each(this.secrets, (secret: any) => {
-      var originalSecretParameters: any = JSON.parse(this.SecretsService.decodeSecretData(secret.data).parameters);
-      var originalSecretKeys: any = _.map(originalSecretParameters, (value: any, key: string) => {
-        // Make sure properties with a '.' in the name aren't treated as paths.
-        return [key];
-      });
-
-      var updateSecretParameters: any = _.pick(parameterData, originalSecretKeys);
-      newParameters = _.omit(newParameters, originalSecretKeys);
-
-      if (!angular.equals(updateSecretParameters, originalSecretParameters)) {
-        // Add the parameters to the new secret parameters
-        angular.extend(updatedSecretParameters, updateSecretParameters);
-
-        // Remove the reference to this secret
-        updateInstance.spec.parametersFrom = _.reject(updateInstance.spec.parametersFrom, {secretKeyRef: {name: secret.metadata.name}});
-      }
-    });
-
-    // Add any new parameters to the new secret to be created
-    angular.extend(updatedSecretParameters, newParameters);
-
-    // Add a new secret if any secret parameters were updated
-    if (!_.isEmpty(updatedSecretParameters)) {
-      let secretName: string = this.BindingService.generateSecretName(_.get(this.ctrl.serviceClass, 'spec.externalName'));
-      // Add the reference to the instance
-      updateInstance.spec.parametersFrom.push({
-        secretKeyRef: {
-          name: secretName,
-          key: 'parameters'
-        }
-      });
-
-      // Create the secret
-      let secret = this.BindingService.makeParametersSecret(secretName, updatedSecretParameters, updateInstance);
-      let secretsVersion = this.APIService.getPreferredVersion('secrets');
-      this.DataService.create(secretsVersion, null, secret, this.context).then(() => {
-        this.updateServiceInstance(updateInstance);
-      }, (e: any) => {
-        this.ctrl.error = _.get(e, 'data');
-      });
-    } else {
+    this.updateSecret(updateInstance, updatedSecretParameters).then(() => {
       this.updateServiceInstance(updateInstance);
-    }
+    }, (e: any) => {
+      this.ctrl.error = _.get(e, 'data');
+    });
   };
 
   public $onDestroy() {
@@ -298,6 +252,37 @@ export class UpdateServiceController implements angular.IController {
       this.ctrl.handleClose();
     }
   }
+
+
+  private updateServicePlanName(instance: object) {
+    if (_.get(instance, 'spec.clusterServicePlanExternalName') !== _.get(this.ctrl.selectedPlan, 'spec.externalName')) {
+      _.unset(instance, 'spec.clusterServicePlanRef');
+      _.set(instance, 'spec.clusterServicePlanExternalName', _.get(this.ctrl.selectedPlan, 'spec.externalName'));
+    }
+  };
+
+  private updateSpecParameters(instance: object, updateParameters: object, originalParameters: object) {
+    if (!angular.equals(updateParameters, originalParameters)) {
+      _.set(instance, 'spec.parameters', updateParameters);
+    }
+  };
+
+  private updateSecretParameters(instance: object, newParameters: object) {
+    let secretParams: any = {};
+    // NOTE: this (and the original version) make the assumption we will have an array of one secret.
+    _.each(this.secrets, (secret: any) => {
+      var originalSecretParameters: object = JSON.parse(this.SecretsService.decodeSecretData(secret.data).parameters);
+      _.assign(secretParams, originalSecretParameters, newParameters);
+     });
+    return secretParams;
+  };
+
+  private updateSecret(instance: any, updatedSecretParameters: object) {
+    let secretName: string = _.get(_.head(instance.spec.parametersFrom), 'secretKeyRef.name');
+    let secret: object = this.BindingService.makeParametersSecret(secretName, updatedSecretParameters, instance);
+    let secretsVersion: object = this.APIService.getPreferredVersion('secrets');
+    return this.DataService.update(secretsVersion, secretName, secret, this.context);
+  };
 
   private updateParameterSchema(plan: any) {
     this.ctrl.parameterSchema = _.get(plan, 'spec.instanceUpdateParameterSchema');
