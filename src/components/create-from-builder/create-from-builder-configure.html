@@ -1,13 +1,13 @@
 <div class="order-service-config">
   <div class="config-top">
     <form name="$ctrl.builderForm" class="config-form">
-      <select-project ng-if="!$ctrl.addToProject" selected-project="$ctrl.selectedProject"
+      <select-project id="builderSelectProject" ng-if="!$ctrl.addToProject" selected-project="$ctrl.selectedProject"
                       name-taken="$ctrl.projectNameTaken"></select-project>
       <span ng-if="!$ctrl.noProjectsCantCreate">
         <div class="form-group">
           <label class="control-label" for="version">Version</label>
           <ui-select ng-model="$ctrl.istag" required search-enabled="false">
-            <ui-select-match>
+            <ui-select-match id="builderSelectVersion">
               <span>
                 {{$select.selected.name}}
                 <small ng-repeat="otherTag in $ctrl.referencedBy[$select.selected.name]">

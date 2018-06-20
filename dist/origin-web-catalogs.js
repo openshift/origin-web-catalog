@@ -9,7 +9,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
 }, function(e, t) {
     e.exports = '<div class="order-service-config">\n  <bind-application-form application-name="$ctrl.name"\n                         form-name="$ctrl.bindForm"\n                         allow-no-binding="true"\n                         service-instances="$ctrl.serviceInstances"\n                         service-classes="$ctrl.serviceClasses"\n                         service-to-bind="$ctrl.serviceToBind">\n  </bind-application-form>\n</div>\n';
 }, function(e, t) {
-    e.exports = '<div class="order-service-config">\n  <div class="config-top">\n    <form name="$ctrl.builderForm" class="config-form">\n      <select-project ng-if="!$ctrl.addToProject" selected-project="$ctrl.selectedProject"\n                      name-taken="$ctrl.projectNameTaken"></select-project>\n      <span ng-if="!$ctrl.noProjectsCantCreate">\n        <div class="form-group">\n          <label class="control-label" for="version">Version</label>\n          <ui-select ng-model="$ctrl.istag" required search-enabled="false">\n            <ui-select-match>\n              <span>\n                {{$select.selected.name}}\n                <small ng-repeat="otherTag in $ctrl.referencedBy[$select.selected.name]">\n                  <span ng-if="$first"> &mdash; </span>{{otherTag}}<span ng-if="!$last">,</span>\n                </small>\n              </span>\n            </ui-select-match>\n            <ui-select-choices repeat="tag in $ctrl.versions track by tag.name">\n              {{tag.name}}\n              <small ng-repeat="otherTag in $ctrl.referencedBy[tag.name]">\n                <span ng-if="$first"> &mdash; </span>{{otherTag}}<span ng-if="!$last">,</span>\n              </small>\n            </ui-select-choices>\n          </ui-select>\n        </div>\n        <div class="form-group">\n          <label class="control-label required" for="app-name">Application Name</label>\n          <div ng-class="{ \'has-error\': $ctrl.builderForm.name.$dirty && $ctrl.builderForm.name.$touched && $ctrl.builderForm.name.$invalid }">\n            <input\n              class="form-control"\n              type="text"\n              id="app-name"\n              required\n              minlength="2"\n              ng-maxlength="$ctrl.nameMaxLength"\n              ng-pattern="$ctrl.namePattern"\n              ng-model="$ctrl.name"\n              name="name"\n              autocorrect="off"\n              autocapitalize="none"\n              spellcheck="false">\n            \x3c!--\n              Wait until users leave the field to avoid flashing errors as they\n              type. Check $dirty touched to avoid a usability problem where the\n              "Try Sample Repository" link moves from under the mouse cursor\n              when clicked since the error message appears.\n            --\x3e\n            <div ng-if="$ctrl.builderForm.name.$dirty && $ctrl.builderForm.name.$touched">\n              <div class="has-error" ng-show="$ctrl.builderForm.name.$error.required">\n                <span class="help-block">\n                  Application name is required.\n                </span>\n              </div>\n              <div class="has-error" ng-show="$ctrl.builderForm.name.$error.pattern">\n                <span class="help-block">\n                  Application name consists of lower-case letters, numbers, and dashes. It must start with a letter and can\'t end with a <code>-</code>.\n                </span>\n              </div>\n              <div class="has-error" ng-show="$ctrl.builderForm.name.$error.minlength">\n                <span class="help-block">\n                  Application name must be at least 2 characters.\n                </span>\n              </div>\n              <div class="has-error" ng-show="$ctrl.builderForm.name.$error.maxlength">\n                <span class="help-block">\n                  Application name can\'t be more than 24 characters.\n                </span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div class="form-group">\n          <label class="control-label required" for="repository">Git Repository</label>\n          <div ng-class="{ \'has-error\': $ctrl.builderForm.repository.$touched && $ctrl.builderForm.repository.$error.$required }">\n            <input class="form-control"\n              type="text"\n              id="repository"\n              name="repository"\n              required\n              ng-model="$ctrl.repository"\n              ng-change="$ctrl.onRepositoryChanged()"\n              autocorrect="off"\n              autocapitalize="off"\n              spellcheck="false">\n            <div ng-if="$ctrl.istag.annotations.sampleRepo" class="help-block">\n              <a href="" ng-click="$ctrl.fillSampleRepo()">Try Sample Repository\n                <i class="fa fa-level-up" aria-hidden="true"></i></a>\n            </div>\n            <div class="has-error" ng-if="$ctrl.builderForm.repository.$touched && $ctrl.builderForm.repository.$error.$required">\n              <span class="help-block">\n                Git repository is required.\n              </span>\n            </div>\n            <div class="has-warning" ng-if="$ctrl.builderForm.repository.$touched && $ctrl.repository && !$ctrl.repositoryPattern.test($ctrl.repository)">\n              <span class="help-block">\n                This might not be a valid Git URL. Check that it is the correct URL to a remote Git repository.\n              </span>\n            </div>\n          </div>\n        </div>\n\n        \x3c!--\n          Only show the link for existing projects. It will be broken for new\n          projects.  Use class `invisible` when the project list is still loading\n          so the dialog doesn\'t resize.\n        --\x3e\n        <div ng-hide="$ctrl.selectedProject && !$ctrl.selectedProject.metadata.uid"\n             ng-class="{ invisible: !$ctrl.selectedProject || !$ctrl.istag }"\n             class="form-group">\n          If you have a private Git repository or need to change application defaults, view\n          <a href="" ng-click="$ctrl.navigateToAdvancedForm()">advanced options</a>.\n        </div>\n      </span>\n    </form>\n  </div>\n</div>\n';
+    e.exports = '<div class="order-service-config">\n  <div class="config-top">\n    <form name="$ctrl.builderForm" class="config-form">\n      <select-project id="builderSelectProject" ng-if="!$ctrl.addToProject" selected-project="$ctrl.selectedProject"\n                      name-taken="$ctrl.projectNameTaken"></select-project>\n      <span ng-if="!$ctrl.noProjectsCantCreate">\n        <div class="form-group">\n          <label class="control-label" for="version">Version</label>\n          <ui-select ng-model="$ctrl.istag" required search-enabled="false">\n            <ui-select-match id="builderSelectVersion">\n              <span>\n                {{$select.selected.name}}\n                <small ng-repeat="otherTag in $ctrl.referencedBy[$select.selected.name]">\n                  <span ng-if="$first"> &mdash; </span>{{otherTag}}<span ng-if="!$last">,</span>\n                </small>\n              </span>\n            </ui-select-match>\n            <ui-select-choices repeat="tag in $ctrl.versions track by tag.name">\n              {{tag.name}}\n              <small ng-repeat="otherTag in $ctrl.referencedBy[tag.name]">\n                <span ng-if="$first"> &mdash; </span>{{otherTag}}<span ng-if="!$last">,</span>\n              </small>\n            </ui-select-choices>\n          </ui-select>\n        </div>\n        <div class="form-group">\n          <label class="control-label required" for="app-name">Application Name</label>\n          <div ng-class="{ \'has-error\': $ctrl.builderForm.name.$dirty && $ctrl.builderForm.name.$touched && $ctrl.builderForm.name.$invalid }">\n            <input\n              class="form-control"\n              type="text"\n              id="app-name"\n              required\n              minlength="2"\n              ng-maxlength="$ctrl.nameMaxLength"\n              ng-pattern="$ctrl.namePattern"\n              ng-model="$ctrl.name"\n              name="name"\n              autocorrect="off"\n              autocapitalize="none"\n              spellcheck="false">\n            \x3c!--\n              Wait until users leave the field to avoid flashing errors as they\n              type. Check $dirty touched to avoid a usability problem where the\n              "Try Sample Repository" link moves from under the mouse cursor\n              when clicked since the error message appears.\n            --\x3e\n            <div ng-if="$ctrl.builderForm.name.$dirty && $ctrl.builderForm.name.$touched">\n              <div class="has-error" ng-show="$ctrl.builderForm.name.$error.required">\n                <span class="help-block">\n                  Application name is required.\n                </span>\n              </div>\n              <div class="has-error" ng-show="$ctrl.builderForm.name.$error.pattern">\n                <span class="help-block">\n                  Application name consists of lower-case letters, numbers, and dashes. It must start with a letter and can\'t end with a <code>-</code>.\n                </span>\n              </div>\n              <div class="has-error" ng-show="$ctrl.builderForm.name.$error.minlength">\n                <span class="help-block">\n                  Application name must be at least 2 characters.\n                </span>\n              </div>\n              <div class="has-error" ng-show="$ctrl.builderForm.name.$error.maxlength">\n                <span class="help-block">\n                  Application name can\'t be more than 24 characters.\n                </span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div class="form-group">\n          <label class="control-label required" for="repository">Git Repository</label>\n          <div ng-class="{ \'has-error\': $ctrl.builderForm.repository.$touched && $ctrl.builderForm.repository.$error.$required }">\n            <input class="form-control"\n              type="text"\n              id="repository"\n              name="repository"\n              required\n              ng-model="$ctrl.repository"\n              ng-change="$ctrl.onRepositoryChanged()"\n              autocorrect="off"\n              autocapitalize="off"\n              spellcheck="false">\n            <div ng-if="$ctrl.istag.annotations.sampleRepo" class="help-block">\n              <a href="" ng-click="$ctrl.fillSampleRepo()">Try Sample Repository\n                <i class="fa fa-level-up" aria-hidden="true"></i></a>\n            </div>\n            <div class="has-error" ng-if="$ctrl.builderForm.repository.$touched && $ctrl.builderForm.repository.$error.$required">\n              <span class="help-block">\n                Git repository is required.\n              </span>\n            </div>\n            <div class="has-warning" ng-if="$ctrl.builderForm.repository.$touched && $ctrl.repository && !$ctrl.repositoryPattern.test($ctrl.repository)">\n              <span class="help-block">\n                This might not be a valid Git URL. Check that it is the correct URL to a remote Git repository.\n              </span>\n            </div>\n          </div>\n        </div>\n\n        \x3c!--\n          Only show the link for existing projects. It will be broken for new\n          projects.  Use class `invisible` when the project list is still loading\n          so the dialog doesn\'t resize.\n        --\x3e\n        <div ng-hide="$ctrl.selectedProject && !$ctrl.selectedProject.metadata.uid"\n             ng-class="{ invisible: !$ctrl.selectedProject || !$ctrl.istag }"\n             class="form-group">\n          If you have a private Git repository or need to change application defaults, view\n          <a href="" ng-click="$ctrl.navigateToAdvancedForm()">advanced options</a>.\n        </div>\n      </span>\n    </form>\n  </div>\n</div>\n';
 }, function(e, t) {
     e.exports = '<div class="order-service-details">\n  <div class="order-service-details-top" ng-class="{\'order-service-details-top-icon-top\': $ctrl.imageStream.vendor || $ctrl.documentationUrl || $ctrl.supportUrl}">\n    <div class="service-icon">\n      <span ng-if="!$ctrl.imageStream.imageUrl" class="icon {{$ctrl.imageStream.iconClass}}" aria-hidden="true"></span>\n      <span ng-if="$ctrl.imageStream.imageUrl" class="image"><img ng-src="{{$ctrl.imageStream.imageUrl}}" alt=""></span>\n    </div>\n    <div class="service-title-area">\n      <div class="service-title">\n        {{$ctrl.imageStream.name}}\n      </div>\n      <div ng-if="$ctrl.imageStream.vendor" class="service-vendor">\n        {{$ctrl.imageStream.vendor}}\n      </div>\n      <div class="order-service-tags">\n        <span ng-repeat="tag in $ctrl.istag.annotations.tags.split(\',\')" class="tag">\n          {{tag}}\n        </span>\n      </div>\n      <ul ng-if="$ctrl.documentationUrl || $ctrl.supportUrl" class="list-inline order-service-documentation-url">\n        <li ng-if="$ctrl.documentationUrl">\n          <a ng-href="{{$ctrl.documentationUrl}}" target="_blank" class="learn-more-link">View Documentation <i class="fa fa-external-link" aria-hidden="true"></i></a>\n        </li>\n        <li ng-if="$ctrl.supportUrl">\n          <a ng-href="{{$ctrl.supportUrl}}" target="_blank" class="learn-more-link">Get Support <i class="fa fa-external-link" aria-hidden="true"></i></a>\n        </li>\n      </ul>\n    </div>\n  </div>\n  <div class="order-service-description-block">\n    <p ng-bind-html="($ctrl.istag.annotations.description | linky : \'_blank\') || \'No description provided.\'" class="description"></p>\n    <p ng-if="$ctrl.istag.annotations.sampleRepo">\n      Sample Repository:\n      \x3c!-- TODO: Use Git link filter, needs to be added to origin-web-common --\x3e\n      <span ng-bind-html="$ctrl.istag.annotations.sampleRepo | linky : \'_blank\'"></span>\n    </p>\n  </div>\n</div>\n';
 }, function(e, t) {
@@ -19,7 +19,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
 }, function(e, t) {
     e.exports = '<div class="order-service-config">\n  <bind-service-form service-class="$ctrl.serviceClass.resource"\n                     show-pod-presets="$ctrl.showPodPresets"\n                     applications="$ctrl.applications"\n                     form-name="$ctrl.forms.bindForm"\n                     allow-no-binding="true"\n                     project-name="$ctrl.projectDisplayName"\n                     bind-type="$ctrl.bindType"\n                     app-to-bind="$ctrl.appToBind">\n  </bind-service-form>\n</div>\n';
 }, function(e, t) {
-    e.exports = '<div class="order-service-config">\n  <div class="config-top">\n    <form name="$ctrl.forms.orderConfigureForm" class="config-form">\n      <select-project ng-if="!$ctrl.addToProject"\n                      selected-project="$ctrl.selectedProject"\n                      name-taken="$ctrl.projectNameTaken"\n                      show-divider="$ctrl.parameterSchema.properties | size"></select-project>\n      <catalog-parameters\n        ng-if="$ctrl.parameterSchema.properties && !$ctrl.noProjectsCantCreate"\n        model="$ctrl.parameterData"\n        parameter-schema="$ctrl.parameterSchema"\n        parameter-form-definition="$ctrl.parameterFormDefinition">\n      </catalog-parameters>\n    </form>\n    <div ng-if="$ctrl.error" class="has-error">\n      <span class="help-block">{{$ctrl.error}}</span>\n    </div>\n  </div>\n</div>\n';
+    e.exports = '<div class="order-service-config">\n  <div class="config-top">\n    <form name="$ctrl.forms.orderConfigureForm" class="config-form">\n      <select-project id="orderServiceSelectProject"\n                      ng-if="!$ctrl.addToProject"\n                      selected-project="$ctrl.selectedProject"\n                      name-taken="$ctrl.projectNameTaken"\n                      show-divider="$ctrl.parameterSchema.properties | size"></select-project>\n      <catalog-parameters\n        ng-if="$ctrl.parameterSchema.properties && !$ctrl.noProjectsCantCreate"\n        model="$ctrl.parameterData"\n        parameter-schema="$ctrl.parameterSchema"\n        parameter-form-definition="$ctrl.parameterFormDefinition">\n      </catalog-parameters>\n    </form>\n    <div ng-if="$ctrl.error" class="has-error">\n      <span class="help-block">{{$ctrl.error}}</span>\n    </div>\n  </div>\n</div>\n';
 }, function(e, t) {
     e.exports = '<div class="order-service-details">\n  <div class="order-service-details-top" ng-class="{\'order-service-details-top-icon-top\': $ctrl.serviceClass.vendor || $ctrl.docUrl || $ctrl.supportUrl}">\n    <div class="service-icon">\n      <span ng-if="!$ctrl.imageUrl" class="icon {{$ctrl.iconClass}}" aria-hidden="true"></span>\n      <span ng-if="$ctrl.imageUrl" class="image"><img ng-src="{{$ctrl.imageUrl}}" alt=""></span>\n    </div>\n    <div class="service-title-area">\n      <div class="service-title">\n        {{$ctrl.serviceName}}\n      </div>\n      <div ng-if="$ctrl.serviceClass.vendor" class="service-vendor">\n        {{$ctrl.serviceClass.vendor}}\n      </div>\n      <div ng-if="$ctrl.serviceClass.tags" class="order-service-tags">\n        <span ng-repeat="tag in $ctrl.serviceClass.tags" class="tag">\n          {{tag}}\n        </span>\n      </div>\n      <ul ng-if="$ctrl.docUrl || $ctrl.supportUrl" class="list-inline order-service-documentation-url">\n        <li ng-if="$ctrl.docUrl" >\n          <a ng-href="{{$ctrl.docUrl}}" target="_blank" class="learn-more-link">View Documentation <i class="fa fa-external-link" aria-hidden="true"></i></a>\n        </li>\n        <li ng-if="$ctrl.supportUrl" >\n          <a ng-href="{{$ctrl.supportUrl}}" target="_blank" class="learn-more-link">Get Support <i class="fa fa-external-link" aria-hidden="true"></i></a>\n        </li>\n      </ul>\n    </div>\n  </div>\n  <div class="order-service-description-block">\n    <p ng-if="!$ctrl.multipleServicePlans && ($ctrl.selectedPlan.spec.externalMetadata.displayName || $ctrl.selectedPlan.spec.description)">\n      <span ng-if="$ctrl.selectedPlan.spec.externalMetadata.displayName">\n        Plan {{$ctrl.selectedPlan.spec.externalMetadata.displayName}}\n        <span ng-if="$ctrl.selectedPlan.spec.description">&ndash;</span>\n      </span>\n      <span ng-if="$ctrl.selectedPlan.spec.description">{{$ctrl.selectedPlan.spec.description}}</span>\n    </p>\n    <p ng-if="!$ctrl.description && !$ctrl.longDescription" class="description">No description provided.</p>\n    <p ng-if="$ctrl.description" ng-bind-html="($ctrl.description | linky : \'_blank\')" class="description"></p>\n    <p ng-if="$ctrl.longDescription" ng-bind-html="$ctrl.longDescription | linky : \'_blank\'" class="description"></p>\n    <div ng-if="$ctrl.imageDependencies.length">\n      <div class="order-service-subheading">Image Dependencies</div>\n      <div ng-repeat="imageName in $ctrl.imageDependencies" class="order-service-dependent-image">\n        <span class="pficon pficon-image" aria-hidden="true"></span>\n        <span class="sr-only">Image</span>\n        {{imageName}}\n      </div>\n    </div>\n  </div>\n</div>\n';
 }, function(e, t) {
@@ -258,7 +258,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             default: "welcome/index.html"
         };
         n.set(window, "OPENSHIFT_CONSTANTS.HELP", i);
-        var a = [ {
+        var s = [ {
             id: 1,
             title: "Microservices Application",
             icon: "fa fa-cubes",
@@ -282,7 +282,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             icon: "fa fa-cubes",
             url: "https://www.redhat.com/en/technologies/management",
             description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.  This is way too long! Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt."
-        } ], s = [ {
+        } ], a = [ {
             id: "languages",
             label: "Languages",
             subCategories: [ {
@@ -398,12 +398,12 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 tags: [ "virtualmachine" ]
             } ]
         } ];
-        n.set(window, "OPENSHIFT_CONSTANTS.SERVICE_CATALOG_CATEGORIES", s), n.set(window, "OPENSHIFT_CONSTANTS.SAAS_OFFERINGS", a);
-        var c = {
+        n.set(window, "OPENSHIFT_CONSTANTS.SERVICE_CATALOG_CATEGORIES", a), n.set(window, "OPENSHIFT_CONSTANTS.SAAS_OFFERINGS", s);
+        var o = {
             pod_presets: !1
         };
-        n.set(window, "OPENSHIFT_CONSTANTS.ENABLE_TECH_PREVIEW_FEATURE", c);
-        var o = {
+        n.set(window, "OPENSHIFT_CONSTANTS.ENABLE_TECH_PREVIEW_FEATURE", o);
+        var c = {
             links: [ {
                 title: "Documentation",
                 help: ""
@@ -421,7 +421,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 href: "https://blog.openshift.com"
             } ]
         };
-        n.set(window, "OPENSHIFT_CONSTANTS.CATALOG_HELP_RESOURCES", o);
+        n.set(window, "OPENSHIFT_CONSTANTS.CATALOG_HELP_RESOURCES", c);
         var l = function() {
             e("body").find(".services-view-container .nav-tabs a")[0].click();
         }, d = function() {
@@ -513,9 +513,9 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
     "use strict";
     function n() {
         return function(e, t, r) {
-            var n, a = t || "project/";
-            return n = i.isString(e) ? e : i.get(e, "metadata.name", ""), a.endsWith("/") || (a += "/"), 
-            a + n + "/browse/secrets/" + r;
+            var n, s = t || "project/";
+            return n = i.isString(e) ? e : i.get(e, "metadata.name", ""), s.endsWith("/") || (s += "/"), 
+            s + n + "/browse/secrets/" + r;
         };
     }
     t.__esModule = !0;
@@ -712,15 +712,15 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
 }, function(e, t, r) {
     "use strict";
     t.__esModule = !0;
-    var n = r(1), i = r(0), a = function() {
-        function e(e, t, r, n, i, a) {
+    var n = r(1), i = r(0), s = function() {
+        function e(e, t, r, n, i, s) {
             this.$filter = e, this.$q = t, this.constants = r, this.apiService = n, this.dataService = i, 
-            this.logger = a;
+            this.logger = s;
         }
         return e.prototype.getCatalogItems = function(e) {
-            var t = this, r = this.$q.defer(), n = {}, a = 0, s = 0, c = [], o = function() {
+            var t = this, r = this.$q.defer(), n = {}, s = 0, a = 0, o = [], c = function() {
                 if (e) {
-                    ++a;
+                    ++s;
                     var i = t.apiService.getPreferredVersion("templates");
                     t.dataService.list(i, {
                         namespace: "openshift"
@@ -729,36 +729,36 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                     }).then(function(e) {
                         n.templates = e.by("metadata.name");
                     }, function() {
-                        c.push("templates");
+                        o.push("templates");
                     }).finally(function() {
-                        t.returnCatalogItems(r, n, ++s, a, c);
+                        t.returnCatalogItems(r, n, ++a, s, o);
                     });
                 }
             }, l = this.apiService.getPreferredVersion("clusterserviceclasses");
-            this.apiService.apiInfo(l) ? (++a, this.dataService.list(l, {}).then(function(e) {
+            this.apiService.apiInfo(l) ? (++s, this.dataService.list(l, {}).then(function(e) {
                 n.serviceClasses = i.reject(e.by("metadata.name"), {
                     status: {
                         removedFromBrokerCatalog: !0
                     }
                 });
             }, function() {
-                c.push("service classes");
+                o.push("service classes");
             }).finally(function() {
                 i.some(n.serviceClasses, {
                     spec: {
                         clusterServiceBrokerName: "template-service-broker"
                     }
-                }) || o(), t.returnCatalogItems(r, n, ++s, a, c);
-            })) : o(), ++a;
+                }) || c(), t.returnCatalogItems(r, n, ++a, s, o);
+            })) : c(), ++s;
             var d = this.apiService.getPreferredVersion("imagestreams");
             return this.dataService.list(d, {
                 namespace: "openshift"
             }).then(function(e) {
                 n.imageStreams = e.by("metadata.name");
             }, function() {
-                c.push("builder images");
+                o.push("builder images");
             }).finally(function() {
-                t.returnCatalogItems(r, n, ++s, a, c);
+                t.returnCatalogItems(r, n, ++a, s, o);
             }), r.promise;
         }, e.prototype.getServicePlansForServiceClass = function(e) {
             var t = this.apiService.getPreferredVersion("clusterserviceplans"), r = i.isString(e) ? e : i.get(e, "metadata.name");
@@ -781,29 +781,29 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
         }, e.prototype.getProjectCatalogItems = function(e, t, r, n) {
             var i = this;
             void 0 === t && (t = !0), void 0 === r && (r = !0), void 0 === n && (n = !1);
-            var a = this.$q.defer(), s = {
+            var s = this.$q.defer(), a = {
                 imageStreams: [],
                 templates: []
-            }, c = 0, o = 0, l = [], d = this.apiService.getPreferredVersion("imagestreams"), p = this.apiService.getPreferredVersion("templates");
-            return t && (c++, this.dataService.list(d, {
+            }, o = 0, c = 0, l = [], d = this.apiService.getPreferredVersion("imagestreams"), p = this.apiService.getPreferredVersion("templates");
+            return t && (o++, this.dataService.list(d, {
                 namespace: e
             }).then(function(e) {
-                s.imageStreams = e.by("metadata.name");
+                a.imageStreams = e.by("metadata.name");
             }, function() {
                 l.push("builder images");
             }).finally(function() {
-                i.returnCatalogItems(a, s, ++o, c, l);
-            })), r && (c++, this.dataService.list(p, {
+                i.returnCatalogItems(s, a, ++c, o, l);
+            })), r && (o++, this.dataService.list(p, {
                 namespace: e
             }, null, {
                 partialObjectMetadataList: n
             }).then(function(e) {
-                s.templates = e.by("metadata.name");
+                a.templates = e.by("metadata.name");
             }, function() {
                 l.push("templates");
             }).finally(function() {
-                i.returnCatalogItems(a, s, ++o, c, l);
-            })), a.promise;
+                i.returnCatalogItems(s, a, ++c, o, l);
+            })), s.promise;
         }, e.prototype.sortCatalogItems = function(e) {
             return e.sort(function(e, t) {
                 var r = i.get(e, "name", "").localeCompare(i.get(t, "name", ""), void 0, {
@@ -816,20 +816,20 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 })), r;
             });
         }, e.prototype.convertToServiceItems = function(e, t, r) {
-            var n = this, a = i.map(e, function(e) {
+            var n = this, s = i.map(e, function(e) {
                 return n.getServiceItem(e);
             });
-            return a = a.concat(i.map(t, function(e) {
+            return s = s.concat(i.map(t, function(e) {
                 return n.getImageItem(e);
-            })), a = a.concat(i.map(r, function(e) {
+            })), s = s.concat(i.map(r, function(e) {
                 return n.getTemplateItem(e);
-            })), a = i.reject(a, "hidden"), a = this.sortCatalogItems(a);
+            })), s = i.reject(s, "hidden"), s = this.sortCatalogItems(s);
         }, e.prototype.getServiceItem = function(e) {
-            return new s(e, this);
+            return new a(e, this);
         }, e.prototype.getImageItem = function(e) {
-            return new c(e, this);
-        }, e.prototype.getTemplateItem = function(e) {
             return new o(e, this);
+        }, e.prototype.getTemplateItem = function(e) {
+            return new c(e, this);
         }, e.prototype.getPublisherSynonym = function(e) {
             return i.get(this.constants, [ "PUBLISHER_SYNONYMS", e ]) || e;
         }, e.prototype.normalizeIconClass = function(e) {
@@ -837,20 +837,20 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
         }, e.prototype.getImageForIconClass = function(e) {
             return this.$filter("imageForIconClass")(e);
         }, e.prototype.categorizeItems = function(e) {
-            var t, r, a = this, s = n.copy(this.constants.SERVICE_CATALOG_CATEGORIES);
-            this.createAllAndOtherMainCategories(s);
-            var c = i.head(s), o = i.get(c, "subCategories[0]"), l = i.last(s), d = i.get(l, "subCategories[0]");
+            var t, r, s = this, a = n.copy(this.constants.SERVICE_CATALOG_CATEGORIES);
+            this.createAllAndOtherMainCategories(a);
+            var o = i.head(a), c = i.get(o, "subCategories[0]"), l = i.last(a), d = i.get(l, "subCategories[0]");
             return i.each(e, function(e) {
-                r = !1, i.each(s, function(n) {
-                    n.tags ? a.hasMatchingTags(n.tags, e.tags) && (r = a.categorizeItem(e, n, "all"), 
-                    t = a.filterSubCatsByTags(n.subCategories, e.tags), i.isEmpty(t) ? a.categorizeItem(e, n, "other") : i.each(t, function(t) {
-                        a.categorizeItem(e, n, t);
-                    })) : (t = a.filterSubCatsByTags(n.subCategories, e.tags), i.isEmpty(t) || (r = a.categorizeItem(e, n, "all"), 
+                r = !1, i.each(a, function(n) {
+                    n.tags ? s.hasMatchingTags(n.tags, e.tags) && (r = s.categorizeItem(e, n, "all"), 
+                    t = s.filterSubCatsByTags(n.subCategories, e.tags), i.isEmpty(t) ? s.categorizeItem(e, n, "other") : i.each(t, function(t) {
+                        s.categorizeItem(e, n, t);
+                    })) : (t = s.filterSubCatsByTags(n.subCategories, e.tags), i.isEmpty(t) || (r = s.categorizeItem(e, n, "all"), 
                     i.each(t, function(t) {
-                        a.categorizeItem(e, n, t);
+                        s.categorizeItem(e, n, t);
                     })));
-                }), r || a.categorizeItem(e, l, d), a.categorizeItem(e, c, o);
-            }), s;
+                }), r || s.categorizeItem(e, l, d), s.categorizeItem(e, o, c);
+            }), a;
         }, e.prototype.getVendors = function(e) {
             var t = {};
             return i.each(e, function(e) {
@@ -898,11 +898,11 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             return i.filter(e, function(e) {
                 return r.hasMatchingTags(e.tags, t);
             });
-        }, e.prototype.returnCatalogItems = function(e, t, r, n, a) {
+        }, e.prototype.returnCatalogItems = function(e, t, r, n, s) {
             if (!(r < n)) {
-                a = i.size(a) ? "Unable to load all content for the catalog. Error loading " + this.formatArray(a) : null;
-                var s = this.convertToServiceItems(t.serviceClasses, t.imageStreams, t.templates);
-                e.resolve([ s, a ]);
+                s = i.size(s) ? "Unable to load all content for the catalog. Error loading " + this.formatArray(s) : null;
+                var a = this.convertToServiceItems(t.serviceClasses, t.imageStreams, t.templates);
+                e.resolve([ a, s ]);
             }
         }, e.prototype.formatArray = function(e) {
             var t = "";
@@ -910,9 +910,9 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             t + ".";
         }, e;
     }();
-    a.$inject = [ "$filter", "$q", "Constants", "APIService", "DataService", "Logger" ], 
-    t.CatalogService = a;
-    var s = function() {
+    s.$inject = [ "$filter", "$q", "Constants", "APIService", "DataService", "Logger" ], 
+    t.CatalogService = s;
+    var a = function() {
         function e(e, t) {
             this.resource = e, this.catalogSrv = t, this.imageUrl = this.getImage(), this.iconClass = this.getIcon(), 
             this.name = this.getName(), this.description = this.getDescription(), this.longDescription = this.getLongDescription(), 
@@ -940,8 +940,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             return this.catalogSrv.getPublisherSynonym(e);
         }, e;
     }();
-    t.ServiceItem = s;
-    var c = function() {
+    t.ServiceItem = a;
+    var o = function() {
         function e(e, t) {
             this.resource = e, this.catalogSrv = t, this.builderSpecTagName = this.getBuilderSpecTagName(), 
             this.builderSpecTagName ? (this.tags = this.getTags(), this.imageUrl = this.getImage(), 
@@ -977,8 +977,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             return null;
         }, e;
     }();
-    t.ImageItem = c;
-    var o = function() {
+    t.ImageItem = o;
+    var c = function() {
         function e(e, t) {
             this.resource = e, this.catalogSrv = t, this.imageUrl = this.getImage(), this.iconClass = this.getIcon(), 
             this.name = this.getName(), this.description = this.getDescription(), this.longDescription = this.getLongDescription(), 
@@ -1004,7 +1004,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             return this.catalogSrv.getPublisherSynonym(e);
         }, e;
     }();
-    t.TemplateItem = o;
+    t.TemplateItem = c;
 }, function(e, t, r) {
     "use strict";
     t.__esModule = !0;
@@ -1032,15 +1032,15 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
 }, function(e, t) {
     e.exports = '<div class="catalog-search" ng-class="{\'mobile-shown\': $ctrl.mobileSearchInputShown}">\n  <button\n     ng-if="$ctrl.toggleAtMobile"\n     title="Catalog Search"\n     class="catalog-search-toggle visible-xs-inline-block btn btn-link"\n     ng-click="$ctrl.toggleMobileShowSearchInput()">\n    <i class="fa fa-search" aria-hidden="true"></i>\n    <span class="sr-only">Catalog Search</span>\n  </button>\n  <form role="form" class="landing-search-form search-pf has-button" ng-class="{\'hidden-xs\': $ctrl.toggleAtMobile}">\n    <div class="form-group has-clear">\n      <div class="search-pf-input-group">\n        <label for="search-input" class="sr-only">Search Catalog</label>\n        <span class="fa fa-search catalog-search-icon" aria-hidden="true" ng-click="$ctrl.setSearchInputFocus()"></span>\n        <input\n            id="search-input"\n            type="search"\n            autocomplete="off"\n            ng-keypress="$ctrl.onKeyPress($event)"\n            class="form-control catalog-search-input"\n            placeholder="Search Catalog"\n            ng-model="$ctrl.searchText"\n            uib-typeahead="item.name for item in $ctrl.search($viewValue)"\n            typeahead-on-select="$ctrl.itemSelected($item)"\n            typeahead-focus-first="false"\n            typeahead-template-url="catalog-search/catalog-search-result.html"\n            autocorrect="off"\n            autocapitalize="off"\n            spellcheck="false">\n        <button\n            type="button"\n            ng-if="$ctrl.searchText"\n            ng-click="$ctrl.searchText = \'\'"\n            class="clear">\n          <span class="sr-only">Clear Search Input</span>\n          <span class="pficon pficon-close" aria-hidden="true"></span>\n        </button>\n      </div>\n    </div>\n  </form>\n</div>\n';
 }, function(e, t) {
-    e.exports = '<div class="order-service">\n  <pf-wizard\n       wizard-title="{{$ctrl.imageStream.name}}"\n       hide-sidebar="true"\n       step-class="order-service-wizard-step"\n       current-step="$ctrl.currentStep"\n       wizard-ready="$ctrl.wizardReady"\n       next-title="$ctrl.nextTitle"\n       on-finish="$ctrl.closePanel()"\n       on-cancel="$ctrl.closePanel()"\n       wizard-done="$ctrl.wizardDone">\n    <pf-wizard-step ng-repeat="step in $ctrl.steps track by $index"\n         step-title="{{step.label}}"\n         wz-disabled="{{step.hidden}}"\n         allow-click-nav="step.allowClickNav"\n         next-enabled="step.valid && !$ctrl.updating"\n         prev-enabled="step.prevEnabled"\n         on-show="step.onShow"\n         step-id="{{step.id}}"\n         step-priority="{{$index}}">\n      <div class="wizard-pf-main-inner-shadow-covers">\n        <div class="order-service-config">\n          <div ng-include="step.view" class="wizard-pf-main-form-contents"></div>\n        </div>\n      </div>\n    </pf-wizard-step>\n  </pf-wizard>\n</div>\n';
+    e.exports = '<div class="order-service">\n  <pf-wizard\n       wizard-title="{{$ctrl.imageStream.name}}"\n       hide-sidebar="true"\n       step-class="order-service-wizard-step"\n       current-step="$ctrl.currentStep"\n       wizard-ready="$ctrl.wizardReady"\n       next-title="$ctrl.nextTitle"\n       on-finish="$ctrl.closePanel()"\n       on-cancel="$ctrl.closePanel()"\n       wizard-done="$ctrl.wizardDone">\n    <pf-wizard-step ng-repeat="step in $ctrl.steps track by $index"\n         step-title="{{step.label}}"\n         wz-disabled="{{step.hidden}}"\n         allow-click-nav="step.allowClickNav"\n         next-enabled="step.valid && !$ctrl.updating"\n         prev-enabled="step.prevEnabled"\n         on-show="step.onShow"\n         focus-selectors="step.focusSelectors"\n         step-id="{{step.id}}"\n         step-priority="{{$index}}">\n      <div class="wizard-pf-main-inner-shadow-covers">\n        <div class="order-service-config">\n          <div ng-include="step.view" class="wizard-pf-main-form-contents"></div>\n        </div>\n      </div>\n    </pf-wizard-step>\n  </pf-wizard>\n</div>\n';
 }, function(e, t) {
     e.exports = '<div class="landing-search-area" ng-transclude="landingsearch"></div>\n<div class="landing">\n  <overlay-panel show-panel="$ctrl.orderingPanelVisible" handle-close="$ctrl.closeOrderingPanel">\n    <order-service\n        ng-if="$ctrl.selectedItem.resource.kind === \'ClusterServiceClass\'"\n        base-project-url="{{$ctrl.baseProjectUrl}}"\n        service-class="$ctrl.selectedItem"\n        service-plans="$ctrl.servicePlansForItem"\n        handle-close="$ctrl.closeOrderingPanel">\n    </order-service>\n    <create-from-builder\n        ng-if="$ctrl.selectedItem.resource.kind === \'ImageStream\'"\n        base-project-url="{{$ctrl.baseProjectUrl}}"\n        image-stream="$ctrl.selectedItem"\n        handle-close="$ctrl.closeOrderingPanel">\n    </create-from-builder>\n  </overlay-panel>\n  <div class="landing-main-area">\n    <div class="landing-header-area" ng-transclude="landingheader"></div>\n    <div class="landing-body-area">\n      <div class="landing-body" ng-transclude="landingbody"></div>\n    </div>\n  </div>\n  <div class="landing-side-bar" ng-transclude="landingside"></div>\n</div>\n';
 }, function(e, t) {
-    e.exports = '<div class="order-service">\n  <pf-wizard\n       wizard-title="{{$ctrl.serviceName}}"\n       hide-sidebar="true"\n       step-class="order-service-wizard-step"\n       current-step="$ctrl.currentStep"\n       wizard-ready="$ctrl.wizardReady"\n       next-title="$ctrl.nextTitle"\n       on-finish="$ctrl.closePanel()"\n       on-cancel="$ctrl.closePanel()"\n       wizard-done="$ctrl.wizardDone">\n    <pf-wizard-step ng-repeat="step in $ctrl.steps track by step.id"\n         step-title="{{step.label}}"\n         wz-disabled="{{step.hidden}}"\n         allow-click-nav="step.allowClickNav"\n         next-enabled="step.valid && !$ctrl.updating"\n         prev-enabled="step.prevEnabled"\n         on-show="step.onShow"\n         step-id="{{step.id}}"\n         step-priority="{{$index}}">\n      <div class="wizard-pf-main-inner-shadow-covers">\n        <div ng-include="step.view" class="wizard-pf-main-form-contents"></div>\n      </div>\n    </pf-wizard-step>\n  </pf-wizard>\n</div>\n';
+    e.exports = '<div class="order-service">\n  <pf-wizard\n       wizard-title="{{$ctrl.serviceName}}"\n       hide-sidebar="true"\n       step-class="order-service-wizard-step"\n       current-step="$ctrl.currentStep"\n       wizard-ready="$ctrl.wizardReady"\n       next-title="$ctrl.nextTitle"\n       on-finish="$ctrl.closePanel()"\n       on-cancel="$ctrl.closePanel()"\n       wizard-done="$ctrl.wizardDone">\n    <pf-wizard-step ng-repeat="step in $ctrl.steps track by step.id"\n         step-title="{{step.label}}"\n         wz-disabled="{{step.hidden}}"\n         allow-click-nav="step.allowClickNav"\n         next-enabled="step.valid && !$ctrl.updating"\n         prev-enabled="step.prevEnabled"\n         on-show="step.onShow"\n         focus-selectors="step.focusSelectors"\n         step-id="{{step.id}}"\n         step-priority="{{$index}}">\n      <div class="wizard-pf-main-inner-shadow-covers">\n        <div ng-include="step.view" class="wizard-pf-main-form-contents"></div>\n      </div>\n    </pf-wizard-step>\n  </pf-wizard>\n</div>\n';
 }, function(e, t) {
     e.exports = '<div class="catalogs-overlay-modal" role="dialog">\n  <div ng-if="$ctrl.shown" class="modal-backdrop fade in"></div>\n  <div ng-if="$ctrl.shown" class="catalogs-overlay-panel-wrapper">\n    <div class="catalogs-overlay-panel-grow-height">\n      <div class="modal-content catalogs-overlay-panel">\n        <a ng-if="$ctrl.showClose" ng-click="$ctrl.closePanel()">\n          <span class="catalogs-overlay-panel-close pficon pficon-close"></span>\n        </a>\n        <div class="catalogs-overlay-panel-body" ng-transclude>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n';
 }, function(e, t) {
-    e.exports = '<div ng-if="$ctrl.loading" class="catalog-projects-spinner-container">\n  <div class="spinner spinner-inverse spinner-xl"></div>\n</div>\n<div class="catalog-projects-summary-panel" ng-show="!$ctrl.loading">\n  <button ng-if="$ctrl.canCreate" class="create-button btn btn-primary" ng-click="$ctrl.openNewProjectPanel($event)">\n    <span class="fa fa-plus"></span>\n    <span class="create-button-text">Create Project</span>\n  </button>\n  <origin-modal-popup class="catalog-create-project" modal-title="Create Project" shown="$ctrl.newProjectPanelShown" on-close="$ctrl.closeNewProjectPanel" reference-element="$ctrl.modalPopupElement">\n    <create-project is-dialog="true" redirect-action="$ctrl.onNewProject" on-cancel="$ctrl.closeNewProjectPanel"></create-project>\n  </origin-modal-popup>\n  <h2 class="summary-title secondary" ng-if="!$ctrl.projects || !$ctrl.projects.length">Getting Started</h2>\n  <h2 class="summary-title secondary" ng-if="$ctrl.projects && $ctrl.projects.length">\n    <a href="{{$ctrl.projectsUrl}}">My Projects</a>\n  </h2>\n  <div ng-if="!$ctrl.canCreate">\n    <span ng-if="!$ctrl.newProjectMessage">\n      A cluster admin can create a project for you by running the command:\n      <div class="code-block">\n        <code class="projects-instructions-link">oc adm <span class="command-arg">new-project</span> &lt;projectname&gt; <span class="command-arg">--admin={{$ctrl.user.metadata.name || \'&lt;YourUsername&gt;\'}}</span></code>\n      </div>\n    </span>\n    <span ng-if="$ctrl.newProjectMessage" ng-bind-html="$ctrl.newProjectMessage | linky : \'_blank\'"></span>\n  </div>\n  <div ng-if="$ctrl.isProjectListIncomplete">\n    <p class="text-muted">\n      The complete list of your projects could not be loaded. Type a project name to go to that project.\n    </p>\n    <form>\n      <div class="form-group">\n        <label for="typed-project-name">Project Name</label>\n        <div class="input-group">\n          <input\n            class="form-control"\n            type="text"\n            id="typed-project-name"\n            required\n            minlength="2"\n            ng-model="$ctrl.typedProjectName"\n            autocorrect="off"\n            autocapitalize="none"\n            spellcheck="false">\n          <span class="input-group-btn">\n            <button class="btn btn-default go-to-project-button"\n                    type="submit"\n                    ng-disabled="!$ctrl.typedProjectName"\n                    ng-click="$ctrl.goToProject($ctrl.typedProjectName)">\n              <i class="fa fa-arrow-right" aria-hidden="true"></i>\n              <span class="sr-only">Go to Project</span>\n            </button>\n          </span>\n        </div>\n      </div>\n    </form>\n  </div>\n  <div ng-if="$ctrl.projects && $ctrl.projects.length" class="catalog-project-summary-list">\n    <div class="projects-count">\n      <strong>{{$ctrl.projects.length}}</strong>\n      of\n      <strong>{{$ctrl.totalProjects}}</strong>\n      Projects\n      <a href="{{$ctrl.projectsUrl}}" class="projects-view-all">View All</a>\n    </div>\n    <div id="catalog-projects-summary-list">\n      <div ng-repeat="project in $ctrl.projects track by (project | uid)" class="project-tile tile-click">\n        <div class="dropdown  dropdown-kebab-pf" uib-dropdown="">\n          <button class="btn btn-link uib-dropdown-toggle" type="button" id="dropdownKebab" aria-haspopup="true" aria-expanded="true" uib-dropdown-toggle>\n            <span class="fa fa-ellipsis-v"></span>\n          </button>\n          <ul class="uib-dropdown-menu dropdown-menu-right" aria-labelledby="dropdownKebab">\n            <li><a href="" ng-click="$ctrl.onViewMemebership(project)">View Membership</a></li>\n            <li><a href="" ng-click="$ctrl.editProject(project)">Edit Project</a></li>\n            <li>\n              <delete-project\n                  label="Delete Project"\n                  project="project"\n                  type-name-to-confirm="true"\n                  stay-on-current-page="true"\n                  success="$ctrl.onDeleteProject">\n              </delete-project>\n            </li>\n          </ul>\n        </div>\n        <h3 class="project-tile-header">\n          <a href="{{project | projectUrl : $ctrl.baseProjectUrl}}" class="project-title tile-target">{{project | displayName}}</a>\n          <span ng-if="project.status.phase != \'Active\'"\n            data-toggle="popover"\n            data-trigger="hover"\n            data-content="This project has been marked for deletion."\n            class="pficon pficon-warning-triangle-o"></span>\n        </h3>\n        <p class="project-date">\n          <span ng-if="project | displayName : true"><span class="word-break" ng-bind-html="project.metadata.name"></span> &ndash;</span>\n          created\n          <span ng-if="project | annotation : \'openshift.io/requester\'">by <span class="word-break" ng-bind-html="project | annotation : \'openshift.io/requester\'"></span></span>\n          <span am-time-ago="project.metadata.creationTimestamp"></span>\n        </p>\n        <div class="project-description" ng-if="project | description">\n          <truncate-long-text content="project | description" use-word-boundary="true" limit="120"></truncate-long-text>\n        </div>\n        <origin-modal-popup class="catalog-edit-project" modal-title="Edit Project" shown="$ctrl.editProjectPanelShown && $ctrl.edittingProject === project" on-close="$ctrl.closeEditProjectPanel">\n          <edit-project project="$ctrl.edittingProject" is-dialog="true" redirect-action="$ctrl.onEditProject" on-cancel="$ctrl.closeEditProjectPanel"></edit-project>\n        </origin-modal-popup>\n      </div>\n    </div>\n  </div>\n  <div ng-if="$ctrl.showGetStarted">\n    <div class="getting-started-panel">\n      <h2 class="secondary" ng-if="$ctrl.projects && $ctrl.projects.length > 0">Getting Started</h2>\n      <button ng-if="$ctrl.startTour()" class="getting-started-button btn btn-default hidden-xs" ng-class="{\'with-projects\': $ctrl.projects && $ctrl.projects.length}" ng-click="$ctrl.handleGettingStartedClick()">\n        <span class="fa fa-info-circle fa-2"></span>\n        <span class="getting-started-button-text">Take Home Page Tour</span>\n      </button>\n    </div>\n    <div class="resources-panel">\n      <ul>\n        <li ng-repeat="resource in $ctrl.resourceLinks">\n          <a href="{{resource.href}}" target="_blank" title="{{resource.href}}">{{resource.title}}</a>\n        </li>\n      </ul>\n    </div>\n  </div>\n  <div ng-if="$ctrl.recentlyViewedItems.length">\n    <h2 class="secondary">Recently Viewed</h2>\n    <div class="services-view">\n      <a href="" class="services-item" ng-repeat="item in $ctrl.recentlyViewedItems track by (item.resource | uid)"\n           ng-click="$ctrl.orderService(item)">\n        <div ng-if="!item.imageUrl" class="services-item-icon">\n          <span class="{{item.iconClass}}"></span>\n        </div>\n        <div ng-if="item.imageUrl" class="services-item-icon services-item-img">\n          <img ng-src="{{item.imageUrl}}">\n        </div>\n        <div class="services-item-name" title="{{item.name}}" aria-hidden="true">{{item.name}}</div>\n      </a>\n    </div>\n  </div>\n</div>\n';
+    e.exports = '<div ng-if="$ctrl.loading" class="catalog-projects-spinner-container">\n  <div class="spinner spinner-inverse spinner-xl"></div>\n</div>\n<div class="catalog-projects-summary-panel" ng-show="!$ctrl.loading">\n  <button ng-if="$ctrl.canCreate" class="create-button btn btn-primary" ng-click="$ctrl.openNewProjectPanel($event)">\n    <span class="fa fa-plus"></span>\n    <span class="create-button-text">Create Project</span>\n  </button>\n  <origin-modal-popup class="catalog-create-project" modal-title="Create Project" shown="$ctrl.newProjectPanelShown" on-close="$ctrl.closeNewProjectPanel" reference-element="$ctrl.modalPopupElement">\n    <create-project is-dialog="true" redirect-action="$ctrl.onNewProject" on-cancel="$ctrl.closeNewProjectPanel"></create-project>\n  </origin-modal-popup>\n  <h2 class="summary-title secondary" ng-if="!$ctrl.projects || !$ctrl.projects.length">Getting Started</h2>\n  <h2 class="summary-title secondary" ng-if="$ctrl.projects && $ctrl.projects.length">\n    <a href="{{$ctrl.projectsUrl}}">My Projects</a>\n  </h2>\n  <div ng-if="!$ctrl.canCreate">\n    <span ng-if="!$ctrl.newProjectMessage">\n      A cluster admin can create a project for you by running the command:\n      <div class="code-block">\n        <code class="projects-instructions-link">oc adm <span class="command-arg">new-project</span> &lt;projectname&gt; <span class="command-arg">--admin={{$ctrl.user.metadata.name || \'&lt;YourUsername&gt;\'}}</span></code>\n      </div>\n    </span>\n    <span ng-if="$ctrl.newProjectMessage" ng-bind-html="$ctrl.newProjectMessage | linky : \'_blank\'"></span>\n  </div>\n  <div ng-if="$ctrl.isProjectListIncomplete">\n    <p class="text-muted">\n      The complete list of your projects could not be loaded. Type a project name to go to that project.\n    </p>\n    <form>\n      <div class="form-group">\n        <label for="typed-project-name">Project Name</label>\n        <div class="input-group">\n          <input\n            class="form-control"\n            type="text"\n            id="typed-project-name"\n            required\n            minlength="2"\n            ng-model="$ctrl.typedProjectName"\n            autocorrect="off"\n            autocapitalize="none"\n            spellcheck="false">\n          <span class="input-group-btn">\n            <button class="btn btn-default go-to-project-button"\n                    type="submit"\n                    ng-disabled="!$ctrl.typedProjectName"\n                    ng-click="$ctrl.goToProject($ctrl.typedProjectName)">\n              <i class="fa fa-arrow-right" aria-hidden="true"></i>\n              <span class="sr-only">Go to Project</span>\n            </button>\n          </span>\n        </div>\n      </div>\n    </form>\n  </div>\n  <div ng-if="$ctrl.projects && $ctrl.projects.length" class="catalog-project-summary-list">\n    <div class="projects-count">\n      <strong>{{$ctrl.projects.length}}</strong>\n      of\n      <strong>{{$ctrl.totalProjects}}</strong>\n      Projects\n      <a href="{{$ctrl.projectsUrl}}" class="projects-view-all">View All</a>\n    </div>\n    <div id="catalog-projects-summary-list">\n      <div ng-repeat="project in $ctrl.projects track by (project | uid)" class="project-tile tile-click">\n        <div class="dropdown  dropdown-kebab-pf" uib-dropdown="">\n          <button class="btn btn-link dropdown-toggle" type="button" id="dropdownKebab" aria-haspopup="true" aria-expanded="true" uib-dropdown-toggle>\n            <span class="fa fa-ellipsis-v"></span>\n          </button>\n          <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownKebab">\n            <li><a href="" ng-click="$ctrl.onViewMemebership(project)">View Membership</a></li>\n            <li><a href="" ng-click="$ctrl.editProject(project)">Edit Project</a></li>\n            <li>\n              <delete-project\n                  label="Delete Project"\n                  project="project"\n                  type-name-to-confirm="true"\n                  stay-on-current-page="true"\n                  success="$ctrl.onDeleteProject">\n              </delete-project>\n            </li>\n          </ul>\n        </div>\n        <h3 class="project-tile-header">\n          <a href="{{project | projectUrl : $ctrl.baseProjectUrl}}" class="project-title tile-target">{{project | displayName}}</a>\n          <span ng-if="project.status.phase != \'Active\'"\n            data-toggle="popover"\n            data-trigger="hover"\n            data-content="This project has been marked for deletion."\n            class="pficon pficon-warning-triangle-o"></span>\n        </h3>\n        <p class="project-date">\n          <span ng-if="project | displayName : true"><span class="word-break" ng-bind-html="project.metadata.name"></span> &ndash;</span>\n          created\n          <span ng-if="project | annotation : \'openshift.io/requester\'">by <span class="word-break" ng-bind-html="project | annotation : \'openshift.io/requester\'"></span></span>\n          <span am-time-ago="project.metadata.creationTimestamp"></span>\n        </p>\n        <div class="project-description" ng-if="project | description">\n          <truncate-long-text content="project | description" use-word-boundary="true" limit="120"></truncate-long-text>\n        </div>\n        <origin-modal-popup class="catalog-edit-project" modal-title="Edit Project" shown="$ctrl.editProjectPanelShown && $ctrl.edittingProject === project" on-close="$ctrl.closeEditProjectPanel">\n          <edit-project project="$ctrl.edittingProject" is-dialog="true" redirect-action="$ctrl.onEditProject" on-cancel="$ctrl.closeEditProjectPanel"></edit-project>\n        </origin-modal-popup>\n      </div>\n    </div>\n  </div>\n  <div ng-if="$ctrl.showGetStarted">\n    <div class="getting-started-panel">\n      <h2 class="secondary" ng-if="$ctrl.projects && $ctrl.projects.length > 0">Getting Started</h2>\n      <button ng-if="$ctrl.startTour()" class="getting-started-button btn btn-default hidden-xs" ng-class="{\'with-projects\': $ctrl.projects && $ctrl.projects.length}" ng-click="$ctrl.handleGettingStartedClick()">\n        <span class="fa fa-info-circle fa-2"></span>\n        <span class="getting-started-button-text">Take Home Page Tour</span>\n      </button>\n    </div>\n    <div class="resources-panel">\n      <ul>\n        <li ng-repeat="resource in $ctrl.resourceLinks">\n          <a href="{{resource.href}}" target="_blank" title="{{resource.href}}">{{resource.title}}</a>\n        </li>\n      </ul>\n    </div>\n  </div>\n  <div ng-if="$ctrl.recentlyViewedItems.length">\n    <h2 class="secondary">Recently Viewed</h2>\n    <div class="services-view">\n      <a href="" class="services-item" ng-repeat="item in $ctrl.recentlyViewedItems track by (item.resource | uid)"\n           ng-click="$ctrl.orderService(item)">\n        <div ng-if="!item.imageUrl" class="services-item-icon">\n          <span class="{{item.iconClass}}"></span>\n        </div>\n        <div ng-if="item.imageUrl" class="services-item-icon services-item-img">\n          <img ng-src="{{item.imageUrl}}">\n        </div>\n        <div class="services-item-name" title="{{item.name}}" aria-hidden="true">{{item.name}}</div>\n      </a>\n    </div>\n  </div>\n</div>\n';
 }, function(e, t) {
     e.exports = '<span ng-if="$ctrl.hasSaasOfferings()" class="saas-offerings-container">\n  <h1 ng-if="$ctrl.saasTitle">{{$ctrl.saasTitle}}</h1>\n  <div class="saas-list" ng-class="{\'expanded\': $ctrl.sassListExpanded, \'items-overflow\': $ctrl.itemsOverflow}" items="$ctrl.saasOfferings">\n    <div class="card" ng-repeat="item in $ctrl.saasOfferings">\n      <a ng-href="{{item.url}}" target="_blank" class="card-content">\n        <div class="card-icon">\n          <img ng-if="item.image" ng-src="{{item.image}}" alt="">\n          <span ng-if="!item.image" class="icon {{item.icon}}" aria-hidden="true"></span>\n        </div>\n        <div class="card-title">{{item.title}}</div>\n        <truncate-long-text\n                class="card-description hidden-xs"\n                content="item.description"\n                limit="120"\n                use-word-boundary="true">\n        </truncate-long-text>\n      </a>\n    </div>\n  </div>\n  <div ng-if="$ctrl.itemsOverflow" class="sass-list-expander-container">\n    <a href="" class="sass-list-expander" ng-class="{\'expanded\': $ctrl.sassListExpanded}" ng-click="$ctrl.toggleListExpand()">\n      Show <span class="more">More</span><span class="less">Less</span>\n    </a>\n  </div>\n</span>\n';
 }, function(e, t) {
@@ -1048,39 +1048,39 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
 }, function(e, t) {
     e.exports = '<span ng-if="$ctrl.noProjectsCantCreate" class="no-projects-cant-create">\n  <pf-empty-state config="$ctrl.noProjectsConfig"></pf-empty-state>\n  <p ng-if="!$ctrl.noProjectsCantCreateMessage">\n    A cluster admin can create a project for you by running the command:\n    <div class="code-block">\n      <code>oc adm <span class="command-arg">new-project</span> &lt;projectname&gt; <span class="command-arg">--admin={{$ctrl.user.metadata.name || \'&lt;YourUsername&gt;\'}}</span></code>\n    </div>\n  </p>\n  <div ng-if="$ctrl.noProjectsCantCreateMessage" ng-bind-html="$ctrl.noProjectsCantCreateMessage | linky : \'_blank\'"></div>\n</span>\n\n\x3c!-- Use `ng-show` instead of `ng-if` so that the form exists and the `canI` works when projects load. --\x3e\n<ng-form name="$ctrl.forms.selectProjectForm" ng-show="$ctrl.numProjectChoices >= 1">\n  <div class="form-group" ng-class="{\'has-error\' : $ctrl.forms.selectProjectForm.selectProject.$error.cannotAddToProject ||\n                                                   ($ctrl.forms.selectProjectForm.selectProject.$touched &&\n                                                    $ctrl.forms.selectProjectForm.selectProject.$invalid)}">\n    <h3 ng-if="$ctrl.canOnlyCreateProject()">Create Project</h3>\n    <label ng-if="!$ctrl.canOnlyCreateProject() && !$ctrl.hideLabel" class="control-label required">Add to Project</label>\n    <ui-select\n        ng-if="!$ctrl.canOnlyCreateProject()"\n        ng-disabled="$ctrl.numProjectChoices === 1"\n        name="selectProject"\n        ng-model="$ctrl.selectedProject"\n        ng-change="$ctrl.onSelectProjectChange()"\n        ng-required="$ctrl.isRequired"\n        search-enabled="$ctrl.searchEnabled"\n        uis-open-close="$ctrl.onOpenClose(isOpen)">\n      <ui-select-match placeholder="{{$ctrl.placeholder}}">\n        {{$select.selected | displayName}}\n      </ui-select-match>\n      \x3c!-- refresh-delay must be set using ng-attr-refresh-delay to work as a dynamic value --\x3e\n      <ui-select-choices\n          repeat="project in $ctrl.getProjectChoices() track by (project | uid)"\n          refresh="$ctrl.refreshChoices($select.search)"\n          ng-attr-refresh-delay="{{$ctrl.refreshDelay}}"\n          group-by="$ctrl.groupChoicesBy">\n        <span ng-bind-html="project | displayName | highlightKeywords : $select.search"></span>\n        <span ng-if="project | displayName : true" class="small text-muted">\n          <span ng-if="project.metadata.name">&ndash;</span>\n          <span ng-bind-html="project.metadata.name | highlightKeywords : $select.search"></span>\n        </span>\n      </ui-select-choices>\n    </ui-select>\n    <div ng-if="$ctrl.forms.selectProjectForm.selectProject.$error.cannotAddToProject">\n        <span class="help-block">\n          You are not authorized to add to this project.\n        </span>\n    </div>\n    <div class="has-error" ng-if="$ctrl.forms.selectProjectForm.selectProject.$error.required &&\n                                  $ctrl.forms.selectProjectForm.selectProject.$touched">\n      <span class="help-block">\n        Please select <span ng-if="$ctrl.canCreate && !$ctrl.hideCreateProject">or create</span> a project.\n      </span>\n    </div>\n  </div>\n</ng-form>\n\n<ng-form name="$ctrl.forms.createProjectForm"\n    ng-if="$ctrl.isNewProject()">\n  <div class="form-group">\n    <label for="name" class="control-label required">Project Name</label>\n    <div ng-class="{\'has-error\': ($ctrl.forms.createProjectForm.name.$error.pattern && $ctrl.forms.createProjectForm.name.$touched) ||\n                                 $ctrl.nameTaken || $ctrl.forms.createProjectForm.name.$error.oscUnique}">\n      <input class="form-control"\n          name="name"\n          id="name"\n          placeholder="my-project"\n          type="text"\n          required\n          take-focus\n          minlength="2"\n          maxlength="63"\n          pattern="[a-z0-9]([-a-z0-9]*[a-z0-9])?"\n          aria-describedby="nameHelp"\n          ng-model="$ctrl.selectedProject.metadata.name"\n          osc-unique="$ctrl.existingProjectNames"\n          ng-model-options="{ updateOn: \'default blur\' }"\n          ng-change="$ctrl.onNewProjectNameChange()"\n          autocorrect="off"\n          autocapitalize="off"\n          spellcheck="false">\n    </div>\n    <div class="help-block">A unique name for the project.</div>\n    <div class="has-error" ng-if="$ctrl.forms.createProjectForm.name.$error.minlength && $ctrl.forms.createProjectForm.name.$touched">\n      <span id="nameHelp" class="help-block">\n        Name must have at least two characters.\n      </span>\n    </div>\n    <div class="has-error" ng-if="$ctrl.forms.createProjectForm.name.$error.pattern && $ctrl.forms.createProjectForm.name.$touched">\n      <span id="nameHelp" class="help-block">\n        Project names may only contain lower-case letters, numbers, and dashes.\n        They may not start or end with a dash.\n      </span>\n    </div>\n    <div class="has-error" ng-if="$ctrl.nameTaken || $ctrl.forms.createProjectForm.name.$error.oscUnique">\n      <span class="help-block">\n        This name is already in use. Please choose a different name.\n      </span>\n    </div>\n  </div>\n\n  <div class="form-group">\n    <label for="displayName" class="control-label">Project Display Name</label>\n    <input class="form-control"\n      name="displayName"\n      id="displayName"\n      placeholder="My Project"\n      type="text"\n      ng-model="$ctrl.selectedProject.metadata.annotations[\'new-display-name\']">\n  </div>\n\n  <div class="form-group">\n    <label for="description" class="control-label">Project Description</label>\n    <textarea class="form-control"\n      name="description"\n      id="description"\n      placeholder="A short description."\n      ng-model="$ctrl.selectedProject.metadata.annotations[\'openshift.io/description\']"></textarea>\n  </div>\n</ng-form>\n<div ng-if="!$ctrl.noProjectsCantCreate && $ctrl.showDivider" class="select-project-divider"></div>\n\n';
 }, function(e, t) {
-    e.exports = '<div class="services-view" ng-style="$ctrl.viewStyle">\n  <div ng-if="!$ctrl.loaded" class="spinner-container">\n    <div class="spinner spinner-xl"></div>\n  </div>\n  <div ng-if="$ctrl.loaded" class="services-view-container mobile-{{$ctrl.mobileView}}-view">\n    <div class="add-methods">\n      <h1>{{$ctrl.sectionTitle}}</h1>\n      <div ng-if="$ctrl.onDeployImageSelected || $ctrl.onFromFileSelected || $ctrl.onCreateFromProject">\n        <ul class="add-other hidden-md hidden-lg">\n          <li uib-dropdown="" class="dropdown">\n            <a uib-dropdown-toggle="" class="dropdown-toggle" id="add-methods-dropdown" href="" aria-haspopup="true" aria-expanded="false">\n              Custom Add\n              <span class="caret" aria-hidden="true"></span>\n            </a>\n            <ul class="uib-dropdown-menu dropdown-menu pull-right" aria-labelledby="add-methods-dropdown">\n              \x3c!-- note these are duplicated below --\x3e\n              <li ng-if="$ctrl.onDeployImageSelected">\n                <a href="" ng-click="$ctrl.onDeployImageSelected()">Deploy Image</a>\n              </li>\n              <li ng-if="$ctrl.onFromFileSelected">\n                <a href="" ng-click="$ctrl.onFromFileSelected()">Import YAML / JSON</a>\n              </li>\n              <li ng-if="$ctrl.onCreateFromProject">\n                <a href="" ng-click="$ctrl.onCreateFromProject()">Select from Project</a>\n              </li>\n            </ul>\n          </li>\n        </ul>\n        <ul class="add-other hidden-xs hidden-sm">\n          \x3c!-- note these are duplicated above --\x3e\n          <li ng-if="$ctrl.onDeployImageSelected">\n            <a href="" ng-click="$ctrl.onDeployImageSelected()">Deploy Image</a>\n          </li>\n          <li ng-if="$ctrl.onFromFileSelected">\n            <a href="" ng-click="$ctrl.onFromFileSelected()">Import YAML / JSON</a>\n          </li>\n          <li ng-if="$ctrl.onCreateFromProject">\n            <a href="" ng-click="$ctrl.onCreateFromProject()">Select from Project</a>\n          </li>\n        </ul>\n      </div>\n    </div>\n    <ul class="nav nav-tabs nav-tabs-pf services-categories">\n      <li ng-repeat="category in $ctrl.categories"\n          ng-if="category.hasItems"\n          ng-class="{ active: $ctrl.currentFilter === category.id }">\n        <a href="" id="{{\'category-\'+category.id}}" class="services-category-heading" ng-click="$ctrl.selectCategory(category.id)">{{category.label}}</a>\n        <a ng-click="$ctrl.mobileView = \'categories\'" class="services-back-link" href="">Back</a>\n      </li>\n    </ul>\n\n    <div class="services-inner-container">\n      \x3c!-- Do not show sub-category items for \'All\' or \'Other\' main categories --\x3e\n      <ul class="services-sub-categories"\n          ng-if="$ctrl.currentFilter !== \'other\' && $ctrl.currentFilter !== \'all\'">\n        <li ng-repeat="subCategory in $ctrl.subCategories track by subCategory.id"\n             ng-if="subCategory.hasItems"\n             ng-attr-id="{{subCategory.id}}"\n             class="services-sub-category"\n             ng-class="{ active: $ctrl.currentSubFilter === subCategory.id }">\n          <a href="" id="{{\'services-sub-category-\'+subCategory.id}}"\n             class="services-sub-category-tab" ng-click="$ctrl.selectSubCategory(subCategory.id)">\n            <div class="services-sub-category-tab-image" ng-if="imageUrl = (subCategory.imageUrl || (subCategory.icon | imageForIconClass))">\n              <img ng-src="{{imageUrl}}" alt="">\n            </div>\n            <div class="services-sub-category-tab-icon {{subCategory.icon | normalizeIconClass}}"\n                ng-if="subCategory.icon && !subCategory.imageUrl && !(subCategory.icon | imageForIconClass)"></div>\n            <div class="services-sub-category-tab-name">{{subCategory.label}}</div>\n          </a>\n         <a ng-click="$ctrl.mobileView = \'subcategories\'" class="services-back-link" href="">Back</a>\n          <div ng-if="$ctrl.currentSubFilter === subCategory.id" class="services-items">\n            <catalog-filter class="services-items-filter"\n                            config="$ctrl.filterConfig"\n                            vendors="$ctrl.vendors"\n                            filter-on-keyword="$ctrl.keywordFilterValue"\n                            apply-filters="$ctrl.applyFilters($event)">\n            </catalog-filter>\n            <div class="pf-empty-state" ng-if="$ctrl.filterConfig.appliedFilters.length > 0 && $ctrl.filterConfig.resultsCount === 0">\n              <pf-empty-state config="$ctrl.emptyFilterConfig"></pf-empty-state>\n            </div>\n            <a href="" class="services-item" ng-repeat="item in $ctrl.filteredItems track by item.resource.metadata.uid" ng-click="$ctrl.serviceViewItemClicked(item)">\n              <div ng-if="!item.imageUrl" class="services-item-icon">\n                <span class="{{item.iconClass}}"></span>\n              </div>\n              <div ng-if="item.imageUrl" class="services-item-icon">\n                <img ng-src="{{item.imageUrl}}" alt="">\n              </div>\n              <div class="services-item-name" title="{{item.name}}">\n                {{item.name}}\n              </div>\n            </a>\n          </div>\n        </li>\n      </ul>\n\n      \x3c!-- Show catalog item for \'All\' and \'Other\' main categories --\x3e\n      <div ng-if="$ctrl.currentFilter === \'other\' || $ctrl.currentFilter === \'all\'" class="services-no-sub-categories">\n        <div class="services-items" ng-class="{\'no-items-available\': $ctrl.isEmpty}">\n          <div ng-if="$ctrl.isEmpty">\n            <div class="pf-empty-state">\n              <pf-empty-state config="$ctrl.noItemsConfig"></pf-empty-state>\n            </div>\n          </div>\n          <catalog-filter ng-if="!$ctrl.isEmpty"\n                          class="services-items-filter"\n                          config="$ctrl.filterConfig"\n                          vendors="$ctrl.vendors"\n                          filter-on-keyword="$ctrl.keywordFilterValue"\n                          apply-filters="$ctrl.applyFilters($event)">\n          </catalog-filter>\n          <div class="pf-empty-state" ng-if="$ctrl.filterConfig.appliedFilters.length > 0 && $ctrl.filterConfig.resultsCount === 0">\n            <pf-empty-state config="$ctrl.emptyFilterConfig"></pf-empty-state>\n          </div>\n          <a href="" class="services-item" ng-repeat="item in $ctrl.filteredItems track by item.resource.metadata.uid" ng-click="$ctrl.serviceViewItemClicked(item)">\n            <div ng-if="!item.imageUrl" class="services-item-icon">\n              <span class="{{item.iconClass}}"></span>\n            </div>\n            <div ng-if="item.imageUrl" class="services-item-icon">\n              <img ng-src="{{item.imageUrl}}" alt="">\n            </div>\n            <div class="services-item-name" title="{{item.name}}">\n              {{item.name}}\n            </div>\n          </a>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n';
+    e.exports = '<div class="services-view" ng-style="$ctrl.viewStyle">\n  <div ng-if="!$ctrl.loaded" class="spinner-container">\n    <div class="spinner spinner-xl"></div>\n  </div>\n  <div ng-if="$ctrl.loaded" class="services-view-container mobile-{{$ctrl.mobileView}}-view">\n    <div class="add-methods">\n      <h1>{{$ctrl.sectionTitle}}</h1>\n      <div ng-if="$ctrl.onDeployImageSelected || $ctrl.onFromFileSelected || $ctrl.onCreateFromProject">\n        <ul class="add-other hidden-md hidden-lg">\n          <li uib-dropdown="" class="dropdown">\n            <a uib-dropdown-toggle="" class="dropdown-toggle" id="add-methods-dropdown" href="" aria-haspopup="true" aria-expanded="false">\n              Custom Add\n              <span class="caret" aria-hidden="true"></span>\n            </a>\n            <ul class="dropdown-menu pull-right" aria-labelledby="add-methods-dropdown">\n              \x3c!-- note these are duplicated below --\x3e\n              <li ng-if="$ctrl.onDeployImageSelected">\n                <a href="" ng-click="$ctrl.onDeployImageSelected()">Deploy Image</a>\n              </li>\n              <li ng-if="$ctrl.onFromFileSelected">\n                <a href="" ng-click="$ctrl.onFromFileSelected()">Import YAML / JSON</a>\n              </li>\n              <li ng-if="$ctrl.onCreateFromProject">\n                <a href="" ng-click="$ctrl.onCreateFromProject()">Select from Project</a>\n              </li>\n            </ul>\n          </li>\n        </ul>\n        <ul class="add-other hidden-xs hidden-sm">\n          \x3c!-- note these are duplicated above --\x3e\n          <li ng-if="$ctrl.onDeployImageSelected">\n            <a href="" ng-click="$ctrl.onDeployImageSelected()">Deploy Image</a>\n          </li>\n          <li ng-if="$ctrl.onFromFileSelected">\n            <a href="" ng-click="$ctrl.onFromFileSelected()">Import YAML / JSON</a>\n          </li>\n          <li ng-if="$ctrl.onCreateFromProject">\n            <a href="" ng-click="$ctrl.onCreateFromProject()">Select from Project</a>\n          </li>\n        </ul>\n      </div>\n    </div>\n    <ul class="nav nav-tabs nav-tabs-pf services-categories">\n      <li ng-repeat="category in $ctrl.categories"\n          ng-if="category.hasItems"\n          ng-class="{ active: $ctrl.currentFilter === category.id }">\n        <a href="" id="{{\'category-\'+category.id}}" class="services-category-heading" ng-click="$ctrl.selectCategory(category.id)">{{category.label}}</a>\n        <a ng-click="$ctrl.mobileView = \'categories\'" class="services-back-link" href="">Back</a>\n      </li>\n    </ul>\n\n    <div class="services-inner-container">\n      \x3c!-- Do not show sub-category items for \'All\' or \'Other\' main categories --\x3e\n      <ul class="services-sub-categories"\n          ng-if="$ctrl.currentFilter !== \'other\' && $ctrl.currentFilter !== \'all\'">\n        <li ng-repeat="subCategory in $ctrl.subCategories track by subCategory.id"\n             ng-if="subCategory.hasItems"\n             ng-attr-id="{{subCategory.id}}"\n             class="services-sub-category"\n             ng-class="{ active: $ctrl.currentSubFilter === subCategory.id }">\n          <a href="" id="{{\'services-sub-category-\'+subCategory.id}}"\n             class="services-sub-category-tab" ng-click="$ctrl.selectSubCategory(subCategory.id)">\n            <div class="services-sub-category-tab-image" ng-if="imageUrl = (subCategory.imageUrl || (subCategory.icon | imageForIconClass))">\n              <img ng-src="{{imageUrl}}" alt="">\n            </div>\n            <div class="services-sub-category-tab-icon {{subCategory.icon | normalizeIconClass}}"\n                ng-if="subCategory.icon && !subCategory.imageUrl && !(subCategory.icon | imageForIconClass)"></div>\n            <div class="services-sub-category-tab-name">{{subCategory.label}}</div>\n          </a>\n         <a ng-click="$ctrl.mobileView = \'subcategories\'" class="services-back-link" href="">Back</a>\n          <div ng-if="$ctrl.currentSubFilter === subCategory.id" class="services-items">\n            <catalog-filter class="services-items-filter"\n                            config="$ctrl.filterConfig"\n                            vendors="$ctrl.vendors"\n                            filter-on-keyword="$ctrl.keywordFilterValue"\n                            apply-filters="$ctrl.applyFilters($event)">\n            </catalog-filter>\n            <div class="pf-empty-state" ng-if="$ctrl.filterConfig.appliedFilters.length > 0 && $ctrl.filterConfig.resultsCount === 0">\n              <pf-empty-state config="$ctrl.emptyFilterConfig"></pf-empty-state>\n            </div>\n            <a href="" class="services-item" ng-repeat="item in $ctrl.filteredItems track by item.resource.metadata.uid" ng-click="$ctrl.serviceViewItemClicked(item)">\n              <div ng-if="!item.imageUrl" class="services-item-icon">\n                <span class="{{item.iconClass}}"></span>\n              </div>\n              <div ng-if="item.imageUrl" class="services-item-icon">\n                <img ng-src="{{item.imageUrl}}" alt="">\n              </div>\n              <div class="services-item-name" title="{{item.name}}">\n                {{item.name}}\n              </div>\n            </a>\n          </div>\n        </li>\n      </ul>\n\n      \x3c!-- Show catalog item for \'All\' and \'Other\' main categories --\x3e\n      <div ng-if="$ctrl.currentFilter === \'other\' || $ctrl.currentFilter === \'all\'" class="services-no-sub-categories">\n        <div class="services-items" ng-class="{\'no-items-available\': $ctrl.isEmpty}">\n          <div ng-if="$ctrl.isEmpty">\n            <div class="pf-empty-state">\n              <pf-empty-state config="$ctrl.noItemsConfig"></pf-empty-state>\n            </div>\n          </div>\n          <catalog-filter ng-if="!$ctrl.isEmpty"\n                          class="services-items-filter"\n                          config="$ctrl.filterConfig"\n                          vendors="$ctrl.vendors"\n                          filter-on-keyword="$ctrl.keywordFilterValue"\n                          apply-filters="$ctrl.applyFilters($event)">\n          </catalog-filter>\n          <div class="pf-empty-state" ng-if="$ctrl.filterConfig.appliedFilters.length > 0 && $ctrl.filterConfig.resultsCount === 0">\n            <pf-empty-state config="$ctrl.emptyFilterConfig"></pf-empty-state>\n          </div>\n          <a href="" class="services-item" ng-repeat="item in $ctrl.filteredItems track by item.resource.metadata.uid" ng-click="$ctrl.serviceViewItemClicked(item)">\n            <div ng-if="!item.imageUrl" class="services-item-icon">\n              <span class="{{item.iconClass}}"></span>\n            </div>\n            <div ng-if="item.imageUrl" class="services-item-icon">\n              <img ng-src="{{item.imageUrl}}" alt="">\n            </div>\n            <div class="services-item-name" title="{{item.name}}">\n              {{item.name}}\n            </div>\n          </a>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n';
 }, function(e, t) {
     e.exports = '<div class="order-service">\n  <pf-wizard wizard-title="{{$ctrl.displayName}}"\n             hide-sidebar="true"\n             step-class="order-service-wizard-step"\n             wizard-ready="$ctrl.wizardReady"\n             next-title="$ctrl.nextTitle"\n             on-finish="$ctrl.closePanel()"\n             on-cancel="$ctrl.closePanel()"\n             wizard-done="$ctrl.wizardDone"\n             hide-back-button="{{$ctrl.hideBackButton}}">\n    <pf-wizard-step ng-repeat="step in $ctrl.steps track by step.id"\n                    step-title="{{step.label}}"\n                    wz-disabled="{{step.hidden}}"\n                    allow-click-nav="step.allowClickNav"\n                    next-enabled="step.valid && !$ctrl.updating"\n                    prev-enabled="step.prevEnabled"\n                    on-show="step.onShow"\n                    step-id="{{step.id}}"\n                    step-priority="{{$index}}">\n      <div class="wizard-pf-main-inner-shadow-covers">\n        <div ng-include="step.view" class="wizard-pf-main-form-contents"></div>\n      </div>\n    </pf-wizard-step>\n  </pf-wizard>\n</div>\n';
 }, function(e, t, r) {
     "use strict";
     t.__esModule = !0;
-    var n = r(1), i = r(0), a = function() {
+    var n = r(1), i = r(0), s = function() {
         function e(e, t, r) {
-            var a = this;
+            var s = this;
             this.ctrl = this, this.onKeywordKeyPress = function(e) {
-                if (13 === e.which && a.ctrl.keywordFilter.value.length > 0) {
-                    var t = a.ctrl.keywordFilter.value;
-                    a.keywordFilterExists(t) ? a.highlightKeywordFilter(t) : (a.ctrl.keywordFilter.values.push(t), 
-                    a.constructFiltersFromModel()), delete a.ctrl.keywordFilter.value;
+                if (13 === e.which && s.ctrl.keywordFilter.value.length > 0) {
+                    var t = s.ctrl.keywordFilter.value;
+                    s.keywordFilterExists(t) ? s.highlightKeywordFilter(t) : (s.ctrl.keywordFilter.values.push(t), 
+                    s.constructFiltersFromModel()), delete s.ctrl.keywordFilter.value;
                 }
             }, this.filterChanged = function() {
-                a.constructFiltersFromModel();
+                s.constructFiltersFromModel();
             }, this.keywordFilterExists = function(e) {
-                return i.some(a.ctrl.keywordFilter.values, function(t) {
+                return i.some(s.ctrl.keywordFilter.values, function(t) {
                     return e.toLowerCase() === t.toLowerCase();
                 });
             }, this.highlightKeywordFilter = function(e) {
                 var t = document.querySelectorAll("pf-filter-panel-results .label-info"), r = i.find(t, function(t) {
                     return t.innerText.trim() === "Keyword:" + e.toLowerCase();
                 });
-                r && (a.$timeout(function() {
+                r && (s.$timeout(function() {
                     r.classList.add("flash-filter-tag");
-                }, 100), a.$timeout(function() {
+                }, 100), s.$timeout(function() {
                     r.classList.remove("flash-filter-tag");
                 }, 300));
             }, this.onFilterChange = function(e, t, r) {
-                n.isDefined(t) && n.isDefined(r) ? a.updateFilterPanelModel(t, r) : a.resetFilterPanelModel(), 
-                a.constructFiltersFromModel();
+                n.isDefined(t) && n.isDefined(r) ? s.updateFilterPanelModel(t, r) : s.resetFilterPanelModel(), 
+                s.constructFiltersFromModel();
             }, this.$scope = e, this.$timeout = t, this.Catalog = r, this.ctrl.filterPanelModel = [], 
             this.ctrl.keywordFilter = {
                 id: "keyword",
@@ -1171,11 +1171,11 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             });
         }, e;
     }();
-    a.$inject = [ "$scope", "$timeout", "Catalog" ], t.CatalogFilterController = a;
+    s.$inject = [ "$scope", "$timeout", "Catalog" ], t.CatalogFilterController = s;
 }, function(e, t, r) {
     "use strict";
     t.__esModule = !0;
-    var n = r(0), i = r(1), a = function() {
+    var n = r(0), i = r(1), s = function() {
         function e() {
             this.ctrl = this;
         }
@@ -1245,26 +1245,26 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             }
         }, e;
     }();
-    a.ALLOWED_FORM_INPUT_TYPES = {
+    s.ALLOWED_FORM_INPUT_TYPES = {
         fieldset: !0,
         text: !0,
         textarea: !0,
         password: !0,
         checkbox: !0,
         select: !0
-    }, t.CatalogParametersController = a;
+    }, t.CatalogParametersController = s;
 }, function(e, t, r) {
     "use strict";
     t.__esModule = !0;
-    var n = r(0), i = r(2), a = function() {
-        function e(e, t, r, n, i, a, s) {
-            var c = this;
+    var n = r(0), i = r(2), s = function() {
+        function e(e, t, r, n, i, s, a) {
+            var o = this;
             this.ctrl = this, this.loaded = !1, this.maxResultsToShow = 5, this.onKeyPress = function(e) {
-                13 === e.which && c.ctrl.searchText && (c.$rootScope.$emit("filter-catalog-items", {
-                    searchText: c.ctrl.searchText
-                }), c.ctrl.searchText = "");
+                13 === e.which && o.ctrl.searchText && (o.$rootScope.$emit("filter-catalog-items", {
+                    searchText: o.ctrl.searchText
+                }), o.ctrl.searchText = "");
             }, this.$rootScope = e, this.$scope = t, this.$timeout = r, this.$q = n, this.Catalog = i, 
-            this.Constants = a, this.KeywordService = s;
+            this.Constants = s, this.KeywordService = a;
         }
         return e.prototype.$onInit = function() {
             this.ctrl.searchText = "";
@@ -1291,29 +1291,29 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 t.setSearchInputFocus(e + 1);
             }, 100);
         }, e.prototype.weightedSearch = function(e) {
-            var t = this.KeywordService.generateKeywords(e), r = this.KeywordService.weightedSearch(this.ctrl.catalogItems, this.Constants.CATALOG_SEARCH_FIELDS, t), i = n.size(r), a = n.take(r, this.maxResultsToShow);
-            return 0 === i ? a.push({
+            var t = this.KeywordService.generateKeywords(e), r = this.KeywordService.weightedSearch(this.ctrl.catalogItems, this.Constants.CATALOG_SEARCH_FIELDS, t), i = n.size(r), s = n.take(r, this.maxResultsToShow);
+            return 0 === i ? s.push({
                 id: "viewNone",
                 text: "No results found for Keyword: " + e,
                 name: e
-            }) : 1 === i ? a.push({
+            }) : 1 === i ? s.push({
                 id: "viewAll",
                 text: "View the result for Keyword: " + e,
                 name: e
-            }) : i > 1 && a.push({
+            }) : i > 1 && s.push({
                 id: "viewAll",
                 text: "View all " + i + " results for Keyword: " + e,
                 name: e
-            }), a;
+            }), s;
         }, e;
     }();
-    a.$inject = [ "$rootScope", "$scope", "$timeout", "$q", "Catalog", "Constants", "KeywordService" ], 
-    t.CatalogSearchController = a;
+    s.$inject = [ "$rootScope", "$scope", "$timeout", "$q", "Catalog", "Constants", "KeywordService" ], 
+    t.CatalogSearchController = s;
 }, function(e, t, r) {
     "use strict";
     t.__esModule = !0;
-    var n = r(1), i = r(0), a = r(69), s = function() {
-        function e(e, t, r, n, a, s, c, o, l, d, p, h) {
+    var n = r(1), i = r(0), s = r(69), a = function() {
+        function e(e, t, r, n, s, a, o, c, l, d, p, h) {
             var m = this;
             this.ctrl = this, this.watches = [], this.clearValidityWatcher = function() {
                 m.validityWatcher && (m.validityWatcher(), m.validityWatcher = void 0);
@@ -1348,9 +1348,9 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             }, this.isServiceBindable = function(e) {
                 var t, r = m.BindingService.getServiceClassForInstance(e, m.ctrl.serviceClasses), n = i.get(e, "spec.clusterServicePlanRef.name");
                 return n && (t = m.ctrl.servicePlans[n]), m.BindingService.isServiceBindable(e, r, t);
-            }, this.$scope = n, this.$filter = e, this.$location = t, this.$q = r, this.BuilderAppService = c, 
-            this.ProjectsService = p, this.DataService = l, this.APIService = a, this.BindingService = s, 
-            this.Logger = d, this.VersionsService = h, this.ctrl.serviceToBind = null, this.ctrl.showPodPresets = i.get(o, [ "ENABLE_TECH_PREVIEW_FEATURE", "pod_presets" ], !1), 
+            }, this.$scope = n, this.$filter = e, this.$location = t, this.$q = r, this.BuilderAppService = o, 
+            this.ProjectsService = p, this.DataService = l, this.APIService = s, this.BindingService = a, 
+            this.Logger = d, this.VersionsService = h, this.ctrl.serviceToBind = null, this.ctrl.showPodPresets = i.get(c, [ "ENABLE_TECH_PREVIEW_FEATURE", "pod_presets" ], !1), 
             this.gitRef = "", this.contextDir = "";
         }
         return e.prototype.$onInit = function() {
@@ -1372,7 +1372,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 allowed: !0,
                 hidden: !1,
                 allowClickNav: !0,
-                onShow: this.showConfig
+                onShow: this.showConfig,
+                focusSelectors: [ "#builderSelectProject .ui-select-focusser", "#builderSelectProject #name.form-control", "#builderSelectVersion" ]
             }, this.bindStep = {
                 label: "Binding",
                 id: "bind",
@@ -1423,7 +1424,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
         }, e.prototype.onRepositoryChanged = function() {
             this.gitRef = "", this.contextDir = "";
         }, e.prototype.navigateToAdvancedForm = function() {
-            var e = "project/{project}/create/fromimage?imageStream={imageStream}&imageTag={imageTag}&namespace={namespace}&displayName={displayName}&name={name}&sourceURI={sourceURI}&sourceRef={sourceRef}&contextDir={contextDir}&advanced=true", t = a.expand(e, {
+            var e = "project/{project}/create/fromimage?imageStream={imageStream}&imageTag={imageTag}&namespace={namespace}&displayName={displayName}&name={name}&sourceURI={sourceURI}&sourceRef={sourceRef}&contextDir={contextDir}&advanced=true", t = s.expand(e, {
                 project: this.ctrl.selectedProject.metadata.name,
                 imageStream: this.ctrl.imageStream.resource.metadata.name,
                 imageTag: this.ctrl.istag.name,
@@ -1447,19 +1448,19 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             this.ctrl.referencedBy = {};
             var t = {}, r = {}, n = i.get(this, "ctrl.imageStream.resource.spec.tags", []);
             i.each(n, function(n) {
-                var a = e.getTagReference(n);
-                if (a) return t[n.name] = a, e.ctrl.referencedBy[a] = e.ctrl.referencedBy[a] || [], 
-                void e.ctrl.referencedBy[a].push(n.name);
-                var s = i.get(n, "annotations.tags", ""), c = s.split(/\s*,\s*/);
-                i.includes(c, "builder") && !i.includes(c, "hidden") && (r[n.name] = n);
+                var s = e.getTagReference(n);
+                if (s) return t[n.name] = s, e.ctrl.referencedBy[s] = e.ctrl.referencedBy[s] || [], 
+                void e.ctrl.referencedBy[s].push(n.name);
+                var a = i.get(n, "annotations.tags", ""), o = a.split(/\s*,\s*/);
+                i.includes(o, "builder") && !i.includes(o, "hidden") && (r[n.name] = n);
             });
-            var a = [], s = i.get(this, "ctrl.imageStream.resource.status.tags", []);
-            return i.each(s, function(e) {
+            var s = [], a = i.get(this, "ctrl.imageStream.resource.status.tags", []);
+            return i.each(a, function(e) {
                 var t = r[e.tag];
-                t && a.push(t);
-            }), a.sort(function(t, r) {
+                t && s.push(t);
+            }), s.sort(function(t, r) {
                 return e.VersionsService.rcompare(t.name, r.name);
-            }), a;
+            }), s;
         }, e.prototype.getImageStreamTag = function() {
             var e = this.APIService.getPreferredVersion("imagestreamtags"), t = this.ctrl.imageStream.resource.metadata.name + ":" + this.ctrl.istag.name, r = this.ctrl.imageStream.resource.metadata.namespace;
             return this.DataService.get(e, t, {
@@ -1471,8 +1472,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 e.sort(function(e, r) {
                     var n = "True" === i.get(t(e, "Ready"), "status");
                     if (n === ("True" === i.get(t(r, "Ready"), "status"))) {
-                        var a = i.get(e, "metadata.creationTimestamp");
-                        return i.get(r, "metadata.creationTimestamp").localeCompare(a);
+                        var s = i.get(e, "metadata.creationTimestamp");
+                        return i.get(r, "metadata.creationTimestamp").localeCompare(s);
                     }
                     return n ? -1 : 1;
                 }), this.ctrl.serviceInstances = e;
@@ -1545,8 +1546,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             }
         }, e;
     }();
-    s.$inject = [ "$filter", "$location", "$q", "$scope", "APIService", "BindingService", "BuilderAppService", "Constants", "DataService", "Logger", "ProjectsService", "VersionsService" ], 
-    t.CreateFromBuilderController = s;
+    a.$inject = [ "$filter", "$location", "$q", "$scope", "APIService", "BindingService", "BuilderAppService", "Constants", "DataService", "Logger", "ProjectsService", "VersionsService" ], 
+    t.CreateFromBuilderController = a;
 }, function(e, t, r) {
     "use strict";
     t.__esModule = !0;
@@ -1581,8 +1582,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
 }, function(e, t, r) {
     "use strict";
     t.__esModule = !0;
-    var n = r(1), i = r(0), a = function() {
-        function e(e, t, r, n, a, s, c, o, l, d) {
+    var n = r(1), i = r(0), s = function() {
+        function e(e, t, r, n, s, a, o, c, l, d) {
             var p = this;
             this.ctrl = this, this.watches = [], this.clearValidityWatcher = function() {
                 p.validityWatcher && (p.validityWatcher(), p.validityWatcher = void 0), p.ctrl.reviewStep.allowed = !1;
@@ -1646,7 +1647,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                     });
                 }));
             }, this.$scope = e, this.$filter = t, this.APIService = r, this.ApplicationsService = n, 
-            this.ProjectsService = a, this.DataService = s, this.BindingService = c, this.Logger = o, 
+            this.ProjectsService = s, this.DataService = a, this.BindingService = o, this.Logger = c, 
             this.ctrl.showPodPresets = i.get(l, [ "ENABLE_TECH_PREVIEW_FEATURE", "pod_presets" ], !1), 
             this.DNS1123_SUBDOMAIN_VALIDATION = d;
         }
@@ -1679,7 +1680,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 allowed: !0,
                 valid: !0,
                 allowClickNav: !0,
-                onShow: this.showPlan
+                onShow: this.showPlan,
+                focusSelectors: [ ".select-plans input" ]
             }, this.configStep = {
                 label: "Configuration",
                 id: "configure",
@@ -1688,7 +1690,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 allowed: !0,
                 valid: !1,
                 allowClickNav: !0,
-                onShow: this.showConfig
+                onShow: this.showConfig,
+                focusSelectors: [ "#orderServiceSelectProject .ui-select-focusser", "#orderServiceSelectProject #name.form-control", ".catalog-parameters input" ]
             }, this.bindStep = {
                 label: "Binding",
                 id: "bind",
@@ -1732,14 +1735,14 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 e.ctrl.noProjectsCantCreate = !0;
             });
         }, e.prototype.createService = function() {
-            var e = this, t = this.getParameters(), r = i.isEmpty(t) ? null : this.BindingService.generateSecretName(this.getClusterServiceClassExternalName() + "-parameters"), n = this.makeServiceInstance(r), a = this.APIService.getPreferredVersion("serviceinstances"), s = {
+            var e = this, t = this.getParameters(), r = i.isEmpty(t) ? null : this.BindingService.generateSecretName(this.getClusterServiceClassExternalName() + "-parameters"), n = this.makeServiceInstance(r), s = this.APIService.getPreferredVersion("serviceinstances"), a = {
                 namespace: this.ctrl.selectedProject.metadata.name
             };
-            this.DataService.create(a, null, n, s).then(function(n) {
-                if (e.ctrl.orderInProgress = !0, e.watchResults(a, n, s), e.ctrl.serviceInstance = n, 
+            this.DataService.create(s, null, n, a).then(function(n) {
+                if (e.ctrl.orderInProgress = !0, e.watchResults(s, n, a), e.ctrl.serviceInstance = n, 
                 r) {
-                    var c = e.BindingService.makeParametersSecret(r, t, n), o = e.APIService.getPreferredVersion("secrets");
-                    e.DataService.create(o, null, c, s).then(i.noop, function(t) {
+                    var o = e.BindingService.makeParametersSecret(r, t, n), c = e.APIService.getPreferredVersion("secrets");
+                    e.DataService.create(c, null, o, a).then(i.noop, function(t) {
                         e.ctrl.error = i.get(t, "data");
                     });
                 }
@@ -1808,25 +1811,43 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             return !this.ctrl.selectedProject || !i.has(this.ctrl.selectedProject, "metadata.uid");
         }, e;
     }();
-    a.$inject = [ "$scope", "$filter", "APIService", "ApplicationsService", "ProjectsService", "DataService", "BindingService", "Logger", "Constants", "DNS1123_SUBDOMAIN_VALIDATION" ], 
-    t.OrderServiceController = a;
+    s.$inject = [ "$scope", "$filter", "APIService", "ApplicationsService", "ProjectsService", "DataService", "BindingService", "Logger", "Constants", "DNS1123_SUBDOMAIN_VALIDATION" ], 
+    t.OrderServiceController = s;
 }, function(e, t, r) {
     "use strict";
     t.__esModule = !0;
-    var n = r(1), i = r(2), a = function() {
-        function e(e, t) {
-            var r = this;
-            this.ctrl = this, this.closePanel = function() {
-                n.isFunction(r.ctrl.handleClose) && r.ctrl.handleClose();
+    var n = r(1), i = r(2), s = r(0), a = function() {
+        function e(e, t, r) {
+            var a = this;
+            this.ctrl = this, this.tababbleSelector = "a[href], area[href], input:not([disabled]), button:not([disabled]),select:not([disabled]), textarea:not([disabled]), iframe, object, embed, *[tabindex], *[contenteditable=true]", 
+            this.closePanel = function() {
+                n.isFunction(a.ctrl.handleClose) && a.ctrl.handleClose();
             }, this.showDialog = function() {
-                r.ctrl.shown = !0, i("body").addClass("overlay-open"), r.$document.on("keydown", r.closeOnEsc);
+                a.ctrl.shown = !0, i("body").addClass("overlay-open"), a.$document.on("keydown", a.keydownHandler);
             }, this.hideDialog = function() {
-                r.ctrl.shown = !1, i("body").removeClass("overlay-open"), r.$document.off("keydown", r.closeOnEsc);
-            }, this.closeOnEsc = function(e) {
-                27 === e.which && (e.isDefaultPrevented() || (e.preventDefault(), r.$scope.$evalAsync(function() {
-                    r.closePanel();
-                })));
-            }, this.$document = e, this.$scope = t, this.ctrl.shown = !1;
+                a.ctrl.shown = !1, i("body").removeClass("overlay-open"), a.$document.off("keydown", a.keydownHandler);
+            }, this.keydownHandler = function(e) {
+                if (27 === e.which) e.isDefaultPrevented() || (e.preventDefault(), a.$scope.$evalAsync(function() {
+                    a.closePanel();
+                })); else if (9 === e.which) {
+                    a.loadFocusElementList();
+                    var t = !1;
+                    e.shiftKey ? a.isFocusInFirstItem(e) && (t = a.focusLastFocusableElement()) : a.isFocusInLastItem(e) && (t = a.focusFirstFocusableElement()), 
+                    t && (e.preventDefault(), e.stopPropagation());
+                }
+            }, this.focusFirstFocusableElement = function() {
+                return a.focusableElementList.length > 0 && (a.focusableElementList[0].focus(), 
+                !0);
+            }, this.focusLastFocusableElement = function() {
+                return a.focusableElementList.length > 0 && (a.focusableElementList[a.focusableElementList.length - 1].focus(), 
+                !0);
+            }, this.isFocusInFirstItem = function(e) {
+                return a.focusableElementList.length > 0 && (e.target || e.srcElement) === a.focusableElementList[0];
+            }, this.isFocusInLastItem = function(e) {
+                return a.focusableElementList.length > 0 && (e.target || e.srcElement) === a.focusableElementList[a.focusableElementList.length - 1];
+            }, this.loadFocusElementList = function() {
+                s.size(a.$element) && (a.focusableElementList = a.$element[0].querySelectorAll(a.tababbleSelector));
+            }, this.$document = e, this.$scope = t, this.$element = r, this.ctrl.shown = !1;
         }
         return e.prototype.$postLink = function() {
             this.ctrl.showPanel && this.showDialog();
@@ -1836,12 +1857,12 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             i("body").removeClass("overlay-open");
         }, e;
     }();
-    a.$inject = [ "$document", "$scope" ], t.OverlayPanelController = a;
+    a.$inject = [ "$document", "$scope", "$element" ], t.OverlayPanelController = a;
 }, function(e, t, r) {
     "use strict";
     t.__esModule = !0;
-    var n = r(1), i = r(0), a = function() {
-        function e(t, r, a, s, c, o, l, d, p, h, m) {
+    var n = r(1), i = r(0), s = function() {
+        function e(t, r, s, a, o, c, l, d, p, h, m) {
             var u = this;
             this.ctrl = this, this.newProjectPanelShown = !1, this.editProjectPanelShown = !1, 
             this.watches = [], this.maxDisplayProjects = 5, this.watchingProjects = !1, this.init = function() {
@@ -1879,8 +1900,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 u.ctrl.editProjectPanelShown = !1, u.watchingProjects || u.ProjectsService.list().then(u.onProjectsUpdate);
             }, this.onDeleteProject = function() {
                 u.watchingProjects || u.ProjectsService.list().then(u.onProjectsUpdate);
-            }, this.$filter = t, this.$rootScope = r, this.$scope = a, this.$window = s, this.AuthService = c, 
-            this.Constants = o, this.DataService = l, this.Logger = d, this.ProjectsService = p, 
+            }, this.$filter = t, this.$rootScope = r, this.$scope = s, this.$window = a, this.AuthService = o, 
+            this.Constants = c, this.DataService = l, this.Logger = d, this.ProjectsService = p, 
             this.RecentlyViewedProjectsService = h, this.RecentlyViewedItems = m;
         }
         return e.prototype.$onInit = function() {
@@ -1897,10 +1918,10 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                     return 0 !== t.status && (n += " (" + t.status + ")"), void e.Logger.warn(n);
                 }
                 if (r.details) {
-                    var a = [];
+                    var s = [];
                     i.forEach(r.details.causes || [], function(e) {
-                        e.message && a.push(e.message);
-                    }), a.length > 0 && (e.ctrl.newProjectMessage = a.join("\n"));
+                        e.message && s.push(e.message);
+                    }), s.length > 0 && (e.ctrl.newProjectMessage = s.join("\n"));
                 }
             }).finally(function() {
                 e.init();
@@ -1935,12 +1956,12 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             }
         }, e;
     }();
-    a.$inject = [ "$filter", "$rootScope", "$scope", "$window", "AuthService", "Constants", "DataService", "Logger", "ProjectsService", "RecentlyViewedProjectsService", "RecentlyViewedServiceItems" ], 
-    a.MAX_PROJETS_TO_WATCH = 250, t.ProjectsSummaryController = a;
+    s.$inject = [ "$filter", "$rootScope", "$scope", "$window", "AuthService", "Constants", "DataService", "Logger", "ProjectsService", "RecentlyViewedProjectsService", "RecentlyViewedServiceItems" ], 
+    s.MAX_PROJETS_TO_WATCH = 250, t.ProjectsSummaryController = s;
 }, function(e, t, r) {
     "use strict";
     t.__esModule = !0;
-    var n = r(1), i = r(0), a = function() {
+    var n = r(1), i = r(0), s = function() {
         function e(e, t, r, n) {
             var i = this;
             this.ctrl = this, this.onWindowResize = function() {
@@ -1968,7 +1989,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             this.ctrl.itemsOverflow = t > 4 || t > 2 && e < this.BREAKPOINTS.screenLgMin;
         }, e;
     }();
-    a.$inject = [ "$scope", "$window", "$element", "BREAKPOINTS" ], t.SaasListController = a;
+    s.$inject = [ "$scope", "$window", "$element", "BREAKPOINTS" ], t.SaasListController = s;
 }, function(e, t, r) {
     "use strict";
     t.__esModule = !0;
@@ -1989,8 +2010,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
 }, function(e, t, r) {
     "use strict";
     t.__esModule = !0;
-    var n = r(1), i = r(0), a = function() {
-        function e(t, r, n, a, s, c, o, l) {
+    var n = r(1), i = r(0), s = function() {
+        function e(t, r, n, s, a, o, c, l) {
             var d = this;
             this.ctrl = this, this.getProjectChoices = function() {
                 return d.ctrl.matchingProjects ? d.ctrl.matchingProjects : d.largeProjectList ? [] : d.projects;
@@ -2005,8 +2026,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 d.isNewProject() || d.AuthorizationService.getProjectRules(t).then(function() {
                     e = d.AuthorizationService.canIAddToProject(t), d.ctrl.forms && d.ctrl.forms.selectProjectForm.selectProject.$setValidity("cannotAddToProject", e);
                 }), d.ctrl.forms && d.ctrl.forms.selectProjectForm.selectProject.$setValidity("cannotAddToProject", e);
-            }, this.$filter = t, this.$scope = r, this.AuthService = n, this.AuthorizationService = a, 
-            this.KeywordService = s, this.Logger = c, this.ProjectsService = o, this.RecentlyViewedProjectsService = l, 
+            }, this.$filter = t, this.$scope = r, this.AuthService = n, this.AuthorizationService = s, 
+            this.KeywordService = a, this.Logger = o, this.ProjectsService = c, this.RecentlyViewedProjectsService = l, 
             this.largeProjectList = !1, this.lastSearch = "", this.lastResults = [];
         }
         return e.prototype.$onInit = function() {
@@ -2024,10 +2045,10 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 }
                 var n = t.data || {};
                 if (n.details) {
-                    var a = [];
+                    var s = [];
                     i.forEach(n.details.causes || [], function(e) {
-                        e.message && a.push(e.message);
-                    }), a.length > 0 && (e.ctrl.noProjectsCantCreateMessage = a.join("\n"));
+                        e.message && s.push(e.message);
+                    }), s.length > 0 && (e.ctrl.noProjectsCantCreateMessage = s.join("\n"));
                 }
             }).finally(function() {
                 e.listProjects();
@@ -2061,9 +2082,9 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                         "new-display-name": ""
                     }
                 }
-            }, a = i.reject(t, "metadata.deletionTimestamp");
-            this.projects = this.RecentlyViewedProjectsService.orderByMostRecentlyViewed(a), 
-            this.ctrl.searchEnabled = !i.isEmpty(a), this.ctrl.refreshDelay = 0, this.ctrl.existingProjectNames = i.map(t, "metadata.name"), 
+            }, s = i.reject(t, "metadata.deletionTimestamp");
+            this.projects = this.RecentlyViewedProjectsService.orderByMostRecentlyViewed(s), 
+            this.ctrl.searchEnabled = !i.isEmpty(s), this.ctrl.refreshDelay = 0, this.ctrl.existingProjectNames = i.map(t, "metadata.name"), 
             this.preselectProject(), this.ctrl.canCreate && !this.ctrl.hideCreateProject ? (this.ctrl.placeholder = "Select or create project", 
             this.projects.unshift(n), 1 === i.size(this.projects) && (this.ctrl.selectedProject = n, 
             this.onSelectProjectChange())) : 0 === i.size(this.projects) && (this.ctrl.noProjectsCantCreate = !0, 
@@ -2083,13 +2104,13 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             });
         }, e;
     }();
-    a.$inject = [ "$filter", "$scope", "AuthService", "AuthorizationService", "KeywordService", "Logger", "ProjectsService", "RecentlyViewedProjectsService" ], 
-    a.LARGE_PROJECT_LIST_SIZE = 500, t.SelectProjectController = a;
+    s.$inject = [ "$filter", "$scope", "AuthService", "AuthorizationService", "KeywordService", "Logger", "ProjectsService", "RecentlyViewedProjectsService" ], 
+    s.LARGE_PROJECT_LIST_SIZE = 500, t.SelectProjectController = s;
 }, function(e, t, r) {
     "use strict";
     t.__esModule = !0;
-    var n = r(0), i = r(2), a = function() {
-        function e(e, t, r, i, a, s, c, o, l, d) {
+    var n = r(0), i = r(2), s = function() {
+        function e(e, t, r, i, s, a, o, c, l, d) {
             var p = this;
             this.ctrl = this, this.previousSubCategoryHeight = 0, this.resizeRetries = 0, this.serviceViewItemClicked = function(e, t) {
                 p.$scope.$emit("open-overlay-panel", e);
@@ -2107,7 +2128,7 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             }, this.clearAppliedFilters = function() {
                 p.$scope.$broadcast("clear-filters");
             }, this.constants = e, this.catalog = t, this.keywordService = r, this.logger = i, 
-            this.htmlService = a, this.element = s[0], this.$filter = c, this.$rootScope = o, 
+            this.htmlService = s, this.element = a[0], this.$filter = o, this.$rootScope = c, 
             this.$scope = l, this.$timeout = d, this.ctrl.loaded = !1, this.ctrl.isEmpty = !1, 
             this.ctrl.mobileView = "categories", this.ctrl.filterConfig = {
                 resultsLabel: "Items",
@@ -2170,14 +2191,14 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
         }, e.prototype.applyFilters = function(e) {
             this.filterChange(e.appliedFilters);
         }, e.prototype.filterByCategory = function(e, t, r) {
-            var i, a;
+            var i, s;
             "all" === e || "other" === e ? t = "all" : (r && (this.ctrl.subCategories = this.getSubCategories(e)), 
             t = 1 === this.ctrl.subCategories.length ? this.ctrl.subCategories[0].id : t || null), 
             i = n.find(this.ctrl.categories, {
                 id: e
-            }), i ? t && (a = n.find(i.subCategories, {
+            }), i ? t && (s = n.find(i.subCategories, {
                 id: t
-            }), a ? (this.ctrl.filteredItems = a.items, this.ctrl.filterConfig.totalCount = this.ctrl.filteredItems.length, 
+            }), s ? (this.ctrl.filteredItems = s.items, this.ctrl.filterConfig.totalCount = this.ctrl.filteredItems.length, 
             this.ctrl.filterConfig.resultsCount = this.ctrl.filterConfig.totalCount) : this.logger.error("Could not find subcategory '" + t + "' for category '" + e + "'")) : this.logger.error("Could not find category '" + e + "'"), 
             this.ctrl.currentFilter = e, this.ctrl.currentSubFilter = t, this.updateActiveCardStyles();
         }, e.prototype.setKeywordFilter = function(e) {
@@ -2198,15 +2219,15 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             var r = this;
             if ("all" !== this.ctrl.currentFilter && "other" !== this.ctrl.currentFilter && this.ctrl.currentSubFilter && this.htmlService.isWindowAboveBreakpoint(this.htmlService.WINDOW_SIZE_XS)) {
                 if (this.resizeRetries > e.MAX_RESIZE_RETRIES) return void (this.resizeRetries = 0);
-                var n = i("#" + this.ctrl.currentSubFilter), a = n.find(".services-items"), s = a.outerHeight(!0);
-                s || (this.resizeRetries++, setTimeout(function() {
+                var n = i("#" + this.ctrl.currentSubFilter), s = n.find(".services-items"), a = s.outerHeight(!0);
+                a || (this.resizeRetries++, setTimeout(function() {
                     return r.resizeExpansion(t);
                 }, 50)), t ? (i(".services-sub-category").removeAttr("style").removeClass("items-shown"), 
                 n.css("margin-bottom", this.previousSubCategoryHeight + "px"), n.animate({
-                    "margin-bottom": s
+                    "margin-bottom": a
                 }, 100, "swing", function() {
                     n.addClass("items-shown");
-                })) : (n.css("margin-bottom", s + "px"), n.addClass("items-shown")), this.previousSubCategoryHeight = s;
+                })) : (n.css("margin-bottom", a + "px"), n.addClass("items-shown")), this.previousSubCategoryHeight = a;
             } else i(".services-sub-category").removeAttr("style").removeClass("items-shown"), 
             this.previousSubCategoryHeight = 0, this.resizeRetries = 0;
             this.$scope.$evalAsync(function() {
@@ -2221,13 +2242,13 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             });
         }, e;
     }();
-    a.$inject = [ "Constants", "Catalog", "KeywordService", "Logger", "HTMLService", "$element", "$filter", "$rootScope", "$scope", "$timeout" ], 
-    a.MAX_RESIZE_RETRIES = 20, t.ServicesViewController = a;
+    s.$inject = [ "Constants", "Catalog", "KeywordService", "Logger", "HTMLService", "$element", "$filter", "$rootScope", "$scope", "$timeout" ], 
+    s.MAX_RESIZE_RETRIES = 20, t.ServicesViewController = s;
 }, function(e, t, r) {
     "use strict";
     t.__esModule = !0;
-    var n = r(1), i = r(0), a = function() {
-        function e(e, t, r, a, s, c, o, l) {
+    var n = r(1), i = r(0), s = function() {
+        function e(e, t, r, s, a, o, c, l) {
             var d = this;
             this.ctrl = this, this.configChanged = !0, this.secrets = [], this.clearValidityWatcher = function() {
                 d.validityWatcher && (d.validityWatcher(), d.validityWatcher = void 0), d.ctrl.reviewStep.allowed = !1;
@@ -2255,37 +2276,37 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
                 d.ctrl.orderComplete = !1, d.ctrl.error = null;
                 var e = d.getParameters(d.ctrl.parameterData), t = i.get(d.ctrl.serviceInstance, "spec.parameters"), r = i.map(t, function(e, t) {
                     return [ t ];
-                }), a = i.pick(e, r), s = i.omit(e, r), c = n.copy(d.ctrl.serviceInstance);
-                i.get(c, "spec.clusterServicePlanExternalName") !== i.get(d.ctrl.selectedPlan, "spec.externalName") && (i.unset(c, "spec.clusterServicePlanRef"), 
-                i.set(c, "spec.clusterServicePlanExternalName", i.get(d.ctrl.selectedPlan, "spec.externalName"))), 
-                n.equals(a, t) || i.set(c, "spec.parameters", a);
-                var o = {};
+                }), s = i.pick(e, r), a = i.omit(e, r), o = n.copy(d.ctrl.serviceInstance);
+                i.get(o, "spec.clusterServicePlanExternalName") !== i.get(d.ctrl.selectedPlan, "spec.externalName") && (i.unset(o, "spec.clusterServicePlanRef"), 
+                i.set(o, "spec.clusterServicePlanExternalName", i.get(d.ctrl.selectedPlan, "spec.externalName"))), 
+                n.equals(s, t) || i.set(o, "spec.parameters", s);
+                var c = {};
                 if (i.each(d.secrets, function(t) {
-                    var r = JSON.parse(d.SecretsService.decodeSecretData(t.data).parameters), a = i.map(r, function(e, t) {
+                    var r = JSON.parse(d.SecretsService.decodeSecretData(t.data).parameters), s = i.map(r, function(e, t) {
                         return [ t ];
-                    }), l = i.pick(e, a);
-                    s = i.omit(s, a), n.equals(l, r) || (n.extend(o, l), c.spec.parametersFrom = i.reject(c.spec.parametersFrom, {
+                    }), l = i.pick(e, s);
+                    a = i.omit(a, s), n.equals(l, r) || (n.extend(c, l), o.spec.parametersFrom = i.reject(o.spec.parametersFrom, {
                         secretKeyRef: {
                             name: t.metadata.name
                         }
                     }));
-                }), n.extend(o, s), i.isEmpty(o)) d.updateServiceInstance(c); else {
+                }), n.extend(c, a), i.isEmpty(c)) d.updateServiceInstance(o); else {
                     var l = d.BindingService.generateSecretName(i.get(d.ctrl.serviceClass, "spec.externalName"));
-                    c.spec.parametersFrom.push({
+                    o.spec.parametersFrom.push({
                         secretKeyRef: {
                             name: l,
                             key: "parameters"
                         }
                     });
-                    var p = d.BindingService.makeParametersSecret(l, o, c), h = d.APIService.getPreferredVersion("secrets");
+                    var p = d.BindingService.makeParametersSecret(l, c, o), h = d.APIService.getPreferredVersion("secrets");
                     d.DataService.create(h, null, p, d.context).then(function() {
-                        d.updateServiceInstance(c);
+                        d.updateServiceInstance(o);
                     }, function(e) {
                         d.ctrl.error = i.get(e, "data");
                     });
                 }
-            }, this.$scope = e, this.$filter = t, this.$q = r, this.APIService = a, this.BindingService = s, 
-            this.DataService = c, this.Logger = o, this.SecretsService = l;
+            }, this.$scope = e, this.$filter = t, this.$q = r, this.APIService = s, this.BindingService = a, 
+            this.DataService = o, this.Logger = c, this.SecretsService = l;
         }
         return e.prototype.$onInit = function() {
             var e = this;
@@ -2327,10 +2348,10 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             }, this.origParameterData = n.copy(i.get(this.ctrl.serviceInstance, "spec.parameters", {}));
             var t = [];
             i.each(i.get(this.ctrl.serviceInstance, "spec.parametersFrom"), function(r) {
-                var n = e.APIService.getPreferredVersion("secrets"), a = i.get(r, "secretKeyRef.name"), s = i.find(e.secrets, function(e) {
-                    return i.get(e, "metadata.name") === a;
+                var n = e.APIService.getPreferredVersion("secrets"), s = i.get(r, "secretKeyRef.name"), a = i.find(e.secrets, function(e) {
+                    return i.get(e, "metadata.name") === s;
                 });
-                s ? e.addParametersFromSecret(s, r) : t.push(e.DataService.get(n, a, e.context).then(function(t) {
+                a ? e.addParametersFromSecret(a, r) : t.push(e.DataService.get(n, s, e.context).then(function(t) {
                     e.addParametersFromSecret(t, r), e.secrets.push(t);
                 }));
             }), this.$q.all(t).then(function() {
@@ -2353,24 +2374,24 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
             });
         }, e.prototype.addParametersFromSecret = function(e, t) {
             try {
-                var r = i.get(t, "secretKeyRef.key"), a = JSON.parse(this.SecretsService.decodeSecretData(e.data)[r]);
-                n.extend(this.origParameterData, a), this.originalParameters = this.getParameters(this.origParameterData);
+                var r = i.get(t, "secretKeyRef.key"), s = JSON.parse(this.SecretsService.decodeSecretData(e.data)[r]);
+                n.extend(this.origParameterData, s), this.originalParameters = this.getParameters(this.origParameterData);
             } catch (e) {
                 this.Logger.warn("Unable to load parameters from secret " + i.get(t, "secretKeyRef.name"), e);
             }
         }, e.prototype.updateServiceInstance = function(e) {
-            var t = this, r = this.APIService.getPreferredVersion("serviceinstances"), n = this.$filter("isServiceInstanceReady"), a = this.$filter("isServiceInstanceFailed"), s = this.$filter("serviceInstanceFailedMessage");
+            var t = this, r = this.APIService.getPreferredVersion("serviceinstances"), n = this.$filter("isServiceInstanceReady"), s = this.$filter("isServiceInstanceFailed"), a = this.$filter("serviceInstanceFailedMessage");
             e.spec.updateRequests = e.spec.updateRequests ? e.spec.updateRequests + 1 : 1, this.DataService.update(r, i.get(this.ctrl.serviceInstance, "metadata.name"), e, this.context).then(function() {
                 t.progressWatcher = t.DataService.watchObject(r, i.get(t.ctrl.serviceInstance, "metadata.name"), t.context, function(e) {
-                    t.ctrl.orderComplete = n(e), a(e) && (t.ctrl.error = s(e));
+                    t.ctrl.orderComplete = n(e), s(e) && (t.ctrl.error = a(e));
                 });
             }, function(e) {
                 t.ctrl.error = i.get(e, "data");
             });
         }, e;
     }();
-    a.$inject = [ "$scope", "$filter", "$q", "APIService", "BindingService", "DataService", "Logger", "SecretsService" ], 
-    t.UpdateServiceController = a;
+    s.$inject = [ "$scope", "$filter", "$q", "APIService", "BindingService", "DataService", "Logger", "SecretsService" ], 
+    t.UpdateServiceController = s;
 }, function(e, t) {
     e.exports = URI;
 }, function(e, t, r) {
@@ -2378,8 +2399,8 @@ webpackJsonp([ 0, 1 ], [ function(e, t) {
     t.__esModule = !0;
     var n = r(1);
     r(3), r(36);
-    var i = r(37), a = r(38), s = r(39), c = r(40), o = r(24), l = r(25), d = r(41), p = r(26), h = r(27), m = r(28), u = r(29), g = r(30), f = r(31), v = r(32), y = r(33), b = r(34), S = r(35), $ = r(42), P = r(23);
-    t.webCatalog = "webCatalog", n.module(t.webCatalog, [ "patternfly", "ngAnimate", "ui.bootstrap", "angularMoment", "ui.select", "schemaForm" ]).service("BuilderAppService", c.BuilderAppService).service("Catalog", d.CatalogService).service("RecentlyViewedServiceItems", $.RecentlyViewedServiceItems).filter("escapeRegExp", i.escapeRegExpFilter).filter("projectUrl", a.projectUrlFilter).filter("secretUrl", s.secretUrlFilter).component("catalogParameters", o.catalogParameters).component("catalogSearch", l.catalogSearch).component("createFromBuilder", p.createFromBuilder).component("landingPage", h.landingPage).component("orderService", m.orderService).component("overlayPanel", u.overlayPanel).component("projectsSummary", g.projectsSummary).component("saasList", f.saasList).component("selectPlan", v.selectPlan).component("selectProject", y.selectProject).component("servicesView", b.servicesView).component("updateService", S.updateService).component("catalogFilter", P.catalogFilter).run([ "$templateCache", function(e) {
+    var i = r(37), s = r(38), a = r(39), o = r(40), c = r(24), l = r(25), d = r(41), p = r(26), h = r(27), m = r(28), u = r(29), g = r(30), f = r(31), v = r(32), y = r(33), b = r(34), S = r(35), $ = r(42), P = r(23);
+    t.webCatalog = "webCatalog", n.module(t.webCatalog, [ "patternfly", "ngAnimate", "ui.bootstrap", "angularMoment", "ui.select", "schemaForm" ]).service("BuilderAppService", o.BuilderAppService).service("Catalog", d.CatalogService).service("RecentlyViewedServiceItems", $.RecentlyViewedServiceItems).filter("escapeRegExp", i.escapeRegExpFilter).filter("projectUrl", s.projectUrlFilter).filter("secretUrl", a.secretUrlFilter).component("catalogParameters", c.catalogParameters).component("catalogSearch", l.catalogSearch).component("createFromBuilder", p.createFromBuilder).component("landingPage", h.landingPage).component("orderService", m.orderService).component("overlayPanel", u.overlayPanel).component("projectsSummary", g.projectsSummary).component("saasList", f.saasList).component("selectPlan", v.selectPlan).component("selectProject", y.selectProject).component("servicesView", b.servicesView).component("updateService", S.updateService).component("catalogFilter", P.catalogFilter).run([ "$templateCache", function(e) {
         e.put("catalog-search/catalog-search-result.html", r(4)), e.put("create-from-builder/create-from-builder-info.html", r(7)), 
         e.put("create-from-builder/create-from-builder-configure.html", r(6)), e.put("create-from-builder/create-from-builder-bind.html", r(5)), 
         e.put("create-from-builder/create-from-builder-results.html", r(8)), e.put("order-service/order-service-info.html", r(12)), 

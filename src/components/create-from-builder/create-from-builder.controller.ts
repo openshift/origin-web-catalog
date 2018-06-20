@@ -91,7 +91,8 @@ export class CreateFromBuilderController implements angular.IController {
       allowed: true,
       hidden: false,
       allowClickNav: true,
-      onShow: this.showConfig
+      onShow: this.showConfig,
+      focusSelectors: ['#builderSelectProject .ui-select-focusser', '#builderSelectProject #name.form-control', '#builderSelectVersion']
     };
     this.bindStep = {
       label: 'Binding',

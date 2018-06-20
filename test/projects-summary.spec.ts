@@ -278,7 +278,7 @@ describe('Projects Summary Panel', () => {
     var editPanel = jQuery(element).find('.catalog-edit-project .origin-modal-popup');
     expect(editPanel.length).toBe(0);
 
-    var kebabButton = jQuery(element).find('.btn-link.uib-dropdown-toggle');
+    var kebabButton = jQuery(element).find('.btn-link.dropdown-toggle');
     expect(kebabButton.length).toBe(1);
 
     var menuItems = jQuery(element).find('.catalog-project-summary-list li > a');
@@ -302,7 +302,7 @@ describe('Projects Summary Panel', () => {
     var deleteDialog = jQuery(element).find('.delete-resource-modal');
     expect(deleteDialog.length).toBe(0);
 
-    var kebabButton = jQuery(element).find('.btn-link.uib-dropdown-toggle');
+    var kebabButton = jQuery(element).find('.btn-link.dropdown-toggle');
     expect(kebabButton.length).toBe(1);
 
     var menuItems = jQuery(element).find('.catalog-project-summary-list li > a');

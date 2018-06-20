@@ -1,7 +1,8 @@
 <div class="order-service-config">
   <div class="config-top">
     <form name="$ctrl.forms.orderConfigureForm" class="config-form">
-      <select-project ng-if="!$ctrl.addToProject"
+      <select-project id="orderServiceSelectProject"
+                      ng-if="!$ctrl.addToProject"
                       selected-project="$ctrl.selectedProject"
                       name-taken="$ctrl.projectNameTaken"
                       show-divider="$ctrl.parameterSchema.properties | size"></select-project>

@@ -108,7 +108,8 @@ export class OrderServiceController implements angular.IController {
       allowed: true,
       valid: true,
       allowClickNav: true,
-      onShow: this.showPlan
+      onShow: this.showPlan,
+      focusSelectors: ['.select-plans input']
     };
     this.configStep = {
       label: 'Configuration',
@@ -118,7 +119,8 @@ export class OrderServiceController implements angular.IController {
       allowed: true,
       valid: false,
       allowClickNav: true,
-      onShow: this.showConfig
+      onShow: this.showConfig,
+      focusSelectors: ['#orderServiceSelectProject .ui-select-focusser', '#orderServiceSelectProject #name.form-control', '.catalog-parameters input']
     };
     this.bindStep = {
       label: 'Binding',
